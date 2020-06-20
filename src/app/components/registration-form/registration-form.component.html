@@ -1,0 +1,38 @@
+<div class="form__wrapper" *busy="isAuthProcess">
+    <div class="form__heading">
+        <p class="form__title">Войти</p>
+        <span class="form__text">Нет аккаунта? <a [routerLink]="['/register']" [queryParams]="registerQueryParams"
+                class="form__link">Зарегистрироваться</a></span>
+    </div>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+        <div class="form__item">
+            <mat-form-field class="full-width">
+                <mat-label>Логин</mat-label>
+                <input matInput [formControl]="usernameCntrl" [errorStateMatcher]="matcher" placeholder="Логин">
+                <mat-error *ngIf="!usernameCntrl.hasError('required')">
+                    Пожалуйста введите корректный email адрес
+                </mat-error>
+                <mat-error *ngIf="usernameCntrl.hasError('required')">
+                    Логин - <strong>обязательное поле</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form__item">
+            <mat-form-field class="full-width">
+                <mat-label>Пароль</mat-label>
+                <input matInput type="password" [formControl]="passwordCntrl">
+                <mat-hint>Пароль должен содержать 93408350345</mat-hint>
+            </mat-form-field>
+        </div>
+        <div class="form__item">
+            <mat-checkbox color="primary" [formControl]="rememberMeCntrl">Запомнить меня!</mat-checkbox>
+        </div>
+        <div class="form__item">
+            <a [routerLink]="['/reset-password']" class="form__link">Не помню пароль</a>
+        </div>
+        <!-- <div *ngIf="!form.valid" class="validator__summary"><span class="validator__summary">Пожалуйста, убедитесь, что
+            форма заполнена корректно</span></div> -->
+        <button type="submit" class="button button__text" [disabled]="!form.valid">Войти</button>
+    </form>
+</div>

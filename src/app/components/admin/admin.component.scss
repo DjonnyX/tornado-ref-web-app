@@ -1,0 +1,34 @@
+/*
+@import '../../theme';
+
+.page-title {
+  flex: 1;
+  text-align: center;
+}
+
+.drawer-container {
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: 100%;
+  overflow: auto;
+}
+
+.mat-toolbar {
+  z-index: 2;
+}
+
+.mat-drawer-side {
+  border-right: none;
+}
+
+.mat-drawer {
+  background-color: $col-grey-200;
+}
+
+.mat-list-item .label {
+  font-size: $m-fsize;
+  font-weight: 500;
+}
+*/

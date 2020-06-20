@@ -1,0 +1,1 @@
+export { IBaseState } from './base.state';
