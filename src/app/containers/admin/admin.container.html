@@ -6,9 +6,9 @@
     </div>
     <span class="page-title">{{(currentRoute$ | async).name}}</span>
 </mat-toolbar>
-<mat-sidenav-container (backdropClick)="drawerClose()" #sidenavContainer [hasBackdrop]="isMobile$ | async"
+<mat-sidenav-container (backdropClick)="drawerClose()" [hasBackdrop]="isMobile$ | async"
     class="drawer-container">
-    <mat-sidenav #sidenav class="mat-elevation-z2" role="navigation"
+    <mat-sidenav class="mat-elevation-z2" role="navigation"
         [class.is-mobile]="isMobile$ | async"
         [mode]="(isMobile$ | async) ? 'push' : 'side'"
         [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
