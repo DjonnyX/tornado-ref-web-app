@@ -8,13 +8,14 @@ import { map, takeUntil } from 'rxjs/operators';
 import { AdminSelectors } from '@store/selectors';
 import { INavRoute } from './interfaces';
 import { AdminActions } from '@store/actions/admin.action';
+import { BaseComponent } from '@components/base/base-component';
 
 @Component({
   selector: 'ta-admin',
   templateUrl: './admin.container.html',
   styleUrls: ['./admin.container.scss']
 })
-export class AdminContainer implements OnInit, OnDestroy {
+export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   isMobile$: Observable<boolean>;
 
@@ -39,7 +40,9 @@ export class AdminContainer implements OnInit, OnDestroy {
 
   private _unsubscribe = new Subject<void>();
 
-  constructor(private _media: MediaObserver, private _router: Router, private _store: Store<IAppState>) { }
+  constructor(private _media: MediaObserver, private _router: Router, private _store: Store<IAppState>) {
+    super();
+  }
 
   ngOnInit() {
 
@@ -79,8 +82,6 @@ export class AdminContainer implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this._unsubscribe.complete();
-    this._unsubscribe.unsubscribe();
-    this._unsubscribe = null;
+    super.ngOnDestroy();
   }
 }
