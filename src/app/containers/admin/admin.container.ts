@@ -78,5 +78,9 @@ export class AdminContainer implements OnInit, OnDestroy {
     this._store.dispatch(AdminActions.toggleSideNav());
   }
 
-  ngOnDestroy() { }
+  ngOnDestroy() {
+    this._unsubscribe.complete();
+    this._unsubscribe.unsubscribe();
+    this._unsubscribe = null;
+  }
 }
