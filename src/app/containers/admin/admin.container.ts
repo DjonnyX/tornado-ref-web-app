@@ -57,7 +57,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     this.currentRouteIndex$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(v => {
-      this._router.navigate([`${this.roteCollection[v].route}`], { relativeTo: this._activatedRoute});
+      this._router.navigate([`${this.roteCollection[v].route}`], { relativeTo: this._activatedRoute });
     });
 
     this.currentRoute$ = this.currentRouteIndex$.pipe(
@@ -92,8 +92,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   }
 
   selectRoute(index: number) {
-    this._store.dispatch(AdminActions.setCurrentRouteIndex({currentRouteIndex: index}));
+    this._store.dispatch(AdminActions.setCurrentRouteIndex({ currentRouteIndex: index }));
   }
+
+  logout() { }
 
   ngOnDestroy() {
     super.ngOnDestroy();

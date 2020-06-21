@@ -1,19 +1,21 @@
 <mat-toolbar color="primary" class="mat-elevation-z4">
-    <div *ngIf="isMobile$ | async">
+    <span *ngIf="isMobile$ | async">
         <button mat-icon-button (click)="toggleSidenav()">
             <mat-icon>menu</mat-icon>
         </button>
-    </div>
+    </span>
     <span class="page-title">{{(currentRoute$ | async).name}}</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="logout()">
+        <mat-icon>login</mat-icon>
+    </button>
 </mat-toolbar>
-<mat-sidenav-container (backdropClick)="drawerClose()" [hasBackdrop]="isMobile$ | async"
-    class="drawer-container">
-    <mat-sidenav class="mat-elevation-z2" role="navigation"
-        [class.is-mobile]="isMobile$ | async"
-        [mode]="(isMobile$ | async) ? 'push' : 'side'"
-        [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
+<mat-sidenav-container (backdropClick)="drawerClose()" [hasBackdrop]="isMobile$ | async" class="drawer-container">
+    <mat-sidenav class="mat-elevation-z2" role="navigation" [class.is-mobile]="isMobile$ | async"
+        [mode]="(isMobile$ | async) ? 'push' : 'side'" [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
         <mat-nav-list role="listitem">
-            <a *ngFor="let item of roteCollection; let i = index;" mat-list-item type="button" (click)="selectRoute(i)" [class.active]="(currentRouteIndex$ | async) === i">
+            <a *ngFor="let item of roteCollection; let i = index;" mat-list-item type="button" (click)="selectRoute(i)"
+                [class.active]="(currentRouteIndex$ | async) === i">
                 <span class="label">{{item.name}}</span>
             </a>
         </mat-nav-list>
