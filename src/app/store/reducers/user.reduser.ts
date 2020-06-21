@@ -5,13 +5,13 @@ import { UserActions } from '@store/actions/user.action';
 export const initialState: IUserState = {
   loading: false,
   error: undefined,
-  id: undefined,
-  username: undefined,
-  phone: undefined,
+  firstName: undefined,
+  lastName: undefined,
+  email: undefined,
   logged: false,
 };
 
-export const userReducer = createReducer(
+const userReducer = createReducer(
   initialState,
   on(UserActions.userAuthRequest, UserActions.userRegistrationRequest, state => {
     return {

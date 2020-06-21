@@ -1,9 +1,10 @@
 import { createAction, props } from "@ngrx/store";
 
 export enum AdminActionTypes {
-    SIDENAV_HAS_BACKDROP = "SQUID/admin/sidenav-has-backdrop",
-    SIDENAV_OPEN = "SQUID/admin/sidenav-open",
-    CURRENT_ROUTE = "SQUID/admin/current-route",
+    SIDENAV_HAS_BACKDROP = "TORNADO/admin/sidenav-has-backdrop",
+    SIDENAV_OPEN = "TORNADO/admin/sidenav-open",
+    SIDENAV_TOGGLE = "TORNADO/admin/sidenav-toggle",
+    CURRENT_ROUTE = "TORNADO/admin/current-route",
 }
 
 export namespace AdminActions {
@@ -11,12 +12,15 @@ export namespace AdminActions {
         AdminActionTypes.SIDENAV_HAS_BACKDROP,
         props<{ sidenavHasBackdrop: boolean }>()
     );
-    export const setSideNavOpen = createAction(
+    export const setSidenavIsOpen = createAction(
         AdminActionTypes.SIDENAV_OPEN,
-        props<{ sidenavOpened: boolean }>()
+        props<{ sidenavIsOpen: boolean }>()
     );
-    export const setCurrentRoute = createAction(
+    export const toggleSideNav = createAction(
+        AdminActionTypes.SIDENAV_TOGGLE
+    );
+    export const setCurrentRouteIndex = createAction(
         AdminActionTypes.CURRENT_ROUTE,
-        props<{ currentRoute: string }>()
+        props<{ currentRouteIndex: number }>()
     );
 }

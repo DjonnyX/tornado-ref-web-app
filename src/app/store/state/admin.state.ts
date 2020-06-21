@@ -1,5 +1,5 @@
 export interface IAdminState {
     sidenavHasBackdrop: boolean;
-    sidenavOpened: boolean;
-    currentRoute: string;
+    sidenavIsOpen: boolean;
+    currentRouteIndex: number;
 }

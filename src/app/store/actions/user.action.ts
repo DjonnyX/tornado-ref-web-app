@@ -3,13 +3,13 @@ import { IUser } from '@models';
 import { IUserAuthRequest, IUserRegistrationRequest } from '@services';
 
 export enum UserActionTypes {
-  USER_AUTH_REQUEST = "SQUID/user-auth:request",
-  USER_AUTH_SUCCESS = "SQUID/user-auth:success",
-  USER_AUTH_ERROR = "SQUID/user-auth:error",
+  USER_AUTH_REQUEST = "TORNADO/user-auth:request",
+  USER_AUTH_SUCCESS = "TORNADO/user-auth:success",
+  USER_AUTH_ERROR = "TORNADO/user-auth:error",
 
-  USER_REGISTRATION_REQUEST = "SQUID/user-registration:request",
-  USER_REGISTRATION_SUCCESS = "SQUID/user-registration:success",
-  USER_REGISTRATION_ERROR = "SQUID/user-registration:error",
+  USER_REGISTRATION_REQUEST = "TORNADO/user-registration:request",
+  USER_REGISTRATION_SUCCESS = "TORNADO/user-registration:success",
+  USER_REGISTRATION_ERROR = "TORNADO/user-registration:error",
 }
 
 export namespace UserActions {

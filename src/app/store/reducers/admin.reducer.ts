@@ -3,23 +3,23 @@ import { IAdminState } from '@store/state';
 import { AdminActions } from '@store/actions/admin.action';
 
 export const initialState: IAdminState = {
-    sidenavHasBackdrop: false,
-    sidenavOpened: false,
-    currentRoute: ""
+    sidenavHasBackdrop: true,
+    sidenavIsOpen: true,
+    currentRouteIndex: 0,
 };
 
-export const adminReducer = createReducer(
+const adminReducer = createReducer(
     initialState,
-    on(AdminActions.setCurrentRoute, (state, { currentRoute }) => {
+    on(AdminActions.setCurrentRouteIndex, (state, { currentRouteIndex }) => {
         return {
             ...state,
-            currentRoute,
+            currentRouteIndex,
         };
     }),
-    on(AdminActions.setSideNavOpen, (state, { sidenavOpened }) => {
+    on(AdminActions.setSidenavIsOpen, (state, { sidenavIsOpen }) => {
         return {
             ...state,
-            sidenavOpened,
+            sidenavIsOpen,
         };
     }),
     on(AdminActions.setSidenavHasBackdrop, (state, { sidenavHasBackdrop }) => {
@@ -30,4 +30,4 @@ export const adminReducer = createReducer(
     }),
 );
 
-export default userReducer;
+export default adminReducer;
