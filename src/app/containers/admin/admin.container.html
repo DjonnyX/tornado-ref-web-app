@@ -4,7 +4,7 @@
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-    <p class="page-title">{{currentRouteIndex$ | async}}</p>
+    <span class="page-title">{{currentRouteIndex$ | async}}</span>
 </mat-toolbar>
 <mat-sidenav-container (backdropClick)="drawerClose()" #sidenavContainer [hasBackdrop]="isMobile$ | async"
     class="drawer-container">
@@ -13,7 +13,7 @@
         [mode]="(isMobile$ | async) ? 'push' : 'side'"
         [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
         <mat-nav-list role="listitem">
-            <a *ngFor="let item of roteCollection; let i = index;" mat-list-item type="button" [routerLink]="'/' + item.route" [class.active]="(currentRouteIndex$ | async) === i">
+            <a *ngFor="let item of roteCollection; let i = index;" mat-list-item type="button" (click)="selectRoute(i)" [class.active]="(currentRouteIndex$ | async) === i">
                 <span class="label">{{item.name}}</span>
             </a>
         </mat-nav-list>

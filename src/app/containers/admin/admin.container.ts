@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { MediaObserver } from '@angular/flex-layout';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
 import { map, takeUntil } from 'rxjs/operators';
 import { AdminSelectors } from '@store/selectors';
@@ -40,7 +40,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   private _unsubscribe = new Subject<void>();
 
-  constructor(private _media: MediaObserver, private _router: Router, private _store: Store<IAppState>) {
+  constructor(private _media: MediaObserver, private _router: Router, private _activatedRoute: ActivatedRoute, private _store: Store<IAppState>) {
     super();
   }
 
@@ -53,6 +53,12 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     this.currentRouteIndex$ = this._store.pipe(
       select(AdminSelectors.selectCurrentRouteIndex)
     );
+
+    this.currentRouteIndex$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(v => {
+      this._router.navigate([`${this.roteCollection[v].route}`], { relativeTo: this._activatedRoute});
+    })
 
     this.isMobile$ = this._media.media$.pipe(
       map(v => v.suffix === 'Xs')
@@ -79,6 +85,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   toggleSidenav() {
     this._store.dispatch(AdminActions.toggleSideNav());
+  }
+
+  selectRoute(index: number) {
+    this._store.dispatch(AdminActions.setCurrentRouteIndex({currentRouteIndex: index}));
   }
 
   ngOnDestroy() {
