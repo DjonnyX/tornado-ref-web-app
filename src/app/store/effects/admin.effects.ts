@@ -19,7 +19,7 @@ export default class AdminEffects {
                     take(1)
                 )
             ),
-            mergeMap(v => [AdminActions.setSidenavIsOpen({ sidenavIsOpen: !v })])
+            mergeMap(v => [AdminActions.setSidenavOpen({ sidenavIsOpen: !v })])
         )
     );
 }

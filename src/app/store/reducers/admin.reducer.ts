@@ -16,16 +16,10 @@ const adminReducer = createReducer(
             currentRouteIndex,
         };
     }),
-    on(AdminActions.setSidenavIsOpen, (state, { sidenavIsOpen }) => {
+    on(AdminActions.setSidenavOpen, (state, { sidenavIsOpen }) => {
         return {
             ...state,
             sidenavIsOpen,
-        };
-    }),
-    on(AdminActions.setSidenavHasBackdrop, (state, { sidenavHasBackdrop }) => {
-        return {
-            ...state,
-            sidenavHasBackdrop,
         };
     }),
 );
