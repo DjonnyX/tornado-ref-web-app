@@ -3,6 +3,26 @@
     height: 100%;
 }
 
+.toolbar {
+    z-index: 2;
+}
+
 .spacer {
     flex: 1 1 auto;
+}
+
+.wrapper {
+    display: grid;
+    grid-template-rows: 64px auto;
+    height: 100vh;
+
+    &--xs {
+        grid-template-rows: 56px auto;
+    }
+}
+
+.sidenav {
+    &--xs {
+        width: 100vw;
+    }
 }

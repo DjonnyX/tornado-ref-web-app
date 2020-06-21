@@ -9,11 +9,6 @@ export namespace AdminSelectors {
     state => state.currentRouteIndex
   );
 
-  export const selectSidenavHasBackdrop = createSelector(
-    selectAdmin,
-    state => state.sidenavHasBackdrop
-  );
-
   export const selectSidenavIsOpen = createSelector(
     selectAdmin,
     state => state.sidenavIsOpen

@@ -3,8 +3,7 @@ import { IAdminState } from '@store/state';
 import { AdminActions } from '@store/actions/admin.action';
 
 export const initialState: IAdminState = {
-    sidenavHasBackdrop: true,
-    sidenavIsOpen: true,
+    sidenavIsOpen: false,
     currentRouteIndex: 0,
 };
 

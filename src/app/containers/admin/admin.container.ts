@@ -75,10 +75,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     });
   }
 
-  drawerClose() {
-    this.closeSidenav();
-  }
-
   closeSidenav() {
     this._store.dispatch(AdminActions.setSidenavOpen({ sidenavIsOpen: false }));
   }
@@ -93,6 +89,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   selectRoute(index: number) {
     this._store.dispatch(AdminActions.setCurrentRouteIndex({ currentRouteIndex: index }));
+    this.closeSidenav();
   }
 
   logout() { }
