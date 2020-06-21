@@ -4,7 +4,7 @@
             <mat-icon>menu</mat-icon>
         </button>
     </div>
-    <span class="page-title">{{currentRouteIndex$ | async}}</span>
+    <span class="page-title">{{(currentRoute$ | async).name}}</span>
 </mat-toolbar>
 <mat-sidenav-container (backdropClick)="drawerClose()" #sidenavContainer [hasBackdrop]="isMobile$ | async"
     class="drawer-container">

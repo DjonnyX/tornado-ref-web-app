@@ -4,7 +4,7 @@ import { IAppState } from '@store/state';
 import { MediaObserver } from '@angular/flex-layout';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Observable, Subject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, takeUntil, mergeMap } from 'rxjs/operators';
 import { AdminSelectors } from '@store/selectors';
 import { INavRoute } from './interfaces';
 import { AdminActions } from '@store/actions/admin.action';
@@ -20,6 +20,8 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   isMobile$: Observable<boolean>;
 
   currentRouteIndex$: Observable<number>;
+
+  currentRoute$: Observable<INavRoute>;
 
   sidenavIsOpen$: Observable<boolean>;
 
@@ -37,8 +39,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       route: "selectors",
     }
   ];
-
-  private _unsubscribe = new Subject<void>();
 
   constructor(private _media: MediaObserver, private _router: Router, private _activatedRoute: ActivatedRoute, private _store: Store<IAppState>) {
     super();
@@ -58,14 +58,18 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       takeUntil(this.unsubscribe$),
     ).subscribe(v => {
       this._router.navigate([`${this.roteCollection[v].route}`], { relativeTo: this._activatedRoute});
-    })
+    });
+
+    this.currentRoute$ = this.currentRouteIndex$.pipe(
+      map(v => this.roteCollection[v]),
+    );
 
     this.isMobile$ = this._media.media$.pipe(
       map(v => v.suffix === 'Xs')
     );
 
     this.isMobile$.pipe(
-      takeUntil(this._unsubscribe),
+      takeUntil(this.unsubscribe$),
     ).subscribe(v => {
       if (!v) this._store.dispatch(AdminActions.setSidenavOpen({ sidenavIsOpen: false }));
     });
