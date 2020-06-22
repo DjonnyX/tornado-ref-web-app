@@ -53,9 +53,6 @@
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Повторите пароль</mat-label>
                         <input matInput type="password" [formControl]="ctrlConfirmationPassword">
-                        <mat-error *ngIf="!ctrlConfirmationPassword.hasError('required')">
-                            Пароль должен содержать латинские буквы, цифры и заглавные буквы
-                        </mat-error>
                         <mat-error *ngIf="ctrlConfirmationPassword.value !== ctrlPassword.value">
                             Пароли не совпадают
                         </mat-error>

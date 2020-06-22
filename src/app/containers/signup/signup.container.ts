@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserActions } from '@store/actions/user.action';
@@ -8,6 +8,7 @@ import { IUserAuthRequest } from '@services';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@app/core/patterns';
+import { equalControlsValidator } from '@app/validators/equals-control.validator';
 
 @Component({
   selector: 'ta-signup',
@@ -26,8 +27,8 @@ export class SignupContainer implements OnInit {
   ctrlLastName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
   ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
-  ctrlConfirmationPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
-  ctrlRememberMe = new FormControl('');
+  ctrlConfirmationPassword = new FormControl('', [Validators.required, equalControlsValidator(this.ctrlPassword)]);
+  ctrlRememberMe = new FormControl('', Validators.required);
 
   constructor(
     private _fb: FormBuilder,
