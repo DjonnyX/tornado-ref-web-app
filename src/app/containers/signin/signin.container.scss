@@ -1,1 +1,9 @@
 @import "src/styles/modules/auth";
+
+@media screen and (min-width: 600px) {
+    .main-wrapper {
+        .form__wrapper {
+            min-width: 380px;
+        }
+    }
+}

@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SignupContainer } from './signup.container';
 import { SignupRoutingModule } from './signup-routing.module';
 import { RouterModule } from '@angular/router';
+import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 
 @NgModule({
   declarations: [SignupContainer],
@@ -23,6 +24,7 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     MatDividerModule,
     SignupRoutingModule,
+    QueryProgressessModule,
   ]
 })
 export class SignupModule { }

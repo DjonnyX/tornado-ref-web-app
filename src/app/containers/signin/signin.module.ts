@@ -9,6 +9,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { SigninContainer } from './signin.container';
 import { SigninRoutingModule } from './signin-routing.module';
 import { RouterModule } from '@angular/router';
+import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { RouterModule } from '@angular/router';
     MatFormFieldModule,
     MatDividerModule,
     SigninRoutingModule,
+    QueryProgressessModule,
   ]
 })
 export class SigninModule { }

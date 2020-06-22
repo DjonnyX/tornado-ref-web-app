@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     HttpClientModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
+    QueryProgressessModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

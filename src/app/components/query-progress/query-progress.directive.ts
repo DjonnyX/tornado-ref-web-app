@@ -1,12 +1,12 @@
-import { Directive, ViewContainerRef, ComponentFactoryResolver, Compiler, ComponentRef, Input, ElementRef, Renderer2, TemplateRef } from '@angular/core';
-import { BusyIndicatorComponent } from '@components/busy-indicator/busy-indicator.component';
+import { Directive, ViewContainerRef, ComponentFactoryResolver, Input, Renderer2, TemplateRef } from '@angular/core';
+import { QueryProgressComponent } from './query-progress.component';
 
 @Directive({
-  selector: '[busy]'
+  selector: '[queryProgress]'
 })
-export class BusyDirective {
+export class QueryProgressDirective {
 
-  @Input() busy: boolean = false;
+  @Input() queryProgress: boolean = false;
 
   constructor(
     private _container: ViewContainerRef,
@@ -17,10 +17,10 @@ export class BusyDirective {
   ngOnChanges() {
 
     this._container.clear();
-    const embeddedView = this._container.createEmbeddedView(this._templateRef, { busy: this.busy });
+    const embeddedView = this._container.createEmbeddedView(this._templateRef, { queryProgress: this.queryProgress });
 
-    if (this.busy) {
-      const factory = this._resolver.resolveComponentFactory(BusyIndicatorComponent);
+    if (this.queryProgress) {
+      const factory = this._resolver.resolveComponentFactory(QueryProgressComponent);
       const componentRef = this._container.createComponent(factory);
       if (embeddedView.rootNodes.length > 0) {
         this._renderer.insertBefore(

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BusyIndicatorComponent } from './busy-indicator.component';
+import { QueryProgressComponent } from './query-progress.component';
 
-describe('BusyIndicatorComponent', () => {
-  let component: BusyIndicatorComponent;
-  let fixture: ComponentFixture<BusyIndicatorComponent>;
+describe('QueryProgressComponent', () => {
+  let component: QueryProgressComponent;
+  let fixture: ComponentFixture<QueryProgressComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BusyIndicatorComponent ]
+      declarations: [ QueryProgressComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BusyIndicatorComponent);
+    fixture = TestBed.createComponent(QueryProgressComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
