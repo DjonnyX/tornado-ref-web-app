@@ -5,14 +5,21 @@ import { Routes, RouterModule } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'signin',
     pathMatch: 'full'
   },
   {
-    path: 'register',
+    path: 'signup',
     loadChildren: () =>
-      import('@containers/registration/registration.module').then(
-        module => module.RegistrationModule
+      import('@containers/signup/signup.module').then(
+        module => module.SignupModule
+      )
+  },
+  {
+    path: 'signin',
+    loadChildren: () =>
+      import('@containers/signin/signin.module').then(
+        module => module.SigninModule
       )
   },
   {
@@ -22,13 +29,6 @@ const routes: Routes = [
         module => module.AdminModule
       )
   },
-  {
-    path: 'login',
-    loadChildren: () =>
-      import('@containers/login/login.module').then(
-        module => module.LoginModule
-      )
-  }
 ];
 
 @NgModule({

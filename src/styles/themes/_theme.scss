@@ -1,6 +1,6 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@import '~@angular/material/theming';
+@import "~@angular/material/theming";
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -11,22 +11,34 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
-$frontend-primary: mat-palette($mat-blue-grey);
-$frontend-accent: mat-palette($mat-amber, A200, A100, A400);
+$ta-primary: mat-palette($mat-blue-grey);
+$ta-accent: mat-palette($mat-amber, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
-$frontend-warn: mat-palette($mat-red);
+$ta-warn: mat-palette($mat-red);
 
 // Create the theme object (a Sass map containing all of the palettes).
-$frontend-theme: mat-light-theme($frontend-primary, $frontend-accent, $frontend-warn);
+$ta-theme: mat-light-theme($ta-primary, $ta-accent, $ta-warn);
 
 // Include theme styles for core and each component used in your app.
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
-@include angular-material-theme($frontend-theme);
+@include angular-material-theme($ta-theme);
 
 // Export theme colors
-$primary: mat-color($frontend-primary);
-$primary-100: lighten(mat-color($frontend-primary), 50);
-$accent: mat-color($frontend-accent);
-$warn: mat-color($frontend-warn);
+$primary: mat-color($ta-primary);
+$primary-100: lighten(mat-color($ta-primary), 50);
+$primary-700: darken(mat-color($ta-primary), 14);
+$primary-800: darken(mat-color($ta-primary), 20);
+$accent: mat-color($ta-accent);
+$accent-700: darken(mat-color($ta-accent), 14);
+$accent-800: darken(mat-color($ta-accent), 20);
+$warn: mat-color($ta-warn);
+
+.mat-checkbox-layout {
+    .mat-checkbox-label {
+        line-height: 14px;
+        white-space: break-spaces;
+        word-break: break-word;
+    }
+}

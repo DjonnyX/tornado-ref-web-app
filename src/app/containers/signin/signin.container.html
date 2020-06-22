@@ -1,0 +1,52 @@
+<div class="main-wrapper">
+    <div class="form__wrapper">
+        <div class="form__heading">
+            <p class="form__title">ВХОД</p>
+            <span class="form__text">нет аккаунта?</span>
+            <span><a [routerLink]="['/signup']" [queryParams]="registerQueryParams"
+                    class="form__link">&nbsp;зарегистрироваться</a></span>
+        </div>
+        <mat-divider></mat-divider>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+            <div class="form__input-block">
+                <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>E-mail</mat-label>
+                        <input matInput [formControl]="ctrlEmail" placeholder="Логин">
+                        <mat-error *ngIf="!ctrlEmail.hasError('required')">
+                            Пожалуйста введите корректный email адрес
+                        </mat-error>
+                        <mat-error *ngIf="ctrlEmail.hasError('required')">
+                            E-mail - <strong>обязательное поле</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Пароль</mat-label>
+                        <input matInput type="password" [formControl]="ctrlPassword">
+                        <mat-error *ngIf="!ctrlPassword.hasError('required')">
+                            Пароль должен содержать латинские буквы, цифры и заглавные буквы
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="form__params-block">
+                <div class="form-item">
+                    <a [routerLink]="['/reset-password']" class="form__link">не помню пароль</a>
+                </div>
+                <div class="form-item">
+                    <mat-checkbox color="primary" [formControl]="ctrlRememberMe">
+                        запомнить меня
+                    </mat-checkbox>
+                </div>
+            </div>
+
+            <div class="form__submit">
+                <button mat-flat-button color="primary" type="submit" class="button button__text"
+                    [disabled]="!form.valid">Войти</button>
+            </div>
+        </form>
+    </div>
+</div>
