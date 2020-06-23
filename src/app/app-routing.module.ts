@@ -11,21 +11,21 @@ const routes: Routes = [
   {
     path: 'term-of-use',
     loadChildren: () =>
-      import('@containers/term-of-use/term-of-use.module').then(
+      import('@containers/auth/term-of-use/term-of-use.module').then(
         module => module.TermOfUseModule
       )
   },
   {
     path: 'signup',
     loadChildren: () =>
-      import('@containers/signup/signup.module').then(
+      import('@containers/auth/signup/signup.module').then(
         module => module.SignupModule
       )
   },
   {
     path: 'signin',
     loadChildren: () =>
-      import('@containers/signin/signin.module').then(
+      import('@containers/auth/signin/signin.module').then(
         module => module.SigninModule
       )
   },
