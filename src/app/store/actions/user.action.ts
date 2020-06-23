@@ -14,9 +14,9 @@ export enum UserActionTypes {
   USER_SIGNUP_SUCCESS = "TORNADO/user-signup:success",
   USER_SIGNUP_ERROR = "TORNADO/user-signup:error",
 
-  USER_RESET_FORGOT_REQUEST = "TORNADO/user-forgot-password:request",
-  USER_RESET_FORGOT_SUCCESS = "TORNADO/user-forgot-password:success",
-  USER_RESET_FORGOT_ERROR = "TORNADO/user-forgot-password:error",
+  USER_FORGOT_PASSWORD_REQUEST = "TORNADO/user-forgot-password:request",
+  USER_FORGOT_PASSWORD_SUCCESS = "TORNADO/user-forgot-password:success",
+  USER_FORGOT_PASSWORD_ERROR = "TORNADO/user-forgot-password:error",
 
   USER_RESET_PASSWORD_REQUEST = "TORNADO/user-reset-password:request",
   USER_RESET_PASSWORD_SUCCESS = "TORNADO/user-reset-password:success",
@@ -53,14 +53,14 @@ export namespace UserActions {
 
   // forgot password
   export const userForgotPasswordRequest = createAction(
-    UserActionTypes.USER_RESET_PASSWORD_REQUEST,
+    UserActionTypes.USER_FORGOT_PASSWORD_REQUEST,
     props<IUserForgotPasswordRequest>()
   );
   export const userForgotPasswordSuccess = createAction(
-    UserActionTypes.USER_RESET_PASSWORD_SUCCESS,
+    UserActionTypes.USER_FORGOT_PASSWORD_SUCCESS,
   );
   export const userForgotPasswordError = createAction(
-    UserActionTypes.USER_RESET_PASSWORD_ERROR,
+    UserActionTypes.USER_FORGOT_PASSWORD_ERROR,
     props<{ error: IErrorResponse }>()
   );
 

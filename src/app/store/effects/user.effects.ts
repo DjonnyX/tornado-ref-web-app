@@ -58,10 +58,10 @@ export default class UserEffects {
           email: params.email,
         }).pipe(
           mergeMap(_ => {
-            return [UserActions.userSignupSuccess()];
+            return [UserActions.userForgotPasswordSuccess()];
           }),
           map(v => v),
-          catchError(error => of(UserActions.userSignupError({ error })))
+          catchError(error => of(UserActions.userForgotPasswordError({ error })))
         );
       })
     )
@@ -75,10 +75,10 @@ export default class UserEffects {
           password: params.password,
         }).pipe(
           mergeMap(_ => {
-            return [UserActions.userSignupSuccess()];
+            return [UserActions.userResetPasswordSuccess()];
           }),
           map(v => v),
-          catchError(error => of(UserActions.userSignupError({ error })))
+          catchError(error => of(UserActions.userResetPasswordError({ error })))
         );
       })
     )

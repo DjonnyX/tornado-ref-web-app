@@ -68,6 +68,14 @@ const userReducer = createReducer(
       isResetPasswordProgress: false,
     };
   }),
+  on(UserActions.userForgotPasswordError, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      loading: false,
+      isForgotPasswordProgress: false,
+    };
+  }),
   on(UserActions.userSigninSuccess, (state, { user }) => {
     return {
       ...state,
