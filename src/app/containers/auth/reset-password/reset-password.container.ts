@@ -7,6 +7,8 @@ import { Store, select } from '@ngrx/store';
 import { UserSelectors } from '@store/selectors';
 import { IUserResetPasswordRequest } from '@services';
 import { UserActions } from '@store/actions/user.action';
+import { equalControlsValidator } from '@app/validators/equals-control.validator';
+import { PASSWORD_PATTERN } from '@app/core/patterns';
 
 @Component({
   selector: 'ta-reset-password',
@@ -21,7 +23,7 @@ export class ResetPasswordContainer implements OnInit {
 
   public registerQueryParams: any;
 
-  ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
+  ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
 
   constructor(
     private _fb: FormBuilder,
@@ -29,7 +31,7 @@ export class ResetPasswordContainer implements OnInit {
     private _store: Store<IAppState>,
   ) {
     this.form = this._fb.group({
-      email: this.ctrlEmail,
+      password: this.ctrlPassword,
     })
   }
 
@@ -46,7 +48,7 @@ export class ResetPasswordContainer implements OnInit {
   public onSubmit() {
     if (this.form.valid) {
       const params: IUserResetPasswordRequest = {
-        email: this.form.get('email').value,
+        password: this.form.get('password').value,
       };
       this._store.dispatch(UserActions.userResetPasswordRequest(params));
     }

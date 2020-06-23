@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IUserResetPasswordRequest } from '@services';
+import { IUserForgotPasswordRequest } from '@services';
 import { UserActions } from '@store/actions/user.action';
 
 @Component({
@@ -45,10 +45,10 @@ export class ForgotPasswordContainer implements OnInit {
 
   public onSubmit() {
     if (this.form.valid) {
-      const params: IUserResetPasswordRequest = {
+      const params: IUserForgotPasswordRequest = {
         email: this.form.get('email').value,
       };
-      this._store.dispatch(UserActions.userResetPasswordRequest(params));
+      this._store.dispatch(UserActions.userForgotPasswordRequest(params));
     }
   }
 }

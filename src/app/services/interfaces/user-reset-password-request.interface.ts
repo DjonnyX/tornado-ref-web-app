@@ -1,3 +1,3 @@
 export interface IUserResetPasswordRequest {
-    email: string;
+    password: string;
 }
