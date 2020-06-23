@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IUser } from '@models';
-import { IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse, IUserResetPasswordRequest, IUserResetPasswordResponse } from './interfaces';
+import {
+  IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
+  IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
+  IUserForgotPasswordResponse
+} from './interfaces';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -14,19 +18,25 @@ export class ApiService {
 
   public signin(params: IUserSigninRequest): Observable<IUser> {
     return this._http
-    .post<IUserSigninResponse>("api/v1/auth/signin", params)
-    .pipe(map(res => res.data));
+      .post<IUserSigninResponse>("api/v1/auth/signin", params)
+      .pipe(map(res => res.data));
   }
-  
+
   public signup(params: IUserSignupRequest): Observable<{}> {
     return this._http
-    .post<IUserSignupResponse>("api/v1/auth/signup", params)
-    .pipe(map(res => res.data));
+      .post<IUserSignupResponse>("api/v1/auth/signup", params)
+      .pipe(map(res => res.data));
+  }
+
+  public forgotPassword(params: IUserForgotPasswordRequest): Observable<{}> {
+    return this._http
+      .post<IUserForgotPasswordResponse>("api/v1/auth/forgot-password", params)
+      .pipe(map(res => res.data));
   }
 
   public resetPassword(params: IUserResetPasswordRequest): Observable<{}> {
     return this._http
-    .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
-    .pipe(map(res => res.data));
+      .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
+      .pipe(map(res => res.data));
   }
 }

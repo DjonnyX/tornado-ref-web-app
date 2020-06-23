@@ -6,6 +6,8 @@ import { IUserSignupRequest } from './user-signup-request.interface';
 import { IUserSignupResponse } from './user-signup-response.interface';
 import { IUserResetPasswordRequest } from './user-reset-password-request.interface';
 import { IUserResetPasswordResponse } from './user-reset-password-response.interface';
+import { IUserForgotPasswordRequest } from './user-forgot-password-request.interface';
+import { IUserForgotPasswordResponse } from './user-forgot-password-response.interface';
 
 export {
     IUserSigninRequest,
@@ -16,4 +18,6 @@ export {
     IUserSignupResponse,
     IUserResetPasswordRequest,
     IUserResetPasswordResponse,
+    IUserForgotPasswordRequest,
+    IUserForgotPasswordResponse,
 }

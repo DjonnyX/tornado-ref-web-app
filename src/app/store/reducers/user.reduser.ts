@@ -6,6 +6,7 @@ export const initialState: IUserState = {
   loading: false,
   isSigninProgress: false,
   isSignupProgress: false,
+  isForgotPasswordProgress: false,
   isResetPasswordProgress: false,
   error: undefined,
   firstName: undefined,
@@ -27,6 +28,13 @@ const userReducer = createReducer(
       ...state,
       loading: true,
       isSignupProgress: true,
+    };
+  }),
+  on(UserActions.userForgotPasswordRequest, state => {
+    return {
+      ...state,
+      loading: true,
+      isResetPasswordProgress: true,
     };
   }),
   on(UserActions.userResetPasswordRequest, state => {

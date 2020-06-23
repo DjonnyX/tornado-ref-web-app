@@ -5,4 +5,5 @@ export interface IUserState extends IBaseState, IUser {
     isSigninProgress: boolean;
     isSignupProgress: boolean;
     isResetPasswordProgress: boolean;
+    isForgotPasswordProgress: boolean;
 }

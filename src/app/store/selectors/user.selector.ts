@@ -14,6 +14,11 @@ export namespace UserSelectors {
     state => state.isSignupProgress
   );
 
+  export const selectIsForgotPasswordProcess = createSelector(
+    selectUser,
+    state => state.isForgotPasswordProgress
+  );
+
   export const selectIsResetPasswordProcess = createSelector(
     selectUser,
     state => state.isResetPasswordProgress
