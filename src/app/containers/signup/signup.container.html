@@ -1,61 +1,81 @@
 <div class="main-wrapper">
     <div class="form__wrapper">
         <div class="form__heading">
-            <p class="form__title">РЕГИСТРАЦИЯ</p>
+            <span>
+                <p class="form__title">CREATE ACCOUNT</p>
+            </span>
+            <span>
+                <a [routerLink]="['/signin']" [queryParams]="registerQueryParams" class="form__link">
+                    &nbsp;Sign in
+                </a>
+                <span class="form__text">instead?</span>
+            </span>
         </div>
         <mat-divider></mat-divider>
-        <div class="query-progress-container" *queryProgress="false">
+        <div class="query-progress-container" *queryProgress="isProcess$ | async">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
                 <div class="form__input-block">
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Имя</mat-label>
+                            <mat-label>First name</mat-label>
                             <input matInput [formControl]="ctrlFirstName">
                             <mat-error *ngIf="!ctrlFirstName.hasError('required')">
-                                Имя должно быть более 1 буквы
+                                First name must be more than 1 letter
+                            </mat-error>
+                            <mat-error *ngIf="ctrlFirstName.hasError('required')">
+                                First name - <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Фамилия</mat-label>
+                            <mat-label>Last name</mat-label>
                             <input matInput [formControl]="ctrlLastName">
                             <mat-error *ngIf="!ctrlLastName.hasError('required')">
-                                Фамилия должна быть более 1 буквы
+                                Last name must be more than 1 letter
+                            </mat-error>
+                            <mat-error *ngIf="ctrlLastName.hasError('required')">
+                                Last name - <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>E-mail</mat-label>
-                            <input matInput [formControl]="ctrlEmail" placeholder="Логин">
+                            <mat-label>Email</mat-label>
+                            <input matInput [formControl]="ctrlEmail" placeholder="Email">
                             <mat-error *ngIf="!ctrlEmail.hasError('required')">
-                                Пожалуйста введите корректный email адрес
+                                Please enter a valid email address
                             </mat-error>
                             <mat-error *ngIf="ctrlEmail.hasError('required')">
-                                Логин - <strong>обязательное поле</strong>
+                                Email - <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Пароль</mat-label>
+                            <mat-label>Password</mat-label>
                             <input matInput type="password" [formControl]="ctrlPassword">
                             <mat-error *ngIf="!ctrlPassword.hasError('required')">
-                                Пароль должен содержать латинские буквы, цифры и заглавные буквы
+                                Password must contain latin letters, numbers and capital letters
+                            </mat-error>
+                            <mat-error *ngIf="ctrlPassword.hasError('required')">
+                                Password - <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Повторите пароль</mat-label>
-                            <input matInput type="password" [formControl]="ctrlConfirmationPassword">
-                            <mat-error *ngIf="ctrlConfirmationPassword.value !== ctrlPassword.value">
-                                Пароли не совпадают
+                            <mat-label>Confirm password</mat-label>
+                            <input matInput type="password" [formControl]="ctrlconfirmPassword">
+                            <mat-error *ngIf="ctrlconfirmPassword.value !== ctrlPassword.value">
+                                Password mismatch
+                            </mat-error>
+                            <mat-error *ngIf="ctrlconfirmPassword.hasError('required')">
+                                Password - <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -63,11 +83,10 @@
                 <div class="form__params-block">
                     <div class="form-item">
                         <mat-checkbox color="primary" [formControl]="ctrlRememberMe">
-                            я принимаю условия пользовательского соглашения
+                            I agree to the <a [routerLink]="['/term-of-service']" class="form__link">
+                                Term of use
+                            </a>
                         </mat-checkbox>
-                        <br />
-                        <a [routerLink]="['/term-of-service']" class="form__link term-of-service">пользовательское
-                            соглашение</a>
                     </div>
                     <div class="form-item">
                     </div>
@@ -75,7 +94,7 @@
 
                 <div class="form__submit">
                     <button mat-flat-button color="primary" type="submit" class="button button__text"
-                        [disabled]="!form.valid">Зарегистрироваться</button>
+                        [disabled]="!form.valid">Create account</button>
                 </div>
             </form>
         </div>

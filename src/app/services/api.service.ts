@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IUser } from '@models';
-import { ApiRoutesService } from './api-routes.service';
-import { IUserAuthRequest, IUserAuthResponse } from './interfaces';
+import { IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse } from './interfaces';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -11,17 +10,17 @@ import { map } from 'rxjs/operators';
 })
 export class ApiService {
 
-  constructor(private _http: HttpClient, private _apiRoutes: ApiRoutesService) { }
+  constructor(private _http: HttpClient) { }
 
-  public auth(params: IUserAuthRequest): Observable<IUser> {
+  public signin(params: IUserSigninRequest): Observable<IUser> {
     return this._http
-    .post<IUserAuthResponse>(this._apiRoutes.login, params)
+    .post<IUserSigninResponse>("api/v1/auth/signin", params)
     .pipe(map(res => res.data));
   }
   
-  public registration(params: IUserAuthRequest): Observable<IUser> {
+  public signup(params: IUserSignupRequest): Observable<{}> {
     return this._http
-    .post<IUserAuthResponse>(this._apiRoutes.login, params)
+    .post<IUserSignupResponse>("api/v1/auth/signup", params)
     .pipe(map(res => res.data));
   }
 }

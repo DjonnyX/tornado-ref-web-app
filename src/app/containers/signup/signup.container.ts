@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserActions } from '@store/actions/user.action';
 import { UserSelectors } from '@store/selectors/user.selector';
-import { IUserAuthRequest } from '@services';
+import { IUserSignupRequest } from '@services';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@app/core/patterns';
@@ -17,7 +17,7 @@ import { equalControlsValidator } from '@app/validators/equals-control.validator
 })
 export class SignupContainer implements OnInit {
 
-  public loaded$: Observable<boolean>;
+  public isProcess$: Observable<boolean>;
 
   public form: FormGroup;
 
@@ -27,7 +27,7 @@ export class SignupContainer implements OnInit {
   ctrlLastName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
   ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
-  ctrlConfirmationPassword = new FormControl('', [Validators.required, equalControlsValidator(this.ctrlPassword)]);
+  ctrlconfirmPassword = new FormControl('', [Validators.required, equalControlsValidator(this.ctrlPassword)]);
   ctrlRememberMe = new FormControl('', Validators.required);
 
   constructor(
@@ -40,7 +40,7 @@ export class SignupContainer implements OnInit {
       lastName: this.ctrlLastName,
       email: this.ctrlEmail,
       password: this.ctrlPassword,
-      confirmationPassword: this.ctrlConfirmationPassword,
+      confirmPassword: this.ctrlconfirmPassword,
       rememberMe: this.ctrlRememberMe
     })
   }
@@ -51,18 +51,20 @@ export class SignupContainer implements OnInit {
       this.registerQueryParams = { 'returnUrl': queryParams['returnUrl'] };
 
 
-    this.loaded$ = this._store
-      .pipe(select(UserSelectors.selectLoaded));
+    this.isProcess$ = this._store
+      .pipe(select(UserSelectors.selectIsSignupProcess));
   }
 
   public onSubmit() {
     if (this.form.valid) {
-      const userCredentials: IUserAuthRequest = {
-        username: this.form.get('email').value,
+      const userCredentials: IUserSignupRequest = {
+        firstName: this.form.get('firstName').value,
+        lastName: this.form.get('lastName').value,
+        email: this.form.get('email').value,
         password: this.form.get('password').value,
-        rememberMe: this.form.get('rememberMe').value
-      } as IUserAuthRequest;
-      this._store.dispatch(UserActions.userAuthRequest(userCredentials));
+        confirmPassword: this.form.get('confirmPassword').value,
+      };
+      this._store.dispatch(UserActions.userSignupRequest(userCredentials));
     }
   }
 }

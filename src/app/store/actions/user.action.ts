@@ -1,43 +1,42 @@
 import { createAction, props } from "@ngrx/store";
 import { IUser } from '@models';
-import { IUserAuthRequest, IUserRegistrationRequest } from '@services';
+import { IUserSigninRequest, IUserSignupRequest, IErrorResponse } from '@services';
 
 export enum UserActionTypes {
-  USER_AUTH_REQUEST = "TORNADO/user-auth:request",
-  USER_AUTH_SUCCESS = "TORNADO/user-auth:success",
-  USER_AUTH_ERROR = "TORNADO/user-auth:error",
+  USER_SIGNIN_REQUEST = "TORNADO/user-signin:request",
+  USER_SIGNIN_SUCCESS = "TORNADO/user-signin:success",
+  USER_SIGNIN_ERROR = "TORNADO/user-signin:error",
 
-  USER_REGISTRATION_REQUEST = "TORNADO/user-registration:request",
-  USER_REGISTRATION_SUCCESS = "TORNADO/user-registration:success",
-  USER_REGISTRATION_ERROR = "TORNADO/user-registration:error",
+  USER_SIGNUP_REQUEST = "TORNADO/user-signup:request",
+  USER_SIGNUP_SUCCESS = "TORNADO/user-signup:success",
+  USER_SIGNUP_ERROR = "TORNADO/user-signup:error",
 }
 
 export namespace UserActions {
-  // auth
-  export const userAuthRequest = createAction(
-    UserActionTypes.USER_AUTH_REQUEST,
-    props<IUserAuthRequest>()
+  // signin
+  export const userSigninRequest = createAction(
+    UserActionTypes.USER_SIGNIN_REQUEST,
+    props<IUserSigninRequest>()
   );
-  export const userAuthSuccess = createAction(
-    UserActionTypes.USER_AUTH_SUCCESS,
+  export const userSigninSuccess = createAction(
+    UserActionTypes.USER_SIGNIN_SUCCESS,
     props<{ user: IUser }>()
   );
-  export const userAuthError = createAction(
-    UserActionTypes.USER_AUTH_ERROR,
-    props<{ error: string[] }>()
+  export const userSigninError = createAction(
+    UserActionTypes.USER_SIGNIN_ERROR,
+    props<{ error: IErrorResponse }>()
   );
 
-  // registration
-  export const userRegistrationRequest = createAction(
-    UserActionTypes.USER_REGISTRATION_REQUEST,
-    props<IUserRegistrationRequest>()
+  // signup
+  export const userSignupRequest = createAction(
+    UserActionTypes.USER_SIGNUP_REQUEST,
+    props<IUserSignupRequest>()
   );
-  export const userRegistrationSuccess = createAction(
-    UserActionTypes.USER_REGISTRATION_SUCCESS,
-    props<{ user: IUser }>()
+  export const userSignupSuccess = createAction(
+    UserActionTypes.USER_SIGNUP_SUCCESS,
   );
-  export const userRegistrationError = createAction(
-    UserActionTypes.USER_REGISTRATION_ERROR,
-    props<{ error: string[] }>()
+  export const userSignupError = createAction(
+    UserActionTypes.USER_SIGNUP_ERROR,
+    props<{ error: IErrorResponse }>()
   );
 }

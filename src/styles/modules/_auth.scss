@@ -4,12 +4,12 @@
 
 $padding: 1.23rem;
 
+.spacer {
+    flex: 1 1 auto;
+}
+
 .form__link {
     color: $accent;
-
-    &.term-of-service {
-        margin-left: 28px;
-    }
 }
 
 .form {
@@ -39,6 +39,8 @@ $padding: 1.23rem;
     padding: $padding * 2;
     background-color: $primary-700;
     color: white;
+    display: flex;
+    justify-content: space-between;
 
     p {
         margin: 0;

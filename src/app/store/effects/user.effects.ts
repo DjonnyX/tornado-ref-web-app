@@ -3,7 +3,7 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { of } from "rxjs";
 import { switchMap, catchError, mergeMap, map } from "rxjs/operators";
 import { Store } from '@ngrx/store';
-import { ApiService, IUserAuthRequest } from "@services";
+import { ApiService, IUserSigninRequest, IUserSignupRequest } from "@services";
 import { UserActions } from '@store/actions/user.action';
 import { IAppState } from '@store/state';
 
@@ -11,16 +11,40 @@ import { IAppState } from '@store/state';
 export default class UserEffects {
   constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>) { }
 
-  public readonly userAuthRequest = createEffect(() =>
+  public readonly userSigninRequest = createEffect(() =>
     this._actions$.pipe(
-      ofType(UserActions.userAuthRequest),
-      switchMap((params: IUserAuthRequest) => {
-        return this._apiService.auth(params).pipe(
+      ofType(UserActions.userSigninRequest),
+      switchMap((params: IUserSigninRequest) => {
+        return this._apiService.signin({
+          email: params.email,
+          password: params.password,
+        }).pipe(
           mergeMap(user => {
-            return [UserActions.userAuthSuccess({ user })];
+            return [UserActions.userSigninSuccess({ user })];
           }),
           map(v => v),
-          catchError(error => of(UserActions.userAuthError({ error })))
+          catchError(error => of(UserActions.userSigninError({ error })))
+        );
+      })
+    )
+  );
+
+  public readonly userSignupRequest = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.userSignupRequest),
+      switchMap((params: IUserSignupRequest) => {
+        return this._apiService.signup({
+          firstName: params.firstName,
+          lastName: params.lastName,
+          email: params.email,
+          password: params.password,
+          confirmPassword: params.confirmPassword,
+        }).pipe(
+          mergeMap(user => {
+            return [UserActions.userSignupSuccess()];
+          }),
+          map(v => v),
+          catchError(error => of(UserActions.userSignupError({ error })))
         );
       })
     )

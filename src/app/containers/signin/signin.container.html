@@ -1,52 +1,58 @@
 <div class="main-wrapper">
     <div class="form__wrapper">
         <div class="form__heading">
-            <p class="form__title">ВХОД</p>
-            <span class="form__text">нет аккаунта?</span>
-            <span><a [routerLink]="['/signup']" [queryParams]="registerQueryParams"
-                    class="form__link">&nbsp;зарегистрироваться</a></span>
+            <span>
+                <p class="form__title">SIGN IN</p>
+            </span>
+            <span>
+                <a [routerLink]="['/signup']" [queryParams]="registerQueryParams" class="form__link">
+                    &nbsp;Create Account
+                </a>
+                <span class="form__text">instead?</span>
+            </span>
         </div>
         <mat-divider></mat-divider>
-        <div class="query-progress-container" *queryProgress="false">
+        <div class="query-progress-container" *queryProgress="isProcess$ | async">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
                 <div class="form__input-block">
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>E-mail</mat-label>
-                            <input matInput [formControl]="ctrlEmail" placeholder="Логин">
+                            <mat-label>Email</mat-label>
+                            <input matInput type="text" [formControl]="ctrlEmail" name="username" placeholder="Email">
                             <mat-error *ngIf="!ctrlEmail.hasError('required')">
-                                Пожалуйста введите корректный email адрес
+                                Please enter a valid email address
                             </mat-error>
                             <mat-error *ngIf="ctrlEmail.hasError('required')">
-                                E-mail - <strong>обязательное поле</strong>
+                                Email - <strong>required</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Пароль</mat-label>
-                            <input matInput type="password" [formControl]="ctrlPassword">
+                            <mat-label>Password</mat-label>
+                            <input matInput type="password" [formControl]="ctrlPassword" name="password"
+                                placeholder="Password">
                             <mat-error *ngIf="!ctrlPassword.hasError('required')">
-                                Пароль должен содержать латинские буквы, цифры и заглавные буквы
+                                Password must contain latin letters, numbers and capital letters
                             </mat-error>
                         </mat-form-field>
                     </div>
                 </div>
                 <div class="form__params-block">
                     <div class="form-item">
-                        <a [routerLink]="['/reset-password']" class="form__link">не помню пароль</a>
+                        <a [routerLink]="['/reset-password']" class="form__link">Trouble signing in?</a>
                     </div>
                     <div class="form-item">
                         <mat-checkbox color="primary" [formControl]="ctrlRememberMe">
-                            запомнить меня
+                            Keep me signed in
                         </mat-checkbox>
                     </div>
                 </div>
 
                 <div class="form__submit">
                     <button mat-flat-button color="primary" type="submit" class="button button__text"
-                        [disabled]="!form.valid">Войти</button>
+                        [disabled]="!form.valid">Sign in</button>
                 </div>
             </form>
         </div>

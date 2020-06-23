@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserActions } from '@store/actions/user.action';
 import { UserSelectors } from '@store/selectors/user.selector';
-import { IUserAuthRequest } from '@services';
+import { IUserSigninRequest } from '@services';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { PASSWORD_PATTERN } from '@app/core/patterns';
@@ -16,7 +16,7 @@ import { PASSWORD_PATTERN } from '@app/core/patterns';
 })
 export class SigninContainer implements OnInit {
 
-  public loaded$: Observable<boolean>;
+  public isProcess$: Observable<boolean>;
 
   public form: FormGroup;
 
@@ -44,18 +44,17 @@ export class SigninContainer implements OnInit {
       this.registerQueryParams = { 'returnUrl': queryParams['returnUrl'] };
 
 
-    this.loaded$ = this._store
-      .pipe(select(UserSelectors.selectLoaded));
+    this.isProcess$ = this._store
+      .pipe(select(UserSelectors.selectIsSigninProcess));
   }
 
   public onSubmit() {
     if (this.form.valid) {
-      const userCredentials: IUserAuthRequest = {
-        username: this.form.get('email').value,
+      const userCredentials: IUserSigninRequest = {
+        email: this.form.get('email').value,
         password: this.form.get('password').value,
-        rememberMe: this.form.get('rememberMe').value
-      } as IUserAuthRequest;
-      this._store.dispatch(UserActions.userAuthRequest(userCredentials));
+      };
+      this._store.dispatch(UserActions.userSigninRequest(userCredentials));
     }
   }
 }

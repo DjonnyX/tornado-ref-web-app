@@ -4,51 +4,54 @@ import { UserActions } from '@store/actions/user.action';
 
 export const initialState: IUserState = {
   loading: false,
+  isSigninProgress: false,
+  isSignupProgress: false,
   error: undefined,
   firstName: undefined,
   lastName: undefined,
   email: undefined,
-  logged: false,
 };
 
 const userReducer = createReducer(
   initialState,
-  on(UserActions.userAuthRequest, UserActions.userRegistrationRequest, state => {
+  on(UserActions.userSigninRequest, UserActions.userSignupRequest, state => {
     return {
       ...state,
-      loading: true
+      loading: true,
+      isSigninProgress: true,
     };
   }),
-  on(UserActions.userAuthError, (state, { error }) => {
-    return {
-      ...state,
-      error,
-      loading: false
-    };
-  }),
-  on(UserActions.userRegistrationError, (state, { error }) => {
+  on(UserActions.userSigninError, (state, { error }) => {
     return {
       ...state,
       error,
-      logged: false,
-      loading: false
+      loading: false,
+      isSigninProgress: false,
     };
   }),
-  on(UserActions.userAuthSuccess, (state, { user }) => {
+  on(UserActions.userSignupError, (state, { error }) => {
     return {
       ...state,
-      ...user,
-      logged: true,
-      error: undefined,
-      loading: false
+      error,
+      loading: false,
+      isSignupProgress: false,
     };
   }),
-  on(UserActions.userRegistrationSuccess, (state, { user }) => {
+  on(UserActions.userSigninSuccess, (state, { user }) => {
     return {
       ...state,
       ...user,
       error: undefined,
-      loading: false
+      loading: false,
+      isSigninProgress: false,
+    };
+  }),
+  on(UserActions.userSignupSuccess, (state) => {
+    return {
+      ...state,
+      error: undefined,
+      loading: false,
+      isSignupProgress: false,
     };
   }),
 );

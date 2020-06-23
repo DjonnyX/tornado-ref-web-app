@@ -1,15 +1,15 @@
 import { IBaseResponse } from './base-response.interface';
 import { IErrorResponse } from './error-response.interface';
-import { IUserAuthRequest } from './user-auth-request.interface';
-import { IUserAuthResponse } from './user-auth-response.interface';
-import { IUserRegistrationRequest } from './user-registration-request.interface';
-import { IUserRegistrationResponse } from './user-registration-response.interface';
+import { IUserSigninRequest } from './user-signin-request.interface';
+import { IUserSigninResponse } from './user-signin-response.interface';
+import { IUserSignupRequest } from './user-signup-request.interface';
+import { IUserSignupResponse } from './user-signup-response.interface';
 
 export {
-    IUserAuthRequest,
-    IUserAuthResponse,
+    IUserSigninRequest,
+    IUserSigninResponse,
     IBaseResponse,
     IErrorResponse,
-    IUserRegistrationRequest,
-    IUserRegistrationResponse
+    IUserSignupRequest,
+    IUserSignupResponse,
 }
