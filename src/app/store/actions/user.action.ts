@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IUser } from '@models';
-import { IUserSigninRequest, IUserSignupRequest, IErrorResponse } from '@services';
+import { IUserSigninRequest, IUserSignupRequest, IErrorResponse, IUserResetPasswordRequest } from '@services';
 
 export enum UserActionTypes {
   USER_SIGNIN_REQUEST = "TORNADO/user-signin:request",
@@ -10,6 +10,10 @@ export enum UserActionTypes {
   USER_SIGNUP_REQUEST = "TORNADO/user-signup:request",
   USER_SIGNUP_SUCCESS = "TORNADO/user-signup:success",
   USER_SIGNUP_ERROR = "TORNADO/user-signup:error",
+
+  USER_RESET_PASSWORD_REQUEST = "TORNADO/user-reset-password:request",
+  USER_RESET_PASSWORD_SUCCESS = "TORNADO/user-reset-password:success",
+  USER_RESET_PASSWORD_ERROR = "TORNADO/user-reset-password:error",
 }
 
 export namespace UserActions {
@@ -37,6 +41,19 @@ export namespace UserActions {
   );
   export const userSignupError = createAction(
     UserActionTypes.USER_SIGNUP_ERROR,
+    props<{ error: IErrorResponse }>()
+  );
+
+  // reset password
+  export const userResetPasswordRequest = createAction(
+    UserActionTypes.USER_RESET_PASSWORD_REQUEST,
+    props<IUserResetPasswordRequest>()
+  );
+  export const userResetPasswordSuccess = createAction(
+    UserActionTypes.USER_RESET_PASSWORD_SUCCESS,
+  );
+  export const userResetPasswordError = createAction(
+    UserActionTypes.USER_RESET_PASSWORD_ERROR,
     props<{ error: IErrorResponse }>()
   );
 }

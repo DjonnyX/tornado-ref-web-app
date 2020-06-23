@@ -3,7 +3,7 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { of } from "rxjs";
 import { switchMap, catchError, mergeMap, map } from "rxjs/operators";
 import { Store } from '@ngrx/store';
-import { ApiService, IUserSigninRequest, IUserSignupRequest } from "@services";
+import { ApiService, IUserSigninRequest, IUserSignupRequest, IUserResetPasswordRequest } from "@services";
 import { UserActions } from '@store/actions/user.action';
 import { IAppState } from '@store/state';
 
@@ -41,6 +41,23 @@ export default class UserEffects {
           confirmPassword: params.confirmPassword,
         }).pipe(
           mergeMap(user => {
+            return [UserActions.userSignupSuccess()];
+          }),
+          map(v => v),
+          catchError(error => of(UserActions.userSignupError({ error })))
+        );
+      })
+    )
+  );
+
+  public readonly userResetPasswordRequest = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.userResetPasswordRequest),
+      switchMap((params: IUserResetPasswordRequest) => {
+        return this._apiService.resetPassword({
+          email: params.email,
+        }).pipe(
+          mergeMap(_ => {
             return [UserActions.userSignupSuccess()];
           }),
           map(v => v),

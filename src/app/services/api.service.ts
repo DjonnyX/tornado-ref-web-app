@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IUser } from '@models';
-import { IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse } from './interfaces';
+import { IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse, IUserResetPasswordRequest, IUserResetPasswordResponse } from './interfaces';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -21,6 +21,12 @@ export class ApiService {
   public signup(params: IUserSignupRequest): Observable<{}> {
     return this._http
     .post<IUserSignupResponse>("api/v1/auth/signup", params)
+    .pipe(map(res => res.data));
+  }
+
+  public resetPassword(params: IUserResetPasswordRequest): Observable<{}> {
+    return this._http
+    .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
     .pipe(map(res => res.data));
   }
 }

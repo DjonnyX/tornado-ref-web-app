@@ -40,6 +40,10 @@
     display: flex;
     justify-content: space-between;
 
+    .heading__title {
+        text-transform: uppercase;
+    }
+
     p {
         margin: 0;
     }

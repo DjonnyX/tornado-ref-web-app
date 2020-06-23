@@ -30,6 +30,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'reset-password',
+    loadChildren: () =>
+      import('@containers/auth/reset-password/reset-password.module').then(
+        module => module.ResetPasswordModule
+      )
+  },
+  {
     path: 'admin',
     loadChildren: () =>
       import('@containers/admin/admin.module').then(
