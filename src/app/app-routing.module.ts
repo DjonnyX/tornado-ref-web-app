@@ -9,6 +9,13 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'term-of-use',
+    loadChildren: () =>
+      import('@containers/term-of-use/term-of-use.module').then(
+        module => module.TermOfUseModule
+      )
+  },
+  {
     path: 'signup',
     loadChildren: () =>
       import('@containers/signup/signup.module').then(

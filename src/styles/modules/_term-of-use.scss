@@ -1,0 +1,23 @@
+@import "src/styles/abstracts/vars";
+
+.wrapper {
+    display: grid;
+    height: 100%;
+
+    .content {
+        padding: $padding * 2;
+        overflow: auto;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .wrapper {
+        grid-template-rows: $toolbar-height 1fr;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .wrapper {
+        grid-template-rows: $toolbar-height-m 1fr;
+    }
+}

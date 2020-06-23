@@ -1,7 +1,14 @@
-@import './styles/';
+@import "./styles/";
 
 body {
     margin: 0;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    height: 100vh;
+    overflow: hidden;
+}
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
