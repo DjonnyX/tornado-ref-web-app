@@ -7,10 +7,12 @@ import { ApiService, IUserSigninRequest, IUserSignupRequest, IUserResetPasswordR
 import { UserActions } from '@store/actions/user.action';
 import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
+import { NotificationService } from '@app/services/notification.service';
 
 @Injectable()
 export default class UserEffects {
-  constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>, private _router: Router) { }
+  constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
+    private _router: Router, private _notificationService: NotificationService) { }
 
   public readonly userSigninRequest = createEffect(() =>
     this._actions$.pipe(
@@ -24,7 +26,10 @@ export default class UserEffects {
             return [UserActions.userSigninSuccess({ user })];
           }),
           map(v => v),
-          catchError((error: Error) => of(UserActions.userSigninError({ error: error.message })))
+          catchError((error: Error) => {
+            this._notificationService.notify(error.message);
+            return of(UserActions.userSigninError({ error: error.message }));
+          }),
         );
       })
     )
@@ -45,7 +50,10 @@ export default class UserEffects {
             return [UserActions.userSignupSuccess()];
           }),
           map(v => v),
-          catchError((error: Error) => of(UserActions.userSignupError({ error: error.message })))
+          catchError((error: Error) => {
+            this._notificationService.notify(error.message);
+            return of(UserActions.userSignupError({ error: error.message }))
+          }),
         );
       })
     )
@@ -63,7 +71,10 @@ export default class UserEffects {
             return [UserActions.userForgotPasswordSuccess()];
           }),
           map(v => v),
-          catchError((error: Error) => of(UserActions.userForgotPasswordError({ error: error.message })))
+          catchError((error: Error) => {
+            this._notificationService.notify(error.message);
+            return of(UserActions.userForgotPasswordError({ error: error.message }))
+          }),
         );
       })
     )
@@ -80,7 +91,10 @@ export default class UserEffects {
             return [UserActions.userResetPasswordSuccess()];
           }),
           map(v => v),
-          catchError((error: Error) => of(UserActions.userResetPasswordError({ error: error.message })))
+          catchError((error: Error) => {
+            this._notificationService.notify(error.message);
+            return of(UserActions.userResetPasswordError({ error: error.message }))
+          }),
         );
       })
     )

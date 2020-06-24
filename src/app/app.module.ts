@@ -14,6 +14,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
+import {
+  MatSnackBarModule,
+} from '@angular/material/snack-bar';
+import { NotificationService } from './services/notification.service';
 
 @NgModule({
   declarations: [
@@ -32,12 +36,14 @@ import { HttpErrorInterceptor } from './interceptors/http-error.interceptor';
     BrowserAnimationsModule,
     FlexLayoutModule,
     QueryProgressessModule,
+    MatSnackBarModule,
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor,
       multi: true
-    }
+    },
+    NotificationService,
   ],
   bootstrap: [AppComponent]
 })
