@@ -6,10 +6,11 @@ import { Store } from '@ngrx/store';
 import { ApiService, IUserSigninRequest, IUserSignupRequest, IUserResetPasswordRequest, IUserForgotPasswordRequest } from "@services";
 import { UserActions } from '@store/actions/user.action';
 import { IAppState } from '@store/state';
+import { Router } from '@angular/router';
 
 @Injectable()
 export default class UserEffects {
-  constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>) { }
+  constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>, private _router: Router) { }
 
   public readonly userSigninRequest = createEffect(() =>
     this._actions$.pipe(
@@ -58,6 +59,7 @@ export default class UserEffects {
           email: params.email,
         }).pipe(
           mergeMap(_ => {
+            this._router.navigate(["forgot-password-result"]);
             return [UserActions.userForgotPasswordSuccess()];
           }),
           map(v => v),

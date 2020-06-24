@@ -37,6 +37,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'forgot-password-result',
+    loadChildren: () =>
+      import('@containers/auth/forgot-password-result/forgot-password-result.module').then(
+        module => module.ForgotPasswordResultModule
+      )
+  },
+  {
     path: 'reset-password',
     loadChildren: () =>
       import('@containers/auth/reset-password/reset-password.module').then(
