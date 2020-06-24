@@ -1,0 +1,23 @@
+<div class="main-wrapper">
+    <div class="form__wrapper">
+        <div class="form__heading">
+            <h4 class="heading__title m0">Error</h4>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="form">
+            <div class="form__input-block">
+                <div class="form-item">
+                    <p>
+                        {{errorMessage$ | async}}
+                    </p>
+                </div>
+            </div>
+
+            <div class="form__submit">
+                <button mat-flat-button color="primary" type="submit" class="button button__text">
+                    Reset password
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

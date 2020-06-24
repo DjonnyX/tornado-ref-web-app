@@ -35,7 +35,7 @@ export namespace UserActions {
   );
   export const userSigninError = createAction(
     UserActionTypes.USER_SIGNIN_ERROR,
-    props<{ error: IErrorResponse }>()
+    props<{ error: string }>()
   );
 
   // signup
@@ -48,7 +48,7 @@ export namespace UserActions {
   );
   export const userSignupError = createAction(
     UserActionTypes.USER_SIGNUP_ERROR,
-    props<{ error: IErrorResponse }>()
+    props<{ error: string }>()
   );
 
   // forgot password
@@ -61,7 +61,7 @@ export namespace UserActions {
   );
   export const userForgotPasswordError = createAction(
     UserActionTypes.USER_FORGOT_PASSWORD_ERROR,
-    props<{ error: IErrorResponse }>()
+    props<{ error: string }>()
   );
 
   // reset password
@@ -74,6 +74,6 @@ export namespace UserActions {
   );
   export const userResetPasswordError = createAction(
     UserActionTypes.USER_RESET_PASSWORD_ERROR,
-    props<{ error: IErrorResponse }>()
+    props<{ error: string }>()
   );
 }

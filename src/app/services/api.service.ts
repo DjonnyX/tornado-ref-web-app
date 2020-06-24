@@ -19,24 +19,40 @@ export class ApiService {
   public signin(params: IUserSigninRequest): Observable<IUser> {
     return this._http
       .post<IUserSigninResponse>("api/v1/auth/signin", params)
-      .pipe(map(res => res.data));
+      .pipe(
+        map(res => res.data),
+      );
   }
 
   public signup(params: IUserSignupRequest): Observable<{}> {
     return this._http
       .post<IUserSignupResponse>("api/v1/auth/signup", params)
-      .pipe(map(res => res.data));
+      .pipe(
+        map(res => res.data),
+      );
   }
 
   public forgotPassword(params: IUserForgotPasswordRequest): Observable<{}> {
     return this._http
       .post<IUserForgotPasswordResponse>("api/v1/auth/forgot-password", params)
-      .pipe(map(res => res.data));
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public verifyResetPasswordToken(token: string): Observable<{}> {
+    return this._http
+      .post<IUserResetPasswordResponse>("api/v1/auth/verify-reset-password-token", { token })
+      .pipe(
+        map(res => res.data),
+      );
   }
 
   public resetPassword(params: IUserResetPasswordRequest): Observable<{}> {
     return this._http
       .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
-      .pipe(map(res => res.data));
+      .pipe(
+        map(res => res.data),
+      );
   }
 }

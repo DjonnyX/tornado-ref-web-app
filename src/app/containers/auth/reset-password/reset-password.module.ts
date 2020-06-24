@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { ResetPasswordContainer } from './reset-password.container';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { ResetPasswordVerifyTokenGuard } from './reset-password-verify-token.guard';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,9 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     MatDividerModule,
     QueryProgressessModule,
     ResetPasswordRoutingModule,
+  ],
+  providers: [
+    ResetPasswordVerifyTokenGuard,
   ]
 })
 export class ResetPasswordModule { }

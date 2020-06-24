@@ -44,6 +44,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'auth-error',
+    loadChildren: () =>
+      import('@containers/auth/auth-error/auth-error.module').then(
+        module => module.AuthErrorModule
+      )
+  },
+  {
     path: 'admin',
     loadChildren: () =>
       import('@containers/admin/admin.module').then(

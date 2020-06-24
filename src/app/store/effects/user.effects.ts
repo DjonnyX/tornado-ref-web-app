@@ -23,7 +23,7 @@ export default class UserEffects {
             return [UserActions.userSigninSuccess({ user })];
           }),
           map(v => v),
-          catchError(error => of(UserActions.userSigninError({ error })))
+          catchError((error: Error) => of(UserActions.userSigninError({ error: error.message })))
         );
       })
     )
@@ -44,7 +44,7 @@ export default class UserEffects {
             return [UserActions.userSignupSuccess()];
           }),
           map(v => v),
-          catchError(error => of(UserActions.userSignupError({ error })))
+          catchError((error: Error) => of(UserActions.userSignupError({ error: error.message })))
         );
       })
     )
@@ -61,7 +61,7 @@ export default class UserEffects {
             return [UserActions.userForgotPasswordSuccess()];
           }),
           map(v => v),
-          catchError(error => of(UserActions.userForgotPasswordError({ error })))
+          catchError((error: Error) => of(UserActions.userForgotPasswordError({ error: error.message })))
         );
       })
     )
@@ -78,7 +78,7 @@ export default class UserEffects {
             return [UserActions.userResetPasswordSuccess()];
           }),
           map(v => v),
-          catchError(error => of(UserActions.userResetPasswordError({ error })))
+          catchError((error: Error) => of(UserActions.userResetPasswordError({ error: error.message })))
         );
       })
     )
