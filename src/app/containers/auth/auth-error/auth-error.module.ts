@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDividerModule } from '@angular/material/divider';
 import { AuthErrorRoutingModule } from './auth-error-routing.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AuthErrorRoutingModule } from './auth-error-routing.module';
     FormsModule,
     ReactiveFormsModule,
     MatDividerModule,
+    MatButtonModule,
     AuthErrorRoutingModule,
   ]
 })

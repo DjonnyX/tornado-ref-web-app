@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil, filter, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -13,8 +13,12 @@ export class AuthErrorContainer extends BaseComponent implements OnInit, OnDestr
 
   public errorMessage$: Observable<string>;
 
-  constructor(private _activatedRoute: ActivatedRoute) {
+  constructor(private _activatedRoute: ActivatedRoute, private _router: Router) {
     super();
+  }
+
+  returnToSignIn() {
+    this._router.navigate(["signin"]);
   }
 
   ngOnInit(): void {
