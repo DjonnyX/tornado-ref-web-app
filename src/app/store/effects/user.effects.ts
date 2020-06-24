@@ -85,6 +85,7 @@ export default class UserEffects {
       ofType(UserActions.userResetPasswordRequest),
       switchMap((params: IUserResetPasswordRequest) => {
         return this._apiService.resetPassword({
+          token: params.token,
           password: params.password,
         }).pipe(
           mergeMap(_ => {

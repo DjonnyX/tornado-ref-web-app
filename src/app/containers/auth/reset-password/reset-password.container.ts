@@ -8,6 +8,8 @@ import { IUserResetPasswordRequest } from '@services';
 import { UserActions } from '@store/actions/user.action';
 import { PASSWORD_PATTERN } from '@app/core/patterns';
 import { BaseComponent } from '@components/base/base-component';
+import { ActivatedRoute } from '@angular/router';
+import { takeUntil, map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-reset-password',
@@ -20,17 +22,28 @@ export class ResetPasswordContainer extends BaseComponent implements OnInit, OnD
 
   public form: FormGroup;
 
+  private _token: string;
+
   ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
 
   constructor(
     private _fb: FormBuilder,
     private _store: Store<IAppState>,
+    private _activatedRoute: ActivatedRoute,
   ) {
     super();
 
     this.form = this._fb.group({
       password: this.ctrlPassword,
     })
+
+    this._activatedRoute.queryParams.pipe(
+      takeUntil(this.unsubscribe$),
+      map(params => params.token as string),
+      filter(token => !!token),
+    ).subscribe(token => {
+      this._token = token;
+    });
   }
 
   ngOnInit() {
@@ -38,10 +51,15 @@ export class ResetPasswordContainer extends BaseComponent implements OnInit, OnD
       .pipe(select(UserSelectors.selectIsResetPasswordProcess));
   }
 
+  ngOnDestroy() {
+    super.ngOnDestroy();
+  }
+
   public onSubmit() {
     if (this.form.valid) {
       const params: IUserResetPasswordRequest = {
         password: this.form.get('password').value,
+        token: this._token,
       };
       this._store.dispatch(UserActions.userResetPasswordRequest(params));
     }
