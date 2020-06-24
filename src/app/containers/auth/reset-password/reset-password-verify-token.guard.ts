@@ -19,7 +19,7 @@ export class ResetPasswordVerifyTokenGuard implements CanActivate {
         return this._apiService.verifyResetPasswordToken(token).pipe(
             take(1),
             switchMap(v => {
-                return of(v);
+                return of(!!v);
             }),
             catchError((error: Error) => {
                 this.gotoInvalidPage(error.message);
