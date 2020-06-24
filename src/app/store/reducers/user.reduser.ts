@@ -34,7 +34,7 @@ const userReducer = createReducer(
     return {
       ...state,
       loading: true,
-      isResetPasswordProgress: true,
+      isForgotPasswordProgress: true,
     };
   }),
   on(UserActions.userResetPasswordRequest, state => {
@@ -99,6 +99,14 @@ const userReducer = createReducer(
       error: undefined,
       loading: false,
       isResetPasswordProgress: false,
+    };
+  }),
+  on(UserActions.userForgotPasswordSuccess, (state) => {
+    return {
+      ...state,
+      error: undefined,
+      loading: false,
+      isForgotPasswordProgress: false,
     };
   }),
 );
