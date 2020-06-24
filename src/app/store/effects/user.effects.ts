@@ -89,6 +89,7 @@ export default class UserEffects {
           password: params.password,
         }).pipe(
           mergeMap(_ => {
+            this._router.navigate(["reset-password-result"]);
             return [UserActions.userResetPasswordSuccess()];
           }),
           map(v => v),
