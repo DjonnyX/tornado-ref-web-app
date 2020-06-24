@@ -75,6 +75,8 @@
         background-color: $primary;
 
         .form__wrapper {
+            border-radius: 5px;
+            overflow: hidden;
             max-width: 25%;
             min-width: 480px;
             margin: 0 auto;
