@@ -6,7 +6,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from '@environments';
 
-import rootReducer from '@store/reducers';
+import rootReducer, { metaReducers } from '@store/reducers';
 import rootEffect from '@store/effects';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,7 +26,10 @@ import { NotificationService } from './services/notification.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    StoreModule.forRoot(rootReducer),
+    StoreModule.forRoot(
+      rootReducer,
+      { metaReducers }
+    ),
     EffectsModule.forRoot(rootEffect),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
