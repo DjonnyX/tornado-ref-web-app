@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUser } from '@models';
+import { IUserProfile } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -16,7 +16,7 @@ export class ApiService {
 
   constructor(private _http: HttpClient) { }
 
-  public signin(params: IUserSigninRequest): Observable<IUser> {
+  public signin(params: IUserSigninRequest): Observable<IUserProfile> {
     return this._http
       .post<IUserSigninResponse>("api/v1/auth/signin", params)
       .pipe(

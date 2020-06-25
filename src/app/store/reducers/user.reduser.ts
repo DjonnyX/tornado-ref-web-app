@@ -9,9 +9,7 @@ export const initialState: IUserState = {
   isForgotPasswordProgress: false,
   isResetPasswordProgress: false,
   error: undefined,
-  firstName: undefined,
-  lastName: undefined,
-  email: undefined,
+  profile: undefined,
 };
 
 const userReducer = createReducer(
@@ -48,6 +46,7 @@ const userReducer = createReducer(
     return {
       ...state,
       error,
+      profile: undefined,
       loading: false,
       isSigninProgress: false,
     };
@@ -76,10 +75,10 @@ const userReducer = createReducer(
       isForgotPasswordProgress: false,
     };
   }),
-  on(UserActions.userSigninSuccess, (state, { user }) => {
+  on(UserActions.userSigninSuccess, (state, { profile }) => {
     return {
       ...state,
-      ...user,
+      profile,
       error: undefined,
       loading: false,
       isSigninProgress: false,

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IUser } from '@models';
+import { IUserProfile } from '@models';
 import {
   IUserSigninRequest, IUserSignupRequest, IErrorResponse,
   IUserResetPasswordRequest, IUserForgotPasswordRequest
@@ -31,7 +31,7 @@ export namespace UserActions {
   );
   export const userSigninSuccess = createAction(
     UserActionTypes.USER_SIGNIN_SUCCESS,
-    props<{ user: IUser }>()
+    props<{ profile: IUserProfile }>()
   );
   export const userSigninError = createAction(
     UserActionTypes.USER_SIGNIN_ERROR,

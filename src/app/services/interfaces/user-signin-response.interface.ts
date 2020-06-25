@@ -1,4 +1,4 @@
-import { IUser } from '@models';
+import { IUserProfile } from '@models';
 import { IBaseResponse } from './base-response.interface';
 
-export interface IUserSigninResponse extends IBaseResponse<IUser, any> {}
+export interface IUserSigninResponse extends IBaseResponse<IUserProfile, any> {}

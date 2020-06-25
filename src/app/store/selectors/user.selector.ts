@@ -4,6 +4,11 @@ import { createSelector } from "@ngrx/store";
 export namespace UserSelectors {
   export const selectUser = (state: IAppState) => state.user;
 
+  export const selectUserProfile = createSelector(
+    selectUser,
+    state => state.profile
+  );
+
   export const selectIsSigninProcess = createSelector(
     selectUser,
     state => state.isSigninProgress

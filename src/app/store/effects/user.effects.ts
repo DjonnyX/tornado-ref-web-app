@@ -22,8 +22,8 @@ export default class UserEffects {
           email: params.email,
           password: params.password,
         }).pipe(
-          mergeMap(user => {
-            return [UserActions.userSigninSuccess({ user })];
+          mergeMap(profile => {
+            return [UserActions.userSigninSuccess({ profile })];
           }),
           map(v => v),
           catchError((error: Error) => {

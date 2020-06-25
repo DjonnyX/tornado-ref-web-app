@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'signin',
+    redirectTo: 'admin',
     pathMatch: 'full'
   },
   {
@@ -69,7 +70,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('@containers/admin/admin.module').then(
         module => module.AdminModule
-      )
+      ),
+    canActivate: [
+      AuthGuard,
+    ]
   },
 ];
 
