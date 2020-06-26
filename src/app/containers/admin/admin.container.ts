@@ -29,7 +29,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   roteCollection: Array<INavRoute> = [
     {
       name: "Menu",
-      route: "menu",
+      route: "menu-tree",
     },
     {
       name: "Products",

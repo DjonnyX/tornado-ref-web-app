@@ -44,18 +44,6 @@ export class ApiService {
       );
   }
 
-  public signout(): Observable<{}> {
-    return this._http
-      .post<any>("api/v1/auth/signout", {}, {
-        headers: {
-          authorization: this._token,
-        },
-      })
-      .pipe(
-        map(res => res.data),
-      );
-  }
-
   public forgotPassword(params: IUserForgotPasswordRequest): Observable<{}> {
     return this._http
       .post<IUserForgotPasswordResponse>("api/v1/auth/forgot-password", params)
@@ -78,5 +66,37 @@ export class ApiService {
       .pipe(
         map(res => res.data),
       );
+  }
+
+  // protected
+
+  public signout(): Observable<{}> {
+    return this._http
+      .post<any>("api/v1/auth/signout", {}, {
+        headers: {
+          authorization: this._token,
+        },
+      })
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public getNodes(): Observable<{}> {
+    return this._http
+      .get<any>("api/v1/nodes", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getProducts(): Observable<{}> {
+    return this._http
+      .get<any>("api/v1/products", {
+        headers: {
+          authorization: this._token,
+        },
+      });
   }
 }

@@ -8,11 +8,11 @@ const routes: Routes = [
     component: AdminContainer,
     children: [
       {
-        path: 'menu',
-        /*loadChildren: () =>
-          import('@containers/admin/admin.module').then(
-            module => module.AdminModule
-          )*/
+        path: 'menu-tree',
+        loadChildren: () =>
+          import('@containers/menu-tree-editor/menu-tree-editor.module').then(
+            module => module.MenuTreeEditorModule,
+          )
       }
     ]
   }
