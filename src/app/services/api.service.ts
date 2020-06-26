@@ -1,20 +1,45 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { IUserProfile } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
   IUserForgotPasswordResponse
 } from './interfaces';
-import { map } from 'rxjs/operators';
+import { map, take, switchMap } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import { IAppState } from '@store/state';
+import { UserSelectors } from '@store/selectors';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  constructor(private _http: HttpClient) { }
+  private _token: string;
+
+  /*
+  , {
+        headers: {
+          ...this.protectHeaders(),
+        }
+      }
+      */
+  private protectHeaders = (): {[x: string]: string} => {
+    return {
+      authorization: this._token,
+    }
+  };
+
+  constructor(private _http: HttpClient, private _store: Store<IAppState>) {
+    this._store.pipe(
+      select(UserSelectors.selectUserProfile),
+      map(profile => !!profile ? profile.token : undefined),
+    ).subscribe(token => {
+      this._token = token;
+    })
+  }
 
   public signin(params: IUserSigninRequest): Observable<IUserProfile> {
     return this._http
