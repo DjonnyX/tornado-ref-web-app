@@ -5,13 +5,13 @@ import userReducer from './user.reduser';
 import adminReducer from './admin.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
-  user: userReducer,
-  admin: adminReducer,
+  taUser: userReducer,
+  taAdmin: adminReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['user', 'admin'],
+    keys: ['taUser', 'taAdmin'],
     rehydrate: true,
   })(reducer);
 }

@@ -2,7 +2,7 @@ import { IAppState } from "../state";
 import { createSelector } from "@ngrx/store";
 
 export namespace UserSelectors {
-  export const selectUser = (state: IAppState) => state.user;
+  export const selectUser = (state: IAppState) => state.taUser;
 
   export const selectUserProfile = createSelector(
     selectUser,
