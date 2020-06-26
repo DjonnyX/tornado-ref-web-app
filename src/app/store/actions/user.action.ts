@@ -21,6 +21,12 @@ export enum UserActionTypes {
   USER_RESET_PASSWORD_REQUEST = "TORNADO/user-reset-password:request",
   USER_RESET_PASSWORD_SUCCESS = "TORNADO/user-reset-password:success",
   USER_RESET_PASSWORD_ERROR = "TORNADO/user-reset-password:error",
+
+  SIGNOUT_REQUEST = "TORNADO/user/signout:request",
+  SIGNOUT_SUCCESS = "TORNADO/user/signout:success",
+  SIGNOUT_ERROR = "TORNADO/user/signout:error",
+
+  CLEAR_PROFILE = "TORNADO/user/signout:error",
 }
 
 export namespace UserActions {
@@ -75,5 +81,22 @@ export namespace UserActions {
   export const userResetPasswordError = createAction(
     UserActionTypes.USER_RESET_PASSWORD_ERROR,
     props<{ error: string }>()
+  );
+
+  // signout
+  export const signoutRequest = createAction(
+    UserActionTypes.SIGNOUT_REQUEST,
+  );
+  export const signoutSuccess = createAction(
+    UserActionTypes.SIGNOUT_SUCCESS,
+  );
+  export const signoutError = createAction(
+    UserActionTypes.SIGNOUT_ERROR,
+    props<{ error: string }>()
+  );
+
+  // clear profile
+  export const clearProfile = createAction(
+    UserActionTypes.CLEAR_PROFILE,
   );
 }

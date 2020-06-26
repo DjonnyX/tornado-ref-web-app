@@ -23,12 +23,17 @@ export class AppComponent {
         select(CapabilitiesSelectors.selectReturnUrl)
       ),
     ).subscribe(([token, returnUrl]) => {
+      // signin
       if (!!token) {
         if (!!returnUrl) {
           this._router.navigate([returnUrl]);
         } else {
           this._router.navigate(["admin"]);
         }
+      }
+      // signout
+      else {
+        this._router.navigate(["signin"]);
       }
     });
   }

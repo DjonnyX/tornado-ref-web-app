@@ -59,6 +59,24 @@ export default class UserEffects {
     )
   );
 
+  public readonly signoutRequest = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.signoutRequest),
+      switchMap(_ => {
+        return this._apiService.signout().pipe(
+          mergeMap(_ => {
+            return [UserActions.clearProfile(), UserActions.signoutSuccess()];
+          }),
+          map(v => v),
+          catchError((error: Error) => {
+            this._notificationService.notify(error.message);
+            return of(UserActions.signoutError({ error: error.message }))
+          }),
+        );
+      })
+    )
+  );
+
   public readonly userForgotPasswordRequest = createEffect(() =>
     this._actions$.pipe(
       ofType(UserActions.userForgotPasswordRequest),

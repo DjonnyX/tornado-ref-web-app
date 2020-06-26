@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable, forkJoin } from 'rxjs';
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from 'rxjs';
 import { IUserProfile } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
   IUserForgotPasswordResponse
 } from './interfaces';
-import { map, take, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
@@ -18,19 +18,6 @@ import { UserSelectors } from '@store/selectors';
 export class ApiService {
 
   private _token: string;
-
-  /*
-  , {
-        headers: {
-          ...this.protectHeaders(),
-        }
-      }
-      */
-  private protectHeaders = (): {[x: string]: string} => {
-    return {
-      authorization: this._token,
-    }
-  };
 
   constructor(private _http: HttpClient, private _store: Store<IAppState>) {
     this._store.pipe(
@@ -52,6 +39,18 @@ export class ApiService {
   public signup(params: IUserSignupRequest): Observable<{}> {
     return this._http
       .post<IUserSignupResponse>("api/v1/auth/signup", params)
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public signout(): Observable<{}> {
+    return this._http
+      .post<any>("api/v1/auth/signout", {}, {
+        headers: {
+          authorization: this._token,
+        },
+      })
       .pipe(
         map(res => res.data),
       );

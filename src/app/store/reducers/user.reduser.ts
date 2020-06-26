@@ -6,6 +6,7 @@ export const initialState: IUserState = {
   loading: false,
   isSigninProgress: false,
   isSignupProgress: false,
+  isSignoutProgress: false,
   isForgotPasswordProgress: false,
   isResetPasswordProgress: false,
   error: undefined,
@@ -14,6 +15,12 @@ export const initialState: IUserState = {
 
 const userReducer = createReducer(
   initialState,
+  on(UserActions.clearProfile, state => {
+    return {
+      ...state,
+      profile: undefined,
+    };
+  }),
   on(UserActions.userSigninRequest, state => {
     return {
       ...state,
@@ -26,6 +33,13 @@ const userReducer = createReducer(
       ...state,
       loading: true,
       isSignupProgress: true,
+    };
+  }),
+  on(UserActions.signoutRequest, state => {
+    return {
+      ...state,
+      loading: true,
+      isSignoutProgress: true,
     };
   }),
   on(UserActions.userForgotPasswordRequest, state => {
@@ -59,6 +73,14 @@ const userReducer = createReducer(
       isSignupProgress: false,
     };
   }),
+  on(UserActions.signoutError, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      loading: false,
+      isSignoutProgress: false,
+    };
+  }),
   on(UserActions.userResetPasswordError, (state, { error }) => {
     return {
       ...state,
@@ -90,6 +112,14 @@ const userReducer = createReducer(
       error: undefined,
       loading: false,
       isSignupProgress: false,
+    };
+  }),
+  on(UserActions.signoutSuccess, (state) => {
+    return {
+      ...state,
+      error: undefined,
+      loading: false,
+      isSignoutProgress: false,
     };
   }),
   on(UserActions.userResetPasswordSuccess, (state) => {

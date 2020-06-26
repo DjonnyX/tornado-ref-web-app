@@ -9,6 +9,7 @@ import { AdminSelectors } from '@store/selectors';
 import { INavRoute } from './interfaces';
 import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
+import { UserActions } from '@store/actions/user.action';
 
 @Component({
   selector: 'ta-admin',
@@ -92,7 +93,9 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     this.closeSidenav();
   }
 
-  logout() { }
+  signout() {
+    this._store.dispatch(UserActions.signoutRequest());
+  }
 
   ngOnDestroy() {
     super.ngOnDestroy();
