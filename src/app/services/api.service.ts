@@ -5,12 +5,17 @@ import { IUserProfile } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
-  IUserForgotPasswordResponse
+  IUserForgotPasswordResponse,
+  IProductsGetResponse,
+  IProductsCreateResponse,
+  IProductsUpdateResponse,
+  IProductsDeleteResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
+import { IProduct } from '@app/models/product.model';
 
 @Injectable({
   providedIn: 'root'
@@ -91,9 +96,36 @@ export class ApiService {
       });
   }
 
-  public getProducts(): Observable<{}> {
+  public getProducts(): Observable<IProductsGetResponse> {
     return this._http
-      .get<any>("api/v1/products", {
+      .get<IProductsGetResponse>("api/v1/products", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createProduct(product: IProduct): Observable<IProductsCreateResponse> {
+    return this._http
+      .post<IProductsCreateResponse>("api/v1/products", product, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateProduct(id: string, product: IProduct): Observable<IProductsUpdateResponse> {
+    return this._http
+      .put<IProductsUpdateResponse>(`api/v1/products/${id}`, product, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteProduct(id: string): Observable<IProductsDeleteResponse> {
+    return this._http
+      .delete<IProductsDeleteResponse>(`api/v1/products/${id}`, {
         headers: {
           authorization: this._token,
         },

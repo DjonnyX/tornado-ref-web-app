@@ -8,6 +8,11 @@ import { IUserResetPasswordRequest } from './user-reset-password-request.interfa
 import { IUserResetPasswordResponse } from './user-reset-password-response.interface';
 import { IUserForgotPasswordRequest } from './user-forgot-password-request.interface';
 import { IUserForgotPasswordResponse } from './user-forgot-password-response.interface';
+import { IProductsGetResponse } from './products-get-response.interface';
+import { IProductsCreateResponse } from './products-create-response.interface';
+import { IProductsUpdateResponse } from './products-update-response.interface';
+import { IProductsDeleteResponse } from './products-delete-response.interface';
+import { IMetaRefsResponse } from './meta-refs-response.interface';
 
 export {
     IUserSigninRequest,
@@ -20,4 +25,9 @@ export {
     IUserResetPasswordResponse,
     IUserForgotPasswordRequest,
     IUserForgotPasswordResponse,
+    IProductsGetResponse,
+    IProductsCreateResponse,
+    IProductsUpdateResponse,
+    IProductsDeleteResponse,
+    IMetaRefsResponse,
 }
