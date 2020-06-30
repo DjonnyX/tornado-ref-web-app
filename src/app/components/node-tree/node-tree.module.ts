@@ -6,6 +6,9 @@ import { NodeTreeComponent } from './node-tree.component';
   declarations: [
     NodeTreeComponent,
   ],
+  exports: [
+    NodeTreeComponent,
+  ],
   imports: [
     CommonModule
   ]

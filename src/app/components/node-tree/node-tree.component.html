@@ -1,6 +1,6 @@
-<div *ngFor="node of collection">
+<div *ngFor="let node of collection">
     <div>
         {{node.name}}
     </div>
+    <ta-node-tree *ngIf="!!node.children" [collection]="node.children"></ta-node-tree>
 </div>
-<ta-node-tree *ngIf="!!collection.children" [collection]="collection.children"></ta-node-tree>

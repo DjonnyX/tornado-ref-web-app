@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { INode } from '@models';
 
 @Component({
   selector: 'ta-node-tree',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./node-tree.component.scss']
 })
 export class NodeTreeComponent implements OnInit {
+
+  @Input() collection: Array<INode>;
 
   constructor() { }
 
