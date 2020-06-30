@@ -1,1 +1,6 @@
-<p>node-tree works!</p>
+<div *ngFor="node of collection">
+    <div>
+        {{node.name}}
+    </div>
+</div>
+<ta-node-tree *ngIf="!!collection.children" [collection]="collection.children"></ta-node-tree>
