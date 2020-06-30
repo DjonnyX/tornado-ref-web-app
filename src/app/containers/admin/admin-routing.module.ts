@@ -13,6 +13,13 @@ const routes: Routes = [
           import('@containers/menu-tree-editor/menu-tree-editor.module').then(
             module => module.MenuTreeEditorModule,
           )
+      },
+      {
+        path: 'products',
+        loadChildren: () =>
+          import('@containers/products-editor/products-editor.module').then(
+            module => module.ProductsEditorModule,
+          )
       }
     ]
   }
