@@ -6,6 +6,8 @@ $entity-size: px2em(140);
 $entity-button-menu-size: px2em(32);
 
 @mixin button() {
+    user-select: none;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     width: 100%;
@@ -49,8 +51,8 @@ $entity-button-menu-size: px2em(32);
             align-items: center;
             width: $entity-button-menu-size;
             height: $entity-button-menu-size;
-            top: $gap;
-            right: $gap;
+            top: 0;
+            right: 0;
             color: $primary-700;
 
             .icon {
