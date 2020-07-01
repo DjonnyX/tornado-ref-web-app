@@ -106,6 +106,7 @@ export class ApiService {
   }
 
   public createProduct(product: IProduct): Observable<IProductsCreateResponse> {
+    console.log(product)
     return this._http
       .post<IProductsCreateResponse>("api/v1/products", product, {
         headers: {

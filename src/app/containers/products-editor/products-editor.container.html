@@ -1,1 +1,2 @@
-<p>products-editor works!</p>
+<ta-products-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
+(create)="createProduct($event)" (delete)="deleteProduct($event)"></ta-products-editor-component>

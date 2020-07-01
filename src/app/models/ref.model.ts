@@ -3,7 +3,3 @@ export interface IRef {
     version: number;
     lastUpdate: number;
 }
-
-export interface IMetaRefsResponse {
-    ref: IRef;
-}

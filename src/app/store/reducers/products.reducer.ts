@@ -4,7 +4,7 @@ import { ProductsActions } from '@store/actions/products.action';
 import { IProduct } from '@app/models/product.model';
 
 export const initialState: IProductsState = {
-    ref: undefined,
+    meta: undefined,
     loading: false,
     error: undefined,
     collection: undefined,
@@ -29,7 +29,7 @@ const productsReducer = createReducer(
         return {
             ...state,
             collection,
-            ref: meta,
+            meta,
             error: undefined,
             loading: false,
         };
@@ -38,7 +38,7 @@ const productsReducer = createReducer(
         return {
             ...state,
             collection: [...state.collection, product],
-            ref: meta,
+            meta,
             error: undefined,
             loading: false,
         };
@@ -53,23 +53,21 @@ const productsReducer = createReducer(
         return {
             ...state,
             collection,
-            ref: meta,
+            meta,
             error: undefined,
             loading: false,
         };
     }),
     on(ProductsActions.deleteSuccess, (state, { id, meta }) => {
         const existsProductIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<IProduct>;
+        let collection: Array<IProduct> = [...state.collection];
         if (existsProductIndex > -1) {
             collection.splice(existsProductIndex, 1);
-        } else {
-            collection = state.collection;
         }
         return {
             ...state,
             collection,
-            ref: meta,
+            meta,
             error: undefined,
             loading: false,
         };

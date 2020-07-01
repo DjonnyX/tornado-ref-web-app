@@ -6,11 +6,11 @@ export namespace ProductsSelectors {
 
   export const selectCollection = createSelector(
     selectProducts,
-    state => state.collection
+    state => state.collection,
   );
 
   export const selectRefInfo = createSelector(
     selectProducts,
-    state => state.ref
+    state => !!state.meta ? state.meta.ref : undefined,
   );
 }

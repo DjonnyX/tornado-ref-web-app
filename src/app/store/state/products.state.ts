@@ -3,6 +3,6 @@ import { IProduct } from '@app/models/product.model';
 import { IMetaRefsResponse } from '@services';
 
 export interface IProductsState extends IBaseState {
-    ref: IMetaRefsResponse;
+    meta: IMetaRefsResponse;
     collection: Array<IProduct>;
 }

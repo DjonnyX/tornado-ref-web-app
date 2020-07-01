@@ -1,6 +1,7 @@
 import { NodeTypes } from '@app/enums/node-types.enum';
+import { IEntity } from './entity.model';
 
-export interface INode {
+export interface INode extends IEntity {
     /**
      * Тип нода
      */

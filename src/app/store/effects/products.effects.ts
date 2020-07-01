@@ -36,7 +36,12 @@ export default class ProductsEffects {
         this._actions$.pipe(
             ofType(ProductsActions.createRequest),
             switchMap(product => {
-                return this._apiService.createProduct(product).pipe(
+                return this._apiService.createProduct({
+                    name: product.name,
+                    description: product.description,
+                    tags: product.tags,
+                    receipt: product.receipt,
+                }).pipe(
                     mergeMap(res => {
                         return [ProductsActions.createSuccess({ product: res.data, meta: res.meta })];
                     }),

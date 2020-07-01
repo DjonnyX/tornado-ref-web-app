@@ -26,6 +26,7 @@ $ta-theme: mat-light-theme($ta-primary, $ta-accent, $ta-warn);
 @include angular-material-theme($ta-theme);
 
 // Export theme colors
+$background-color: #ffffff;
 $primary: mat-color($ta-primary);
 $primary-100: lighten(mat-color($ta-primary), 50);
 $primary-700: darken(mat-color($ta-primary), 14);

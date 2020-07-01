@@ -1,0 +1,30 @@
+<p>
+    <span>ref v.{{refInfo.version}}</span>
+    <span>changed {{formatLastUpdate()}}</span>
+</p>
+<div class="entities-wrapper">
+    <div class="entity" (click)="editProduct(product)" *ngFor="let product of collection">
+        <div matRipple class="entity-active-zone mat-elevation-z1">
+            <div class="content">
+                {{product.name}}
+            </div>
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="editProduct(product)"
+            aria-label="Menu">
+            <mat-icon class="icon">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editProduct(product)">
+                <mat-icon>edit</mat-icon>
+                <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="deleteProduct(product)">
+                <mat-icon>delete_forever</mat-icon>
+                <span>Delete</span>
+            </button>
+        </mat-menu>
+    </div>
+    <div matRipple class="button-add" (click)="createProduct()">
+        add
+    </div>
+</div>
