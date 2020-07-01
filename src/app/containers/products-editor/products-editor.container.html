@@ -1,2 +1,4 @@
-<ta-products-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
-(create)="createProduct($event)" (delete)="deleteProduct($event)"></ta-products-editor-component>
+<div class="query-progress-container" *queryProgress="isProcess$ | async">
+    <ta-products-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
+        (create)="createProduct($event)" (delete)="deleteProduct($event)"></ta-products-editor-component>
+</div>

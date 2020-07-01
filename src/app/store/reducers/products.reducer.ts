@@ -6,22 +6,80 @@ import { IProduct } from '@app/models/product.model';
 export const initialState: IProductsState = {
     meta: undefined,
     loading: false,
+    isGetProcess: false,
+    isCreateProcess: false,
+    isUpdateProcess: false,
+    isDeleteProcess: false,
     error: undefined,
     collection: undefined,
+    new: undefined,
 };
 
 const productsReducer = createReducer(
     initialState,
-    on(ProductsActions.getAllRequest, ProductsActions.createRequest, ProductsActions.updateRequest, ProductsActions.deleteRequest, state => {
+    on(ProductsActions.newProduct, (state, { product }) => {
         return {
             ...state,
+            new: product,
+        };
+    }),
+    on(ProductsActions.getAllRequest, state => {
+        return {
+            ...state,
+            isGetProcess: true,
             loading: true,
         };
     }),
-    on(ProductsActions.getAllError, ProductsActions.createError, ProductsActions.updateError, ProductsActions.deleteError, (state, { error }) => {
+    on(ProductsActions.createRequest, state => {
+        return {
+            ...state,
+            isCreateProcess: true,
+            loading: true,
+        };
+    }),
+    on(ProductsActions.updateRequest, state => {
+        return {
+            ...state,
+            isUpdateProcess: true,
+            loading: true,
+        };
+    }),
+    on(ProductsActions.deleteRequest, state => {
+        return {
+            ...state,
+            isDeleteProcess: true,
+            loading: true,
+        };
+    }),
+    on(ProductsActions.getAllError, (state, { error }) => {
         return {
             ...state,
             error,
+            isGetProcess: false,
+            loading: false,
+        };
+    }),
+    on(ProductsActions.createError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isCreateProcess: false,
+            loading: false,
+        };
+    }),
+    on(ProductsActions.updateError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isUpdateProcess: false,
+            loading: false,
+        };
+    }),
+    on(ProductsActions.deleteError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isDeleteProcess: false,
             loading: false,
         };
     }),
@@ -31,6 +89,7 @@ const productsReducer = createReducer(
             collection,
             meta,
             error: undefined,
+            isGetProcess: false,
             loading: false,
         };
     }),
@@ -40,6 +99,7 @@ const productsReducer = createReducer(
             collection: [...state.collection, product],
             meta,
             error: undefined,
+            isCreateProcess: false,
             loading: false,
         };
     }),
@@ -55,6 +115,7 @@ const productsReducer = createReducer(
             collection,
             meta,
             error: undefined,
+            isUpdateProcess: false,
             loading: false,
         };
     }),
@@ -69,6 +130,7 @@ const productsReducer = createReducer(
             collection,
             meta,
             error: undefined,
+            isDeleteProcess: false,
             loading: false,
         };
     }),

@@ -1,26 +1,27 @@
 @import "../themes/theme";
 @import "../utils/px2em";
 
-$gap: 0.24rem;
+$gap: px2em(10);
 $entity-size: px2em(140);
 $entity-button-menu-size: px2em(32);
 
 @mixin button() {
     display: flex;
     justify-content: center;
-    width: $entity-size;
+    width: 100%;
     height: $entity-size;
     border-radius: 4px;
-    margin: $gap;
 }
 
 .editor {
     color: $primary-700;
 
     .entities-wrapper {
-        display: flex;
-        flex-flow: row wrap;
-        margin: -$gap;
+        display: grid;
+        gap: $gap;
+        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+        grid-auto-flow: dense;
+        grid-auto-rows: auto;
         padding: px2em(20);
     }
 
@@ -36,8 +37,9 @@ $entity-button-menu-size: px2em(32);
 
         .content {
             font-size: 0.8rem;
-            line-height: 1;
-            padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+            line-height: 1.2;
+            overflow: hidden;
+            margin: 0.6rem 1.2rem 0.6rem 0.6rem;
         }
 
         .entity-menu-button {
@@ -58,8 +60,7 @@ $entity-button-menu-size: px2em(32);
     }
 
     .button-add {
-        width: $entity-size;
+        width: 100%;
         height: $entity-size;
-        margin: $gap;
     }
 }

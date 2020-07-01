@@ -4,5 +4,10 @@ import { IMetaRefsResponse } from '@services';
 
 export interface IProductsState extends IBaseState {
     meta: IMetaRefsResponse;
-    collection: Array<IProduct>;
+    isGetProcess: boolean;
+    isCreateProcess: boolean;
+    isUpdateProcess: boolean;
+    isDeleteProcess: boolean;
+    collection: Array<IProduct> | null;
+    new: IProduct | null;
 }

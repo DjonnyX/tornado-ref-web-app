@@ -6,6 +6,7 @@ import { ProductsSelectors } from '@store/selectors';
 import { IProduct } from '@app/models/product.model';
 import { ProductsActions } from '@store/actions/products.action';
 import { IRef } from '@models';
+import { Router, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 
 @Component({
   selector: 'ta-products-editor',
@@ -14,15 +15,21 @@ import { IRef } from '@models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsEditorContainer implements OnInit {
+  
+  public isProcess$: Observable<boolean>;
 
   public collection$: Observable<Array<IProduct>>;
 
   public refInfo$: Observable<IRef>;
 
-  constructor(private _store: Store<IAppState>) { }
+  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._store.dispatch(ProductsActions.getAllRequest());
+
+    this.isProcess$ = this._store.pipe(
+      select(ProductsSelectors.selectLoading),
+    );
 
     this.collection$ = this._store.pipe(
       select(ProductsSelectors.selectCollection),
@@ -34,7 +41,10 @@ export class ProductsEditorContainer implements OnInit {
   }
 
   createProduct(product: IProduct): void {
-    this._store.dispatch(ProductsActions.createRequest(product));
+    this._router.navigate(["create"], {
+      relativeTo: this._activatedRoute,
+      queryParams: { returnUrl: this._router.routerState.snapshot.url }
+    });
   }
 
   deleteProduct(id: string): void {
