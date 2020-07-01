@@ -65,7 +65,9 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
       take(1),
       takeUntil(this.unsubscribe$),
     ).subscribe(result => {
-      this.delete.emit(product.id);
+      if (result) {
+        this.delete.emit(product.id);
+      }
     });
   }
 }

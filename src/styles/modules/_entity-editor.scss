@@ -7,7 +7,6 @@ $entity-button-menu-size: px2em(32);
 
 @mixin button() {
     display: flex;
-    align-items: center;
     justify-content: center;
     width: $entity-size;
     height: $entity-size;
@@ -15,47 +14,52 @@ $entity-button-menu-size: px2em(32);
     margin: $gap;
 }
 
-.entities-wrapper {
-    display: flex;
-    flex-flow: row wrap;
-    margin: -$gap;
-}
+.editor {
+    color: $primary-700;
 
-.entity {
-    position: relative;
-
-    .entity-active-zone {
-        @include button();
-        color: $primary-700;
-        background: $background-color;
-        box-sizing: border-box;
-    }
-
-    .content {
-        font-size: 0.8rem;
-        line-height: 1;
-        padding: 0.8rem;
-    }
-
-    .entity-menu-button {
-        position: absolute;
+    .entities-wrapper {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        width: $entity-button-menu-size;
-        height: $entity-button-menu-size;
-        top: $gap;
-        right: $gap;
-        color: $primary-700;
+        flex-flow: row wrap;
+        margin: -$gap;
+        padding: px2em(20);
+    }
 
-        .icon {
+    .entity {
+        position: relative;
+
+        .entity-active-zone {
+            @include button();
+            color: $primary-700;
+            background: $background-color;
+            box-sizing: border-box;
+        }
+
+        .content {
             font-size: 0.8rem;
+            line-height: 1;
+            padding: 0.6rem 1.2rem 0.6rem 0.6rem;
+        }
+
+        .entity-menu-button {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: $entity-button-menu-size;
+            height: $entity-button-menu-size;
+            top: $gap;
+            right: $gap;
+            color: $primary-700;
+
+            .icon {
+                font-size: 0.8rem;
+            }
         }
     }
-}
 
-.button-add {
-    @include button();
-    color: white;
-    background-color: $primary-700;
+    .button-add {
+        width: $entity-size;
+        height: $entity-size;
+        margin: $gap;
+    }
 }

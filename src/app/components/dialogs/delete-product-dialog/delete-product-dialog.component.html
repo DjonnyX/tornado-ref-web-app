@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>Delete the product?</h2>
+<h2 mat-dialog-title><strong>Delete the product?</strong></h2>
 <mat-dialog-content class="mat-typography">
-  <p>"{{data.entity.name}}" product will be permanently deleted</p>
+    <p>"{{data.entity.name}}" will be permanently deleted</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <button color="accent" mat-flat-button [mat-dialog-close]="true" cdkFocusInitial>Delete</button>
+    <button mat-button mat-dialog-close>Cancel</button>
+    <button color="accent" mat-flat-button [mat-dialog-close]="true">Delete</button><!-- cdkFocusInitial-->
 </mat-dialog-actions>
