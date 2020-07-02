@@ -26,8 +26,7 @@ export class ApiService {
 
   constructor(private _http: HttpClient, private _store: Store<IAppState>) {
     this._store.pipe(
-      select(UserSelectors.selectUserProfile),
-      map(profile => !!profile ? profile.token : undefined),
+      select(UserSelectors.selectToken),
     ).subscribe(token => {
       this._token = token;
     })

@@ -17,7 +17,7 @@
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
             <mat-nav-list role="listitem">
                 <a *ngFor="let item of roteCollection; let i = index;" mat-list-item type="button"
-                    (click)="selectRoute(i)" [class.active]="(currentRouteIndex$ | async) === i">
+                    (click)="selectRoute(i)" [class.active]="(currentRouteIndex$ | async) === i" [routerLink]="item.route">
                     <span class="label">{{item.name}}</span>
                 </a>
             </mat-nav-list>

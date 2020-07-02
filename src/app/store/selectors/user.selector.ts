@@ -9,6 +9,11 @@ export namespace UserSelectors {
     state => state.profile
   );
 
+  export const selectToken = createSelector(
+    selectUser,
+    state => !!state.profile ? state.profile.token : undefined,
+  );
+
   export const selectIsSigninProcess = createSelector(
     selectUser,
     state => state.isSigninProgress
