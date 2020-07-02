@@ -4,28 +4,28 @@
         <span>changed {{formatLastUpdate()}}</span>
     </p>
     <div class="entities-wrapper">
-        <div class="entity" (click)="editProduct(product)" *ngFor="let product of collection">
-            <div matRipple class="entity-active-zone mat-elevation-z1">
+        <div class="entity" (click)="onEditProduct(product)" *ngFor="let product of collection">
+            <div matRipple class="entity-active-zone">
                 <div class="content">
                     {{product.name}}
                 </div>
             </div>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="editProduct(product)"
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
                 aria-label="Menu">
                 <mat-icon class="icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
-                <button mat-menu-item (click)="editProduct(product)">
+                <button mat-menu-item (click)="onEditProduct(product)">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>
                 </button>
-                <button mat-menu-item (click)="deleteProduct(product)">
+                <button mat-menu-item (click)="onDeleteProduct(product)">
                     <mat-icon>delete_forever</mat-icon>
                     <span>Delete</span>
                 </button>
             </mat-menu>
         </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="createProduct()">
+        <button color="accent" mat-flat-button class="button-add" (click)="onCreateProduct()">
             create
         </button>
     </div>

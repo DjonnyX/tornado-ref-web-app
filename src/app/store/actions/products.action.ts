@@ -1,9 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IUserProfile } from '@models';
-import {
-    IUserSigninRequest,
-    IUserResetPasswordRequest, IUserForgotPasswordRequest, IMetaRefsResponse
-} from '@services';
+import { IMetaRefsResponse } from '@services';
 import { IProduct } from '@app/models/product.model';
 
 export enum ProductsActionTypes {
@@ -28,6 +24,8 @@ export enum ProductsActionTypes {
     DELETE_ERROR = "TORNADO/products/delete:error",
 
     NEW = "TORNADO/products/new",
+
+    EDIT = "TORNADO/products/edit",
 }
 
 export namespace ProductsActions {
@@ -75,7 +73,7 @@ export namespace ProductsActions {
     // update
     export const updateRequest = createAction(
         ProductsActionTypes.UPDATE_REQUEST,
-        props<{id: string, product: IProduct}>()
+        props<{ id: string, product: IProduct }>()
     );
     export const updateSuccess = createAction(
         ProductsActionTypes.UPDATE_SUCCESS,
@@ -89,7 +87,7 @@ export namespace ProductsActions {
     // delete
     export const deleteRequest = createAction(
         ProductsActionTypes.DELETE_REQUEST,
-        props<{id: string}>()
+        props<{ id: string }>()
     );
     export const deleteSuccess = createAction(
         ProductsActionTypes.DELETE_SUCCESS,
@@ -100,8 +98,13 @@ export namespace ProductsActions {
         props<{ error: string }>()
     );
 
-    export const newProduct = createAction(
+    export const setNewProduct = createAction(
         ProductsActionTypes.NEW,
+        props<{ product: IProduct }>()
+    );
+
+    export const setEditProduct = createAction(
+        ProductsActionTypes.EDIT,
         props<{ product: IProduct }>()
     );
 }

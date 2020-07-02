@@ -9,5 +9,6 @@ export interface IProductsState extends IBaseState {
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
     collection: Array<IProduct> | null;
-    new: IProduct | null;
+    newProduct: IProduct | null;
+    editProduct: IProduct | null;
 }

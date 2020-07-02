@@ -14,6 +14,13 @@ const routes: Routes = [
         module => module.ProductCreatorModule,
       )
   },
+  {
+    path: 'edit',
+    loadChildren: () =>
+      import('@containers/product-creator/product-creator.module').then(
+        module => module.ProductCreatorModule,
+      )
+  },
 ];
 
 @NgModule({

@@ -40,7 +40,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return moment(this.refInfo.lastUpdate).format("DD MM YYYY hh:mm:ss");
   }
 
-  createProduct(): void {
+  onCreateProduct(): void {
     this.create.emit({
       name: "Большое блюдо с розмарином из крокодиловой кожи",
       description: "sdfsdfeggrsdr",
@@ -49,11 +49,16 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     })
   }
 
-  editProduct(product: IProduct): void {
-
+  onShowMenu($event): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
   }
 
-  deleteProduct(product: IProduct): void {
+  onEditProduct(product: IProduct): void {
+    this.edit.emit(product);
+  }
+
+  onDeleteProduct(product: IProduct): void {
     const dialogRef = this.dialog.open(DeleteProductDialogComponent,
       {
         data: {

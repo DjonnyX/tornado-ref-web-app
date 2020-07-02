@@ -12,15 +12,22 @@ export const initialState: IProductsState = {
     isDeleteProcess: false,
     error: undefined,
     collection: undefined,
-    new: undefined,
+    newProduct: undefined,
+    editProduct: undefined,
 };
 
 const productsReducer = createReducer(
     initialState,
-    on(ProductsActions.newProduct, (state, { product }) => {
+    on(ProductsActions.setNewProduct, (state, { product }) => {
         return {
             ...state,
-            new: product,
+            newProduct: product,
+        };
+    }),
+    on(ProductsActions.setEditProduct, (state, { product }) => {
+        return {
+            ...state,
+            editProduct: product,
         };
     }),
     on(ProductsActions.getAllRequest, state => {
@@ -108,7 +115,7 @@ const productsReducer = createReducer(
         let collection = [...state.collection];
         if (existsProductIndex > -1) {
             collection.splice(existsProductIndex, 1);
-            this.splice( existsProductIndex, 0, product );
+            collection.splice(existsProductIndex, 0, product);
         }
         return {
             ...state,

@@ -1,9 +1,12 @@
 @import "../themes/theme";
 @import "../utils/px2em";
 
-$gap: px2em(10);
-$entity-size: px2em(140);
-$entity-button-menu-size: px2em(32);
+$gap-m: px2em(10);
+$gap-d: px2em(10);
+$entity-size-m: px2em(140);
+$entity-size-d: px2em(190);
+$entity-button-menu-size-m: px2em(32);
+$entity-button-menu-size-d: px2em(38);
 
 @mixin button() {
     user-select: none;
@@ -11,7 +14,6 @@ $entity-button-menu-size: px2em(32);
     display: flex;
     justify-content: center;
     width: 100%;
-    height: $entity-size;
     border-radius: 4px;
 }
 
@@ -20,11 +22,8 @@ $entity-button-menu-size: px2em(32);
 
     .entities-wrapper {
         display: grid;
-        gap: $gap;
-        grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
         grid-auto-flow: dense;
         grid-auto-rows: auto;
-        padding: px2em(20);
     }
 
     .entity {
@@ -38,10 +37,7 @@ $entity-button-menu-size: px2em(32);
         }
 
         .content {
-            font-size: 0.8rem;
-            line-height: 1.2;
             overflow: hidden;
-            margin: 0.6rem 1.2rem 0.6rem 0.6rem;
         }
 
         .entity-menu-button {
@@ -49,20 +45,83 @@ $entity-button-menu-size: px2em(32);
             display: flex;
             justify-content: center;
             align-items: center;
-            width: $entity-button-menu-size;
-            height: $entity-button-menu-size;
             top: 0;
             right: 0;
             color: $primary-700;
-
-            .icon {
-                font-size: 0.8rem;
-            }
         }
     }
 
     .button-add {
         width: 100%;
-        height: $entity-size;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .editor {
+        .entities-wrapper {
+            gap: $gap-d;
+            grid-template-columns: repeat(auto-fill, minmax($entity-size-d, 1fr));
+            padding: px2em(36);
+        }
+
+        .entity {
+            .entity-active-zone {
+                height: $entity-size-d;
+            }
+
+            .content {
+                font-size: 0.9rem;
+                line-height: 1.2;
+                margin: 1.2rem 1.8rem 1.6rem 1.2rem;
+            }
+
+            .entity-menu-button {
+                width: $entity-button-menu-size-d;
+                height: $entity-button-menu-size-d;
+
+                .icon {
+                    font-size: 1.2rem;
+                }
+            }
+        }
+
+        .button-add {
+            height: $entity-size-d;
+        }
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .editor {
+        .entities-wrapper {
+            gap: $gap-m;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            padding: px2em(20);
+        }
+
+        .entity {
+            .entity-active-zone {
+                height: $entity-size-m;
+            }
+
+            .content {
+                font-size: 0.73rem;
+                line-height: 1.2;
+                margin: 0.9rem 1.3rem 0.9rem 0.9rem;
+            }
+
+            .entity-menu-button {
+                width: $entity-button-menu-size-m;
+                height: $entity-button-menu-size-m;
+
+                .icon {
+                    font-size: 0.8rem;
+                }
+            }
+        }
+
+        .button-add {
+            height: $entity-size-m;
+        }
     }
 }

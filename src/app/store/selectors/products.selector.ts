@@ -14,9 +14,14 @@ export namespace ProductsSelectors {
     state => !!state.meta ? state.meta.ref : undefined,
   );
 
-  export const selectNew = createSelector(
+  export const selectNewProduct = createSelector(
     selectProducts,
-    state => state.new,
+    state => state.newProduct,
+  );
+
+  export const selectEditProduct = createSelector(
+    selectProducts,
+    state => state.editProduct,
   );
 
   export const selectLoading = createSelector(

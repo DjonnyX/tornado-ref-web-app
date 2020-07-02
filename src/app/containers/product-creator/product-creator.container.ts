@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { IProduct } from '@app/models/product.model';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -10,13 +10,18 @@ import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'ta-product-creator',
   templateUrl: './product-creator.container.html',
-  styleUrls: ['./product-creator.container.scss']
+  styleUrls: ['./product-creator.container.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCreatorContainer implements OnInit {
-  
+
   public isProcess$: Observable<boolean>;
 
   private _returnUrl: string;
+
+  product$: Observable<IProduct>;
+
+  isEditMode = false;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
@@ -25,11 +30,28 @@ export class ProductCreatorContainer implements OnInit {
       select(ProductsSelectors.selectIsCreateProcess),
     );
 
+    this.isEditMode = !!this._activatedRoute.snapshot.queryParams["isEditMode"];
+
+    if (this.isEditMode) {
+      this.product$ = this._store.pipe(
+        select(ProductsSelectors.selectEditProduct),
+      );
+    } else {
+      this.product$ = this._store.pipe(
+        select(ProductsSelectors.selectNewProduct),
+      );
+    }
+
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
   }
 
-  onCreate(product: IProduct): void {
-    this._store.dispatch(ProductsActions.createRequest(product));
+  onSubmit(product: IProduct): void {
+    if (this.isEditMode) {
+      this._store.dispatch(ProductsActions.updateRequest({ id: product.id, product }));
+    } else {
+      this._store.dispatch(ProductsActions.createRequest(product));
+    }
+    
     this._router.navigate([this._returnUrl]);
   }
 
