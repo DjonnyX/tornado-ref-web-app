@@ -47,11 +47,13 @@ export class ProductCreatorContainer implements OnInit {
 
   onSubmit(product: IProduct): void {
     if (this.isEditMode) {
+      this._store.dispatch(ProductsActions.setEditProduct({ product: undefined }));
       this._store.dispatch(ProductsActions.updateRequest({ id: product.id, product }));
     } else {
+      this._store.dispatch(ProductsActions.setNewProduct({ product: undefined }));
       this._store.dispatch(ProductsActions.createRequest(product));
     }
-    
+
     this._router.navigate([this._returnUrl]);
   }
 
