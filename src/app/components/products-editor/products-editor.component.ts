@@ -19,7 +19,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() refInfo: IRef;
 
-  @Output() create = new EventEmitter<IProduct>();
+  @Output() create = new EventEmitter<void>();
 
   @Output() edit = new EventEmitter<IProduct>();
 
@@ -40,18 +40,13 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return moment(this.refInfo.lastUpdate).format("DD MM YYYY hh:mm:ss");
   }
 
-  onCreateProduct(): void {
-    this.create.emit({
-      name: "Большое блюдо с розмарином из крокодиловой кожи",
-      description: "sdfsdfeggrsdr",
-      tags: [],
-      receipt: [],
-    })
-  }
-
   onShowMenu($event): void {
     event.stopImmediatePropagation();
     event.preventDefault();
+  }
+
+  onCreateProduct(): void {
+    this.create.emit();
   }
 
   onEditProduct(product: IProduct): void {
