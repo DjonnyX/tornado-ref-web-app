@@ -40,7 +40,7 @@ export class ProductsEditorContainer implements OnInit {
     );
   }
 
-  createProduct(product: IProduct): void {
+  onCreateProduct(product: IProduct): void {
     this._store.dispatch(ProductsActions.setNewProduct({ product }));
 
     this._router.navigate(["create"], {
@@ -49,7 +49,7 @@ export class ProductsEditorContainer implements OnInit {
     });
   }
 
-  editProduct(product: IProduct): void {
+  onEditProduct(product: IProduct): void {
     this._store.dispatch(ProductsActions.setEditProduct({ product }));
 
     this._router.navigate(["edit"], {
@@ -58,7 +58,7 @@ export class ProductsEditorContainer implements OnInit {
     });
   }
 
-  deleteProduct(id: string): void {
+  onDeleteProduct(id: string): void {
     this._store.dispatch(ProductsActions.deleteRequest({ id }));
   }
 }
