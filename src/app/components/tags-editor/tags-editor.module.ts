@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ProductsEditorComponent } from './products-editor.component';
+import { TagsEditorComponent } from './tags-editor.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button'
@@ -10,10 +10,10 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
 
 @NgModule({
   declarations: [
-    ProductsEditorComponent,
+    TagsEditorComponent,
   ],
   exports: [
-    ProductsEditorComponent,
+    TagsEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -25,4 +25,4 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
     DeleteEntityDialogModule,
   ]
 })
-export class ProductsEditorComponentModule { }
+export class TagsEditorComponentModule { }

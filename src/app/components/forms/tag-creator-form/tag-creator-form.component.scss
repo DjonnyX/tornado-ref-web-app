@@ -1,0 +1,27 @@
+@import "../../../../styles/modules/form";
+
+.tag-creator {
+    color: #000000;
+}
+
+@media screen and (min-width: 600px) {
+    .tag-creator {
+        padding: 20px;
+        .form {
+            border-radius: 4px;
+            padding: 20px;
+            background: #ffffff;
+        }
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .tag-creator {
+        background: #ffffff;
+        min-height: 100%;
+
+        .form {
+            padding: 20px;
+        }
+    }
+}

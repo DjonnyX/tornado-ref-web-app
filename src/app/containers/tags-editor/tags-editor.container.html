@@ -1,0 +1,4 @@
+<div class="query-progress-container" *queryProgress="isProcess$ | async">
+    <ta-tags-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
+        (create)="onCreateTag()" (edit)="onEditTag($event)" (delete)="onDeleteTag($event)"></ta-tags-editor-component>
+</div>

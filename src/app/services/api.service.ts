@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile } from '@models';
+import { IUserProfile, ITag } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -9,7 +9,11 @@ import {
   IProductsGetResponse,
   IProductsCreateResponse,
   IProductsUpdateResponse,
-  IProductsDeleteResponse
+  IProductsDeleteResponse,
+  ITagsGetResponse,
+  ITagsCreateResponse,
+  ITagsUpdateResponse,
+  ITagsDeleteResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -95,6 +99,7 @@ export class ApiService {
       });
   }
 
+  // products
   public getProducts(): Observable<IProductsGetResponse> {
     return this._http
       .get<IProductsGetResponse>("api/v1/products", {
@@ -105,7 +110,6 @@ export class ApiService {
   }
 
   public createProduct(product: IProduct): Observable<IProductsCreateResponse> {
-    console.log(product)
     return this._http
       .post<IProductsCreateResponse>("api/v1/products", product, {
         headers: {
@@ -126,6 +130,43 @@ export class ApiService {
   public deleteProduct(id: string): Observable<IProductsDeleteResponse> {
     return this._http
       .delete<IProductsDeleteResponse>(`api/v1/products/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  // tags
+  public getTags(): Observable<ITagsGetResponse> {
+    return this._http
+      .get<ITagsGetResponse>("api/v1/tags", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createTag(tag: ITag): Observable<ITagsCreateResponse> {
+    return this._http
+      .post<ITagsCreateResponse>("api/v1/tags", tag, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateTag(id: string, tag: ITag): Observable<ITagsUpdateResponse> {
+    return this._http
+      .put<ITagsUpdateResponse>(`api/v1/tags/${id}`, tag, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteTag(id: string): Observable<ITagsDeleteResponse> {
+    return this._http
+      .delete<ITagsDeleteResponse>(`api/v1/tags/${id}`, {
         headers: {
           authorization: this._token,
         },

@@ -5,17 +5,19 @@ import userReducer from './user.reduser';
 import adminReducer from './admin.reducer';
 import capabilitiesReducer from './capabilities.reducer';
 import productsReducer from './products.reducer';
+import tagsReducer from './tags.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
   taAdmin: adminReducer,
   taCapabilities: capabilitiesReducer,
   taProducts: productsReducer,
+  taTags: tagsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taProducts'],
+    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taProducts', 'taTags'],
     rehydrate: true,
   })(reducer);
 }

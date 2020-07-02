@@ -1,29 +1,30 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { IProduct } from '@app/models/product.model';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { ProductsActions } from '@store/actions/products.action';
 import { Observable } from 'rxjs';
 import { ProductsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
+import { TagsSelectors } from '@store/selectors/tags.selectors';
+import { ITag } from '@models';
+import { TagsActions } from '@store/actions/tags.action';
 
 @Component({
-  selector: 'ta-product-creator',
-  templateUrl: './product-creator.container.html',
-  styleUrls: ['./product-creator.container.scss'],
+  selector: 'ta-tag-creator',
+  templateUrl: './tag-creator.container.html',
+  styleUrls: ['./tag-creator.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
+export class TagCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
   private _returnUrl: string;
 
-  private _product: IProduct;
+  private _tag: ITag;
 
-  product$: Observable<IProduct>;
+  tag$: Observable<ITag>;
 
   isEditMode = false;
 
@@ -39,19 +40,19 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this.isEditMode = !!this._activatedRoute.snapshot.queryParams["isEditMode"];
 
     if (this.isEditMode) {
-      this.product$ = this._store.pipe(
-        select(ProductsSelectors.selectEditProduct),
+      this.tag$ = this._store.pipe(
+        select(TagsSelectors.selectEditTag),
       );
     } else {
-      this.product$ = this._store.pipe(
-        select(ProductsSelectors.selectNewProduct),
+      this.tag$ = this._store.pipe(
+        select(TagsSelectors.selectNewTag),
       );
     }
 
-    this.product$.pipe(
+    this.tag$.pipe(
       takeUntil(this.unsubscribe$),
-    ).subscribe(product => {
-      this._product = product;
+    ).subscribe(tag => {
+      this._tag = tag;
     })
 
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
@@ -61,25 +62,25 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
   }
 
-  onSubmit(product: IProduct): void {
+  onSubmit(tag: ITag): void {
     if (this.isEditMode) {
-      this._store.dispatch(ProductsActions.setEditProduct({ product: undefined }));
-      this._store.dispatch(ProductsActions.updateRequest({ id: product.id, product }));
+      this._store.dispatch(TagsActions.setEditTag({ tag: undefined }));
+      this._store.dispatch(TagsActions.updateRequest({ id: tag.id, tag }));
     } else {
-      this._store.dispatch(ProductsActions.setNewProduct({ product: undefined }));
-      this._store.dispatch(ProductsActions.createRequest(product));
+      this._store.dispatch(TagsActions.setNewTag({ tag: undefined }));
+      this._store.dispatch(TagsActions.createRequest(tag));
     }
 
     this._router.navigate([this._returnUrl]);
   }
 
-  onUpdate(product: IProduct): void {
-    const p = {...this._product, ...product};
-    
+  onUpdate(tag: ITag): void {
+    const t = { ...this._tag, ...tag };
+
     if (this.isEditMode) {
-      this._store.dispatch(ProductsActions.setEditProduct({ product: p }));
+      this._store.dispatch(TagsActions.setEditTag({ tag: t }));
     } else {
-      this._store.dispatch(ProductsActions.setNewProduct({ product: p }));
+      this._store.dispatch(TagsActions.setNewTag({ tag: t }));
     }
   }
 

@@ -1,27 +1,27 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import * as moment from 'moment';
-import { IProduct } from '@app/models/product.model';
 import { IRef } from '@app/models/ref.model';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
+import { ITag } from '@models';
 
 @Component({
-  selector: 'ta-products-editor-component',
-  templateUrl: './products-editor.component.html',
-  styleUrls: ['./products-editor.component.scss'],
+  selector: 'ta-tags-editor-component',
+  templateUrl: './tags-editor.component.html',
+  styleUrls: ['./tags-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ProductsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
+export class TagsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<IProduct>;
+  @Input() collection: Array<ITag>;
 
   @Input() refInfo: IRef;
 
   @Output() create = new EventEmitter<void>();
 
-  @Output() edit = new EventEmitter<IProduct>();
+  @Output() edit = new EventEmitter<ITag>();
 
   @Output() delete = new EventEmitter<string>();
 
@@ -45,20 +45,20 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     event.preventDefault();
   }
 
-  onCreateProduct(): void {
+  onCreateTag(): void {
     this.create.emit();
   }
 
-  onEditProduct(product: IProduct): void {
-    this.edit.emit(product);
+  onEditTag(tag: ITag): void {
+    this.edit.emit(tag);
   }
 
-  onDeleteProduct(product: IProduct): void {
+  onDeleteTag(tag: ITag): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          entity: product,
-          entityType: "product",
+          entity: tag,
+          entityType: "tag",
         },
       });
 
@@ -67,7 +67,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
       takeUntil(this.unsubscribe$),
     ).subscribe(result => {
       if (result) {
-        this.delete.emit(product.id);
+        this.delete.emit(tag.id);
       }
     });
   }

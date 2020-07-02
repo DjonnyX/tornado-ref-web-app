@@ -20,6 +20,13 @@ const routes: Routes = [
           import('@containers/products-editor/products-editor.module').then(
             module => module.ProductsEditorModule,
           )
+      },
+      {
+        path: 'tags',
+        loadChildren: () =>
+          import('@containers/tags-editor/tags-editor.module').then(
+            module => module.TagsEditorModule,
+          )
       }
     ]
   }

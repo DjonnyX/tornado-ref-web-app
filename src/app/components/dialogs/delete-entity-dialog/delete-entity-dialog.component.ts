@@ -4,14 +4,15 @@ import { IEntity } from '@models';
 
 interface IDialogData {
   entity: IEntity;
+  entityType: string;
 }
 
 @Component({
-  selector: 'ta-delete-product-dialog',
-  templateUrl: './delete-product-dialog.component.html',
-  styleUrls: ['./delete-product-dialog.component.scss']
+  selector: 'ta-delete-entity-dialog',
+  templateUrl: './delete-entity-dialog.component.html',
+  styleUrls: ['./delete-entity-dialog.component.scss']
 })
-export class DeleteProductDialogComponent implements OnInit {
+export class DeleteEntityDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 

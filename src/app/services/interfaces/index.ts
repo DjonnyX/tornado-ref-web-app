@@ -12,6 +12,10 @@ import { IProductsGetResponse } from './products-get-response.interface';
 import { IProductsCreateResponse } from './products-create-response.interface';
 import { IProductsUpdateResponse } from './products-update-response.interface';
 import { IProductsDeleteResponse } from './products-delete-response.interface';
+import { ITagsGetResponse } from './tags-get-response.interface';
+import { ITagsCreateResponse } from './tags-create-response.interface';
+import { ITagsUpdateResponse } from './tags-update-response.interface';
+import { ITagsDeleteResponse } from './tags-delete-response.interface';
 import { IMetaRefsResponse } from './meta-refs-response.interface';
 
 export {
@@ -29,5 +33,9 @@ export {
     IProductsCreateResponse,
     IProductsUpdateResponse,
     IProductsDeleteResponse,
+    ITagsGetResponse,
+    ITagsCreateResponse,
+    ITagsUpdateResponse,
+    ITagsDeleteResponse,
     IMetaRefsResponse,
 }
