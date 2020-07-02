@@ -15,14 +15,11 @@ import { extractURL } from './utils/url-extractor.util';
 })
 export class AppComponent {
 
-  private _currentUrl: string;
-
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
 
     this._router.events.pipe(
       filter(event => event instanceof NavigationStart)
     ).subscribe((event: NavigationStart) => {
-      this._currentUrl = event.url;
       switch (event.url) {
         case "/signin":
         case "/signup":
