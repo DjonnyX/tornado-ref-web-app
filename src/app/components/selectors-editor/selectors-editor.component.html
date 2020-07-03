@@ -1,7 +1,7 @@
 <div class="editor">
     <div class="state-info">
-        <span>ref v.{{refInfo.version}}</span>
-        <span>changed {{formatLastUpdate()}}</span>
+        <span class="state-info__version">v.{{refInfo.version}}</span>
+        <span class="state-info__dt"> at {{formatLastUpdate()}}</span>
     </div>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditSelector(selector)" *ngFor="let selector of collection">

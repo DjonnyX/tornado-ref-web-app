@@ -23,9 +23,11 @@ $entity-button-menu-size-d: px2em(38);
 
     .state-info {
         margin: 0;
-        padding: 14px 30px;
-        font-size: 0.73rem;
         color: rgba(255, 255, 255, 0.5);
+
+        &__version {
+            color: rgba(255, 215, 64, 0.75);
+        }
     }
 
     .entities-wrapper {
@@ -66,6 +68,11 @@ $entity-button-menu-size-d: px2em(38);
 
 @media screen and (min-width: 600px) {
     .editor {
+        .state-info {
+            padding: px2em(14) px2em(42);
+            font-size: 0.73rem;
+        }
+
         .entities-wrapper {
             gap: $gap-d;
             grid-template-columns: repeat(auto-fill, minmax($entity-size-d, 1fr));
@@ -101,6 +108,11 @@ $entity-button-menu-size-d: px2em(38);
 
 @media screen and (max-width: 599px) {
     .editor {
+        .state-info {
+            padding: px2em(12) px2em(24);
+            font-size: 0.73rem;
+        }
+
         .entities-wrapper {
             gap: $gap-m;
             grid-template-columns: repeat(auto-fill, minmax($entity-size-m, 1fr));

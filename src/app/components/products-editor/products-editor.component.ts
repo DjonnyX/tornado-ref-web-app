@@ -1,12 +1,12 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ViewEncapsulation, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import * as moment from 'moment';
 import { IProduct } from '@app/models/product.model';
 import { IRef } from '@app/models/ref.model';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag } from '@models';
+import { formatDT } from '@app/utils/dt-formatter.util';
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -50,7 +50,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   }
 
   formatLastUpdate(): string {
-    return moment(this.refInfo.lastUpdate).format("DD MM YYYY hh:mm:ss");
+    return formatDT(this.refInfo.lastUpdate);
   }
 
   onShowMenu($event): void {
