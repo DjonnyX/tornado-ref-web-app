@@ -49,7 +49,6 @@ export class AppComponent {
         // signin
         if (!!token) {
           if (!!returnUrl) {
-            console.log(returnUrl)
             this._router.navigate([url.path], {
               queryParams: url.query,
             });
