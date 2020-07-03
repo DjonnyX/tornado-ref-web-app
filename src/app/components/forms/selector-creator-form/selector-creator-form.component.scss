@@ -1,0 +1,27 @@
+@import "../../../../styles/modules/form";
+
+.selector-creator {
+    color: #000000;
+}
+
+@media screen and (min-width: 600px) {
+    .selector-creator {
+        padding: 20px;
+        .form {
+            border-radius: 4px;
+            padding: 20px;
+            background: #ffffff;
+        }
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .selector-creator {
+        background: #ffffff;
+        min-height: 100%;
+
+        .form {
+            padding: 20px;
+        }
+    }
+}

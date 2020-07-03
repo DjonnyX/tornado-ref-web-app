@@ -15,6 +15,13 @@ const routes: Routes = [
           )
       },
       {
+        path: 'selectors',
+        loadChildren: () =>
+          import('@containers/selectors-editor/selectors-editor.module').then(
+            module => module.SelectorsEditorModule,
+          )
+      },
+      {
         path: 'products',
         loadChildren: () =>
           import('@containers/products-editor/products-editor.module').then(

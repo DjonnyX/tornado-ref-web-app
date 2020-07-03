@@ -12,6 +12,10 @@ import { IProductsGetResponse } from './products-get-response.interface';
 import { IProductsCreateResponse } from './products-create-response.interface';
 import { IProductsUpdateResponse } from './products-update-response.interface';
 import { IProductsDeleteResponse } from './products-delete-response.interface';
+import { ISelectorsGetResponse } from './selectors-get-response.interface';
+import { ISelectorsCreateResponse } from './selectors-create-response.interface';
+import { ISelectorsUpdateResponse } from './selectors-update-response.interface';
+import { ISelectorsDeleteResponse } from './selectors-delete-response.interface';
 import { ITagsGetResponse } from './tags-get-response.interface';
 import { ITagsCreateResponse } from './tags-create-response.interface';
 import { ITagsUpdateResponse } from './tags-update-response.interface';
@@ -33,6 +37,10 @@ export {
     IProductsCreateResponse,
     IProductsUpdateResponse,
     IProductsDeleteResponse,
+    ISelectorsGetResponse,
+    ISelectorsCreateResponse,
+    ISelectorsUpdateResponse,
+    ISelectorsDeleteResponse,
     ITagsGetResponse,
     ITagsCreateResponse,
     ITagsUpdateResponse,

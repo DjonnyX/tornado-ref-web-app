@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile, ITag } from '@models';
+import { IUserProfile, ITag, ISelector } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -13,7 +13,11 @@ import {
   ITagsGetResponse,
   ITagsCreateResponse,
   ITagsUpdateResponse,
-  ITagsDeleteResponse
+  ITagsDeleteResponse,
+  ISelectorsGetResponse,
+  ISelectorsCreateResponse,
+  ISelectorsUpdateResponse,
+  ISelectorsDeleteResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -130,6 +134,43 @@ export class ApiService {
   public deleteProduct(id: string): Observable<IProductsDeleteResponse> {
     return this._http
       .delete<IProductsDeleteResponse>(`api/v1/products/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // selectors
+  public getSelectors(): Observable<ISelectorsGetResponse> {
+    return this._http
+      .get<ISelectorsGetResponse>("api/v1/selectors", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createSelector(selector: ISelector): Observable<ISelectorsCreateResponse> {
+    return this._http
+      .post<ISelectorsCreateResponse>("api/v1/selectors", selector, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateSelector(id: string, selector: ISelector): Observable<ISelectorsUpdateResponse> {
+    return this._http
+      .put<ISelectorsUpdateResponse>(`api/v1/selectors/${id}`, selector, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteSelector(id: string): Observable<ISelectorsDeleteResponse> {
+    return this._http
+      .delete<ISelectorsDeleteResponse>(`api/v1/selectors/${id}`, {
         headers: {
           authorization: this._token,
         },

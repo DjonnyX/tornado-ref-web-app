@@ -1,0 +1,35 @@
+<div class="editor">
+    <p>
+        <span>ref v.{{refInfo.version}}</span>
+        <span>changed {{formatLastUpdate()}}</span>
+    </p>
+    <div class="entities-wrapper">
+        <div class="entity" (click)="onEditSelector(selector)" *ngFor="let selector of collection">
+            <div matRipple class="entity-active-zone">
+                <div class="content">
+                    {{selector.name}}
+                </div>
+                <!--<div class="tags">
+                    <span class="tag" *ngFor="let tag of selector.tags" [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)"></span>
+                </div>-->
+            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
+                aria-label="Menu">
+                <mat-icon class="icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onEditSelector(selector)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+                <button mat-menu-item (click)="onDeleteSelector(selector)">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </mat-menu>
+        </div>
+        <button color="accent" mat-flat-button class="button-add" (click)="onCreateSelector()">
+            create
+        </button>
+    </div>
+</div>

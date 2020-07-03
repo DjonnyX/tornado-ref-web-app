@@ -1,0 +1,4 @@
+<div class="query-progress-container" *queryProgress="isProcess$ | async">
+    <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async" [tagList]="tags$ | async" (submit)="onSubmit($event)"
+        (update)="onUpdate($event)" (cancel)="onCancel()"></ta-selector-creator-form>
+</div>
