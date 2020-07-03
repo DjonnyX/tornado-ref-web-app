@@ -9,6 +9,7 @@
                 <div class="content">
                     {{tag.name}}
                 </div>
+                <div class="color" [style.background]="tag.color"></div>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
                 aria-label="Menu">

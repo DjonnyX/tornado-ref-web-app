@@ -13,11 +13,19 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
 
   form: FormGroup;
 
+  get color() {
+    return this.ctrlColor.value;
+  }
+
+  set color(v: string) {
+    this.ctrlColor.setValue(v);
+  }
+
   ctrlName = new FormControl('', [Validators.required]);
 
   ctrlDescription = new FormControl('');
 
-  ctrlColor = new FormControl('');
+  ctrlColor = new FormControl('#000000');
 
   private _tag: ITag;
   @Input() set tag(tag: ITag) {
@@ -32,7 +40,7 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
 
   @Input() isEditMode: boolean;
 
-  @Output() submit = new EventEmitter<ITag>();
+  @Output() submitForm = new EventEmitter<ITag>();
 
   @Output() cancel = new EventEmitter<void>();
 
@@ -62,7 +70,7 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.submit.emit({ ...this._tag, ...this.form.value });
+      this.submitForm.emit({ ...this._tag, ...this.form.value });
     }
   }
 

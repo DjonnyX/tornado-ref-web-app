@@ -1,0 +1,12 @@
+@import "../base/reset-input";
+
+.color-picker {
+    @include reset-input();
+
+    position: relative;
+    border: 1px solid #dadada;
+    border-radius: 5px;
+    padding: 10px;
+    width: 80px;
+    margin: 0;
+}

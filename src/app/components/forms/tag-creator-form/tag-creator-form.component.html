@@ -20,10 +20,7 @@
             </div>
 
             <div class="form-item">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Color</mat-label>
-                    <textarea matInput type="text" [formControl]="ctrlColor" placeholder="Color"></textarea>
-                </mat-form-field>
+                <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value" [formControl]="ctrlColor"/>
             </div>
         </div>
 
