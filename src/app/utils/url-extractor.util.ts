@@ -1,9 +1,9 @@
-const QUERY_SEPARATOR_PATTERN = /\?/;
-const PATH_PATTERN = /^(.)+(?=\?)/;
-const QUERY_PATTERN = /(?<=\?).*$/;
+const QUERY_SEPARATOR_PATTERN = /\?/g;
+const PATH_PATTERN = /^.*(?=\?)/g;
+const QUERY_PATTERN = /(?=\?).*$/g;
 const QUERY_PARAMS_GROUP_PATTERN = /([^?=&]+)(=([^&]*))?/g;
-const QUERY_PARAM_NAME_PATTERN = /^.*(?==)/;
-const QUERY_PARAM_VALUE_PATTERN = /(?<==).*$/;
+const QUERY_PARAM_NAME_PATTERN = /^.*(?==)/g;
+const QUERY_PARAM_VALUE_PATTERN = /(?==).*$/g;
 
 export interface IURLSegments {
     path: string;
@@ -23,7 +23,7 @@ export const extractURL = (url: string): IURLSegments => {
     const queryParamGroups = queryString.match(QUERY_PARAMS_GROUP_PATTERN);
     if (queryParamGroups) {
         for (let i = 0, l = queryParamGroups.length; i < l; i++) {
-            const group = queryParamGroups[i];
+            const group = queryParamGroups[i].replace(/\?/g, "");
 
             const paramNameSegs = group.match(QUERY_PARAM_NAME_PATTERN);
             const paramName = !!paramNameSegs && paramNameSegs.length > 0 ? paramNameSegs[0] : "";
@@ -31,7 +31,7 @@ export const extractURL = (url: string): IURLSegments => {
             const paramValueSegs = group.match(QUERY_PARAM_VALUE_PATTERN);
             const paramValue = !!paramValueSegs && paramValueSegs.length > 0 ? paramValueSegs[0] : "";
 
-            query[paramName] = paramValue;
+            query[paramName] = paramValue.replace(/\=/g, "");;
         }
     }
 

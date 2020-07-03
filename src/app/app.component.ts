@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { CapabilitiesSelectors, UserSelectors } from '@store/selectors';
@@ -13,7 +13,7 @@ import { extractURL } from './utils/url-extractor.util';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
 
@@ -63,4 +63,6 @@ export class AppComponent {
       });
     });
   }
+
+  ngOnInit(): void { }
 }
