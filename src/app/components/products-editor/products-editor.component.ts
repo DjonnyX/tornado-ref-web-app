@@ -6,6 +6,7 @@ import { IRef } from '@app/models/ref.model';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
+import { ITag } from '@models';
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -18,6 +19,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   @Input() collection: Array<IProduct>;
 
   @Input() refInfo: IRef;
+
+  @Input() tagList: Array<ITag>;
 
   @Output() create = new EventEmitter<void>();
 
@@ -34,6 +37,16 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  getTagColor(id: string): string {
+    const tag = this.tagList.find(t => t.id === id);
+    return !!tag ? tag.color : "";
+  }
+
+  getTagName(id: string): string {
+    const tag = this.tagList.find(t => t.id === id);
+    return !!tag ? tag.name : "";
   }
 
   formatLastUpdate(): string {

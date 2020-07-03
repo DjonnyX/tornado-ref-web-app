@@ -5,8 +5,10 @@ import { IAppState } from '@store/state';
 import { ProductsSelectors } from '@store/selectors';
 import { IProduct } from '@app/models/product.model';
 import { ProductsActions } from '@store/actions/products.action';
-import { IRef } from '@models';
+import { IRef, ITag } from '@models';
 import { Router, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+import { TagsActions } from '@store/actions/tags.action';
+import { TagsSelectors } from '@store/selectors/tags.selectors';
 
 @Component({
   selector: 'ta-products-editor',
@@ -20,12 +22,20 @@ export class ProductsEditorContainer implements OnInit {
 
   public collection$: Observable<Array<IProduct>>;
 
+  public tags$: Observable<Array<ITag>>;
+
   public refInfo$: Observable<IRef>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._store.dispatch(ProductsActions.getAllRequest());
+
+    this._store.dispatch(TagsActions.getAllRequest());
+
+    this.tags$ = this._store.pipe(
+      select(TagsSelectors.selectCollection),
+    )
 
     this.isProcess$ = this._store.pipe(
       select(ProductsSelectors.selectLoading),

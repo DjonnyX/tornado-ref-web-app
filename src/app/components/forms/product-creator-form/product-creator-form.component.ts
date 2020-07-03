@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { IProduct } from '@app/models/product.model';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
+import { ITag } from '@models';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -35,13 +36,13 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Input() isEditMode: boolean;
 
+  @Input() tagList: Array<ITag>;
+
   @Output() submit = new EventEmitter<IProduct>();
 
   @Output() cancel = new EventEmitter<void>();
 
   @Output() update = new EventEmitter<IProduct>();
-
-  tagsList = [];
 
   constructor(private _fb: FormBuilder) {
     super();

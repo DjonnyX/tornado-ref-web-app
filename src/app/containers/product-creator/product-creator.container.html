@@ -1,4 +1,4 @@
 <div class="query-progress-container" *queryProgress="isProcess$ | async">
-    <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async" (submit)="onSubmit($event)"
+    <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async" [tagList]="tags$ | async" (submit)="onSubmit($event)"
         (update)="onUpdate($event)" (cancel)="onCancel()"></ta-product-creator-form>
 </div>

@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
     MatIconModule,
     MatMenuModule,
     MatDialogModule,
+    MatTooltipModule,
     DeleteEntityDialogModule,
   ]
 })

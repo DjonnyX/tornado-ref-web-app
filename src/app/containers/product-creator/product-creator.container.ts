@@ -8,6 +8,9 @@ import { ProductsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
+import { ITag } from '@models';
+import { TagsSelectors } from '@store/selectors/tags.selectors';
+import { TagsActions } from '@store/actions/tags.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -25,6 +28,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   product$: Observable<IProduct>;
 
+  tags$: Observable<Array<ITag>>;
+
   isEditMode = false;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
@@ -37,6 +42,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     );
 
     this.isEditMode = !!this._activatedRoute.snapshot.queryParams["isEditMode"];
+
+    this._store.dispatch(TagsActions.getAllRequest());
+
+    this.tags$ = this._store.pipe(
+      select(TagsSelectors.selectCollection),
+    )
 
     if (this.isEditMode) {
       this.product$ = this._store.pipe(
