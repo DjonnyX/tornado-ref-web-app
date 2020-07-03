@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { CapabilitiesSelectors, UserSelectors } from '@store/selectors';
 import { combineLatest } from 'rxjs';
-import { map, filter, take } from 'rxjs/operators';
+import { filter, take } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
@@ -49,6 +49,8 @@ export class AppComponent implements OnInit {
         // signin
         if (!!token) {
           if (!!returnUrl) {
+            console.log(url.path)
+            console.log(url.query)
             this._router.navigate([url.path], {
               queryParams: url.query,
             });

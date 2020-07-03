@@ -1,9 +1,9 @@
-const QUERY_SEPARATOR_PATTERN = /\?/g;
-const PATH_PATTERN = /^.*(?=\?)/g;
-const QUERY_PATTERN = /(?=\?).*$/g;
+const QUERY_SEPARATOR_PATTERN = /\?/;
+const PATH_PATTERN = /^.*(?=\?)/;
+const QUERY_PATTERN = /(?=\?).*$/;
 const QUERY_PARAMS_GROUP_PATTERN = /([^?=&]+)(=([^&]*))?/g;
-const QUERY_PARAM_NAME_PATTERN = /^.*(?==)/g;
-const QUERY_PARAM_VALUE_PATTERN = /(?==).*$/g;
+const QUERY_PARAM_NAME_PATTERN = /^.*(?==)/;
+const QUERY_PARAM_VALUE_PATTERN = /(?==).*$/;
 
 export interface IURLSegments {
     path: string;
