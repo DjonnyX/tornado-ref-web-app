@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile, ITag, ISelector } from '@models';
+import { IUserProfile, ITag, ISelector, INode } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -17,7 +17,11 @@ import {
   ISelectorsGetResponse,
   ISelectorsCreateResponse,
   ISelectorsUpdateResponse,
-  ISelectorsDeleteResponse
+  ISelectorsDeleteResponse,
+  IMenuNodesGetResponse,
+  IMenuNodesCreateResponse,
+  IMenuNodesUpdateResponse,
+  IMenuNodesDeleteResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -94,15 +98,6 @@ export class ApiService {
       );
   }
 
-  public getNodes(): Observable<{}> {
-    return this._http
-      .get<any>("api/v1/nodes", {
-        headers: {
-          authorization: this._token,
-        },
-      });
-  }
-
   // products
   public getProducts(): Observable<IProductsGetResponse> {
     return this._http
@@ -171,6 +166,43 @@ export class ApiService {
   public deleteSelector(id: string): Observable<ISelectorsDeleteResponse> {
     return this._http
       .delete<ISelectorsDeleteResponse>(`api/v1/selectors/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // menu-nodes
+  public getNodes(): Observable<IMenuNodesGetResponse> {
+    return this._http
+      .get<IMenuNodesGetResponse>("api/v1/nodes", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createNode(node: INode): Observable<IMenuNodesCreateResponse> {
+    return this._http
+      .post<IMenuNodesCreateResponse>("api/v1/nodes", node, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateNode(id: string, node: INode): Observable<IMenuNodesUpdateResponse> {
+    return this._http
+      .put<IMenuNodesUpdateResponse>(`api/v1/nodes/${id}`, node, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteNode(id: string): Observable<IMenuNodesDeleteResponse> {
+    return this._http
+      .delete<IMenuNodesDeleteResponse>(`api/v1/nodes/${id}`, {
         headers: {
           authorization: this._token,
         },

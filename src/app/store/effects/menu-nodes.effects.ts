@@ -7,25 +7,25 @@ import { ApiService } from "@services";
 import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
-import { SelectorsActions } from '@store/actions/selectors.action';
+import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 
 @Injectable()
-export default class SelectorsEffects {
+export default class MenuNodesEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(SelectorsActions.getAllRequest),
+            ofType(MenuNodesActions.getAllRequest),
             switchMap(params => {
-                return this._apiService.getSelectors().pipe(
+                return this._apiService.getNodes().pipe(
                     mergeMap(res => {
-                        return [SelectorsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
+                        return [MenuNodesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(SelectorsActions.getAllError({ error: error.message }));
+                        return of(MenuNodesActions.getAllError({ error: error.message }));
                     }),
                 );
             })
@@ -34,19 +34,21 @@ export default class SelectorsEffects {
 
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(SelectorsActions.createRequest),
-            switchMap(selector => {
-                return this._apiService.createSelector({
-                    name: selector.name,
-                    description: selector.description,
+            ofType(MenuNodesActions.createRequest),
+            switchMap(({ node }) => {
+                return this._apiService.createNode({
+                    type: node.type,
+                    parentId: node.parentId,
+                    contentId: node.contentId,
+                    children: node.children,
                 }).pipe(
                     mergeMap(res => {
-                        return [SelectorsActions.createSuccess({ selector: res.data, meta: res.meta })];
+                        return [MenuNodesActions.createSuccess({ node: res.data, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(SelectorsActions.createError({ error: error.message }));
+                        return of(MenuNodesActions.createError({ error: error.message }));
                     }),
                 );
             })
@@ -55,19 +57,21 @@ export default class SelectorsEffects {
 
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(SelectorsActions.updateRequest),
-            switchMap(({ id, selector }) => {
-                return this._apiService.updateSelector(id, {
-                    name: selector.name,
-                    description: selector.description,
+            ofType(MenuNodesActions.updateRequest),
+            switchMap(({ id, node }) => {
+                return this._apiService.updateNode(id, {
+                    type: node.type,
+                    parentId: node.parentId,
+                    contentId: node.contentId,
+                    children: node.children,
                 }).pipe(
                     mergeMap(res => {
-                        return [SelectorsActions.updateSuccess({ selector: res.data, meta: res.meta })];
+                        return [MenuNodesActions.updateSuccess({ node: res.data, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(SelectorsActions.updateError({ error: error.message }));
+                        return of(MenuNodesActions.updateError({ error: error.message }));
                     }),
                 );
             })
@@ -76,16 +80,16 @@ export default class SelectorsEffects {
 
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(SelectorsActions.deleteRequest),
+            ofType(MenuNodesActions.deleteRequest),
             switchMap(({ id }) => {
-                return this._apiService.deleteSelector(id).pipe(
+                return this._apiService.deleteNode(id).pipe(
                     mergeMap(res => {
-                        return [SelectorsActions.deleteSuccess({ id, meta: res.meta })];
+                        return [MenuNodesActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(SelectorsActions.deleteError({ error: error.message }));
+                        return of(MenuNodesActions.deleteError({ error: error.message }));
                     }),
                 );
             })

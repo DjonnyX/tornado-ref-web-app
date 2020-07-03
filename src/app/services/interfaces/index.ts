@@ -8,6 +8,10 @@ import { IUserResetPasswordRequest } from './user-reset-password-request.interfa
 import { IUserResetPasswordResponse } from './user-reset-password-response.interface';
 import { IUserForgotPasswordRequest } from './user-forgot-password-request.interface';
 import { IUserForgotPasswordResponse } from './user-forgot-password-response.interface';
+import { IMenuNodesGetResponse } from './menu-nodes-get-response.interface';
+import { IMenuNodesCreateResponse } from './menu-nodes-create-response.interface';
+import { IMenuNodesUpdateResponse } from './menu-nodes-update-response.interface';
+import { IMenuNodesDeleteResponse } from './menu-nodes-delete-response.interface';
 import { IProductsGetResponse } from './products-get-response.interface';
 import { IProductsCreateResponse } from './products-create-response.interface';
 import { IProductsUpdateResponse } from './products-update-response.interface';
@@ -33,6 +37,10 @@ export {
     IUserResetPasswordResponse,
     IUserForgotPasswordRequest,
     IUserForgotPasswordResponse,
+    IMenuNodesGetResponse,
+    IMenuNodesCreateResponse,
+    IMenuNodesUpdateResponse,
+    IMenuNodesDeleteResponse,
     IProductsGetResponse,
     IProductsCreateResponse,
     IProductsUpdateResponse,

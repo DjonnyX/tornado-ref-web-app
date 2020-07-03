@@ -5,7 +5,7 @@ export interface INode extends IEntity {
     /**
      * Тип нода
      */
-    type: NodeTypes;
+    type: NodeTypes | string;
     /**
      * Идентификатор родительского нода
      */
