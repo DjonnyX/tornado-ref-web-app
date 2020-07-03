@@ -19,7 +19,14 @@ $entity-button-menu-size-d: px2em(38);
 }
 
 .editor {
-    color: $primary-700;
+    color: #ffffff;
+
+    .state-info {
+        margin: 0;
+        padding: 14px 30px;
+        font-size: 0.73rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
 
     .entities-wrapper {
         display: grid;
@@ -62,7 +69,7 @@ $entity-button-menu-size-d: px2em(38);
         .entities-wrapper {
             gap: $gap-d;
             grid-template-columns: repeat(auto-fill, minmax($entity-size-d, 1fr));
-            padding: px2em(36);
+            padding: 0 px2em(36) px2em(36);
         }
 
         .entity {
@@ -96,8 +103,8 @@ $entity-button-menu-size-d: px2em(38);
     .editor {
         .entities-wrapper {
             gap: $gap-m;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            padding: px2em(20);
+            grid-template-columns: repeat(auto-fill, minmax($entity-size-m, 1fr));
+            padding: 0 px2em(20) px2em(20);
         }
 
         .entity {

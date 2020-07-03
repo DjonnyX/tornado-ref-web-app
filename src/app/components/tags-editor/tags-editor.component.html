@@ -1,8 +1,8 @@
 <div class="editor">
-    <p>
+    <div class="state-info">
         <span>ref v.{{refInfo.version}}</span>
         <span>changed {{formatLastUpdate()}}</span>
-    </p>
+    </div>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditTag(tag)" *ngFor="let tag of collection">
             <div matRipple class="entity-active-zone">
