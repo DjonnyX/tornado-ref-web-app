@@ -1,0 +1,10 @@
+<form [formGroup]="form" class="accent">
+    <mat-form-field color="accent" appearance="legacy">
+        <mat-label>SEARCH</mat-label>
+        <input matInput type="text" [formControl]="ctrlSearch">
+        <button mat-button *ngIf="!!ctrlSearch.value && ctrlSearch.value !== ''" matSuffix mat-icon-button aria-label="Clear"
+            (click)="onClear()">
+            <mat-icon>close</mat-icon>
+        </button>
+    </mat-form-field>
+</form>

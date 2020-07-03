@@ -7,6 +7,8 @@ import { MatButtonModule } from '@angular/material/button'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
+import { SearchFieldModule } from '@components/search-field/search-field.module';
+import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
     MatMenuModule,
     MatDialogModule,
     DeleteEntityDialogModule,
+    SearchFieldModule,
+    SearchPipeModule,
   ]
 })
 export class TagsEditorComponentModule { }

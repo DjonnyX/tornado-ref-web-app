@@ -43,3 +43,22 @@ $warn: mat-color($ta-warn);
         word-break: break-word;
     }
 }
+
+::ng-deep {
+    .accent {
+        .mat-form-field-appearance-legacy .mat-form-field-legacy {
+            color: $accent;
+        }
+        .mat-form-field-underline {
+            background: rgba($accent, 0.42);
+        }
+        mat-form-field {
+            .mat-hint,
+            input,
+            ::placeholder,
+            .mat-form-field-label {
+                color: white;
+            }
+        }
+    }
+}

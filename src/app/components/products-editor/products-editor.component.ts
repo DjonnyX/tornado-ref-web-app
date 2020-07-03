@@ -28,6 +28,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Output() delete = new EventEmitter<string>();
 
+  searchPattern = "";
+
   constructor(public dialog: MatDialog) {
     super();
   }
@@ -83,5 +85,9 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
         this.delete.emit(product.id);
       }
     });
+  }
+
+  onSearch(pattern: string): void {
+    this.searchPattern = pattern;
   }
 }

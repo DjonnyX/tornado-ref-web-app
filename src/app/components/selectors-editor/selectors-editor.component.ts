@@ -27,6 +27,8 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   @Output() delete = new EventEmitter<string>();
 
+  searchPattern = "";
+
   constructor(public dialog: MatDialog) {
     super();
   }
@@ -82,5 +84,9 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
         this.delete.emit(selector.id);
       }
     });
+  }
+
+  onSearch(pattern: string): void {
+    this.searchPattern = pattern;
   }
 }

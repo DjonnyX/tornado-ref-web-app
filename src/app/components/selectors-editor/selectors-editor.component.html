@@ -1,10 +1,14 @@
 <div class="editor">
     <div class="state-info">
-        <span class="state-info__version">v.{{refInfo.version}}</span>
-        <span class="state-info__dt"> at {{formatLastUpdate()}}</span>
+        <div>
+            <span class="state-info__version">v.{{refInfo.version}}</span>
+            <span class="state-info__dt"> at {{formatLastUpdate()}}</span>
+        </div>
+        <div class="spacer"></div>
+        <ta-search-field (search)="onSearch($event)"></ta-search-field>
     </div>
     <div class="entities-wrapper">
-        <div class="entity" (click)="onEditSelector(selector)" *ngFor="let selector of collection">
+        <div class="entity" (click)="onEditSelector(selector)" *ngFor="let selector of collection | search: searchPattern">
             <div matRipple class="entity-active-zone">
                 <div class="content">
                     {{selector.name}}

@@ -8,6 +8,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
+import { SearchFieldModule } from '@components/search-field/search-field.module';
+import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
     MatDialogModule,
     MatTooltipModule,
     DeleteEntityDialogModule,
+    SearchFieldModule,
+    SearchPipeModule,
   ]
 })
 export class ProductsEditorComponentModule { }

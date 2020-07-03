@@ -25,6 +25,8 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   @Output() delete = new EventEmitter<string>();
 
+  searchPattern = "";
+
   constructor(public dialog: MatDialog) {
     super();
   }
@@ -70,5 +72,9 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
         this.delete.emit(tag.id);
       }
     });
+  }
+
+  onSearch(pattern: string): void {
+    this.searchPattern = pattern;
   }
 }

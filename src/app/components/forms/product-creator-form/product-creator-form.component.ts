@@ -60,7 +60,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       this.update.emit(value);
-    })
+    });
   }
 
   ngOnDestroy(): void {
