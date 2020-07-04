@@ -18,7 +18,7 @@ $offset-x: px2em(64);
 
     .node-tree-item-wrapper {
         .node-tree-item-way {
-            margin: px2em(4) 0 px2em(8) $offset-x;
+            margin: px2em(4) 0 px2em(16) $offset-x;
             border-left: $border;
         }
 
@@ -55,7 +55,7 @@ $offset-x: px2em(64);
 
         .min-button {
             margin-left: -(px2em(20));
-            margin-top: px2em(28);
+            margin-top: px2em(18);
             padding: 0;
             min-width: px2em(38);
         }

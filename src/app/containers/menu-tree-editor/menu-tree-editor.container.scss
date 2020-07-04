@@ -1,14 +1,7 @@
 @import "../../../styles/components/query-progress";
-@import "../../../styles/utils/px2em";
-
-$page-padding: px2em(42);
 
 .query-progress-container {
     min-height: 100%;
     width: 100%;
     position: absolute;
-}
-
-.content-wrapper {
-    padding: 0 $page-padding $page-padding 0;
 }

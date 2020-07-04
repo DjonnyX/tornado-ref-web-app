@@ -1,0 +1,17 @@
+@import "../../../styles/utils/px2em";
+
+@media screen and (min-width: 600px) {
+    .editor {
+        padding: 0 px2em(36) px2em(36) 0;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .editor {
+        padding: 0 px2em(20) px2em(20) 0;
+
+        .node-tree {
+            font-size: 0.5em;
+        }
+    }
+}
