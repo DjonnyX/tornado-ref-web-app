@@ -9,6 +9,11 @@ export namespace MenuNodesSelectors {
     state => state.collection,
   );
 
+  export const selectRootNodeId = createSelector(
+    selectMenuNodes,
+    state => state.rootNodeId,
+  );
+
   export const selectRefInfo = createSelector(
     selectMenuNodes,
     state => !!state.meta ? state.meta.ref : undefined,
@@ -16,7 +21,7 @@ export namespace MenuNodesSelectors {
 
   export const selectLoading = createSelector(
     selectMenuNodes,
-    state => state.loading,
+    state => state.isCreateProcess || state.isDeleteProcess || state.isGetProcess || state.isUpdateProcess || state.isGetRootNodeProcess,
   );
 
   export const selectIsGetProcess = createSelector(

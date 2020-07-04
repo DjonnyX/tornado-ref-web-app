@@ -10,8 +10,10 @@ export const initialState: IMenuNodesState = {
     isCreateProcess: false,
     isUpdateProcess: false,
     isDeleteProcess: false,
+    isGetRootNodeProcess: false,
     error: undefined,
     collection: undefined,
+    rootNodeId: undefined,
 };
 
 const updateCollection = (collection: Array<INode>, node: INode): Array<INode> => {
@@ -43,6 +45,13 @@ const deleteNodesByIds = (collection: Array<INode>, ids: Array<string>): Array<I
 
 const menuNodesReducer = createReducer(
     initialState,
+    on(MenuNodesActions.getRootNodeIdRequest, state => {
+        return {
+            ...state,
+            isGetRootNodeProcess: true,
+            loading: true,
+        };
+    }),
     on(MenuNodesActions.getAllRequest, state => {
         return {
             ...state,
@@ -69,6 +78,14 @@ const menuNodesReducer = createReducer(
             ...state,
             isDeleteProcess: true,
             loading: true,
+        };
+    }),
+    on(MenuNodesActions.getRootNodeIdError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isGetRootNodeProcess: false,
+            loading: false,
         };
     }),
     on(MenuNodesActions.getAllError, (state, { error }) => {
@@ -100,6 +117,15 @@ const menuNodesReducer = createReducer(
             ...state,
             error,
             isDeleteProcess: false,
+            loading: false,
+        };
+    }),
+    on(MenuNodesActions.getRootNodeIdSuccess, (state, { rootNodeId }) => {
+        return {
+            ...state,
+            rootNodeId,
+            error: undefined,
+            isGetRootNodeProcess: false,
             loading: false,
         };
     }),

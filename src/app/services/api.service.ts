@@ -172,10 +172,20 @@ export class ApiService {
       });
   }
 
+  // root-nodes
+  public getRootNodes(): Observable<IMenuNodesGetResponse> {
+    return this._http
+      .get<IMenuNodesGetResponse>("api/v1/root-nodes", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
   // menu-nodes
   public getNodes(id: string): Observable<IMenuNodesGetResponse> {
     return this._http
-      .get<IMenuNodesGetResponse>(!!id ? `api/nodes/${id}` : "api/v1/nodes", {
+      .get<IMenuNodesGetResponse>(!!id ? `api/v1/nodes/${id}` : "api/v1/nodes", {
         headers: {
           authorization: this._token,
         },

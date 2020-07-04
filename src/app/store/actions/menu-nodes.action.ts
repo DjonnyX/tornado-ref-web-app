@@ -3,6 +3,10 @@ import { IMetaRefsResponse } from '@services';
 import { INode } from '@models';
 
 export enum MenuNodesActionTypes {
+    GET_ROOT_NODE_REQUEST = "TORNADO/menu-nodes/get-root-node-id:request",
+    GET_ROOT_NODE_SUCCESS = "TORNADO/menu-nodes/get-root-node-id:success",
+    GET_ROOT_NODE_ERROR = "TORNADO/menu-nodes/get-root-node-id:error",
+
     GET_ALL_REQUEST = "TORNADO/menu-nodes/get-all:request",
     GET_ALL_SUCCESS = "TORNADO/menu-nodes/get-all:success",
     GET_ALL_ERROR = "TORNADO/menu-nodes/get-all:error",
@@ -25,6 +29,19 @@ export enum MenuNodesActionTypes {
 }
 
 export namespace MenuNodesActions {
+    // getRootNodeId
+    export const getRootNodeIdRequest = createAction(
+        MenuNodesActionTypes.GET_ROOT_NODE_REQUEST,
+    );
+    export const getRootNodeIdSuccess = createAction(
+        MenuNodesActionTypes.GET_ROOT_NODE_SUCCESS,
+        props<{ rootNodeId: string }>()
+    );
+    export const getRootNodeIdError = createAction(
+        MenuNodesActionTypes.GET_ROOT_NODE_ERROR,
+        props<{ error: string }>()
+    );
+
     // getAll
     export const getAllRequest = createAction(
         MenuNodesActionTypes.GET_ALL_REQUEST,
