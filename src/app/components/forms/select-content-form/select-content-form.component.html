@@ -1,0 +1,8 @@
+<mat-tab-group>
+    <mat-tab label="Categories">
+        <ta-entity-list [collection]="selectors" type="selector" (change)="onChange($event)"></ta-entity-list>
+    </mat-tab>
+    <mat-tab label="Products">
+        <ta-entity-list [collection]="products" type="product" (change)="onChange($event)"></ta-entity-list>
+    </mat-tab>
+</mat-tab-group>

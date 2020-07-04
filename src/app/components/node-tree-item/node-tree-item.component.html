@@ -1,20 +1,27 @@
 <div class="node-tree-item" *ngIf="!!node">
-    <span class="node-tree-item-joint" *ngIf="node.type !== 'kiosk-root'"></span>
+    <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span class="node-tree-item-wrapper">
         <div class="node-tree-item__content">
             <div matRipple class="content" (click)="toggleExpand()">
                 <button mat-icon-button>
                     <mat-icon>{{isExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                 </button>
-                <span class="content__name">
-                    {{node.id}}
-                </span>
-                <span *ngIf="node.type !== 'kiosk-root'">
+                <ng-container *ngIf="!isRoot; else root">
+                    <span class="content__name" (click)="onSetContent($event, true)">
+                        {{getContentName()}}
+                    </span>
+                </ng-container>
+                <ng-template #root>
+                    <span>
+                        Root
+                    </span>
+                </ng-template>
+                <span *ngIf="!isRoot">
                     <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
                         <mat-icon class="icon">more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="onEdit()">
+                        <button mat-menu-item (click)="onSetContent(null, true)">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
@@ -27,9 +34,12 @@
             </div>
         </div>
         <div class="node-tree-item-way" *ngIf="isExpanded">
-            <ta-node-tree-item *ngFor="let childId of node.children" [nodeId]="childId"
-                [nodesDictionary]="nodesDictionary" (create)="createNodeForChild($event)" (delete)="deleteNodeForChild($event)"></ta-node-tree-item>
-            <button class="button-create" mat-raised-button color="accent" (click)="onCreate()">
+            <ta-node-tree-item *ngFor="let childId of node.children" [depth]="depth + 1" [nodeId]="childId"
+                [nodesDictionary]="nodesDictionary" [products]="products" [selectors]="selectors"
+                [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
+                (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
+                (delete)="deleteNodeForChild($event)"></ta-node-tree-item>
+            <button class="button-create" mat-flat-button color="accent" (click)="onCreate()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>

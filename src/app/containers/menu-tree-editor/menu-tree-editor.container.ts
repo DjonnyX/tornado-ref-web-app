@@ -73,8 +73,8 @@ export class MenuTreeEditorContainer implements OnInit {
     this._store.dispatch(MenuNodesActions.createRequest({ node }));
   }
 
-  onEdit(node: INode): void {
-
+  onUpdate(node: INode): void {
+    this._store.dispatch(MenuNodesActions.updateRequest({ id: node.id, node }));
   }
 
   onDelete(node: INode): void {

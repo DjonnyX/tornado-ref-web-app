@@ -1,0 +1,36 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+.list {
+    .list__item {
+        user-select: none;
+        cursor: pointer;
+        border-radius: 4px;
+        background: inherit;
+        padding: px2em(12) px2em(20);
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: baseline;
+        background: rgba($primary, 0.1);
+        color: #000000;
+        margin-top: 4px;
+        height: px2em(28);
+
+        &.active {
+            background: $accent;
+        }
+
+        .item__name {
+            margin: auto 1px;
+            display: inline-block;
+            text-overflow: ellipsis;
+            word-break: keep-all;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+}
+
+.list.primary {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}

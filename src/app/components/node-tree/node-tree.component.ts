@@ -58,7 +58,7 @@ export class NodeTreeComponent implements OnInit {
 
   @Output() create = new EventEmitter<INode>();
 
-  @Output() edit = new EventEmitter<INode>();
+  @Output() update = new EventEmitter<INode>();
 
   @Output() delete = new EventEmitter<INode>();
 
@@ -76,6 +76,10 @@ export class NodeTreeComponent implements OnInit {
 
   onCreate(node: INode): void {
     this.create.emit(node);
+  }
+
+  onUpdate(node: INode): void {
+    this.update.emit(node);
   }
 
   onDelete(node: INode): void {

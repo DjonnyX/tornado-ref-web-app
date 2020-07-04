@@ -6,6 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SetupNodeContentDialogModule } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.module';
+import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatRippleModule,
     MatMenuModule,
     MatDialogModule,
+    DeleteEntityDialogModule,
+    SetupNodeContentDialogModule,
   ]
 })
 export class NodeTreeItemModule { }
