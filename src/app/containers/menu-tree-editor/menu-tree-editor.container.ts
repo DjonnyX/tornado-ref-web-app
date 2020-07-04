@@ -60,7 +60,6 @@ export class MenuTreeEditorContainer implements OnInit {
   }
 
   onCreate(node: INode): void {
-    console.log("create, node")
     this._store.dispatch(MenuNodesActions.createRequest({ node }));
   }
 
@@ -69,7 +68,6 @@ export class MenuTreeEditorContainer implements OnInit {
   }
 
   onDelete(node: INode): void {
-    console.log("delete, node")
     this._store.dispatch(MenuNodesActions.deleteRequest({ id: node.id }));
   }
 }

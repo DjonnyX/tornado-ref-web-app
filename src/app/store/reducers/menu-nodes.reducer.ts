@@ -14,6 +14,17 @@ export const initialState: IMenuNodesState = {
     collection: undefined,
 };
 
+const updateCollection = (collection: Array<INode>, node: INode): Array<INode> => {
+    const result = [...collection];
+    const existsNodeIndex = result.findIndex(p => p.id === node.id);
+    if (existsNodeIndex > -1) {
+        result.splice(existsNodeIndex, 1);
+        result.splice(existsNodeIndex, 0, node);
+    }
+
+    return result;
+}
+
 /**
  * Удаляет ноды заданные id из коллекции и возвращает новую коллекцию
  */
@@ -102,10 +113,13 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.createSuccess, (state, { node, meta }) => {
+    on(MenuNodesActions.createSuccess, (state, { parent, child, meta }) => {
+        const collection = updateCollection(state.collection, parent);
+        collection.push(child);
+
         return {
             ...state,
-            collection: [...state.collection, node],
+            collection,
             meta,
             error: undefined,
             isCreateProcess: false,
@@ -113,12 +127,7 @@ const menuNodesReducer = createReducer(
         };
     }),
     on(MenuNodesActions.updateSuccess, (state, { node, meta }) => {
-        const existsNodeIndex = state.collection.findIndex(p => p.id === node.id);
-        let collection = [...state.collection];
-        if (existsNodeIndex > -1) {
-            collection.splice(existsNodeIndex, 1);
-            collection.splice(existsNodeIndex, 0, node);
-        }
+        const collection = updateCollection(state.collection, node);
         return {
             ...state,
             collection,

@@ -43,7 +43,7 @@ export default class MenuNodesEffects {
                     children: node.children,
                 }).pipe(
                     mergeMap(res => {
-                        return [MenuNodesActions.createSuccess({ node: res.data, meta: res.meta })];
+                        return [MenuNodesActions.createSuccess({ parent: res.data.parent, child: res.data.child, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {

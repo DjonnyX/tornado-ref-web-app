@@ -59,7 +59,7 @@ export namespace MenuNodesActions {
     );
     export const createSuccess = createAction(
         MenuNodesActionTypes.CREATE_SUCCESS,
-        props<{ node: INode, meta: IMetaRefsResponse }>()
+        props<{ parent: INode, child: INode, meta: IMetaRefsResponse }>()
     );
     export const createError = createAction(
         MenuNodesActionTypes.CREATE_ERROR,
