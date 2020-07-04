@@ -6,6 +6,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
+import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 
 @Component({
   selector: 'ta-node-tree-item',
@@ -65,6 +66,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Output() delete = new EventEmitter<INode>();
 
+  @Input() mode: NodeTreeModes;
+
   isExpanded = true;
 
   constructor(public dialog: MatDialog) {
@@ -75,6 +78,14 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  hasAllowSubCreation(): boolean {
+    if (this.mode === NodeTreeModes.MENU && this.node.type === NodeTypes.PRODUCT) {
+      return false;
+    }
+
+    return true;
   }
 
   toggleExpand(): void {
