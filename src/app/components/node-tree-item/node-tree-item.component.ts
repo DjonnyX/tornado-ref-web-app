@@ -43,7 +43,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Output() delete = new EventEmitter<INode>();
 
-  isExpanded = false;
+  isExpanded = true;
 
   constructor(public dialog: MatDialog) {
     super();
