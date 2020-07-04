@@ -110,7 +110,7 @@ export class ApiService {
 
   public createProduct(product: IProduct): Observable<IProductsCreateResponse> {
     return this._http
-      .post<IProductsCreateResponse>("api/v1/products", product, {
+      .post<IProductsCreateResponse>("api/v1/product", product, {
         headers: {
           authorization: this._token,
         },
@@ -119,7 +119,7 @@ export class ApiService {
 
   public updateProduct(id: string, product: IProduct): Observable<IProductsUpdateResponse> {
     return this._http
-      .put<IProductsUpdateResponse>(`api/v1/products/${id}`, product, {
+      .put<IProductsUpdateResponse>(`api/v1/product/${id}`, product, {
         headers: {
           authorization: this._token,
         },
@@ -128,7 +128,7 @@ export class ApiService {
 
   public deleteProduct(id: string): Observable<IProductsDeleteResponse> {
     return this._http
-      .delete<IProductsDeleteResponse>(`api/v1/products/${id}`, {
+      .delete<IProductsDeleteResponse>(`api/v1/product/${id}`, {
         headers: {
           authorization: this._token,
         },
@@ -147,7 +147,7 @@ export class ApiService {
 
   public createSelector(selector: ISelector): Observable<ISelectorsCreateResponse> {
     return this._http
-      .post<ISelectorsCreateResponse>("api/v1/selectors", selector, {
+      .post<ISelectorsCreateResponse>("api/v1/selector", selector, {
         headers: {
           authorization: this._token,
         },
@@ -156,7 +156,7 @@ export class ApiService {
 
   public updateSelector(id: string, selector: ISelector): Observable<ISelectorsUpdateResponse> {
     return this._http
-      .put<ISelectorsUpdateResponse>(`api/v1/selectors/${id}`, selector, {
+      .put<ISelectorsUpdateResponse>(`api/v1/selector/${id}`, selector, {
         headers: {
           authorization: this._token,
         },
@@ -165,7 +165,7 @@ export class ApiService {
 
   public deleteSelector(id: string): Observable<ISelectorsDeleteResponse> {
     return this._http
-      .delete<ISelectorsDeleteResponse>(`api/v1/selectors/${id}`, {
+      .delete<ISelectorsDeleteResponse>(`api/v1/selector/${id}`, {
         headers: {
           authorization: this._token,
         },
@@ -173,9 +173,9 @@ export class ApiService {
   }
 
   // menu-nodes
-  public getNodes(): Observable<IMenuNodesGetResponse> {
+  public getNodes(id: string): Observable<IMenuNodesGetResponse> {
     return this._http
-      .get<IMenuNodesGetResponse>("api/v1/nodes", {
+      .get<IMenuNodesGetResponse>(!!id ? `api/nodes/${id}` : "api/v1/nodes", {
         headers: {
           authorization: this._token,
         },
@@ -184,7 +184,7 @@ export class ApiService {
 
   public createNode(node: INode): Observable<IMenuNodesCreateResponse> {
     return this._http
-      .post<IMenuNodesCreateResponse>("api/v1/nodes", node, {
+      .post<IMenuNodesCreateResponse>("api/v1/node", node, {
         headers: {
           authorization: this._token,
         },
@@ -193,7 +193,7 @@ export class ApiService {
 
   public updateNode(id: string, node: INode): Observable<IMenuNodesUpdateResponse> {
     return this._http
-      .put<IMenuNodesUpdateResponse>(`api/v1/nodes/${id}`, node, {
+      .put<IMenuNodesUpdateResponse>(`api/v1/node/${id}`, node, {
         headers: {
           authorization: this._token,
         },
@@ -202,7 +202,7 @@ export class ApiService {
 
   public deleteNode(id: string): Observable<IMenuNodesDeleteResponse> {
     return this._http
-      .delete<IMenuNodesDeleteResponse>(`api/v1/nodes/${id}`, {
+      .delete<IMenuNodesDeleteResponse>(`api/v1/node/${id}`, {
         headers: {
           authorization: this._token,
         },
@@ -221,7 +221,7 @@ export class ApiService {
 
   public createTag(tag: ITag): Observable<ITagsCreateResponse> {
     return this._http
-      .post<ITagsCreateResponse>("api/v1/tags", tag, {
+      .post<ITagsCreateResponse>("api/v1/tag", tag, {
         headers: {
           authorization: this._token,
         },
@@ -230,7 +230,7 @@ export class ApiService {
 
   public updateTag(id: string, tag: ITag): Observable<ITagsUpdateResponse> {
     return this._http
-      .put<ITagsUpdateResponse>(`api/v1/tags/${id}`, tag, {
+      .put<ITagsUpdateResponse>(`api/v1/tag/${id}`, tag, {
         headers: {
           authorization: this._token,
         },
@@ -239,7 +239,7 @@ export class ApiService {
 
   public deleteTag(id: string): Observable<ITagsDeleteResponse> {
     return this._http
-      .delete<ITagsDeleteResponse>(`api/v1/tags/${id}`, {
+      .delete<ITagsDeleteResponse>(`api/v1/tag/${id}`, {
         headers: {
           authorization: this._token,
         },

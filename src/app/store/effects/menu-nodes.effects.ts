@@ -17,8 +17,8 @@ export default class MenuNodesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(MenuNodesActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getNodes().pipe(
+            switchMap(({ id }) => {
+                return this._apiService.getNodes(id).pipe(
                     mergeMap(res => {
                         return [MenuNodesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

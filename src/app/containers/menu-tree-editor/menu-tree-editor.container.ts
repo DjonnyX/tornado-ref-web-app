@@ -29,7 +29,7 @@ export class MenuTreeEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>) { }
 
   ngOnInit(): void {
-    this._store.dispatch(MenuNodesActions.getAllRequest());
+    this._store.dispatch(MenuNodesActions.getAllRequest({ id: undefined }));
 
     this._store.dispatch(SelectorsActions.getAllRequest());
 
