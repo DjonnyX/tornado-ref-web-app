@@ -49,7 +49,7 @@ $offset-x: px2em(64);
                     border-radius: 3px;
 
                     &:hover {
-                        background: rgba($accent-800, 0.875);
+                        background: $accent;
                     }
                 }
             }
