@@ -1,3 +1,8 @@
-<div class="query-progress">
-    <mat-progress-bar color="accent" mode="query"></mat-progress-bar>
+<div style="width: 100%; position: absolute; height: 100%;">
+    <div class="query-progress" *ngIf="process">
+        <mat-progress-bar color="accent" mode="query"></mat-progress-bar>
+    </div>
+</div>
+<div style="position: relative;">
+    <ng-content></ng-content>
 </div>

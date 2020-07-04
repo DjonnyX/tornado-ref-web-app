@@ -3,7 +3,9 @@ body {
     margin: 0;
 }
 
-.t-wrapper {
-    margin: auto;
-    padding: 4em;
+.query-progress-container {
+    min-height: 100%;
+    width: 100%;
+    position: absolute;
+    display: block;
 }

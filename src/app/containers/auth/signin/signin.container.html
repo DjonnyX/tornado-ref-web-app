@@ -12,7 +12,7 @@
             </span>
         </div>
         <mat-divider></mat-divider>
-        <div class="query-progress-container" *queryProgress="isProcess$ | async">
+        <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
                 <div class="form__input-block">
                     <div class="form-item">
@@ -55,6 +55,6 @@
                         [disabled]="!form.valid">Sign in</button>
                 </div>
             </form>
-        </div>
+        </ta-query-progress>
     </div>
 </div>

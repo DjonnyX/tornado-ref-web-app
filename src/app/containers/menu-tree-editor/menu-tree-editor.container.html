@@ -1,5 +1,5 @@
-<div class="query-progress-container" *queryProgress="isProcess$ | async">
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-node-tree [refInfo]="refInfo$ | async" [nodes]="nodes$ | async" [selectors]="selectors$ | async"
         [products]="products$ | async"  mode="menu" (create)="onCreate($event)" (update)="onUpdate($event)" (delete)="onDelete($event)">
     </ta-node-tree>
-</div>
+</ta-query-progress>

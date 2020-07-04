@@ -3,7 +3,8 @@ import { INode, IProduct, ISelector, IEntity, IRef } from '@models';
 import { NodeTypes } from '@app/enums/node-types.enum';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
 
-interface IDictionary<T = any> {[
+interface IDictionary<T = any> {
+  [
   id: string]: T;
 }
 
@@ -27,13 +28,13 @@ export class NodeTreeComponent implements OnInit {
   rootNode: INode;
 
   nodesCollection: Array<INode>;
-  nodesDictionary: {[id: string]: INode};
-  
+  nodesDictionary: { [id: string]: INode };
+
   productsCollection: Array<IProduct>;
-  productsDictionary: {[id: string]: IProduct};
-  
+  productsDictionary: { [id: string]: IProduct };
+
   selectorsCollection: Array<ISelector>;
-  selectorsDictionary: {[id: string]: ISelector};
+  selectorsDictionary: { [id: string]: ISelector };
 
   @Input() set nodes(v: Array<INode>) {
     if (this.nodesCollection !== v) {
@@ -70,7 +71,7 @@ export class NodeTreeComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    console.log("onInit")
   }
 
   onSearch(pattern: string): void {
