@@ -1,4 +1,3 @@
-@import "../components/state-info";
 @import "../themes/theme";
 @import "../utils/px2em";
 
@@ -64,11 +63,6 @@ $entity-button-menu-size-d: px2em(38);
 
 @media screen and (min-width: 600px) {
     .editor {
-        .state-info {
-            padding: px2em(14) px2em(42);
-            font-size: 0.73rem;
-        }
-
         .entities-wrapper {
             gap: $gap-d;
             grid-template-columns: repeat(auto-fill, minmax($entity-size-d, 1fr));
@@ -104,11 +98,6 @@ $entity-button-menu-size-d: px2em(38);
 
 @media screen and (max-width: 599px) {
     .editor {
-        .state-info {
-            padding: px2em(12) px2em(24);
-            font-size: 0.73rem;
-        }
-
         .entities-wrapper {
             gap: $gap-m;
             grid-template-columns: repeat(auto-fill, minmax($entity-size-m, 1fr));

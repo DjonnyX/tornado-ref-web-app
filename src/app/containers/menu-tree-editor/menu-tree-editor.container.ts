@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, forkJoin } from 'rxjs';
-import { INode, ISelector, IProduct } from '@models';
+import { INode, ISelector, IProduct, IRef } from '@models';
 import { IAppState } from '@store/state';
 import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors } from '@store/selectors';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
@@ -21,6 +21,8 @@ export class MenuTreeEditorContainer implements OnInit {
   selectors$: Observable<Array<ISelector>>;
 
   products$: Observable<Array<IProduct>>;
+
+  refInfo$: Observable<IRef>;
 
   isProcess$: Observable<boolean>;
 
@@ -45,6 +47,10 @@ export class MenuTreeEditorContainer implements OnInit {
       select(ProductsSelectors.selectCollection),
     );
 
+    this.refInfo$ = this._store.pipe(
+      select(MenuNodesSelectors.selectRefInfo),
+    );
+
     this.isProcess$ = forkJoin(
       this._store.pipe(
         select(MenuNodesSelectors.selectLoading),
@@ -57,6 +63,10 @@ export class MenuTreeEditorContainer implements OnInit {
       ),
       mergeMap(([menuNodesLoading, selectorsLoading, productsLoading]) => menuNodesLoading || selectorsLoading || productsLoading),
     );
+  }
+
+  onSearch(pattern: string): void {
+
   }
 
   onCreate(node: INode): void {

@@ -8,8 +8,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
-import { SearchFieldModule } from '@components/search-field/search-field.module';
 import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
+import { StatePanelModule } from '@components/state-panel/state-panel.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
     MatDialogModule,
     MatTooltipModule,
     DeleteEntityDialogModule,
-    SearchFieldModule,
+    StatePanelModule,
     SearchPipeModule,
   ]
 })

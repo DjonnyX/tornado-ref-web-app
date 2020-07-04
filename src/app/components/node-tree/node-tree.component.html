@@ -1,2 +1,3 @@
+<ta-state-panel [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 <ta-node-tree-item *ngIf="!!rootNode" [nodeId]="rootNode.id" (create)="onCreate($event)" (delete)="onDelete($event)"
     [nodesDictionary]="nodesDictionary"></ta-node-tree-item>

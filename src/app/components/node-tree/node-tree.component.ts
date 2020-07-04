@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { INode, IProduct, ISelector, IEntity } from '@models';
+import { INode, IProduct, ISelector, IEntity, IRef } from '@models';
 import { NodeTypes } from '@app/enums/node-types.enum';
 
 interface IDictionary<T = any> {[
@@ -62,9 +62,15 @@ export class NodeTreeComponent implements OnInit {
 
   @Output() delete = new EventEmitter<INode>();
 
+  @Input() refInfo: IRef;
+
   constructor() { }
 
   ngOnInit(): void {
+
+  }
+
+  onSearch(pattern: string): void {
 
   }
 

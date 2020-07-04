@@ -1,0 +1,31 @@
+@import "../utils/px2em";
+
+.state-info {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.5);
+
+    &__version {
+        color: rgba(255, 215, 64, 0.75);
+    }
+
+    .spacer {
+        margin: auto;
+    }
+}
+
+@media screen and (min-width: 600px) {
+    .state-info {
+        padding: px2em(14) px2em(42);
+        font-size: 0.73rem;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .state-info {
+        padding: px2em(12) px2em(24);
+        font-size: 0.73rem;
+    }
+}

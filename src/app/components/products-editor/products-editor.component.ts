@@ -6,7 +6,6 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag } from '@models';
-import { formatDT } from '@app/utils/dt-formatter.util';
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -49,10 +48,6 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   getTagName(id: string): string {
     const tag = this.tagList.find(t => t.id === id);
     return !!tag ? tag.name : "";
-  }
-
-  formatLastUpdate(): string {
-    return formatDT(this.refInfo.lastUpdate);
   }
 
   onShowMenu($event): void {

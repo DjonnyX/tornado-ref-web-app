@@ -1,12 +1,5 @@
 <div class="editor">
-    <div class="state-info">
-        <div>
-            <span class="state-info__version">v.{{refInfo.version}}</span>
-            <span class="state-info__dt"> at {{formatLastUpdate()}}</span>
-        </div>
-        <div class="spacer"></div>
-        <ta-search-field (search)="onSearch($event)"></ta-search-field>
-    </div>
+    <ta-state-panel [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditProduct(product)" *ngFor="let product of collection | search: searchPattern">
             <div matRipple class="entity-active-zone">

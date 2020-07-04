@@ -5,7 +5,6 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag } from '@models';
-import { formatDT } from '@app/utils/dt-formatter.util';
 
 @Component({
   selector: 'ta-tags-editor-component',
@@ -36,10 +35,6 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
-  }
-
-  formatLastUpdate(): string {
-    return formatDT(this.refInfo.lastUpdate);
   }
 
   onShowMenu($event): void {
