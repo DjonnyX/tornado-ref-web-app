@@ -14,6 +14,22 @@ export const initialState: IMenuNodesState = {
     collection: undefined,
 };
 
+/**
+ * Удаляет ноды заданные id из коллекции и возвращает новую коллекцию
+ */
+const deleteNodesByIds = (collection: Array<INode>, ids: Array<string>): Array<INode> => {
+    const result = [...collection];
+
+    ids.forEach(id => {
+        const existsNodeIndex = collection.findIndex(p => p.id === id);
+        if (existsNodeIndex > -1) {
+            result.splice(existsNodeIndex, 1);
+        }
+    });
+
+    return result;
+}
+
 const menuNodesReducer = createReducer(
     initialState,
     on(MenuNodesActions.getAllRequest, state => {
@@ -112,12 +128,8 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.deleteSuccess, (state, { id, meta }) => {
-        const existsNodeIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<INode> = [...state.collection];
-        if (existsNodeIndex > -1) {
-            collection.splice(existsNodeIndex, 1);
-        }
+    on(MenuNodesActions.deleteSuccess, (state, { ids, meta }) => {
+        const collection = deleteNodesByIds(state.collection, ids);
         return {
             ...state,
             collection,

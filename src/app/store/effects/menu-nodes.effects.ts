@@ -84,7 +84,7 @@ export default class MenuNodesEffects {
             switchMap(({ id }) => {
                 return this._apiService.deleteNode(id).pipe(
                     mergeMap(res => {
-                        return [MenuNodesActions.deleteSuccess({ id, meta: res.meta })];
+                        return [MenuNodesActions.deleteSuccess({ ids: res.data, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {

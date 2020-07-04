@@ -1,6 +1,2 @@
-<div *ngFor="let node of collection">
-    <div>
-        {{node.name}}
-    </div>
-    <ta-node-tree *ngIf="!!node.children" [collection]="node.children"></ta-node-tree>
-</div>
+<ta-node-tree-item *ngIf="!!rootNode" [nodeId]="rootNode.id" (create)="onCreate($event)" (delete)="onDelete($event)"
+    [nodesDictionary]="nodesDictionary"></ta-node-tree-item>

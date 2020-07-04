@@ -59,8 +59,8 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          entity: tag,
-          entityType: "tag",
+          title: "Delete the tag?",
+          message: `"${tag.name}}" will be permanently deleted`,
         },
       });
 

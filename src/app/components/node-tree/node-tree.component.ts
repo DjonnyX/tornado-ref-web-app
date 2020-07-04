@@ -1,5 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { INode } from '@models';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { INode, IProduct, ISelector, IEntity } from '@models';
+import { NodeTypes } from '@app/enums/node-types.enum';
+
+interface IDictionary<T = any> {[
+  id: string]: T;
+}
+
+const getMapOfCollection = <T extends IEntity>(collection: Array<T>): IDictionary<T> => {
+  const result: IDictionary<T> = {};
+
+  collection.forEach(item => {
+    result[item.id] = item;
+  });
+
+  return result;
+}
 
 @Component({
   selector: 'ta-node-tree',
@@ -8,11 +23,56 @@ import { INode } from '@models';
 })
 export class NodeTreeComponent implements OnInit {
 
-  @Input() collection: Array<INode>;
+  rootNode: INode;
+
+  nodesCollection: Array<INode>;
+  nodesDictionary: {[id: string]: INode};
+  
+  productsCollection: Array<IProduct>;
+  productsDictionary: {[id: string]: IProduct};
+  
+  selectorsCollection: Array<ISelector>;
+  selectorsDictionary: {[id: string]: ISelector};
+
+  @Input() set nodes(v: Array<INode>) {
+    if (this.nodesCollection !== v) {
+      this.nodesCollection = v;
+      this.nodesDictionary = !!v ? getMapOfCollection(v) : {};
+      this.rootNode = this.nodesCollection.find(item => item.type === NodeTypes.KIOSK_ROOT);
+    }
+  }
+
+  @Input() set selectors(v: Array<ISelector>) {
+    if (this.selectorsCollection !== v) {
+      this.selectorsCollection = v;
+      this.selectorsDictionary = !!v ? getMapOfCollection(v) : {};
+    }
+  }
+
+  @Input() set products(v: Array<IProduct>) {
+    if (this.productsCollection !== v) {
+      this.productsCollection = v;
+      this.productsDictionary = !!v ? getMapOfCollection(v) : {};
+    }
+  }
+
+  @Output() create = new EventEmitter<INode>();
+
+  @Output() edit = new EventEmitter<INode>();
+
+  @Output() delete = new EventEmitter<INode>();
 
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
+  onCreate(node: INode): void {
+    this.create.emit(node);
+  }
+
+  onDelete(node: INode): void {
+    this.delete.emit(node);
+  }
 }

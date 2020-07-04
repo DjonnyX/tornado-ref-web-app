@@ -87,7 +87,7 @@ export namespace MenuNodesActions {
     );
     export const deleteSuccess = createAction(
         MenuNodesActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta: IMetaRefsResponse }>()
+        props<{ ids: Array<string>, meta: IMetaRefsResponse }>()
     );
     export const deleteError = createAction(
         MenuNodesActionTypes.DELETE_ERROR,

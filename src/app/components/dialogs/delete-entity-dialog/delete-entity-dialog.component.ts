@@ -1,10 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IEntity } from '@models';
 
 interface IDialogData {
-  entity: IEntity;
-  entityType: string;
+  title: string;
+  message: string;
 }
 
 @Component({
@@ -17,6 +16,7 @@ export class DeleteEntityDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 
   ngOnInit(): void {
+    
   }
 
 }

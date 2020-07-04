@@ -1,0 +1,37 @@
+<div class="node-tree-item" *ngIf="!!node">
+    <span class="node-tree-item-joint" *ngIf="node.type !== 'kiosk-root'"></span>
+    <span class="node-tree-item-wrapper">
+        <div class="node-tree-item__content">
+            <div matRipple class="content" (click)="toggleExpand()">
+                <button mat-icon-button>
+                    <mat-icon>{{isExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
+                </button>
+                <span class="content__name">
+                    {{node.id}}
+                </span>
+                <span *ngIf="node.type !== 'kiosk-root'">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
+                        <mat-icon class="icon">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="onEdit()">
+                            <mat-icon>edit</mat-icon>
+                            <span>Edit</span>
+                        </button>
+                        <button mat-menu-item (click)="onDelete()">
+                            <mat-icon>delete_forever</mat-icon>
+                            <span>Delete</span>
+                        </button>
+                    </mat-menu>
+                </span>
+            </div>
+        </div>
+        <div class="node-tree-item-way" *ngIf="isExpanded">
+            <ta-node-tree-item *ngFor="let childId of node.children" [nodeId]="childId"
+                [nodesDictionary]="nodesDictionary" (create)="createNodeForChild($event)" (delete)="deleteNodeForChild($event)"></ta-node-tree-item>
+            <button class="min-button" mat-raised-button color="primary" (click)="onCreate()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </span>
+</div>

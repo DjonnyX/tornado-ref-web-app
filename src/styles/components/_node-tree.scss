@@ -1,0 +1,63 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+$border: 2px dotted $primary;
+$offset-x: px2em(64);
+
+.node-tree-item {
+    position: relative;
+
+    .node-tree-item-joint {
+        position: absolute;
+        display: block;
+        width: px2em(32);
+        height: px2em(6);
+        margin-top: px2em(17);
+        border-bottom: $border;
+    }
+
+    .node-tree-item-wrapper {
+        .node-tree-item-way {
+            margin: px2em(4) 0 px2em(8) $offset-x;
+            border-left: $border;
+        }
+
+        .node-tree-item__content {
+            margin: px2em(8) 0 0 px2em(42);
+            box-sizing: border-box;
+
+            .content {
+                user-select: none;
+                cursor: pointer;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                border-radius: 4px;
+                align-items: baseline;
+                color: $primary-700;
+                background: $background-color;
+                overflow: hidden;
+                padding: px2em(4);
+
+                .content__name {
+                    text-overflow: ellipsis;
+                    word-break: keep-all;
+                    overflow: hidden;
+                }
+            }
+
+            .entity-menu-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: $primary-700;
+            }
+        }
+
+        .min-button {
+            margin-left: -px2em(20);
+            margin-top: px2em(28);
+            padding: 0;
+            min-width: px2em(38);
+        }
+    }
+}
