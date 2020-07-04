@@ -53,11 +53,21 @@ $offset-x: px2em(64);
             }
         }
 
-        .min-button {
+        .button-create {
             margin-left: -(px2em(20));
             margin-top: px2em(18);
             padding: 0;
             min-width: px2em(38);
+            width: 2.375em;
+            height: 2.375em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            mat-icon {
+                height: 1em;
+                font-size: 1.5em;
+            }
         }
     }
 }

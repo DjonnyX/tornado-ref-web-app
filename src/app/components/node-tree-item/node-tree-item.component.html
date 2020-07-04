@@ -29,7 +29,7 @@
         <div class="node-tree-item-way" *ngIf="isExpanded">
             <ta-node-tree-item *ngFor="let childId of node.children" [nodeId]="childId"
                 [nodesDictionary]="nodesDictionary" (create)="createNodeForChild($event)" (delete)="deleteNodeForChild($event)"></ta-node-tree-item>
-            <button class="min-button" mat-raised-button color="accent" (click)="onCreate()">
+            <button class="button-create" mat-raised-button color="accent" (click)="onCreate()">
                 <mat-icon>add</mat-icon>
             </button>
         </div>
