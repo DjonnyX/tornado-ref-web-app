@@ -40,14 +40,6 @@ $offset-x: px2em(64);
                 padding: px2em(4);
                 align-items: center;
 
-                &.wrong {
-                    background: $warn;
-
-                    .content__name {
-                        background: rgba(0, 0, 0, 0.1);
-                    }
-                }
-
                 .content__name {
                     text-overflow: ellipsis;
                     word-break: keep-all;
@@ -64,6 +56,18 @@ $offset-x: px2em(64);
 
                     &:hover {
                         background: $accent;
+                    }
+                }
+                
+                &.wrong {
+                    background: $warn;
+
+                    .content__name {
+                        background: rgba(0, 0, 0, 0.1);
+
+                        &.hover {
+                            background: $warn-100;
+                        }
                     }
                 }
             }

@@ -35,6 +35,9 @@ $accent: mat-color($ta-accent);
 $accent-700: darken(mat-color($ta-accent), 14);
 $accent-800: darken(mat-color($ta-accent), 20);
 $warn: mat-color($ta-warn);
+$warn-100: lighten(mat-color($ta-warn), 50);
+$warn-700: darken(mat-color($ta-warn), 14);
+$warn-800: darken(mat-color($ta-warn), 20);
 
 .mat-checkbox-layout {
     .mat-checkbox-label {
