@@ -3,8 +3,9 @@ import { IAdminState } from './admin.state';
 import { ICapabilitiesState } from './capabilities.state';
 import { IProductsState } from './products.state';
 import { ITagsState } from './tags.state';
-import { ISelectorsState } from '.';
+import { ISelectorsState } from './selectors.state';
 import { IMenuNodesState } from './menu-nodes.state';
+import { IProductNodesState } from './product-nodes.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -14,4 +15,5 @@ export interface IAppState {
     taTags: ITagsState;
     taSelectors: ISelectorsState,
     taMenuNodes: IMenuNodesState,
+    taProductNodes: IProductNodesState,
 }

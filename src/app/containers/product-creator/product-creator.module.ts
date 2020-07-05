@@ -4,6 +4,7 @@ import { ProductCreatorContainer } from './product-creator.container';
 import { ProductCreatorFormModule } from '@components/forms/product-creator-form/product-creator-form.module';
 import { ProductCreatorRoutingModule } from './product-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { ProductHierarchyEditorModule } from '@components/product-hierarchy-editor/product-hierarchy-editor.module';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     CommonModule,
     ProductCreatorRoutingModule,
     ProductCreatorFormModule,
+    ProductHierarchyEditorModule,
     QueryProgressessModule,
   ]
 })

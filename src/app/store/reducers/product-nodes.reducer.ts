@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { IMenuNodesState } from '@store/state';
-import { MenuNodesActions } from '@store/actions/menu-nodes.action';
+import { IProductNodesState } from '@store/state';
+import { ProductNodesActions } from '@store/actions/product-nodes.action';
 import { updateCollection, deleteNodesByIds } from '@app/utils/node-collection';
 
-export const initialState: IMenuNodesState = {
+export const initialState: IProductNodesState = {
     meta: undefined,
     loading: false,
     isGetProcess: false,
@@ -13,55 +13,39 @@ export const initialState: IMenuNodesState = {
     isGetRootNodeProcess: false,
     error: undefined,
     collection: undefined,
-    rootNodeId: undefined,
 };
 
-const menuNodesReducer = createReducer(
+const productNodesReducer = createReducer(
     initialState,
-    on(MenuNodesActions.getRootNodeIdRequest, state => {
-        return {
-            ...state,
-            isGetRootNodeProcess: true,
-            loading: true,
-        };
-    }),
-    on(MenuNodesActions.getAllRequest, state => {
+    on(ProductNodesActions.getAllRequest, state => {
         return {
             ...state,
             isGetProcess: true,
             loading: true,
         };
     }),
-    on(MenuNodesActions.createRequest, state => {
+    on(ProductNodesActions.createRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
             loading: true,
         };
     }),
-    on(MenuNodesActions.updateRequest, state => {
+    on(ProductNodesActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
             loading: true,
         };
     }),
-    on(MenuNodesActions.deleteRequest, state => {
+    on(ProductNodesActions.deleteRequest, state => {
         return {
             ...state,
             isDeleteProcess: true,
             loading: true,
         };
     }),
-    on(MenuNodesActions.getRootNodeIdError, (state, { error }) => {
-        return {
-            ...state,
-            error,
-            isGetRootNodeProcess: false,
-            loading: false,
-        };
-    }),
-    on(MenuNodesActions.getAllError, (state, { error }) => {
+    on(ProductNodesActions.getAllError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -69,7 +53,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.createError, (state, { error }) => {
+    on(ProductNodesActions.createError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -77,7 +61,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.updateError, (state, { error }) => {
+    on(ProductNodesActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -85,7 +69,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.deleteError, (state, { error }) => {
+    on(ProductNodesActions.deleteError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -93,16 +77,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.getRootNodeIdSuccess, (state, { rootNodeId }) => {
-        return {
-            ...state,
-            rootNodeId,
-            error: undefined,
-            isGetRootNodeProcess: false,
-            loading: false,
-        };
-    }),
-    on(MenuNodesActions.getAllSuccess, (state, { collection, meta }) => {
+    on(ProductNodesActions.getAllSuccess, (state, { collection, meta }) => {
         return {
             ...state,
             collection,
@@ -112,7 +87,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.createSuccess, (state, { changed, created, meta }) => {
+    on(ProductNodesActions.createSuccess, (state, { changed, created, meta }) => {
         const collection = updateCollection(state.collection, changed);
         collection.push(created);
 
@@ -125,7 +100,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.updateSuccess, (state, { node, meta }) => {
+    on(ProductNodesActions.updateSuccess, (state, { node, meta }) => {
         const collection = updateCollection(state.collection, node);
         return {
             ...state,
@@ -136,7 +111,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.deleteSuccess, (state, { changed, deleted, meta }) => {
+    on(ProductNodesActions.deleteSuccess, (state, { changed, deleted, meta }) => {
         const collectionPass1 = deleteNodesByIds(state.collection, deleted);
         const collectionPass2 = updateCollection(collectionPass1, changed);
         return {
@@ -150,4 +125,4 @@ const menuNodesReducer = createReducer(
     }),
 );
 
-export default menuNodesReducer;
+export default productNodesReducer;

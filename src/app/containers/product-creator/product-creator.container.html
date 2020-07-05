@@ -1,4 +1,27 @@
-<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async" [tagList]="tags$ | async" (submit)="onSubmit($event)"
-        (update)="onUpdate($event)" (cancel)="onCancel()"></ta-product-creator-form>
+<ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
+    <div class="product-creator">
+        <div class="form">
+            <h2>Main options</h2>
+
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessMainOptions$ | async">
+                <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
+                    [tagList]="tags$ | async" (submit)="onSubmit($event)" (update)="onUpdate($event)"
+                    (cancel)="onCancel()"></ta-product-creator-form>
+            </ta-query-progress>
+        </div>
+
+        <div class="form">
+            <h2>Hierarchy</h2>
+
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessHierarchy$ | async">
+                <ta-product-hierarchy-editor [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async"
+                    [products]="products$ | async" [selectors]="selectors$ | async"
+                    (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
+                    (delete)="onDeleteHierarchyNode($event)">
+                </ta-product-hierarchy-editor>
+            </ta-query-progress>
+        </div>
+    </div>
 </ta-query-progress>

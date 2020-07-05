@@ -8,6 +8,7 @@ import productsReducer from './products.reducer';
 import tagsReducer from './tags.reducer';
 import selectorsReducer from './selectors.reducer';
 import menuNodesReducer from './menu-nodes.reducer';
+import productNodesReducer from './product-nodes.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -17,11 +18,12 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taTags: tagsReducer,
   taSelectors: selectorsReducer,
   taMenuNodes: menuNodesReducer,
+  taProductNodes: productNodesReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taProducts', 'taTags', 'taSelectors', 'menuNodesReducer'],
+    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taProducts', 'taTags', 'taSelectors', 'menuNodesReducer', 'productNodesReducer'],
     rehydrate: true,
   })(reducer);
 }

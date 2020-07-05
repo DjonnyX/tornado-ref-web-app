@@ -17,6 +17,8 @@ import { BaseComponent } from '@components/base/base-component';
 })
 export class MenuTreeEditorContainer extends BaseComponent implements OnInit, OnDestroy {
 
+  rootNodeId$: Observable<string>;
+
   nodes$: Observable<Array<INode>>;
 
   selectors$: Observable<Array<ISelector>>;
@@ -34,6 +36,10 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
   ngOnInit(): void {
 
     this._store.dispatch(MenuNodesActions.getRootNodeIdRequest());
+
+    this.rootNodeId$ = this._store.pipe(
+      select(MenuNodesSelectors.selectRootNodeId),
+    );
 
     // Пока выборка селекторов только для киоска
     this._store.pipe(

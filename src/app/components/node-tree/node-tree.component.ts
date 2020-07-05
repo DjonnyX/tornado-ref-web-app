@@ -36,11 +36,21 @@ export class NodeTreeComponent implements OnInit {
   selectorsCollection: Array<ISelector>;
   selectorsDictionary: { [id: string]: ISelector };
 
+  private _rootNodeId: string;
+  @Input() set rootNodeId(v: string) {
+    if (this._rootNodeId !== v) {
+      this._rootNodeId = v;
+
+      this.resetRootNode();
+    }
+  }
+
   @Input() set nodes(v: Array<INode>) {
     if (this.nodesCollection !== v) {
       this.nodesCollection = v;
       this.nodesDictionary = !!v ? getMapOfCollection(v) : {};
-      this.rootNode = this.nodesCollection.find(item => item.type === NodeTypes.KIOSK_ROOT);
+
+      this.resetRootNode();
     }
   }
 
@@ -93,5 +103,13 @@ export class NodeTreeComponent implements OnInit {
 
   onDelete(node: INode): void {
     this.delete.emit(node);
+  }
+
+  private resetRootNode(): void {
+    if (!this._rootNodeId || !this.nodesCollection) {
+      return;
+    }
+
+    this.rootNode = this.nodesCollection.find(item => item.id === this._rootNodeId);
   }
 }
