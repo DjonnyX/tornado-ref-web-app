@@ -10,6 +10,9 @@
                 </span>
                 <ng-container *ngIf="!isRoot; else root">
                     <span class="content__name" (click)="onSetContent($event)">
+                        <!--<span>
+                            <mat-icon>{{ node.type === 'selector' ? 'dynamic_feed' : 'crop_square'}}</mat-icon>
+                        </span>-->
                         {{getContentName()}}
                     </span>
                 </ng-container>
