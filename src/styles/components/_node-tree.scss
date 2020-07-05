@@ -38,6 +38,15 @@ $offset-x: px2em(64);
                 border: 1px solid rgba($primary, 0.3);
                 overflow: hidden;
                 padding: px2em(4);
+                align-items: center;
+
+                &.wrong {
+                    background: $warn;
+
+                    .content__name {
+                        background: rgba(0, 0, 0, 0.1);
+                    }
+                }
 
                 .content__name {
                     text-overflow: ellipsis;
@@ -47,9 +56,10 @@ $offset-x: px2em(64);
                     background: rgba($primary, 0.3);
                     padding: px2em(12);
                     border-radius: 3px;
+                    margin: auto 0;
 
                     &.active {
-                        background: $warn;
+                        background: rgb(66, 176, 240);
                     }
 
                     &:hover {

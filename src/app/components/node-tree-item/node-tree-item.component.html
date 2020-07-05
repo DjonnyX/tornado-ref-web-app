@@ -2,7 +2,7 @@
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span class="node-tree-item-wrapper">
         <div class="node-tree-item__content">
-            <div matRipple class="content" (click)="toggleExpand()">
+            <div matRipple class="content" [class.wrong]="!isRoot && !getContentName()" (click)="toggleExpand()">
                 <span>
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
@@ -13,7 +13,7 @@
                         <!--<span>
                             <mat-icon>{{ node.type === 'selector' ? 'dynamic_feed' : 'crop_square'}}</mat-icon>
                         </span>-->
-                        {{getContentName()}}
+                        {{getContentName() || "Content is missing."}}
                     </span>
                 </ng-container>
                 <ng-template #root>
