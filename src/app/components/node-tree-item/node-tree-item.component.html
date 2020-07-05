@@ -5,11 +5,11 @@
             <div matRipple class="content" (click)="toggleExpand()">
                 <span>
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
-                        <mat-icon>{{isExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
+                        <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
                 </span>
                 <ng-container *ngIf="!isRoot; else root">
-                    <span class="content__name" (click)="onSetContent($event)">
+                    <span class="content__name" [class.active]="isSearchExpanded" (click)="onSetContent($event)">
                         <!--<span>
                             <mat-icon>{{ node.type === 'selector' ? 'dynamic_feed' : 'crop_square'}}</mat-icon>
                         </span>-->
@@ -38,12 +38,13 @@
                 </span>
             </div>
         </div>
-        <div class="node-tree-item-way" *ngIf="isExpanded">
+        <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ta-node-tree-item *ngFor="let childId of node.children" [depth]="depth + 1" [nodeId]="childId"
                 [nodesDictionary]="nodesDictionary" [products]="products" [selectors]="selectors"
-                [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary" [mode]="mode"
-                (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
-                (delete)="deleteNodeForChild($event)"></ta-node-tree-item>
+                [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
+                [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
+                (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
+                (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
             <button *ngIf="hasAllowSubCreation()" class="button-create" mat-flat-button color="accent"
                 (click)="onCreate()">
                 <mat-icon>add</mat-icon>

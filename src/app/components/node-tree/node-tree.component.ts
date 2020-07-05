@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { INode, IProduct, ISelector, IEntity, IRef } from '@models';
 import { NodeTypes } from '@app/enums/node-types.enum';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
@@ -68,14 +68,19 @@ export class NodeTreeComponent implements OnInit {
 
   @Input() mode: NodeTreeModes;
 
-  constructor() { }
+  @Input() hasShowRefInfo = true;
+
+  searchPattern: string;
+
+  constructor(private _cdr: ChangeDetectorRef) { }
 
   ngOnInit(): void {
     console.log("onInit")
   }
 
   onSearch(pattern: string): void {
-
+    this.searchPattern = pattern;
+    this._cdr.markForCheck();
   }
 
   onCreate(node: INode): void {

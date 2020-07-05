@@ -67,9 +67,37 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Output() delete = new EventEmitter<INode>();
 
+  @Output() searchExpand = new EventEmitter<boolean>();
+
+  private _searchPattern: string;
+  @Input() set searchPattern(pattern: string) {
+    this._searchPattern = pattern;
+
+    if (pattern) {
+      const contentName = this.getContentName();
+      if (contentName.toLocaleLowerCase().indexOf(pattern.toLocaleLowerCase()) > -1) {
+        this.isSearchExpanded = true;
+
+        this.searchExpand.emit(true);
+        return;
+      }
+    }
+
+    this.searchExpand.emit(false);
+  }
+
+  get searchPattern() {
+    return this._searchPattern;
+  }
+
   @Input() mode: NodeTreeModes;
 
   isExpanded = true;
+
+  /**
+   * Для автораскрытия при поиске
+   */
+  isSearchExpanded = false;
 
   constructor(public dialog: MatDialog) {
     super();
@@ -120,6 +148,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       }
 
     return "";
+  }
+
+  onSearchExpand(isExpanded: boolean): void {
+    this.isSearchExpanded = isExpanded;
   }
 
   onShowMenu(event: Event): void {

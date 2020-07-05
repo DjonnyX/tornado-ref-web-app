@@ -11,6 +11,8 @@ export class StatePanelComponent implements OnInit {
 
   @Input() refInfo: IRef;
 
+  @Input() hasShowRefInfo = true;
+
   @Output() search = new EventEmitter<string>();
 
   constructor() { }
