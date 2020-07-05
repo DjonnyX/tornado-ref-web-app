@@ -55,7 +55,7 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
       {
         data: {
           title: "Delete the tag?",
-          message: `"${tag.name}}" will be permanently deleted`,
+          message: `"${tag.name}" will be permanently deleted`,
         },
       });
 

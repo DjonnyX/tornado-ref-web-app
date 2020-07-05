@@ -67,7 +67,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
       {
         data: {
           title: "Delete the category?",
-          message: `"${selector.name}}" will be permanently deleted`,
+          message: `"${selector.name}" will be permanently deleted`,
         },
       });
 

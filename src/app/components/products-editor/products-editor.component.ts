@@ -68,7 +68,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
       {
         data: {
           title: "Delete the product?",
-          message: `"${product.name}}" will be permanently deleted`,
+          message: `"${product.name}" will be permanently deleted`,
         },
       });
 
