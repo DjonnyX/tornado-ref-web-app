@@ -7,6 +7,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
+import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 
 @Component({
   selector: 'ta-node-tree-item',
@@ -56,9 +57,9 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   get nodesDictionary() { return this._nodesDictionary; }
 
-  @Input() productsDictionary: {[id: string]: IProduct};
-  
-  @Input() selectorsDictionary: {[id: string]: ISelector};
+  @Input() productsDictionary: { [id: string]: IProduct };
+
+  @Input() selectorsDictionary: { [id: string]: ISelector };
 
   @Output() create = new EventEmitter<INode>();
 
@@ -113,10 +114,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       const content = this.selectorsDictionary[this.node.contentId];
       return !!content ? content.name : "";
     } else
-    if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
-      const content = this.productsDictionary[this.node.contentId];
-      return !!content ? content.name : "";
-    }
+      if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
+        const content = this.productsDictionary[this.node.contentId];
+        return !!content ? content.name : "";
+      }
 
     return "";
   }
@@ -126,7 +127,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     event.preventDefault();
   }
 
-  onSetContent(event: Event, isEditMode = false): void {
+  onSetContent(event?: Event): void {
     if (event) {
       event.stopImmediatePropagation();
       event.preventDefault();
@@ -138,6 +139,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Select a content for the node.",
           products: this.products,
           selectors: this.selectors,
+          mode: this.node.children && this.node.children.length > 0 ? SelectContentFormModes.ONLY_SELECTORS : SelectContentFormModes.ALL,
         },
       });
 
@@ -165,6 +167,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Select a content for the node.",
           products: this.products,
           selectors: this.selectors,
+          mode: SelectContentFormModes.ALL,
         },
       });
 

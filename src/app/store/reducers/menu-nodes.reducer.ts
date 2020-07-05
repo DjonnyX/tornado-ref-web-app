@@ -34,7 +34,7 @@ const deleteNodesByIds = (collection: Array<INode>, ids: Array<string>): Array<I
     const result = [...collection];
 
     ids.forEach(id => {
-        const existsNodeIndex = collection.findIndex(p => p.id === id);
+        const existsNodeIndex = result.findIndex(p => p.id === id);
         if (existsNodeIndex > -1) {
             result.splice(existsNodeIndex, 1);
         }
@@ -139,9 +139,9 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.createSuccess, (state, { parent, child, meta }) => {
-        const collection = updateCollection(state.collection, parent);
-        collection.push(child);
+    on(MenuNodesActions.createSuccess, (state, { changed, created, meta }) => {
+        const collection = updateCollection(state.collection, changed);
+        collection.push(created);
 
         return {
             ...state,
@@ -163,11 +163,12 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.deleteSuccess, (state, { ids, meta }) => {
-        const collection = deleteNodesByIds(state.collection, ids);
+    on(MenuNodesActions.deleteSuccess, (state, { changed, deleted, meta }) => {
+        const collectionPass1 = deleteNodesByIds(state.collection, deleted);
+        const collectionPass2 = updateCollection(collectionPass1, changed);
         return {
             ...state,
-            collection,
+            collection: collectionPass2,
             meta,
             error: undefined,
             isDeleteProcess: false,

@@ -1,6 +1,6 @@
 <h2 mat-dialog-title><strong>{{data.title}}</strong></h2>
 <mat-dialog-content class="mat-typography">
-    <ta-select-content-form [products]="data.products" [selectors]="data.selectors" (change)="onChange($event)"></ta-select-content-form>
+    <ta-select-content-form [products]="data.products" [selectors]="data.selectors" [mode]="data.mode" (change)="onChange($event)"></ta-select-content-form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>

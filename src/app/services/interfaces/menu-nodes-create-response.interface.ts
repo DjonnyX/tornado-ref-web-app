@@ -3,6 +3,6 @@ import { IMetaRefsResponse } from './meta-refs-response.interface';
 import { INode } from '@models';
 
 export interface IMenuNodesCreateResponse extends IBaseResponse<{
-    parent: INode,
-    child: INode,
+    changed: INode,
+    created: INode,
 }, IMetaRefsResponse> {}

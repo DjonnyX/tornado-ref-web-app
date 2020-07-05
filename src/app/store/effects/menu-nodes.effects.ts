@@ -65,7 +65,7 @@ export default class MenuNodesEffects {
                     children: node.children,
                 }).pipe(
                     mergeMap(res => {
-                        return [MenuNodesActions.createSuccess({ parent: res.data.parent, child: res.data.child, meta: res.meta })];
+                        return [MenuNodesActions.createSuccess({ changed: res.data.changed, created: res.data.created, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -106,7 +106,7 @@ export default class MenuNodesEffects {
             switchMap(({ id }) => {
                 return this._apiService.deleteNode(id).pipe(
                     mergeMap(res => {
-                        return [MenuNodesActions.deleteSuccess({ ids: res.data, meta: res.meta })];
+                        return [MenuNodesActions.deleteSuccess({ deleted: res.data.deleted, changed: res.data.changed, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {

@@ -9,7 +9,7 @@
                     </button>
                 </span>
                 <ng-container *ngIf="!isRoot; else root">
-                    <span class="content__name" (click)="onSetContent($event, true)">
+                    <span class="content__name" (click)="onSetContent($event)">
                         {{getContentName()}}
                     </span>
                 </ng-container>
@@ -23,7 +23,7 @@
                         <mat-icon class="icon">more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="onSetContent(null, true)">
+                        <button mat-menu-item (click)="onSetContent()">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>

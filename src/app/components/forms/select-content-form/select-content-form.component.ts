@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
 import { IProduct, ISelector, IEntity } from '@models';
+import { SelectContentFormModes } from './enums/select-content-form-modes.enum';
 
 @Component({
   selector: 'ta-select-content-form',
@@ -8,6 +9,8 @@ import { IProduct, ISelector, IEntity } from '@models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectContentFormComponent implements OnInit {
+
+  @Input() mode: SelectContentFormModes;
 
   @Input() products: Array<IProduct>;
 

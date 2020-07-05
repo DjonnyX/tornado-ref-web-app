@@ -77,7 +77,7 @@ export namespace MenuNodesActions {
     );
     export const createSuccess = createAction(
         MenuNodesActionTypes.CREATE_SUCCESS,
-        props<{ parent: INode, child: INode, meta: IMetaRefsResponse }>()
+        props<{ changed: INode, created: INode, meta: IMetaRefsResponse }>()
     );
     export const createError = createAction(
         MenuNodesActionTypes.CREATE_ERROR,
@@ -105,7 +105,7 @@ export namespace MenuNodesActions {
     );
     export const deleteSuccess = createAction(
         MenuNodesActionTypes.DELETE_SUCCESS,
-        props<{ ids: Array<string>, meta: IMetaRefsResponse }>()
+        props<{ changed: INode, deleted: Array<string>, meta: IMetaRefsResponse }>()
     );
     export const deleteError = createAction(
         MenuNodesActionTypes.DELETE_ERROR,

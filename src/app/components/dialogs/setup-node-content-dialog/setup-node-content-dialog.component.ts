@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IProduct, ISelector, IEntity } from '@models';
+import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 
 interface IDialogData {
   title: string;
   products: Array<IProduct>;
   selectors: Array<ISelector>;
+  mode: SelectContentFormModes;
 }
 
 @Component({
