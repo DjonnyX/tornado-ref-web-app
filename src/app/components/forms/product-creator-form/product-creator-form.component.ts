@@ -12,7 +12,7 @@ import { ITag } from '@models';
 })
 export class ProductCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  form: FormGroup;
+  mainOptionsForm: FormGroup;
 
   ctrlName = new FormControl('', [Validators.required]);
 
@@ -47,7 +47,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   constructor(private _fb: FormBuilder) {
     super();
 
-    this.form = this._fb.group({
+    this.mainOptionsForm = this._fb.group({
       name: this.ctrlName,
       description: this.ctrlDescription,
       tags: this.ctrlTags,
@@ -56,7 +56,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this.form.valueChanges.pipe(
+    this.mainOptionsForm.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       this.update.emit(value);
@@ -67,9 +67,9 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     super.ngOnDestroy();
   }
 
-  onSubmit(): void {
-    if (this.form.valid) {
-      this.submit.emit({ ...this._product, ...this.form.value });
+  onMainOptionsSubmit(): void {
+    if (this.mainOptionsForm.valid) {
+      this.submit.emit({ ...this._product, ...this.mainOptionsForm.value });
     }
   }
 

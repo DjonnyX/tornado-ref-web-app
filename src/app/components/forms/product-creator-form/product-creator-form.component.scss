@@ -1,15 +1,19 @@
 @import "../../../../styles/modules/form";
+@import "../../../../styles/utils/px2em";
 
 .product-creator {
     color: #000000;
+    .form + .form {
+        margin-top: px2em(20);
+    }
 }
 
 @media screen and (min-width: 600px) {
     .product-creator {
-        padding: 20px;
+        padding: px2em(20);
         .form {
             border-radius: 4px;
-            padding: 20px;
+            padding: px2em(20);
             background: #ffffff;
         }
     }
@@ -21,7 +25,7 @@
         min-height: 100%;
 
         .form {
-            padding: 20px;
+            padding: px2em(20);
         }
     }
 }

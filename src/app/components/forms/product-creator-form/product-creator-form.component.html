@@ -1,5 +1,5 @@
 <div class="product-creator">
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+    <form [formGroup]="mainOptionsForm" (ngSubmit)="onMainOptionsSubmit()" class="form" autocomplete="off">
         <h2>Main options</h2>
         <div class="form__input-block">
             <div class="form-item">
@@ -32,7 +32,11 @@
         <div class="form__submit" align="end">
             <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
             <button mat-flat-button color="accent" type="submit" class="button button__text"
-                [disabled]="!form.valid">{{isEditMode ? 'Edit' : 'Create'}}</button>
+                [disabled]="!mainOptionsForm.valid">{{isEditMode ? 'Edit' : 'Create'}}</button>
         </div>
     </form>
+
+    <div class="form">
+        <h2>Hierarchicle</h2>
+    </div>
 </div>
