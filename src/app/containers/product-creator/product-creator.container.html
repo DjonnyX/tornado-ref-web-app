@@ -16,7 +16,7 @@
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessHierarchy$ | async">
-                <ta-product-hierarchy-editor [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async"
+                <ta-product-hierarchy-editor class="secondary" searchFieldClass="primary" [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async"
                     [products]="products$ | async" [selectors]="selectors$ | async"
                     (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
                     (delete)="onDeleteHierarchyNode($event)">

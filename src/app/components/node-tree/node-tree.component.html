@@ -1,4 +1,4 @@
-<ta-state-panel [refInfo]="refInfo" [hasShowRefInfo]="hasShowRefInfo" (search)="onSearch($event)"></ta-state-panel>
+<ta-state-panel [searchFieldClass]="searchFieldClass" [refInfo]="refInfo" [hasShowRefInfo]="hasShowRefInfo" (search)="onSearch($event)"></ta-state-panel>
 <div class="editor">
     <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id"
         [nodesDictionary]="nodesDictionary" [products]="productsCollection" [selectors]="selectorsCollection"

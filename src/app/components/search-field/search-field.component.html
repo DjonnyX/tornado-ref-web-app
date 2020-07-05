@@ -1,4 +1,4 @@
-<form [formGroup]="form" class="accent">
+<form [formGroup]="form" [ngClass]="fieldClass">
     <mat-form-field color="accent" appearance="legacy">
         <mat-label>SEARCH</mat-label>
         <input matInput type="text" [formControl]="ctrlSearch">

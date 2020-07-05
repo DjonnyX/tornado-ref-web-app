@@ -18,6 +18,8 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   @Input() refInfo: IRef;
 
+  @Input() searchFieldClass = "accent";
+
   @Output() create = new EventEmitter<void>();
 
   @Output() edit = new EventEmitter<ITag>();

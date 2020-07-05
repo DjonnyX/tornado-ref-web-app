@@ -13,6 +13,8 @@ export class StatePanelComponent implements OnInit {
 
   @Input() hasShowRefInfo = true;
 
+  @Input() searchFieldClass = "accent";
+
   @Output() search = new EventEmitter<string>();
 
   constructor() { }

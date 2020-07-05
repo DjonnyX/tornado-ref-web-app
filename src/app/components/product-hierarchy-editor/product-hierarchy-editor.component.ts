@@ -16,6 +16,8 @@ export class ProductHierarchyEditorComponent implements OnInit {
   
   @Input() products: Array<IProduct>;
 
+  @Input() searchFieldClass: string;
+
   @Output() create = new EventEmitter<INode>();
 
   @Output() update = new EventEmitter<INode>();

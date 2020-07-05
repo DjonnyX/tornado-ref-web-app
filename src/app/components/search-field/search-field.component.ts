@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
@@ -13,6 +13,8 @@ export class SearchFieldComponent extends BaseComponent implements OnInit, OnDes
   form: FormGroup;
 
   ctrlSearch = new FormControl("");
+
+  @Input() fieldClass = "accent";
 
   @Output() search = new EventEmitter<string>();
 

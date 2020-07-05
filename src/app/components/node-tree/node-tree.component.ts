@@ -36,6 +36,8 @@ export class NodeTreeComponent implements OnInit {
   selectorsCollection: Array<ISelector>;
   selectorsDictionary: { [id: string]: ISelector };
 
+  @Input() searchFieldClass: string;
+
   private _rootNodeId: string;
   @Input() set rootNodeId(v: string) {
     if (this._rootNodeId !== v) {

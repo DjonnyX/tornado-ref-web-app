@@ -136,15 +136,15 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onCreateHierarchyNode(node: INode): void {
-    
+    this._store.dispatch(ProductNodesActions.createRequest({ node }));
   }
 
   onUpdateHierarchyNode(node: INode): void {
-    
+    this._store.dispatch(ProductNodesActions.updateRequest({ id: node.id, node }));
   }
 
   onDeleteHierarchyNode(node: INode): void {
-    
+    this._store.dispatch(ProductNodesActions.deleteRequest({ id: node.id }));
   }
 
   onSubmit(product: IProduct): void {
