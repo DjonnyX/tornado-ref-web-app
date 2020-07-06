@@ -26,6 +26,14 @@
                         <mat-icon class="icon">more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
+                        <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
+                            <mat-icon>arrow_upward</mat-icon>
+                            <span>Upward</span>
+                        </button>
+                        <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
+                            <mat-icon>arrow_downward</mat-icon>
+                            <span>Downward</span>
+                        </button>
                         <button mat-menu-item (click)="onSetContent()">
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>

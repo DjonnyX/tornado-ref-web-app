@@ -9,6 +9,28 @@ import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 
+const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
+  const collection = [...array];
+  const index = collection.indexOf(item);
+  if (index === 0) return collection;
+
+  collection.splice(index, 1);
+  collection.splice(index - 1, 0, item);
+
+  return collection;
+}
+
+const arrayItemToDownward = (array: Array<string>, item: string): Array<string> => {
+  const collection = [...array];
+  const index = collection.indexOf(item);
+  if (index === collection.length) return collection;
+
+  collection.splice(index, 1);
+  collection.splice(index + 1, 0, item);
+  
+  return collection;
+}
+
 @Component({
   selector: 'ta-node-tree-item',
   templateUrl: './node-tree-item.component.html',
@@ -49,6 +71,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   @Input() lock: boolean;
 
   isRoot: boolean;
+
+  isFirstInCollection: boolean;
+
+  isLastInCollection: boolean;
 
   hasNodeInstance: boolean;
 
@@ -133,6 +159,12 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     this.node = !!this._nodesDictionary && !!this._id ? this.nodesDictionary[this._id] : null;
 
     if (!!this.node) {
+      const parent = this._nodesDictionary[this.node.parentId];
+      const indexInCollection = parent.children.indexOf(this.node.id);
+
+      this.isFirstInCollection = indexInCollection === 0;
+      this.isLastInCollection = indexInCollection === parent.children.length - 1;
+
       this.nodeInstance = this.getNodeInstance();
       this.hasNodeInstance = !!this.nodeInstance;
     }
@@ -221,6 +253,28 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
         this.update.emit(node);
       }
     });
+  }
+
+  onUpward(): void {
+    const parent = this._nodesDictionary[this.node.parentId];
+    const childrenOfParent = parent.children;
+    const newChildrenOfParent = arrayItemToUpward(childrenOfParent, this.node.id);
+    const node = {
+      ...parent,
+      children: newChildrenOfParent,
+    }
+    this.update.emit(node);
+  }
+
+  onDownward(): void {
+    const parent = this._nodesDictionary[this.node.parentId];
+    const childrenOfParent = parent.children;
+    const newChildrenOfParent = arrayItemToDownward(childrenOfParent, this.node.id);
+    const node = {
+      ...parent,
+      children: newChildrenOfParent,
+    }
+    this.update.emit(node);
   }
 
   onCreate(): void {
