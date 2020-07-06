@@ -8,25 +8,28 @@
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
                 <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
-                    [tagList]="tags$ | async" (submit)="onMainOptionsSave($event)" (update)="onMainOptionsUpdate($event)"
-                    (cancel)="onMainOptionsCancel()"></ta-product-creator-form>
+                    [tagList]="tags$ | async" (submit)="onMainOptionsSave($event)"
+                    (update)="onMainOptionsUpdate($event)" (cancel)="onMainOptionsCancel()"></ta-product-creator-form>
             </ta-query-progress>
         </div>
 
         <div class="form">
             <div class="form-header">
                 <h2>Hierarchy</h2>
-                <div>В этом блоке формируется состав продукта и создается структура сценариев поведения</div>
+                <div>
+                    In this block, the composition of the product is formed and a structure of behavior scenarios is
+                    created.
+                </div>
             </div>
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessHierarchy$ | async">
-                <div class="hierarchy-editor">
-                    <ta-product-hierarchy-editor class="secondary" searchFieldClass="primary"
-                        [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
-                        [selectors]="selectors$ | async" (create)="onCreateHierarchyNode($event)"
-                        (update)="onUpdateHierarchyNode($event)" (delete)="onDeleteHierarchyNode($event)">
-                    </ta-product-hierarchy-editor>
+                <div class="hierarchy-editor secondary">
+                    <ta-node-tree searchFieldClass="primary" [hasShowRefInfo]="false" [rootNodeId]="rootNodeId$ | async"
+                        [nodes]="nodes$ | async" [products]="products$ | async" [selectors]="selectors$ | async"
+                        (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
+                        (delete)="onDeleteHierarchyNode($event)" mode="product">
+                    </ta-node-tree>
                 </div>
             </ta-query-progress>
         </div>

@@ -2,14 +2,14 @@
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span class="node-tree-item-wrapper">
         <div class="node-tree-item__content">
-            <div matRipple class="content" [class.wrong]="!isRoot && !getContentName()" (click)="toggleExpand()">
+            <div matRipple class="content" [class.lock]="!!lock" [class.wrong]="!isRoot && !getContentName()" (click)="toggleExpand()">
                 <span>
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
                 </span>
                 <ng-container *ngIf="!isRoot; else root">
-                    <span class="content__name" [class.active]="isSearchExpanded" (click)="onSetContent($event)">
+                    <span class="content__name" [class.active]="isSearchExpanded" (click)="!lock ? onSetContent($event) : undefined">
                         <!--<span>
                             <mat-icon>{{ node.type === 'selector' ? 'dynamic_feed' : 'crop_square'}}</mat-icon>
                         </span>-->
@@ -21,7 +21,7 @@
                         Root
                     </span>
                 </ng-template>
-                <span *ngIf="!isRoot">
+                <span *ngIf="!isRoot && !lock">
                     <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
                         <mat-icon class="icon">more_vert</mat-icon>
                     </button>
@@ -39,13 +39,26 @@
             </div>
         </div>
         <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
-            <ta-node-tree-item *ngFor="let childId of node.children" [depth]="depth + 1" [nodeId]="childId"
-                [nodesDictionary]="nodesDictionary" [products]="products" [selectors]="selectors"
-                [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
-                [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
-                (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
-                (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
-            <button *ngIf="hasAllowSubCreation()" class="button-create" mat-flat-button color="accent"
+            <ng-container *ngIf="node.type !== 'selector-node'; else renderSelectorNode">
+                <ta-node-tree-item *ngFor="let childId of node.children" [depth]="depth + 1" [lock]="lock" [nodeId]="childId"
+                    [nodes]="nodes" [nodesDictionary]="nodesDictionary" [products]="products" [selectors]="selectors"
+                    [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
+                    [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
+                    (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
+                    (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
+            </ng-container>
+            <ng-template #renderSelectorNode>
+                <ng-container *ngIf="hasNodeInstance">
+                    <ta-node-tree-item *ngFor="let childId of nodeInstance.children" [depth]="depth + 1" [lock]="true" [nodeId]="childId"
+                        [nodes]="nodes" [nodesDictionary]="nodesDictionary" [products]="products"
+                        [selectors]="selectors" [productsDictionary]="productsDictionary"
+                        [selectorsDictionary]="selectorsDictionary" [searchPattern]="searchPattern" [mode]="mode"
+                        (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
+                        (delete)="deleteNodeForChild($event)" (searchExpand)="onSearchExpand($event)">
+                    </ta-node-tree-item>
+                </ng-container>
+            </ng-template>
+            <button *ngIf="hasAllowSubCreation() && !lock" class="button-create" mat-flat-button color="accent"
                 (click)="onCreate()">
                 <mat-icon>add</mat-icon>
             </button>

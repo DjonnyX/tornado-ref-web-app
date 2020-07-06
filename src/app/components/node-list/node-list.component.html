@@ -1,0 +1,8 @@
+<div class="list" *ngFor="let item of proxyCollection | nodeListFilter: selectorsDictionary">
+    <span matRipple class="list__item" (click)="onToggleSelect(item)" [class.active]="item.selected">
+        <span class="item__name">{{getContentName(item)}}</span>
+        <ng-container *ngIf="!!item.selected">
+            <mat-icon>check</mat-icon>
+        </ng-container>
+    </span>
+</div>

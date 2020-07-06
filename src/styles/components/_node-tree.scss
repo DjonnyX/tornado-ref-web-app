@@ -115,6 +115,22 @@ $border-primary: 2px dotted $primary;
                             }
                         }
                     }
+
+                    &.lock {
+                        background: rgba($primary, 0.1);
+
+                        .content__name {
+                            background: transparent;
+    
+                            &.active {
+                                background: transparent;
+                            }
+    
+                            &:hover {
+                                background: transparent;
+                            }
+                        }
+                    }
                 }
 
                 .entity-menu-button {
@@ -166,6 +182,22 @@ $border-primary: 2px dotted $primary;
 
                             &.hover {
                                 background: $warn-100;
+                            }
+                        }
+                    }
+                    
+                    &.lock {
+                        background: rgba($primary, 0.1);
+
+                        .content__name {
+                            background: transparent;
+    
+                            &.active {
+                                background: transparent;
+                            }
+    
+                            &:hover {
+                                background: transparent;
                             }
                         }
                     }

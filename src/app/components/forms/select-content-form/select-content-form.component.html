@@ -5,4 +5,9 @@
     <mat-tab label="Products" *ngIf="mode === 'all' || mode === 'only-products'">
         <ta-entity-list [collection]="products" type="product" (change)="onChange($event)"></ta-entity-list>
     </mat-tab>
+    <mat-tab label="Nodes">
+        <ta-node-list [collection]="nodes" [selectors]="selectors" [selectorsDictionary]="selectorsDictionary"
+            type="selector-node" (change)="onChange($event)">
+        </ta-node-list>
+    </mat-tab>
 </mat-tab-group>

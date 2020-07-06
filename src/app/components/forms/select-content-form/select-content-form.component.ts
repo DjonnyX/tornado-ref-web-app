@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { IProduct, ISelector, IEntity } from '@models';
+import { IProduct, ISelector, IEntity, INode } from '@models';
 import { SelectContentFormModes } from './enums/select-content-form-modes.enum';
 
 @Component({
@@ -12,16 +12,19 @@ export class SelectContentFormComponent implements OnInit {
 
   @Input() mode: SelectContentFormModes;
 
+  @Input() nodes: Array<INode>;
+
   @Input() products: Array<IProduct>;
 
   @Input() selectors: Array<ISelector>;
+
+  @Input() selectorsDictionary: { [id: string]: ISelector };
 
   @Output() change = new EventEmitter<IEntity>();
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onChange(content: IEntity): void {
     this.change.emit(content);

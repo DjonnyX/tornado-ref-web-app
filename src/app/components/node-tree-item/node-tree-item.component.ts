@@ -18,6 +18,8 @@ import { SelectContentFormModes } from '@components/forms/select-content-form/en
 export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDestroy {
   @Input() type: NodeTypes | string;
 
+  @Input() nodes: Array<INode>;
+
   @Input() products: Array<IProduct>;
 
   @Input() selectors: Array<ISelector>;
@@ -42,7 +44,15 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
   }
 
+  get nodesDictionary() { return this._nodesDictionary; }
+
+  @Input() lock: boolean;
+
   isRoot: boolean;
+
+  hasNodeInstance: boolean;
+
+  nodeInstance: INode;
 
   private _depth: number;
   @Input() set depth(v: number) {
@@ -54,8 +64,6 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       this.isRoot = this._depth === 0;
     }
   }
-
-  get nodesDictionary() { return this._nodesDictionary; }
 
   @Input() productsDictionary: { [id: string]: IProduct };
 
@@ -123,6 +131,11 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   resetNode(): void {
     this.node = !!this._nodesDictionary && !!this._id ? this.nodesDictionary[this._id] : null;
+
+    if (!!this.node) {
+      this.nodeInstance = this.getNodeInstance();
+      this.hasNodeInstance = !!this.nodeInstance;
+    }
   }
 
   createNodeForChild(node: INode): void {
@@ -137,6 +150,14 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     this.delete.emit(node);
   }
 
+  private getNodeInstance(): INode {
+    if (!!this._nodesDictionary && this.node.type === NodeTypes.SELECTOR_NODE) {
+      return this._nodesDictionary[this.node.contentId];
+    }
+
+    return undefined;
+  }
+
   getContentName(): string {
     if (!!this.selectorsDictionary && this.node.type === NodeTypes.SELECTOR) {
       const content = this.selectorsDictionary[this.node.contentId];
@@ -145,7 +166,15 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
         const content = this.productsDictionary[this.node.contentId];
         return !!content ? content.name : "";
-      }
+      } else
+        if (!!this._nodesDictionary && this.node.type === NodeTypes.SELECTOR_NODE) {
+          const content = this._nodesDictionary[this.node.contentId];
+          const contentId = content.contentId;
+          if (!!contentId && !!this.selectorsDictionary) {
+            const selector = this.selectorsDictionary[content.contentId];
+            return !!selector ? selector.name : "";
+          }
+        }
 
     return "";
   }
@@ -171,6 +200,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Select a content for the node.",
           products: this.products,
           selectors: this.selectors,
+          selectorsDictionary: this.selectorsDictionary,
+          nodes: this.nodes,
           mode: this.node.children && this.node.children.length > 0 ? SelectContentFormModes.ONLY_SELECTORS : SelectContentFormModes.ALL,
         },
       });
@@ -199,6 +230,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Select a content for the node.",
           products: this.products,
           selectors: this.selectors,
+          selectorsDictionary: this.selectorsDictionary,
+          nodes: this.nodes,
           mode: SelectContentFormModes.ALL,
         },
       });
