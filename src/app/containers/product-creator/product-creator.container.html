@@ -1,7 +1,9 @@
 <ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
     <div class="product-creator">
         <div class="form">
-            <h2>Main options</h2>
+            <div class="form-header">
+                <h2>Main options</h2>
+            </div>
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
@@ -12,15 +14,20 @@
         </div>
 
         <div class="form">
-            <h2>Hierarchy</h2>
+            <div class="form-header">
+                <h2>Hierarchy</h2>
+                <div>В этом блоке формируется состав продукта и создается структура сценариев поведения</div>
+            </div>
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessHierarchy$ | async">
-                <ta-product-hierarchy-editor class="secondary" searchFieldClass="primary" [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async"
-                    [products]="products$ | async" [selectors]="selectors$ | async"
-                    (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
-                    (delete)="onDeleteHierarchyNode($event)">
-                </ta-product-hierarchy-editor>
+                <div class="hierarchy-editor">
+                    <ta-product-hierarchy-editor class="secondary" searchFieldClass="primary"
+                        [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
+                        [selectors]="selectors$ | async" (create)="onCreateHierarchyNode($event)"
+                        (update)="onUpdateHierarchyNode($event)" (delete)="onDeleteHierarchyNode($event)">
+                    </ta-product-hierarchy-editor>
+                </div>
             </ta-query-progress>
         </div>
     </div>
