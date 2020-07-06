@@ -49,8 +49,6 @@ export class AppComponent implements OnInit {
         // signin
         if (!!token) {
           if (!!returnUrl) {
-            console.log(url.path)
-            console.log(url.query)
             this._router.navigate([url.path], {
               queryParams: url.query,
             });

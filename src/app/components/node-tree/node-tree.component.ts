@@ -1,11 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { INode, IProduct, ISelector, IEntity, IRef } from '@models';
-import { NodeTypes } from '@app/enums/node-types.enum';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
 
 interface IDictionary<T = any> {
-  [
-  id: string]: T;
+  [id: string]: T;
 }
 
 const getMapOfCollection = <T extends IEntity>(collection: Array<T>): IDictionary<T> => {
@@ -86,9 +84,7 @@ export class NodeTreeComponent implements OnInit {
 
   constructor(private _cdr: ChangeDetectorRef) { }
 
-  ngOnInit(): void {
-    console.log("onInit")
-  }
+  ngOnInit(): void { }
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
