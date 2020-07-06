@@ -6,7 +6,7 @@ import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
 import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map } from 'rxjs/operators';
+import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag, INode, ISelector } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
@@ -117,6 +117,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     }
 
     this.rootNodeId$ = this.product$.pipe(
+      filter(product => !!product),
       map(product => product.joint),
     )
 
@@ -147,7 +148,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductNodesActions.deleteRequest({ id: node.id }));
   }
 
-  onSubmit(product: IProduct): void {
+  onMainOptionsSave(product: IProduct): void {
     if (this.isEditMode) {
       this._store.dispatch(ProductsActions.setEditProduct({ product: undefined }));
       this._store.dispatch(ProductsActions.updateRequest({ id: product.id, product }));
@@ -159,17 +160,18 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._router.navigate([this._returnUrl]);
   }
 
-  onUpdate(product: IProduct): void {
-    const p = { ...this._product, ...product };
+  onMainOptionsUpdate(product: IProduct): void {
+    // пока закоментил иначе бесконечная рекурсия в получении кэша продукта идет
+    /*const p = { ...this._product, ...product };
 
     if (this.isEditMode) {
       this._store.dispatch(ProductsActions.setEditProduct({ product: p }));
     } else {
       this._store.dispatch(ProductsActions.setNewProduct({ product: p }));
-    }
+    }*/
   }
 
-  onCancel(): void {
+  onMainOptionsCancel(): void {
     this._router.navigate([this._returnUrl]);
   }
 }

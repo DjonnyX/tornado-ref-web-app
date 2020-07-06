@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { IProduct } from '@app/models/product.model';
 import { BaseComponent } from '@components/base/base-component';
@@ -8,7 +8,8 @@ import { ITag } from '@models';
 @Component({
   selector: 'ta-product-creator-form',
   templateUrl: './product-creator-form.component.html',
-  styleUrls: ['./product-creator-form.component.scss']
+  styleUrls: ['./product-creator-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
