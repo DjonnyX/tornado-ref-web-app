@@ -1,4 +1,13 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async" [tagList]="tags$ | async" (submit)="onSubmit($event)"
-        (update)="onUpdate($event)" (cancel)="onCancel()"></ta-selector-creator-form>
+    <div class="entity-options-editor">
+        <div class="form">
+            <div class="form-header">
+                <h2>Main options</h2>
+            </div>
+
+            <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async" [tagList]="tags$ | async"
+                (submit)="onSubmit($event)" (update)="onUpdate($event)" (cancel)="onCancel()">
+            </ta-selector-creator-form>
+        </div>
+    </div>
 </ta-query-progress>

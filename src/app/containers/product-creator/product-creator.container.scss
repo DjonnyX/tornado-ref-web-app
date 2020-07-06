@@ -1,30 +1,7 @@
-@import "../../../styles/modules/form";
 @import "../../../styles/utils/px2em";
 
-.full-width {
-    width: 100%;
-}
-
-.product-creator {
-    color: #000000;
-    .form + .form {
-        margin-top: px2em(20);
-    }
-}
-
 @media screen and (min-width: 600px) {
-    .product-creator {
-        padding: px2em(40);
-        .form {
-            border-radius: 4px;
-            padding: px2em(40);
-            background: #ffffff;
-
-            /*.form-header {
-                margin: px2em(10) px2em(20) 0 px2em(20);
-            }*/
-        }
-
+    .entity-options-editor {
         .hierarchy-editor {
             margin: 0 (-(px2em(32))) 0 (-(px2em(40)));
         }
@@ -32,18 +9,7 @@
 }
 
 @media screen and (max-width: 599px) {
-    .product-creator {
-        background: #ffffff;
-        min-height: 100%;
-
-        .form {
-            padding: px2em(20);
-
-            /*.form-header {
-                margin: px2em(10) px2em(20) 0 px2em(20);
-            }*/
-        }
-
+    .entity-options-editor {
         .hierarchy-editor {
             margin: 0 (-(px2em(32))) 0 (-(px2em(40)));
         }

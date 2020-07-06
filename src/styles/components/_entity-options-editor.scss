@@ -1,0 +1,36 @@
+@import "../utils/px2em";
+
+.entity-options-editor {
+    color: #000000;
+}
+
+@media screen and (min-width: 600px) {
+    .entity-options-editor {
+        padding: px2em(40);
+
+        .form {
+            border-radius: 4px;
+            padding: px2em(40);
+            background: #ffffff;
+        }
+
+        .form + .form {
+            margin-top: px2em(20);
+        }
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .entity-options-editor {
+        background: #ffffff;
+        min-height: 100%;
+
+        .form {
+            padding: px2em(20);
+        }
+
+        .form + .form {
+            margin-top: px2em(20);
+        }
+    }
+}
