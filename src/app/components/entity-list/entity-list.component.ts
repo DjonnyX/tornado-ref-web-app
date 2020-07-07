@@ -64,12 +64,15 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+    this.binder$ = null;
   }
 
   reset(): void {
-    this.proxyCollection.forEach(item => {
+    /*this.proxyCollection.forEach(item => {
       item.selected = false;
-    });
+    });*/
+
+    this.proxyCollection = this.proxyCollection.map(item => ({...item, selected: false}));
 
     this.change.emit(null);
 

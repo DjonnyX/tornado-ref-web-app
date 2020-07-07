@@ -42,33 +42,20 @@ export class SelectContentFormComponent implements OnInit {
 
   @Input() set defaultCollection(v: NodeTypes) {
     if (this._tabGroup) {
-      this._previouseIndex = this._tabGroup.selectedIndex = TABS_COLLECTION.indexOf(v);
+      this._tabGroup.selectedIndex = TABS_COLLECTION.indexOf(v);
     }
   }
 
   @Output() change = new EventEmitter<IEntity>();
-
-  private _previouseIndex: number = -1;
 
   constructor() { }
 
   ngOnInit(): void { }
 
   onChangeTab(index: number) {
-
-    switch (this._previouseIndex) {
-      case 0:
-        this._contentSelectorsBinder$.next();
-        break;
-      case 1:
-        this._contentProductsBinder$.next();
-        break;
-      case 2:
-        this._contentNodesBinder$.next();
-        break;
-    }
-
-    this._previouseIndex = index;
+    this._contentSelectorsBinder$.next();
+    this._contentProductsBinder$.next();
+    this._contentNodesBinder$.next();
   }
 
   onChange(content: IEntity): void {
