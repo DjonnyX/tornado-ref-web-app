@@ -1,5 +1,8 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { NodeTypes } from '@app/enums/node-types.enum';
+import { Observable } from 'rxjs';
+import { BaseComponent } from '@components/base/base-component';
+import { takeUntil } from 'rxjs/operators';
 
 interface IEntity {
   id: string;
@@ -18,7 +21,7 @@ interface IProxyItem extends IEntity {
   styleUrls: ['./entity-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EntityListComponent implements OnInit {
+export class EntityListComponent extends BaseComponent implements OnInit, OnDestroy {
 
   proxyCollection: Array<IProxyItem>;
 
@@ -43,11 +46,32 @@ export class EntityListComponent implements OnInit {
 
   @Input() type: NodeTypes | string;
 
+  @Input() binder$: Observable<void>;
+
   @Output() change = new EventEmitter<IEntity>();
 
-  constructor() { }
+  constructor(private _cdr: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit(): void {
+    this.binder$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(() => {
+      this.reset();
+    })
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  reset(): void {
+    this.proxyCollection.forEach(item => {
+      item.selected = false;
+    })
+
+    this._cdr.markForCheck();
   }
 
   onToggleSelect(item: IProxyItem): void {

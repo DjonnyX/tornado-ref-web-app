@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { NodeTypes } from '@app/enums/node-types.enum';
 import { INode, ISelector } from '@models';
+import { Observable } from 'rxjs';
+import { BaseComponent } from '@components/base/base-component';
+import { takeUntil } from 'rxjs/operators';
 
 interface IProxyItem extends INode {
   selected?: boolean;
@@ -12,11 +15,13 @@ interface IProxyItem extends INode {
   styleUrls: ['./node-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NodeListComponent implements OnInit {
+export class NodeListComponent extends BaseComponent implements OnInit, OnDestroy {
 
   @Input() selectors: Array<ISelector>;
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
+
+  @Input() binder$: Observable<void>;
 
   proxyCollection: Array<IProxyItem>;
 
@@ -43,9 +48,28 @@ export class NodeListComponent implements OnInit {
 
   @Output() change = new EventEmitter<INode>();
 
-  constructor() { }
+  constructor(private _cdr: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit(): void {
+    this.binder$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(() => {
+      this.reset();
+    })
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  reset(): void {
+    this.proxyCollection.forEach(item => {
+      item.selected = false;
+    });
+
+    this._cdr.markForCheck();
   }
   
   getContentName(node: INode): string {
