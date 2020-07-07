@@ -27,7 +27,7 @@ const arrayItemToDownward = (array: Array<string>, item: string): Array<string> 
 
   collection.splice(index, 1);
   collection.splice(index + 1, 0, item);
-  
+
   return collection;
 }
 
@@ -160,10 +160,13 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
     if (!!this.node) {
       const parent = this._nodesDictionary[this.node.parentId];
-      const indexInCollection = parent.children.indexOf(this.node.id);
 
-      this.isFirstInCollection = indexInCollection === 0;
-      this.isLastInCollection = indexInCollection === parent.children.length - 1;
+      if (parent) {
+        const indexInCollection = parent.children.indexOf(this.node.id);
+
+        this.isFirstInCollection = indexInCollection === 0;
+        this.isLastInCollection = indexInCollection === parent.children.length - 1;
+      }
 
       this.nodeInstance = this.getNodeInstance();
       this.hasNodeInstance = !!this.nodeInstance;
