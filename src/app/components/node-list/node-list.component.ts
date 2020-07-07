@@ -87,9 +87,7 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   reset(): void {
-    this.proxyCollection.forEach(item => {
-      item.selected = false;
-    });
+    this.resetDefaultItem();
 
     this.change.emit(null);
 

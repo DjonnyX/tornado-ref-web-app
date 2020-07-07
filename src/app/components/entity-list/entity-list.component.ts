@@ -89,9 +89,7 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
   }
 
   reset(): void {
-    this.proxyCollection.forEach(item => {
-      item.selected = false;
-    });
+    this.resetDefaultItem();
 
     this.change.emit(null);
 
