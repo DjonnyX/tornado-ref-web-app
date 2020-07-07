@@ -10,6 +10,7 @@ interface IDialogData {
   products: Array<IProduct>;
   selectors: Array<ISelector>;
   selectorsDictionary: { [id: string]: ISelector };
+  selectedDefaultEntityId: string;
   defaultCollection: NodeTypes;
   mode: SelectContentFormModes;
 }

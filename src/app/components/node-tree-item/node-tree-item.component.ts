@@ -236,6 +236,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           products: this.products,
           selectors: this.selectors,
           selectorsDictionary: this.selectorsDictionary,
+          selectedDefaultEntityId: this.node.contentId,
           defaultCollection: this.node.type,
           nodes: this.nodes,
           mode: this.node.children && this.node.children.length > 0 ? SelectContentFormModes.ONLY_SELECTORS : SelectContentFormModes.ALL,

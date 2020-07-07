@@ -34,8 +34,10 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
 
       if (!!v) {
         v.forEach(item => {
-          this.proxyCollection.push({...item});
+          this.proxyCollection.push({ ...item });
         });
+
+        this.resetDefaultItem();
       }
     }
   }
@@ -47,6 +49,15 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
   @Input() type: NodeTypes | string;
 
   @Input() binder$: Observable<void>;
+
+  private _selectedDefaultEntityId: string;
+  @Input() set selectedDefaultEntityId(v: string) {
+    if (this._selectedDefaultEntityId !== v) {
+      this._selectedDefaultEntityId = v;
+
+      this.resetDefaultItem();
+    }
+  }
 
   @Output() change = new EventEmitter<IEntity>();
 
@@ -67,12 +78,20 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
     this.binder$ = null;
   }
 
-  reset(): void {
-    /*this.proxyCollection.forEach(item => {
-      item.selected = false;
-    });*/
+  resetDefaultItem(): void {
+    if (!!this.proxyCollection && !!this._selectedDefaultEntityId) {
+      this.proxyCollection.forEach(item => {
+        item.selected = item.id === this._selectedDefaultEntityId;
+      });
 
-    this.proxyCollection = this.proxyCollection.map(item => ({...item, selected: false}));
+      this._cdr.markForCheck();
+    }
+  }
+
+  reset(): void {
+    this.proxyCollection.forEach(item => {
+      item.selected = false;
+    });
 
     this.change.emit(null);
 
@@ -90,6 +109,6 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
       });
     }
 
-    this.change.emit(!!item.selected ? {...item, type: this.type} : null);
+    this.change.emit(!!item.selected ? { ...item, type: this.type } : null);
   }
 }

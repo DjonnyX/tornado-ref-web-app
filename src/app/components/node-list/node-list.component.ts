@@ -23,6 +23,15 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
 
   @Input() binder$: Observable<void>;
 
+  private _selectedDefaultEntityId: string;
+  @Input() set selectedDefaultEntityId(v: string) {
+    if (this._selectedDefaultEntityId !== v) {
+      this._selectedDefaultEntityId = v;
+
+      this.resetDefaultItem();
+    }
+  }
+
   proxyCollection: Array<IProxyItem>;
 
   private _collection: Array<INode>;
@@ -36,6 +45,8 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
         v.forEach(item => {
           this.proxyCollection.push({...item});
         });
+
+        this.resetDefaultItem();
       }
     }
   }
@@ -65,12 +76,20 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
     this.binder$ = null;
   }
 
-  reset(): void {
-    /*this.proxyCollection.forEach(item => {
-      item.selected = false;
-    });*/
+  resetDefaultItem(): void {
+    if (!!this.proxyCollection && !!this._selectedDefaultEntityId) {
+      this.proxyCollection.forEach(item => {
+        item.selected = item.id === this._selectedDefaultEntityId;
+      });
 
-    this.proxyCollection = this.proxyCollection.map(item => ({...item, selected: false}));
+      this._cdr.markForCheck();
+    }
+  }
+
+  reset(): void {
+    this.proxyCollection.forEach(item => {
+      item.selected = false;
+    });
 
     this.change.emit(null);
 

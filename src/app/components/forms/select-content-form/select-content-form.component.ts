@@ -40,6 +40,8 @@ export class SelectContentFormComponent implements OnInit {
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
 
+  @Input() selectedDefaultEntityId: string;
+
   @Input() set defaultCollection(v: NodeTypes) {
     if (this._tabGroup) {
       this._tabGroup.selectedIndex = TABS_COLLECTION.indexOf(v);
