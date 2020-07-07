@@ -69,6 +69,8 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
       item.selected = false;
     });
 
+    this.change.emit(null);
+
     this._cdr.markForCheck();
   }
   
