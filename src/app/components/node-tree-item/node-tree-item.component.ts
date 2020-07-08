@@ -70,6 +70,35 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Input() lock: boolean;
 
+  @Input() isInstanceChain: boolean;
+
+  isLastChild: boolean;
+
+  private _currentIndex: number = -1;
+  @Input() set currentIndex(v: number) {
+    if (this._currentIndex !== v) {
+      this._currentIndex = v;
+
+      this.resetIsLastChild();
+    }
+  }
+
+  private _parentChildrenLength: number = -1;
+  @Input() set parentChildrenLength(v: number) {
+    if (this._parentChildrenLength !== v) {
+      this._parentChildrenLength = v;
+
+      this.resetIsLastChild();
+    }
+  }
+
+  resetIsLastChild(): void {
+    if (this._parentChildrenLength > -1 && this._currentIndex > -1) {
+      this.isLastChild = this._currentIndex === this._parentChildrenLength - 1;
+    }
+  }
+
+
   isRoot: boolean;
 
   isFirstInCollection: boolean;
