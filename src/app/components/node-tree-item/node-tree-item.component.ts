@@ -151,6 +151,16 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     return true;
   }
 
+  hasInstance(): boolean {
+    const instanceNode = !!this._nodesDictionary ? this.nodesDictionary[this.node.contentId] : null;
+
+    if (!!instanceNode) {
+      return true;
+    }
+
+    return false;
+  }
+
   toggleExpand(): void {
     this.isExpanded = !this.isExpanded;
   }

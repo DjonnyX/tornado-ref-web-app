@@ -2,6 +2,7 @@
 @import "../utils/px2em";
 
 $offset-x: px2em(64);
+$way-border-weight: 2px;
 
 .node-tree-item {
     position: relative;
@@ -71,11 +72,10 @@ $offset-x: px2em(64);
     }
 }
 
-$border-primary: 2px dotted $primary;
+$border-primary: $way-border-weight dotted $primary;
 
 .primary {
     .node-tree-item {
-        
         .node-tree-item-joint {
             border-bottom: $border-primary;
         }
@@ -86,7 +86,6 @@ $border-primary: 2px dotted $primary;
             }
 
             .node-tree-item__content {
-
                 .content {
                     color: #000000;
                     background: #ffffff;
@@ -121,11 +120,11 @@ $border-primary: 2px dotted $primary;
 
                         .content__name {
                             background: transparent;
-    
+
                             &.active {
                                 background: transparent;
                             }
-    
+
                             &:hover {
                                 background: transparent;
                             }
@@ -141,11 +140,10 @@ $border-primary: 2px dotted $primary;
     }
 }
 
-$border-primary: 2px dotted $primary;
+$border-primary: $way-border-weight dotted $primary;
 
 .secondary {
     .node-tree-item {
-        
         .node-tree-item-joint {
             border-bottom: $border-primary;
         }
@@ -156,7 +154,6 @@ $border-primary: 2px dotted $primary;
             }
 
             .node-tree-item__content {
-
                 .content {
                     color: #000000;
                     background: #ffffff;
@@ -185,17 +182,17 @@ $border-primary: 2px dotted $primary;
                             }
                         }
                     }
-                    
+
                     &.lock {
                         background: rgba($primary, 0.1);
 
                         .content__name {
                             background: transparent;
-    
+
                             &.active {
                                 background: transparent;
                             }
-    
+
                             &:hover {
                                 background: transparent;
                             }
