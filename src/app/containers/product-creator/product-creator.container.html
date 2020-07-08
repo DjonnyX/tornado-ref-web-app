@@ -11,6 +11,13 @@
                     [tagList]="tags$ | async" (submit)="onMainOptionsSave($event)"
                     (update)="onMainOptionsUpdate($event)" (cancel)="onMainOptionsCancel()"></ta-product-creator-form>
             </ta-query-progress>
+
+            <div>
+                <button mat-button (click)="fileSelector.open()">
+                    Upload image
+                </button>
+                <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector"></ta-file-selector>
+            </div>
         </div>
 
         <div class="form">

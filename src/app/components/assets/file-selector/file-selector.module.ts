@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AssetUploaderComponent } from './asset-uploader.component';
+import { FileSelectorComponent } from './file-selector.component';
 
 @NgModule({
   declarations: [
-    AssetUploaderComponent,
+    FileSelectorComponent,
   ],
   exports: [
-    AssetUploaderComponent,
+    FileSelectorComponent,
   ],
   imports: [
     CommonModule
   ]
 })
-export class AssetUploaderModule { }
+export class FileSelectorModule { }

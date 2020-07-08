@@ -5,6 +5,7 @@ import { ProductCreatorFormModule } from '@components/forms/product-creator-form
 import { ProductCreatorRoutingModule } from './product-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { NodeTreeModule } from '@components/node-tree/node-tree.module';
+import { FileSelectorModule } from '@components/assets/file-selector/file-selector.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { NodeTreeModule } from '@components/node-tree/node-tree.module';
     ProductCreatorFormModule,
     QueryProgressessModule,
     NodeTreeModule,
+    FileSelectorModule,
   ]
 })
 export class ProductCreatorModule { }
