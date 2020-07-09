@@ -25,7 +25,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taProducts', 'taTags', 'taSelectors', 'menuNodesReducer', 'productNodesReducer'],
+    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taProducts', 'taTags', 'taSelectors', 'menuNodes', 'productNodes', 'taAssets'],
     rehydrate: true,
   })(reducer);
 }
