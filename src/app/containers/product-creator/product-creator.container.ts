@@ -144,11 +144,11 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onUploadFile(file: File): void {
-    this._apiService.uploadProductImage(this._product.id, file).subscribe(
+    /*this._apiService.uploadProductImage(this._product.id, file).subscribe(
       res => {
         console.log(res);
       }
-    )
+    );*/
   }
 
   onCreateHierarchyNode(node: INode): void {
