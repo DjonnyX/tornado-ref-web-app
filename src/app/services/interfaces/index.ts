@@ -25,6 +25,10 @@ import { ITagsCreateResponse } from './tags-create-response.interface';
 import { ITagsUpdateResponse } from './tags-update-response.interface';
 import { ITagsDeleteResponse } from './tags-delete-response.interface';
 import { IMetaRefsResponse } from './meta-refs-response.interface';
+import { IAssetsGetResponse } from './assets-get-response.interface';
+import { IAssetsCreateResponse } from './assets-create-response.interface';
+import { IAssetsUpdateResponse } from './assets-update-response.interface';
+import { IAssetsDeleteResponse } from './assets-delete-response.interface';
 
 export {
     IUserSigninRequest,
@@ -54,4 +58,8 @@ export {
     ITagsUpdateResponse,
     ITagsDeleteResponse,
     IMetaRefsResponse,
+    IAssetsGetResponse,
+    IAssetsCreateResponse,
+    IAssetsUpdateResponse,
+    IAssetsDeleteResponse,
 }

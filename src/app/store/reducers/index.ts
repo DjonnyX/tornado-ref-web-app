@@ -9,6 +9,7 @@ import tagsReducer from './tags.reducer';
 import selectorsReducer from './selectors.reducer';
 import menuNodesReducer from './menu-nodes.reducer';
 import productNodesReducer from './product-nodes.reducer';
+import assetsReducer from './assets.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -19,6 +20,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taSelectors: selectorsReducer,
   taMenuNodes: menuNodesReducer,
   taProductNodes: productNodesReducer,
+  taAssets: assetsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

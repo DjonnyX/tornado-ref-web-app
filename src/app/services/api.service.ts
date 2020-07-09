@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile, ITag, ISelector, INode } from '@models';
+import { IUserProfile, ITag, ISelector, INode, IAsset } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -21,7 +21,11 @@ import {
   IMenuNodesGetResponse,
   IMenuNodesCreateResponse,
   IMenuNodesUpdateResponse,
-  IMenuNodesDeleteResponse
+  IMenuNodesDeleteResponse,
+  IAssetsDeleteResponse,
+  IAssetsUpdateResponse,
+  IAssetsCreateResponse,
+  IAssetsGetResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -135,7 +139,7 @@ export class ApiService {
       });
   }
 
-  public uploadProductImage(id: string, file: File): Observable<IProductsDeleteResponse> {
+  /*public uploadProductImage(id: string, file: File): Observable<IProductsDeleteResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
 
@@ -145,7 +149,7 @@ export class ApiService {
           authorization: this._token,
         },
       });
-  }
+  }*/
 
   // selectors
   public getSelectors(): Observable<ISelectorsGetResponse> {
@@ -178,6 +182,43 @@ export class ApiService {
   public deleteSelector(id: string): Observable<ISelectorsDeleteResponse> {
     return this._http
       .delete<ISelectorsDeleteResponse>(`api/v1/selector/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // assets
+  public getAssets(): Observable<IAssetsGetResponse> {
+    return this._http
+      .get<IAssetsGetResponse>("api/v1/assets", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createAsset(asset: IAsset): Observable<IAssetsCreateResponse> {
+    return this._http
+      .post<IAssetsCreateResponse>("api/v1/asset", asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateAsset(id: string, asset: IAsset): Observable<IAssetsUpdateResponse> {
+    return this._http
+      .put<IAssetsUpdateResponse>(`api/v1/asset/${id}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteAsset(id: string): Observable<IAssetsDeleteResponse> {
+    return this._http
+      .delete<IAssetsDeleteResponse>(`api/v1/asset/${id}`, {
         headers: {
           authorization: this._token,
         },

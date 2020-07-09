@@ -5,6 +5,7 @@ import SelectorsEffects from './selectors.effects';
 import TagsEffects from './tags.effects';
 import MenuNodesEffects from './menu-nodes.effects';
 import ProductNodesEffects from './product-nodes.effects';
+import AssetsEffects from './assets.effects';
 
 const rootEffects = [
   UserEffects,
@@ -14,5 +15,6 @@ const rootEffects = [
   ProductsEffects,
   SelectorsEffects,
   TagsEffects,
+  AssetsEffects,
 ];
 export default rootEffects;

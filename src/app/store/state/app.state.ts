@@ -6,6 +6,7 @@ import { ITagsState } from './tags.state';
 import { ISelectorsState } from './selectors.state';
 import { IMenuNodesState } from './menu-nodes.state';
 import { IProductNodesState } from './product-nodes.state';
+import { IAssetsState } from './assets.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -16,4 +17,5 @@ export interface IAppState {
     taSelectors: ISelectorsState,
     taMenuNodes: IMenuNodesState,
     taProductNodes: IProductNodesState,
+    taAssets: IAssetsState,
 }
