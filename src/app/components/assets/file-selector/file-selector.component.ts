@@ -27,8 +27,6 @@ export class FileSelectorComponent implements OnInit {
 
       const file = inputNode.files[0];
 
-      inputNode.value = null;
-
       this.select.emit(file);
     }
   }

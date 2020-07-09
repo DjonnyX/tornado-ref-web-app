@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IUserProfile, ITag, ISelector, INode } from '@models';
 import {
@@ -135,6 +135,18 @@ export class ApiService {
       });
   }
 
+  public uploadProductImage(id: string, file: File): Observable<IProductsDeleteResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IProductsDeleteResponse>(`api/v1/product/${id}/images`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
   // selectors
   public getSelectors(): Observable<ISelectorsGetResponse> {
     return this._http
@@ -218,7 +230,7 @@ export class ApiService {
         },
       });
   }
-  
+
   // tags
   public getTags(): Observable<ITagsGetResponse> {
     return this._http

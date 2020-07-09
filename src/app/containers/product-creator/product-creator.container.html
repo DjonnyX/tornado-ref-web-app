@@ -16,7 +16,7 @@
                 <button mat-button (click)="fileSelector.open()">
                     Upload image
                 </button>
-                <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector"></ta-file-selector>
+                <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector" (select)="onUploadFile($event)"></ta-file-selector>
             </div>
         </div>
 

@@ -41,6 +41,7 @@ export default class ProductsEffects {
                     description: product.description,
                     tags: product.tags,
                     receipt: product.receipt,
+                    assets: product.assets,
                 }).pipe(
                     mergeMap(res => {
                         return [ProductsActions.createSuccess({ product: res.data, meta: res.meta })];
@@ -64,6 +65,7 @@ export default class ProductsEffects {
                     description: product.description,
                     receipt: product.receipt,
                     tags: product.tags,
+                    assets: product.assets,
                 }).pipe(
                     mergeMap(res => {
                         return [ProductsActions.updateSuccess({ product: res.data, meta: res.meta })];

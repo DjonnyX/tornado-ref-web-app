@@ -13,6 +13,7 @@ import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
+import { ApiService } from '@services';
 
 @Component({
   selector: 'ta-product-creator',
@@ -46,7 +47,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   private _product: IProduct;
 
-  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
+  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute, private _apiService: ApiService) {
     super();
   }
 
@@ -119,7 +120,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this.rootNodeId$ = this.product$.pipe(
       filter(product => !!product),
       map(product => product.joint),
-    )
+    );
 
     this.rootNodeId$.pipe(
       takeUntil(this.unsubscribe$),
@@ -129,11 +130,25 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(TagsActions.getAllRequest());
       this._store.dispatch(ProductsActions.getAllRequest());
       this._store.dispatch(SelectorsActions.getAllRequest());
-    })
+    });
+
+    this.product$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(product => {
+      this._product = product;
+    });
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onUploadFile(file: File): void {
+    this._apiService.uploadProductImage(this._product.id, file).subscribe(
+      res => {
+        console.log(res);
+      }
+    )
   }
 
   onCreateHierarchyNode(node: INode): void {
