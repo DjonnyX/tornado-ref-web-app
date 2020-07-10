@@ -86,7 +86,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(AssetsSelectors.selectLoading),
       ),
     ).pipe(
-      map(([isGetSelectorsProcess, isGetTagsProcess, isGetProductNodesProcess]) => isGetSelectorsProcess && isGetTagsProcess && isGetProductNodesProcess),
+      map(([isGetSelectorsProcess, isGetTagsProcess, isGetProductNodesProcess]) => isGetSelectorsProcess || isGetTagsProcess || isGetProductNodesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -97,7 +97,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(ProductsSelectors.selectIsUpdateProcess),
       ),
     ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess && isUpdateProcess),
+      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
     );
 
     this.isProcessHierarchy$ = this._store.pipe(
@@ -112,7 +112,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(ProductsSelectors.selectIsRemoveAssetProcess),
       ),
     ).pipe(
-      map(([isUploadAssetProcess, isRemoveAssetProcess]) => isUploadAssetProcess && isRemoveAssetProcess),
+      map(([isUploadAssetProcess, isRemoveAssetProcess]) => isUploadAssetProcess || isRemoveAssetProcess),
     );;
 
     this.tags$ = this._store.pipe(
