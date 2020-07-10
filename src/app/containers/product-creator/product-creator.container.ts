@@ -6,7 +6,7 @@ import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
 import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, AssetsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map, filter } from 'rxjs/operators';
+import { takeUntil, map, filter, debounceTime } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag, INode, ISelector, IAsset } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
@@ -151,6 +151,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     );
 
     this.rootNodeId$.pipe(
+      debounceTime(100),
       takeUntil(this.unsubscribe$),
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
