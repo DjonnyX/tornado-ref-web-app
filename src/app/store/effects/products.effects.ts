@@ -8,6 +8,7 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { ProductsActions } from '@store/actions/products.action';
+import { AssetsActions } from '@store/actions/assets.action';
 
 @Injectable()
 export default class ProductsEffects {
@@ -92,6 +93,50 @@ export default class ProductsEffects {
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
                         return of(ProductsActions.deleteError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
+    public readonly uploadAssetRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(ProductsActions.uploadAssetRequest),
+            switchMap(({productId, file}) => {
+                return this._apiService.createProductAsset(productId, file).pipe(
+                    mergeMap(res => {
+                        return [
+                            AssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset}),
+                            ProductsActions.updateSuccess({ product: res.data.product, meta: res.meta.product}),
+                            ProductsActions.uploadAssetSuccess({ product: res.data.product, asset: res.data.asset, meta: res.meta }),
+                        ];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(ProductsActions.uploadAssetError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
+    public readonly removeAssetRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(ProductsActions.removeAssetRequest),
+            switchMap(({productId, assetId}) => {
+                return this._apiService.deleteProductAsset(productId, assetId).pipe(
+                    mergeMap(res => {
+                        return [
+                            AssetsActions.deleteSuccess({ id: assetId, meta: res.meta.asset}),
+                            ProductsActions.deleteSuccess({ id: productId, meta: res.meta.product}),
+                            ProductsActions.removeAssetSuccess({ productId, assetId, meta: res.meta }),
+                        ];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(ProductsActions.removeAssetError({ error: error.message }));
                     }),
                 );
             })

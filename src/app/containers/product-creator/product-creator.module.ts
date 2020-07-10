@@ -5,7 +5,7 @@ import { ProductCreatorFormModule } from '@components/forms/product-creator-form
 import { ProductCreatorRoutingModule } from './product-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { NodeTreeModule } from '@components/node-tree/node-tree.module';
-import { FileSelectorModule } from '@components/assets/file-selector/file-selector.module';
+import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { FileSelectorModule } from '@components/assets/file-selector/file-select
     ProductCreatorFormModule,
     QueryProgressessModule,
     NodeTreeModule,
-    FileSelectorModule,
+    AssetsUploaderModule,
   ]
 })
 export class ProductCreatorModule { }

@@ -29,6 +29,16 @@ export namespace ProductsSelectors {
     state => state.loading,
   );
 
+  export const selectIsUploadAssetProcess = createSelector(
+    selectProducts,
+    state => state.isUploadAssetProcess,
+  );
+
+  export const selectIsRemoveAssetProcess = createSelector(
+    selectProducts,
+    state => state.isRemoveAssetProcess,
+  );
+
   export const selectIsGetProcess = createSelector(
     selectProducts,
     state => state.isGetProcess,

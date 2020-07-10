@@ -16,6 +16,8 @@ import { IProductsGetResponse } from './products-get-response.interface';
 import { IProductsCreateResponse } from './products-create-response.interface';
 import { IProductsUpdateResponse } from './products-update-response.interface';
 import { IProductsDeleteResponse } from './products-delete-response.interface';
+import { IProductsAssetCreateResponse } from './products-asset-create-response.interface';
+import { IProductsAssetDeleteResponse } from './products-asset-delete-response.interface';
 import { ISelectorsGetResponse } from './selectors-get-response.interface';
 import { ISelectorsCreateResponse } from './selectors-create-response.interface';
 import { ISelectorsUpdateResponse } from './selectors-update-response.interface';
@@ -49,6 +51,8 @@ export {
     IProductsCreateResponse,
     IProductsUpdateResponse,
     IProductsDeleteResponse,
+    IProductsAssetCreateResponse,
+    IProductsAssetDeleteResponse,
     ISelectorsGetResponse,
     ISelectorsCreateResponse,
     ISelectorsUpdateResponse,

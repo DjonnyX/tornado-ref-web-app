@@ -6,6 +6,8 @@ import { IProduct } from '@app/models/product.model';
 export const initialState: IProductsState = {
     meta: undefined,
     loading: false,
+    isUploadAssetProcess: false,
+    isRemoveAssetProcess: false,
     isGetProcess: false,
     isCreateProcess: false,
     isUpdateProcess: false,
@@ -18,6 +20,20 @@ export const initialState: IProductsState = {
 
 const productsReducer = createReducer(
     initialState,
+    on(ProductsActions.uploadAssetRequest, state => {
+        return {
+            ...state,
+            loading: true,
+            isUploadAssetProcess: true,
+        };
+    }),
+    on(ProductsActions.removeAssetRequest, state => {
+        return {
+            ...state,
+            loading: true,
+            isRemoveAssetProcess: true,
+        };
+    }),
     on(ProductsActions.setNewProduct, (state, { product }) => {
         return {
             ...state,
@@ -58,6 +74,22 @@ const productsReducer = createReducer(
             loading: true,
         };
     }),
+    on(ProductsActions.uploadAssetError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isUploadAssetProcess: false,
+            loading: false,
+        };
+    }),
+    on(ProductsActions.removeAssetError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isRemoveAssetProcess: false,
+            loading: false,
+        };
+    }),
     on(ProductsActions.getAllError, (state, { error }) => {
         return {
             ...state,
@@ -87,6 +119,22 @@ const productsReducer = createReducer(
             ...state,
             error,
             isDeleteProcess: false,
+            loading: false,
+        };
+    }),
+    on(ProductsActions.uploadAssetSuccess, state => {
+        return {
+            ...state,
+            error: undefined,
+            isUploadAssetProcess: false,
+            loading: false,
+        };
+    }),
+    on(ProductsActions.removeAssetSuccess, state => {
+        return {
+            ...state,
+            error: undefined,
+            isRemoveAssetProcess: false,
             loading: false,
         };
     }),

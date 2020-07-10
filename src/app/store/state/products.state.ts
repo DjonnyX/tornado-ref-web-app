@@ -4,6 +4,8 @@ import { IMetaRefsResponse } from '@services';
 
 export interface IProductsState extends IBaseState {
     meta: IMetaRefsResponse;
+    isUploadAssetProcess: boolean;
+    isRemoveAssetProcess: boolean;
     isGetProcess: boolean;
     isCreateProcess: boolean;
     isUpdateProcess: boolean;

@@ -25,7 +25,9 @@ import {
   IAssetsDeleteResponse,
   IAssetsUpdateResponse,
   IAssetsCreateResponse,
-  IAssetsGetResponse
+  IAssetsGetResponse,
+  IProductsAssetCreateResponse,
+  IProductsAssetDeleteResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -139,17 +141,26 @@ export class ApiService {
       });
   }
 
-  /*public uploadProductImage(id: string, file: File): Observable<IProductsDeleteResponse> {
+  public createProductAsset(productId: string, file: File): Observable<IProductsAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
 
     return this._http
-      .post<IProductsDeleteResponse>(`api/v1/product/${id}/images`, formData, {
+      .post<IProductsAssetCreateResponse>(`api/v1/product/${productId}/asset`, formData, {
         headers: {
           authorization: this._token,
         },
       });
-  }*/
+  }
+
+  public deleteProductAsset(productId: string, assetId: string): Observable<IProductsAssetDeleteResponse> {
+    return this._http
+      .delete<IProductsAssetDeleteResponse>(`api/v1/product/${productId}/asset/${assetId}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
 
   // selectors
   public getSelectors(): Observable<ISelectorsGetResponse> {

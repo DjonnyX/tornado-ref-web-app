@@ -11,13 +11,18 @@
                     [tagList]="tags$ | async" (submit)="onMainOptionsSave($event)"
                     (update)="onMainOptionsUpdate($event)" (cancel)="onMainOptionsCancel()"></ta-product-creator-form>
             </ta-query-progress>
-
-            <div>
-                <button mat-button (click)="fileSelector.open()">
-                    Upload image
-                </button>
-                <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector" (select)="onUploadFile($event)"></ta-file-selector>
+        </div>
+        
+        <div class="form">
+            <div class="form-header">
+                <h2>Assets</h2>
             </div>
+
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessAssets$ | async">
+                <ta-assets-uploader [collection]="assets$ | async" (upload)="onAssetUpload($event)"
+                    (remove)="onAssetRemove($event)"></ta-assets-uploader>
+            </ta-query-progress>
         </div>
 
         <div class="form">
