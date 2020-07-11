@@ -1,41 +1,36 @@
 import { IAppState } from "../state";
 import { createSelector } from "@ngrx/store";
 
-export namespace ProductsSelectors {
-  export const selectProducts = (state: IAppState) => state.taProducts;
+export namespace ProductSelectors {
+  export const selectProduct = (state: IAppState) => state.taProduct;
 
-  export const selectCollection = createSelector(
-    selectProducts,
-    state => state.collection,
-  );
-
-  export const selectRefInfo = createSelector(
-    selectProducts,
-    state => !!state.meta ? state.meta.ref : undefined,
+  export const selectEntity = createSelector(
+    selectProduct,
+    state => state.product,
   );
 
   export const selectLoading = createSelector(
-    selectProducts,
+    selectProduct,
     state => state.loading,
   );
 
   export const selectIsGetProcess = createSelector(
-    selectProducts,
+    selectProduct,
     state => state.isGetProcess,
   );
 
   export const selectIsCreateProcess = createSelector(
-    selectProducts,
+    selectProduct,
     state => state.isCreateProcess,
   );
 
   export const selectIsUpdateProcess = createSelector(
-    selectProducts,
+    selectProduct,
     state => state.isUpdateProcess,
   );
 
   export const selectIsDeleteProcess = createSelector(
-    selectProducts,
+    selectProduct,
     state => state.isDeleteProcess,
   );
 }

@@ -58,11 +58,9 @@ export class ProductsEditorContainer implements OnInit {
   }
 
   onEditProduct(product: IProduct): void {
-    this._store.dispatch(ProductsActions.setEditProduct({ product }));
-
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url, isEditMode: true }
+      queryParams: { productId: product.id, returnUrl: this._router.routerState.snapshot.url }
     });
   }
 

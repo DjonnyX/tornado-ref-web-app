@@ -13,6 +13,7 @@ import { IMenuNodesCreateResponse } from './menu-nodes-create-response.interface
 import { IMenuNodesUpdateResponse } from './menu-nodes-update-response.interface';
 import { IMenuNodesDeleteResponse } from './menu-nodes-delete-response.interface';
 import { IProductsGetResponse } from './products-get-response.interface';
+import { IProductGetResponse } from './product-get-response.interface';
 import { IProductsCreateResponse } from './products-create-response.interface';
 import { IProductsUpdateResponse } from './products-update-response.interface';
 import { IProductsDeleteResponse } from './products-delete-response.interface';
@@ -49,6 +50,7 @@ export {
     IMenuNodesUpdateResponse,
     IMenuNodesDeleteResponse,
     IProductsGetResponse,
+    IProductGetResponse,
     IProductsCreateResponse,
     IProductsUpdateResponse,
     IProductsDeleteResponse,

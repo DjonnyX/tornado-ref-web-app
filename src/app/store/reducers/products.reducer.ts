@@ -12,24 +12,10 @@ export const initialState: IProductsState = {
     isDeleteProcess: false,
     error: undefined,
     collection: undefined,
-    newProduct: undefined,
-    editProduct: undefined,
 };
 
 const productsReducer = createReducer(
     initialState,
-    on(ProductsActions.setNewProduct, (state, { product }) => {
-        return {
-            ...state,
-            newProduct: product,
-        };
-    }),
-    on(ProductsActions.setEditProduct, (state, { product }) => {
-        return {
-            ...state,
-            editProduct: product,
-        };
-    }),
     on(ProductsActions.getAllRequest, state => {
         return {
             ...state,

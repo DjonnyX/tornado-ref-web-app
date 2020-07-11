@@ -7,16 +7,18 @@ import SelectorsEffects from './selectors.effects';
 import TagsEffects from './tags.effects';
 import MenuNodesEffects from './menu-nodes.effects';
 import AssetsEffects from './assets.effects';
+import ProductEffects from './product.effects';
 
 const rootEffects = [
   UserEffects,
   AdminEffects,
   MenuNodesEffects,
-  ProductNodesEffects,
   ProductsEffects,
+  ProductEffects,
+  ProductNodesEffects,
+  ProductAssetsEffects,
   SelectorsEffects,
   TagsEffects,
   AssetsEffects,
-  ProductAssetsEffects,
 ];
 export default rootEffects;
