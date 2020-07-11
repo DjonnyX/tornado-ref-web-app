@@ -7,15 +7,17 @@ import { ISelectorsState } from './selectors.state';
 import { IMenuNodesState } from './menu-nodes.state';
 import { IProductNodesState } from './product-nodes.state';
 import { IAssetsState } from './assets.state';
+import { IProductAssetsState } from './product-assets.state';
 
 export interface IAppState {
     taUser: IUserState;
     taAdmin: IAdminState;
     taCapabilities: ICapabilitiesState;
     taProducts: IProductsState;
+    taProductNodes: IProductNodesState,
+    taProductAssets: IProductAssetsState,
     taTags: ITagsState;
     taSelectors: ISelectorsState,
     taMenuNodes: IMenuNodesState,
-    taProductNodes: IProductNodesState,
     taAssets: IAssetsState,
 }

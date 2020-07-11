@@ -18,6 +18,10 @@ export class AssetsUploaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  getThumbnail(asset: IAsset): string {
+    return `url(${asset.path.replace('\\', '/')})`;
+  }
+
   onUploadFile(file: File): void {
     this.upload.emit(file);
   }

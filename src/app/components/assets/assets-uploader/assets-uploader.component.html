@@ -1,4 +1,12 @@
-<div>
+<div class="assets-uploader">
+    <div class="assets-uploader-wrapper">
+        <div class="asset" *ngFor="let item of collection; let index = index;">
+            <div matRipple class="asset-thumbnail" [style.background]="getThumbnail(item)"></div>
+            <div class="asset-name">
+                {{item.name}}
+            </div>
+        </div>
+    </div>
     <button mat-button (click)="fileSelector.open()">
         Upload image
     </button>

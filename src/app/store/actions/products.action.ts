@@ -24,24 +24,6 @@ export enum ProductsActionTypes {
     DELETE_SUCCESS = "TORNADO/products/delete:success",
     DELETE_ERROR = "TORNADO/products/delete:error",
 
-    // комбинированное действие
-    UPLOAD_ASSET_REQUEST = "TORNADO/products/asset/upload:request",
-    UPLOAD_ASSET_SUCCESS = "TORNADO/products/asset/upload:success",
-    UPLOAD_ASSET_ERROR = "TORNADO/products/asset/upload:error",
-
-    // комбинированное действие
-    DELETE_ASSET_REQUEST = "TORNADO/products/asset/delete:request",
-    DELETE_ASSET_SUCCESS = "TORNADO/products/asset/delete:success",
-    DELETE_ASSET_ERROR = "TORNADO/products/asset/delete:error",
-
-    ADD_ASSET_REQUEST = "TORNADO/products/assets/add:request",
-    ADD_ASSET_SUCCESS = "TORNADO/products/assets/add:success",
-    ADD_ASSET_ERROR = "TORNADO/products/assets/add:error",
-
-    REMOVE_ASSET_REQUEST = "TORNADO/products/assets/remove:request",
-    REMOVE_ASSET_SUCCESS = "TORNADO/products/assets/remove:success",
-    REMOVE_ASSET_ERROR = "TORNADO/products/assets/remove:error",
-
     NEW = "TORNADO/products/new",
 
     EDIT = "TORNADO/products/edit",
@@ -126,46 +108,5 @@ export namespace ProductsActions {
     export const setEditProduct = createAction(
         ProductsActionTypes.EDIT,
         props<{ product: IProduct }>()
-    );
-
-    // asset
-    export const uploadAssetRequest = createAction(
-        ProductsActionTypes.UPLOAD_ASSET_REQUEST,
-        props<{ productId: string, file: File, }>()
-    );
-    export const uploadAssetSuccess = createAction(
-        ProductsActionTypes.UPLOAD_ASSET_SUCCESS,
-        props<{
-            product: IProduct,
-            asset: IAsset,
-            meta: {
-                product: IMetaRefsResponse;
-                asset: IMetaRefsResponse;
-            }
-        }>()
-    );
-    export const uploadAssetError = createAction(
-        ProductsActionTypes.UPLOAD_ASSET_ERROR,
-        props<{ error: string }>()
-    );
-
-    export const removeAssetRequest = createAction(
-        ProductsActionTypes.UPLOAD_ASSET_REQUEST,
-        props<{ productId: string, assetId: string, }>()
-    );
-    export const removeAssetSuccess = createAction(
-        ProductsActionTypes.UPLOAD_ASSET_SUCCESS,
-        props<{
-            productId: string;
-            assetId: string;
-            meta: {
-                product: IMetaRefsResponse;
-                asset: IMetaRefsResponse;
-            }
-        }>()
-    );
-    export const removeAssetError = createAction(
-        ProductsActionTypes.UPLOAD_ASSET_ERROR,
-        props<{ error: string }>()
     );
 }

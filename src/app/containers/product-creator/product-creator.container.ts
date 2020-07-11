@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, AssetsSelectors } from '@store/selectors';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, AssetsSelectors, ProductAssetsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, debounceTime } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -14,6 +14,7 @@ import { TagsActions } from '@store/actions/tags.action';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { ApiService } from '@services';
+import { ProductAssetsActions } from '@store/actions/product-assets.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -74,16 +75,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(ProductsSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(ProductsSelectors.selectIsUploadAssetProcess),
-      ),
-      this._store.pipe(
-        select(ProductsSelectors.selectIsRemoveAssetProcess),
-      ),
-      this._store.pipe(
         select(SelectorsSelectors.selectIsGetProcess),
-      ),
-      this._store.pipe(
-        select(AssetsSelectors.selectLoading),
       ),
     ).pipe(
       map(([isGetSelectorsProcess, isGetTagsProcess, isGetProductNodesProcess]) => isGetSelectorsProcess || isGetTagsProcess || isGetProductNodesProcess),
@@ -106,13 +98,19 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.isProcessAssets$ = combineLatest(
       this._store.pipe(
-        select(ProductsSelectors.selectIsUploadAssetProcess),
+        select(ProductAssetsSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(ProductsSelectors.selectIsRemoveAssetProcess),
+        select(ProductAssetsSelectors.selectIsCreateProcess),
+      ),
+      this._store.pipe(
+        select(ProductAssetsSelectors.selectIsUpdateProcess),
+      ),
+      this._store.pipe(
+        select(ProductAssetsSelectors.selectIsDeleteProcess),
       ),
     ).pipe(
-      map(([isUploadAssetProcess, isRemoveAssetProcess]) => isUploadAssetProcess || isRemoveAssetProcess),
+      map(([isGetProcess, isCreateProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isCreateProcess || isUpdateProcess || isDeleteProcess),
     );;
 
     this.tags$ = this._store.pipe(
@@ -132,7 +130,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     );
 
     this.assets$ = this._store.pipe(
-      select(AssetsSelectors.selectCollection),
+      select(ProductAssetsSelectors.selectCollection),
     );
 
     if (this.isEditMode) {
@@ -151,7 +149,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     );
 
     this.rootNodeId$.pipe(
-      debounceTime(100),
       takeUntil(this.unsubscribe$),
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
@@ -165,6 +162,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       takeUntil(this.unsubscribe$),
     ).subscribe(product => {
       this._product = product;
+      if (!!this._product) {
+        this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._product.id }));
+      }
     });
   }
 
@@ -173,11 +173,11 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onAssetUpload(file: File): void {
-    this._store.dispatch(ProductsActions.uploadAssetRequest({ productId: this._product.id, file }));
+    this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._product.id, file }));
   }
 
-  onAssetRemove(id: string): void {
-    this._store.dispatch(ProductsActions.removeAssetRequest({ productId: this._product.id, assetId: id }));
+  onAssetRemove(assetId: string): void {
+    this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._product.id, assetId }));
   }
 
   onCreateHierarchyNode(node: INode): void {

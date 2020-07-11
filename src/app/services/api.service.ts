@@ -27,7 +27,8 @@ import {
   IAssetsCreateResponse,
   IAssetsGetResponse,
   IProductsAssetCreateResponse,
-  IProductsAssetDeleteResponse
+  IProductsAssetDeleteResponse,
+  IProductsAssetGetResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -135,6 +136,15 @@ export class ApiService {
   public deleteProduct(id: string): Observable<IProductsDeleteResponse> {
     return this._http
       .delete<IProductsDeleteResponse>(`api/v1/product/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getProductAssets(productId: string): Observable<IProductsAssetGetResponse> {
+    return this._http
+      .get<IProductsAssetGetResponse>(`api/v1/product/${productId}/assets`, {
         headers: {
           authorization: this._token,
         },

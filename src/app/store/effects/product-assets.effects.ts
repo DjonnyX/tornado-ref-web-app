@@ -7,26 +7,25 @@ import { ApiService } from "@services";
 import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
-import { ProductsActions } from '@store/actions/products.action';
-import { AssetsActions } from '@store/actions/assets.action';
+import { ProductAssetsActions } from '@store/actions/product-assets.action';
 
 @Injectable()
-export default class ProductsEffects {
+export default class ProductAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(ProductsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getProducts().pipe(
+            ofType(ProductAssetsActions.getAllRequest),
+            switchMap(({ productId }) => {
+                return this._apiService.getProductAssets(productId).pipe(
                     mergeMap(res => {
-                        return [ProductsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
+                        return [ProductAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(ProductsActions.getAllError({ error: error.message }));
+                        return of(ProductAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
             })
@@ -35,64 +34,56 @@ export default class ProductsEffects {
 
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(ProductsActions.createRequest),
-            switchMap(product => {
-                return this._apiService.createProduct({
-                    name: product.name,
-                    description: product.description,
-                    tags: product.tags,
-                    receipt: product.receipt,
-                    assets: product.assets,
-                }).pipe(
+            ofType(ProductAssetsActions.createRequest),
+            switchMap(({ productId, file }) => {
+                return this._apiService.createProductAsset(productId, file).pipe(
                     mergeMap(res => {
-                        return [ProductsActions.createSuccess({ product: res.data, meta: res.meta })];
+                        return [ProductAssetsActions.createSuccess({ asset: res.data.asset })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(ProductsActions.createError({ error: error.message }));
+                        return of(ProductAssetsActions.createError({ error: error.message }));
                     }),
                 );
             })
         )
     );
 
-    public readonly updateRequest = createEffect(() =>
+    /*public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(ProductsActions.updateRequest),
-            switchMap(({ id, product }) => {
-                return this._apiService.updateProduct(id, {
-                    name: product.name,
-                    description: product.description,
-                    receipt: product.receipt,
-                    tags: product.tags,
-                    assets: product.assets,
+            ofType(ProductAssetsActions.updateRequest),
+            switchMap(({ productId, asset }) => {
+                return this._apiService.updateProductAsset(id, {
+                    name: asset.name,
+                    ext: asset.ext,
+                    path: asset.path,
                 }).pipe(
                     mergeMap(res => {
-                        return [ProductsActions.updateSuccess({ product: res.data, meta: res.meta })];
+                        return [ProductAssetsActions.updateSuccess({ asset: res.data, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(ProductsActions.updateError({ error: error.message }));
+                        return of(ProductAssetsActions.updateError({ error: error.message }));
                     }),
                 );
             })
         )
-    );
+    );*/
 
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(ProductsActions.deleteRequest),
-            switchMap(({ id }) => {
-                return this._apiService.deleteProduct(id).pipe(
+            ofType(ProductAssetsActions.deleteRequest),
+            switchMap(({ productId, assetId }) => {
+                return this._apiService.deleteProductAsset(productId, assetId).pipe(
                     mergeMap(res => {
-                        return [ProductsActions.deleteSuccess({ id, meta: res.meta })];
+                        return [ProductAssetsActions.deleteSuccess({ id: assetId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(ProductsActions.deleteError({ error: error.message }));
+                        return of(ProductAssetsActions.deleteError({ error: error.message }));
                     }),
                 );
             })

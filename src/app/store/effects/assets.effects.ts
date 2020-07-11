@@ -80,7 +80,7 @@ export default class AssetsEffects {
         this._actions$.pipe(
             ofType(AssetsActions.deleteRequest),
             switchMap(({ id }) => {
-                return this._apiService.deleteProduct(id).pipe(
+                return this._apiService.deleteAsset(id).pipe(
                     mergeMap(res => {
                         return [AssetsActions.deleteSuccess({ id, meta: res.meta })];
                     }),

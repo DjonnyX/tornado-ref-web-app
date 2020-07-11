@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { IProductsState } from '@store/state';
-import { ProductsActions } from '@store/actions/products.action';
-import { IProduct } from '@app/models/product.model';
+import { IProductAssetsState } from '@store/state';
+import { ProductAssetsActions } from '@store/actions/product-assets.action';
+import { IAsset } from '@models';
 
-export const initialState: IProductsState = {
+export const initialState: IProductAssetsState = {
     meta: undefined,
     loading: false,
     isGetProcess: false,
@@ -12,53 +12,39 @@ export const initialState: IProductsState = {
     isDeleteProcess: false,
     error: undefined,
     collection: undefined,
-    newProduct: undefined,
-    editProduct: undefined,
 };
 
-const productsReducer = createReducer(
+const productAssetsReducer = createReducer(
     initialState,
-    on(ProductsActions.setNewProduct, (state, { product }) => {
-        return {
-            ...state,
-            newProduct: product,
-        };
-    }),
-    on(ProductsActions.setEditProduct, (state, { product }) => {
-        return {
-            ...state,
-            editProduct: product,
-        };
-    }),
-    on(ProductsActions.getAllRequest, state => {
+    on(ProductAssetsActions.getAllRequest, state => {
         return {
             ...state,
             isGetProcess: true,
             loading: true,
         };
     }),
-    on(ProductsActions.createRequest, state => {
+    on(ProductAssetsActions.createRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
             loading: true,
         };
     }),
-    on(ProductsActions.updateRequest, state => {
+    on(ProductAssetsActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
             loading: true,
         };
     }),
-    on(ProductsActions.deleteRequest, state => {
+    on(ProductAssetsActions.deleteRequest, state => {
         return {
             ...state,
             isDeleteProcess: true,
             loading: true,
         };
     }),
-    on(ProductsActions.getAllError, (state, { error }) => {
+    on(ProductAssetsActions.getAllError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -66,7 +52,7 @@ const productsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductsActions.createError, (state, { error }) => {
+    on(ProductAssetsActions.createError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -74,7 +60,7 @@ const productsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductsActions.updateError, (state, { error }) => {
+    on(ProductAssetsActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -82,7 +68,7 @@ const productsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductsActions.deleteError, (state, { error }) => {
+    on(ProductAssetsActions.deleteError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -90,7 +76,7 @@ const productsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductsActions.getAllSuccess, (state, { collection, meta }) => {
+    on(ProductAssetsActions.getAllSuccess, (state, { collection, meta }) => {
         return {
             ...state,
             collection,
@@ -100,22 +86,22 @@ const productsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductsActions.createSuccess, (state, { product, meta }) => {
+    on(ProductAssetsActions.createSuccess, (state, { asset, meta }) => {
         return {
             ...state,
-            collection: [...state.collection, product],
+            collection: [...state.collection, asset],
             meta,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(ProductsActions.updateSuccess, (state, { product, meta }) => {
-        const existsProductIndex = state.collection.findIndex(p => p.id === product.id);
+    on(ProductAssetsActions.updateSuccess, (state, { asset, meta }) => {
+        const existsAssetIndex = state.collection.findIndex(p => p.id === asset.id);
         let collection = [...state.collection];
-        if (existsProductIndex > -1) {
-            collection.splice(existsProductIndex, 1);
-            collection.splice(existsProductIndex, 0, product);
+        if (existsAssetIndex > -1) {
+            collection.splice(existsAssetIndex, 1);
+            collection.splice(existsAssetIndex, 0, asset);
         }
         return {
             ...state,
@@ -126,11 +112,11 @@ const productsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductsActions.deleteSuccess, (state, { id, meta }) => {
-        const existsProductIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<IProduct> = [...state.collection];
-        if (existsProductIndex > -1) {
-            collection.splice(existsProductIndex, 1);
+    on(ProductAssetsActions.deleteSuccess, (state, { id, meta }) => {
+        const existsAssetIndex = state.collection.findIndex(p => p.id === id);
+        let collection: Array<IAsset> = [...state.collection];
+        if (existsAssetIndex > -1) {
+            collection.splice(existsAssetIndex, 1);
         }
         return {
             ...state,
@@ -143,4 +129,4 @@ const productsReducer = createReducer(
     }),
 );
 
-export default productsReducer;
+export default productAssetsReducer;
