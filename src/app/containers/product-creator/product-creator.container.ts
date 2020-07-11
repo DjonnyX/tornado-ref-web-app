@@ -56,6 +56,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute, private _apiService: ApiService) {
     super();
+
+    this._store.dispatch(ProductActions.clear());
   }
 
   ngOnInit(): void {
@@ -64,8 +66,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._productId = this._activatedRoute.snapshot.queryParams["productId"];
 
     this.isEditMode = !!this._productId;
-
-    this._store.dispatch(ProductActions.clear());
 
     this.isProcess$ = combineLatest(
       this._store.pipe(
