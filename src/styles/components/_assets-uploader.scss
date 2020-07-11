@@ -98,6 +98,11 @@ $assets-button-menu-size-d: px2em(38);
                 }
             }
         }
+
+        .asset-btn-add {
+            min-height: $assets-size-d;
+            max-height: $assets-size-d;
+        }
     }
 }
 
@@ -127,6 +132,11 @@ $assets-button-menu-size-d: px2em(38);
                     font-size: 0.8rem;
                 }
             }
+        }
+
+        .asset-btn-add {
+            min-height: $assets-size-m;
+            min-height: $assets-size-m;
         }
     }
 }

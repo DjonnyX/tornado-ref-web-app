@@ -28,10 +28,10 @@
                 </div>
             </ng-template>
         </div>
+        <button class="asset-btn-add" mat-flat-button color="accent" (click)="fileSelector.open()">
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
-    <button mat-button (click)="fileSelector.open()">
-        Upload image
-    </button>
-    <ta-file-selector [allowedExtensions]="['.png', '.jpg', '.obj', '.fbx', '.dae']" #fileSelector="fileSelector"
+    <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector"
         (select)="onUploadFile($event)"></ta-file-selector>
 </div>
