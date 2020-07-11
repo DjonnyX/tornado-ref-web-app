@@ -5,25 +5,31 @@ import userReducer from './user.reduser';
 import adminReducer from './admin.reducer';
 import capabilitiesReducer from './capabilities.reducer';
 import productsReducer from './products.reducer';
+import productReducer from './product.reducer';
+import productNodesReducer from './product-nodes.reducer';
+import productAssetsReducer from './product-assets.reducer';
 import tagsReducer from './tags.reducer';
 import selectorsReducer from './selectors.reducer';
 import menuNodesReducer from './menu-nodes.reducer';
-import productNodesReducer from './product-nodes.reducer';
+import assetsReducer from './assets.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
   taAdmin: adminReducer,
   taCapabilities: capabilitiesReducer,
   taProducts: productsReducer,
+  taProduct: productReducer,
+  taProductNodes: productNodesReducer,
+  taProductAssets: productAssetsReducer,
   taTags: tagsReducer,
   taSelectors: selectorsReducer,
   taMenuNodes: menuNodesReducer,
-  taProductNodes: productNodesReducer,
+  taAssets: assetsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taProducts', 'taTags', 'taSelectors', 'menuNodesReducer', 'productNodesReducer'],
+    keys: ['taUser', 'taAdmin', 'taCapabilities'],
     rehydrate: true,
   })(reducer);
 }

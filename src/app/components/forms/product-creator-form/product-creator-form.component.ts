@@ -39,7 +39,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Input() tagList: Array<ITag>;
 
-  @Output() submit = new EventEmitter<IProduct>();
+  @Output() save = new EventEmitter<IProduct>();
 
   @Output() cancel = new EventEmitter<void>();
 
@@ -68,9 +68,9 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     super.ngOnDestroy();
   }
 
-  onMainOptionsSubmit(): void {
+  onMainOptionsSave(): void {
     if (this.form.valid) {
-      this.submit.emit({ ...this._product, ...this.form.value });
+      this.save.emit({ ...this._product, ...this.form.value });
     }
   }
 

@@ -9,6 +9,7 @@ import { IRef, ITag } from '@models';
 import { Router, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
+import { ProductActions } from '@store/actions/product.action';
 
 @Component({
   selector: 'ta-products-editor',
@@ -51,6 +52,9 @@ export class ProductsEditorContainer implements OnInit {
   }
 
   onCreateProduct(): void {
+
+    this._store.dispatch(ProductActions.clear());
+    
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
       queryParams: { returnUrl: this._router.routerState.snapshot.url }
@@ -58,11 +62,12 @@ export class ProductsEditorContainer implements OnInit {
   }
 
   onEditProduct(product: IProduct): void {
-    this._store.dispatch(ProductsActions.setEditProduct({ product }));
 
+    this._store.dispatch(ProductActions.clear());
+    
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url, isEditMode: true }
+      queryParams: { productId: product.id, returnUrl: this._router.routerState.snapshot.url }
     });
   }
 

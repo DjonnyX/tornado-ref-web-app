@@ -1,5 +1,6 @@
 import { IReceiptItem } from './receipt.model';
 import { IEntity } from './entity.model';
+import { IAsset } from './asset.model';
 
 export interface IProduct extends IEntity {
     /**
@@ -22,4 +23,8 @@ export interface IProduct extends IEntity {
      * нод для привязки иерархии сущностей
      */
     joint?: string;
+    /**
+     * список ресов
+     */
+    assets: Array<IAsset>;
 }

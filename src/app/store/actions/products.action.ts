@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IProduct } from '@app/models/product.model';
+import { IAsset } from '@models';
 
 export enum ProductsActionTypes {
     GET_ALL_REQUEST = "TORNADO/products/get-all:request",
@@ -22,10 +23,6 @@ export enum ProductsActionTypes {
     DELETE_REQUEST = "TORNADO/products/delete:request",
     DELETE_SUCCESS = "TORNADO/products/delete:success",
     DELETE_ERROR = "TORNADO/products/delete:error",
-
-    NEW = "TORNADO/products/new",
-
-    EDIT = "TORNADO/products/edit",
 }
 
 export namespace ProductsActions {
@@ -96,15 +93,5 @@ export namespace ProductsActions {
     export const deleteError = createAction(
         ProductsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
-    );
-
-    export const setNewProduct = createAction(
-        ProductsActionTypes.NEW,
-        props<{ product: IProduct }>()
-    );
-
-    export const setEditProduct = createAction(
-        ProductsActionTypes.EDIT,
-        props<{ product: IProduct }>()
     );
 }

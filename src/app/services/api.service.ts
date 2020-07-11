@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient, HttpEventType } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile, ITag, ISelector, INode } from '@models';
+import { IUserProfile, ITag, ISelector, INode, IAsset } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -21,7 +21,15 @@ import {
   IMenuNodesGetResponse,
   IMenuNodesCreateResponse,
   IMenuNodesUpdateResponse,
-  IMenuNodesDeleteResponse
+  IMenuNodesDeleteResponse,
+  IAssetsDeleteResponse,
+  IAssetsUpdateResponse,
+  IAssetsCreateResponse,
+  IAssetsGetResponse,
+  IProductsAssetCreateResponse,
+  IProductsAssetDeleteResponse,
+  IProductsAssetGetResponse,
+  IProductGetResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -108,6 +116,15 @@ export class ApiService {
       });
   }
 
+  public getProduct(id: string): Observable<IProductGetResponse> {
+    return this._http
+      .get<IProductGetResponse>(`api/v1/product/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
   public createProduct(product: IProduct): Observable<IProductsCreateResponse> {
     return this._http
       .post<IProductsCreateResponse>("api/v1/product", product, {
@@ -129,6 +146,56 @@ export class ApiService {
   public deleteProduct(id: string): Observable<IProductsDeleteResponse> {
     return this._http
       .delete<IProductsDeleteResponse>(`api/v1/product/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getProductAssets(productId: string): Observable<IProductsAssetGetResponse> {
+    return this._http
+      .get<IProductsAssetGetResponse>(`api/v1/product/${productId}/assets`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createProductAsset(productId: string, file: File): Observable<IProductsAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IProductsAssetCreateResponse>(`api/v1/product/${productId}/asset`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public deleteProductAsset(productId: string, assetId: string): Observable<IProductsAssetDeleteResponse> {
+    return this._http
+      .delete<IProductsAssetDeleteResponse>(`api/v1/product/${productId}/asset/${assetId}`, {
         headers: {
           authorization: this._token,
         },
@@ -166,6 +233,63 @@ export class ApiService {
   public deleteSelector(id: string): Observable<ISelectorsDeleteResponse> {
     return this._http
       .delete<ISelectorsDeleteResponse>(`api/v1/selector/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // assets
+  public getAssets(): Observable<IAssetsGetResponse> {
+    return this._http
+      .get<IAssetsGetResponse>("api/v1/assets", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createAsset(asset: IAsset): Observable<any> { //IAssetsCreateResponse
+    return this._http
+      .post<any>("api/v1/asset", asset, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                progress: {
+                  total: event.total,
+                  loaded: event.loaded,
+                  progress,
+                },
+              }
+            case HttpEventType.Response:
+              return {
+                asset: event,
+              }
+          }
+        }),
+      )
+  }
+
+  public updateAsset(id: string, asset: IAsset): Observable<IAssetsUpdateResponse> {
+    return this._http
+      .put<IAssetsUpdateResponse>(`api/v1/asset/${id}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteAsset(id: string): Observable<IAssetsDeleteResponse> {
+    return this._http
+      .delete<IAssetsDeleteResponse>(`api/v1/asset/${id}`, {
         headers: {
           authorization: this._token,
         },
@@ -218,7 +342,7 @@ export class ApiService {
         },
       });
   }
-  
+
   // tags
   public getTags(): Observable<ITagsGetResponse> {
     return this._http
