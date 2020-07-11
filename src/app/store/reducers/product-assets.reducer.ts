@@ -86,14 +86,35 @@ const productAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductAssetsActions.createSuccess, (state, { asset, meta }) => {
+    on(ProductAssetsActions.createSuccess, (state, { asset, tmpAsset, meta }) => {
+        const existsTmpAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...state.collection, asset];
+        if (existsTmpAssetIndex > -1) {
+            collection.splice(existsTmpAssetIndex, 1);
+        }
         return {
             ...state,
-            collection: [...state.collection, asset],
+            collection,
             meta,
             error: undefined,
             isCreateProcess: false,
             loading: false,
+        };
+    }),
+    on(ProductAssetsActions.createProgress, (state, { tmpAsset, progress }) => {
+        const existsAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...state.collection];
+        const asset = {...tmpAsset};
+        asset.progress = progress;
+        if (existsAssetIndex > -1) {
+            collection.splice(existsAssetIndex, 1);
+            collection.splice(existsAssetIndex, 0, asset);
+        } else {
+            collection.push(asset);
+        }
+        return {
+            ...state,
+            collection,
         };
     }),
     on(ProductAssetsActions.updateSuccess, (state, { asset, meta }) => {

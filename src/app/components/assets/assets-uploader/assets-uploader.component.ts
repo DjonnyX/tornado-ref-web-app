@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { Observable } from 'rxjs';
 import { IAsset } from '@models';
 
 @Component({
@@ -9,14 +8,13 @@ import { IAsset } from '@models';
 })
 export class AssetsUploaderComponent implements OnInit {
 
-  @Input() collection: Observable<IAsset>;
+  @Input() collection: Array<IAsset>;
 
   @Output() upload = new EventEmitter<File>();
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   getThumbnail(asset: IAsset): string {
     return `url(${asset.path.replace('\\', '/')})`;

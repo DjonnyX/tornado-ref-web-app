@@ -1,4 +1,5 @@
 import { IEntity } from './entity.model';
+import { IProgress } from './progress.model';
 
 export interface IAsset extends IEntity {
     /**
@@ -13,4 +14,7 @@ export interface IAsset extends IEntity {
      * путь до ресурса
      */
     path: string;
+
+    // сервисные свойства
+    progress?: IProgress;
 }

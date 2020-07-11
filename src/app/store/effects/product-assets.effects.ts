@@ -8,9 +8,18 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
+import { IAsset } from '@models';
 
 @Injectable()
 export default class ProductAssetsEffects {
+    private _currentAssetId: number = 0;
+
+    private get nextTmpAssetId() {
+        this._currentAssetId++;
+
+        return this._currentAssetId;
+    }
+
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
@@ -36,41 +45,40 @@ export default class ProductAssetsEffects {
         this._actions$.pipe(
             ofType(ProductAssetsActions.createRequest),
             switchMap(({ productId, file }) => {
+                const id = String(this.nextTmpAssetId);
+                const ext = file.name.replace(/^.+\./, "");
+                const tmpAsset: IAsset = {
+                    id,
+                    name: file.name,
+                    path: undefined,
+                    ext: ext,
+                }
                 return this._apiService.createProductAsset(productId, file).pipe(
-                    mergeMap(res => {
-                        return [ProductAssetsActions.createSuccess({ asset: res.data.asset })];
+                    mergeMap((res: any) => {
+                        if (!res) {
+                            return [ProductAssetsActions.createProgress({
+                                tmpAsset,
+                                progress: {
+                                    total: 0,
+                                    progress: 0,
+                                    loaded: 0,
+                                }
+                            })];
+                        }
+                        if (!!res.data.progress) {
+                            return [ProductAssetsActions.createProgress({ tmpAsset, progress: res.data.progress })];
+                        }
+                        return [ProductAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
-                        return of(ProductAssetsActions.createError({ error: error.message }));
+                        return of(ProductAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
             })
         )
     );
-
-    /*public readonly updateRequest = createEffect(() =>
-        this._actions$.pipe(
-            ofType(ProductAssetsActions.updateRequest),
-            switchMap(({ productId, asset }) => {
-                return this._apiService.updateProductAsset(id, {
-                    name: asset.name,
-                    ext: asset.ext,
-                    path: asset.path,
-                }).pipe(
-                    mergeMap(res => {
-                        return [ProductAssetsActions.updateSuccess({ asset: res.data, meta: res.meta })];
-                    }),
-                    map(v => v),
-                    catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
-                        return of(ProductAssetsActions.updateError({ error: error.message }));
-                    }),
-                );
-            })
-        )
-    );*/
 
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(

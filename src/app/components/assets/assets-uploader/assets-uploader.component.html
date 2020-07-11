@@ -1,10 +1,20 @@
 <div class="assets-uploader">
     <div class="assets-uploader-wrapper">
         <div class="asset" *ngFor="let item of collection; let index = index;">
-            <div matRipple class="asset-thumbnail" [style.background]="getThumbnail(item)"></div>
-            <div class="asset-name">
-                {{item.name}}
-            </div>
+            <ng-container *ngIf="item.progress; else loaded">
+                <div matRipple class="asset-thumbnail">
+                    <mat-progress-bar mode="determinate" [value]="item.progress.progress"></mat-progress-bar>
+                </div>
+                <div class="asset-name">
+                    {{item.name}}
+                </div>
+            </ng-container>
+            <ng-template #loaded>
+                <div matRipple class="asset-thumbnail" [style.background]="getThumbnail(item)"></div>
+                <div class="asset-name">
+                    {{item.name}}
+                </div>
+            </ng-template>
         </div>
     </div>
     <button mat-button (click)="fileSelector.open()">

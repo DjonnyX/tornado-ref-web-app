@@ -13,6 +13,7 @@ export enum ProductAssetsActionTypes {
 
     CREATE_REQUEST = "TORNADO/product/assets/create:request",
     CREATE_SUCCESS = "TORNADO/product/assets/create:success",
+    CREATE_PROGRESS = "TORNADO/product/assets/create:progress",
     CREATE_ERROR = "TORNADO/product/assets/create:error",
 
     UPDATE_REQUEST = "TORNADO/product/assets/update:request",
@@ -60,11 +61,25 @@ export namespace ProductAssetsActions {
     );
     export const createSuccess = createAction(
         ProductAssetsActionTypes.CREATE_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+    );
+    export const createProgress = createAction(
+        ProductAssetsActionTypes.CREATE_PROGRESS,
+        props<{
+            tmpAsset: IAsset,
+            progress: {
+                total: number,
+                loaded: number,
+                progress: number,
+            }
+        }>()
     );
     export const createError = createAction(
         ProductAssetsActionTypes.CREATE_ERROR,
-        props<{ error: string }>()
+        props<{
+            tmpAsset: IAsset,
+            error: string
+        }>()
     );
 
     // update

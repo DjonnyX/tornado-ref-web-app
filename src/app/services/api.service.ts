@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpEventType } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IUserProfile, ITag, ISelector, INode, IAsset } from '@models';
 import {
@@ -115,7 +115,7 @@ export class ApiService {
         },
       });
   }
-  
+
   public getProduct(id: string): Observable<IProductGetResponse> {
     return this._http
       .get<IProductGetResponse>(`api/v1/product/${id}`, {
@@ -170,7 +170,27 @@ export class ApiService {
         headers: {
           authorization: this._token,
         },
-      });
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
   }
 
   public deleteProductAsset(productId: string, assetId: string): Observable<IProductsAssetDeleteResponse> {
@@ -229,13 +249,33 @@ export class ApiService {
       });
   }
 
-  public createAsset(asset: IAsset): Observable<IAssetsCreateResponse> {
+  public createAsset(asset: IAsset): Observable<any> { //IAssetsCreateResponse
     return this._http
-      .post<IAssetsCreateResponse>("api/v1/asset", asset, {
+      .post<any>("api/v1/asset", asset, {
         headers: {
           authorization: this._token,
         },
-      });
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                progress: {
+                  total: event.total,
+                  loaded: event.loaded,
+                  progress,
+                },
+              }
+            case HttpEventType.Response:
+              return {
+                asset: event,
+              }
+          }
+        }),
+      )
   }
 
   public updateAsset(id: string, asset: IAsset): Observable<IAssetsUpdateResponse> {
