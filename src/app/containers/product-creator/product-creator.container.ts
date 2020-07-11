@@ -108,16 +108,13 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(ProductAssetsSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(ProductAssetsSelectors.selectIsCreateProcess),
-      ),
-      this._store.pipe(
         select(ProductAssetsSelectors.selectIsUpdateProcess),
       ),
       this._store.pipe(
         select(ProductAssetsSelectors.selectIsDeleteProcess),
       ),
     ).pipe(
-      map(([isGetProcess, isCreateProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isCreateProcess || isUpdateProcess || isDeleteProcess),
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
     this.product$ = this._store.pipe(
