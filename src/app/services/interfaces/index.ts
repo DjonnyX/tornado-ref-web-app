@@ -21,10 +21,12 @@ import { IProductsAssetGetResponse } from './product-assets-get-response.interfa
 import { IProductsAssetCreateResponse } from './products-asset-create-response.interface';
 import { IProductsAssetDeleteResponse } from './products-asset-delete-response.interface';
 import { ISelectorsGetResponse } from './selectors-get-response.interface';
+import { ISelectorGetResponse } from './selector-get-response.interface';
 import { ISelectorsCreateResponse } from './selectors-create-response.interface';
 import { ISelectorsUpdateResponse } from './selectors-update-response.interface';
 import { ISelectorsDeleteResponse } from './selectors-delete-response.interface';
 import { ITagsGetResponse } from './tags-get-response.interface';
+import { ITagGetResponse } from './tag-get-response.interface';
 import { ITagsCreateResponse } from './tags-create-response.interface';
 import { ITagsUpdateResponse } from './tags-update-response.interface';
 import { ITagsDeleteResponse } from './tags-delete-response.interface';
@@ -58,10 +60,12 @@ export {
     IProductsAssetCreateResponse,
     IProductsAssetDeleteResponse,
     ISelectorsGetResponse,
+    ISelectorGetResponse,
     ISelectorsCreateResponse,
     ISelectorsUpdateResponse,
     ISelectorsDeleteResponse,
     ITagsGetResponse,
+    ITagGetResponse,
     ITagsCreateResponse,
     ITagsUpdateResponse,
     ITagsDeleteResponse,

@@ -9,6 +9,4 @@ export interface ITagsState extends IBaseState {
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
     collection: Array<ITag> | null;
-    newTag: ITag | null;
-    editTag: ITag | null;
 }

@@ -1,46 +1,46 @@
 import { createReducer, on } from '@ngrx/store';
-import { IProductState } from '@store/state';
-import { ProductActions } from '@store/actions/product.action';
+import { TagActions } from '@store/actions/tag.action';
+import { ITagState } from '@store/state/tag.state';
 
-export const initialState: IProductState = {
+export const initialState: ITagState = {
     loading: false,
     isGetProcess: false,
     isCreateProcess: false,
     isUpdateProcess: false,
     isDeleteProcess: false,
     error: undefined,
-    product: undefined,
+    tag: undefined,
 };
 
-const productReducer = createReducer(
+const tagReducer = createReducer(
     initialState,
-    on(ProductActions.clear, state => {
+    on(TagActions.clear, state => {
         return {
             ...initialState,
         };
     }),
-    on(ProductActions.getRequest, state => {
+    on(TagActions.getRequest, state => {
         return {
             ...state,
             isGetProcess: true,
             loading: true,
         };
     }),
-    on(ProductActions.createRequest, state => {
+    on(TagActions.createRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
             loading: true,
         };
     }),
-    on(ProductActions.updateRequest, state => {
+    on(TagActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
             loading: true,
         };
     }),
-    on(ProductActions.getError, (state, { error }) => {
+    on(TagActions.getError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -48,7 +48,7 @@ const productReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductActions.createError, (state, { error }) => {
+    on(TagActions.createError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -56,7 +56,7 @@ const productReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductActions.updateError, (state, { error }) => {
+    on(TagActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -64,28 +64,28 @@ const productReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductActions.getSuccess, (state, { product }) => {
+    on(TagActions.getSuccess, (state, { tag }) => {
         return {
             ...state,
-            product,
+            tag,
             error: undefined,
             isGetProcess: false,
             loading: false,
         };
     }),
-    on(ProductActions.createSuccess, (state, { product }) => {
+    on(TagActions.createSuccess, (state, { tag }) => {
         return {
             ...state,
-            product,
+            tag,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(ProductActions.updateSuccess, (state, { product }) => {
+    on(TagActions.updateSuccess, (state, { tag }) => {
         return {
             ...state,
-            product,
+            tag,
             error: undefined,
             isUpdateProcess: false,
             loading: false,
@@ -93,4 +93,4 @@ const productReducer = createReducer(
     }),
 );
 
-export default productReducer;
+export default tagReducer;

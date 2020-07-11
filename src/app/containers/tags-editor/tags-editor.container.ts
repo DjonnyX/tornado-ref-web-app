@@ -6,6 +6,7 @@ import { IRef, ITag } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
+import { TagActions } from '@store/actions/tag.action';
 
 @Component({
   selector: 'ta-tags-editor',
@@ -42,16 +43,17 @@ export class TagsEditorContainer implements OnInit {
   onCreateTag(): void {
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url }
+      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
   onEditTag(tag: ITag): void {
-    this._store.dispatch(TagsActions.setEditTag({ tag }));
+
+    this._store.dispatch(TagActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url, isEditMode: true }
+      queryParams: { tagId: tag.id, returnUrl: this._router.routerState.snapshot.url, },
     });
   }
 

@@ -12,24 +12,10 @@ export const initialState: ITagsState = {
     isDeleteProcess: false,
     error: undefined,
     collection: undefined,
-    newTag: undefined,
-    editTag: undefined,
 };
 
 const tagsReducer = createReducer(
     initialState,
-    on(TagsActions.setNewTag, (state, { tag }) => {
-        return {
-            ...state,
-            newTag: tag,
-        };
-    }),
-    on(TagsActions.setEditTag, (state, { tag }) => {
-        return {
-            ...state,
-            editTag: tag,
-        };
-    }),
     on(TagsActions.getAllRequest, state => {
         return {
             ...state,

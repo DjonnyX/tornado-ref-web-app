@@ -126,7 +126,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ).subscribe(product => {
       this._productId = product.id;
       this.isEditMode = !!this._productId;
-    })
+    });
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
@@ -201,7 +201,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     if (this.isEditMode) {
       this._store.dispatch(ProductActions.updateRequest({ id: product.id, product }));
     } else {
-      this._store.dispatch(ProductActions.createRequest(product));
+      this._store.dispatch(ProductActions.createRequest({ product }));
     }
 
     // this._router.navigate([this._returnUrl]);

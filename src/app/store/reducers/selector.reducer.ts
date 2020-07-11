@@ -1,46 +1,46 @@
 import { createReducer, on } from '@ngrx/store';
-import { IProductState } from '@store/state';
-import { ProductActions } from '@store/actions/product.action';
+import { SelectorActions } from '@store/actions/selector.action';
+import { ISelectorState } from '@store/state/selector.state';
 
-export const initialState: IProductState = {
+export const initialState: ISelectorState = {
     loading: false,
     isGetProcess: false,
     isCreateProcess: false,
     isUpdateProcess: false,
     isDeleteProcess: false,
     error: undefined,
-    product: undefined,
+    selector: undefined,
 };
 
-const productReducer = createReducer(
+const selectorReducer = createReducer(
     initialState,
-    on(ProductActions.clear, state => {
+    on(SelectorActions.clear, state => {
         return {
             ...initialState,
         };
     }),
-    on(ProductActions.getRequest, state => {
+    on(SelectorActions.getRequest, state => {
         return {
             ...state,
             isGetProcess: true,
             loading: true,
         };
     }),
-    on(ProductActions.createRequest, state => {
+    on(SelectorActions.createRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
             loading: true,
         };
     }),
-    on(ProductActions.updateRequest, state => {
+    on(SelectorActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
             loading: true,
         };
     }),
-    on(ProductActions.getError, (state, { error }) => {
+    on(SelectorActions.getError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -48,7 +48,7 @@ const productReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductActions.createError, (state, { error }) => {
+    on(SelectorActions.createError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -56,7 +56,7 @@ const productReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductActions.updateError, (state, { error }) => {
+    on(SelectorActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -64,28 +64,28 @@ const productReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductActions.getSuccess, (state, { product }) => {
+    on(SelectorActions.getSuccess, (state, { selector }) => {
         return {
             ...state,
-            product,
+            selector,
             error: undefined,
             isGetProcess: false,
             loading: false,
         };
     }),
-    on(ProductActions.createSuccess, (state, { product }) => {
+    on(SelectorActions.createSuccess, (state, { selector }) => {
         return {
             ...state,
-            product,
+            selector,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(ProductActions.updateSuccess, (state, { product }) => {
+    on(SelectorActions.updateSuccess, (state, { selector }) => {
         return {
             ...state,
-            product,
+            selector,
             error: undefined,
             isUpdateProcess: false,
             loading: false,
@@ -93,4 +93,4 @@ const productReducer = createReducer(
     }),
 );
 
-export default productReducer;
+export default selectorReducer;

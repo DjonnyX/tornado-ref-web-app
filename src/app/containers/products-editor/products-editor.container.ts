@@ -6,7 +6,7 @@ import { ProductsSelectors } from '@store/selectors';
 import { IProduct } from '@app/models/product.model';
 import { ProductsActions } from '@store/actions/products.action';
 import { IRef, ITag } from '@models';
-import { Router, ActivatedRoute, RouterStateSnapshot } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { ProductActions } from '@store/actions/product.action';

@@ -22,10 +22,6 @@ export enum SelectorsActionTypes {
     DELETE_REQUEST = "TORNADO/selectors/delete:request",
     DELETE_SUCCESS = "TORNADO/selectors/delete:success",
     DELETE_ERROR = "TORNADO/selectors/delete:error",
-
-    NEW = "TORNADO/selectors/new",
-
-    EDIT = "TORNADO/selectors/edit",
 }
 
 export namespace SelectorsActions {
@@ -96,15 +92,5 @@ export namespace SelectorsActions {
     export const deleteError = createAction(
         SelectorsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
-    );
-
-    export const setNewSelector = createAction(
-        SelectorsActionTypes.NEW,
-        props<{ selector: ISelector }>(),
-    );
-
-    export const setEditSelector = createAction(
-        SelectorsActionTypes.EDIT,
-        props<{ selector: ISelector }>(),
     );
 }

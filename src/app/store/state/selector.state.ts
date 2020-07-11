@@ -1,12 +1,10 @@
 import { IBaseState } from './base';
-import { IMetaRefsResponse } from '@services';
 import { ISelector } from '@models';
 
-export interface ISelectorsState extends IBaseState {
-    meta: IMetaRefsResponse;
+export interface ISelectorState extends IBaseState {
+    selector: ISelector;
     isGetProcess: boolean;
     isCreateProcess: boolean;
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
-    collection: Array<ISelector> | null;
 }

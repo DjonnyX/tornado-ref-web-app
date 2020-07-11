@@ -12,6 +12,8 @@ import tagsReducer from './tags.reducer';
 import selectorsReducer from './selectors.reducer';
 import menuNodesReducer from './menu-nodes.reducer';
 import assetsReducer from './assets.reducer';
+import selectorReducer from './selector.reducer';
+import tagReducer from './tag.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -22,7 +24,9 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taProductNodes: productNodesReducer,
   taProductAssets: productAssetsReducer,
   taTags: tagsReducer,
+  taTag: tagReducer,
   taSelectors: selectorsReducer,
+  taSelector: selectorReducer,
   taMenuNodes: menuNodesReducer,
   taAssets: assetsReducer,
 };

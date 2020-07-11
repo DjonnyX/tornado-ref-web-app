@@ -29,7 +29,9 @@ import {
   IProductsAssetCreateResponse,
   IProductsAssetDeleteResponse,
   IProductsAssetGetResponse,
-  IProductGetResponse
+  IProductGetResponse,
+  ITagGetResponse,
+  ISelectorGetResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -212,6 +214,15 @@ export class ApiService {
       });
   }
 
+  public getSelector(id: string): Observable<ISelectorGetResponse> {
+    return this._http
+      .get<ISelectorGetResponse>(`api/v1/selector/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
   public createSelector(selector: ISelector): Observable<ISelectorsCreateResponse> {
     return this._http
       .post<ISelectorsCreateResponse>("api/v1/selector", selector, {
@@ -347,6 +358,15 @@ export class ApiService {
   public getTags(): Observable<ITagsGetResponse> {
     return this._http
       .get<ITagsGetResponse>("api/v1/tags", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  public getTag(id: string): Observable<ITagGetResponse> {
+    return this._http
+      .get<ITagGetResponse>(`api/v1/tag/${id}`, {
         headers: {
           authorization: this._token,
         },

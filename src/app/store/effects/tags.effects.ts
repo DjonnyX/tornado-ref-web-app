@@ -36,7 +36,7 @@ export default class TagsEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(TagsActions.createRequest),
-            switchMap(tag => {
+            switchMap(({ tag }) => {
                 return this._apiService.createTag(formatTagModel(tag)).pipe(
                     mergeMap(res => {
                         return [TagsActions.createSuccess({ tag: res.data, meta: res.meta })];

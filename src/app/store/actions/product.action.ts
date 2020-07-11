@@ -35,29 +35,29 @@ export namespace ProductActions {
     // create
     export const createRequest = createAction(
         ProductActionTypes.CREATE_REQUEST,
-        props<IProduct>()
+        props<{product: IProduct}>(),
     );
     export const createSuccess = createAction(
         ProductActionTypes.CREATE_SUCCESS,
-        props<{ product: IProduct }>()
+        props<{ product: IProduct }>(),
     );
     export const createError = createAction(
         ProductActionTypes.CREATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // update
     export const updateRequest = createAction(
         ProductActionTypes.UPDATE_REQUEST,
-        props<{ id: string, product: IProduct }>()
+        props<{ id: string, product: IProduct }>(),
     );
     export const updateSuccess = createAction(
         ProductActionTypes.UPDATE_SUCCESS,
-        props<{ product: IProduct }>()
+        props<{ product: IProduct }>(),
     );
     export const updateError = createAction(
         ProductActionTypes.UPDATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // clear

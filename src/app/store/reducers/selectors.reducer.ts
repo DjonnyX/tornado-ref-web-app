@@ -12,24 +12,10 @@ export const initialState: ISelectorsState = {
     isDeleteProcess: false,
     error: undefined,
     collection: undefined,
-    newSelector: undefined,
-    editSelector: undefined,
 };
 
 const selectorsReducer = createReducer(
     initialState,
-    on(SelectorsActions.setNewSelector, (state, { selector }) => {
-        return {
-            ...state,
-            newSelector: selector,
-        };
-    }),
-    on(SelectorsActions.setEditSelector, (state, { selector }) => {
-        return {
-            ...state,
-            editSelector: selector,
-        };
-    }),
     on(SelectorsActions.getAllRequest, state => {
         return {
             ...state,
