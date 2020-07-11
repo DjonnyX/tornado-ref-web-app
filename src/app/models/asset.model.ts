@@ -14,7 +14,7 @@ export interface IAsset extends IEntity {
      * путь до ресурса
      */
     path: string;
-
+    thumbnail: string;
     // сервисные свойства
     progress?: IProgress;
 }

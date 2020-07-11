@@ -51,6 +51,7 @@ export default class ProductAssetsEffects {
                     id,
                     name: file.name,
                     path: undefined,
+                    thumbnail: undefined,
                     ext: ext,
                 }
                 return this._apiService.createProductAsset(productId, file).pipe(

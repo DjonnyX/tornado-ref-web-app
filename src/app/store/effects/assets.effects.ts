@@ -8,6 +8,7 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { AssetsActions } from '@store/actions/assets.action';
+import { formatAssetModel } from '@app/utils/asset.util';
 
 @Injectable()
 export default class AssetsEffects {
@@ -36,11 +37,7 @@ export default class AssetsEffects {
         this._actions$.pipe(
             ofType(AssetsActions.createRequest),
             switchMap(asset => {
-                return this._apiService.createAsset({
-                    name: asset.name,
-                    ext: asset.ext,
-                    path: asset.path,
-                }).pipe(
+                return this._apiService.createAsset(formatAssetModel(asset)).pipe(
                     mergeMap(res => {
                         return [AssetsActions.createSuccess({ asset: res.data, meta: res.meta })];
                     }),
@@ -58,11 +55,7 @@ export default class AssetsEffects {
         this._actions$.pipe(
             ofType(AssetsActions.updateRequest),
             switchMap(({ id, asset }) => {
-                return this._apiService.updateAsset(id, {
-                    name: asset.name,
-                    ext: asset.ext,
-                    path: asset.path,
-                }).pipe(
+                return this._apiService.updateAsset(id, formatAssetModel(asset)).pipe(
                     mergeMap(res => {
                         return [AssetsActions.updateSuccess({ asset: res.data, meta: res.meta })];
                     }),

@@ -19,7 +19,7 @@ export class AssetsUploaderComponent implements OnInit {
   ngOnInit(): void { }
 
   getThumbnail(asset: IAsset): string {
-    return `url(${asset.path.replace('\\', '/')})`;
+    return !!asset.thumbnail ? `url(${asset.thumbnail.replace('\\', '/')})` : "";
   }
 
   onShowMenu(event: Event): void {
