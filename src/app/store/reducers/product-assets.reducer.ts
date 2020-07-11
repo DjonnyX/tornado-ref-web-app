@@ -16,6 +16,11 @@ export const initialState: IProductAssetsState = {
 
 const productAssetsReducer = createReducer(
     initialState,
+    on(ProductAssetsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(ProductAssetsActions.getAllRequest, state => {
         return {
             ...state,

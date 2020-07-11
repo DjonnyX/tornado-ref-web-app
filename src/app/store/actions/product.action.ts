@@ -14,7 +14,7 @@ export enum ProductActionTypes {
     UPDATE_SUCCESS = "TORNADO/product/update:success",
     UPDATE_ERROR = "TORNADO/product/update:error",
 
-    CLEAR = "TORNADO/product/clear:error",
+    CLEAR = "TORNADO/product/clear",
 }
 
 export namespace ProductActions {

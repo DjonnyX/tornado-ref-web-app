@@ -56,8 +56,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute, private _apiService: ApiService) {
     super();
-
-    this._store.dispatch(ProductActions.clear());
   }
 
   ngOnInit(): void {
@@ -174,6 +172,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    this._store.dispatch(ProductActions.clear());
+    this._store.dispatch(ProductAssetsActions.clear());
   }
 
   onAssetUpload(file: File): void {

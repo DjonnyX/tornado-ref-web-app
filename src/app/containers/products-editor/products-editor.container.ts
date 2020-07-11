@@ -53,8 +53,6 @@ export class ProductsEditorContainer implements OnInit {
 
   onCreateProduct(): void {
 
-    this._store.dispatch(ProductActions.clear());
-    
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
       queryParams: { returnUrl: this._router.routerState.snapshot.url }
