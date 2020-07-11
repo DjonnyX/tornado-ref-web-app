@@ -8,6 +8,7 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { TagsActions } from '@store/actions/tags.action';
+import { formatTagModel } from '@app/utils/tag.util';
 
 @Injectable()
 export default class TagsEffects {
@@ -36,11 +37,7 @@ export default class TagsEffects {
         this._actions$.pipe(
             ofType(TagsActions.createRequest),
             switchMap(tag => {
-                return this._apiService.createTag({
-                    name: tag.name,
-                    description: tag.description,
-                    color: tag.color,
-                }).pipe(
+                return this._apiService.createTag(formatTagModel(tag)).pipe(
                     mergeMap(res => {
                         return [TagsActions.createSuccess({ tag: res.data, meta: res.meta })];
                     }),
@@ -58,11 +55,7 @@ export default class TagsEffects {
         this._actions$.pipe(
             ofType(TagsActions.updateRequest),
             switchMap(({ id, tag }) => {
-                return this._apiService.updateTag(id, {
-                    name: tag.name,
-                    description: tag.description,
-                    color: tag.color,
-                }).pipe(
+                return this._apiService.updateTag(id, formatTagModel(tag)).pipe(
                     mergeMap(res => {
                         return [TagsActions.updateSuccess({ tag: res.data, meta: res.meta })];
                     }),

@@ -8,6 +8,7 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
+import { formatNodeModel } from '@app/utils/node.util';
 
 @Injectable()
 export default class ProductNodesEffects {
@@ -36,12 +37,7 @@ export default class ProductNodesEffects {
         this._actions$.pipe(
             ofType(ProductNodesActions.createRequest),
             switchMap(({ node }) => {
-                return this._apiService.createNode({
-                    type: node.type,
-                    parentId: node.parentId,
-                    contentId: node.contentId,
-                    children: node.children,
-                }).pipe(
+                return this._apiService.createNode(formatNodeModel(node)).pipe(
                     mergeMap(res => {
                         return [ProductNodesActions.createSuccess({ changed: res.data.changed, created: res.data.created, meta: res.meta })];
                     }),
@@ -59,12 +55,7 @@ export default class ProductNodesEffects {
         this._actions$.pipe(
             ofType(ProductNodesActions.updateRequest),
             switchMap(({ id, node }) => {
-                return this._apiService.updateNode(id, {
-                    type: node.type,
-                    parentId: node.parentId,
-                    contentId: node.contentId,
-                    children: node.children,
-                }).pipe(
+                return this._apiService.updateNode(id, formatNodeModel(node)).pipe(
                     mergeMap(res => {
                         return [ProductNodesActions.updateSuccess({ node: res.data, meta: res.meta })];
                     }),

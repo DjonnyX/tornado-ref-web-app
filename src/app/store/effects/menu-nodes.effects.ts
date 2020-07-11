@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { NodeTypes } from '@app/enums/node-types.enum';
+import { formatNodeModel } from '@app/utils/node.util';
 
 @Injectable()
 export default class MenuNodesEffects {
@@ -58,12 +59,7 @@ export default class MenuNodesEffects {
         this._actions$.pipe(
             ofType(MenuNodesActions.createRequest),
             switchMap(({ node }) => {
-                return this._apiService.createNode({
-                    type: node.type,
-                    parentId: node.parentId,
-                    contentId: node.contentId,
-                    children: node.children,
-                }).pipe(
+                return this._apiService.createNode(formatNodeModel(node)).pipe(
                     mergeMap(res => {
                         return [MenuNodesActions.createSuccess({ changed: res.data.changed, created: res.data.created, meta: res.meta })];
                     }),
@@ -81,12 +77,7 @@ export default class MenuNodesEffects {
         this._actions$.pipe(
             ofType(MenuNodesActions.updateRequest),
             switchMap(({ id, node }) => {
-                return this._apiService.updateNode(id, {
-                    type: node.type,
-                    parentId: node.parentId,
-                    contentId: node.contentId,
-                    children: node.children,
-                }).pipe(
+                return this._apiService.updateNode(id, formatNodeModel(node)).pipe(
                     mergeMap(res => {
                         return [MenuNodesActions.updateSuccess({ node: res.data, meta: res.meta })];
                     }),

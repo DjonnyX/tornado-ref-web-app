@@ -77,7 +77,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(SelectorsActions.updateRequest({ id: selector.id, selector }));
     } else {
       this._store.dispatch(SelectorsActions.setNewSelector({ selector: undefined }));
-      this._store.dispatch(SelectorsActions.createRequest(selector));
+      this._store.dispatch(SelectorsActions.createRequest({selector}));
     }
 
     this._router.navigate([this._returnUrl]);

@@ -39,13 +39,13 @@ export namespace SelectorsActions {
     );
     export const getAllError = createAction(
         SelectorsActionTypes.GET_ALL_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // get
     export const getRequest = createAction(
         SelectorsActionTypes.GET_REQUEST,
-        props<{ selectorId: string }>()
+        props<{ selectorId: string }>(),
     );
     export const getSuccess = createAction(
         SelectorsActionTypes.GET_SUCCESS,
@@ -53,58 +53,58 @@ export namespace SelectorsActions {
     );
     export const getError = createAction(
         SelectorsActionTypes.GET_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // create
     export const createRequest = createAction(
         SelectorsActionTypes.CREATE_REQUEST,
-        props<ISelector>()
+        props<{selector: ISelector}>(),
     );
     export const createSuccess = createAction(
         SelectorsActionTypes.CREATE_SUCCESS,
-        props<{ selector: ISelector, meta: IMetaRefsResponse }>()
+        props<{ selector: ISelector, meta: IMetaRefsResponse }>(),
     );
     export const createError = createAction(
         SelectorsActionTypes.CREATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // update
     export const updateRequest = createAction(
         SelectorsActionTypes.UPDATE_REQUEST,
-        props<{ id: string, selector: ISelector }>()
+        props<{ id: string, selector: ISelector }>(),
     );
     export const updateSuccess = createAction(
         SelectorsActionTypes.UPDATE_SUCCESS,
-        props<{ selector: ISelector, meta: IMetaRefsResponse }>()
+        props<{ selector: ISelector, meta: IMetaRefsResponse }>(),
     );
     export const updateError = createAction(
         SelectorsActionTypes.UPDATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // delete
     export const deleteRequest = createAction(
         SelectorsActionTypes.DELETE_REQUEST,
-        props<{ id: string }>()
+        props<{ id: string }>(),
     );
     export const deleteSuccess = createAction(
         SelectorsActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta: IMetaRefsResponse }>()
+        props<{ id: string, meta: IMetaRefsResponse }>(),
     );
     export const deleteError = createAction(
         SelectorsActionTypes.DELETE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     export const setNewSelector = createAction(
         SelectorsActionTypes.NEW,
-        props<{ selector: ISelector }>()
+        props<{ selector: ISelector }>(),
     );
 
     export const setEditSelector = createAction(
         SelectorsActionTypes.EDIT,
-        props<{ selector: ISelector }>()
+        props<{ selector: ISelector }>(),
     );
 }
