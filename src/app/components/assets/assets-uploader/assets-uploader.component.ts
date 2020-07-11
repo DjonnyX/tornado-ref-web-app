@@ -12,6 +12,8 @@ export class AssetsUploaderComponent implements OnInit {
 
   @Output() upload = new EventEmitter<File>();
 
+  @Output() delete = new EventEmitter<IAsset>();
+
   constructor() { }
 
   ngOnInit(): void { }
@@ -20,7 +22,16 @@ export class AssetsUploaderComponent implements OnInit {
     return `url(${asset.path.replace('\\', '/')})`;
   }
 
+  onShowMenu(event: Event): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+  }
+
   onUploadFile(file: File): void {
     this.upload.emit(file);
+  }
+
+  onDeleteAsset(asset: IAsset): void {
+    this.delete.emit(asset);
   }
 }

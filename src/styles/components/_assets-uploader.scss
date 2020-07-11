@@ -29,6 +29,8 @@ $assets-button-menu-size-d: px2em(38);
 
     .asset {
         position: relative;
+        border-radius: 4px;
+        overflow: hidden;
 
         .asset-thumbnail {
             width: 100%;
@@ -47,18 +49,24 @@ $assets-button-menu-size-d: px2em(38);
             overflow: hidden;
             word-break: break-word;
             line-height: 1.1;
-            font-size: px2em(11);
+            font-size: px2em(13);
             text-align: center;
         }
 
-        .asset-menu-button {
+        .asset-ctrl-panel {
             position: absolute;
+            display: flex;
+            justify-content: flex-end;
+            width: 100%;
+            top: 0;
+            background: rgba( $primary-800, .725);
+        }
+
+        .asset-menu-button {
             display: flex;
             justify-content: center;
             align-items: center;
-            top: 0;
-            right: 0;
-            color: $primary-700;
+            color: #ffffff;
         }
     }
 }

@@ -4,9 +4,9 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, AssetsSelectors, ProductAssetsSelectors } from '@store/selectors';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map, filter, debounceTime } from 'rxjs/operators';
+import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag, INode, ISelector, IAsset } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
@@ -180,8 +180,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, file }));
   }
 
-  onAssetRemove(assetId: string): void {
-    this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId }));
+  onAssetDelete(asset: IAsset): void {
+    this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId: asset.id }));
   }
 
   onCreateHierarchyNode(node: INode): void {

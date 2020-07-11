@@ -5,6 +5,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { AssetsUploaderComponent } from './assets-uploader.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -18,6 +20,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     FileSelectorModule,
     MatRippleModule,
     MatButtonModule,
+    MatMenuModule,
+    MatIconModule,
     MatProgressBarModule,
   ]
 })
