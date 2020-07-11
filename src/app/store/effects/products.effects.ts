@@ -8,6 +8,7 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { ProductsActions } from '@store/actions/products.action';
+import { formatProductModel } from '@app/utils/product.util';
 
 @Injectable()
 export default class ProductsEffects {
@@ -36,13 +37,7 @@ export default class ProductsEffects {
         this._actions$.pipe(
             ofType(ProductsActions.createRequest),
             switchMap(product => {
-                return this._apiService.createProduct({
-                    name: product.name,
-                    description: product.description,
-                    tags: product.tags,
-                    receipt: product.receipt,
-                    assets: product.assets,
-                }).pipe(
+                return this._apiService.createProduct(formatProductModel(product)).pipe(
                     mergeMap(res => {
                         return [ProductsActions.createSuccess({ product: res.data, meta: res.meta })];
                     }),
@@ -60,13 +55,7 @@ export default class ProductsEffects {
         this._actions$.pipe(
             ofType(ProductsActions.updateRequest),
             switchMap(({ id, product }) => {
-                return this._apiService.updateProduct(id, {
-                    name: product.name,
-                    description: product.description,
-                    receipt: product.receipt,
-                    tags: product.tags,
-                    assets: product.assets,
-                }).pipe(
+                return this._apiService.updateProduct(id, formatProductModel(product)).pipe(
                     mergeMap(res => {
                         return [ProductsActions.updateSuccess({ product: res.data, meta: res.meta })];
                     }),
