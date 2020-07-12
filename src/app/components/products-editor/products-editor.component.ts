@@ -66,9 +66,14 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return !!tag ? tag.name : "";
   }
 
+  hasThumbnail(assetId: string): boolean {
+    const asset = this._assetsDictionary[assetId];
+    return !!asset && !!asset.thumbnail;
+  }
+
   getThumbnail(assetId: string): string {
     const asset = this._assetsDictionary[assetId];
-    return getThumbnail(asset);
+    return !!asset && !!asset.thumbnail ? asset.thumbnail.replace("\\", "/") : ""; //getThumbnail(asset);
   }
 
   onShowMenu($event): void {

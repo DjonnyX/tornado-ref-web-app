@@ -42,12 +42,12 @@ $entity-button-menu-size-d: px2em(38);
         }
 
         .entity-thumbnail {
-            height: px2em(80);
-            margin-bottom: px2em(8);
+            position: absolute;
+            height: px2em(48);
+            bottom: 0;
+            left: 0;
             border-radius: 4px;
             overflow: hidden;
-            background-size: cover !important;
-            background-position: center !important;
         }
 
         .entity-menu-button {
