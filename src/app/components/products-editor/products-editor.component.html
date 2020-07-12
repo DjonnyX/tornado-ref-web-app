@@ -4,6 +4,7 @@
         <div class="entity" (click)="onEditProduct(product)" *ngFor="let product of collection | search: searchPattern">
             <div matRipple class="entity-active-zone">
                 <div class="content">
+                    <div *ngIf="!!product.mainAsset" class="entity-thumbnail" [style.background]="getThumbnail(product.mainAsset)"></div>
                     {{product.name}}
                 </div>
                 <div class="tags">

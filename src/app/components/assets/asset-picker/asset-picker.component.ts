@@ -3,6 +3,7 @@ import { IAsset } from '@models';
 import { FormControl } from '@angular/forms';
 import { takeUntil, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
+import { getThumbnail } from '@app/utils/asset.util';
 
 @Component({
   selector: 'ta-asset-picker',
@@ -61,6 +62,6 @@ export class AssetPickerComponent extends BaseComponent implements OnInit, OnDes
   }
 
   getThumbnail(): string {
-    return !!this._selectedAsset ? `url(${this._selectedAsset.thumbnail.replace('\\', '/')})` : "";
+    return getThumbnail(this._selectedAsset);
   }
 }

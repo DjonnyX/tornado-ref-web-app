@@ -8,3 +8,7 @@ export const formatAssetModel = (asset: IAsset) => {
         path: asset.path,
     }
 }
+
+export const getThumbnail = (asset: IAsset): string => {
+    return !!asset ? `url(${asset.thumbnail.replace('\\', '/')})` : "";
+}

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IAsset } from '@models';
+import { getThumbnail } from '@app/utils/asset.util';
 
 @Component({
   selector: 'ta-assets-uploader',
@@ -19,7 +20,7 @@ export class AssetsUploaderComponent implements OnInit {
   ngOnInit(): void { }
 
   getThumbnail(asset: IAsset): string {
-    return !!asset.thumbnail ? `url(${asset.thumbnail.replace('\\', '/')})` : "";
+    return getThumbnail(asset);
   }
 
   onShowMenu(event: Event): void {

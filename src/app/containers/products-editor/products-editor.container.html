@@ -1,5 +1,5 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-products-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
-        [tagList]="tags$ | async" (create)="onCreateProduct()" (edit)="onEditProduct($event)"
+        [tagList]="tags$ | async" [assets]="assets$ | async" (create)="onCreateProduct()" (edit)="onEditProduct($event)"
         (delete)="onDeleteProduct($event)"></ta-products-editor-component>
 </ta-query-progress>

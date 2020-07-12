@@ -37,7 +37,17 @@ $entity-button-menu-size-d: px2em(38);
         }
 
         .content {
+            line-height: 1.1;
             overflow: hidden;
+        }
+
+        .entity-thumbnail {
+            height: px2em(80);
+            margin-bottom: px2em(8);
+            border-radius: 4px;
+            overflow: hidden;
+            background-size: cover !important;
+            background-position: center !important;
         }
 
         .entity-menu-button {
