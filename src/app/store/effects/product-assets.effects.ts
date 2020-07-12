@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { IAsset } from '@models';
+import { ProductActions } from '@store/actions/product.action';
 
 @Injectable()
 export default class ProductAssetsEffects {
@@ -69,7 +70,7 @@ export default class ProductAssetsEffects {
                         if (!!res.data.progress) {
                             return [ProductAssetsActions.createProgress({ tmpAsset, progress: res.data.progress })];
                         }
-                        return [ProductAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, })];
+                        return [ProductAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), ProductActions.getRequest({ id: productId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {

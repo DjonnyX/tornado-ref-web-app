@@ -14,6 +14,12 @@ export const initialState: IProductState = {
 
 const productReducer = createReducer(
     initialState,
+    on(ProductActions.update, (state, { product }) => {
+        return {
+            ...initialState,
+            product,
+        };
+    }),
     on(ProductActions.clear, state => {
         return {
             ...initialState,

@@ -5,13 +5,19 @@
                 <h2>Main options</h2>
             </div>
 
-            <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="isProcessMainOptions$ | async">
-                <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
-                    [tagList]="tags$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"></ta-product-creator-form>
-            </ta-query-progress>
+            <div class="main-options-wrapper">
+                <ta-asset-picker *ngIf="isEditMode" [defaultValue]="currentMainAsset$ | async"
+                    [assets]="assets$ | async" (select)="onProductMainAssetSelect($event)"></ta-asset-picker>
+
+                <ta-query-progress class="query-progress-container" style="position: relative;"
+                    [process]="isProcessMainOptions$ | async">
+                    <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
+                        [tagList]="tags$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
+                    </ta-product-creator-form>
+                </ta-query-progress>
+            </div>
         </div>
-        
+
         <div class="form" *ngIf="isEditMode">
             <div class="form-header">
                 <h2>Assets</h2>

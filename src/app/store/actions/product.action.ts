@@ -14,6 +14,8 @@ export enum ProductActionTypes {
     UPDATE_SUCCESS = "TORNADO/product/update:success",
     UPDATE_ERROR = "TORNADO/product/update:error",
 
+    UPDATE = "TORNADO/product/update",
+
     CLEAR = "TORNADO/product/clear",
 }
 
@@ -58,6 +60,12 @@ export namespace ProductActions {
     export const updateError = createAction(
         ProductActionTypes.UPDATE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // update state
+    export const update = createAction(
+        ProductActionTypes.UPDATE,
+        props<{ product: IProduct }>(),
     );
 
     // clear

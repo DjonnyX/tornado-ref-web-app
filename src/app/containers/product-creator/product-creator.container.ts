@@ -48,11 +48,15 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   tags$: Observable<Array<ITag>>;
 
+  currentMainAsset$: Observable<string>;
+
   isEditMode = false;
 
   private _returnUrl: string;
 
   private _productId: string;
+
+  private _product: IProduct;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute, private _apiService: ApiService) {
     super();
@@ -122,8 +126,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this.product$.pipe(
       takeUntil(this.unsubscribe$),
       filter(product => !!product),
-      filter(product => this._productId !== product.id),
     ).subscribe(product => {
+      this._product = product;
       this._productId = product.id;
       this.isEditMode = !!this._productId;
     });
@@ -146,6 +150,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.assets$ = this._store.pipe(
       select(ProductAssetsSelectors.selectCollection),
+    );
+
+    this.currentMainAsset$ = this._store.pipe(
+      select(ProductSelectors.selectMainAsset),
     );
 
     this.rootNodeId$ = this.product$.pipe(
@@ -175,6 +183,16 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this._store.dispatch(ProductActions.clear());
     this._store.dispatch(ProductAssetsActions.clear());
+  }
+
+  onProductMainAssetSelect(asset: IAsset): void {
+    if (!asset) {
+      return;
+    }
+
+    if (this._product.mainAsset !== asset.id) {
+      this._store.dispatch(ProductActions.update({ product: { ...this._product, mainAsset: asset.id } }));
+    }
   }
 
   onAssetUpload(file: File): void {
