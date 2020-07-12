@@ -1,8 +1,13 @@
+@import "../utils/px2em";
+
 .asset-picker {
     .asset-preview {
-        width: px2em(200);
-        height: px2em(200);
+        border-radius: 4px;
+        overflow: hidden;
+        height: px2em(180);
         background-size: cover !important;
         background-position: center !important;
+        margin-bottom: px2em(20);
+        border: 1px solid rgba($primary-700, 0.5);
     }
 }
