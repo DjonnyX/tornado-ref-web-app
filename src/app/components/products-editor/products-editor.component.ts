@@ -49,8 +49,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     super();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
@@ -65,7 +64,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     const tag = !!this.tagList ? this.tagList.find(t => t.id === id) : undefined;
     return !!tag ? tag.name : "";
   }
-
+  
   hasThumbnail(assetId: string): boolean {
     const asset = this._assetsDictionary[assetId];
     return !!asset && !!asset.thumbnail;
@@ -73,7 +72,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   getThumbnail(assetId: string): string {
     const asset = this._assetsDictionary[assetId];
-    return !!asset && !!asset.thumbnail ? asset.thumbnail.replace("\\", "/") : ""; //getThumbnail(asset);
+    return !!asset && !!asset.favicon ? asset.favicon.replace("\\", "/") : ""; //getThumbnail(asset);
   }
 
   onShowMenu($event): void {
