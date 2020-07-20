@@ -26,7 +26,7 @@ export interface IProduct extends IEntity {
     /**
      * список ресов
      */
-    assets: Array<IAsset>;
+    assets: Array<string>;
     /**
      * Основной ассет
      */
