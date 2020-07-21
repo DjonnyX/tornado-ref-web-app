@@ -3,6 +3,7 @@ import { IAsset } from '@models'
 export const formatAssetModel = (asset: IAsset) => {
     return {
         name: asset.name,
+        lastupdate: asset.lastupdate,
         ext: asset.ext,
         thumbnail: asset.thumbnail,
         favicon: asset.favicon,

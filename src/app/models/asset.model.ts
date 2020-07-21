@@ -7,6 +7,10 @@ export interface IAsset extends IEntity {
      */
     name: string;
     /**
+     * lastupdate
+     */
+    lastupdate: number;
+    /**
      * расширение
      */
     ext: string;
