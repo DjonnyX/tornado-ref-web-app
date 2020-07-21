@@ -67,12 +67,12 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   
   hasThumbnail(assetId: string): boolean {
     const asset = this._assetsDictionary[assetId];
-    return !!asset && !!asset.thumbnail;
+    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
   getThumbnail(assetId: string): string {
     const asset = this._assetsDictionary[assetId];
-    return !!asset && !!asset.favicon ? asset.favicon.replace("\\", "/") : ""; //getThumbnail(asset);
+    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : ""; //getThumbnail(asset);
   }
 
   onShowMenu($event): void {

@@ -19,13 +19,12 @@ export interface IAsset extends IEntity {
      */
     path: string;
     /**
-     * 128x128
+     * mipmap
      */
-    thumbnail: string;
-    /**
-     * 32x32
-     */
-    favicon: string;
+    mipmap: {
+        x128: string;
+        x32: string;
+    };
     // сервисные свойства
     progress?: IProgress;
 }

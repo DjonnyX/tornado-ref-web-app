@@ -53,8 +53,10 @@ export default class ProductAssetsEffects {
                     lastupdate: Date.now(),
                     name: file.name,
                     path: undefined,
-                    thumbnail: undefined,
-                    favicon: undefined,
+                    mipmap: {
+                        x128: undefined,
+                        x32: undefined,
+                    },
                     ext: ext,
                 }
                 return this._apiService.createProductAsset(productId, file).pipe(
