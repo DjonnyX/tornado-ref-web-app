@@ -6,7 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, NodeTypes } from '@djonnyx/tornado-types';
+import { INode, IProduct, ISelector, NodeTypes, ScenarioCommonActionTypes } from '@djonnyx/tornado-types';
+import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -107,6 +108,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   hasNodeInstance: boolean;
 
   nodeInstance: INode;
+
+  newScenario: IScenario;
 
   private _depth: number;
   @Input() set depth(v: number) {
@@ -292,6 +295,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           parentId: this.node.parentId,
           contentId: content.id,
           children: this.node.children,
+          scenarios: this.node.scenarios,
         }
         this.update.emit(node);
       }
@@ -343,10 +347,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           parentId: this.node.id,
           contentId: content.id,
           children: [],
+          scenarios: [],
         }
         this.create.emit(node);
       }
     });
+  }
+
+  onAddScenario(): void {
+    this.newScenario = {
+      name: "Scenario",
+      action: ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+    };
   }
 
   onEdit(): void {
