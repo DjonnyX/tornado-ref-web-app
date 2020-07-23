@@ -14,16 +14,6 @@ export namespace TagsSelectors {
     state => !!state.meta ? state.meta.ref : undefined,
   );
 
-  export const selectNewTag = createSelector(
-    selectTags,
-    state => state.newTag,
-  );
-
-  export const selectEditTag = createSelector(
-    selectTags,
-    state => state.editTag,
-  );
-
   export const selectLoading = createSelector(
     selectTags,
     state => state.loading,

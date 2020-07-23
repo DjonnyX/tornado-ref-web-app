@@ -2,9 +2,9 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { MediaObserver } from '@angular/flex-layout';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { map, takeUntil, take, filter } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { AdminSelectors } from '@store/selectors';
 import { INavRoute } from './interfaces';
 import { AdminActions } from '@store/actions/admin.action';
@@ -42,6 +42,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       name: "Tags",
       route: "tags",
+    },
+    {
+      name: "Assets",
+      route: "assets",
     }
   ];
 

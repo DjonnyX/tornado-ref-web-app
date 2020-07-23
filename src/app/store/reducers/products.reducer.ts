@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { IProductsState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
-import { IProduct } from '@app/models/product.model';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export const initialState: IProductsState = {
     meta: undefined,
@@ -12,24 +12,10 @@ export const initialState: IProductsState = {
     isDeleteProcess: false,
     error: undefined,
     collection: undefined,
-    newProduct: undefined,
-    editProduct: undefined,
 };
 
 const productsReducer = createReducer(
     initialState,
-    on(ProductsActions.setNewProduct, (state, { product }) => {
-        return {
-            ...state,
-            newProduct: product,
-        };
-    }),
-    on(ProductsActions.setEditProduct, (state, { product }) => {
-        return {
-            ...state,
-            editProduct: product,
-        };
-    }),
     on(ProductsActions.getAllRequest, state => {
         return {
             ...state,

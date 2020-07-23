@@ -26,7 +26,6 @@ $entity-button-menu-size-d: px2em(38);
         grid-auto-flow: dense;
         grid-auto-rows: auto;
     }
-
     .entity {
         position: relative;
 
@@ -38,6 +37,16 @@ $entity-button-menu-size-d: px2em(38);
         }
 
         .content {
+            line-height: 1.1;
+            overflow: hidden;
+        }
+
+        .entity-thumbnail {
+            position: absolute;
+            height: px2em(48);
+            bottom: 0;
+            left: 0;
+            border-radius: 4px;
             overflow: hidden;
         }
 

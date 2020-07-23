@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ITag } from '@app/models/tag.model';
+import { ITag } from '@djonnyx/tornado-types';
 
 export enum TagsActionTypes {
     GET_ALL_REQUEST = "TORNADO/tags/get-all:request",
@@ -22,10 +22,6 @@ export enum TagsActionTypes {
     DELETE_REQUEST = "TORNADO/tags/delete:request",
     DELETE_SUCCESS = "TORNADO/tags/delete:success",
     DELETE_ERROR = "TORNADO/tags/delete:error",
-
-    NEW = "TORNADO/tags/new",
-
-    EDIT = "TORNADO/tags/edit",
 }
 
 export namespace TagsActions {
@@ -35,11 +31,11 @@ export namespace TagsActions {
     );
     export const getAllSuccess = createAction(
         TagsActionTypes.GET_ALL_SUCCESS,
-        props<{ collection: Array<ITag>, meta: IMetaRefsResponse }>()
+        props<{ collection: Array<ITag>, meta: IMetaRefsResponse }>(),
     );
     export const getAllError = createAction(
         TagsActionTypes.GET_ALL_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // get
@@ -49,62 +45,52 @@ export namespace TagsActions {
     );
     export const getSuccess = createAction(
         TagsActionTypes.GET_SUCCESS,
-        props<{ tag: ITag, meta: IMetaRefsResponse }>()
+        props<{ tag: ITag, meta: IMetaRefsResponse }>(),
     );
     export const getError = createAction(
         TagsActionTypes.GET_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // create
     export const createRequest = createAction(
         TagsActionTypes.CREATE_REQUEST,
-        props<ITag>()
+        props<{ tag: ITag }>(),
     );
     export const createSuccess = createAction(
         TagsActionTypes.CREATE_SUCCESS,
-        props<{ tag: ITag, meta: IMetaRefsResponse }>()
+        props<{ tag: ITag, meta: IMetaRefsResponse }>(),
     );
     export const createError = createAction(
         TagsActionTypes.CREATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // update
     export const updateRequest = createAction(
         TagsActionTypes.UPDATE_REQUEST,
-        props<{ id: string, tag: ITag }>()
+        props<{ id: string, tag: ITag }>(),
     );
     export const updateSuccess = createAction(
         TagsActionTypes.UPDATE_SUCCESS,
-        props<{ tag: ITag, meta: IMetaRefsResponse }>()
+        props<{ tag: ITag, meta: IMetaRefsResponse }>(),
     );
     export const updateError = createAction(
         TagsActionTypes.UPDATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // delete
     export const deleteRequest = createAction(
         TagsActionTypes.DELETE_REQUEST,
-        props<{ id: string }>()
+        props<{ id: string }>(),
     );
     export const deleteSuccess = createAction(
         TagsActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta: IMetaRefsResponse }>()
+        props<{ id: string, meta: IMetaRefsResponse }>(),
     );
     export const deleteError = createAction(
         TagsActionTypes.DELETE_ERROR,
-        props<{ error: string }>()
-    );
-
-    export const setNewTag = createAction(
-        TagsActionTypes.NEW,
-        props<{ tag: ITag }>()
-    );
-
-    export const setEditTag = createAction(
-        TagsActionTypes.EDIT,
-        props<{ tag: ITag }>()
+        props<{ error: string }>(),
     );
 }

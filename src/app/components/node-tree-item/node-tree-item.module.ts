@@ -8,6 +8,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SetupNodeContentDialogModule } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.module';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
+import { ScenarioEditorModule } from '@components/scenario-editor/editor/scenario-editor.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
     MatDialogModule,
     DeleteEntityDialogModule,
     SetupNodeContentDialogModule,
+    ScenarioEditorModule,
   ]
 })
 export class NodeTreeItemModule { }

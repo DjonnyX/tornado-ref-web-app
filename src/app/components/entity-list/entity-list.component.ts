@@ -1,5 +1,8 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
-import { NodeTypes } from '@app/enums/node-types.enum';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Observable } from 'rxjs';
+import { BaseComponent } from '@components/base/base-component';
+import { takeUntil } from 'rxjs/operators';
+import { NodeTypes } from '@djonnyx/tornado-types';
 
 interface IEntity {
   id: string;
@@ -18,7 +21,7 @@ interface IProxyItem extends IEntity {
   styleUrls: ['./entity-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EntityListComponent implements OnInit {
+export class EntityListComponent extends BaseComponent implements OnInit, OnDestroy {
 
   proxyCollection: Array<IProxyItem>;
 
@@ -31,8 +34,10 @@ export class EntityListComponent implements OnInit {
 
       if (!!v) {
         v.forEach(item => {
-          this.proxyCollection.push({...item});
+          this.proxyCollection.push({ ...item });
         });
+
+        this.resetDefaultItem();
       }
     }
   }
@@ -43,11 +48,52 @@ export class EntityListComponent implements OnInit {
 
   @Input() type: NodeTypes | string;
 
+  @Input() binder$: Observable<void>;
+
+  private _selectedDefaultEntityId: string;
+  @Input() set selectedDefaultEntityId(v: string) {
+    if (this._selectedDefaultEntityId !== v) {
+      this._selectedDefaultEntityId = v;
+
+      this.resetDefaultItem();
+    }
+  }
+
   @Output() change = new EventEmitter<IEntity>();
 
-  constructor() { }
+  constructor(private _cdr: ChangeDetectorRef) {
+    super();
+  }
 
   ngOnInit(): void {
+    this.binder$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(() => {
+      this.reset();
+    })
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this.binder$ = null;
+  }
+
+  resetDefaultItem(): void {
+    if (!!this.proxyCollection && !!this._selectedDefaultEntityId) {
+      this.proxyCollection.forEach(item => {
+        item.selected = item.id === this._selectedDefaultEntityId;
+      });
+
+      this._cdr.markForCheck();
+    }
+  }
+
+  reset(): void {
+    this.resetDefaultItem();
+
+    this.change.emit(null);
+
+    this._cdr.markForCheck();
   }
 
   onToggleSelect(item: IProxyItem): void {
@@ -61,6 +107,6 @@ export class EntityListComponent implements OnInit {
       });
     }
 
-    this.change.emit(!!item.selected ? {...item, type: this.type} : null);
+    this.change.emit(!!item.selected ? { ...item, type: this.type } : null);
   }
 }

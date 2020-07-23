@@ -1,4 +1,4 @@
-import { INode } from '@models';
+import { INode } from '@djonnyx/tornado-types';
 
 export const updateCollection = (collection: Array<INode>, node: INode): Array<INode> => {
     const result = [...collection];

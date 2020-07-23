@@ -2,9 +2,19 @@
 @import "../utils/px2em";
 
 $offset-x: px2em(64);
+$way-border-weight: 2px;
 
 .node-tree-item {
     position: relative;
+
+    .node-item-way-hider {
+        position: absolute;
+        width: 4px;
+        height: calc(100% - 26px);
+        bottom: 0;
+        z-index: 1;
+        margin-left: -3px;
+    }
 
     .node-tree-item-joint {
         position: absolute;
@@ -17,6 +27,15 @@ $offset-x: px2em(64);
     .node-tree-item-wrapper {
         .node-tree-item-way {
             margin: px2em(4) 0 px2em(16) $offset-x;
+
+            .way-nail {
+                position: absolute;
+                width: px2em(10);
+                height: px2em(26);
+                z-index: 1;
+                margin-left: -($way-border-weight);
+                bottom: 0;
+            }
         }
 
         .node-tree-item__content {
@@ -71,11 +90,14 @@ $offset-x: px2em(64);
     }
 }
 
-$border-primary: 2px dotted $primary;
+$border-primary: $way-border-weight dotted $primary;
 
 .primary {
     .node-tree-item {
-        
+        .node-item-way-hider {
+            background: $primary-800;
+        }
+
         .node-tree-item-joint {
             border-bottom: $border-primary;
         }
@@ -83,10 +105,13 @@ $border-primary: 2px dotted $primary;
         .node-tree-item-wrapper {
             .node-tree-item-way {
                 border-left: $border-primary;
+
+                .way-nail {
+                    background: $primary-800;
+                }
             }
 
             .node-tree-item__content {
-
                 .content {
                     color: #000000;
                     background: #ffffff;
@@ -121,11 +146,11 @@ $border-primary: 2px dotted $primary;
 
                         .content__name {
                             background: transparent;
-    
+
                             &.active {
                                 background: transparent;
                             }
-    
+
                             &:hover {
                                 background: transparent;
                             }
@@ -141,11 +166,13 @@ $border-primary: 2px dotted $primary;
     }
 }
 
-$border-primary: 2px dotted $primary;
+$border-primary: $way-border-weight dotted $primary;
 
 .secondary {
     .node-tree-item {
-        
+        .node-item-way-hider {
+            background: #ffffff;
+        }
         .node-tree-item-joint {
             border-bottom: $border-primary;
         }
@@ -153,10 +180,13 @@ $border-primary: 2px dotted $primary;
         .node-tree-item-wrapper {
             .node-tree-item-way {
                 border-left: $border-primary;
+
+                .way-nail {
+                    background: #ffffff;
+                }
             }
 
             .node-tree-item__content {
-
                 .content {
                     color: #000000;
                     background: #ffffff;
@@ -185,17 +215,17 @@ $border-primary: 2px dotted $primary;
                             }
                         }
                     }
-                    
+
                     &.lock {
                         background: rgba($primary, 0.1);
 
                         .content__name {
                             background: transparent;
-    
+
                             &.active {
                                 background: transparent;
                             }
-    
+
                             &:hover {
                                 background: transparent;
                             }

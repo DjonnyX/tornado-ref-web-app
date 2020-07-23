@@ -1,14 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { Observable } from 'rxjs';
-import { ProductsSelectors } from '@store/selectors';
+import { Observable, combineLatest } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
-import { ITag } from '@models';
-import { TagsActions } from '@store/actions/tags.action';
+import { TagActions } from '@store/actions/tag.action';
+import { TagSelectors } from '@store/selectors/tag.selectors';
+import { ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-tag-creator',
@@ -28,34 +28,46 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
   isEditMode = false;
 
+  private _tagId: string;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
 
   ngOnInit(): void {
-    this.isProcess$ = this._store.pipe(
-      select(ProductsSelectors.selectIsCreateProcess),
+    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
+
+    this._tagId = this._activatedRoute.snapshot.queryParams["tagId"];
+
+    this.isEditMode = !!this._tagId;
+
+    this.isProcess$ = combineLatest(
+      this._store.pipe(
+        select(TagSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(TagsSelectors.selectIsCreateProcess),
+      ),
+    ).pipe(
+      map(([isTagGetProcess, isTagsGetProcess]) => isTagGetProcess || isTagsGetProcess),
     );
 
-    this.isEditMode = !!this._activatedRoute.snapshot.queryParams["isEditMode"];
-
-    if (this.isEditMode) {
-      this.tag$ = this._store.pipe(
-        select(TagsSelectors.selectEditTag),
-      );
-    } else {
-      this.tag$ = this._store.pipe(
-        select(TagsSelectors.selectNewTag),
-      );
-    }
+    this.tag$ = this._store.pipe(
+      select(TagSelectors.selectEntity),
+    );
 
     this.tag$.pipe(
       takeUntil(this.unsubscribe$),
+      filter(tag => !!tag),
+      filter(tag => this._tagId !== tag.id),
     ).subscribe(tag => {
-      this._tag = tag;
-    })
+      this._tagId = tag.id;
+      this.isEditMode = !!this._tagId;
+    });
 
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
+    if (!!this._tagId) {
+      this._store.dispatch(TagActions.getRequest({ id: this._tagId }));
+    }
   }
 
   ngOnDestroy(): void {
@@ -64,24 +76,12 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
   onSubmit(tag: ITag): void {
     if (this.isEditMode) {
-      this._store.dispatch(TagsActions.setEditTag({ tag: undefined }));
-      this._store.dispatch(TagsActions.updateRequest({ id: tag.id, tag }));
+      this._store.dispatch(TagActions.updateRequest({ id: tag.id, tag }));
     } else {
-      this._store.dispatch(TagsActions.setNewTag({ tag: undefined }));
-      this._store.dispatch(TagsActions.createRequest(tag));
+      this._store.dispatch(TagActions.createRequest({ tag }));
     }
 
     this._router.navigate([this._returnUrl]);
-  }
-
-  onUpdate(tag: ITag): void {
-    const t = { ...this._tag, ...tag };
-
-    if (this.isEditMode) {
-      this._store.dispatch(TagsActions.setEditTag({ tag: t }));
-    } else {
-      this._store.dispatch(TagsActions.setNewTag({ tag: t }));
-    }
   }
 
   onCancel(): void {

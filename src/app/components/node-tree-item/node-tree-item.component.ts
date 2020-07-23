@@ -1,6 +1,4 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { NodeTypes } from '@app/enums/node-types.enum';
-import { INode, ISelector, IProduct } from '@models';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -8,6 +6,30 @@ import { MatDialog } from '@angular/material/dialog';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
+import { INode, IProduct, ISelector, NodeTypes, ScenarioCommonActionTypes } from '@djonnyx/tornado-types';
+import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
+
+const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
+  const collection = [...array];
+  const index = collection.indexOf(item);
+  if (index === 0) return collection;
+
+  collection.splice(index, 1);
+  collection.splice(index - 1, 0, item);
+
+  return collection;
+}
+
+const arrayItemToDownward = (array: Array<string>, item: string): Array<string> => {
+  const collection = [...array];
+  const index = collection.indexOf(item);
+  if (index === collection.length) return collection;
+
+  collection.splice(index, 1);
+  collection.splice(index + 1, 0, item);
+
+  return collection;
+}
 
 @Component({
   selector: 'ta-node-tree-item',
@@ -48,11 +70,46 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Input() lock: boolean;
 
+  @Input() isInstanceChain: boolean;
+
+  isLastChild: boolean;
+
+  private _currentIndex: number = -1;
+  @Input() set currentIndex(v: number) {
+    if (this._currentIndex !== v) {
+      this._currentIndex = v;
+
+      this.resetIsLastChild();
+    }
+  }
+
+  private _parentChildrenLength: number = -1;
+  @Input() set parentChildrenLength(v: number) {
+    if (this._parentChildrenLength !== v) {
+      this._parentChildrenLength = v;
+
+      this.resetIsLastChild();
+    }
+  }
+
+  resetIsLastChild(): void {
+    if (this._parentChildrenLength > -1 && this._currentIndex > -1) {
+      this.isLastChild = this._currentIndex === this._parentChildrenLength - 1;
+    }
+  }
+
+
   isRoot: boolean;
+
+  isFirstInCollection: boolean;
+
+  isLastInCollection: boolean;
 
   hasNodeInstance: boolean;
 
   nodeInstance: INode;
+
+  newScenario: IScenario;
 
   private _depth: number;
   @Input() set depth(v: number) {
@@ -125,6 +182,16 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     return true;
   }
 
+  hasInstance(): boolean {
+    const instanceNode = !!this._nodesDictionary ? this.nodesDictionary[this.node.contentId] : null;
+
+    if (!!instanceNode) {
+      return true;
+    }
+
+    return false;
+  }
+
   toggleExpand(): void {
     this.isExpanded = !this.isExpanded;
   }
@@ -133,6 +200,15 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     this.node = !!this._nodesDictionary && !!this._id ? this.nodesDictionary[this._id] : null;
 
     if (!!this.node) {
+      const parent = this._nodesDictionary[this.node.parentId];
+
+      if (parent) {
+        const indexInCollection = parent.children.indexOf(this.node.id);
+
+        this.isFirstInCollection = indexInCollection === 0;
+        this.isLastInCollection = indexInCollection === parent.children.length - 1;
+      }
+
       this.nodeInstance = this.getNodeInstance();
       this.hasNodeInstance = !!this.nodeInstance;
     }
@@ -201,6 +277,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           products: this.products,
           selectors: this.selectors,
           selectorsDictionary: this.selectorsDictionary,
+          selectedDefaultEntityId: this.node.contentId,
+          defaultCollection: this.node.type,
           nodes: this.nodes,
           mode: this.node.children && this.node.children.length > 0 ? SelectContentFormModes.ONLY_SELECTORS : SelectContentFormModes.ALL,
         },
@@ -217,10 +295,33 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           parentId: this.node.parentId,
           contentId: content.id,
           children: this.node.children,
+          scenarios: this.node.scenarios,
         }
         this.update.emit(node);
       }
     });
+  }
+
+  onUpward(): void {
+    const parent = this._nodesDictionary[this.node.parentId];
+    const childrenOfParent = parent.children;
+    const newChildrenOfParent = arrayItemToUpward(childrenOfParent, this.node.id);
+    const node = {
+      ...parent,
+      children: newChildrenOfParent,
+    }
+    this.update.emit(node);
+  }
+
+  onDownward(): void {
+    const parent = this._nodesDictionary[this.node.parentId];
+    const childrenOfParent = parent.children;
+    const newChildrenOfParent = arrayItemToDownward(childrenOfParent, this.node.id);
+    const node = {
+      ...parent,
+      children: newChildrenOfParent,
+    }
+    this.update.emit(node);
   }
 
   onCreate(): void {
@@ -246,10 +347,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           parentId: this.node.id,
           contentId: content.id,
           children: [],
+          scenarios: [],
         }
         this.create.emit(node);
       }
     });
+  }
+
+  onAddScenario(): void {
+    this.newScenario = {
+      name: "Scenario",
+      action: ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+    };
   }
 
   onEdit(): void {

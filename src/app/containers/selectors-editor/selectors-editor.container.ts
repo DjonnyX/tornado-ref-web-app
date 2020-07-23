@@ -4,10 +4,11 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { SelectorsSelectors } from '@store/selectors';
 import { SelectorsActions } from '@store/actions/selectors.action';
-import { IRef, ITag, ISelector } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
+import { SelectorActions } from '@store/actions/selector.action';
+import { ISelector, ITag, IRef } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-selectors-editor',
@@ -52,16 +53,17 @@ export class SelectorsEditorContainer implements OnInit {
   onCreateSelector(): void {
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url }
+      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
   onEditSelector(selector: ISelector): void {
-    this._store.dispatch(SelectorsActions.setEditSelector({ selector }));
+
+    this._store.dispatch(SelectorActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url, isEditMode: true }
+      queryParams: { selectorId: selector.id, returnUrl: this._router.routerState.snapshot.url, },
     });
   }
 

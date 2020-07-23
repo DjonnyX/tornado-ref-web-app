@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { ISelectorsState } from '@store/state';
 import { SelectorsActions } from '@store/actions/selectors.action';
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export const initialState: ISelectorsState = {
     meta: undefined,
@@ -12,24 +12,10 @@ export const initialState: ISelectorsState = {
     isDeleteProcess: false,
     error: undefined,
     collection: undefined,
-    newSelector: undefined,
-    editSelector: undefined,
 };
 
 const selectorsReducer = createReducer(
     initialState,
-    on(SelectorsActions.setNewSelector, (state, { selector }) => {
-        return {
-            ...state,
-            newSelector: selector,
-        };
-    }),
-    on(SelectorsActions.setEditSelector, (state, { selector }) => {
-        return {
-            ...state,
-            editSelector: selector,
-        };
-    }),
     on(SelectorsActions.getAllRequest, state => {
         return {
             ...state,

@@ -8,6 +8,7 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { SelectorsActions } from '@store/actions/selectors.action';
+import { formatSelectorModel } from '@app/utils/selector.util';
 
 @Injectable()
 export default class SelectorsEffects {
@@ -35,11 +36,8 @@ export default class SelectorsEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorsActions.createRequest),
-            switchMap(selector => {
-                return this._apiService.createSelector({
-                    name: selector.name,
-                    description: selector.description,
-                }).pipe(
+            switchMap(({selector}) => {
+                return this._apiService.createSelector(formatSelectorModel(selector)).pipe(
                     mergeMap(res => {
                         return [SelectorsActions.createSuccess({ selector: res.data, meta: res.meta })];
                     }),
@@ -57,10 +55,7 @@ export default class SelectorsEffects {
         this._actions$.pipe(
             ofType(SelectorsActions.updateRequest),
             switchMap(({ id, selector }) => {
-                return this._apiService.updateSelector(id, {
-                    name: selector.name,
-                    description: selector.description,
-                }).pipe(
+                return this._apiService.updateSelector(id, formatSelectorModel(selector)).pipe(
                     mergeMap(res => {
                         return [SelectorsActions.updateSuccess({ selector: res.data, meta: res.meta })];
                     }),

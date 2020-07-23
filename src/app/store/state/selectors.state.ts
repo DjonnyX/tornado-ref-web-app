@@ -1,6 +1,6 @@
 import { IBaseState } from './base';
 import { IMetaRefsResponse } from '@services';
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export interface ISelectorsState extends IBaseState {
     meta: IMetaRefsResponse;
@@ -9,6 +9,4 @@ export interface ISelectorsState extends IBaseState {
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
     collection: Array<ISelector> | null;
-    newSelector: ISelector | null;
-    editSelector: ISelector | null;
 }

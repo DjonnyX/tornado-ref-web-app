@@ -1,11 +1,11 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IProduct } from '@app/models/product.model';
-import { IRef } from '@app/models/ref.model';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag } from '@models';
+import { IAsset } from '@models';
+import { getThumbnail } from '@app/utils/asset.util';
+import { IProduct, IRef, ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -21,6 +21,21 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() tagList: Array<ITag>;
 
+  private _assetsDictionary: { [id: string]: IAsset } = {};
+
+  private _assets: Array<IAsset>;
+  @Input() set assets(v: Array<IAsset>) {
+    if (this._assets !== v) {
+      this._assets = v;
+
+      this._assets.forEach(asset => {
+        this._assetsDictionary[asset.id] = asset;
+      });
+    }
+  }
+
+  get assets() { return this._assets; }
+
   @Output() create = new EventEmitter<void>();
 
   @Output() edit = new EventEmitter<IProduct>();
@@ -33,21 +48,30 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     super();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 
   getTagColor(id: string): string {
-    const tag = this.tagList.find(t => t.id === id);
+    const tag = !!this.tagList ? this.tagList.find(t => t.id === id) : undefined;
     return !!tag ? tag.color : "";
   }
 
   getTagName(id: string): string {
-    const tag = this.tagList.find(t => t.id === id);
+    const tag = !!this.tagList ? this.tagList.find(t => t.id === id) : undefined;
     return !!tag ? tag.name : "";
+  }
+  
+  hasThumbnail(assetId: string): boolean {
+    const asset = this._assetsDictionary[assetId];
+    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
+  }
+
+  getThumbnail(assetId: string): string {
+    const asset = this._assetsDictionary[assetId];
+    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : ""; //getThumbnail(asset);
   }
 
   onShowMenu($event): void {

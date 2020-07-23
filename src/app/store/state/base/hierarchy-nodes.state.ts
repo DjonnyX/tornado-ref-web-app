@@ -1,6 +1,6 @@
 import { IBaseState } from './base.state';
 import { IMetaRefsResponse } from '@services';
-import { INode } from '@models';
+import { INode } from '@djonnyx/tornado-types';
 
 export interface IHierarchyNodesState extends IBaseState {
     meta: IMetaRefsResponse;

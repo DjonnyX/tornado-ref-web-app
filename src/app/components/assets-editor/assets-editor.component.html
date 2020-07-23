@@ -1,0 +1,29 @@
+<div class="editor">
+    <ta-state-panel [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div class="entities-wrapper">
+        <div class="entity" (click)="onEditAsset(asset)" *ngFor="let asset of collection | search: searchPattern">
+            <div matRipple class="entity-active-zone">
+                <div class="content">
+                    {{asset.name}}
+                </div>
+            </div>
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
+                aria-label="Menu">
+                <mat-icon class="icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onEditAsset(asset)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+                <button mat-menu-item (click)="onDeleteAsset(asset)">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </mat-menu>
+        </div>
+        <button color="accent" mat-raised-button class="button-add" (click)="onCreateAsset()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

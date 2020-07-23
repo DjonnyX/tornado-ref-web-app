@@ -34,6 +34,13 @@ const routes: Routes = [
           import('@containers/tags-editor/tags-editor.module').then(
             module => module.TagsEditorModule,
           )
+      },
+      {
+        path: 'assets',
+        loadChildren: () =>
+          import('@containers/assets-editor/assets-editor.module').then(
+            module => module.AssetsEditorModule,
+          )
       }
     ]
   }

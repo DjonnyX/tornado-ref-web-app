@@ -1,0 +1,37 @@
+<div class="assets-uploader">
+    <div class="assets-uploader-wrapper">
+        <div class="asset" *ngFor="let asset of collection; let index = index;">
+            <ng-container *ngIf="asset.progress; else loaded">
+                <div matRipple class="asset-thumbnail">
+                    <mat-progress-bar mode="determinate" [value]="asset.progress.progress"></mat-progress-bar>
+                </div>
+                <div class="asset-name">
+                    {{asset.name}}
+                </div>
+            </ng-container>
+            <ng-template #loaded>
+                <div matRipple class="asset-thumbnail" [style.background]="getThumbnail(asset)"></div>
+                <div class="asset-name">
+                    {{asset.name}}
+                </div>
+                <div class="asset-ctrl-panel">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="asset-menu-button"
+                        (click)="onShowMenu($event)" aria-label="Menu">
+                        <mat-icon class="icon">more_vert</mat-icon>
+                    </button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="onDeleteAsset(asset)">
+                            <mat-icon>delete_forever</mat-icon>
+                            <span>Delete</span>
+                        </button>
+                    </mat-menu>
+                </div>
+            </ng-template>
+        </div>
+        <button class="asset-btn-add" mat-flat-button color="accent" (click)="fileSelector.open()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+    <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector"
+        (select)="onUploadFile($event)"></ta-file-selector>
+</div>

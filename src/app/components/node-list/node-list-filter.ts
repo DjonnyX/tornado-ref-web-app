@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 @Pipe({
   name: 'nodeListFilter'

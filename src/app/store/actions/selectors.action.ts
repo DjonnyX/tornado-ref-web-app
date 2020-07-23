@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ISelector } from '@app/models/selector.model';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export enum SelectorsActionTypes {
     GET_ALL_REQUEST = "TORNADO/selectors/get-all:request",
@@ -22,10 +22,6 @@ export enum SelectorsActionTypes {
     DELETE_REQUEST = "TORNADO/selectors/delete:request",
     DELETE_SUCCESS = "TORNADO/selectors/delete:success",
     DELETE_ERROR = "TORNADO/selectors/delete:error",
-
-    NEW = "TORNADO/selectors/new",
-
-    EDIT = "TORNADO/selectors/edit",
 }
 
 export namespace SelectorsActions {
@@ -39,13 +35,13 @@ export namespace SelectorsActions {
     );
     export const getAllError = createAction(
         SelectorsActionTypes.GET_ALL_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // get
     export const getRequest = createAction(
         SelectorsActionTypes.GET_REQUEST,
-        props<{ selectorId: string }>()
+        props<{ selectorId: string }>(),
     );
     export const getSuccess = createAction(
         SelectorsActionTypes.GET_SUCCESS,
@@ -53,58 +49,48 @@ export namespace SelectorsActions {
     );
     export const getError = createAction(
         SelectorsActionTypes.GET_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // create
     export const createRequest = createAction(
         SelectorsActionTypes.CREATE_REQUEST,
-        props<ISelector>()
+        props<{selector: ISelector}>(),
     );
     export const createSuccess = createAction(
         SelectorsActionTypes.CREATE_SUCCESS,
-        props<{ selector: ISelector, meta: IMetaRefsResponse }>()
+        props<{ selector: ISelector, meta: IMetaRefsResponse }>(),
     );
     export const createError = createAction(
         SelectorsActionTypes.CREATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // update
     export const updateRequest = createAction(
         SelectorsActionTypes.UPDATE_REQUEST,
-        props<{ id: string, selector: ISelector }>()
+        props<{ id: string, selector: ISelector }>(),
     );
     export const updateSuccess = createAction(
         SelectorsActionTypes.UPDATE_SUCCESS,
-        props<{ selector: ISelector, meta: IMetaRefsResponse }>()
+        props<{ selector: ISelector, meta: IMetaRefsResponse }>(),
     );
     export const updateError = createAction(
         SelectorsActionTypes.UPDATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // delete
     export const deleteRequest = createAction(
         SelectorsActionTypes.DELETE_REQUEST,
-        props<{ id: string }>()
+        props<{ id: string }>(),
     );
     export const deleteSuccess = createAction(
         SelectorsActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta: IMetaRefsResponse }>()
+        props<{ id: string, meta: IMetaRefsResponse }>(),
     );
     export const deleteError = createAction(
         SelectorsActionTypes.DELETE_ERROR,
-        props<{ error: string }>()
-    );
-
-    export const setNewSelector = createAction(
-        SelectorsActionTypes.NEW,
-        props<{ selector: ISelector }>()
-    );
-
-    export const setEditSelector = createAction(
-        SelectorsActionTypes.EDIT,
-        props<{ selector: ISelector }>()
+        props<{ error: string }>(),
     );
 }

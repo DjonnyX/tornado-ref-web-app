@@ -1,6 +1,6 @@
 import { IBaseState } from './base';
-import { IProduct } from '@app/models/product.model';
 import { IMetaRefsResponse } from '@services';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export interface IProductsState extends IBaseState {
     meta: IMetaRefsResponse;
@@ -9,6 +9,4 @@ export interface IProductsState extends IBaseState {
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
     collection: Array<IProduct> | null;
-    newProduct: IProduct | null;
-    editProduct: IProduct | null;
 }

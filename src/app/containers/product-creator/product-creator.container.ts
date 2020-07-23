@@ -1,18 +1,22 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { IProduct } from '@app/models/product.model';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors } from '@store/selectors';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag, INode, ISelector } from '@models';
+import { IAsset } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
+import { ApiService } from '@services';
+import { ProductAssetsActions } from '@store/actions/product-assets.action';
+import { ProductSelectors } from '@store/selectors/product.selectors';
+import { ProductActions } from '@store/actions/product.action';
+import { IProduct, INode, ISelector, ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-product-creator',
@@ -28,6 +32,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   isProcessHierarchy$: Observable<boolean>;
 
+  isProcessAssets$: Observable<boolean>;
+
   rootNodeId$: Observable<string>;
 
   product$: Observable<IProduct>;
@@ -38,26 +44,34 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   products$: Observable<Array<IProduct>>;
 
+  assets$: Observable<Array<IAsset>>;
+
   tags$: Observable<Array<ITag>>;
+
+  currentMainAsset$: Observable<string>;
 
   isEditMode = false;
 
   private _returnUrl: string;
 
+  private _productId: string;
+
   private _product: IProduct;
 
-  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
+  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute, private _apiService: ApiService) {
     super();
   }
 
   ngOnInit(): void {
-    this.isEditMode = !!this._activatedRoute.snapshot.queryParams["isEditMode"];
-
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
+
+    this._productId = this._activatedRoute.snapshot.queryParams["productId"];
+
+    this.isEditMode = !!this._productId;
 
     this.isProcess$ = combineLatest(
       this._store.pipe(
-        select(ProductsSelectors.selectIsGetProcess),
+        select(ProductSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(TagsSelectors.selectIsGetProcess),
@@ -66,13 +80,14 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(ProductNodesSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(ProductsSelectors.selectIsGetProcess),
-      ),
-      this._store.pipe(
         select(SelectorsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(ProductsSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isGetSelectorsProcess, isGetTagsProcess, isGetProductNodesProcess]) => isGetSelectorsProcess && isGetTagsProcess && isGetProductNodesProcess),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -83,12 +98,39 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(ProductsSelectors.selectIsUpdateProcess),
       ),
     ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess && isUpdateProcess),
+      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
     );
 
     this.isProcessHierarchy$ = this._store.pipe(
       select(ProductNodesSelectors.selectLoading),
     );
+
+    this.isProcessAssets$ = combineLatest(
+      this._store.pipe(
+        select(ProductAssetsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(ProductAssetsSelectors.selectIsUpdateProcess),
+      ),
+      this._store.pipe(
+        select(ProductAssetsSelectors.selectIsDeleteProcess),
+      ),
+    ).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+    );
+
+    this.product$ = this._store.pipe(
+      select(ProductSelectors.selectEntity),
+    );
+
+    this.product$.pipe(
+      takeUntil(this.unsubscribe$),
+      filter(product => !!product),
+    ).subscribe(product => {
+      this._product = product;
+      this._productId = product.id;
+      this.isEditMode = !!this._productId;
+    });
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
@@ -106,34 +148,59 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(ProductsSelectors.selectCollection),
     );
 
-    if (this.isEditMode) {
-      this.product$ = this._store.pipe(
-        select(ProductsSelectors.selectEditProduct),
-      );
-    } else {
-      this.product$ = this._store.pipe(
-        select(ProductsSelectors.selectNewProduct),
-      );
-    }
+    this.assets$ = this._store.pipe(
+      select(ProductAssetsSelectors.selectCollection),
+    );
+
+    this.currentMainAsset$ = this._store.pipe(
+      select(ProductSelectors.selectMainAsset),
+    );
 
     this.rootNodeId$ = this.product$.pipe(
       filter(product => !!product),
       map(product => product.joint),
-    )
+    );
 
     this.rootNodeId$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
-      this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId}));
-      this._store.dispatch(TagsActions.getAllRequest());
+      this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
       this._store.dispatch(ProductsActions.getAllRequest());
       this._store.dispatch(SelectorsActions.getAllRequest());
-    })
+      this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
+    });
+
+    this._store.dispatch(TagsActions.getAllRequest());
+
+    if (!!this._productId) {
+      this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
+    }
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    this._store.dispatch(ProductActions.clear());
+    this._store.dispatch(ProductAssetsActions.clear());
+  }
+
+  onProductMainAssetSelect(asset: IAsset): void {
+    if (!asset) {
+      return;
+    }
+
+    if (this._product.mainAsset !== asset.id) {
+      this._store.dispatch(ProductActions.update({ product: { ...this._product, mainAsset: asset.id } }));
+    }
+  }
+
+  onAssetUpload(file: File): void {
+    this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, file }));
+  }
+
+  onAssetDelete(asset: IAsset): void {
+    this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId: asset.id }));
   }
 
   onCreateHierarchyNode(node: INode): void {
@@ -150,25 +217,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   onMainOptionsSave(product: IProduct): void {
     if (this.isEditMode) {
-      this._store.dispatch(ProductsActions.setEditProduct({ product: undefined }));
-      this._store.dispatch(ProductsActions.updateRequest({ id: product.id, product }));
+      this._store.dispatch(ProductActions.updateRequest({ id: product.id, product }));
     } else {
-      this._store.dispatch(ProductsActions.setNewProduct({ product: undefined }));
-      this._store.dispatch(ProductsActions.createRequest(product));
+      this._store.dispatch(ProductActions.createRequest({ product }));
     }
 
-    this._router.navigate([this._returnUrl]);
-  }
-
-  onMainOptionsUpdate(product: IProduct): void {
-    // пока закоментил иначе бесконечная рекурсия в получении кэша продукта идет
-    /*const p = { ...this._product, ...product };
-
-    if (this.isEditMode) {
-      this._store.dispatch(ProductsActions.setEditProduct({ product: p }));
-    } else {
-      this._store.dispatch(ProductsActions.setNewProduct({ product: p }));
-    }*/
+    // this._router.navigate([this._returnUrl]);
   }
 
   onMainOptionsCancel(): void {

@@ -8,6 +8,12 @@
     .entity-options-editor {
         padding: px2em(40);
 
+        .main-options-wrapper {
+            display: grid;
+            grid-template-columns: px2em(200) auto;
+            gap: px2em(20);
+        }
+
         .form {
             border-radius: 4px;
             padding: px2em(40);
@@ -24,6 +30,12 @@
     .entity-options-editor {
         background: #ffffff;
         min-height: 100%;
+
+        .main-options-wrapper {
+            display: grid;
+            grid-template-columns: px2em(200) auto;
+            gap: px2em(20);
+        }
 
         .form {
             padding: px2em(20);

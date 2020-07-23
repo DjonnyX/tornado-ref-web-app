@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
-import { INode, IProduct, ISelector, IEntity, IRef } from '@models';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
+import { IEntity, INode, IProduct, ISelector, IRef } from '@djonnyx/tornado-types';
 
 interface IDictionary<T = any> {
   [id: string]: T;

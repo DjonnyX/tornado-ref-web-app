@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onMainOptionsSubmit()" autocomplete="off">
+<form [formGroup]="form" (ngSubmit)="onMainOptionsSave()" autocomplete="off">
     <div class="form__input-block">
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
@@ -13,7 +13,7 @@
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Description</mat-label>
-                <textarea matInput type="text" [formControl]="ctrlDescription" placeholder="Description"></textarea>
+                <textarea matInput [matTextareaAutosize]="true" type="text" [formControl]="ctrlDescription" placeholder="Description"></textarea>
             </mat-form-field>
         </div>
 
@@ -30,6 +30,6 @@
     <div class="form__submit" align="end">
         <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
         <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Edit' : 'Create'}}</button>
+            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
     </div>
 </form>

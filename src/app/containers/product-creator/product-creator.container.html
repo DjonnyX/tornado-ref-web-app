@@ -5,15 +5,32 @@
                 <h2>Main options</h2>
             </div>
 
+            <div [ngClass]="{'main-options-wrapper': isEditMode}">
+                <ta-asset-picker *ngIf="isEditMode" [defaultValue]="currentMainAsset$ | async"
+                    [assets]="assets$ | async" (select)="onProductMainAssetSelect($event)"></ta-asset-picker>
+
+                <ta-query-progress class="query-progress-container" style="position: relative;"
+                    [process]="isProcessMainOptions$ | async">
+                    <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
+                        [tagList]="tags$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
+                    </ta-product-creator-form>
+                </ta-query-progress>
+            </div>
+        </div>
+
+        <div class="form" *ngIf="isEditMode">
+            <div class="form-header">
+                <h2>Assets</h2>
+            </div>
+
             <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="isProcessMainOptions$ | async">
-                <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
-                    [tagList]="tags$ | async" (submit)="onMainOptionsSave($event)"
-                    (update)="onMainOptionsUpdate($event)" (cancel)="onMainOptionsCancel()"></ta-product-creator-form>
+                [process]="isProcessAssets$ | async">
+                <ta-assets-uploader [collection]="assets$ | async" (upload)="onAssetUpload($event)"
+                    (delete)="onAssetDelete($event)"></ta-assets-uploader>
             </ta-query-progress>
         </div>
 
-        <div class="form">
+        <div class="form" *ngIf="isEditMode">
             <div class="form-header">
                 <h2>Hierarchy</h2>
                 <div>

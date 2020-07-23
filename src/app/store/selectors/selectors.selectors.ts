@@ -14,16 +14,6 @@ export namespace SelectorsSelectors {
     state => !!state.meta ? state.meta.ref : undefined,
   );
 
-  export const selectNewSelector = createSelector(
-    selectSelectors,
-    state => state.newSelector,
-  );
-
-  export const selectEditSelector = createSelector(
-    selectSelectors,
-    state => state.editSelector,
-  );
-
   export const selectLoading = createSelector(
     selectSelectors,
     state => state.loading,

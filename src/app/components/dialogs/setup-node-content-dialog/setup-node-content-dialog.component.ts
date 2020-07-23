@@ -1,14 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IProduct, ISelector, IEntity, INode } from '@models';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
+import { ISelector, IProduct, INode, IEntity, NodeTypes } from '@djonnyx/tornado-types';
 
 interface IDialogData {
   title: string;
   nodes: Array<INode>;
   products: Array<IProduct>;
   selectors: Array<ISelector>;
-  selectorsDictionary: { [id: string]: ISelector }
+  selectorsDictionary: { [id: string]: ISelector };
+  selectedDefaultEntityId: string;
+  defaultCollection: NodeTypes;
   mode: SelectContentFormModes;
 }
 

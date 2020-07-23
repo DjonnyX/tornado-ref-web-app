@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { IProduct } from '@app/models/product.model';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ITag } from '@models';
+import { IProduct, ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -39,7 +38,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Input() tagList: Array<ITag>;
 
-  @Output() submit = new EventEmitter<IProduct>();
+  @Output() save = new EventEmitter<IProduct>();
 
   @Output() cancel = new EventEmitter<void>();
 
@@ -68,9 +67,9 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     super.ngOnDestroy();
   }
 
-  onMainOptionsSubmit(): void {
+  onMainOptionsSave(): void {
     if (this.form.valid) {
-      this.submit.emit({ ...this._product, ...this.form.value });
+      this.save.emit({ ...this._product, ...this.form.value });
     }
   }
 
