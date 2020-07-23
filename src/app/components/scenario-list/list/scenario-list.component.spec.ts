@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScenarioEditorComponent } from './scenario-editor.component';
+import { ScenarioListComponent } from './scenario-list.component';
 
-describe('ScenarioEditorComponent', () => {
-  let component: ScenarioEditorComponent;
-  let fixture: ComponentFixture<ScenarioEditorComponent>;
+describe('ScenarioListComponent', () => {
+  let component: ScenarioListComponent;
+  let fixture: ComponentFixture<ScenarioListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScenarioEditorComponent ]
+      declarations: [ ScenarioListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScenarioEditorComponent);
+    fixture = TestBed.createComponent(ScenarioListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

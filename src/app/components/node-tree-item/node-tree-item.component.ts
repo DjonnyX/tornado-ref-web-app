@@ -355,10 +355,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   onAddScenario(): void {
-    this.newScenario = {
-      name: "Scenario",
-      action: ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
-    };
+    
   }
 
   onEdit(): void {

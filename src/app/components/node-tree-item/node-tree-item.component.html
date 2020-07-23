@@ -54,7 +54,7 @@
             </div>
         </div>
         <div class="node-tree-scenario-editor">
-            <ta-scenario-editor [scenarios]="node.scenarios" [newScenario]="newScenario"></ta-scenario-editor>
+            <ta-scenario-list [scenarios]="node.scenarios"></ta-scenario-list>
         </div>
         <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ng-container *ngIf="node.type !== 'selector-node'; else renderSelectorNode">
