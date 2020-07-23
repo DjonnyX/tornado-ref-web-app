@@ -6,5 +6,6 @@ export const formatNodeModel = (node: INode) => {
         parentId: node.parentId,
         contentId: node.contentId,
         children: node.children,
+        scenarios: node.scenarios,
     }
 }

@@ -41,6 +41,10 @@
                             <mat-icon>edit</mat-icon>
                             <span>Edit</span>
                         </button>
+                        <button mat-menu-item (click)="onAddScenario()">
+                            <mat-icon>linear_scale</mat-icon>
+                            <span>Add scenario</span>
+                        </button>
                         <button mat-menu-item (click)="onDelete()">
                             <mat-icon>delete_forever</mat-icon>
                             <span>Delete</span>
@@ -48,6 +52,9 @@
                     </mat-menu>
                 </span>
             </div>
+        </div>
+        <div class="node-tree-scenario-editor">
+            <ta-scenario-editor [scenarios]="node.scenarios" [newScenario]="newScenario"></ta-scenario-editor>
         </div>
         <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ng-container *ngIf="node.type !== 'selector-node'; else renderSelectorNode">
