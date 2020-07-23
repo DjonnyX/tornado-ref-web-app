@@ -1,9 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChild } from '@angular/core';
-import { IProduct, ISelector, IEntity, INode } from '@models';
 import { SelectContentFormModes } from './enums/select-content-form-modes.enum';
-import { NodeTypes } from '@app/enums/node-types.enum';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
+import { ISelector, IProduct, INode, IEntity, NodeTypes } from '@djonnyx/tornado-types';
 
 const TABS_COLLECTION = [
   NodeTypes.SELECTOR,

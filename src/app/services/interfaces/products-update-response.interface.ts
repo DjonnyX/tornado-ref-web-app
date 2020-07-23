@@ -1,5 +1,5 @@
 import { IBaseResponse } from './base-response.interface';
-import { IProduct } from '@app/models/product.model';
 import { IMetaRefsResponse } from './meta-refs-response.interface';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export interface IProductsUpdateResponse extends IBaseResponse<IProduct, IMetaRefsResponse> {}

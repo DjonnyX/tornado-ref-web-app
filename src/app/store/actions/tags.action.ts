@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ITag } from '@app/models/tag.model';
+import { ITag } from '@djonnyx/tornado-types';
 
 export enum TagsActionTypes {
     GET_ALL_REQUEST = "TORNADO/tags/get-all:request",

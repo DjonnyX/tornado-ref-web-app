@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ITag } from '@models';
+import { ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-tag-creator-form',

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IProduct } from '@app/models/product.model';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export enum ProductActionTypes {
     GET_REQUEST = "TORNADO/product/get:request",

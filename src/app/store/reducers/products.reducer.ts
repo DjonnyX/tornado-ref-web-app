@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { IProductsState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
-import { IProduct } from '@app/models/product.model';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export const initialState: IProductsState = {
     meta: undefined,

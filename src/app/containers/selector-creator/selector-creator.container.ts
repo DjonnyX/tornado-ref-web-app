@@ -6,11 +6,11 @@ import { SelectorsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag, ISelector } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { SelectorActions } from '@store/actions/selector.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
+import { ISelector, ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-selector-creator',

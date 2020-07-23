@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ISelector } from '@app/models/selector.model';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export enum SelectorsActionTypes {
     GET_ALL_REQUEST = "TORNADO/selectors/get-all:request",

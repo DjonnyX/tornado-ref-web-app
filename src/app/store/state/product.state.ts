@@ -1,5 +1,5 @@
 import { IBaseState } from './base';
-import { IProduct } from '@app/models/product.model';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export interface IProductState extends IBaseState {
     product: IProduct;

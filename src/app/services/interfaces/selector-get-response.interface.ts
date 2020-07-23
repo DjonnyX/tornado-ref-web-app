@@ -1,4 +1,4 @@
 import { IBaseResponse } from './base-response.interface';
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export interface ISelectorGetResponse extends IBaseResponse<ISelector, {}> {}

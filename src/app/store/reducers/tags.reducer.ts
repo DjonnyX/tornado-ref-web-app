@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { ITagsState } from '@store/state';
 import { TagsActions } from '@store/actions/tags.action';
-import { ITag } from '@app/models/tag.model';
+import { ITag } from '@djonnyx/tornado-types';
 
 export const initialState: ITagsState = {
     meta: undefined,

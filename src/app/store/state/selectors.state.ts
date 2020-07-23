@@ -1,6 +1,6 @@
 import { IBaseState } from './base';
 import { IMetaRefsResponse } from '@services';
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export interface ISelectorsState extends IBaseState {
     meta: IMetaRefsResponse;

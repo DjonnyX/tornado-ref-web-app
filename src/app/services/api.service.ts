@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile, ITag, ISelector, INode, IAsset } from '@models';
+import { IUserProfile, IAsset } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -37,7 +37,7 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct } from '@app/models/product.model';
+import { IProduct, ISelector, INode, ITag } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'

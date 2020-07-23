@@ -2,15 +2,13 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
-import { ITag } from '@models';
-import { TagsActions } from '@store/actions/tags.action';
 import { TagActions } from '@store/actions/tag.action';
 import { TagSelectors } from '@store/selectors/tag.selectors';
+import { ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-tag-creator',

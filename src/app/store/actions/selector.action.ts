@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { ISelector } from '@app/models/selector.model';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export enum SelectorActionTypes {
     GET_REQUEST = "TORNADO/selector/get:request",

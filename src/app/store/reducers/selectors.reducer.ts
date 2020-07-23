@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { ISelectorsState } from '@store/state';
 import { SelectorsActions } from '@store/actions/selectors.action';
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export const initialState: ISelectorsState = {
     meta: undefined,

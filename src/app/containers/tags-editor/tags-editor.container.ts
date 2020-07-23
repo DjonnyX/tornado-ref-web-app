@@ -2,11 +2,11 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { IRef, ITag } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagActions } from '@store/actions/tag.action';
+import { ITag, IRef } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-tags-editor',

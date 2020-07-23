@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { INode } from '@models';
+import { INode } from '@djonnyx/tornado-types';
 
 export enum MenuNodesActionTypes {
     GET_ROOT_NODE_REQUEST = "TORNADO/menu-nodes/get-root-node-id:request",

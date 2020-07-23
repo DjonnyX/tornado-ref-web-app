@@ -1,5 +1,5 @@
 import { IBaseState } from './base';
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export interface ISelectorState extends IBaseState {
     selector: ISelector;

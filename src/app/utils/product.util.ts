@@ -1,4 +1,4 @@
-import { IProduct } from '@models';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export const formatProductModel = (product: IProduct) => {
     return {

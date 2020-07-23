@@ -1,8 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IProduct, ISelector, IEntity, INode } from '@models';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { NodeTypes } from '@app/enums/node-types.enum';
+import { ISelector, IProduct, INode, IEntity, NodeTypes } from '@djonnyx/tornado-types';
 
 interface IDialogData {
   title: string;

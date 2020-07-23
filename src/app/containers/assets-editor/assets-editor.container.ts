@@ -5,11 +5,9 @@ import { IAppState } from '@store/state';
 import { AssetsSelectors } from '@store/selectors';
 import { IAsset } from '@app/models/asset.model';
 import { ProductsActions } from '@store/actions/products.action';
-import { IRef } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
-import { TagsActions } from '@store/actions/tags.action';
-import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { AssetsActions } from '@store/actions/assets.action';
+import { IRef } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-assets-editor',

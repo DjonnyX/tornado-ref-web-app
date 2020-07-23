@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { IProduct } from '@app/models/product.model';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ITag } from '@models';
+import { IProduct, ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-product-creator-form',

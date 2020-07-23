@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
-import { INode, ISelector, IProduct, IRef } from '@models';
 import { IAppState } from '@store/state';
 import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors } from '@store/selectors';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
@@ -9,6 +8,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductsActions } from '@store/actions/products.action';
 import { takeUntil, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
+import { INode, ISelector, IProduct, IRef } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-menu-tree-editor',

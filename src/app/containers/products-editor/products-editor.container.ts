@@ -3,9 +3,8 @@ import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsSelectors, AssetsSelectors } from '@store/selectors';
-import { IProduct } from '@app/models/product.model';
 import { ProductsActions } from '@store/actions/products.action';
-import { IRef, ITag, IAsset } from '@models';
+import { IAsset } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
@@ -13,6 +12,7 @@ import { ProductActions } from '@store/actions/product.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { BaseComponent } from '@components/base/base-component';
 import { map } from 'rxjs/operators';
+import { IProduct, ITag, IRef } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-products-editor',

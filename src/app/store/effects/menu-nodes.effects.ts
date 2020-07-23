@@ -8,8 +8,8 @@ import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
-import { NodeTypes } from '@app/enums/node-types.enum';
 import { formatNodeModel } from '@app/utils/node.util';
+import { NodeTypes } from '@djonnyx/tornado-types';
 
 @Injectable()
 export default class MenuNodesEffects {

@@ -1,4 +1,4 @@
 import { IBaseResponse } from './base-response.interface';
-import { IProduct } from '@app/models/product.model';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export interface IProductGetResponse extends IBaseResponse<IProduct, {}> {}

@@ -1,12 +1,11 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { IProduct } from '@app/models/product.model';
-import { IRef } from '@app/models/ref.model';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag, IAsset } from '@models';
+import { IAsset } from '@models';
 import { getThumbnail } from '@app/utils/asset.util';
+import { IProduct, IRef, ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-products-editor-component',

@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { IAsset } from '@app/models/asset.model';
-import { IRef } from '@app/models/ref.model';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag } from '@models';
+import { IRef } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-assets-editor-component',

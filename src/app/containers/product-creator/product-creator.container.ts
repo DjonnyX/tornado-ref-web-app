@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { IProduct } from '@app/models/product.model';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
@@ -8,7 +7,7 @@ import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAs
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag, INode, ISelector, IAsset } from '@models';
+import { IAsset } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
@@ -17,6 +16,7 @@ import { ApiService } from '@services';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
+import { IProduct, INode, ISelector, ITag } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-product-creator',

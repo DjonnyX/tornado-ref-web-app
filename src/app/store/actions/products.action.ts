@@ -1,7 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IProduct } from '@app/models/product.model';
-import { IAsset } from '@models';
+import { IProduct } from '@djonnyx/tornado-types';
 
 export enum ProductsActionTypes {
     GET_ALL_REQUEST = "TORNADO/products/get-all:request",

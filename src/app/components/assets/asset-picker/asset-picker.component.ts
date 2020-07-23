@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IAsset } from '@models';
 import { FormControl } from '@angular/forms';
-import { takeUntil, filter } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { getThumbnail } from '@app/utils/asset.util';
 

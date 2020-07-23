@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { IRef } from '@models';
 import { formatDT } from '@app/utils/dt-formatter.util';
+import { IRef } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-state-panel',

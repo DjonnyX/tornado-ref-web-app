@@ -1,4 +1,4 @@
-import { ISelector } from '@models';
+import { ISelector } from '@djonnyx/tornado-types';
 
 export const formatSelectorModel = (selector: ISelector) => {
     return {

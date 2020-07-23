@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { NodeTypes } from '@app/enums/node-types.enum';
 import { Observable } from 'rxjs';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
+import { NodeTypes } from '@djonnyx/tornado-types';
 
 interface IEntity {
   id: string;
