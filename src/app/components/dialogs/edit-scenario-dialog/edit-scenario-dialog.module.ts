@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EditScenarioDialogComponent } from './edit-scenario-dialog.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
-import { ScenarioEditorModule } from '@components/scenario-editor/scenario-editor.module';
+import { ScenarioEditorModule } from '@components/forms/scenario/scenario-editor/scenario-editor.module';
 
 @NgModule({
   declarations: [
