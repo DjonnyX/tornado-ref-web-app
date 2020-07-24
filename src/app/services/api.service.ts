@@ -267,7 +267,7 @@ export class ApiService {
 
   public getBusinessPeriod(id: string): Observable<IBusinessPeriodGetResponse> {
     return this._http
-      .get<IBusinessPeriodGetResponse>(`api/v1/business-periods/${id}`, {
+      .get<IBusinessPeriodGetResponse>(`api/v1/business-period/${id}`, {
         headers: {
           authorization: this._token,
         },
@@ -276,7 +276,7 @@ export class ApiService {
 
   public createBusinessPeriod(selector: ISelector): Observable<IBusinessPeriodCreateResponse> {
     return this._http
-      .post<IBusinessPeriodCreateResponse>("api/v1/business-periods", selector, {
+      .post<IBusinessPeriodCreateResponse>("api/v1/business-period", selector, {
         headers: {
           authorization: this._token,
         },
@@ -285,7 +285,7 @@ export class ApiService {
 
   public updateBusinessPeriod(id: string, selector: ISelector): Observable<IBusinessPeriodUpdateResponse> {
     return this._http
-      .put<IBusinessPeriodUpdateResponse>(`api/v1/business-periods/${id}`, selector, {
+      .put<IBusinessPeriodUpdateResponse>(`api/v1/business-period/${id}`, selector, {
         headers: {
           authorization: this._token,
         },
@@ -294,7 +294,7 @@ export class ApiService {
 
   public deleteBusinessPeriod(id: string): Observable<IBusinessPeriodDeleteResponse> {
     return this._http
-      .delete<IBusinessPeriodDeleteResponse>(`api/v1/business-periods/${id}`, {
+      .delete<IBusinessPeriodDeleteResponse>(`api/v1/business-period/${id}`, {
         headers: {
           authorization: this._token,
         },
