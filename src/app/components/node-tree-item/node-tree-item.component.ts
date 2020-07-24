@@ -360,7 +360,6 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           title: "Configure the scenario.",
-          message: "Configure the scenario.",
           scenario: undefined,
         },
       });
