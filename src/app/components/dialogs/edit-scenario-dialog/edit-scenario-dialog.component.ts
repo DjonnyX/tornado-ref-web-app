@@ -1,4 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
+import { IScenario } from '@djonnyx/tornado-types';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+interface IDialogData {
+  title: string;
+  message: string;
+  scenario: IScenario;
+}
 
 @Component({
   selector: 'ta-edit-scenario-dialog',
@@ -7,7 +15,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EditScenarioDialogComponent implements OnInit {
 
-  constructor() { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 
   ngOnInit(): void {
   }

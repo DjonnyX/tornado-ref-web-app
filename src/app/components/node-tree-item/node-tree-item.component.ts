@@ -8,6 +8,7 @@ import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum'
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 import { INode, IProduct, ISelector, NodeTypes, ScenarioCommonActionTypes } from '@djonnyx/tornado-types';
 import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
+import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -355,7 +356,30 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   onAddScenario(): void {
-    
+    const dialogRef = this.dialog.open(EditScenarioDialogComponent,
+      {
+        data: {
+          title: "Configure the scenario.",
+          message: "Configure the scenario.",
+          scenario: undefined,
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(content => {
+      if (!!content) {
+        /*const node = {
+          type: content.type,
+          parentId: this.node.id,
+          contentId: content.id,
+          children: [],
+          scenarios: [],
+        }
+        this.create.emit(node);*/
+      }
+    });
   }
 
   onEdit(): void {

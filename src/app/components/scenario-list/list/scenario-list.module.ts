@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { ScenarioListComponent } from './scenario-list.component';
 import { MatIconModule } from '@angular/material/icon';
-import { ScenarioEditorItemComponent } from '../item/scenario-editor-item.component';
+import { ScenarioListItemComponent } from '../item/scenario-list-item.component';
 
 @NgModule({
   declarations: [
     ScenarioListComponent,
-    ScenarioEditorItemComponent,
+    ScenarioListItemComponent,
   ],
   exports: [
     ScenarioListComponent,
@@ -19,4 +19,4 @@ import { ScenarioEditorItemComponent } from '../item/scenario-editor-item.compon
     MatIconModule,
   ]
 })
-export class ScenarioEditorModule { }
+export class ScenarioListModule { }
