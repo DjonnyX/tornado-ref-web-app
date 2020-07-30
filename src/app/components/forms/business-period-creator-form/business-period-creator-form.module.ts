@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { ScheduleModule } from '@components/schedule/schedule.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
+    ScheduleModule,
   ]
 })
 export class BusinessPeriodCreatorFormModule { }

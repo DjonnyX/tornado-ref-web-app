@@ -65,3 +65,11 @@ $warn-800: darken(mat-color($ta-warn), 20);
         }
     }
 }
+
+::ng-deep .mat-form-field-infix {
+    width: auto !important;
+}
+
+.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
+    font-weight: 700;
+}

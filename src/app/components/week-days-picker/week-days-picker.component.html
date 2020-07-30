@@ -1,0 +1,5 @@
+<div class="week-days-picker">
+    <button mat-stroked-button color="primary" [ngClass]="{'week-days-picker__day-button': true, 'selected': day.selected}" *ngFor="let day of weekDays" type="button" [value]="day.selected" (click)="onToggle(day)">
+        {{day.shortName}}
+    </button>
+</div>
