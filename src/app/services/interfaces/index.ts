@@ -25,6 +25,11 @@ import { ISelectorGetResponse } from './selector-get-response.interface';
 import { ISelectorsCreateResponse } from './selectors-create-response.interface';
 import { ISelectorsUpdateResponse } from './selectors-update-response.interface';
 import { ISelectorsDeleteResponse } from './selectors-delete-response.interface';
+import { IBusinessPeriodsGetResponse } from './business-periods-get-response.interface';
+import { IBusinessPeriodGetResponse } from './business-period-get-response.interface';
+import { IBusinessPeriodCreateResponse } from './business-period-create-response.interface';
+import { IBusinessPeriodUpdateResponse } from './business-period-update-response.interface';
+import { IBusinessPeriodDeleteResponse } from './business-period-delete-response.interface';
 import { ITagsGetResponse } from './tags-get-response.interface';
 import { ITagGetResponse } from './tag-get-response.interface';
 import { ITagsCreateResponse } from './tags-create-response.interface';
@@ -64,6 +69,11 @@ export {
     ISelectorsCreateResponse,
     ISelectorsUpdateResponse,
     ISelectorsDeleteResponse,
+    IBusinessPeriodsGetResponse,
+    IBusinessPeriodGetResponse,
+    IBusinessPeriodCreateResponse,
+    IBusinessPeriodUpdateResponse,
+    IBusinessPeriodDeleteResponse,
     ITagsGetResponse,
     ITagGetResponse,
     ITagsCreateResponse,

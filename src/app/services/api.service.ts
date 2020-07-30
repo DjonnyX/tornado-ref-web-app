@@ -31,7 +31,12 @@ import {
   IProductsAssetGetResponse,
   IProductGetResponse,
   ITagGetResponse,
-  ISelectorGetResponse
+  ISelectorGetResponse,
+  IBusinessPeriodsGetResponse,
+  IBusinessPeriodGetResponse,
+  IBusinessPeriodCreateResponse,
+  IBusinessPeriodUpdateResponse,
+  IBusinessPeriodDeleteResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -244,6 +249,52 @@ export class ApiService {
   public deleteSelector(id: string): Observable<ISelectorsDeleteResponse> {
     return this._http
       .delete<ISelectorsDeleteResponse>(`api/v1/selector/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // businessPeriods
+  public getBusinessPeriods(): Observable<IBusinessPeriodsGetResponse> {
+    return this._http
+      .get<IBusinessPeriodsGetResponse>("api/v1/business-periods", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getBusinessPeriod(id: string): Observable<IBusinessPeriodGetResponse> {
+    return this._http
+      .get<IBusinessPeriodGetResponse>(`api/v1/business-period/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createBusinessPeriod(selector: ISelector): Observable<IBusinessPeriodCreateResponse> {
+    return this._http
+      .post<IBusinessPeriodCreateResponse>("api/v1/business-period", selector, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateBusinessPeriod(id: string, selector: ISelector): Observable<IBusinessPeriodUpdateResponse> {
+    return this._http
+      .put<IBusinessPeriodUpdateResponse>(`api/v1/business-period/${id}`, selector, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteBusinessPeriod(id: string): Observable<IBusinessPeriodDeleteResponse> {
+    return this._http
+      .delete<IBusinessPeriodDeleteResponse>(`api/v1/business-period/${id}`, {
         headers: {
           authorization: this._token,
         },

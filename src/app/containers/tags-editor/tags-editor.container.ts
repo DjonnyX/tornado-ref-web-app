@@ -41,6 +41,9 @@ export class TagsEditorContainer implements OnInit {
   }
 
   onCreateTag(): void {
+
+    this._store.dispatch(TagActions.clear());
+    
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
       queryParams: { returnUrl: this._router.routerState.snapshot.url },

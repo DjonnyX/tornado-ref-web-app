@@ -72,6 +72,8 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    this._store.dispatch(TagActions.clear());
   }
 
   onSubmit(tag: ITag): void {

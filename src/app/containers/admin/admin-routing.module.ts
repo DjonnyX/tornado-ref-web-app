@@ -36,6 +36,13 @@ const routes: Routes = [
           )
       },
       {
+        path: 'business-periods',
+        loadChildren: () =>
+          import('@containers/business-periods-editor/business-periods-editor.module').then(
+            module => module.BusinessPeriodsEditorModule,
+          )
+      },
+      {
         path: 'assets',
         loadChildren: () =>
           import('@containers/assets-editor/assets-editor.module').then(
