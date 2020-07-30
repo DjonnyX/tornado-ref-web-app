@@ -1,0 +1,13 @@
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
+    <div class="entity-options-editor">
+        <div class="form">
+            <div class="form-header">
+                <h2>Main options</h2>
+            </div>
+
+            <ta-business-period-creator-form [isEditMode]="isEditMode" [businessPeriod]="businessPeriod$ | async"
+                (submit)="onSubmit($event)" (cancel)="onCancel()">
+            </ta-business-period-creator-form>
+        </div>
+    </div>
+</ta-query-progress>

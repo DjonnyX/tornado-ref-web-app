@@ -11,6 +11,8 @@ import { IMenuNodesState } from './menu-nodes.state';
 import { IAssetsState } from './assets.state';
 import { ISelectorState } from './selector.state';
 import { ITagState } from './tag.state';
+import { IBusinessPeriodsState } from './bisiness-periods.state';
+import { IBusinessPeriodState } from './business-period.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -26,4 +28,6 @@ export interface IAppState {
     taSelector: ISelectorState,
     taMenuNodes: IMenuNodesState,
     taAssets: IAssetsState,
+    taBusinessPeriods: IBusinessPeriodsState,
+    taBusinessPeriod: IBusinessPeriodState,
 }

@@ -1,0 +1,33 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div class="form__input-block">
+        <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Business period name</mat-label>
+                <input matInput type="text" [formControl]="ctrlName" placeholder="Business period name">
+                <mat-error *ngIf="ctrlName.hasError('required')">
+                    Business period name - <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Description</mat-label>
+                <textarea matInput [matTextareaAutosize]="true" type="text" [formControl]="ctrlDescription"
+                    placeholder="Description"></textarea>
+            </mat-form-field>
+        </div>
+
+        <h2>
+            Schedule
+        </h2>
+
+        <ta-schedule #schedule></ta-schedule>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="accent" type="submit" class="button button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Edit' : 'Create'}}</button>
+    </div>
+</form>

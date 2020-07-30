@@ -14,6 +14,8 @@ import menuNodesReducer from './menu-nodes.reducer';
 import assetsReducer from './assets.reducer';
 import selectorReducer from './selector.reducer';
 import tagReducer from './tag.reducer';
+import businessPeriodsReducer from './business-periods.reducer';
+import businessPeriodReducer from './business-period.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -29,6 +31,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taSelector: selectorReducer,
   taMenuNodes: menuNodesReducer,
   taAssets: assetsReducer,
+  taBusinessPeriods: businessPeriodsReducer,
+  taBusinessPeriod: businessPeriodReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

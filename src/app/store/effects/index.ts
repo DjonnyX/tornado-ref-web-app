@@ -10,6 +10,8 @@ import AssetsEffects from './assets.effects';
 import ProductEffects from './product.effects';
 import TagEffects from './tag.effects';
 import SelectorEffects from './selector.effects';
+import BusinessPeriodsEffects from './business-periods.effects';
+import BusinessPeriodEffects from './business-period.effects';
 
 const rootEffects = [
   UserEffects,
@@ -21,8 +23,11 @@ const rootEffects = [
   ProductAssetsEffects,
   SelectorsEffects,
   SelectorEffects,
+  BusinessPeriodsEffects,
+  BusinessPeriodEffects,
   TagsEffects,
   TagEffects,
   AssetsEffects,
+
 ];
 export default rootEffects;
