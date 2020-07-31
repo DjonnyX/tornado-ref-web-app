@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
-import { take, takeUntil, map } from 'rxjs/operators';
+import { take, takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
@@ -393,6 +393,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     dialogRef.afterClosed().pipe(
       take(1),
       takeUntil(this.unsubscribe$),
+      filter(v => !!v),
       map(v => v as {content: IScenario, replacedScenario: IScenario}),
     ).subscribe(({content, replacedScenario}) => {
       if (!!content) {
@@ -435,6 +436,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     dialogRef.afterClosed().pipe(
       take(1),
       takeUntil(this.unsubscribe$),
+      filter(v => !!v),
       map(v => v as {content: IScenario, replacedScenario: IScenario}),
     ).subscribe(({content, replacedScenario}) => {
       if (!!content) {
