@@ -25,6 +25,8 @@ export class ScenarioListComponent implements OnInit {
 
   @Output() delete = new EventEmitter<IScenario>();
 
+  @Output() add = new EventEmitter<void>();
+
   isExpanded = false;
 
   constructor() { }
@@ -46,6 +48,10 @@ export class ScenarioListComponent implements OnInit {
 
   onDelete(scenario: IScenario): void {
     this.delete.emit(scenario);
+  }
+
+  onAdd(): void {
+    this.add.emit();
   }
 
   onEdit(scenario: IScenario): void {

@@ -53,8 +53,8 @@
         <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
             <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
                 [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
-                (delete)="onDeleteScenario($event)" (edit)="onEditScenario($event)" (upward)="onUpwardScenario($event)"
-                (downward)="onDownwardScenario($event)"></ta-scenario-list>
+                (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
+                (upward)="onUpwardScenario($event)" (downward)="onDownwardScenario($event)"></ta-scenario-list>
         </div>
         <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ng-container *ngIf="node.type !== 'selector-node'; else renderSelectorNode">
