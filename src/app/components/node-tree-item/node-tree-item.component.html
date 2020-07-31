@@ -3,8 +3,8 @@
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span class="node-tree-item-wrapper">
         <div class="node-tree-item__content">
-            <div matRipple class="content" [class.lock]="!!lock" [class.wrong]="!isRoot && !getContentName()"
-                (click)="toggleExpand()">
+            <div matRipple class="content" [ngClass]="{'has-scenario': !!node.scenarios && node.scenarios.length > 0}"
+                [class.lock]="!!lock" [class.wrong]="!isRoot && !getContentName()" (click)="toggleExpand()">
                 <span>
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
@@ -13,9 +13,6 @@
                 <ng-container *ngIf="!isRoot; else root">
                     <span class="content__name" [class.active]="isSearchExpanded"
                         (click)="!lock ? onSetContent($event) : undefined">
-                        <!--<span>
-                            <mat-icon>{{ node.type === 'selector' ? 'dynamic_feed' : 'crop_square'}}</mat-icon>
-                        </span>-->
                         {{getContentName() || "Content is missing."}}
                     </span>
                 </ng-container>
@@ -53,8 +50,11 @@
                 </span>
             </div>
         </div>
-        <div class="node-tree-scenario-editor">
-            <ta-scenario-editor [scenarios]="node.scenarios" [newScenario]="newScenario"></ta-scenario-editor>
+        <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
+            <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
+                [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
+                (delete)="onDeleteScenario($event)" (edit)="onEditScenario($event)" (upward)="onUpwardScenario($event)"
+                (downward)="onDownwardScenario($event)"></ta-scenario-list>
         </div>
         <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ng-container *ngIf="node.type !== 'selector-node'; else renderSelectorNode">
@@ -62,6 +62,7 @@
                     [currentIndex]="index" [parentChildrenLength]="node.children.length"
                     [isInstanceChain]="isInstanceChain" [lock]="lock" [nodeId]="childId" [nodes]="nodes"
                     [nodesDictionary]="nodesDictionary" [products]="products" [selectors]="selectors"
+                    [businessPeriods]="businessPeriods" [businessPeriodsDictionary]="businessPeriodsDictionary"
                     [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
                     [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
                     (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
@@ -73,10 +74,12 @@
                         [isInstanceChain]="true" [currentIndex]="index"
                         [parentChildrenLength]="nodeInstance.children.length" [depth]="depth + 1" [lock]="true"
                         [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary" [products]="products"
-                        [selectors]="selectors" [productsDictionary]="productsDictionary"
-                        [selectorsDictionary]="selectorsDictionary" [searchPattern]="searchPattern" [mode]="mode"
-                        (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
-                        (delete)="deleteNodeForChild($event)" (searchExpand)="onSearchExpand($event)">
+                        [selectors]="selectors" [businessPeriods]="businessPeriods"
+                        [businessPeriodsDictionary]="businessPeriodsDictionary"
+                        [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
+                        [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
+                        (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
+                        (searchExpand)="onSearchExpand($event)">
                     </ta-node-tree-item>
                 </ng-container>
             </ng-template>

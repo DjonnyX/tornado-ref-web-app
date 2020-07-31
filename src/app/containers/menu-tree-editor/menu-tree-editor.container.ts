@@ -2,13 +2,14 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
 import { IAppState } from '@store/state';
-import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors } from '@store/selectors';
+import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors } from '@store/selectors';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductsActions } from '@store/actions/products.action';
 import { takeUntil, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { INode, ISelector, IProduct, IRef } from '@djonnyx/tornado-types';
+import { INode, ISelector, IProduct, IRef, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 
 @Component({
   selector: 'ta-menu-tree-editor',
@@ -24,6 +25,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
   selectors$: Observable<Array<ISelector>>;
 
   products$: Observable<Array<IProduct>>;
+
+  businessPeriods$: Observable<Array<IBusinessPeriod>>;
 
   refInfo$: Observable<IRef>;
 
@@ -48,10 +51,12 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
     ).subscribe(id => {
 
       this._store.dispatch(MenuNodesActions.getAllRequest({ id }));
-  
+
       this._store.dispatch(SelectorsActions.getAllRequest());
-  
+
       this._store.dispatch(ProductsActions.getAllRequest());
+
+      this._store.dispatch(BusinessPeriodsActions.getAllRequest());
     });
 
     this.nodes$ = this._store.pipe(
@@ -65,6 +70,10 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
     this.products$ = this._store.pipe(
       select(ProductsSelectors.selectCollection),
     );
+
+    this.businessPeriods$ = this._store.pipe(
+      select(BusinessPeriodsSelectors.selectCollection)
+    )
 
     this.refInfo$ = this._store.pipe(
       select(MenuNodesSelectors.selectRefInfo),
@@ -80,8 +89,11 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(ProductsSelectors.selectLoading),
       ),
+      this._store.pipe(
+        select(BusinessPeriodSelectors.selectLoading),
+      ),
     ).pipe(
-      map(([menuNodesLoading, selectorsLoading, productsLoading]) => (menuNodesLoading || selectorsLoading || productsLoading)),
+      map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading]) => (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading)),
     );
   }
 

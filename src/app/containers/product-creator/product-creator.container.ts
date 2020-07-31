@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors } from '@store/selectors';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodSelectors, BusinessPeriodsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -16,7 +16,8 @@ import { ApiService } from '@services';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -37,6 +38,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   rootNodeId$: Observable<string>;
 
   product$: Observable<IProduct>;
+
+  businessPeriods$: Observable<Array<IBusinessPeriod>>;
 
   nodes$: Observable<Array<INode>>;
 
@@ -85,9 +88,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(ProductsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(BusinessPeriodsSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -148,6 +154,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(ProductsSelectors.selectCollection),
     );
 
+    this.businessPeriods$ = this._store.pipe(
+      select(BusinessPeriodsSelectors.selectCollection),
+    )
+
     this.assets$ = this._store.pipe(
       select(ProductAssetsSelectors.selectCollection),
     );
@@ -169,6 +179,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(ProductsActions.getAllRequest());
       this._store.dispatch(SelectorsActions.getAllRequest());
       this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
+      this._store.dispatch(BusinessPeriodsActions.getAllRequest());
     });
 
     this._store.dispatch(TagsActions.getAllRequest());
