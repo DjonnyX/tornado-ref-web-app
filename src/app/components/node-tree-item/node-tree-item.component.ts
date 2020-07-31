@@ -6,7 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
@@ -93,8 +93,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   @Input() businessPeriods: Array<IBusinessPeriod>;
-  
-  @Input() businessPeriodsDictionary: {[id: string]: IBusinessPeriod};
+
+  @Input() businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
 
   resetIsLastChild(): void {
     if (this._parentChildrenLength > -1 && this._currentIndex > -1) {
@@ -128,6 +128,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   @Input() productsDictionary: { [id: string]: IProduct };
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
+
+  @Input() assetsDictionary: { [id: string]: IAsset };
 
   @Output() create = new EventEmitter<INode>();
 
@@ -214,6 +216,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
       this.nodeInstance = this.getNodeInstance();
       this.hasNodeInstance = !!this.nodeInstance;
+
+      /*if (this.node.type === NodeTypes.PRODUCT) {
+        this.isExpanded = false;
+      }*/
     }
   }
 
@@ -235,6 +241,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
 
     return undefined;
+  }
+
+  getThumbnail(): string {
+    if (!!this.assetsDictionary && !!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
+      const content = this.productsDictionary[this.node.contentId];
+
+      if (content && content.mainAsset && this.assetsDictionary[content.mainAsset]) {
+        return this.assetsDictionary[content.mainAsset].mipmap.x32;
+      }
+    }
+
+    return "";
   }
 
   getContentName(): string {
@@ -394,21 +412,21 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       take(1),
       takeUntil(this.unsubscribe$),
       filter(v => !!v),
-      map(v => v as {content: IScenario, replacedScenario: IScenario}),
-    ).subscribe(({content, replacedScenario}) => {
+      map(v => v as { content: IScenario, replacedScenario: IScenario }),
+    ).subscribe(({ content, replacedScenario }) => {
       if (!!content) {
         const scenario: IScenario = {
           action: content.action,
           value: content.value,
           extra: content.extra,
         };
-        this.update.emit({...this.node, scenarios: [...this.node.scenarios, scenario]});
+        this.update.emit({ ...this.node, scenarios: [...this.node.scenarios, scenario] });
       }
     });
   }
 
   onDeleteScenarios(): void {
-    this.update.emit({...this.node, scenarios: []});
+    this.update.emit({ ...this.node, scenarios: [] });
   }
 
   onDeleteScenario(scenario: IScenario): void {
@@ -419,7 +437,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       scenarios.splice(index, 1);
     }
 
-    this.update.emit({...this.node, scenarios});
+    this.update.emit({ ...this.node, scenarios });
   }
 
   onEditScenario(scenario: IScenario): void {
@@ -437,17 +455,17 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       take(1),
       takeUntil(this.unsubscribe$),
       filter(v => !!v),
-      map(v => v as {content: IScenario, replacedScenario: IScenario}),
-    ).subscribe(({content, replacedScenario}) => {
+      map(v => v as { content: IScenario, replacedScenario: IScenario }),
+    ).subscribe(({ content, replacedScenario }) => {
       if (!!content) {
         const scenarios = [...this.node.scenarios];
         const index = scenarios.indexOf(replacedScenario);
-    
+
         if (index > -1) {
           scenarios[index] = content;
         }
-    
-        this.update.emit({...this.node, scenarios});
+
+        this.update.emit({ ...this.node, scenarios });
       }
     });
   }
@@ -461,7 +479,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       scenarios.splice(index - 1, 0, scenario);
     }
 
-    this.update.emit({...this.node, scenarios});
+    this.update.emit({ ...this.node, scenarios });
   }
 
   onDownwardScenario(scenario: IScenario): void {
@@ -473,6 +491,6 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       scenarios.splice(index + 1, 0, scenario);
     }
 
-    this.update.emit({...this.node, scenarios});
+    this.update.emit({ ...this.node, scenarios });
   }
 }

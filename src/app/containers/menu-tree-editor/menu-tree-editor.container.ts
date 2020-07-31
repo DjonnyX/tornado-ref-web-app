@@ -2,14 +2,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
 import { IAppState } from '@store/state';
-import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors } from '@store/selectors';
+import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors, AssetsSelectors } from '@store/selectors';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductsActions } from '@store/actions/products.action';
 import { takeUntil, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { INode, ISelector, IProduct, IRef, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
+import { AssetsActions } from '@store/actions/assets.action';
 
 @Component({
   selector: 'ta-menu-tree-editor',
@@ -27,6 +28,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
   products$: Observable<Array<IProduct>>;
 
   businessPeriods$: Observable<Array<IBusinessPeriod>>;
+
+  assets$: Observable<Array<IAsset>>;
 
   refInfo$: Observable<IRef>;
 
@@ -57,6 +60,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(ProductsActions.getAllRequest());
 
       this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+
+      this._store.dispatch(AssetsActions.getAllRequest());
     });
 
     this.nodes$ = this._store.pipe(
@@ -73,7 +78,11 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
     this.businessPeriods$ = this._store.pipe(
       select(BusinessPeriodsSelectors.selectCollection)
-    )
+    );
+
+    this.assets$ = this._store.pipe(
+      select(AssetsSelectors.selectCollection)
+    );
 
     this.refInfo$ = this._store.pipe(
       select(MenuNodesSelectors.selectRefInfo),
@@ -92,8 +101,11 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(BusinessPeriodSelectors.selectLoading),
       ),
+      this._store.pipe(
+        select(AssetsSelectors.selectLoading),
+      ),
     ).pipe(
-      map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading]) => (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading)),
+      map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading, assetsLoading]) => (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading || assetsLoading)),
     );
   }
 

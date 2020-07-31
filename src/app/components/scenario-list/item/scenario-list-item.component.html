@@ -2,9 +2,11 @@
     <span class="item__content">
         {{getTitle()}}
     </span>
-    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
-        <mat-icon class="icon">more_vert</mat-icon>
-    </button>
+    <span *ngIf="!lock" class="item__menu-button">
+        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
+            <mat-icon class="icon">more_vert</mat-icon>
+        </button>
+    </span>
     <mat-menu #menu="matMenu">
         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
             <mat-icon>arrow_upward</mat-icon>

@@ -19,6 +19,8 @@ export class ScenarioListItemComponent implements OnInit {
 
   @Input() isLastInCollection: boolean;
 
+  @Input() lock: boolean;
+
   @Output() upward = new EventEmitter<void>();
 
   @Output() downward = new EventEmitter<void>();
@@ -53,6 +55,10 @@ export class ScenarioListItemComponent implements OnInit {
     if (event) {
       event.stopImmediatePropagation();
       event.preventDefault();
+    }
+
+    if (this.lock) {
+      return;
     }
 
     this.edit.emit();

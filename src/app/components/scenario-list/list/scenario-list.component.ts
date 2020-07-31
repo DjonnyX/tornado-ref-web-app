@@ -14,6 +14,8 @@ export class ScenarioListComponent implements OnInit {
   @Input() businessPeriods: Array<IBusinessPeriod>;
   
   @Input() businessPeriodsDictionary: {[id: string]: IBusinessPeriod};
+  
+  @Input() lock: boolean;
 
   @Output() deleteAll = new EventEmitter<void>();
 

@@ -1,9 +1,10 @@
 <div class="node-tree-item" *ngIf="!!node">
     <div class="node-item-way-hider" *ngIf="isInstanceChain && isLastChild"></div>
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
-    <span class="node-tree-item-wrapper">
+    <span [ngClass]="{'node-tree-item-wrapper': true, 'is-instance': !!nodeInstance}">
         <div class="node-tree-item__content">
-            <div matRipple class="content" [ngClass]="{'has-scenario': !!node.scenarios && node.scenarios.length > 0}"
+            <div matRipple class="content"
+                [ngClass]="{'has-scenario': (!!node.scenarios && node.scenarios.length > 0) || (!!nodeInstance && !!nodeInstance.scenarios && nodeInstance.scenarios.length > 0), 'is-instance': !!nodeInstance}"
                 [class.lock]="!!lock" [class.wrong]="!isRoot && !getContentName()" (click)="toggleExpand()">
                 <span>
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
@@ -13,7 +14,10 @@
                 <ng-container *ngIf="!isRoot; else root">
                     <span class="content__name" [class.active]="isSearchExpanded"
                         (click)="!lock ? onSetContent($event) : undefined">
-                        {{getContentName() || "Content is missing."}}
+                        <img class="content__thumbnail" *ngIf="!!getThumbnail()" [src]="getThumbnail()">
+                        <div class="content__text">
+                            {{getContentName() || "Content is missing."}}
+                        </div>
                     </span>
                 </ng-container>
                 <ng-template #root>
@@ -50,25 +54,38 @@
                 </span>
             </div>
         </div>
-        <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
-            <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
-                [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
-                (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
-                (upward)="onUpwardScenario($event)" (downward)="onDownwardScenario($event)"></ta-scenario-list>
-        </div>
+        <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceScenarios">
+            <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
+                <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
+                    [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
+                    (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
+                    (upward)="onUpwardScenario($event)" (downward)="onDownwardScenario($event)" [lock]="lock">
+                </ta-scenario-list>
+            </div>
+        </ng-container>
+        <ng-template #renderInstanceScenarios>
+            <div class="node-tree-scenario-editor"
+                *ngIf="!!nodeInstance.scenarios && nodeInstance.scenarios.length > 0">
+                <ta-scenario-list [scenarios]="nodeInstance.scenarios" [businessPeriods]="businessPeriods"
+                    [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
+                    (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
+                    (upward)="onUpwardScenario($event)" (downward)="onDownwardScenario($event)" [lock]="true">
+                </ta-scenario-list>
+            </div>
+        </ng-template>
         <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
-            <ng-container *ngIf="node.type !== 'selector-node'; else renderSelectorNode">
+            <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceNode">
                 <ta-node-tree-item *ngFor="let childId of node.children; let index = index" [depth]="depth + 1"
                     [currentIndex]="index" [parentChildrenLength]="node.children.length"
                     [isInstanceChain]="isInstanceChain" [lock]="lock" [nodeId]="childId" [nodes]="nodes"
                     [nodesDictionary]="nodesDictionary" [products]="products" [selectors]="selectors"
                     [businessPeriods]="businessPeriods" [businessPeriodsDictionary]="businessPeriodsDictionary"
                     [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
-                    [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
-                    (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
-                    (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
+                    [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
+                    (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
+                    (delete)="deleteNodeForChild($event)" (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
             </ng-container>
-            <ng-template #renderSelectorNode>
+            <ng-template #renderInstanceNode>
                 <ng-container *ngIf="!!nodeInstance">
                     <ta-node-tree-item *ngFor="let childId of nodeInstance.children; let index = index"
                         [isInstanceChain]="true" [currentIndex]="index"
@@ -77,9 +94,9 @@
                         [selectors]="selectors" [businessPeriods]="businessPeriods"
                         [businessPeriodsDictionary]="businessPeriodsDictionary"
                         [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
-                        [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
-                        (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
-                        (searchExpand)="onSearchExpand($event)">
+                        [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
+                        (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
+                        (delete)="deleteNodeForChild($event)" (searchExpand)="onSearchExpand($event)">
                     </ta-node-tree-item>
                 </ng-container>
             </ng-template>
