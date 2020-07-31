@@ -1,13 +1,12 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
-import { take, takeUntil } from 'rxjs/operators';
+import { take, takeUntil, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { MatDialog } from '@angular/material/dialog';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, NodeTypes, ScenarioCommonActionTypes } from '@djonnyx/tornado-types';
-import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
+import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
@@ -93,12 +92,15 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
   }
 
+  @Input() businessPeriods: Array<IBusinessPeriod>;
+  
+  @Input() businessPeriodsDictionary: {[id: string]: IBusinessPeriod};
+
   resetIsLastChild(): void {
     if (this._parentChildrenLength > -1 && this._currentIndex > -1) {
       this.isLastChild = this._currentIndex === this._parentChildrenLength - 1;
     }
   }
-
 
   isRoot: boolean;
 
@@ -117,7 +119,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     if (this._depth !== v) {
       this._depth = v;
 
-      this.isExpanded = this._depth <= 1;
+      // this.isExpanded = this._depth <= 1;
 
       this.isRoot = this._depth === 0;
     }
@@ -355,32 +357,6 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     });
   }
 
-  onAddScenario(): void {
-    const dialogRef = this.dialog.open(EditScenarioDialogComponent,
-      {
-        data: {
-          title: "Configure the scenario.",
-          scenario: undefined,
-        },
-      });
-
-    dialogRef.afterClosed().pipe(
-      take(1),
-      takeUntil(this.unsubscribe$),
-    ).subscribe(content => {
-      if (!!content) {
-        /*const node = {
-          type: content.type,
-          parentId: this.node.id,
-          contentId: content.id,
-          children: [],
-          scenarios: [],
-        }
-        this.create.emit(node);*/
-      }
-    });
-  }
-
   onEdit(): void {
 
   }
@@ -402,5 +378,99 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
         this.delete.emit(this.node);
       }
     });
+  }
+
+  onAddScenario(): void {
+    const dialogRef = this.dialog.open(EditScenarioDialogComponent,
+      {
+        data: {
+          title: "Configure the scenario.",
+          scenario: undefined,
+          businessPeriods: this.businessPeriods,
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+      map(v => v as {content: IScenario, replacedScenario: IScenario}),
+    ).subscribe(({content, replacedScenario}) => {
+      if (!!content) {
+        const scenario: IScenario = {
+          action: content.action,
+          value: content.value,
+          extra: content.extra,
+        };
+        this.update.emit({...this.node, scenarios: [...this.node.scenarios, scenario]});
+      }
+    });
+  }
+
+  onDeleteScenarios(): void {
+    this.update.emit({...this.node, scenarios: []});
+  }
+
+  onDeleteScenario(scenario: IScenario): void {
+    const scenarios = [...this.node.scenarios];
+    const index = scenarios.indexOf(scenario);
+
+    if (index > -1) {
+      scenarios.splice(index, 1);
+    }
+
+    this.update.emit({...this.node, scenarios});
+  }
+
+  onEditScenario(scenario: IScenario): void {
+
+    const dialogRef = this.dialog.open(EditScenarioDialogComponent,
+      {
+        data: {
+          title: "Edit the scenario.",
+          scenario: scenario,
+          businessPeriods: this.businessPeriods,
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+      map(v => v as {content: IScenario, replacedScenario: IScenario}),
+    ).subscribe(({content, replacedScenario}) => {
+      if (!!content) {
+        const scenarios = [...this.node.scenarios];
+        const index = scenarios.indexOf(replacedScenario);
+    
+        if (index > -1) {
+          scenarios[index] = content;
+        }
+    
+        this.update.emit({...this.node, scenarios});
+      }
+    });
+  }
+
+  onUpwardScenario(scenario: IScenario): void {
+    const scenarios = [...this.node.scenarios];
+    const index = scenarios.indexOf(scenario);
+
+    if (index > -1 && index > 0) {
+      scenarios.splice(index, 1);
+      scenarios.splice(index - 1, 0, scenario);
+    }
+
+    this.update.emit({...this.node, scenarios});
+  }
+
+  onDownwardScenario(scenario: IScenario): void {
+    const scenarios = [...this.node.scenarios];
+    const index = scenarios.indexOf(scenario);
+
+    if (index > -1 && index < scenarios.length - 1) {
+      scenarios.splice(index, 1);
+      scenarios.splice(index + 1, 0, scenario);
+    }
+
+    this.update.emit({...this.node, scenarios});
   }
 }

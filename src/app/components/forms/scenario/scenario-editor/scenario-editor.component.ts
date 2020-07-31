@@ -1,6 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes } from '@djonnyx/tornado-types';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
+import { BaseComponent } from '@components/base/base-component';
+import { getScenarioTypeName } from '@app/utils/scenario.util';
 
 const SCENARIO_EDITOR_TYPES = [
   ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
@@ -17,17 +20,27 @@ const SCENARIO_EDITOR_TYPES = [
   templateUrl: './scenario-editor.component.html',
   styleUrls: ['./scenario-editor.component.scss']
 })
-export class ScenarioEditorComponent implements OnInit {
+export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
-  @Input() scenario: IScenario;
+  @Input() set scenario (v: IScenario) {
+    if (v) {
+      this.ctrlAction.setValue(v.action);
+      this.ctrlValue.setValue(v.value);
+      this.ctrlExtra.setValue(v.extra);
+    }
+  }
+
+  @Input() businessPeriods: Array<IBusinessPeriod>;
+
+  @Output() edit = new EventEmitter<IScenario>();
 
   form: FormGroup;
 
-  ctrlName = new FormControl('', [Validators.required]);
-
-  ctrlType = new FormControl(undefined);
+  ctrlAction = new FormControl(undefined, [Validators.required]);
 
   ctrlValue = new FormControl(undefined);
+
+  ctrlExtra = new FormControl(undefined);
 
   readonly types = SCENARIO_EDITOR_TYPES;
 
@@ -39,44 +52,31 @@ export class ScenarioEditorComponent implements OnInit {
 
   readonly ScenarioSelectorActionTypes = ScenarioSelectorActionTypes;
 
-  constructor() { }
-
-  ngOnInit(): void {
-    /*this.ctrlValue.valueChanges.subscribe(v => {
-      switch (v) {
-        case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-        case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
-        case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
-          this.type = ScenarioEditorTypes.MULTIPLE_FROM_REF;
-          break;
-        case ScenarioIntroActionTypes.DURATION:
-        case ScenarioProductActionTypes.UP_LIMIT:
-        case ScenarioProductActionTypes.DOWN_LIMIT:
-        case ScenarioSelectorActionTypes.MAX_USAGE:
-          this.type = ScenarioEditorTypes.SIMPLE_NUMBER;
-          break;
-      }
-    });*/
+  constructor() {
+    super();
   }
 
-  onSave(): void { }
+  ngOnInit(): void {
+    this.form = new FormGroup({
+      action: this.ctrlAction,
+      value: this.ctrlValue,
+      extra: this.ctrlExtra,
+    });
+
+    this.ctrlAction.valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(value => {
+      this.ctrlValue.setValue(null);
+    });
+
+    this.form.valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(value => {
+      this.edit.emit(value);
+    });
+  }
 
   getTypeName(type: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string {
-    switch (type) {
-      case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-        return "Visible by business periods";
-      case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
-        return "Visible by points of sale";
-      case ScenarioIntroActionTypes.DURATION:
-        return "Intro duration";
-      case ScenarioProductActionTypes.DOWN_LIMIT:
-        return "Down limit";
-      case ScenarioProductActionTypes.UP_LIMIT:
-        return "Up limit";
-      case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
-        return "Default products";
-      case ScenarioSelectorActionTypes.MAX_USAGE:
-        return "Max usage";
-    }
+    return getScenarioTypeName(type);
   }
 }

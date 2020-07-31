@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
-import { IEntity, INode, IProduct, ISelector, IRef } from '@djonnyx/tornado-types';
+import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod } from '@djonnyx/tornado-types';
 
 interface IDictionary<T = any> {
   [id: string]: T;
@@ -67,6 +67,21 @@ export class NodeTreeComponent implements OnInit {
       this.productsDictionary = !!v ? getMapOfCollection(v) : {};
     }
   }
+
+  private _businessPeriods: Array<IBusinessPeriod>;
+
+  @Input() set businessPeriods(v: Array<IBusinessPeriod>) {
+    if (this._businessPeriods !== v) {
+      this._businessPeriods = v;
+      this.businessPeriodsDictionary = !!v ? getMapOfCollection(v) : {};
+    }
+  }
+
+  get businessPeriods() {
+    return this._businessPeriods;
+  }
+
+  businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
 
   @Output() create = new EventEmitter<INode>();
 

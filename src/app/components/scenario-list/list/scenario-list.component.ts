@@ -1,5 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
+import { IBusinessPeriod } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-scenario-list',
@@ -10,14 +11,52 @@ export class ScenarioListComponent implements OnInit {
 
   @Input() scenarios: Array<IScenario>;
 
-  @Input() newScenario: IScenario;
+  @Input() businessPeriods: Array<IBusinessPeriod>;
+  
+  @Input() businessPeriodsDictionary: {[id: string]: IBusinessPeriod};
+
+  @Output() deleteAll = new EventEmitter<void>();
+
+  @Output() upward = new EventEmitter<IScenario>();
+
+  @Output() downward = new EventEmitter<IScenario>();
+
+  @Output() edit = new EventEmitter<IScenario>();
+
+  @Output() delete = new EventEmitter<IScenario>();
+
+  isExpanded = false;
 
   constructor() { }
 
-  ngOnInit(): void {
+  ngOnInit(): void { }
+
+  onShowMenu(event: Event): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
   }
 
-  onCreateScenario(): void {
+  toggleExpand(): void {
+    this.isExpanded = !this.isExpanded;
+  }
 
+  onDeleteAll(): void {
+    this.deleteAll.emit();
+  }
+
+  onDelete(scenario: IScenario): void {
+    this.delete.emit(scenario);
+  }
+
+  onEdit(scenario: IScenario): void {
+    this.edit.emit(scenario);
+  }
+
+  onUpward(scenario: IScenario): void {
+    this.upward.emit(scenario);
+  }
+
+  onDownward(scenario: IScenario): void {
+    this.downward.emit(scenario);
   }
 }

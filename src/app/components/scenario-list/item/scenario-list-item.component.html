@@ -1,1 +1,26 @@
-<div>{{scenario.name}}</div>
+<div matRipple class="scenario-list__item" (click)="onEdit($event)">
+    <span class="item__content">
+        {{getTitle()}}
+    </span>
+    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
+        <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
+            <mat-icon>arrow_upward</mat-icon>
+            <span>Upward</span>
+        </button>
+        <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
+            <mat-icon>arrow_downward</mat-icon>
+            <span>Downward</span>
+        </button>
+        <button mat-menu-item (click)="onEdit()">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+        </button>
+        <button mat-menu-item (click)="onDelete()">
+            <mat-icon>delete_forever</mat-icon>
+            <span>Delete</span>
+        </button>
+    </mat-menu>
+</div>

@@ -53,6 +53,10 @@ $way-border-weight: 2px;
                 padding: px2em(4);
                 align-items: center;
 
+                &.has-scenario {
+                    border-radius: 4px 4px 0 0;
+                }
+
                 .content__name {
                     text-overflow: ellipsis;
                     word-break: keep-all;

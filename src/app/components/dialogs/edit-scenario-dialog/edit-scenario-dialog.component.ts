@@ -1,11 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IScenario } from '@djonnyx/tornado-types';
+import { IScenario, IBusinessPeriod } from '@djonnyx/tornado-types';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 interface IDialogData {
   title: string;
   message: string;
   scenario: IScenario;
+  businessPeriods: Array<IBusinessPeriod>;
 }
 
 @Component({
@@ -15,9 +16,27 @@ interface IDialogData {
 })
 export class EditScenarioDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
+  content: IScenario;
 
-  ngOnInit(): void {
+  replacedScenario: IScenario;
+
+  get result() {
+    return {
+      content: this.content,
+      replacedScenario: this.replacedScenario,
+    }
   }
 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
+
+  ngOnInit(): void { }
+
+  onChangeScenario(scenario: IScenario): void {
+    if (this.data.scenario) {
+      this.replacedScenario = this.data.scenario;
+      this.content = scenario;
+    } else {
+      this.content = scenario;
+    }
+  }
 }

@@ -1,17 +1,25 @@
 @import "../themes";
 
+$border: 1px solid rgba($primary, 0.75);
+
 .scenario-editor {
-    margin: px2em(8) 0 0 px2em(44);
+    color: black;
+    margin: 0 0 0 px2em(42);
 
     .scenario-editor__content {
-        background: $primary;
+        background: #ffffff;
         box-sizing: border-box;
+        border-radius: 0 0 4px 4px;
+        overflow: hidden;
+        border-left: $border;
+        border-right: $border;
+        border-bottom: $border;
 
         .content {
-            user-select: none;
-            cursor: pointer;
             display: grid;
             grid-template-columns: auto 1fr auto;
+            user-select: none;
+            cursor: pointer;
             border-radius: 4px;
             align-items: baseline;
             overflow: hidden;
@@ -27,6 +35,25 @@
                 border-radius: 3px;
                 margin: auto 0;
             }
+        }
+
+        .scenario-list__item {
+            user-select: none;
+            cursor: pointer;
+            background: #eff2f3;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            padding: px2em(4);
+
+            .item__content {
+                display: flex;
+                align-items: center;
+                padding: 0 px2em(20);
+            }
+        }
+
+        .scenario-list__item:not(:last-child) {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .entity-menu-button {

@@ -1,10 +1,31 @@
 <div class="scenario-editor">
-    <div class="scenario-editor__content">
-        <ng-container *ngIf="!!newScenario">
-            <ta-scenario-list-item [scenario]="newScenario"></ta-scenario-list-item>
-        </ng-container>
-        <ng-container *ngIf="!!scenarios">
-            <ta-scenario-list-item *ngFor="let scenario of scenarios" [scenario]="scenario"></ta-scenario-list-item>
-        </ng-container>
+    <div class="scenario-editor__content" (click)="toggleExpand()">
+        <div matRipple class="content">
+            <span>
+                <button mat-icon-button>
+                    <mat-icon>{{isExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
+                </button>
+            </span>
+            <span>
+                scenarios
+            </span>
+            <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
+                <mat-icon class="icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onDeleteAll()">
+                    <mat-icon>delete_forever</mat-icon>
+                    <span>Delete scenarios</span>
+                </button>
+            </mat-menu>
+        </div>
+        <div *ngIf="isExpanded">
+            <ta-scenario-list-item *ngFor="let scenario of scenarios; let index = index;" [scenario]="scenario"
+                [businessPeriods]="businessPeriods" [businessPeriodsDictionary]="businessPeriodsDictionary"
+                [isFirstInCollection]="index === 0" [isLastInCollection]="index === scenarios.length - 1"
+                (upward)="onUpward(scenario)" (downward)="onDownward(scenario)" (edit)="onEdit(scenario)"
+                (delete)="onDelete(scenario)">
+            </ta-scenario-list-item>
+        </div>
     </div>
 </div>
