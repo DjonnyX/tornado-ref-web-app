@@ -41,6 +41,12 @@ export class ScenarioListItemComponent implements OnInit {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
         value = `: ${this.scenario.value.map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v].name : "missing").join(", ")}`;
         break;
+      case ScenarioIntroActionTypes.DURATION:
+      case ScenarioProductActionTypes.UP_LIMIT:
+      case ScenarioProductActionTypes.DOWN_LIMIT:
+      case ScenarioSelectorActionTypes.MAX_USAGE:
+        value = `: ${this.scenario.value}`;
+        break;
     }
 
     return `${actionName}${value}`;
