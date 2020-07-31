@@ -20,6 +20,8 @@ export class EditScenarioDialogComponent implements OnInit {
 
   replacedScenario: IScenario;
 
+  status = "INVALID";
+
   get result() {
     return {
       content: this.content,
@@ -38,5 +40,9 @@ export class EditScenarioDialogComponent implements OnInit {
     } else {
       this.content = scenario;
     }
+  }
+
+  onChangeStatus(status: string): void {
+    this.status = status;
   }
 }

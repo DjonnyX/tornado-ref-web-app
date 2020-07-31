@@ -22,17 +22,21 @@ const SCENARIO_EDITOR_TYPES = [
 })
 export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
-  @Input() set scenario (v: IScenario) {
+  @Input() set scenario(v: IScenario) {
     if (v) {
       this.ctrlAction.setValue(v.action);
       this.ctrlValue.setValue(v.value);
       this.ctrlExtra.setValue(v.extra);
+
+      this.resetValidators(v.action);
     }
   }
 
   @Input() businessPeriods: Array<IBusinessPeriod>;
 
   @Output() edit = new EventEmitter<IScenario>();
+
+  @Output() status = new EventEmitter<string>();
 
   form: FormGroup;
 
@@ -65,7 +69,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
     this.ctrlAction.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
-    ).subscribe(value => {
+    ).subscribe(action => {
+      this.resetValidators(action);
       this.ctrlValue.setValue(null);
     });
 
@@ -74,9 +79,30 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     ).subscribe(value => {
       this.edit.emit(value);
     });
+
+    this.form.statusChanges.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(status => {
+      this.status.emit(status);
+    });
   }
 
   getTypeName(type: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string {
     return getScenarioTypeName(type);
+  }
+
+  private resetValidators(action: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
+    this.ctrlValue.clearValidators();
+
+    switch (action) {
+      case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
+      case ScenarioIntroActionTypes.DURATION:
+      case ScenarioProductActionTypes.DOWN_LIMIT:
+      case ScenarioProductActionTypes.UP_LIMIT:
+      case ScenarioSelectorActionTypes.MAX_USAGE:
+      case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
+        this.ctrlValue.setValidators([Validators.required]);
+        break;
+    }
   }
 }
