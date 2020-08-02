@@ -10,6 +10,7 @@ import { SetupNodeContentDialogModule } from '@components/dialogs/setup-node-con
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 import { ScenarioListModule } from '@components/scenario-list/list/scenario-list.module';
 import { EditScenarioDialogModule } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { EditScenarioDialogModule } from '@components/dialogs/edit-scenario-dial
     MatRippleModule,
     MatMenuModule,
     MatDialogModule,
+    MatCheckboxModule,
     DeleteEntityDialogModule,
     SetupNodeContentDialogModule,
     ScenarioListModule,

@@ -21,11 +21,19 @@ export class ScheduleComponent implements OnInit {
 
   setValue(value: Array<ISchedule>): void {
     // объект должен быть уникальным
-    this._value = value.map(v => ({ time: { ...v.time }, weekDays: [...v.weekDays] }));
+    this._value = value.map(v => (
+      {
+        active: v.active,
+        time: { ...v.time },
+        weekDays: [...v.weekDays],
+        extra: v.extra,
+      }
+    ));
   }
 
   onCreate(): void {
     this._value.push({
+      active: true,
       time: {
         start: undefined,
         end: undefined,

@@ -45,8 +45,16 @@ $border: 1px solid rgba($primary, 0.75);
             .item__content {
                 display: flex;
                 align-items: center;
-                padding: 0 px2em(20);
+                padding-right: px2em(20);
                 height: px2em(44);
+
+                .content__checkbox-active {
+                    padding-left: px2em(12);
+                    padding-right: px2em(20);
+                }
+
+                .content__text {
+                }
             }
 
             .item__menu-button {
@@ -81,10 +89,28 @@ $border: 1px solid rgba($primary, 0.75);
 }
 
 .primary {
+    .scenario-editor {
+        .scenario-editor__content {
+            background: $instance-node-color;
+
+            .scenario-list__item {
+                &.disabled {
+                    opacity: 0.5;
+                }
+            }
+        }
+    }
     .is-instance {
         .scenario-editor {
             .scenario-editor__content {
                 background: $instance-node-color;
+            }
+        }
+    }
+    .disabled {
+        .scenario-editor {
+            .scenario-editor__content {
+                opacity: 0.5;
             }
         }
     }
@@ -96,12 +122,25 @@ $border: 1px solid rgba($primary, 0.75);
             border-left: $border;
             border-right: $border;
             border-bottom: $border;
+
+            .scenario-list__item {
+                &.disabled {
+                    opacity: 0.5;
+                }
+            }
         }
     }
     .is-instance {
         .scenario-editor {
             .scenario-editor__content {
                 background: $instance-node-color;
+            }
+        }
+    }
+    .disabled {
+        .scenario-editor {
+            .scenario-editor__content {
+                opacity: 0.5;
             }
         }
     }

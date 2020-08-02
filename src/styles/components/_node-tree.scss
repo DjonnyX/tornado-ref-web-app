@@ -57,6 +57,16 @@ $way-border-weight: 2px;
                     border-radius: 4px 4px 0 0;
                 }
 
+                .content__ctrls {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .content__checkbox-active {
+                    padding-left: px2em(12);
+                    padding-right: px2em(20);
+                }
+
                 .content__name {
                     padding: px2em(12);
                     border-radius: 3px;
@@ -178,6 +188,10 @@ $border-primary: $way-border-weight dotted $primary;
                     &.is-instance {
                         background: $instance-node-color;
                     }
+
+                    &.disabled {
+                        opacity: 0.5;
+                    }
                 }
 
                 .entity-menu-button {
@@ -268,6 +282,10 @@ $border-primary: $way-border-weight dotted $primary;
 
                     &.is-instance {
                         background: $instance-node-color;
+                    }
+
+                    &.disabled {
+                        opacity: 0.5;
                     }
                 }
 

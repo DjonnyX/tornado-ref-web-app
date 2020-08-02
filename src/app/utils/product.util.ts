@@ -2,6 +2,7 @@ import { IProduct } from '@djonnyx/tornado-types';
 
 export const formatProductModel = (product: IProduct) => {
     return {
+        active: product.active,
         name: product.name,
         description: product.description,
         receipt: product.receipt,
@@ -9,5 +10,6 @@ export const formatProductModel = (product: IProduct) => {
         joint: product.joint,
         assets: product.assets,
         mainAsset: product.mainAsset,
+        extra: product.extra,
     }
 }

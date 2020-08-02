@@ -12,7 +12,7 @@ import { ScheduleComponent } from '@components/schedule/schedule.component';
 })
 export class BusinessPeriodCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @ViewChild("schedule", {static: true}) private _schedule: ScheduleComponent;
+  @ViewChild("schedule", { static: true }) private _schedule: ScheduleComponent;
 
   form: FormGroup;
 
@@ -53,7 +53,7 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       this.update.emit(value);
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -62,7 +62,11 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.submit.emit({ ...this._businessPeriod, ...this.form.value, schedule: this._schedule.value || [] });
+      this.submit.emit({
+        ...this._businessPeriod,
+        ...this.form.value, schedule: this._schedule.value || [],
+        active: !!this._businessPeriod && this._businessPeriod.active !== undefined ? this._businessPeriod.active : true,
+      });
     }
   }
 

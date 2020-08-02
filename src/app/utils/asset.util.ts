@@ -2,6 +2,7 @@ import { IAsset } from '@models'
 
 export const formatAssetModel = (asset: IAsset) => {
     return {
+        active: asset.active,
         name: asset.name,
         lastupdate: asset.lastupdate,
         ext: asset.ext,

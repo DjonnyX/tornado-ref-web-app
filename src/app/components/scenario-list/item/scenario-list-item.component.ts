@@ -1,11 +1,12 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 
 @Component({
   selector: 'ta-scenario-list-item',
   templateUrl: './scenario-list-item.component.html',
-  styleUrls: ['./scenario-list-item.component.scss']
+  styleUrls: ['./scenario-list-item.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ScenarioListItemComponent implements OnInit {
 
@@ -25,7 +26,9 @@ export class ScenarioListItemComponent implements OnInit {
 
   @Output() downward = new EventEmitter<void>();
 
-  @Output() edit = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<any>();
+
+  @Output() update = new EventEmitter<any>();
 
   @Output() delete = new EventEmitter<void>();
 
@@ -50,6 +53,16 @@ export class ScenarioListItemComponent implements OnInit {
     }
 
     return `${actionName}${value}`;
+  }
+  
+  onToggleActive(event: Event): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.update.emit({
+      ...this.scenario,
+      active: !this.scenario.active,
+    });
   }
 
   onShowMenu(event: Event): void {

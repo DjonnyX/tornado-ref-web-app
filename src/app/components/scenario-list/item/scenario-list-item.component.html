@@ -1,6 +1,12 @@
-<div matRipple class="scenario-list__item" (click)="onEdit($event)">
+<div matRipple class="scenario-list__item" [class.disabled]="!scenario.active" (click)="onEdit($event)">
     <span class="item__content">
-        {{getTitle()}}
+        <div class="content__checkbox-active">
+            <mat-checkbox color="primary" #checkboxActive [checked]="scenario.active" (click)="onToggleActive($event)">
+            </mat-checkbox>
+        </div>
+        <div class="content__text">
+            {{getTitle()}}
+        </div>
     </span>
     <span *ngIf="!lock" class="item__menu-button">
         <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">

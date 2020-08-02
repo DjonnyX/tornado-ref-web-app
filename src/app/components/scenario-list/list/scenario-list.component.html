@@ -29,7 +29,7 @@
                 [businessPeriods]="businessPeriods" [businessPeriodsDictionary]="businessPeriodsDictionary"
                 [isFirstInCollection]="index === 0" [isLastInCollection]="index === scenarios.length - 1" [lock]="lock"
                 (upward)="onUpward(scenario)" (downward)="onDownward(scenario)" (edit)="onEdit(scenario)"
-                (delete)="onDelete(scenario)">
+                (update)="onUpdate($event, scenario)" (delete)="onDelete(scenario)">
             </ta-scenario-list-item>
         </div>
     </div>

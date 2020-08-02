@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -8,6 +8,7 @@ import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum'
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
+import { MatCheckbox } from '@angular/material/checkbox';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -35,9 +36,12 @@ const arrayItemToDownward = (array: Array<string>, item: string): Array<string> 
   selector: 'ta-node-tree-item',
   templateUrl: './node-tree-item.component.html',
   styleUrls: ['./node-tree-item.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDestroy {
+  @ViewChild("checkboxActive", {read: MatCheckbox}) private _checkboxActive: MatCheckbox;
+
   @Input() type: NodeTypes | string;
 
   @Input() nodes: Array<INode>;
@@ -45,6 +49,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   @Input() products: Array<IProduct>;
 
   @Input() selectors: Array<ISelector>;
+
+  @Input() isDisabled: boolean;
 
   node: INode;
 
@@ -312,11 +318,13 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       if (!!content) {
         const node = {
           id: this.node.id,
+          active: this.node.active,
           type: content.type,
           parentId: this.node.parentId,
           contentId: content.id,
           children: this.node.children,
           scenarios: this.node.scenarios,
+          extra: this.node.extra,
         }
         this.update.emit(node);
       }
@@ -364,11 +372,13 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     ).subscribe(content => {
       if (!!content) {
         const node = {
+          active: true,
           type: content.type,
           parentId: this.node.id,
           contentId: content.id,
           children: [],
           scenarios: [],
+          extra: {},
         }
         this.create.emit(node);
       }
@@ -377,6 +387,13 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   onEdit(): void {
 
+  }
+  
+  onToggleActive(event: Event): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.update.emit({ ...this.node, active: !this.node.active });
   }
 
   onDelete(): void {
@@ -416,6 +433,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     ).subscribe(({ content, replacedScenario }) => {
       if (!!content) {
         const scenario: IScenario = {
+          active: true,
           action: content.action,
           value: content.value,
           extra: content.extra,
@@ -438,6 +456,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
 
     this.update.emit({ ...this.node, scenarios });
+  }
+  
+  onUpdateScenario(scenarios: Array<IScenario>): void {
+    this.update.emit({ ...this.node, scenarios});
   }
 
   onEditScenario(scenario: IScenario): void {

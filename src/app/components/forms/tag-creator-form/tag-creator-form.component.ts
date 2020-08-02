@@ -70,7 +70,7 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.submitForm.emit({ ...this._tag, ...this.form.value });
+      this.submitForm.emit({ ...this._tag, ...this.form.value, active: !!this._tag && this._tag.active !== undefined ? this._tag.active : true });
     }
   }
 

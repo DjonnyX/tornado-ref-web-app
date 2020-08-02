@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
 import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
 
@@ -19,7 +19,8 @@ const getMapOfCollection = <T extends IEntity>(collection: Array<T>): IDictionar
 @Component({
   selector: 'ta-node-tree',
   templateUrl: './node-tree.component.html',
-  styleUrls: ['./node-tree.component.scss']
+  styleUrls: ['./node-tree.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class NodeTreeComponent implements OnInit {
 
