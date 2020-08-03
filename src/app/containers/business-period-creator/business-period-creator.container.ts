@@ -2,11 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Observable, combineLatest } from 'rxjs';
-import { SelectorsSelectors, BusinessPeriodSelectors } from '@store/selectors';
+import { BusinessPeriodSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, filter, map } from 'rxjs/operators';
-import { BaseComponent } from '@components/base/base-component';;
-import { TagsActions } from '@store/actions/tags.action';
+import { BaseComponent } from '@components/base/base-component';
 import { BusinessPeriodActions } from '@store/actions/business-period.action';
 import { IBusinessPeriod } from '@djonnyx/tornado-types';
 
@@ -37,7 +36,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
   ngOnInit(): void {
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
-    this._businessPeriodId = this._activatedRoute.snapshot.queryParams["selectorId"];
+    this._businessPeriodId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._businessPeriodId;
 

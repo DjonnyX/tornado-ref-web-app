@@ -21,6 +21,8 @@ export class BusinessPeriodsEditorComponent extends BaseComponent implements OnI
 
   @Output() edit = new EventEmitter<IBusinessPeriod>();
 
+  @Output() update = new EventEmitter<IBusinessPeriod>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -39,6 +41,13 @@ export class BusinessPeriodsEditorComponent extends BaseComponent implements OnI
   onShowMenu($event): void {
     event.stopImmediatePropagation();
     event.preventDefault();
+  }
+
+  onToggleActive(event: Event, businessPeriod: IBusinessPeriod): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.update.emit({ ...businessPeriod, active: !businessPeriod.active });
   }
 
   onCreateBusinessPeriod(): void {

@@ -40,7 +40,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   ngOnInit(): void {
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
-    this._selectorId = this._activatedRoute.snapshot.queryParams["selectorId"];
+    this._selectorId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._selectorId;
 

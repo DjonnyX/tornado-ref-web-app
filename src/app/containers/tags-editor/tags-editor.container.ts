@@ -40,7 +40,7 @@ export class TagsEditorContainer implements OnInit {
     );
   }
 
-  onCreateTag(): void {
+  onCreate(): void {
 
     this._store.dispatch(TagActions.clear());
     
@@ -50,17 +50,21 @@ export class TagsEditorContainer implements OnInit {
     });
   }
 
-  onEditTag(tag: ITag): void {
+  onEdit(tag: ITag): void {
 
     this._store.dispatch(TagActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { tagId: tag.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: tag.id, returnUrl: this._router.routerState.snapshot.url, },
     });
   }
 
-  onDeleteTag(id: string): void {
+  onUpdate(tag: ITag): void {
+    this._store.dispatch(TagsActions.updateRequest({id: tag.id, tag}));
+  }
+
+  onDelete(id: string): void {
     this._store.dispatch(TagsActions.deleteRequest({ id }));
   }
 }

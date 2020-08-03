@@ -50,7 +50,7 @@ export class SelectorsEditorContainer implements OnInit {
     );
   }
 
-  onCreateSelector(): void {
+  onCreate(): void {
 
     this._store.dispatch(SelectorActions.clear());
     
@@ -60,17 +60,21 @@ export class SelectorsEditorContainer implements OnInit {
     });
   }
 
-  onEditSelector(selector: ISelector): void {
+  onEdit(selector: ISelector): void {
 
     this._store.dispatch(SelectorActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { selectorId: selector.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: selector.id, returnUrl: this._router.routerState.snapshot.url, },
     });
   }
 
-  onDeleteSelector(id: string): void {
+  onUpdate(selector: ISelector): void {
+    this._store.dispatch(SelectorsActions.updateRequest({id: selector.id, selector}));
+  }
+
+  onDelete(id: string): void {
     this._store.dispatch(SelectorsActions.deleteRequest({ id }));
   }
 }

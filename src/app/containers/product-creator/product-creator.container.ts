@@ -71,7 +71,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   ngOnInit(): void {
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
-    this._productId = this._activatedRoute.snapshot.queryParams["productId"];
+    this._productId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._productId;
 

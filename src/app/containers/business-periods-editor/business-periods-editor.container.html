@@ -1,5 +1,5 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-business-periods-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
-        (create)="onCreateSelector()" (edit)="onEditSelector($event)" (delete)="onDeleteSelector($event)">
+        (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)">
     </ta-business-periods-editor-component>
 </ta-query-progress>

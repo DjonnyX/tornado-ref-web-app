@@ -2,10 +2,15 @@
     <ta-state-panel [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditBusinessPeriod(businessPeriod)" *ngFor="let businessPeriod of collection | search: searchPattern">
-            <div matRipple class="entity-active-zone">
+            <div matRipple class="entity-active-zone" [class.disabled]="!businessPeriod.active">
                 <div class="content">
                     {{businessPeriod.name}}
                 </div>
+            </div>
+            <div class="entity-checkbox-active">
+                <mat-checkbox color="accent" #checkboxActive
+                    [checked]="businessPeriod.active"
+                    (click)="onToggleActive($event, businessPeriod)"></mat-checkbox>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
                 aria-label="Menu">

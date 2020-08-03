@@ -41,7 +41,7 @@ export class BusinessPeriodsEditorContainer implements OnInit {
     );
   }
 
-  onCreateSelector(): void {
+  onCreate(): void {
 
     this._store.dispatch(BusinessPeriodActions.clear());
     
@@ -51,17 +51,21 @@ export class BusinessPeriodsEditorContainer implements OnInit {
     });
   }
 
-  onEditSelector(selector: IBusinessPeriod): void {
+  onUpdate(businessPeriod: IBusinessPeriod): void {
+    this._store.dispatch(BusinessPeriodsActions.updateRequest({id: businessPeriod.id, businessPeriod}));
+  }
+
+  onEdit(businessPeriod: IBusinessPeriod): void {
 
     this._store.dispatch(BusinessPeriodActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { selectorId: selector.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: businessPeriod.id, returnUrl: this._router.routerState.snapshot.url, },
     });
   }
 
-  onDeleteSelector(id: string): void {
+  onDelete(id: string): void {
     this._store.dispatch(BusinessPeriodsActions.deleteRequest({ id }));
   }
 }

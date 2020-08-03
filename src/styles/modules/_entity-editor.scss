@@ -34,6 +34,10 @@ $entity-button-menu-size-d: px2em(38);
             color: $primary-700;
             background: $background-color;
             box-sizing: border-box;
+
+            &.disabled {
+                opacity: 0.5;
+            }
         }
 
         .content {
@@ -43,11 +47,20 @@ $entity-button-menu-size-d: px2em(38);
 
         .entity-thumbnail {
             position: absolute;
-            height: px2em(48);
-            bottom: 0;
-            left: 0;
+            height: px2em(32);
+            bottom: px2em(8);
+            left: px2em(8);
             border-radius: 4px;
             overflow: hidden;
+        }
+
+        .entity-checkbox-active {
+            position: absolute;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            top: px2em(10);
+            left: px2em(10);
         }
 
         .entity-menu-button {
@@ -82,7 +95,7 @@ $entity-button-menu-size-d: px2em(38);
             .content {
                 font-size: 0.9rem;
                 line-height: 1.2;
-                margin: 1.2rem 1.8rem 0rem 1.2rem;
+                margin: 1.9rem 1.8rem 0rem 2.0rem;
             }
 
             .entity-menu-button {
@@ -117,7 +130,7 @@ $entity-button-menu-size-d: px2em(38);
             .content {
                 font-size: 0.73rem;
                 line-height: 1.2;
-                margin: 0.9rem 1.3rem 0.3rem 0.9rem;
+                margin: 1.9rem 1.8rem 0.3rem 2.0rem;
             }
 
             .entity-menu-button {

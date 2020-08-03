@@ -23,6 +23,8 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   @Output() edit = new EventEmitter<ISelector>();
 
+  @Output() update = new EventEmitter<ISelector>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -51,6 +53,13 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   onShowMenu($event): void {
     event.stopImmediatePropagation();
     event.preventDefault();
+  }
+
+  onToggleActive(event: Event, selector: ISelector): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.update.emit({ ...selector, active: !selector.active });
   }
 
   onCreateSelector(): void {

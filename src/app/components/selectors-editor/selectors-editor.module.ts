@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
 import { StatePanelModule } from '@components/state-panel/state-panel.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { StatePanelModule } from '@components/state-panel/state-panel.module';
     MatMenuModule,
     MatDialogModule,
     MatTooltipModule,
+    MatCheckboxModule,
     DeleteEntityDialogModule,
     StatePanelModule,
     SearchPipeModule,

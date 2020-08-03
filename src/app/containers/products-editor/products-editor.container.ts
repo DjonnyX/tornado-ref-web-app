@@ -61,6 +61,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       map(([isProductsProgress, isAssetsProgress, isTagsProgress]) => isProductsProgress || isAssetsProgress || isTagsProgress),
     );
 
+    this.isProcess$.subscribe(v => {
+      console.log(v)
+    })
+
     this.collection$ = this._store.pipe(
       select(ProductsSelectors.selectCollection),
     );
@@ -74,7 +78,7 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     );
   }
 
-  onCreateProduct(): void {
+  onCreate(): void {
 
     this._store.dispatch(ProductActions.clear());
 
@@ -84,17 +88,21 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     });
   }
 
-  onEditProduct(product: IProduct): void {
+  onEdit(product: IProduct): void {
 
     this._store.dispatch(ProductActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { productId: product.id, returnUrl: this._router.routerState.snapshot.url }
+      queryParams: { id: product.id, returnUrl: this._router.routerState.snapshot.url }
     });
   }
 
-  onDeleteProduct(id: string): void {
+  onUpdate(product: IProduct): void {
+    this._store.dispatch(ProductsActions.updateRequest({id: product.id, product}));
+  }
+
+  onDelete(id: string): void {
     this._store.dispatch(ProductsActions.deleteRequest({ id }));
   }
 }
