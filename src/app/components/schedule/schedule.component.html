@@ -1,6 +1,6 @@
 <div class="schedule">
     <div *ngFor="let schedule of value" class="schedule__item">
-        <div class="item__controls">
+        <div class="item__controls" [class.disabled]="!schedule.active">
             <ta-time-range [default]="schedule.time" (change)="onTimeRangeChange(schedule, $event)"></ta-time-range>
             <ta-week-days-picker [default]="schedule.weekDays" (change)="onWeekDaysChange(schedule, $event)"></ta-week-days-picker>
         </div>
@@ -9,6 +9,10 @@
                 <mat-icon class="icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="onToggleActive(schedule)">
+                    <mat-icon>{{schedule.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <span>{{schedule.active ? 'Deactivate' : 'Active'}}</span>
+                </button>
                 <button mat-menu-item type="button" (click)="onDelete(schedule)">
                     <mat-icon>delete_forever</mat-icon>
                     <span>Delete</span>

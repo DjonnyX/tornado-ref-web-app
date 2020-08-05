@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ISchedule } from '@djonnyx/tornado-types';
 import { IScheduleTimeRange } from '@djonnyx/tornado-types';
+import { scheduled } from 'rxjs';
 
 @Component({
   selector: 'ta-schedule',
@@ -56,5 +57,9 @@ export class ScheduleComponent implements OnInit {
 
   onWeekDaysChange(schedule: ISchedule, value: Array<number>): void {
     schedule.weekDays = value;
+  }
+
+  onToggleActive(schedule: ISchedule): void {
+    schedule.active = !schedule.active;
   }
 }
