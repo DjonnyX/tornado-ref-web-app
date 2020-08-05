@@ -18,8 +18,8 @@ export default class SelectorsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getSelectors().pipe(
+            switchMap(({selectorType}) => {
+                return this._apiService.getSelectors(selectorType).pipe(
                     mergeMap(res => {
                         return [SelectorsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

@@ -8,7 +8,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductsActions } from '@store/actions/products.action';
 import { takeUntil, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
+import { INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, SelectorTypes } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 
@@ -55,7 +55,7 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
       this._store.dispatch(MenuNodesActions.getAllRequest({ id }));
 
-      this._store.dispatch(SelectorsActions.getAllRequest());
+      this._store.dispatch(SelectorsActions.getAllRequest({}));
 
       this._store.dispatch(ProductsActions.getAllRequest());
 

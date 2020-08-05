@@ -9,7 +9,7 @@ import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { SelectorActions } from '@store/actions/selector.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
-import { ISelector, ITag } from '@djonnyx/tornado-types';
+import { ISelector, ITag, SelectorTypes } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-selector-creator',
@@ -33,6 +33,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   private _selectorId: string;
 
+  private _selectorType: SelectorTypes;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
@@ -41,6 +43,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
     this._selectorId = this._activatedRoute.snapshot.queryParams["id"];
+
+    this._selectorType = this._activatedRoute.snapshot.queryParams["type"];
 
     this.isEditMode = !!this._selectorId;
 
@@ -89,7 +93,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     if (this.isEditMode) {
       this._store.dispatch(SelectorActions.updateRequest({ id: selector.id, selector }));
     } else {
-      this._store.dispatch(SelectorActions.createRequest({ selector }));
+      this._store.dispatch(SelectorActions.createRequest({ selector: {...selector, type: this._selectorType} }));
     }
 
     this._router.navigate([this._returnUrl]);

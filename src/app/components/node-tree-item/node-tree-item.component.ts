@@ -7,8 +7,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatCheckbox } from '@angular/material/checkbox';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
-import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
+import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
+import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
@@ -51,6 +51,12 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   @Input() products: Array<IProduct>;
 
   @Input() selectors: Array<ISelector>;
+
+  /**
+   * Передаются либо селекторы меню, либо селекторы схем модификаторов
+   * Определение что именно передается по <code>mode</code>
+   */
+  @Input() additionalSelectors: Array<ISelector>;
 
   @Input() isDisabled: boolean;
 
@@ -136,6 +142,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   @Input() productsDictionary: { [id: string]: IProduct };
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
+
+  @Input() additionalSelectorsDictionary: { [id: string]: ISelector };
 
   @Input() assetsDictionary: { [id: string]: IAsset };
 
@@ -266,24 +274,26 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   getContentName(): string {
+    const content = this.getContent();
+    return !!content ? content.name : "";
+  }
+
+  getContent(): IProduct | ISelector | null {
     if (!!this.selectorsDictionary && this.node.type === NodeTypes.SELECTOR) {
-      const content = this.selectorsDictionary[this.node.contentId];
-      return !!content ? content.name : "";
+      return this.selectorsDictionary[this.node.contentId];
     } else
       if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
-        const content = this.productsDictionary[this.node.contentId];
-        return !!content ? content.name : "";
+        return this.productsDictionary[this.node.contentId];
       } else
         if (!!this._nodesDictionary && this.node.type === NodeTypes.SELECTOR_NODE) {
           const content = this._nodesDictionary[this.node.contentId];
           const contentId = content.contentId;
           if (!!contentId && !!this.selectorsDictionary) {
-            const selector = this.selectorsDictionary[content.contentId];
-            return !!selector ? selector.name : "";
+            return this.selectorsDictionary[content.contentId];
           }
         }
 
-    return "";
+    return null;
   }
 
   onSearchExpand(isExpanded: boolean): void {
@@ -308,17 +318,23 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       event.preventDefault();
     }
 
+    const rights = this.getRights();
+
+    const content = this.getContent();
+
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
           title: "Select a content for the node.",
+          assetsDictionary: this.assetsDictionary,
           products: this.products,
-          selectors: this.selectors,
+          selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
           selectorsDictionary: this.selectorsDictionary,
+          schemaSelectors: this.selectors.filter(selector => selector.type === SelectorTypes.SCHEMA_CATEGORY),
           selectedDefaultEntityId: this.node.contentId,
-          defaultCollection: this.node.type,
+          defaultCollection: this.node.type === NodeTypes.SELECTOR && !!content ? (content as ISelector).type : this.node.type,
           nodes: this.nodes,
-          mode: this.node.children && this.node.children.length > 0 ? SelectContentFormModes.ONLY_SELECTORS : SelectContentFormModes.ALL,
+          rights,
         },
       });
 
@@ -365,15 +381,17 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   onCreate(): void {
+    const rights = this.getRights();
+
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
           title: "Select a content for the node.",
-          products: this.products,
-          selectors: this.selectors,
+          selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
           selectorsDictionary: this.selectorsDictionary,
+          schemaSelectors: this.selectors.filter(selector => selector.type === SelectorTypes.SCHEMA_CATEGORY),
           nodes: this.nodes,
-          mode: SelectContentFormModes.ALL,
+          rights,
         },
       });
 
@@ -529,6 +547,28 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
 
     this.update.emit({ ...this.node, scenarios });
+  }
+
+  private getRights(): Array<SelectContentFormRights> {
+    const rights = new Array<SelectContentFormRights>();
+
+    if (this.mode === NodeTreeModes.PRODUCT) {
+      rights.push(SelectContentFormRights.SCHEMA_CATEGORY);
+    }
+
+    rights.push(SelectContentFormRights.CATEGORIES);
+
+    if (this.mode === NodeTreeModes.MENU) {
+      if (!(this.node.children && this.node.children.length > 0)) {
+        rights.push(SelectContentFormRights.PRODUCTS);
+      }
+    } else {
+      rights.push(SelectContentFormRights.PRODUCTS);
+    }
+
+    rights.push(SelectContentFormRights.NODES);
+
+    return rights;
   }
 
   private getNodeScenarioType(): NodeScenarioTypes {
