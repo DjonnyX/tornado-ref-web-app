@@ -223,9 +223,9 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       this.nodeInstance = this.getNodeInstance();
       this.hasNodeInstance = !!this.nodeInstance;
 
-      /*if (this.node.type === NodeTypes.PRODUCT) {
+      if (this.mode === NodeTreeModes.MENU && this.node.type === NodeTypes.PRODUCT) {
         this.isExpanded = false;
-      }*/
+      }
     }
   }
 

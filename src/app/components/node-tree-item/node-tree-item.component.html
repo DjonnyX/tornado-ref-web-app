@@ -39,7 +39,9 @@
                     </button>
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item type="button" (click)="onToggleActive()">
-                            <mat-icon>{{!!nodeInstance ? nodeInstance.active : node.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <mat-icon>
+                                {{!!nodeInstance ? nodeInstance.active : node.active ? 'visibility_off' : 'visibility'}}
+                            </mat-icon>
                             <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Deactivate' : 'Active'}}</span>
                         </button>
                         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
@@ -88,7 +90,8 @@
                 </ta-scenario-list>
             </div>
         </ng-template>
-        <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
+        <div class="node-tree-item-way"
+            [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceNode">
                 <ta-node-tree-item *ngFor="let childId of node.children; let index = index" [depth]="depth + 1"
                     [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)" [currentIndex]="index"
