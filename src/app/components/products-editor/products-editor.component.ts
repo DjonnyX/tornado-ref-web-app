@@ -4,7 +4,6 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
-import { getThumbnail } from '@app/utils/asset.util';
 import { IProduct, IRef, ITag } from '@djonnyx/tornado-types';
 
 @Component({
@@ -73,7 +72,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   getThumbnail(assetId: string): string {
     const asset = this._assetsDictionary[assetId];
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : ""; //getThumbnail(asset);
+    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
   onToggleActive(event: Event, product: IProduct): void {

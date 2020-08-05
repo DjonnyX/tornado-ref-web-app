@@ -9,7 +9,9 @@ import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { SelectorActions } from '@store/actions/selector.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
-import { ISelector, ITag, SelectorTypes } from '@djonnyx/tornado-types';
+import { ISelector, ITag, SelectorTypes, IAsset } from '@djonnyx/tornado-types';
+import { SelectorAssetsSelectors, SelectorsSelectors } from '@store/selectors';
+import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
 
 @Component({
   selector: 'ta-selector-creator',
@@ -19,7 +21,11 @@ import { ISelector, ITag, SelectorTypes } from '@djonnyx/tornado-types';
 })
 export class SelectorCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
 
-  public isProcess$: Observable<boolean>;
+  isProcess$: Observable<boolean>;
+
+  isProcessMainOptions$: Observable<boolean>;
+
+  isProcessAssets$: Observable<boolean>;
 
   private _returnUrl: string;
 
@@ -27,7 +33,11 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   selector$: Observable<ISelector>;
 
+  selectorAssets$: Observable<Array<IAsset>>;
+
   tags$: Observable<Array<ITag>>;
+
+  currentMainAsset$: Observable<string>;
 
   isEditMode = false;
 
@@ -58,6 +68,39 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     ).pipe(
       map(([isSelectorGetProcess, isSelectorsGetProcess]) => isSelectorGetProcess || isSelectorsGetProcess),
     );
+    
+    this.isProcessAssets$ = combineLatest(
+      this._store.pipe(
+        select(SelectorAssetsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(SelectorAssetsSelectors.selectIsUpdateProcess),
+      ),
+      this._store.pipe(
+        select(SelectorAssetsSelectors.selectIsDeleteProcess),
+      ),
+    ).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+    );
+
+    this.isProcessMainOptions$ = combineLatest(
+      this._store.pipe(
+        select(SelectorSelectors.selectIsCreateProcess),
+      ),
+      this._store.pipe(
+        select(SelectorSelectors.selectIsUpdateProcess),
+      ),
+    ).pipe(
+      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    );
+
+    this.selectorAssets$ = this._store.pipe(
+      select(SelectorAssetsSelectors.selectCollection),
+    );
+
+    this.currentMainAsset$ = this._store.pipe(
+      select(SelectorSelectors.selectMainAsset),
+    );
 
     this._store.dispatch(TagsActions.getAllRequest());
 
@@ -72,14 +115,15 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this.selector$.pipe(
       takeUntil(this.unsubscribe$),
       filter(selector => !!selector),
-      filter(selector => this._selectorId !== selector.id),
     ).subscribe(selector => {
+      this._selector = selector;
       this._selectorId = selector.id;
       this.isEditMode = !!this._selectorId;
     });
 
     if (!!this._selectorId) {
       this._store.dispatch(SelectorActions.getRequest({ id: this._selectorId }));
+      this._store.dispatch(SelectorAssetsActions.getAllRequest({ selectorId: this._selectorId }));
     }
   }
 
@@ -87,16 +131,25 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     super.ngOnDestroy();
 
     this._store.dispatch(SelectorActions.clear());
+    this._store.dispatch(SelectorAssetsActions.clear());
   }
 
-  onSubmit(selector: ISelector): void {
+  onSelectorMainAssetSelect(asset: IAsset): void {
+    if (!asset) {
+      return;
+    }
+
+    if (this._selector.mainAsset !== asset.id) {
+      this._store.dispatch(SelectorActions.update({ selector: { ...this._selector, mainAsset: asset.id } }));
+    }
+  }
+
+  onMainOptionsSave(selector: ISelector): void {
     if (this.isEditMode) {
       this._store.dispatch(SelectorActions.updateRequest({ id: selector.id, selector }));
     } else {
       this._store.dispatch(SelectorActions.createRequest({ selector: {...selector, type: this._selectorType} }));
     }
-
-    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {
@@ -105,5 +158,13 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   onToBack(): void {
     this._router.navigate([this._returnUrl]);
+  }
+
+  onAssetUpload(file: File): void {
+    this._store.dispatch(SelectorAssetsActions.createRequest({ selectorId: this._selectorId, file }));
+  }
+
+  onAssetDelete(asset: IAsset): void {
+    this._store.dispatch(SelectorAssetsActions.deleteRequest({ selectorId: this._selectorId, assetId: asset.id }));
   }
 }

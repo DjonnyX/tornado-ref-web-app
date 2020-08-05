@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { Observable } from 'rxjs';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ISelector, INode, NodeTypes } from '@djonnyx/tornado-types';
+import { ISelector, INode, NodeTypes, IAsset, IEntity } from '@djonnyx/tornado-types';
 
 interface IProxyItem extends INode {
   selected?: boolean;
@@ -31,6 +31,8 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
     }
   }
 
+  @Input() assetsDictionary: { [id: string]: IAsset };
+
   proxyCollection: Array<IProxyItem>;
 
   private _collection: Array<INode>;
@@ -42,7 +44,7 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
 
       if (!!v) {
         v.forEach(item => {
-          this.proxyCollection.push({...item});
+          this.proxyCollection.push({ ...item });
         });
 
         this.resetDefaultItem();
@@ -75,6 +77,19 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
     this.binder$ = null;
   }
 
+  getThumbnail(node: INode): string {
+    const content: any = this.getContent(node);
+
+    if (!!content && !!this.assetsDictionary && !!content.mainAsset) {
+
+      if (this.assetsDictionary[content.mainAsset]) {
+        return this.assetsDictionary[content.mainAsset].mipmap.x32;
+      }
+    }
+
+    return "";
+  }
+
   resetDefaultItem(): void {
     if (!!this.proxyCollection && !!this._selectedDefaultEntityId) {
       this.proxyCollection.forEach(item => {
@@ -92,14 +107,18 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
 
     this._cdr.markForCheck();
   }
-  
-  getContentName(node: INode): string {
+
+  getContent(node: INode): ISelector | null {
     if (!!this.selectorsDictionary && node.type === NodeTypes.SELECTOR) {
-      const content = this.selectorsDictionary[node.contentId];
-      return !!content ? content.name : "";
+      return this.selectorsDictionary[node.contentId];
     }
 
-    return "";
+    return null;
+  }
+
+  getContentName(node: INode): string {
+    const content = this.getContent(node);
+    return !!content ? content.name : "";
   }
 
   onToggleSelect(item: IProxyItem): void {
@@ -113,6 +132,6 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
       });
     }
 
-    this.change.emit(!!item.selected ? {...item, type: this.type} : null);
+    this.change.emit(!!item.selected ? { ...item, type: this.type } : null);
   }
 }
