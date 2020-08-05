@@ -22,8 +22,11 @@ const SCENARIO_EDITOR_TYPES = [
 })
 export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
+  private _scenario: IScenario;
+
   @Input() set scenario(v: IScenario) {
     if (v) {
+      this._scenario = v;
       this.ctrlAction.setValue(v.action);
       this.ctrlValue.setValue(v.value);
       this.ctrlExtra.setValue(v.extra);
@@ -77,7 +80,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
-      this.edit.emit(value);
+      this.edit.emit({...value, active: this._scenario.active});
     });
 
     this.form.statusChanges.pipe(
