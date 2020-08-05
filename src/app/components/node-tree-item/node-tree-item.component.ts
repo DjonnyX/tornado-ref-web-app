@@ -162,7 +162,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     if (pattern) {
       const contentName = this.getContentName();
       if (contentName.toLocaleLowerCase().indexOf(pattern.toLocaleLowerCase()) > -1) {
-        this.isSearchExpanded = true;
+        this.isSearchMatch = this.isSearchExpanded = true;
 
         this.searchExpand.emit(true);
 
@@ -170,7 +170,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       }
     }
 
-    this.isSearchExpanded = false;
+    this.isSearchMatch = this.isSearchExpanded = false;
     this.searchExpand.emit(false);
   }
 
@@ -179,6 +179,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   @Input() mode: NodeTreeModes;
+
+  isSearchMatch: boolean;
 
   isExpanded = true;
 
@@ -322,6 +324,20 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       take(1),
       takeUntil(this.unsubscribe$),
     ).subscribe(() => {
+
+      if (this._searchPattern) {
+        const contentName = this.getContentName();
+        if (contentName.toLocaleLowerCase().indexOf(this._searchPattern.toLocaleLowerCase()) > -1) {
+          this.isSearchMatch = this.isSearchExpanded = true;
+
+          this.searchExpand.emit(true);
+
+          return;
+        }
+      }
+
+      this.isSearchMatch = false;
+      
       this.isSearchExpanded = isExpanded;
 
       this.searchExpand.emit(this.isSearchExpanded);
