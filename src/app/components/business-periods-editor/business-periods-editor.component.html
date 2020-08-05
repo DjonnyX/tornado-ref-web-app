@@ -17,6 +17,10 @@
                 <mat-icon class="icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="onToggleActive($event, businessPeriod)">
+                    <mat-icon>{{businessPeriod.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <span>{{businessPeriod.active ? 'Deactivate' : 'Active'}}</span>
+                </button>
                 <button mat-menu-item (click)="onEditBusinessPeriod(businessPeriod)">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>

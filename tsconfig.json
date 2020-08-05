@@ -31,6 +31,9 @@
       "@guards": [
         "src/app/guards/index"
       ],
+      "@enums/*": [
+        "src/app/enums/*"
+      ],
       "@components/*": [
         "src/app/components/*"
       ],

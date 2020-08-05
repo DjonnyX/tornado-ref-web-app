@@ -3,12 +3,13 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatCheckbox } from '@angular/material/checkbox';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
-import { MatCheckbox } from '@angular/material/checkbox';
+import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -40,7 +41,7 @@ const arrayItemToDownward = (array: Array<string>, item: string): Array<string> 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDestroy {
-  @ViewChild("checkboxActive", {read: MatCheckbox}) private _checkboxActive: MatCheckbox;
+  @ViewChild("checkboxActive", { read: MatCheckbox }) private _checkboxActive: MatCheckbox;
 
   @Input() type: NodeTypes | string;
 
@@ -223,9 +224,9 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       this.nodeInstance = this.getNodeInstance();
       this.hasNodeInstance = !!this.nodeInstance;
 
-      /*if (this.node.type === NodeTypes.PRODUCT) {
+      if (this.mode === NodeTreeModes.MENU && this.node.type === NodeTypes.PRODUCT) {
         this.isExpanded = false;
-      }*/
+      }
     }
   }
 
@@ -388,10 +389,12 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   onEdit(): void {
 
   }
-  
-  onToggleActive(event: Event): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
+
+  onToggleActive(event?: Event): void {
+    if (event) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+    }
 
     this.update.emit({ ...this.node, active: !this.node.active });
   }
@@ -419,6 +422,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(EditScenarioDialogComponent,
       {
         data: {
+          type: this.getNodeScenarioType(),
           title: "Configure the scenario.",
           scenario: undefined,
           businessPeriods: this.businessPeriods,
@@ -457,9 +461,9 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
     this.update.emit({ ...this.node, scenarios });
   }
-  
+
   onUpdateScenario(scenarios: Array<IScenario>): void {
-    this.update.emit({ ...this.node, scenarios});
+    this.update.emit({ ...this.node, scenarios });
   }
 
   onEditScenario(scenario: IScenario): void {
@@ -467,6 +471,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(EditScenarioDialogComponent,
       {
         data: {
+          type: this.getNodeScenarioType(),
           title: "Edit the scenario.",
           scenario: scenario,
           businessPeriods: this.businessPeriods,
@@ -514,5 +519,27 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
 
     this.update.emit({ ...this.node, scenarios });
+  }
+
+  private getNodeScenarioType(): NodeScenarioTypes {
+    if (this.mode === NodeTreeModes.MENU) {
+      switch (this.node.type) {
+        case NodeTypes.PRODUCT:
+          return NodeScenarioTypes.PRODUCT;
+        case NodeTypes.SELECTOR:
+        case NodeTypes.SELECTOR_NODE:
+          return NodeScenarioTypes.CATEGORY;
+      }
+    } else
+      if (this.mode === NodeTreeModes.PRODUCT) {
+        switch (this.node.type) {
+          case NodeTypes.PRODUCT:
+            return NodeScenarioTypes.PRODUCT_IN_SCHEMA;
+          case NodeTypes.SELECTOR:
+          case NodeTypes.SELECTOR_NODE:
+          case NodeTypes.PRODUCT_JOINT:
+            return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
+        }
+      }
   }
 }

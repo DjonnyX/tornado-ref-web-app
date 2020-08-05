@@ -1,7 +1,15 @@
+@import "../themes";
 @import "../utils/px2em";
 
 .entity-options-editor {
     color: #000000;
+
+    .entity-options-editor__back-button {
+        cursor: pointer;
+        color: $accent;
+        margin-bottom: px2em(20);
+        text-decoration: underline;
+    }
 }
 
 @media screen and (min-width: 600px) {

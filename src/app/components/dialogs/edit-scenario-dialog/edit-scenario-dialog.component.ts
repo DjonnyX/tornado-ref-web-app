@@ -1,8 +1,10 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { IScenario, IBusinessPeriod } from '@djonnyx/tornado-types';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
 interface IDialogData {
+  type: NodeScenarioTypes;
   title: string;
   message: string;
   scenario: IScenario;

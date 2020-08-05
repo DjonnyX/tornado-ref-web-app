@@ -98,4 +98,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   onCancel(): void {
     this._router.navigate([this._returnUrl]);
   }
+
+  onToBack(): void {
+    this._router.navigate([this._returnUrl]);
+  }
 }

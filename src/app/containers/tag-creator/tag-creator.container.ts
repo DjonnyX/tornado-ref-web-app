@@ -89,4 +89,8 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
   onCancel(): void {
     this._router.navigate([this._returnUrl]);
   }
+
+  onToBack(): void {
+    this._router.navigate([this._returnUrl]);
+  }
 }
