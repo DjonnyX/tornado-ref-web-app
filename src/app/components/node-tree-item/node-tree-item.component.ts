@@ -262,12 +262,33 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   getThumbnail(): string {
-    if (!!this.assetsDictionary && !!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
-      const content = this.productsDictionary[this.node.contentId];
+    if (!!this.assetsDictionary) {
+      if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
+        const content = this.productsDictionary[this.node.contentId];
 
-      if (content && content.mainAsset && this.assetsDictionary[content.mainAsset]) {
-        return this.assetsDictionary[content.mainAsset].mipmap.x32;
-      }
+        if (content && content.mainAsset && this.assetsDictionary[content.mainAsset]) {
+          return this.assetsDictionary[content.mainAsset].mipmap.x32;
+        }
+      } else
+        if (!!this.selectorsDictionary) {
+          if (this.node.type === NodeTypes.SELECTOR) {
+            const content = this.selectorsDictionary[this.node.contentId];
+
+            if (content && content.mainAsset && this.assetsDictionary[content.mainAsset]) {
+              return this.assetsDictionary[content.mainAsset].mipmap.x32;
+            }
+          }
+          if (this.node.type === NodeTypes.SELECTOR_NODE) {
+            const node = this.nodesDictionary[this.node.contentId];
+            if (!!node) {
+              const content = this.selectorsDictionary[node.contentId];
+
+              if (content && content.mainAsset && this.assetsDictionary[content.mainAsset]) {
+                return this.assetsDictionary[content.mainAsset].mipmap.x32;
+              }
+            }
+          }
+        }
     }
 
     return "";

@@ -14,6 +14,8 @@ export enum SelectorActionTypes {
     UPDATE_SUCCESS = "TORNADO/selector/update:success",
     UPDATE_ERROR = "TORNADO/selector/update:error",
 
+    UPDATE = "TORNADO/selector/update",
+
     CLEAR = "TORNADO/selector/clear",
 }
 
@@ -58,6 +60,12 @@ export namespace SelectorActions {
     export const updateError = createAction(
         SelectorActionTypes.UPDATE_ERROR,
         props<{ error: string }>()
+    );
+
+    // update state
+    export const update = createAction(
+        SelectorActionTypes.UPDATE,
+        props<{ selector: ISelector }>(),
     );
 
     // clear

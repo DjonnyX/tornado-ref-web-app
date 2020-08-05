@@ -4,9 +4,9 @@
     <span
         [ngClass]="{'node-tree-item-wrapper': true, 'is-instance': !!nodeInstance, 'disabled': (!!nodeInstance && !nodeInstance.active) || (!node.active)}">
         <div class="node-tree-item__content">
-            <div matRipple class="content"
-                [ngClass]="{'has-scenario': (!!node.scenarios && node.scenarios.length > 0) || (!!nodeInstance && !!nodeInstance.scenarios && nodeInstance.scenarios.length > 0), 'is-instance': !!nodeInstance}"
-                [class.lock]="!!lock"
+            <div matRipple class="content" [ngClass]="{
+                'has-scenario': (!!node.scenarios && node.scenarios.length > 0) || (!!nodeInstance && !!nodeInstance.scenarios && nodeInstance.scenarios.length > 0),
+                'is-instance': !!nodeInstance}" [class.lock]="!!lock"
                 [class.disabled]="isDisabled || (!!nodeInstance && !nodeInstance.active) || (!node.active)"
                 [class.wrong]="!isRoot && !getContentName()" (click)="toggleExpand()">
                 <span class="content__ctrls">
@@ -14,8 +14,7 @@
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
                     <div *ngIf="!isRoot" class="content__checkbox-active">
-                        <mat-checkbox color="primary" #checkboxActive
-                            [checked]="node.active"
+                        <mat-checkbox color="primary" #checkboxActive [checked]="node.active"
                             (click)="onToggleActive($event)"></mat-checkbox>
                     </div>
                 </span>
@@ -90,8 +89,7 @@
                 </ta-scenario-list>
             </div>
         </ng-template>
-        <div class="node-tree-item-way"
-            [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
+        <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceNode">
                 <ta-node-tree-item *ngFor="let childId of node.children; let index = index" [depth]="depth + 1"
                     [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)" [currentIndex]="index"

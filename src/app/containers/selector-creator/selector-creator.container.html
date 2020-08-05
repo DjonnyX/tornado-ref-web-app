@@ -8,9 +8,30 @@
                 <h2>Main options</h2>
             </div>
 
-            <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async" [tagList]="tags$ | async"
-                (submit)="onSubmit($event)" (cancel)="onCancel()">
-            </ta-selector-creator-form>
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessMainOptions$ | async">
+                <div [ngClass]="{'main-options-wrapper': isEditMode}">
+                    <ta-asset-picker *ngIf="isEditMode" [defaultValue]="currentMainAsset$ | async"
+                        [assets]="selectorAssets$ | async" (select)="onSelectorMainAssetSelect($event)">
+                    </ta-asset-picker>
+
+                    <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async"
+                        [tagList]="tags$ | async" (save)="onMainOptionsSave($event)" (cancel)="onCancel()">
+                    </ta-selector-creator-form>
+                </div>
+            </ta-query-progress>
+        </div>
+
+        <div class="form" *ngIf="isEditMode">
+            <div class="form-header">
+                <h2>Assets</h2>
+            </div>
+
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessAssets$ | async">
+                <ta-assets-uploader [collection]="selectorAssets$ | async" (upload)="onAssetUpload($event)"
+                    (delete)="onAssetDelete($event)"></ta-assets-uploader>
+            </ta-query-progress>
         </div>
     </div>
 </ta-query-progress>

@@ -4,7 +4,7 @@ import { IAsset } from '@models';
 import { IProgress } from '@app/models/progress.model';
 import { IProduct } from '@djonnyx/tornado-types';
 
-export interface IProductsAssetCreateResponse extends IBaseResponse<{
+export interface IProductAssetCreateResponse extends IBaseResponse<{
     product: IProduct;
     asset: IAsset;
 } | {

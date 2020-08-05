@@ -17,14 +17,17 @@ import { IProductGetResponse } from './product-get-response.interface';
 import { IProductsCreateResponse } from './products-create-response.interface';
 import { IProductsUpdateResponse } from './products-update-response.interface';
 import { IProductsDeleteResponse } from './products-delete-response.interface';
-import { IProductsAssetGetResponse } from './product-assets-get-response.interface';
-import { IProductsAssetCreateResponse } from './products-asset-create-response.interface';
-import { IProductsAssetDeleteResponse } from './products-asset-delete-response.interface';
+import { IProductAssetGetResponse } from './product-assets-get-response.interface';
+import { IProductAssetCreateResponse } from './product-asset-create-response.interface';
+import { IProductAssetDeleteResponse } from './product-asset-delete-response.interface';
 import { ISelectorsGetResponse } from './selectors-get-response.interface';
 import { ISelectorGetResponse } from './selector-get-response.interface';
 import { ISelectorsCreateResponse } from './selectors-create-response.interface';
 import { ISelectorsUpdateResponse } from './selectors-update-response.interface';
 import { ISelectorsDeleteResponse } from './selectors-delete-response.interface';
+import { ISelectorAssetGetResponse } from './selector-assets-get-response.interface';
+import { ISelectorAssetCreateResponse } from './selector-asset-create-response.interface';
+import { ISelectorAssetDeleteResponse } from './selector-asset-delete-response.interface';
 import { IBusinessPeriodsGetResponse } from './business-periods-get-response.interface';
 import { IBusinessPeriodGetResponse } from './business-period-get-response.interface';
 import { IBusinessPeriodCreateResponse } from './business-period-create-response.interface';
@@ -61,14 +64,17 @@ export {
     IProductsCreateResponse,
     IProductsUpdateResponse,
     IProductsDeleteResponse,
-    IProductsAssetGetResponse,
-    IProductsAssetCreateResponse,
-    IProductsAssetDeleteResponse,
+    IProductAssetGetResponse,
+    IProductAssetCreateResponse,
+    IProductAssetDeleteResponse,
     ISelectorsGetResponse,
     ISelectorGetResponse,
     ISelectorsCreateResponse,
     ISelectorsUpdateResponse,
     ISelectorsDeleteResponse,
+    ISelectorAssetGetResponse,
+    ISelectorAssetCreateResponse,
+    ISelectorAssetDeleteResponse,
     IBusinessPeriodsGetResponse,
     IBusinessPeriodGetResponse,
     IBusinessPeriodCreateResponse,

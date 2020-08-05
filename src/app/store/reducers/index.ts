@@ -16,6 +16,7 @@ import selectorReducer from './selector.reducer';
 import tagReducer from './tag.reducer';
 import businessPeriodsReducer from './business-periods.reducer';
 import businessPeriodReducer from './business-period.reducer';
+import selectorAssetsReducer from './selector-assets.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -29,6 +30,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taTag: tagReducer,
   taSelectors: selectorsReducer,
   taSelector: selectorReducer,
+  taSelectorAssets: selectorAssetsReducer,
   taMenuNodes: menuNodesReducer,
   taAssets: assetsReducer,
   taBusinessPeriods: businessPeriodsReducer,
