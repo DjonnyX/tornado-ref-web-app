@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
+import { interval } from 'rxjs';
 import { take, takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { MatDialog } from '@angular/material/dialog';
@@ -156,10 +157,12 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
         this.isSearchExpanded = true;
 
         this.searchExpand.emit(true);
+
         return;
       }
     }
 
+    this.isSearchExpanded = false;
     this.searchExpand.emit(false);
   }
 
@@ -284,7 +287,14 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   onSearchExpand(isExpanded: boolean): void {
-    this.isSearchExpanded = isExpanded;
+    interval(1).pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(() => {
+      this.isSearchExpanded = isExpanded;
+
+      this.searchExpand.emit(this.isSearchExpanded);
+    })
   }
 
   onShowMenu(event: Event): void {
