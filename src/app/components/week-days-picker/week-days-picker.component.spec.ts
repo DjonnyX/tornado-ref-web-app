@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ScenarioEditorItemComponent } from './scenario-editor-item.component';
+import { WeekDaysPickerComponent } from './week-days-picker.component';
 
-describe('ScenarioEditorItemComponent', () => {
-  let component: ScenarioEditorItemComponent;
-  let fixture: ComponentFixture<ScenarioEditorItemComponent>;
+describe('WeekDaysPickerComponent', () => {
+  let component: WeekDaysPickerComponent;
+  let fixture: ComponentFixture<WeekDaysPickerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ScenarioEditorItemComponent ]
+      declarations: [ WeekDaysPickerComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ScenarioEditorItemComponent);
+    fixture = TestBed.createComponent(WeekDaysPickerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

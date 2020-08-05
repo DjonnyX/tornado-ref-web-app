@@ -23,6 +23,8 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   @Output() edit = new EventEmitter<ITag>();
 
+  @Output() update = new EventEmitter<ITag>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -41,6 +43,13 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
   onShowMenu($event): void {
     event.stopImmediatePropagation();
     event.preventDefault();
+  }
+
+  onToggleActive(event: Event, tag: ITag): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.update.emit({ ...tag, active: !tag.active });
   }
 
   onCreateTag(): void {

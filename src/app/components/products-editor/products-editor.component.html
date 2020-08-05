@@ -2,7 +2,7 @@
     <ta-state-panel [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditProduct(product)" *ngFor="let product of collection | search: searchPattern">
-            <div matRipple class="entity-active-zone">
+            <div matRipple class="entity-active-zone" [class.disabled]="!product.active">
                 <div class="content">
                     <div>
                         {{product.name}}
@@ -14,6 +14,11 @@
                     <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
                         [matTooltip]="getTagName(tag)"></span>
                 </div>
+            </div>
+            <div class="entity-checkbox-active">
+                <mat-checkbox color="accent" #checkboxActive
+                    [checked]="product.active"
+                    (click)="onToggleActive($event, product)"></mat-checkbox>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
                 aria-label="Menu">

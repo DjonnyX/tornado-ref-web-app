@@ -40,6 +40,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Output() edit = new EventEmitter<IProduct>();
 
+  @Output() update = new EventEmitter<IProduct>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -72,6 +74,13 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   getThumbnail(assetId: string): string {
     const asset = this._assetsDictionary[assetId];
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : ""; //getThumbnail(asset);
+  }
+
+  onToggleActive(event: Event, product: IProduct): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.update.emit({ ...product, active: !product.active });
   }
 
   onShowMenu($event): void {

@@ -1,6 +1,6 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
-import { IEntity, INode, IProduct, ISelector, IRef } from '@djonnyx/tornado-types';
+import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
 
 interface IDictionary<T = any> {
   [id: string]: T;
@@ -19,7 +19,8 @@ const getMapOfCollection = <T extends IEntity>(collection: Array<T>): IDictionar
 @Component({
   selector: 'ta-node-tree',
   templateUrl: './node-tree.component.html',
-  styleUrls: ['./node-tree.component.scss']
+  styleUrls: ['./node-tree.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class NodeTreeComponent implements OnInit {
 
@@ -67,6 +68,36 @@ export class NodeTreeComponent implements OnInit {
       this.productsDictionary = !!v ? getMapOfCollection(v) : {};
     }
   }
+
+  private _businessPeriods: Array<IBusinessPeriod>;
+
+  @Input() set businessPeriods(v: Array<IBusinessPeriod>) {
+    if (this._businessPeriods !== v) {
+      this._businessPeriods = v;
+      this.businessPeriodsDictionary = !!v ? getMapOfCollection(v) : {};
+    }
+  }
+
+  get businessPeriods() {
+    return this._businessPeriods;
+  }
+
+  businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
+
+  private _assets: Array<IAsset>;
+
+  @Input() set assets(v: Array<IAsset>) {
+    if (this._assets !== v) {
+      this._assets = v;
+      this.assetsDictionary = !!v ? getMapOfCollection(v) : {};
+    }
+  }
+
+  get assets() {
+    return this._assets;
+  }
+
+  assetsDictionary: { [id: string]: IAsset };
 
   @Output() create = new EventEmitter<INode>();
 

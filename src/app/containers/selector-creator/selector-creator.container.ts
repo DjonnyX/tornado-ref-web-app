@@ -2,7 +2,6 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Observable, combineLatest } from 'rxjs';
-import { SelectorsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -41,7 +40,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   ngOnInit(): void {
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
-    this._selectorId = this._activatedRoute.snapshot.queryParams["selectorId"];
+    this._selectorId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._selectorId;
 
@@ -50,7 +49,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
         select(SelectorSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(SelectorsSelectors.selectIsCreateProcess),
+        select(SelectorSelectors.selectIsCreateProcess),
       ),
     ).pipe(
       map(([isSelectorGetProcess, isSelectorsGetProcess]) => isSelectorGetProcess || isSelectorsGetProcess),
@@ -82,6 +81,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    this._store.dispatch(SelectorActions.clear());
   }
 
   onSubmit(selector: ISelector): void {

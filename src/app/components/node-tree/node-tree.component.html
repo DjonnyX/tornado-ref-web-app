@@ -1,8 +1,9 @@
-<ta-state-panel [searchFieldClass]="searchFieldClass" [refInfo]="refInfo" [hasShowRefInfo]="hasShowRefInfo" (search)="onSearch($event)"></ta-state-panel>
+<ta-state-panel [searchFieldClass]="searchFieldClass" [refInfo]="refInfo" [hasShowRefInfo]="hasShowRefInfo"
+    (search)="onSearch($event)"></ta-state-panel>
 <div class="editor">
     <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id" [nodes]="nodesCollection"
         [nodesDictionary]="nodesDictionary" [products]="productsCollection" [selectors]="selectorsCollection"
-        [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
-        [searchPattern]="searchPattern" [mode]="mode" (create)="onCreate($event)" (update)="onUpdate($event)"
-        (delete)="onDelete($event)"></ta-node-tree-item>
+        [businessPeriods]="businessPeriods" [businessPeriodsDictionary]="businessPeriodsDictionary" [productsDictionary]="productsDictionary"
+        [selectorsDictionary]="selectorsDictionary" [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
+        (create)="onCreate($event)" (update)="onUpdate($event)" (delete)="onDelete($event)"></ta-node-tree-item>
 </div>

@@ -37,7 +37,7 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
   ngOnInit(): void {
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
-    this._tagId = this._activatedRoute.snapshot.queryParams["tagId"];
+    this._tagId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._tagId;
 
@@ -72,6 +72,8 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    this._store.dispatch(TagActions.clear());
   }
 
   onSubmit(tag: ITag): void {

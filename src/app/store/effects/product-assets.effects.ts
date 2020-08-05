@@ -50,6 +50,7 @@ export default class ProductAssetsEffects {
                 const ext = file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
+                    active: true,
                     lastupdate: Date.now(),
                     name: file.name,
                     path: undefined,

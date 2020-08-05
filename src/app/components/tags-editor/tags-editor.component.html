@@ -2,11 +2,16 @@
     <ta-state-panel [searchFieldClass]="searchFieldClass" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditTag(tag)" *ngFor="let tag of collection | search: searchPattern">
-            <div matRipple class="entity-active-zone">
+            <div matRipple class="entity-active-zone" [class.disabled]="!tag.active">
                 <div class="content">
                     {{tag.name}}
                 </div>
                 <div class="color" [style.background]="tag.color"></div>
+            </div>
+            <div class="entity-checkbox-active">
+                <mat-checkbox color="accent" #checkboxActive
+                    [checked]="tag.active"
+                    (click)="onToggleActive($event, tag)"></mat-checkbox>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
                 aria-label="Menu">
