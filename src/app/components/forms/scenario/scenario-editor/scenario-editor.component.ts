@@ -4,8 +4,9 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
+import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
-const SCENARIO_EDITOR_TYPES = [
+/*const SCENARIO_EDITOR_TYPES = [
   ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
   ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
   ScenarioIntroActionTypes.DURATION,
@@ -13,7 +14,7 @@ const SCENARIO_EDITOR_TYPES = [
   ScenarioProductActionTypes.UP_LIMIT,
   ScenarioSelectorActionTypes.MAX_USAGE,
   ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
-];
+];*/
 
 @Component({
   selector: 'ta-scenario-editor',
@@ -35,6 +36,42 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     }
   }
 
+  @Input() set type(v: NodeScenarioTypes) {
+    switch (v) {
+      case NodeScenarioTypes.CATEGORY:
+        this.types = [
+          ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          ScenarioSelectorActionTypes.MAX_USAGE,
+          ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
+        ];
+      break;
+      case NodeScenarioTypes.PRODUCT:
+        this.types = [
+          ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          ScenarioProductActionTypes.UP_LIMIT,
+        ];
+      break;
+      case NodeScenarioTypes.PRODUCT_IN_SCHEMA:
+        this.types = [
+          ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          ScenarioProductActionTypes.UP_LIMIT,
+          ScenarioProductActionTypes.DOWN_LIMIT,
+        ];
+      break;
+      case NodeScenarioTypes.CATEGORY_IN_SCHEMA:
+        this.types = [
+          ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          ScenarioSelectorActionTypes.MAX_USAGE,
+          ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
+        ];
+      break;
+    }
+  }
+
   @Input() businessPeriods: Array<IBusinessPeriod>;
 
   @Output() edit = new EventEmitter<IScenario>();
@@ -49,7 +86,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   ctrlExtra = new FormControl(undefined);
 
-  readonly types = SCENARIO_EDITOR_TYPES;
+  types: Array<ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes>;
 
   readonly ScenarioCommonActionTypes = ScenarioCommonActionTypes;
 
