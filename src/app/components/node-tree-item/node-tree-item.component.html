@@ -38,6 +38,10 @@
                         <mat-icon class="icon">more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
+                        <button mat-menu-item type="button" (click)="onToggleActive()">
+                            <mat-icon>{{!!nodeInstance ? nodeInstance.active : node.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Deactivate' : 'Active'}}</span>
+                        </button>
                         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
                             <mat-icon>arrow_upward</mat-icon>
                             <span>Upward</span>

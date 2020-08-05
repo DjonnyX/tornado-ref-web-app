@@ -40,7 +40,7 @@ const arrayItemToDownward = (array: Array<string>, item: string): Array<string> 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDestroy {
-  @ViewChild("checkboxActive", {read: MatCheckbox}) private _checkboxActive: MatCheckbox;
+  @ViewChild("checkboxActive", { read: MatCheckbox }) private _checkboxActive: MatCheckbox;
 
   @Input() type: NodeTypes | string;
 
@@ -388,10 +388,12 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   onEdit(): void {
 
   }
-  
-  onToggleActive(event: Event): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
+
+  onToggleActive(event?: Event): void {
+    if (event) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+    }
 
     this.update.emit({ ...this.node, active: !this.node.active });
   }
@@ -457,9 +459,9 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
     this.update.emit({ ...this.node, scenarios });
   }
-  
+
   onUpdateScenario(scenarios: Array<IScenario>): void {
-    this.update.emit({ ...this.node, scenarios});
+    this.update.emit({ ...this.node, scenarios });
   }
 
   onEditScenario(scenario: IScenario): void {
