@@ -1,0 +1,27 @@
+@import "../themes";
+@import "../utils/px2em";
+
+.bread-crumbs {
+    margin-bottom: px2em(20);
+
+    .bread-crumb-item {
+        .bread-crumb-item__text {
+            cursor: pointer;
+            color: rgba($accent, 0.75);
+
+            &:not(:first-child) {
+                margin-left: px2em(12);
+            }
+
+            &:last-child {
+                pointer-events: none;
+                color: $accent;
+            }
+        }
+
+        .bread-crumb-item__separator {
+            color: #ffffff;
+            margin-left: px2em(12);
+        }
+    }
+}

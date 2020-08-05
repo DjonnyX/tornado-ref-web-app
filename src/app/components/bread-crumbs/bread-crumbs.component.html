@@ -1,0 +1,6 @@
+<div class="bread-crumbs">
+    <span class="bread-crumb-item" *ngFor="let segment of segments; let index = index;" (click)="onNavigateTo(segment)">
+        <span class="bread-crumb-item__text">{{segment.name}}</span>
+        <span class="bread-crumb-item__separator" *ngIf="index < segments.length - 1">/</span>
+    </span>
+</div>
