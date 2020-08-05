@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { SelectContentFormRights } from './enums/select-content-form-modes.enum';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
-import { ISelector, IProduct, INode, IEntity, NodeTypes, SelectorTypes } from '@djonnyx/tornado-types';
+import { ISelector, IProduct, INode, IEntity, NodeTypes, SelectorTypes, IAsset } from '@djonnyx/tornado-types';
 
 export const getTabsCollectionByRights = (rights: Array<SelectContentFormRights>): Array<NodeTypes | SelectorTypes> => {
   const result = new Array<NodeTypes | SelectorTypes>();
@@ -76,6 +76,8 @@ export class SelectContentFormComponent implements OnInit {
   @Input() selectors: Array<ISelector>;
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
+
+  @Input() assetsDictionary: { [id: string]: IAsset };
 
   @Input() schemaSelectors: Array<ISelector>;
 

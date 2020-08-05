@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { ISelector, IProduct, INode, IEntity, NodeTypes } from '@djonnyx/tornado-types';
+import { ISelector, IProduct, INode, IEntity, NodeTypes, IAsset } from '@djonnyx/tornado-types';
 
 interface IDialogData {
   title: string;
@@ -10,6 +10,7 @@ interface IDialogData {
   selectors: Array<ISelector>;
   selectorsDictionary: { [id: string]: ISelector };
   schemaSelectors: Array<ISelector>;
+  assetsDictionary: { [id: string]: IAsset };
   selectedDefaultEntityId: string;
   defaultCollection: NodeTypes;
   rights: Array<SelectContentFormRights>;

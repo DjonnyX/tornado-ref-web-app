@@ -326,6 +326,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           title: "Select a content for the node.",
+          assetsDictionary: this.assetsDictionary,
           products: this.products,
           selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
           selectorsDictionary: this.selectorsDictionary,

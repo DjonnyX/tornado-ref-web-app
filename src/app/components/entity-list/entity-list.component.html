@@ -1,6 +1,9 @@
 <div class="list" *ngFor="let item of proxyCollection">
     <span matRipple class="list__item" (click)="onToggleSelect(item)" [class.active]="item.selected">
-        <span class="item__name">{{item.name}}</span>
+        <div class="item__content">
+            <img class="content__thumbnail" *ngIf="!!getThumbnail(item)" [src]="getThumbnail(item)">
+            <span class="content__name">{{item.name}}</span>
+        </div>
         <ng-container *ngIf="!!item.selected">
             <mat-icon>check</mat-icon>
         </ng-container>
