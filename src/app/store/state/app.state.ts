@@ -13,6 +13,7 @@ import { ISelectorState } from './selector.state';
 import { ITagState } from './tag.state';
 import { IBusinessPeriodsState } from './bisiness-periods.state';
 import { IBusinessPeriodState } from './business-period.state';
+import { ISelectorAssetsState } from './selector-assets.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -26,6 +27,7 @@ export interface IAppState {
     taTag: ITagState;
     taSelectors: ISelectorsState,
     taSelector: ISelectorState,
+    taSelectorAssets: ISelectorAssetsState,
     taMenuNodes: IMenuNodesState,
     taAssets: IAssetsState,
     taBusinessPeriods: IBusinessPeriodsState,

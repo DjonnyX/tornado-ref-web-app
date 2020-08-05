@@ -14,6 +14,12 @@ export const initialState: ISelectorState = {
 
 const selectorReducer = createReducer(
     initialState,
+    on(SelectorActions.update, (state, { selector }) => {
+        return {
+            ...initialState,
+            selector,
+        };
+    }),
     on(SelectorActions.clear, state => {
         return {
             ...initialState,

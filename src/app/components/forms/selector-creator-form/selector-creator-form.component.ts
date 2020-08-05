@@ -34,7 +34,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Input() tagList: Array<ITag>;
 
-  @Output() submit = new EventEmitter<ISelector>();
+  @Output() save = new EventEmitter<ISelector>();
 
   @Output() cancel = new EventEmitter<void>();
 
@@ -64,7 +64,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.submit.emit({ ...this._selector, ...this.form.value, active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true });
+      this.save.emit({ ...this._selector, ...this.form.value, active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true });
     }
   }
 

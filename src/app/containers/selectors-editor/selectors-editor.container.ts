@@ -1,14 +1,16 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { SelectorsSelectors } from '@store/selectors';
+import { SelectorsSelectors, AssetsSelectors } from '@store/selectors';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { SelectorActions } from '@store/actions/selector.action';
-import { ISelector, ITag, IRef, SelectorTypes } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IRef, SelectorTypes, IAsset } from '@djonnyx/tornado-types';
+import { AssetsActions } from '@store/actions/assets.action';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-selectors-editor',
@@ -21,6 +23,8 @@ export class SelectorsEditorContainer implements OnInit {
   public isProcess$: Observable<boolean>;
 
   public collection$: Observable<Array<ISelector>>;
+
+  public assets$: Observable<Array<IAsset>>;
 
   public tags$: Observable<Array<ITag>>;
 
@@ -37,16 +41,29 @@ export class SelectorsEditorContainer implements OnInit {
 
     this._store.dispatch(TagsActions.getAllRequest());
 
+    this._store.dispatch(AssetsActions.getAllRequest());
+
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
     )
 
-    this.isProcess$ = this._store.pipe(
-      select(SelectorsSelectors.selectLoading),
+    this.isProcess$ = combineLatest(
+      this._store.pipe(
+        select(SelectorsSelectors.selectLoading),
+      ),
+      this._store.pipe(
+        select(AssetsSelectors.selectLoading),
+      ),
+    ).pipe(
+      map(([isProductsProgress, isAssetsProgress]) => isProductsProgress || isAssetsProgress),
     );
 
     this.collection$ = this._store.pipe(
       select(SelectorsSelectors.selectCollection),
+    );
+
+    this.assets$ = this._store.pipe(
+      select(AssetsSelectors.selectCollection),
     );
 
     this.refInfo$ = this._store.pipe(

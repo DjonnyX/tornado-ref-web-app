@@ -26,9 +26,9 @@ import {
   IAssetsUpdateResponse,
   IAssetsCreateResponse,
   IAssetsGetResponse,
-  IProductsAssetCreateResponse,
-  IProductsAssetDeleteResponse,
-  IProductsAssetGetResponse,
+  IProductAssetCreateResponse,
+  IProductAssetDeleteResponse,
+  IProductAssetGetResponse,
   IProductGetResponse,
   ITagGetResponse,
   ISelectorGetResponse,
@@ -36,7 +36,10 @@ import {
   IBusinessPeriodGetResponse,
   IBusinessPeriodCreateResponse,
   IBusinessPeriodUpdateResponse,
-  IBusinessPeriodDeleteResponse
+  IBusinessPeriodDeleteResponse,
+  ISelectorAssetDeleteResponse,
+  ISelectorAssetGetResponse,
+  ISelectorAssetCreateResponse
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -159,21 +162,21 @@ export class ApiService {
       });
   }
 
-  public getProductAssets(productId: string): Observable<IProductsAssetGetResponse> {
+  public getProductAssets(productId: string): Observable<IProductAssetGetResponse> {
     return this._http
-      .get<IProductsAssetGetResponse>(`api/v1/product/${productId}/assets`, {
+      .get<IProductAssetGetResponse>(`api/v1/product/${productId}/assets`, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public createProductAsset(productId: string, file: File): Observable<IProductsAssetCreateResponse> {
+  public createProductAsset(productId: string, file: File): Observable<IProductAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
 
     return this._http
-      .post<IProductsAssetCreateResponse>(`api/v1/product/${productId}/asset`, formData, {
+      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/asset`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -200,9 +203,9 @@ export class ApiService {
       );
   }
 
-  public deleteProductAsset(productId: string, assetId: string): Observable<IProductsAssetDeleteResponse> {
+  public deleteProductAsset(productId: string, assetId: string): Observable<IProductAssetDeleteResponse> {
     return this._http
-      .delete<IProductsAssetDeleteResponse>(`api/v1/product/${productId}/asset/${assetId}`, {
+      .delete<IProductAssetDeleteResponse>(`api/v1/product/${productId}/asset/${assetId}`, {
         headers: {
           authorization: this._token,
         },
@@ -255,6 +258,56 @@ export class ApiService {
   public deleteSelector(id: string): Observable<ISelectorsDeleteResponse> {
     return this._http
       .delete<ISelectorsDeleteResponse>(`api/v1/selector/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getSelectorAssets(selectorId: string): Observable<ISelectorAssetGetResponse> {
+    return this._http
+      .get<ISelectorAssetGetResponse>(`api/v1/selector/${selectorId}/assets`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createSelectorAsset(selectorId: string, file: File): Observable<ISelectorAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/asset`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public deleteSelectorAsset(selectortId: string, assetId: string): Observable<ISelectorAssetDeleteResponse> {
+    return this._http
+      .delete<ISelectorAssetDeleteResponse>(`api/v1/selector/${selectortId}/asset/${assetId}`, {
         headers: {
           authorization: this._token,
         },

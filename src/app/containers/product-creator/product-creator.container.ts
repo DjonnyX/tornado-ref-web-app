@@ -103,10 +103,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.isProcessMainOptions$ = combineLatest(
       this._store.pipe(
-        select(ProductsSelectors.selectIsCreateProcess),
+        select(ProductSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
-        select(ProductsSelectors.selectIsUpdateProcess),
+        select(ProductSelectors.selectIsUpdateProcess),
       ),
     ).pipe(
       map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),

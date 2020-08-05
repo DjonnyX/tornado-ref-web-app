@@ -7,6 +7,7 @@ export { IProductState } from './product.state';
 export { IProductNodesState } from './product-nodes.state';
 export { IProductAssetsState } from './product-assets.state';
 export { ISelectorsState } from './selectors.state';
+export { ISelectorAssetsState } from './selector-assets.state';
 export { IMenuNodesState } from './menu-nodes.state';
 export { ITagsState } from './tags.state';
 export { IAssetsState } from './assets.state';
