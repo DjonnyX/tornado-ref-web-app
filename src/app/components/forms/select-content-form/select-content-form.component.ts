@@ -1,11 +1,12 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChild } from '@angular/core';
-import { SelectContentFormModes } from './enums/select-content-form-modes.enum';
+import { SelectContentFormRights } from './enums/select-content-form-modes.enum';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
-import { ISelector, IProduct, INode, IEntity, NodeTypes } from '@djonnyx/tornado-types';
+import { ISelector, IProduct, INode, IEntity, NodeTypes, SelectorTypes } from '@djonnyx/tornado-types';
 
 const TABS_COLLECTION = [
-  NodeTypes.SELECTOR,
+  SelectorTypes.SCHEMA_CATEGORY,
+  SelectorTypes.MENU_CATEGORY,
   NodeTypes.PRODUCT,
   NodeTypes.SELECTOR_NODE,
 ];
@@ -20,16 +21,21 @@ export class SelectContentFormComponent implements OnInit {
 
   @ViewChild('tabGroup', { static: true }) private _tabGroup: MatTabGroup;
 
-  private _contentSelectorsBinder$ = new Subject<void>();
-  contentSelectorsBinder$ = this._contentSelectorsBinder$.asObservable();
+  readonly SelectContentFormRights = SelectContentFormRights;
+
+  private _contentMenuSelectorsBinder$ = new Subject<void>();
+  contentMenuSelectorsBinder$ = this._contentMenuSelectorsBinder$.asObservable();
+
+  private _contentSchemaSelectorsBinder$ = new Subject<void>();
+  contentSchemaSelectorsBinder$ = this._contentSchemaSelectorsBinder$.asObservable();
 
   private _contentProductsBinder$ = new Subject<void>();
-  contentProductsBinder$ = this._contentSelectorsBinder$.asObservable();
+  contentProductsBinder$ = this._contentProductsBinder$.asObservable();
 
   private _contentNodesBinder$ = new Subject<void>();
-  contentNodesBinder$ = this._contentSelectorsBinder$.asObservable();
+  contentNodesBinder$ = this._contentNodesBinder$.asObservable();
 
-  @Input() mode: SelectContentFormModes;
+  @Input() rights: Array<SelectContentFormRights>;
 
   @Input() nodes: Array<INode>;
 
@@ -38,6 +44,8 @@ export class SelectContentFormComponent implements OnInit {
   @Input() selectors: Array<ISelector>;
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
+
+  @Input() schemaSelectors: Array<ISelector>;
 
   @Input() selectedDefaultEntityId: string;
 
@@ -54,7 +62,8 @@ export class SelectContentFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onChangeTab(index: number) {
-    this._contentSelectorsBinder$.next();
+    this._contentMenuSelectorsBinder$.next();
+    this._contentSchemaSelectorsBinder$.next();
     this._contentProductsBinder$.next();
     this._contentNodesBinder$.next();
   }
@@ -63,4 +72,7 @@ export class SelectContentFormComponent implements OnInit {
     this.change.emit(content);
   }
 
+  hasAllow(right: SelectContentFormRights): boolean {
+    return this.rights.indexOf(right) > -1;
+  }
 }

@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodSelectors, BusinessPeriodsSelectors, AssetsSelectors } from '@store/selectors';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -12,7 +12,6 @@ import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
-import { ApiService } from '@services';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
@@ -64,7 +63,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   private _product: IProduct;
 
-  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute, private _apiService: ApiService) {
+  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
 
@@ -187,7 +186,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       // запрос дерева нодов по привязочному ноду
       this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
       this._store.dispatch(ProductsActions.getAllRequest());
-      this._store.dispatch(SelectorsActions.getAllRequest());
+      this._store.dispatch(SelectorsActions.getAllRequest({}));
       this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
       this._store.dispatch(BusinessPeriodsActions.getAllRequest());
       this._store.dispatch(AssetsActions.getAllRequest());
