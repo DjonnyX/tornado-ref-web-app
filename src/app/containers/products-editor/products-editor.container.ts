@@ -61,10 +61,6 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       map(([isProductsProgress, isAssetsProgress, isTagsProgress]) => isProductsProgress || isAssetsProgress || isTagsProgress),
     );
 
-    this.isProcess$.subscribe(v => {
-      console.log(v)
-    })
-
     this.collection$ = this._store.pipe(
       select(ProductsSelectors.selectCollection),
     );
