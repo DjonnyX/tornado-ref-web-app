@@ -13,8 +13,8 @@
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
-                    <div class="content__checkbox-active">
-                        <mat-checkbox *ngIf="!isRoot" color="primary" #checkboxActive
+                    <div *ngIf="!isRoot" class="content__checkbox-active">
+                        <mat-checkbox color="primary" #checkboxActive
                             [checked]="!!nodeInstance ? nodeInstance.active : node.active"
                             (click)="onToggleActive($event)" [disabled]="!!nodeInstance"></mat-checkbox>
                     </div>
