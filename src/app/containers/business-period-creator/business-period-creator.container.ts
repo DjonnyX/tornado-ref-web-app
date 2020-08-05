@@ -8,6 +8,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { BusinessPeriodActions } from '@store/actions/business-period.action';
 import { IBusinessPeriod } from '@djonnyx/tornado-types';
+import { IBreadCrumbsSegment } from '@app/utils/url-extractor.util';
 
 @Component({
   selector: 'ta-business-period-creator',
@@ -20,6 +21,10 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
   public isProcess$: Observable<boolean>;
 
   private _returnUrl: string;
+
+  get returnUrl() {
+    return this._returnUrl;
+  }
 
   private _businessPeriod: IBusinessPeriod;
 
@@ -86,6 +91,10 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
   }
 
   onCancel(): void {
+    this._router.navigate([this._returnUrl]);
+  }
+
+  onToBack(): void {
     this._router.navigate([this._returnUrl]);
   }
 }
