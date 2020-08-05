@@ -10,16 +10,20 @@
                     <span class="tag" *ngFor="let tag of selector.tags" [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)"></span>
                 </div>-->
             </div>
-            <div class="entity-checkbox-active">
+            <!--<div class="entity-checkbox-active">
                 <mat-checkbox color="accent" #checkboxActive
                     [checked]="selector.active"
                     (click)="onToggleActive($event, selector)"></mat-checkbox>
-            </div>
+            </div>-->
             <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
                 aria-label="Menu">
                 <mat-icon class="icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="onToggleActive($event, selector)">
+                    <mat-icon>{{selector.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <span>{{selector.active ? 'Deactivate' : 'Active'}}</span>
+                </button>
                 <button mat-menu-item (click)="onEditSelector(selector)">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>

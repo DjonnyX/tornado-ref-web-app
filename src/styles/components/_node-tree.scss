@@ -26,7 +26,7 @@ $way-border-weight: 2px;
 
     .node-tree-item-wrapper {
         .node-tree-item-way {
-            margin: px2em(4) 0 px2em(16) $offset-x;
+            margin: px2em(4) 0 0 $offset-x;
 
             .way-nail {
                 position: absolute;
@@ -102,6 +102,7 @@ $way-border-weight: 2px;
         .button-create {
             margin-left: -(px2em(20));
             margin-top: px2em(18);
+            margin-bottom: px2em(18);
             padding: 0;
             min-width: px2em(38);
             width: 2.375em;

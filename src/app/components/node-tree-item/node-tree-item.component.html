@@ -13,8 +13,8 @@
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
-                    <div class="content__checkbox-active">
-                        <mat-checkbox *ngIf="!isRoot" color="primary" #checkboxActive
+                    <div *ngIf="!isRoot" class="content__checkbox-active">
+                        <mat-checkbox color="primary" #checkboxActive
                             [checked]="!!nodeInstance ? nodeInstance.active : node.active"
                             (click)="onToggleActive($event)" [disabled]="!!nodeInstance"></mat-checkbox>
                     </div>
@@ -38,6 +38,12 @@
                         <mat-icon class="icon">more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
+                        <button mat-menu-item type="button" (click)="onToggleActive()">
+                            <mat-icon>
+                                {{!!nodeInstance ? nodeInstance.active : node.active ? 'visibility_off' : 'visibility'}}
+                            </mat-icon>
+                            <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Deactivate' : 'Active'}}</span>
+                        </button>
                         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
                             <mat-icon>arrow_upward</mat-icon>
                             <span>Upward</span>
@@ -84,7 +90,8 @@
                 </ta-scenario-list>
             </div>
         </ng-template>
-        <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
+        <div class="node-tree-item-way"
+            [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
             <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceNode">
                 <ta-node-tree-item *ngFor="let childId of node.children; let index = index" [depth]="depth + 1"
                     [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)" [currentIndex]="index"

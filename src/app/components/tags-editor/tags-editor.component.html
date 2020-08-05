@@ -18,6 +18,10 @@
                 <mat-icon class="icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="onToggleActive($event, tag)">
+                    <mat-icon>{{tag.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    <span>{{tag.active ? 'Deactivate' : 'Active'}}</span>
+                </button>
                 <button mat-menu-item (click)="onEditTag(tag)">
                     <mat-icon>edit</mat-icon>
                     <span>Edit</span>
