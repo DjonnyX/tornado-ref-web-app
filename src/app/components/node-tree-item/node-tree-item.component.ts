@@ -318,22 +318,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       event.preventDefault();
     }
 
-    let rights: Array<SelectContentFormRights> = [
-      SelectContentFormRights.NODES,
-      SelectContentFormRights.CATEGORIES,
-    ];
-
-    if (this.mode === NodeTreeModes.PRODUCT) {
-      if (!(this.node.children && this.node.children.length > 0)) {
-        rights.push(SelectContentFormRights.PRODUCTS);
-      }
-    } else {
-      rights.push(SelectContentFormRights.PRODUCTS);
-    }
-
-    if (this.mode === NodeTreeModes.PRODUCT) {
-      rights.push(SelectContentFormRights.SCHEMA_CATEGORY);
-    }
+    const rights = this.getRights();
 
     const content = this.getContent();
 
@@ -395,15 +380,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   onCreate(): void {
-    let rights: Array<SelectContentFormRights> = [
-      SelectContentFormRights.NODES,
-      SelectContentFormRights.CATEGORIES,
-      SelectContentFormRights.PRODUCTS,
-    ];
-
-    if (this.mode === NodeTreeModes.PRODUCT) {
-      rights.push(SelectContentFormRights.SCHEMA_CATEGORY);
-    }
+    const rights = this.getRights();
 
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
@@ -569,6 +546,28 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
 
     this.update.emit({ ...this.node, scenarios });
+  }
+
+  private getRights(): Array<SelectContentFormRights> {
+    const rights = new Array<SelectContentFormRights>();
+
+    if (this.mode === NodeTreeModes.PRODUCT) {
+      rights.push(SelectContentFormRights.SCHEMA_CATEGORY);
+    }
+
+    rights.push(SelectContentFormRights.CATEGORIES);
+
+    if (this.mode === NodeTreeModes.MENU) {
+      if (!(this.node.children && this.node.children.length > 0)) {
+        rights.push(SelectContentFormRights.PRODUCTS);
+      }
+    } else {
+      rights.push(SelectContentFormRights.PRODUCTS);
+    }
+
+    rights.push(SelectContentFormRights.NODES);
+
+    return rights;
   }
 
   private getNodeScenarioType(): NodeScenarioTypes {

@@ -1,9 +1,9 @@
 <h2 mat-dialog-title><strong>{{data.title}}</strong></h2>
 <mat-dialog-content class="mat-typography">
-    <ta-select-content-form [selectedDefaultEntityId]="data.selectedDefaultEntityId"
+    <ta-select-content-form [rights]="data.rights" [selectedDefaultEntityId]="data.selectedDefaultEntityId"
         [defaultCollection]="data.defaultCollection" [nodes]="data.nodes" [products]="data.products"
         [selectors]="data.selectors" [schemaSelectors]="data.schemaSelectors"
-        [selectorsDictionary]="data.selectorsDictionary" [rights]="data.rights" (change)="onChange($event)">
+        [selectorsDictionary]="data.selectorsDictionary" (change)="onChange($event)">
     </ta-select-content-form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

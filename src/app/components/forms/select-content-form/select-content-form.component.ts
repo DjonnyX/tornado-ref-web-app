@@ -4,12 +4,28 @@ import { MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
 import { ISelector, IProduct, INode, IEntity, NodeTypes, SelectorTypes } from '@djonnyx/tornado-types';
 
-const TABS_COLLECTION = [
-  SelectorTypes.SCHEMA_CATEGORY,
-  SelectorTypes.MENU_CATEGORY,
-  NodeTypes.PRODUCT,
-  NodeTypes.SELECTOR_NODE,
-];
+export const getTabsCollectionByRights = (rights: Array<SelectContentFormRights>): Array<NodeTypes | SelectorTypes> => {
+  const result = new Array<NodeTypes | SelectorTypes>();
+
+  rights.filter(right => {
+    switch (right) {
+      case SelectContentFormRights.CATEGORIES:
+        result.push(SelectorTypes.MENU_CATEGORY);
+        break;
+      case SelectContentFormRights.SCHEMA_CATEGORY:
+        result.push(SelectorTypes.SCHEMA_CATEGORY);
+        break;
+      case SelectContentFormRights.NODES:
+        result.push(NodeTypes.SELECTOR_NODE);
+        break;
+      case SelectContentFormRights.PRODUCTS:
+        result.push(NodeTypes.PRODUCT);
+        break;
+    }
+  });
+
+  return result;
+}
 
 @Component({
   selector: 'ta-select-content-form',
@@ -35,7 +51,23 @@ export class SelectContentFormComponent implements OnInit {
   private _contentNodesBinder$ = new Subject<void>();
   contentNodesBinder$ = this._contentNodesBinder$.asObservable();
 
-  @Input() rights: Array<SelectContentFormRights>;
+  private _tabsCollection: Array<NodeTypes | SelectorTypes>;
+
+  private _rights: Array<SelectContentFormRights>;
+
+  @Input() set rights(v: Array<SelectContentFormRights>) {
+    if (this._rights !== v) {
+      this._rights = v;
+
+      this._tabsCollection = getTabsCollectionByRights(this._rights);
+  
+      this.updateSelectedIndex();
+    }
+  }
+
+  get rights() {
+    return this._rights;
+  }
 
   @Input() nodes: Array<INode>;
 
@@ -49,10 +81,12 @@ export class SelectContentFormComponent implements OnInit {
 
   @Input() selectedDefaultEntityId: string;
 
-  @Input() set defaultCollection(v: NodeTypes) {
-    if (this._tabGroup) {
-      this._tabGroup.selectedIndex = TABS_COLLECTION.indexOf(v);
-    }
+  private _defaultCollection: NodeTypes | SelectorTypes;
+
+  @Input() set defaultCollection(v: NodeTypes | SelectorTypes) {
+    this._defaultCollection = v;
+
+    this.updateSelectedIndex();
   }
 
   @Output() change = new EventEmitter<IEntity>();
@@ -74,5 +108,11 @@ export class SelectContentFormComponent implements OnInit {
 
   hasAllow(right: SelectContentFormRights): boolean {
     return this.rights.indexOf(right) > -1;
+  }
+
+  private updateSelectedIndex(): void {
+    if (this._tabGroup) {
+      this._tabGroup.selectedIndex = this._tabsCollection.indexOf(this._defaultCollection);
+    }
   }
 }
