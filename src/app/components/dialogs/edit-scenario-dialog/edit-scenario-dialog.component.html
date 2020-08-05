@@ -1,7 +1,7 @@
 <h2 mat-dialog-title><strong>{{data.title}}</strong></h2>
 <mat-dialog-content class="mat-typography" style="min-width: 320px;">
     <p *ngIf="!!data.message">{{data.message}}</p>
-    <ta-scenario-editor [scenario]="data.scenario" [businessPeriods]="data.businessPeriods"
+    <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [businessPeriods]="data.businessPeriods"
         (status)="onChangeStatus($event)" (edit)="onChangeScenario($event)"></ta-scenario-editor>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
