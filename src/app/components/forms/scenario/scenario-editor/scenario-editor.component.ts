@@ -45,14 +45,14 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           ScenarioSelectorActionTypes.MAX_USAGE,
           ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
-      break;
+        break;
       case NodeScenarioTypes.PRODUCT:
         this.types = [
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
           ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioProductActionTypes.UP_LIMIT,
         ];
-      break;
+        break;
       case NodeScenarioTypes.PRODUCT_IN_SCHEMA:
         this.types = [
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
@@ -60,7 +60,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.DOWN_LIMIT,
         ];
-      break;
+        break;
       case NodeScenarioTypes.CATEGORY_IN_SCHEMA:
         this.types = [
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
@@ -68,7 +68,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           ScenarioSelectorActionTypes.MAX_USAGE,
           ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
-      break;
+        break;
     }
   }
 
@@ -117,7 +117,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
-      this.edit.emit({...value, active: this._scenario.active});
+      this.edit.emit({ ...value, active: !!this._scenario ? this._scenario.active : true });
     });
 
     this.form.statusChanges.pipe(
