@@ -324,7 +324,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           parentId: this.node.parentId,
           contentId: content.id,
           children: this.node.children,
-          scenarios: this.node.scenarios,
+          scenarios: [],
           extra: this.node.extra,
         }
         this.update.emit(node);
