@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminContainer } from './admin.container';
+import { SelectorTypes } from '@djonnyx/tornado-types';
 
 const routes: Routes = [
   {
@@ -15,11 +16,24 @@ const routes: Routes = [
           )
       },
       {
-        path: 'selectors',
+        path: 'menu-categories',
         loadChildren: () =>
           import('@containers/selectors-editor/selectors-editor.module').then(
             module => module.SelectorsEditorModule,
-          )
+          ),
+        data: {
+          type: SelectorTypes.MENU_CATEGORY,
+        },
+      },
+      {
+        path: 'product-schema-categories',
+        loadChildren: () =>
+          import('@containers/selectors-editor/selectors-editor.module').then(
+            module => module.SelectorsEditorModule,
+          ),
+        data: {
+          type: SelectorTypes.SCHEMA_CATEGORY,
+        },
       },
       {
         path: 'products',

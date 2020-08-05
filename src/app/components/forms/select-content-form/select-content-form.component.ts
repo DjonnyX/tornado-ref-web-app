@@ -1,14 +1,31 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChild } from '@angular/core';
-import { SelectContentFormModes } from './enums/select-content-form-modes.enum';
+import { SelectContentFormRights } from './enums/select-content-form-modes.enum';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
-import { ISelector, IProduct, INode, IEntity, NodeTypes } from '@djonnyx/tornado-types';
+import { ISelector, IProduct, INode, IEntity, NodeTypes, SelectorTypes, IAsset } from '@djonnyx/tornado-types';
 
-const TABS_COLLECTION = [
-  NodeTypes.SELECTOR,
-  NodeTypes.PRODUCT,
-  NodeTypes.SELECTOR_NODE,
-];
+export const getTabsCollectionByRights = (rights: Array<SelectContentFormRights>): Array<NodeTypes | SelectorTypes> => {
+  const result = new Array<NodeTypes | SelectorTypes>();
+
+  rights.filter(right => {
+    switch (right) {
+      case SelectContentFormRights.CATEGORIES:
+        result.push(SelectorTypes.MENU_CATEGORY);
+        break;
+      case SelectContentFormRights.SCHEMA_CATEGORY:
+        result.push(SelectorTypes.SCHEMA_CATEGORY);
+        break;
+      case SelectContentFormRights.NODES:
+        result.push(NodeTypes.SELECTOR_NODE);
+        break;
+      case SelectContentFormRights.PRODUCTS:
+        result.push(NodeTypes.PRODUCT);
+        break;
+    }
+  });
+
+  return result;
+}
 
 @Component({
   selector: 'ta-select-content-form',
@@ -20,16 +37,37 @@ export class SelectContentFormComponent implements OnInit {
 
   @ViewChild('tabGroup', { static: true }) private _tabGroup: MatTabGroup;
 
-  private _contentSelectorsBinder$ = new Subject<void>();
-  contentSelectorsBinder$ = this._contentSelectorsBinder$.asObservable();
+  readonly SelectContentFormRights = SelectContentFormRights;
+
+  private _contentMenuSelectorsBinder$ = new Subject<void>();
+  contentMenuSelectorsBinder$ = this._contentMenuSelectorsBinder$.asObservable();
+
+  private _contentSchemaSelectorsBinder$ = new Subject<void>();
+  contentSchemaSelectorsBinder$ = this._contentSchemaSelectorsBinder$.asObservable();
 
   private _contentProductsBinder$ = new Subject<void>();
-  contentProductsBinder$ = this._contentSelectorsBinder$.asObservable();
+  contentProductsBinder$ = this._contentProductsBinder$.asObservable();
 
   private _contentNodesBinder$ = new Subject<void>();
-  contentNodesBinder$ = this._contentSelectorsBinder$.asObservable();
+  contentNodesBinder$ = this._contentNodesBinder$.asObservable();
 
-  @Input() mode: SelectContentFormModes;
+  private _tabsCollection: Array<NodeTypes | SelectorTypes>;
+
+  private _rights: Array<SelectContentFormRights>;
+
+  @Input() set rights(v: Array<SelectContentFormRights>) {
+    if (this._rights !== v) {
+      this._rights = v;
+
+      this._tabsCollection = getTabsCollectionByRights(this._rights);
+  
+      this.updateSelectedIndex();
+    }
+  }
+
+  get rights() {
+    return this._rights;
+  }
 
   @Input() nodes: Array<INode>;
 
@@ -39,12 +77,18 @@ export class SelectContentFormComponent implements OnInit {
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
 
+  @Input() assetsDictionary: { [id: string]: IAsset };
+
+  @Input() schemaSelectors: Array<ISelector>;
+
   @Input() selectedDefaultEntityId: string;
 
-  @Input() set defaultCollection(v: NodeTypes) {
-    if (this._tabGroup) {
-      this._tabGroup.selectedIndex = TABS_COLLECTION.indexOf(v);
-    }
+  private _defaultCollection: NodeTypes | SelectorTypes;
+
+  @Input() set defaultCollection(v: NodeTypes | SelectorTypes) {
+    this._defaultCollection = v;
+
+    this.updateSelectedIndex();
   }
 
   @Output() change = new EventEmitter<IEntity>();
@@ -54,7 +98,8 @@ export class SelectContentFormComponent implements OnInit {
   ngOnInit(): void { }
 
   onChangeTab(index: number) {
-    this._contentSelectorsBinder$.next();
+    this._contentMenuSelectorsBinder$.next();
+    this._contentSchemaSelectorsBinder$.next();
     this._contentProductsBinder$.next();
     this._contentNodesBinder$.next();
   }
@@ -63,4 +108,13 @@ export class SelectContentFormComponent implements OnInit {
     this.change.emit(content);
   }
 
+  hasAllow(right: SelectContentFormRights): boolean {
+    return this.rights.indexOf(right) > -1;
+  }
+
+  private updateSelectedIndex(): void {
+    if (this._tabGroup) {
+      this._tabGroup.selectedIndex = this._tabsCollection.indexOf(this._defaultCollection);
+    }
+  }
 }

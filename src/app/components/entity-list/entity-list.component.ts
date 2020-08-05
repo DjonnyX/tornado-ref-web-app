@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { Observable } from 'rxjs';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { NodeTypes } from '@djonnyx/tornado-types';
+import { NodeTypes, IAsset } from '@djonnyx/tornado-types';
 
 interface IEntity {
   id: string;
@@ -59,6 +59,8 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
     }
   }
 
+  @Input() assetsDictionary: { [id: string]: IAsset };
+
   @Output() change = new EventEmitter<IEntity>();
 
   constructor(private _cdr: ChangeDetectorRef) {
@@ -86,6 +88,19 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
 
       this._cdr.markForCheck();
     }
+  }
+
+  getThumbnail(entity: IEntity): string {
+    const content: any = entity;
+
+    if (!!this.assetsDictionary && !!content.mainAsset) {
+
+      if (this.assetsDictionary[content.mainAsset]) {
+        return this.assetsDictionary[content.mainAsset].mipmap.x32;
+      }
+    }
+
+    return "";
   }
 
   reset(): void {

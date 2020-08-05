@@ -1,14 +1,22 @@
 <mat-tab-group (selectedIndexChange)="onChangeTab($event)" #tabGroup>
-    <mat-tab label="Categories">
-        <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentSelectorsBinder$" [collection]="selectors" type="selector"
+    <mat-tab label="Schema categories" *ngIf="hasAllow(SelectContentFormRights.SCHEMA_CATEGORY)">
+        <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentSchemaSelectorsBinder$"
+            [collection]="schemaSelectors" [assetsDictionary]="assetsDictionary" type="selector"
             (change)="onChange($event)"></ta-entity-list>
     </mat-tab>
-    <mat-tab label="Products" *ngIf="mode === 'all' || mode === 'only-products'">
-        <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentProductsBinder$" [collection]="products" type="product"
-            (change)="onChange($event)"></ta-entity-list>
+    <mat-tab label="Menu categories" *ngIf="hasAllow(SelectContentFormRights.CATEGORIES)">
+        <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentMenuSelectorsBinder$"
+            [collection]="selectors" [assetsDictionary]="assetsDictionary" type="selector" (change)="onChange($event)">
+        </ta-entity-list>
     </mat-tab>
-    <mat-tab label="Nodes">
-        <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentNodesBinder$" [collection]="nodes" [selectors]="selectors"
+    <mat-tab label="Products" *ngIf="hasAllow(SelectContentFormRights.PRODUCTS)">
+        <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentProductsBinder$"
+            [collection]="products" [assetsDictionary]="assetsDictionary" type="product" (change)="onChange($event)">
+        </ta-entity-list>
+    </mat-tab>
+    <mat-tab label="Nodes" *ngIf="hasAllow(SelectContentFormRights.NODES)">
+        <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentNodesBinder$"
+            [collection]="nodes" [assetsDictionary]="assetsDictionary" [selectors]="selectors"
             [selectorsDictionary]="selectorsDictionary" type="selector-node" (change)="onChange($event)">
         </ta-node-list>
     </mat-tab>

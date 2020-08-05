@@ -20,13 +20,24 @@
             background: $accent;
         }
 
-        .item__name {
-            margin: auto 1px;
-            display: inline-block;
-            text-overflow: ellipsis;
-            word-break: keep-all;
-            white-space: nowrap;
-            overflow: hidden;
+        .item__content {
+            display: flex;
+            align-items: center;
+            align-self: center;
+
+            .content__thumbnail {
+                height: px2em(32);
+                margin-right: px2em(20);
+            }
+
+            .content__name {
+                margin: auto 1px;
+                display: inline-block;
+                text-overflow: ellipsis;
+                word-break: keep-all;
+                white-space: nowrap;
+                overflow: hidden;
+            }
         }
     }
 }

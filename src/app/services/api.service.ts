@@ -42,7 +42,7 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -210,12 +210,18 @@ export class ApiService {
   }
 
   // selectors
-  public getSelectors(): Observable<ISelectorsGetResponse> {
+  public getSelectors(selectorType?: SelectorTypes): Observable<ISelectorsGetResponse> {
+    const params: any = {};
+    if (!!selectorType) {
+      params.type = selectorType;
+    }
+
     return this._http
       .get<ISelectorsGetResponse>("api/v1/selectors", {
         headers: {
           authorization: this._token,
         },
+        params,
       });
   }
 
@@ -274,18 +280,18 @@ export class ApiService {
       });
   }
 
-  public createBusinessPeriod(selector: ISelector): Observable<IBusinessPeriodCreateResponse> {
+  public createBusinessPeriod(businessPeriod: IBusinessPeriod): Observable<IBusinessPeriodCreateResponse> {
     return this._http
-      .post<IBusinessPeriodCreateResponse>("api/v1/business-period", selector, {
+      .post<IBusinessPeriodCreateResponse>("api/v1/business-period", businessPeriod, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public updateBusinessPeriod(id: string, selector: ISelector): Observable<IBusinessPeriodUpdateResponse> {
+  public updateBusinessPeriod(id: string, businessPeriod: IBusinessPeriod): Observable<IBusinessPeriodUpdateResponse> {
     return this._http
-      .put<IBusinessPeriodUpdateResponse>(`api/v1/business-period/${id}`, selector, {
+      .put<IBusinessPeriodUpdateResponse>(`api/v1/business-period/${id}`, businessPeriod, {
         headers: {
           authorization: this._token,
         },
