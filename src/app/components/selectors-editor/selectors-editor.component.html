@@ -1,5 +1,5 @@
 <div class="editor">
-    <ta-state-panel [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditSelector(selector)"
             *ngFor="let selector of collection | search: searchPattern" [class.disabled]="!selector.active">
