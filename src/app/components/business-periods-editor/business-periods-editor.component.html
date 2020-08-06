@@ -1,7 +1,7 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" (click)="onEditBusinessPeriod(businessPeriod)"
+        <div class="entity"
             *ngFor="let businessPeriod of collection | search: searchPattern" [class.disabled]="!businessPeriod.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
@@ -27,7 +27,7 @@
                     </button>
                 </mat-menu>
             </div>
-            <div matRipple class="entity-active-zone">
+            <div matRipple class="entity-active-zone" (click)="onEditBusinessPeriod(businessPeriod)">
                 <div class="content">
                     <div class="content__name">
                         {{businessPeriod.name}}

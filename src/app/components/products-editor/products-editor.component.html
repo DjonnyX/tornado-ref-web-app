@@ -1,7 +1,7 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" (click)="onEditProduct(product)" *ngFor="let product of collection | search: searchPattern"
+        <div class="entity" *ngFor="let product of collection | search: searchPattern"
             [class.disabled]="!product.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
@@ -27,7 +27,7 @@
                     </button>
                 </mat-menu>
             </div>
-            <div matRipple class="entity-active-zone">
+            <div matRipple class="entity-active-zone" (click)="onEditProduct(product)">
                 <div class="content">
                     <div class="content__name">
                         {{product.name}}
