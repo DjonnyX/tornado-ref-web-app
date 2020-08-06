@@ -1,8 +1,8 @@
 import { IBaseState } from './base';
-import { ITag } from '@djonnyx/tornado-types';
+import { ICurrency } from '@djonnyx/tornado-types';
 
-export interface ITagState extends IBaseState {
-    tag: ITag;
+export interface ICurrencyState extends IBaseState {
+    currency: ICurrency;
     isGetProcess: boolean;
     isCreateProcess: boolean;
     isUpdateProcess: boolean;

@@ -14,6 +14,8 @@ import { ITagState } from './tag.state';
 import { IBusinessPeriodsState } from './bisiness-periods.state';
 import { IBusinessPeriodState } from './business-period.state';
 import { ISelectorAssetsState } from './selector-assets.state';
+import { ICurrenciesState } from './currencies.state';
+import { ICurrencyState } from './currency.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -32,4 +34,6 @@ export interface IAppState {
     taAssets: IAssetsState,
     taBusinessPeriods: IBusinessPeriodsState,
     taBusinessPeriod: IBusinessPeriodState,
+    taCurrencies: ICurrenciesState,
+    taCurrency: ICurrencyState,
 }

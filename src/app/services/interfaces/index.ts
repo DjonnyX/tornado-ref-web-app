@@ -37,9 +37,14 @@ import { IBusinessPeriodUpdateResponse } from './business-period-update-response
 import { IBusinessPeriodDeleteResponse } from './business-period-delete-response.interface';
 import { ITagsGetResponse } from './tags-get-response.interface';
 import { ITagGetResponse } from './tag-get-response.interface';
-import { ITagsCreateResponse } from './tags-create-response.interface';
-import { ITagsUpdateResponse } from './tags-update-response.interface';
-import { ITagsDeleteResponse } from './tags-delete-response.interface';
+import { ITagCreateResponse } from './tag-create-response.interface';
+import { ITagUpdateResponse } from './tag-update-response.interface';
+import { ITagDeleteResponse } from './tag-delete-response.interface';
+import { ICurrenciesGetResponse } from './currencies-get-response.interface';
+import { ICurrencyGetResponse } from './currency-get-response.interface';
+import { ICurrencyCreateResponse } from './currency-create-response.interface';
+import { ICurrencyUpdateResponse } from './currency-update-response.interface';
+import { ICurrencyDeleteResponse } from './currency-delete-response.interface';
 import { IMetaRefsResponse } from './meta-refs-response.interface';
 import { IAssetsGetResponse } from './assets-get-response.interface';
 import { IAssetsCreateResponse } from './assets-create-response.interface';
@@ -86,9 +91,14 @@ export {
     IBusinessPeriodDeleteResponse,
     ITagsGetResponse,
     ITagGetResponse,
-    ITagsCreateResponse,
-    ITagsUpdateResponse,
-    ITagsDeleteResponse,
+    ITagCreateResponse,
+    ITagUpdateResponse,
+    ITagDeleteResponse,
+    ICurrenciesGetResponse,
+    ICurrencyGetResponse,
+    ICurrencyCreateResponse,
+    ICurrencyUpdateResponse,
+    ICurrencyDeleteResponse,
     IMetaRefsResponse,
     IAssetsGetResponse,
     IAssetsCreateResponse,
