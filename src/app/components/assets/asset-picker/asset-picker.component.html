@@ -2,7 +2,7 @@
     <div class="asset-preview" [style.background]="getThumbnail()"></div>
     <div class="form-item">
         <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Assets</mat-label>
+            <mat-label>Image</mat-label>
             <mat-select [formControl]="ctrlAssets">
                 <mat-option *ngFor="let asset of assets" [value]="asset.id">{{asset.name}}</mat-option>
             </mat-select>

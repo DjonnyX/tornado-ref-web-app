@@ -26,7 +26,7 @@ const routes: Routes = [
         },
       },
       {
-        path: 'product-schema-categories',
+        path: 'schema-categories',
         loadChildren: () =>
           import('@containers/selectors-editor/selectors-editor.module').then(
             module => module.SelectorsEditorModule,
