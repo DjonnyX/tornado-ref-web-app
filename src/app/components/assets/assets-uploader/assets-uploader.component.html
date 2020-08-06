@@ -9,6 +9,12 @@
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleActive(undefined, asset)">
+                        <mat-icon>
+                            {{asset.active ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                        <span>{{asset.active ? 'Deactivate' : 'Active'}}</span>
+                    </button>
                     <button mat-menu-item (click)="onDeleteAsset(asset)">
                         <mat-icon>delete_forever</mat-icon>
                         <span>Delete</span>
