@@ -10,14 +10,10 @@
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
-                <div [ngClass]="{'main-options-wrapper': isEditMode}">
-                    <ta-asset-picker *ngIf="isEditMode" [defaultValue]="currentMainAsset$ | async"
-                        [assets]="productAssets$ | async" (select)="onProductMainAssetSelect($event)"></ta-asset-picker>
-
-                    <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
-                        [tagList]="tags$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
-                    </ta-product-creator-form>
-                </div>
+                <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
+                    [tagList]="tags$ | async" [asset]="currentMainAsset$ | async" [assets]="productAssets$ | async"
+                    (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
+                </ta-product-creator-form>
             </ta-query-progress>
         </div>
 
@@ -45,11 +41,12 @@
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessHierarchy$ | async">
                 <div class="hierarchy-editor secondary">
-                    <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false" [rootNodeId]="rootNodeId$ | async"
-                        [nodes]="nodes$ | async" [products]="products$ | async" [selectors]="selectors$ | async"
-                        [businessPeriods]="businessPeriods$ | async" [assets]="assets$ | async"
-                        (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
-                        (delete)="onDeleteHierarchyNode($event)" mode="product">
+                    <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false"
+                        [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
+                        [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
+                        [assets]="assets$ | async" (create)="onCreateHierarchyNode($event)"
+                        (update)="onUpdateHierarchyNode($event)" (delete)="onDeleteHierarchyNode($event)"
+                        mode="product">
                     </ta-node-tree>
                 </div>
             </ta-query-progress>

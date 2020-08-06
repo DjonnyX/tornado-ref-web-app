@@ -10,15 +10,10 @@
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
-                <div [ngClass]="{'main-options-wrapper': isEditMode}">
-                    <ta-asset-picker *ngIf="isEditMode" [defaultValue]="currentMainAsset$ | async"
-                        [assets]="selectorAssets$ | async" (select)="onSelectorMainAssetSelect($event)">
-                    </ta-asset-picker>
-
-                    <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async"
-                        [tagList]="tags$ | async" (save)="onMainOptionsSave($event)" (cancel)="onCancel()">
-                    </ta-selector-creator-form>
-                </div>
+                <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async"
+                    [tagList]="tags$ | async" [asset]="currentMainAsset$ | async" [assets]="selectorAssets$ | async"
+                    (save)="onMainOptionsSave($event)" (cancel)="onCancel()">
+                </ta-selector-creator-form>
             </ta-query-progress>
         </div>
 

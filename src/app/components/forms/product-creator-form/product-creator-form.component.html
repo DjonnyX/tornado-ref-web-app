@@ -1,29 +1,37 @@
-<form [formGroup]="form" (ngSubmit)="onMainOptionsSave()" autocomplete="off">
-    <div class="form__input-block">
-        <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Product name</mat-label>
-                <input matInput type="text" [formControl]="ctrlName" placeholder="Product name">
-                <mat-error *ngIf="ctrlName.hasError('required')">
-                    Product name - <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
+<form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
+    <div [ngClass]="{'main-options-wrapper': isEditMode}">
+        <ta-asset-picker *ngIf="isEditMode" [defaultValue]="asset" [assets]="assets"
+            (select)="onAssetSelect($event)"></ta-asset-picker>
 
-        <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Description</mat-label>
-                <textarea matInput [matTextareaAutosize]="true" type="text" [formControl]="ctrlDescription" placeholder="Description"></textarea>
-            </mat-form-field>
-        </div>
+        <div class="form__main-options">
+            <div class="form__input-block">
+                <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Product name</mat-label>
+                        <input matInput type="text" [formControl]="ctrlName" placeholder="Product name">
+                        <mat-error *ngIf="ctrlName.hasError('required')">
+                            Product name - <strong>required</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
 
-        <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Tags</mat-label>
-                <mat-select [formControl]="ctrlTags" multiple>
-                    <mat-option *ngFor="let tag of tagList" [value]="tag.id">{{tag.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
+                <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Description</mat-label>
+                        <textarea matInput [matTextareaAutosize]="true" type="text" [formControl]="ctrlDescription"
+                            placeholder="Description"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Tags</mat-label>
+                        <mat-select [formControl]="ctrlTags" multiple>
+                            <mat-option *ngFor="let tag of tagList" [value]="tag.id">{{tag.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
         </div>
     </div>
 
