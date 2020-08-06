@@ -49,7 +49,7 @@ $instance-node-color: #e7e7e7;
 }
 
 ::ng-deep {
-    .accent {
+    .color-accent {
         .mat-form-field-appearance-legacy .mat-form-field-legacy {
             color: $accent;
         }
@@ -65,12 +65,32 @@ $instance-node-color: #e7e7e7;
             }
         }
     }
+
+    .color-primary {
+        .mat-accent .mat-input-element {
+            color: black;
+        }
+
+        .mat-form-field.mat-focused .mat-form-field-label.mat-accent {
+            color: black;
+        }
+
+        .button-close {
+            color: black;
+        }
+    }
 }
 
 ::ng-deep .mat-form-field-infix {
     width: auto !important;
 }
 
-.mat-button, .mat-raised-button, .mat-icon-button, .mat-stroked-button, .mat-flat-button, .mat-fab, .mat-mini-fab {
+.mat-button,
+.mat-raised-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button,
+.mat-fab,
+.mat-mini-fab {
     font-weight: 700;
 }

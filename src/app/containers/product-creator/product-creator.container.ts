@@ -220,6 +220,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, file }));
   }
 
+  onAssetUpdate(asset: IAsset): void {
+    this._store.dispatch(ProductAssetsActions.updateRequest({ productId: this._productId, asset }));
+  }
+
   onAssetDelete(asset: IAsset): void {
     this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId: asset.id }));
   }

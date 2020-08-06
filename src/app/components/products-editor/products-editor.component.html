@@ -1,43 +1,50 @@
 <div class="editor">
-    <ta-state-panel [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" (click)="onEditProduct(product)" *ngFor="let product of collection | search: searchPattern">
-            <div matRipple class="entity-active-zone" [class.disabled]="!product.active">
+        <div class="entity" (click)="onEditProduct(product)" *ngFor="let product of collection | search: searchPattern"
+            [class.disabled]="!product.active">
+            <div class="entity-ctrls">
+                <div class="entity-checkbox-active">
+                    <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
+                        (click)="onToggleActive($event, product)"></mat-checkbox>
+                </div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button"
+                    (click)="onShowMenu($event)" aria-label="Menu">
+                    <mat-icon class="icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
+                        <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <span>{{product.active ? 'Deactivate' : 'Active'}}</span>
+                    </button>
+                    <button mat-menu-item (click)="onEditProduct(product)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="onDeleteProduct(product)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <div matRipple class="entity-active-zone">
                 <div class="content">
-                    <div>
+                    <div class="content__name">
                         {{product.name}}
                     </div>
+                    <div class="content__description">
+                        {{product.description}}
+                    </div>
+                </div>
+                <div class="bottom-panel">
                     <img align="center" *ngIf="hasThumbnail(product.mainAsset)" class="entity-thumbnail"
                         [src]="getThumbnail(product.mainAsset)">
-                </div>
-                <div class="tags">
-                    <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
-                        [matTooltip]="getTagName(tag)"></span>
+                    <div class="tags">
+                        <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
+                            [matTooltip]="getTagName(tag)"></span>
+                    </div>
                 </div>
             </div>
-            <div class="entity-checkbox-active">
-                <mat-checkbox color="accent" #checkboxActive
-                    [checked]="product.active"
-                    (click)="onToggleActive($event, product)"></mat-checkbox>
-            </div>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
-                aria-label="Menu">
-                <mat-icon class="icon">more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
-                    <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    <span>{{product.active ? 'Deactivate' : 'Active'}}</span>
-                </button>
-                <button mat-menu-item (click)="onEditProduct(product)">
-                    <mat-icon>edit</mat-icon>
-                    <span>Edit</span>
-                </button>
-                <button mat-menu-item (click)="onDeleteProduct(product)">
-                    <mat-icon>delete_forever</mat-icon>
-                    <span>Delete</span>
-                </button>
-            </mat-menu>
         </div>
         <button color="accent" mat-raised-button class="button-add" (click)="onCreateProduct()">
             <mat-icon>add</mat-icon>

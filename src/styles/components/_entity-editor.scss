@@ -7,6 +7,7 @@ $entity-size-m: px2em(140);
 $entity-size-d: px2em(190);
 $entity-button-menu-size-m: px2em(32);
 $entity-button-menu-size-d: px2em(38);
+$ctrl-panel-height: px2em(40);
 
 @mixin button() {
     user-select: none;
@@ -15,7 +16,6 @@ $entity-button-menu-size-d: px2em(38);
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    border-radius: 4px;
 }
 
 .editor {
@@ -29,47 +29,67 @@ $entity-button-menu-size-d: px2em(38);
     .entity {
         position: relative;
 
+        &.disabled {
+            opacity: 0.5;
+        }
+
         .entity-active-zone {
             @include button();
             color: $primary-700;
             background: $background-color;
             box-sizing: border-box;
-
-            &.disabled {
-                opacity: 0.5;
-            }
+            border-radius: 0 0 4px 4px;
         }
 
         .content {
-            line-height: 1.1;
+            line-height: 1.075;
             overflow: hidden;
+
+            .content__name {
+                text-transform: uppercase;
+                margin-bottom: px2em(4);
+            }
+
+            .content__description {
+                font-size: 0.74em;
+                text-transform: lowercase;
+            }
+        }
+
+        .bottom-panel {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: px2em(4) px2em(8) px2em(8);
         }
 
         .entity-thumbnail {
-            position: absolute;
             height: px2em(32);
-            bottom: px2em(8);
-            left: px2em(8);
             border-radius: 4px;
             overflow: hidden;
         }
 
+        .entity-ctrls {
+            display: flex;
+            justify-content: space-between;
+            background: #ffffff;
+            border-radius: 4px 4px 0 0;
+            height: $ctrl-panel-height;
+            border-bottom: 1px solid rgba($primary, 0.1);
+        }
+
         .entity-checkbox-active {
-            position: absolute;
             display: flex;
             justify-content: center;
             align-items: center;
-            top: px2em(10);
-            left: px2em(10);
+            margin-left: px2em(8);
         }
 
         .entity-menu-button {
-            position: absolute;
+            margin-left: auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            top: 0;
-            right: 0;
             color: $primary-700;
         }
     }
@@ -89,13 +109,13 @@ $entity-button-menu-size-d: px2em(38);
 
         .entity {
             .entity-active-zone {
-                height: $entity-size-d;
+                height: $entity-size-d - $ctrl-panel-height;
             }
 
             .content {
                 font-size: 0.9rem;
                 line-height: 1.2;
-                margin: 1.9rem 1.8rem 0rem 2.0rem;
+                margin: 0.5em;
             }
 
             .entity-menu-button {
@@ -124,13 +144,13 @@ $entity-button-menu-size-d: px2em(38);
 
         .entity {
             .entity-active-zone {
-                height: $entity-size-m;
+                height: $entity-size-m - $ctrl-panel-height;
             }
 
             .content {
                 font-size: 0.73rem;
                 line-height: 1.2;
-                margin: 1.9rem 1.8rem 0.3rem 2.0rem;
+                margin: 0.5em;
             }
 
             .entity-menu-button {

@@ -24,13 +24,13 @@
 
         <div class="form" *ngIf="isEditMode">
             <div class="form-header">
-                <h2>Assets</h2>
+                <h2>Images</h2>
             </div>
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessAssets$ | async">
                 <ta-assets-uploader [collection]="selectorAssets$ | async" (upload)="onAssetUpload($event)"
-                    (delete)="onAssetDelete($event)"></ta-assets-uploader>
+                    (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
             </ta-query-progress>
         </div>
     </div>

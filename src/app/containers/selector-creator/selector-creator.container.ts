@@ -68,7 +68,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     ).pipe(
       map(([isSelectorGetProcess, isSelectorsGetProcess]) => isSelectorGetProcess || isSelectorsGetProcess),
     );
-    
+
     this.isProcessAssets$ = combineLatest(
       this._store.pipe(
         select(SelectorAssetsSelectors.selectIsGetProcess),
@@ -148,7 +148,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     if (this.isEditMode) {
       this._store.dispatch(SelectorActions.updateRequest({ id: selector.id, selector }));
     } else {
-      this._store.dispatch(SelectorActions.createRequest({ selector: {...selector, type: this._selectorType} }));
+      this._store.dispatch(SelectorActions.createRequest({ selector: { ...selector, type: this._selectorType } }));
     }
   }
 
@@ -162,6 +162,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   onAssetUpload(file: File): void {
     this._store.dispatch(SelectorAssetsActions.createRequest({ selectorId: this._selectorId, file }));
+  }
+
+  onAssetUpdate(asset: IAsset): void {
+    this._store.dispatch(SelectorAssetsActions.updateRequest({ selectorId: this._selectorId, asset }));
   }
 
   onAssetDelete(asset: IAsset): void {
