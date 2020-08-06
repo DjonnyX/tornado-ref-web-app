@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div class="form__input-block">
+        <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Code</mat-label>
+                <input matInput type="text" [formControl]="ctrlCode" placeholder="Code">
+                <mat-error *ngIf="ctrlCode.hasError('required')">
+                    <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
+                <mat-error *ngIf="ctrlName.hasError('required')">
+                    <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Symbol</mat-label>
+                <input matInput type="text" [formControl]="ctrlSymbol" placeholder="Symbol">
+                <mat-error *ngIf="ctrlSymbol.hasError('required')">
+                    <strong>required</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="accent" type="submit" class="button button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+    </div>
+</form>

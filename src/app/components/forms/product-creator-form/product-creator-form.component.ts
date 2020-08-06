@@ -69,7 +69,12 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   onMainOptionsSave(): void {
     if (this.form.valid) {
-      this.save.emit({ ...this._product, ...this.form.value, active: !!this._product && this._product.active !== undefined ? this._product.active : true });
+      this.save.emit({
+        ...this._product,
+        ...this.form.value,
+        active: !!this._product && this._product.active !== undefined ? this._product.active : true,
+        extra: !!this._product ? this._product.extra : {},
+      });
     }
   }
 

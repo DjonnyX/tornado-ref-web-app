@@ -3,17 +3,17 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag, IRef } from '@djonnyx/tornado-types';
+import { ICurrency, IRef } from '@djonnyx/tornado-types';
 
 @Component({
-  selector: 'ta-tags-editor-component',
-  templateUrl: './tags-editor.component.html',
-  styleUrls: ['./tags-editor.component.scss'],
+  selector: 'ta-currencies-editor-component',
+  templateUrl: './currencies-editor.component.html',
+  styleUrls: ['./currencies-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
+export class CurrenciesEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<ITag>;
+  @Input() collection: Array<ICurrency>;
 
   @Input() refInfo: IRef;
 
@@ -21,9 +21,9 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   @Output() create = new EventEmitter<void>();
 
-  @Output() edit = new EventEmitter<ITag>();
+  @Output() edit = new EventEmitter<ICurrency>();
 
-  @Output() update = new EventEmitter<ITag>();
+  @Output() update = new EventEmitter<ICurrency>();
 
   @Output() delete = new EventEmitter<string>();
 
@@ -40,27 +40,20 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
-  onToggleActive(event: Event, tag: ITag): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-
-    this.update.emit({ ...tag, active: !tag.active });
-  }
-
-  onCreateTag(): void {
+  onCreate(): void {
     this.create.emit();
   }
 
-  onEditTag(tag: ITag): void {
-    this.edit.emit(tag);
+  onEdit(currency: ICurrency): void {
+    this.edit.emit(currency);
   }
 
-  onDeleteTag(tag: ITag): void {
+  onDelete(currency: ICurrency): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the tag?",
-          message: `"${tag.name}" will be permanently deleted`,
+          title: "Delete the currency?",
+          message: `"${currency.name}" will be permanently deleted`,
         },
       });
 
@@ -69,7 +62,7 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
       takeUntil(this.unsubscribe$),
     ).subscribe(result => {
       if (result) {
-        this.delete.emit(tag.id);
+        this.delete.emit(currency.id);
       }
     });
   }

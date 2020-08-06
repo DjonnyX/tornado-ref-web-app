@@ -44,6 +44,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       route: "products",
     },
     {
+      name: "Currencies",
+      route: "currencies",
+    },
+    {
       name: "Tags",
       route: "tags",
     },

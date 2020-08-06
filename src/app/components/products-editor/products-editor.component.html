@@ -8,8 +8,7 @@
                     <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
                         (click)="onToggleActive($event, product)"></mat-checkbox>
                 </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button"
-                    (click)="onShowMenu($event)" aria-label="Menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">

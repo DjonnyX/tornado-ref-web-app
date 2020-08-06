@@ -10,3 +10,5 @@ export { MenuNodesSelectors } from "./menu-nodes.selectors";
 export { AssetsSelectors } from "./assets.selectors";
 export { BusinessPeriodSelectors } from "./business-period.selectors";
 export { BusinessPeriodsSelectors } from "./business-periods.selectors";
+export { CurrenciesSelectors } from "./currencies.selectors";
+export { CurrencySelectors } from "./currency.selectors";

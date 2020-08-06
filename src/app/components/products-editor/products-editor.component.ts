@@ -82,11 +82,6 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     this.update.emit({ ...product, active: !product.active });
   }
 
-  onShowMenu($event): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-  }
-
   onCreateProduct(): void {
     this.create.emit();
   }
