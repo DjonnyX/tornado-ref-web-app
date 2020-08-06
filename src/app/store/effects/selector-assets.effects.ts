@@ -88,6 +88,27 @@ export default class SelectorAssetsEffects {
         )
     );
 
+    public readonly updateRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(SelectorAssetsActions.updateRequest),
+            switchMap(({ asset, selectorId }) => {
+                return this._apiService.updateSelectorAsset(selectorId, asset.id, {
+                    name: asset.name,
+                    active: asset.active,
+                }).pipe(
+                    mergeMap(res => {
+                        return [SelectorAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(SelectorAssetsActions.updateError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorAssetsActions.deleteRequest),

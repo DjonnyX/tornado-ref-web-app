@@ -13,6 +13,8 @@ export class AssetsUploaderComponent implements OnInit {
 
   @Output() upload = new EventEmitter<File>();
 
+  @Output() update = new EventEmitter<IAsset>();
+
   @Output() delete = new EventEmitter<IAsset>();
 
   constructor() { }
@@ -34,5 +36,14 @@ export class AssetsUploaderComponent implements OnInit {
 
   onDeleteAsset(asset: IAsset): void {
     this.delete.emit(asset);
+  }
+
+  onToggleActive(event: Event, asset: IAsset): void {
+    if (event) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+    }
+
+    this.update.emit({ ...asset, active: !asset.active });
   }
 }

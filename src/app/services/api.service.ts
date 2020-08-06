@@ -27,6 +27,7 @@ import {
   IAssetsCreateResponse,
   IAssetsGetResponse,
   IProductAssetCreateResponse,
+  IProductAssetUpdateResponse,
   IProductAssetDeleteResponse,
   IProductAssetGetResponse,
   IProductGetResponse,
@@ -39,7 +40,8 @@ import {
   IBusinessPeriodDeleteResponse,
   ISelectorAssetDeleteResponse,
   ISelectorAssetGetResponse,
-  ISelectorAssetCreateResponse
+  ISelectorAssetCreateResponse,
+  ISelectorAssetUpdateResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -203,6 +205,15 @@ export class ApiService {
       );
   }
 
+  public updateProductAsset(productId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IProductAssetUpdateResponse> {
+    return this._http
+      .put<IProductAssetUpdateResponse>(`api/v1/product/${productId}/asset/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
   public deleteProductAsset(productId: string, assetId: string): Observable<IProductAssetDeleteResponse> {
     return this._http
       .delete<IProductAssetDeleteResponse>(`api/v1/product/${productId}/asset/${assetId}`, {
@@ -303,6 +314,15 @@ export class ApiService {
           }
         }),
       );
+  }
+
+  public updateSelectorAsset(selectorId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ISelectorAssetUpdateResponse> {
+    return this._http
+      .put<ISelectorAssetUpdateResponse>(`api/v1/selector/${selectorId}/asset/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
   }
 
   public deleteSelectorAsset(selectortId: string, assetId: string): Observable<ISelectorAssetDeleteResponse> {

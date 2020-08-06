@@ -10,6 +10,7 @@ import { NotificationService } from '@app/services/notification.service';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { IAsset } from '@models';
 import { ProductActions } from '@store/actions/product.action';
+import { formatAssetModel } from '@app/utils/asset.util';
 
 @Injectable()
 export default class ProductAssetsEffects {
@@ -81,6 +82,27 @@ export default class ProductAssetsEffects {
                     catchError((error: Error) => {
                         this._notificationService.notify(error.message);
                         return of(ProductAssetsActions.createError({ tmpAsset, error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
+    public readonly updateRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(ProductAssetsActions.updateRequest),
+            switchMap(({ asset, productId }) => {
+                return this._apiService.updateProductAsset(productId, asset.id, {
+                    name: asset.name,
+                    active: asset.active,
+                }).pipe(
+                    mergeMap(res => {
+                        return [ProductAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(ProductAssetsActions.updateError({ error: error.message }));
                     }),
                 );
             })

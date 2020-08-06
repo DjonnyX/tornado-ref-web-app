@@ -7,6 +7,7 @@ $assets-size-m: px2em(90);
 $assets-size-d: px2em(110);
 $assets-button-menu-size-m: px2em(32);
 $assets-button-menu-size-d: px2em(38);
+$ctrl-panel-height: px2em(40);
 
 @mixin button() {
     user-select: none;
@@ -32,11 +33,24 @@ $assets-button-menu-size-d: px2em(38);
         border-radius: 4px;
         overflow: hidden;
 
+        &.disabled {
+            opacity: 0.5;
+        }
+
+        .asset-ctrl-panel {
+            background: rgba($primary, 0.1);
+            border: 1px solid rgba($primary-700, 0.5);
+            border-radius: 4px 4px 0 0;
+            display: flex;
+            color: #000000;
+        }
+
         .asset-thumbnail {
             width: 100%;
             box-sizing: border-box;
             border: 1px solid rgba($primary-700, 0.5);
-            border-radius: 4px;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
             margin-bottom: px2em(8);
             background-position: center !important;
             background-size: cover !important;
@@ -53,20 +67,16 @@ $assets-button-menu-size-d: px2em(38);
             text-align: center;
         }
 
-        .asset-ctrl-panel {
-            position: absolute;
-            display: flex;
-            justify-content: flex-end;
-            width: 100%;
-            top: 0;
-            background: rgba( $primary-800, .725);
-        }
-
         .asset-menu-button {
+            margin-left: auto;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #ffffff;
+            color: #000000;
+        }
+
+        .asset-checkbox-active {
+            padding: px2em(8);
         }
     }
 }
@@ -100,8 +110,8 @@ $assets-button-menu-size-d: px2em(38);
         }
 
         .asset-btn-add {
-            min-height: $assets-size-d;
-            max-height: $assets-size-d;
+            min-height: $assets-size-d + $ctrl-panel-height;
+            max-height: $assets-size-d + $ctrl-panel-height;
         }
     }
 }
@@ -135,8 +145,8 @@ $assets-button-menu-size-d: px2em(38);
         }
 
         .asset-btn-add {
-            min-height: $assets-size-m;
-            min-height: $assets-size-m;
+            min-height: $assets-size-m + $ctrl-panel-height;
+            min-height: $assets-size-m + $ctrl-panel-height;
         }
     }
 }

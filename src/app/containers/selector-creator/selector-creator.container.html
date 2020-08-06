@@ -30,7 +30,7 @@
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessAssets$ | async">
                 <ta-assets-uploader [collection]="selectorAssets$ | async" (upload)="onAssetUpload($event)"
-                    (delete)="onAssetDelete($event)"></ta-assets-uploader>
+                    (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
             </ta-query-progress>
         </div>
     </div>

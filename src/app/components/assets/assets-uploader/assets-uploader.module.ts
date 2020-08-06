@@ -7,6 +7,7 @@ import { MatRippleModule } from '@angular/material/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatMenuModule,
     MatIconModule,
     MatProgressBarModule,
+    MatCheckboxModule,
   ]
 })
 export class AssetsUploaderModule { }

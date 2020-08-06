@@ -19,14 +19,16 @@ import { IProductsUpdateResponse } from './products-update-response.interface';
 import { IProductsDeleteResponse } from './products-delete-response.interface';
 import { IProductAssetGetResponse } from './product-assets-get-response.interface';
 import { IProductAssetCreateResponse } from './product-asset-create-response.interface';
+import { IProductAssetUpdateResponse } from './product-asset-update-response.interface';
 import { IProductAssetDeleteResponse } from './product-asset-delete-response.interface';
 import { ISelectorsGetResponse } from './selectors-get-response.interface';
 import { ISelectorGetResponse } from './selector-get-response.interface';
 import { ISelectorsCreateResponse } from './selectors-create-response.interface';
 import { ISelectorsUpdateResponse } from './selectors-update-response.interface';
 import { ISelectorsDeleteResponse } from './selectors-delete-response.interface';
-import { ISelectorAssetGetResponse } from './selector-assets-get-response.interface';
+import { ISelectorAssetGetResponse } from './selector-asset-get-response.interface';
 import { ISelectorAssetCreateResponse } from './selector-asset-create-response.interface';
+import { ISelectorAssetUpdateResponse } from './selector-asset-update-response.interface';
 import { ISelectorAssetDeleteResponse } from './selector-asset-delete-response.interface';
 import { IBusinessPeriodsGetResponse } from './business-periods-get-response.interface';
 import { IBusinessPeriodGetResponse } from './business-period-get-response.interface';
@@ -65,6 +67,7 @@ export {
     IProductsUpdateResponse,
     IProductsDeleteResponse,
     IProductAssetGetResponse,
+    IProductAssetUpdateResponse,
     IProductAssetCreateResponse,
     IProductAssetDeleteResponse,
     ISelectorsGetResponse,
@@ -74,6 +77,7 @@ export {
     ISelectorsDeleteResponse,
     ISelectorAssetGetResponse,
     ISelectorAssetCreateResponse,
+    ISelectorAssetUpdateResponse,
     ISelectorAssetDeleteResponse,
     IBusinessPeriodsGetResponse,
     IBusinessPeriodGetResponse,
