@@ -134,16 +134,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SelectorAssetsActions.clear());
   }
 
-  onSelectorMainAssetSelect(asset: IAsset): void {
-    if (!asset) {
-      return;
-    }
-
-    if (this._selector.mainAsset !== asset.id) {
-      this._store.dispatch(SelectorActions.update({ selector: { ...this._selector, mainAsset: asset.id } }));
-    }
-  }
-
   onMainOptionsSave(selector: ISelector): void {
     if (this.isEditMode) {
       this._store.dispatch(SelectorActions.updateRequest({ id: selector.id, selector }));

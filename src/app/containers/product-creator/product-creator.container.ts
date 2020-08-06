@@ -206,16 +206,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductAssetsActions.clear());
   }
 
-  onProductMainAssetSelect(asset: IAsset): void {
-    if (!asset) {
-      return;
-    }
-
-    if (this._product.mainAsset !== asset.id) {
-      this._store.dispatch(ProductActions.update({ product: { ...this._product, mainAsset: asset.id } }));
-    }
-  }
-
   onAssetUpload(file: File): void {
     this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, file }));
   }
