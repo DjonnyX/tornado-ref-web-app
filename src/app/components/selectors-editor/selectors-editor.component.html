@@ -1,15 +1,14 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity"
-            *ngFor="let selector of collection | search: searchPattern" [class.disabled]="!selector.active">
+        <div class="entity" *ngFor="let selector of collection | search: searchPattern"
+            [class.disabled]="!selector.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
                     <mat-checkbox color="accent" #checkboxActive [checked]="selector.active"
                         (click)="onToggleActive($event, selector)"></mat-checkbox>
                 </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button"
-                    (click)="onShowMenu($event)" aria-label="Menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">

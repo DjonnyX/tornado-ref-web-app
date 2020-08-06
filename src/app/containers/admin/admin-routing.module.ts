@@ -43,6 +43,13 @@ const routes: Routes = [
           )
       },
       {
+        path: 'currencies',
+        loadChildren: () =>
+          import('@containers/currencies-editor/currencies-editor.module').then(
+            module => module.CurrenciesEditorModule,
+          )
+      },
+      {
         path: 'tags',
         loadChildren: () =>
           import('@containers/tags-editor/tags-editor.module').then(

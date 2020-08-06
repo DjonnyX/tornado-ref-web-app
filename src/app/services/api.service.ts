@@ -11,9 +11,9 @@ import {
   IProductsUpdateResponse,
   IProductsDeleteResponse,
   ITagsGetResponse,
-  ITagsCreateResponse,
-  ITagsUpdateResponse,
-  ITagsDeleteResponse,
+  ITagCreateResponse,
+  ITagUpdateResponse,
+  ITagDeleteResponse,
   ISelectorsGetResponse,
   ISelectorsCreateResponse,
   ISelectorsUpdateResponse,
@@ -42,12 +42,17 @@ import {
   ISelectorAssetGetResponse,
   ISelectorAssetCreateResponse,
   ISelectorAssetUpdateResponse,
+  ICurrenciesGetResponse,
+  ICurrencyGetResponse,
+  ICurrencyCreateResponse,
+  ICurrencyUpdateResponse,
+  ICurrencyDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -503,27 +508,73 @@ export class ApiService {
       });
   }
 
-  public createTag(tag: ITag): Observable<ITagsCreateResponse> {
+  public createTag(tag: ITag): Observable<ITagCreateResponse> {
     return this._http
-      .post<ITagsCreateResponse>("api/v1/tag", tag, {
+      .post<ITagCreateResponse>("api/v1/tag", tag, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public updateTag(id: string, tag: ITag): Observable<ITagsUpdateResponse> {
+  public updateTag(id: string, tag: ITag): Observable<ITagUpdateResponse> {
     return this._http
-      .put<ITagsUpdateResponse>(`api/v1/tag/${id}`, tag, {
+      .put<ITagUpdateResponse>(`api/v1/tag/${id}`, tag, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public deleteTag(id: string): Observable<ITagsDeleteResponse> {
+  public deleteTag(id: string): Observable<ITagDeleteResponse> {
     return this._http
-      .delete<ITagsDeleteResponse>(`api/v1/tag/${id}`, {
+      .delete<ITagDeleteResponse>(`api/v1/tag/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  // currencies
+  public getCurrencies(): Observable<ICurrenciesGetResponse> {
+    return this._http
+      .get<ICurrenciesGetResponse>("api/v1/currencies", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  public getCurrency(id: string): Observable<ICurrencyGetResponse> {
+    return this._http
+      .get<ICurrencyGetResponse>(`api/v1/currency/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createCurrency(currency: ICurrency): Observable<ICurrencyCreateResponse> {
+    return this._http
+      .post<ICurrencyCreateResponse>("api/v1/currency", currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateCurrency(id: string, currency: ICurrency): Observable<ICurrencyUpdateResponse> {
+    return this._http
+      .put<ICurrencyUpdateResponse>(`api/v1/currency/${id}`, currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteCurrency(id: string): Observable<ICurrencyDeleteResponse> {
+    return this._http
+      .delete<ICurrencyDeleteResponse>(`api/v1/currency/${id}`, {
         headers: {
           authorization: this._token,
         },

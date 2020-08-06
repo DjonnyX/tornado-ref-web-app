@@ -64,7 +64,12 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.save.emit({ ...this._selector, ...this.form.value, active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true });
+      this.save.emit({
+        ...this._selector,
+        ...this.form.value,
+        active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true,
+        extra: !!this._selector ? this._selector.extra : {},
+      });
     }
   }
 

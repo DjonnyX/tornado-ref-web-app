@@ -75,11 +75,6 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
-  onShowMenu($event): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-  }
-
   onToggleActive(event: Event, selector: ISelector): void {
     event.stopImmediatePropagation();
     event.preventDefault();
