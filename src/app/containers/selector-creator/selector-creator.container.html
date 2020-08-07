@@ -4,10 +4,6 @@
             go back
         </div>
         <div class="form">
-            <div class="form-header">
-                <h2>Main options</h2>
-            </div>
-
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
                 <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async"

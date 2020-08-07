@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { AssetPickerModule } from '@components/assets/asset-picker/asset-picker.module';
+import { PricesModule } from '@components/prices/pricesmodule';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { AssetPickerModule } from '@components/assets/asset-picker/asset-picker.
     MatSelectModule,
     MatFormFieldModule,
     AssetPickerModule,
+    PricesModule,
   ]
 })
 export class ProductCreatorFormModule { }

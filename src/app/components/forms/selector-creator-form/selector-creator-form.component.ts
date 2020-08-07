@@ -79,7 +79,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
   }
 
   onAssetSelect(asset: IAsset): void {
-    this.asset = asset.id;
+    this.asset = !!asset ? asset.id : null;
   }
 
   onCancel(): void {
