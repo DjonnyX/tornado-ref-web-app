@@ -37,7 +37,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   tags$: Observable<Array<ITag>>;
 
-  currentMainAsset$: Observable<string>;
+  currentMainImage$: Observable<string>;
 
   isEditMode = false;
 
@@ -98,8 +98,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       select(SelectorAssetsSelectors.selectCollection),
     );
 
-    this.currentMainAsset$ = this._store.pipe(
-      select(SelectorSelectors.selectMainAsset),
+    this.currentMainImage$ = this._store.pipe(
+      select(SelectorSelectors.selectMainImage),
     );
 
     this._store.dispatch(TagsActions.getAllRequest());

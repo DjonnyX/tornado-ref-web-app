@@ -86,7 +86,11 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.save.emit({
         ...this._product,
         ...this.form.value,
-        mainAsset: this.asset,
+        images: {
+          main: this.asset,
+          thumbnail: null,
+          icon: null,
+        },
         active: !!this._product && this._product.active !== undefined ? this._product.active : true,
         extra: !!this._product ? this._product.extra : {},
       });

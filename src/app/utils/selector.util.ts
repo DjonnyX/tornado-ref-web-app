@@ -7,7 +7,7 @@ export const formatSelectorModel = (selector: ISelector) => {
         name: selector.name,
         description: selector.description,
         assets: selector.assets,
-        mainAsset: selector.mainAsset,
+        images: selector.images,
         extra: selector.extra,
     }
 }

@@ -71,7 +71,11 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this.save.emit({
         ...this._selector,
         ...this.form.value,
-        mainAsset: this.asset,
+        images: {
+          main: this.asset,
+          thumbnail: null,
+          icon: null,
+        },
         active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true,
         extra: !!this._selector ? this._selector.extra : {},
       });

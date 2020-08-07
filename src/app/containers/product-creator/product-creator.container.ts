@@ -57,7 +57,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   currencies$: Observable<Array<ICurrency>>;
 
-  currentMainAsset$: Observable<string>;
+  currentMainImage$: Observable<string>;
 
   isEditMode = false;
 
@@ -182,8 +182,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(AssetsSelectors.selectCollection),
     );
 
-    this.currentMainAsset$ = this._store.pipe(
-      select(ProductSelectors.selectMainAsset),
+    this.currentMainImage$ = this._store.pipe(
+      select(ProductSelectors.selectMainImage),
     );
 
     this.rootNodeId$ = this.product$.pipe(

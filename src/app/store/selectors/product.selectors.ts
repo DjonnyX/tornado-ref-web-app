@@ -9,9 +9,19 @@ export namespace ProductSelectors {
     state => state.product,
   );
 
-  export const selectMainAsset = createSelector(
+  export const selectMainImage = createSelector(
     selectProduct,
-    state => !!state.product ? state.product.mainAsset : undefined,
+    state => !!state.product ? state.product.images.main : undefined,
+  );
+
+  export const selectThumbnailImage = createSelector(
+    selectProduct,
+    state => !!state.product ? state.product.images.thumbnail : undefined,
+  );
+
+  export const selectIconImage = createSelector(
+    selectProduct,
+    state => !!state.product ? state.product.images.icon : undefined,
   );
 
   export const selectLoading = createSelector(
