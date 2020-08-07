@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 
 @Component({
@@ -15,6 +15,10 @@ export class ScenarioListItemComponent implements OnInit {
   @Input() businessPeriods: Array<IBusinessPeriod>;
 
   @Input() businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
+
+  @Input() currencies: Array<ICurrency>;
+
+  @Input() currenciesDictionary: { [id: string]: ICurrency };
 
   @Input() isFirstInCollection: boolean;
 
@@ -44,17 +48,23 @@ export class ScenarioListItemComponent implements OnInit {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
         value = `: ${this.scenario.value.map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v].name : "missing").join(", ")}`;
         break;
-      case ScenarioIntroActionTypes.DURATION:
+      case ScenarioProductActionTypes.ADDITIONAL_PRICE:
+      case ScenarioProductActionTypes.FIXED_PRICE:
+        value = `: ${(this.scenario.value.value * 0.01).toFixed(2)} ${this.currenciesDictionary[this.scenario.value.currency] ? this.currenciesDictionary[this.scenario.value.currency].code : ""}`;
+        break;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioSelectorActionTypes.MAX_USAGE:
+        value = `: ${this.scenario.value} pcs`;
+        break;
+      case ScenarioIntroActionTypes.DURATION:
         value = `: ${this.scenario.value}`;
         break;
     }
 
     return `${actionName}${value}`;
   }
-  
+
   onToggleActive(event: Event): void {
     event.stopImmediatePropagation();
     event.preventDefault();

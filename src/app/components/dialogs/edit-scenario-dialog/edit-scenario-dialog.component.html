@@ -2,7 +2,8 @@
 <mat-dialog-content class="mat-typography" style="min-width: 320px;">
     <p *ngIf="!!data.message">{{data.message}}</p>
     <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [businessPeriods]="data.businessPeriods"
-        (status)="onChangeStatus($event)" (edit)="onChangeScenario($event)"></ta-scenario-editor>
+        [currencies]="data.currencies" (status)="onChangeStatus($event)" (edit)="onChangeScenario($event)">
+    </ta-scenario-editor>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
     <button mat-button mat-dialog-close>Cancel</button>

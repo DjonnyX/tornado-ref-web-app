@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
-import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset } from '@djonnyx/tornado-types';
+import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency } from '@djonnyx/tornado-types';
 
 interface IDictionary<T = any> {
   [id: string]: T;
@@ -34,6 +34,16 @@ export class NodeTreeComponent implements OnInit {
 
   selectorsCollection: Array<ISelector>;
   selectorsDictionary: { [id: string]: ISelector };
+
+  currenciesCollection: Array<ICurrency>;
+  currenciesDictionary: { [id: string]: ICurrency };
+
+  @Input() set currencies(v: Array<ICurrency>) {
+    if (this.currenciesCollection !== v) {
+      this.currenciesCollection = v;
+      this.currenciesDictionary = !!v ? getMapOfCollection(v) : {};
+    }
+  }
 
   @Input() searchFieldClass: string;
 
