@@ -7,7 +7,7 @@
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
                 <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
-                    [tagList]="tags$ | async" [asset]="currentMainAsset$ | async" [assets]="productAssets$ | async"
+                    [tagList]="tags$ | async" [images]="images$ | async" [assets]="productAssets$ | async"
                     [currencies]="currencies$ | async" (save)="onMainOptionsSave($event)"
                     (cancel)="onMainOptionsCancel()">
                 </ta-product-creator-form>

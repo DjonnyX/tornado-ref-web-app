@@ -1,13 +1,64 @@
 @import "../utils/px2em";
 
+$n-size: px2em(280);
+$m-size: px2em(128);
+$s-size: px2em(96);
+
 .asset-picker {
-    .asset-preview {
+    width: $n-size;
+
+    .asset-viewer {
+        width: $n-size;
+        height: $n-size;
         border-radius: 4px;
+        border: 1px solid rgba($primary-700, 0.1);
         overflow: hidden;
-        height: px2em(280);
-        background-size: cover !important;
-        background-position: center !important;
-        margin-bottom: px2em(26);
-        border: 1px solid rgba($primary-700, 0.5);
+        margin-bottom: px2em(24);
+        position: relative;
+
+        .asset-preview__substract {
+            position: absolute;
+            width: $n-size;
+            height: $n-size;
+        }
+
+        .asset-preview {
+            position: absolute;
+            width: $n-size;
+            height: $n-size;
+            background-size: cover !important;
+            background-position: center !important;
+            z-index: 1;
+        }
+    }
+
+    &.m {
+        width: $m-size;
+
+        .asset-viewer {
+            width: $m-size;
+            height: $m-size;
+
+            .asset-preview__substract,
+            .asset-preview {
+                width: $m-size;
+                height: $m-size;
+            }
+        }
+    }
+
+    &.s {
+        width: $s-size;
+
+        .asset-viewer {
+            width: $s-size;
+            height: $s-size;
+
+            .asset-preview__substract,
+            .asset-preview {
+                width: $s-size;
+                height: $s-size;
+            }
+        }
     }
 }

@@ -1,3 +1,17 @@
+@import "../../../../styles/components/color-picker";
+@import "../../../../styles/themes";
+@import "../../../../styles/utils/px2em";
+
 .selector__description {
-    height: 130px;
+    height: px2em(130);
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+    background: rgba($block-color, 0.1);
+    border-radius: 6px;
+    padding: px2em(22);
 }

@@ -9,7 +9,7 @@ import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { SelectorActions } from '@store/actions/selector.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
-import { ISelector, ITag, SelectorTypes, IAsset } from '@djonnyx/tornado-types';
+import { ISelector, ITag, SelectorTypes, IAsset, ISelectorImages } from '@djonnyx/tornado-types';
 import { SelectorAssetsSelectors, SelectorsSelectors } from '@store/selectors';
 import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
 
@@ -37,7 +37,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   tags$: Observable<Array<ITag>>;
 
-  currentMainAsset$: Observable<string>;
+  images$: Observable<ISelectorImages>;
 
   isEditMode = false;
 
@@ -98,8 +98,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       select(SelectorAssetsSelectors.selectCollection),
     );
 
-    this.currentMainAsset$ = this._store.pipe(
-      select(SelectorSelectors.selectMainAsset),
+    this.images$ = this._store.pipe(
+      select(SelectorSelectors.selectImages),
     );
 
     this._store.dispatch(TagsActions.getAllRequest());

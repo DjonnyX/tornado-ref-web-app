@@ -9,9 +9,9 @@ export namespace SelectorSelectors {
     state => state.selector,
   );
 
-  export const selectMainAsset = createSelector(
+  export const selectImages = createSelector(
     sselectSelector,
-    state => !!state.selector ? state.selector.mainAsset : undefined,
+    state => !!state.selector ? state.selector.images : undefined,
   );
 
   export const selectLoading = createSelector(

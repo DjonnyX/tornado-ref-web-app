@@ -1,12 +1,17 @@
+@import "../themes";
 @import "../base/reset-input";
+@import "../utils/px2em";
 
 .color-picker {
     @include reset-input();
 
     position: relative;
-    border: 1px solid #dadada;
-    border-radius: 5px;
-    padding: 10px;
-    width: 80px;
+    border: 1px solid rgba($primary, 0.1);
+    border-radius: 4px;
+    padding: px2em(10);
+    width: px2em(100);
     margin: 0;
+    margin-bottom: px2em(24);
+
+    z-index: 0;
 }
