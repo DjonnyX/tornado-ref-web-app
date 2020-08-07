@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetect
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IProduct, ITag } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IAsset, ICurrency, IPrice } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -20,7 +20,13 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   ctrlTags = new FormControl([]);
 
+  ctrlPrices = new FormControl([]);
+
   ctrlReceipt = new FormControl([]);
+
+  @Input() asset: string;
+
+  @Input() assets: Array<IAsset>;
 
   private _product: IProduct;
   @Input() set product(product: IProduct) {
@@ -30,9 +36,16 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.ctrlName.setValue(product.name);
       this.ctrlDescription.setValue(product.description);
       this.ctrlTags.setValue(product.tags);
+      this.ctrlPrices.setValue(product.prices);
       // this.ctrlReceipt.setValue(product.receipt);
     }
   }
+
+  get product() {
+    return this._product;
+  }
+
+  @Input() currencies: Array<ICurrency>;
 
   @Input() isEditMode: boolean;
 
@@ -51,6 +64,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       name: this.ctrlName,
       description: this.ctrlDescription,
       tags: this.ctrlTags,
+      prices: this.ctrlPrices,
       receipt: this.ctrlReceipt,
     })
   }
@@ -67,10 +81,24 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     super.ngOnDestroy();
   }
 
-  onMainOptionsSave(): void {
+  onSave(): void {
     if (this.form.valid) {
-      this.save.emit({ ...this._product, ...this.form.value, active: !!this._product && this._product.active !== undefined ? this._product.active : true });
+      this.save.emit({
+        ...this._product,
+        ...this.form.value,
+        mainAsset: this.asset,
+        active: !!this._product && this._product.active !== undefined ? this._product.active : true,
+        extra: !!this._product ? this._product.extra : {},
+      });
     }
+  }
+
+  onAssetSelect(asset: IAsset): void {
+    this.asset = !!asset ? asset.id : null;
+  }
+
+  onChangePrices(prices: Array<IPrice>): void {
+    this.ctrlPrices.setValue(prices);
   }
 
   onCancel(): void {

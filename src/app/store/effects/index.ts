@@ -13,6 +13,8 @@ import ProductEffects from './product.effects';
 import TagEffects from './tag.effects';
 import BusinessPeriodsEffects from './business-periods.effects';
 import BusinessPeriodEffects from './business-period.effects';
+import CurrenciesEffects from './currencies.effects';
+import CurrencyEffects from './currency.effects';
 
 const rootEffects = [
   UserEffects,
@@ -30,6 +32,7 @@ const rootEffects = [
   TagsEffects,
   TagEffects,
   AssetsEffects,
-
+  CurrenciesEffects,
+  CurrencyEffects,
 ];
 export default rootEffects;

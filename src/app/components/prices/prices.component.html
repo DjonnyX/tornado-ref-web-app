@@ -1,0 +1,8 @@
+<div class="prices">
+    <div *ngFor="let currency of currencies; let index = index" class="price__item">
+        <div class="item__controls">
+            <ta-price [price]="prices[index]" [currency]="currency" [currenciesDictionary]="currenciesDictionary"
+                (update)="onPriceChange(prices[index], $event)"></ta-price>
+        </div>
+    </div>
+</div>

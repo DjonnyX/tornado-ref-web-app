@@ -40,11 +40,6 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
-  onShowMenu($event): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-  }
-
   onToggleActive(event: Event, tag: ITag): void {
     event.stopImmediatePropagation();
     event.preventDefault();

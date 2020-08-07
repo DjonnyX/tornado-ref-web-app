@@ -1,5 +1,5 @@
-import { IBaseState } from './base';import { ITag } from '@djonnyx/tornado-types';
-;
+import { IBaseState } from './base';
+import { ITag } from '@djonnyx/tornado-types';
 
 export interface ITagState extends IBaseState {
     tag: ITag;

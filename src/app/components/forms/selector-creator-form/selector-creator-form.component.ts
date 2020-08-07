@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ISelector, ITag } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IAsset } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-selector-creator-form',
@@ -18,6 +18,10 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
   ctrlDescription = new FormControl('');
 
   //ctrlTags = new FormControl([]);
+
+  @Input() asset: string;
+
+  @Input() assets: Array<IAsset>;
 
   private _selector: ISelector;
   @Input() set selector(selector: ISelector) {
@@ -62,10 +66,20 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     super.ngOnDestroy();
   }
 
-  onSubmit(): void {
+  onSave(): void {
     if (this.form.valid) {
-      this.save.emit({ ...this._selector, ...this.form.value, active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true });
+      this.save.emit({
+        ...this._selector,
+        ...this.form.value,
+        mainAsset: this.asset,
+        active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true,
+        extra: !!this._selector ? this._selector.extra : {},
+      });
     }
+  }
+
+  onAssetSelect(asset: IAsset): void {
+    this.asset = !!asset ? asset.id : null;
   }
 
   onCancel(): void {

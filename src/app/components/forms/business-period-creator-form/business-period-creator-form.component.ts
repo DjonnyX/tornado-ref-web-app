@@ -66,6 +66,7 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
         ...this._businessPeriod,
         ...this.form.value, schedule: this._schedule.value || [],
         active: !!this._businessPeriod && this._businessPeriod.active !== undefined ? this._businessPeriod.active : true,
+        extra: !!this._businessPeriod ? this._businessPeriod.extra : {},
       });
     }
   }

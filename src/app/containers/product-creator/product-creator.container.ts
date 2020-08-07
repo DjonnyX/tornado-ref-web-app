@@ -15,9 +15,11 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
+import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
+import { CurrenciesActions } from '@store/actions/currencies.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -52,6 +54,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   assets$: Observable<Array<IAsset>>;
 
   tags$: Observable<Array<ITag>>;
+
+  currencies$: Observable<Array<ICurrency>>;
 
   currentMainAsset$: Observable<string>;
 
@@ -96,9 +100,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(AssetsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(CurrenciesSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -147,6 +154,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(TagsSelectors.selectCollection),
     );
 
+    this.currencies$ = this._store.pipe(
+      select(CurrenciesSelectors.selectCollection),
+    );
+
     this.nodes$ = this._store.pipe(
       select(ProductNodesSelectors.selectCollection),
     );
@@ -190,9 +201,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
       this._store.dispatch(BusinessPeriodsActions.getAllRequest());
       this._store.dispatch(AssetsActions.getAllRequest());
+      this._store.dispatch(TagsActions.getAllRequest());
+      this._store.dispatch(CurrenciesActions.getAllRequest());
     });
-
-    this._store.dispatch(TagsActions.getAllRequest());
 
     if (!!this._productId) {
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
@@ -204,16 +215,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this._store.dispatch(ProductActions.clear());
     this._store.dispatch(ProductAssetsActions.clear());
-  }
-
-  onProductMainAssetSelect(asset: IAsset): void {
-    if (!asset) {
-      return;
-    }
-
-    if (this._product.mainAsset !== asset.id) {
-      this._store.dispatch(ProductActions.update({ product: { ...this._product, mainAsset: asset.id } }));
-    }
   }
 
   onAssetUpload(file: File): void {

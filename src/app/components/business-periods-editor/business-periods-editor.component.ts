@@ -38,11 +38,6 @@ export class BusinessPeriodsEditorComponent extends BaseComponent implements OnI
     super.ngOnDestroy();
   }
 
-  onShowMenu($event): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-  }
-
   onToggleActive(event: Event, businessPeriod: IBusinessPeriod): void {
     event.stopImmediatePropagation();
     event.preventDefault();
