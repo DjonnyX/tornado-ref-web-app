@@ -1,7 +1,8 @@
 @import "../../../../styles/components/color-picker";
+@import "../../../../styles/utils/px2em";
 
 .selector__description {
-    height: 130px;
+    height: px2em(130);
 }
 
 .images {
@@ -9,4 +10,7 @@
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
+    background: #eef2f3;
+    border-radius: 6px;
+    padding: px2em(22);
 }

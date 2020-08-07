@@ -1,11 +1,12 @@
 @import "../../../../styles/components/color-picker";
+@import "../../../../styles/utils/px2em";
 
 .prices__wrapper {
-    margin-bottom: 20px;
+    margin-bottom: px2em(20);
 }
 
 .product__description {
-    height: 130px;
+    height: px2em(130);
 }
 
 .images {
@@ -13,4 +14,7 @@
     flex-wrap: wrap;
     align-items: flex-start;
     justify-content: space-around;
+    background: #eef2f3;
+    border-radius: 6px;
+    padding: px2em(22);
 }
