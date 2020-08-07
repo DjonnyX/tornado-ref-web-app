@@ -15,7 +15,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
@@ -57,7 +57,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   currencies$: Observable<Array<ICurrency>>;
 
-  currentMainImage$: Observable<string>;
+  images$: Observable<IProductImages>;
 
   isEditMode = false;
 
@@ -182,8 +182,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(AssetsSelectors.selectCollection),
     );
 
-    this.currentMainImage$ = this._store.pipe(
-      select(ProductSelectors.selectMainImage),
+    this.images$ = this._store.pipe(
+      select(ProductSelectors.selectImages),
     );
 
     this.rootNodeId$ = this.product$.pipe(

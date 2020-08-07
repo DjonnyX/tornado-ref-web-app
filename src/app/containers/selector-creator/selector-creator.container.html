@@ -7,7 +7,7 @@
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
                 <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async"
-                    [tagList]="tags$ | async" [asset]="currentMainImage$ | async" [assets]="selectorAssets$ | async"
+                    [tagList]="tags$ | async" [images]="images$ | async" [assets]="selectorAssets$ | async"
                     (save)="onMainOptionsSave($event)" (cancel)="onCancel()">
                 </ta-selector-creator-form>
             </ta-query-progress>

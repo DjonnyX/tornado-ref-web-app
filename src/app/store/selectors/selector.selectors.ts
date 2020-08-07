@@ -9,19 +9,9 @@ export namespace SelectorSelectors {
     state => state.selector,
   );
 
-  export const selectMainImage = createSelector(
+  export const selectImages = createSelector(
     sselectSelector,
-    state => !!state.selector ? state.selector.images.main : undefined,
-  );
-
-  export const selectThumbnailImage = createSelector(
-    sselectSelector,
-    state => !!state.selector ? state.selector.images.thumbnail : undefined,
-  );
-
-  export const selectIconImage = createSelector(
-    sselectSelector,
-    state => !!state.selector ? state.selector.images.icon : undefined,
+    state => !!state.selector ? state.selector.images : undefined,
   );
 
   export const selectLoading = createSelector(
