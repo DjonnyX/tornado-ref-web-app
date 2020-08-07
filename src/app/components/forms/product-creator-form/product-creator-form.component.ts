@@ -14,6 +14,16 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   form: FormGroup;
 
+  get color() {
+    return this.ctrlColor.value;
+  }
+
+  set color(v: string) {
+    this.ctrlColor.setValue(v);
+  }
+
+  ctrlColor = new FormControl('#000000');
+
   ctrlName = new FormControl('', [Validators.required]);
 
   ctrlDescription = new FormControl('');
@@ -37,6 +47,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.ctrlDescription.setValue(product.description);
       this.ctrlTags.setValue(product.tags);
       this.ctrlPrices.setValue(product.prices);
+      this.ctrlColor.setValue(product.color);
       // this.ctrlReceipt.setValue(product.receipt);
     }
   }
@@ -66,6 +77,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       tags: this.ctrlTags,
       prices: this.ctrlPrices,
       receipt: this.ctrlReceipt,
+      color: this.ctrlColor,
     })
   }
 

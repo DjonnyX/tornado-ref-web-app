@@ -5,6 +5,7 @@ export const formatSelectorModel = (selector: ISelector) => {
         active: selector.active,
         type: selector.type,
         name: selector.name,
+        color: selector.color,
         description: selector.description,
         assets: selector.assets,
         images: {
