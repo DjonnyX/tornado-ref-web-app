@@ -27,6 +27,7 @@
         <div *ngIf="isExpanded">
             <ta-scenario-list-item *ngFor="let scenario of scenarios; let index = index;" [scenario]="scenario"
                 [businessPeriods]="businessPeriods" [businessPeriodsDictionary]="businessPeriodsDictionary"
+                [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
                 [isFirstInCollection]="index === 0" [isLastInCollection]="index === scenarios.length - 1" [lock]="lock"
                 (upward)="onUpward(scenario)" (downward)="onDownward(scenario)" (edit)="onEdit(scenario)"
                 (update)="onUpdate($event, scenario)" (delete)="onDelete(scenario)">

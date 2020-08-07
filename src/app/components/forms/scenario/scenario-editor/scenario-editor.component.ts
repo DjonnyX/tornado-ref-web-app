@@ -1,20 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod } from '@djonnyx/tornado-types';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
-
-/*const SCENARIO_EDITOR_TYPES = [
-  ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-  ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
-  ScenarioIntroActionTypes.DURATION,
-  ScenarioProductActionTypes.DOWN_LIMIT,
-  ScenarioProductActionTypes.UP_LIMIT,
-  ScenarioSelectorActionTypes.MAX_USAGE,
-  ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
-];*/
 
 @Component({
   selector: 'ta-scenario-editor',
@@ -23,14 +13,26 @@ import { NodeScenarioTypes } from '@enums/node-scenario-types';
 })
 export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
+  @Input() currencies: Array<ICurrency>;
+
   private _scenario: IScenario;
 
   @Input() set scenario(v: IScenario) {
     if (v) {
       this._scenario = v;
       this.ctrlAction.setValue(v.action);
-      this.ctrlValue.setValue(v.value);
       this.ctrlExtra.setValue(v.extra);
+
+      switch (v.action) {
+        case ScenarioProductActionTypes.ADDITIONAL_PRICE:
+        case ScenarioProductActionTypes.FIXED_PRICE:
+          this.ctrlValue.setValue(!!v.value ? v.value.value * 0.01 : 0);
+          this.ctrlCurrency.setValue(!!v.value ? v.value.currency : undefined);
+          break;
+        default:
+          this.ctrlValue.setValue(v.value);
+          break;
+      }
 
       this.resetValidators(v.action);
     }
@@ -51,6 +53,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
           ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioProductActionTypes.UP_LIMIT,
+          ScenarioProductActionTypes.ADDITIONAL_PRICE,
+          ScenarioProductActionTypes.FIXED_PRICE,
         ];
         break;
       case NodeScenarioTypes.PRODUCT_IN_SCHEMA:
@@ -59,6 +63,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.DOWN_LIMIT,
+          ScenarioProductActionTypes.ADDITIONAL_PRICE,
+          ScenarioProductActionTypes.FIXED_PRICE,
         ];
         break;
       case NodeScenarioTypes.CATEGORY_IN_SCHEMA:
@@ -86,6 +92,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   ctrlExtra = new FormControl(undefined);
 
+  ctrlCurrency = new FormControl(undefined, [Validators.required]);
+
   types: Array<ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes>;
 
   readonly ScenarioCommonActionTypes = ScenarioCommonActionTypes;
@@ -104,6 +112,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.form = new FormGroup({
       action: this.ctrlAction,
       value: this.ctrlValue,
+      currency: this.ctrlCurrency,
       extra: this.ctrlExtra,
     });
 
@@ -117,7 +126,26 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
-      this.edit.emit({ ...value, active: !!this._scenario ? this._scenario.active : true });
+      const scenario: IScenario = {
+        active: !!this._scenario ? this._scenario.active : true,
+        action: value.action,
+        extra: value.extra,
+      };
+
+      switch (value.action) {
+        case ScenarioProductActionTypes.ADDITIONAL_PRICE:
+        case ScenarioProductActionTypes.FIXED_PRICE:
+          scenario.value = {
+            currency: value.currency,
+            value: value.value * 100,
+          };
+          break;
+        default:
+          scenario.value = value.value;
+          break;
+      }
+
+      this.edit.emit(scenario);
     });
 
     this.form.statusChanges.pipe(
@@ -133,6 +161,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   private resetValidators(action: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
     this.ctrlValue.clearValidators();
+    this.ctrlCurrency.clearValidators();
 
     switch (action) {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
@@ -142,6 +171,11 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioSelectorActionTypes.MAX_USAGE:
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
         this.ctrlValue.setValidators([Validators.required]);
+        break;
+      case ScenarioProductActionTypes.ADDITIONAL_PRICE:
+      case ScenarioProductActionTypes.FIXED_PRICE:
+        this.ctrlValue.setValidators([Validators.required]);
+        this.ctrlCurrency.setValidators([Validators.required]);
         break;
     }
   }

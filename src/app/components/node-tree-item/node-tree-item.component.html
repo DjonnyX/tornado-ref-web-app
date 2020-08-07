@@ -70,6 +70,7 @@
         <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceScenarios">
             <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
                 <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
+                    [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
                     [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
                     (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
                     (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
@@ -82,6 +83,7 @@
             <div class="node-tree-scenario-editor"
                 *ngIf="!!nodeInstance.scenarios && nodeInstance.scenarios.length > 0">
                 <ta-scenario-list [scenarios]="nodeInstance.scenarios" [businessPeriods]="businessPeriods"
+                    [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
                     [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
                     (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
                     (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
@@ -95,7 +97,8 @@
                     [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)" [currentIndex]="index"
                     [parentChildrenLength]="node.children.length" [isInstanceChain]="isInstanceChain" [lock]="lock"
                     [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary" [products]="products"
-                    [selectors]="selectors" [businessPeriods]="businessPeriods"
+                    [selectors]="selectors" [businessPeriods]="businessPeriods" [currencies]="currencies"
+                    [currenciesDictionary]="currenciesDictionary"
                     [businessPeriodsDictionary]="businessPeriodsDictionary" [productsDictionary]="productsDictionary"
                     [selectorsDictionary]="selectorsDictionary" [assetsDictionary]="assetsDictionary"
                     [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
@@ -109,7 +112,8 @@
                         [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)"
                         [parentChildrenLength]="nodeInstance.children.length" [depth]="depth + 1" [lock]="true"
                         [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary" [products]="products"
-                        [selectors]="selectors" [businessPeriods]="businessPeriods"
+                        [selectors]="selectors" [businessPeriods]="businessPeriods" [currencies]="currencies"
+                        [currenciesDictionary]="currenciesDictionary"
                         [businessPeriodsDictionary]="businessPeriodsDictionary"
                         [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
                         [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
