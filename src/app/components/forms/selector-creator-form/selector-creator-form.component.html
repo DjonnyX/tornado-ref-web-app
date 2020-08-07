@@ -1,13 +1,35 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
     <div [ngClass]="{'main-options-wrapper': isEditMode}">
-        <div>
-            <h2 class="form-header">
-                Image
-            </h2>
+        <div class="images">
+            <div class="image-n">
+                <h2 class="form-header">
+                    Image
+                </h2>
 
-            <ta-asset-picker *ngIf="isEditMode" [defaultValue]="asset" [assets]="assets"
-                (select)="onAssetSelect($event)">
-            </ta-asset-picker>
+                <ta-asset-picker *ngIf="isEditMode" [defaultValue]="!!images ? images.main : undefined"
+                    [assets]="assets" (select)="onMainImageSelect($event)">
+                </ta-asset-picker>
+            </div>
+
+            <div class="image-m">
+                <h2 class="form-header">
+                    Thumbnail
+                </h2>
+
+                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.thumbnail : undefined"
+                    [assets]="assets" (select)="onThumbnailImageSelect($event)">
+                </ta-asset-picker>
+            </div>
+
+            <div class="image-s">
+                <h2 class="form-header">
+                    Icon
+                </h2>
+
+                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.icon : undefined"
+                    [assets]="assets" (select)="onIconImageSelect($event)">
+                </ta-asset-picker>
+            </div>
         </div>
 
         <div>

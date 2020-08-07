@@ -7,7 +7,11 @@ export const formatSelectorModel = (selector: ISelector) => {
         name: selector.name,
         description: selector.description,
         assets: selector.assets,
-        mainAsset: selector.mainAsset,
+        images: {
+            main: !!selector.images ? selector.images.main : null,
+            thumbnail: !!selector.images ? selector.images.thumbnail : null,
+            icon: !!selector.images ? selector.images.icon : null,
+        },
         extra: selector.extra,
     }
 }

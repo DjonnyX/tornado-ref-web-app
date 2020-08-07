@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetect
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IProduct, ITag, IAsset, ICurrency, IPrice } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductImages } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -24,7 +24,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   ctrlReceipt = new FormControl([]);
 
-  @Input() asset: string;
+  @Input() images: IProductImages;
 
   @Input() assets: Array<IAsset>;
 
@@ -82,19 +82,38 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   onSave(): void {
+    const images: IProductImages = {...this.images};
+    if (!(images as any).hasOwnProperty("main")) {
+      images.main = null;
+    }
+    if (!(images as any).hasOwnProperty("thumbnail")) {
+      images.thumbnail = null;
+    }
+    if (!(images as any).hasOwnProperty("icon")) {
+      images.icon = null;
+    }
+
     if (this.form.valid) {
       this.save.emit({
         ...this._product,
         ...this.form.value,
-        mainAsset: this.asset,
+        images,
         active: !!this._product && this._product.active !== undefined ? this._product.active : true,
         extra: !!this._product ? this._product.extra : {},
       });
     }
   }
 
-  onAssetSelect(asset: IAsset): void {
-    this.asset = !!asset ? asset.id : null;
+  onMainImageSelect(asset: IAsset): void {
+    this.images = {...this.images, main: !!asset ? asset.id : null};
+  }
+
+  onThumbnailImageSelect(asset: IAsset): void {
+    this.images = {...this.images, thumbnail: !!asset ? asset.id : null};
+  }
+
+  onIconImageSelect(asset: IAsset): void {
+    this.images = {...this.images, icon: !!asset ? asset.id : null};
   }
 
   onChangePrices(prices: Array<IPrice>): void {

@@ -1,3 +1,10 @@
 .selector__description {
     height: 130px;
 }
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+}

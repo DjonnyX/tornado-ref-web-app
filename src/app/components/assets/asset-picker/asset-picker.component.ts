@@ -12,6 +12,8 @@ import { getThumbnail } from '@app/utils/asset.util';
 })
 export class AssetPickerComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  @Input() size: string;
+
   private _defaultValue: string;
   @Input() set defaultValue(v: string) {
     if (!!v && this._defaultValue !== v) {

@@ -93,10 +93,10 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
   getThumbnail(entity: IEntity): string {
     const content: any = entity;
 
-    if (!!this.assetsDictionary && !!content.mainAsset) {
+    if (!!this.assetsDictionary && !!content.images.main) {
 
-      if (this.assetsDictionary[content.mainAsset]) {
-        return this.assetsDictionary[content.mainAsset].mipmap.x32;
+      if (this.assetsDictionary[content.images.main]) {
+        return this.assetsDictionary[content.images.main].mipmap.x32;
       }
     }
 

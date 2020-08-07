@@ -80,10 +80,10 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   getThumbnail(node: INode): string {
     const content: any = this.getContent(node);
 
-    if (!!content && !!this.assetsDictionary && !!content.mainAsset) {
+    if (!!content && !!this.assetsDictionary && !!content.images.main) {
 
-      if (this.assetsDictionary[content.mainAsset]) {
-        return this.assetsDictionary[content.mainAsset].mipmap.x32;
+      if (this.assetsDictionary[content.images.main]) {
+        return this.assetsDictionary[content.images.main].mipmap.x32;
       }
     }
 

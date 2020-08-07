@@ -10,7 +10,11 @@ export const formatProductModel = (product: IProduct) => {
         tags: product.tags,
         joint: product.joint,
         assets: product.assets,
-        mainAsset: product.mainAsset,
+        images: {
+            main: !!product.images ? product.images.main : null,
+            thumbnail: !!product.images ? product.images.thumbnail : null,
+            icon: !!product.images ? product.images.icon : null,
+        },
         extra: product.extra,
     }
 }
