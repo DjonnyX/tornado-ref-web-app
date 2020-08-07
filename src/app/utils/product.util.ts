@@ -4,6 +4,7 @@ export const formatProductModel = (product: IProduct) => {
     return {
         active: product.active,
         name: product.name,
+        color: product.color,
         description: product.description,
         prices: product.prices,
         receipt: product.receipt,

@@ -14,6 +14,8 @@ export class AssetPickerComponent extends BaseComponent implements OnInit, OnDes
 
   @Input() size: string;
 
+  @Input() color: string;
+
   private _defaultValue: string;
   @Input() set defaultValue(v: string) {
     if (!!v && this._defaultValue !== v) {

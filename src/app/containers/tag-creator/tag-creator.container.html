@@ -4,10 +4,6 @@
             go back
         </div>
         <div class="form">
-            <div class="form-header">
-                <h2>Main options</h2>
-            </div>
-
             <ta-tag-creator-form [isEditMode]="isEditMode" [tag]="tag$ | async" (submitForm)="onSubmit($event)"
                 (cancel)="onCancel()"></ta-tag-creator-form>
         </div>

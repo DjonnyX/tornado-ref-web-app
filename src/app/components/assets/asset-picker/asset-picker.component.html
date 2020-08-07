@@ -1,7 +1,10 @@
 <div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
-    <div class="asset-preview" [style.background]="getThumbnail()"></div>
+    <div class="asset-viewer">
+        <div [style.background-color]="color" class="asset-preview__substract"></div>
+        <div class="asset-preview" [style.background]="getThumbnail()"></div>
+    </div>
     <div class="form-item">
-        <mat-form-field class="full-width" appearance="outline">
+        <mat-form-field class="full-width" appearance="fill">
             <mat-label>Image</mat-label>
             <mat-select [formControl]="ctrlAssets">
                 <mat-option *ngFor="let asset of assets" [value]="asset.id">{{asset.name}}</mat-option>

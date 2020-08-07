@@ -13,6 +13,16 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   form: FormGroup;
 
+  get color() {
+    return this.ctrlColor.value;
+  }
+
+  set color(v: string) {
+    this.ctrlColor.setValue(v);
+  }
+
+  ctrlColor = new FormControl('#000000');
+
   ctrlName = new FormControl('', [Validators.required]);
 
   ctrlDescription = new FormControl('');
@@ -29,6 +39,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this._selector = selector;
 
       this.ctrlName.setValue(selector.name);
+      this.ctrlColor.setValue(selector.color);
       this.ctrlDescription.setValue(selector.description);
       //this.ctrlTags.setValue(selector.tags);
     }
@@ -50,6 +61,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     this.form = this._fb.group({
       name: this.ctrlName,
       description: this.ctrlDescription,
+      color: this.ctrlColor,
       // tags: this.ctrlTags,
     })
   }
