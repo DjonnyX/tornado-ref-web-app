@@ -8,7 +8,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes } from '@djonnyx/tornado-types';
+import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
@@ -51,6 +51,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   @Input() products: Array<IProduct>;
 
   @Input() selectors: Array<ISelector>;
+
+  @Input() currencies: Array<ICurrency>;
+
+  @Input() currenciesDictionary: { [id: string]: ICurrency };
 
   /**
    * Передаются либо селекторы меню, либо селекторы схем модификаторов
@@ -493,6 +497,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Configure the scenario.",
           scenario: undefined,
           businessPeriods: this.businessPeriods,
+          currencies: this.currencies,
         },
       });
 
@@ -542,6 +547,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Edit the scenario.",
           scenario: scenario,
           businessPeriods: this.businessPeriods,
+          currencies: this.currencies,
         },
       });
 
