@@ -7,7 +7,7 @@ import { ApiService } from "@services";
 import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
-import { OrderTypesActions } from '@store/actions/order-types.action';
+import { OrderTypesActions } from '@store/actions/order-types.actions';
 import { formatOrderTypeModel } from '@app/utils/order-type.util';
 
 @Injectable()
