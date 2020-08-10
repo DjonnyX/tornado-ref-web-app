@@ -1,13 +1,13 @@
 import { INode } from '@djonnyx/tornado-types';
 
-export const formatNodeModel = (node: INode) => {
+export const formatNodeModel = (model: INode) => {
     return {
-        active: node.active,
-        type: node.type,
-        parentId: node.parentId,
-        contentId: node.contentId,
-        children: node.children,
-        scenarios: node.scenarios,
-        extra: node.extra,
+        active: model.active,
+        type: model.type,
+        parentId: model.parentId,
+        contentId: model.contentId,
+        children: model.children,
+        scenarios: model.scenarios,
+        extra: model.extra,
     }
 }

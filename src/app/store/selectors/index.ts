@@ -12,3 +12,5 @@ export { BusinessPeriodSelectors } from "./business-period.selectors";
 export { BusinessPeriodsSelectors } from "./business-periods.selectors";
 export { CurrenciesSelectors } from "./currencies.selectors";
 export { CurrencySelectors } from "./currency.selectors";
+export { OrderTypesSelectors } from "./order-types.selectors";
+export { OrderTypeSelectors } from "./order-type.selectors";

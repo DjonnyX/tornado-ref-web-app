@@ -47,12 +47,17 @@ import {
   ICurrencyCreateResponse,
   ICurrencyUpdateResponse,
   ICurrencyDeleteResponse,
+  IOrderTypesGetResponse,
+  IOrderTypeGetResponse,
+  IOrderTypeCreateResponse,
+  IOrderTypeUpdateResponse,
+  IOrderTypeDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -575,6 +580,53 @@ export class ApiService {
   public deleteCurrency(id: string): Observable<ICurrencyDeleteResponse> {
     return this._http
       .delete<ICurrencyDeleteResponse>(`api/v1/currency/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  
+  // order-types
+  public getOrderTypes(): Observable<IOrderTypesGetResponse> {
+    return this._http
+      .get<IOrderTypesGetResponse>("api/v1/order-types", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  public getOrderType(id: string): Observable<IOrderTypeGetResponse> {
+    return this._http
+      .get<IOrderTypeGetResponse>(`api/v1/order-type/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createOrderType(currency: IOrderType): Observable<IOrderTypeCreateResponse> {
+    return this._http
+      .post<IOrderTypeCreateResponse>("api/v1/order-type", currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateOrderType(id: string, currency: IOrderType): Observable<IOrderTypeUpdateResponse> {
+    return this._http
+      .put<IOrderTypeUpdateResponse>(`api/v1/order-type/${id}`, currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteOrderType(id: string): Observable<IOrderTypeDeleteResponse> {
+    return this._http
+      .delete<IOrderTypeDeleteResponse>(`api/v1/order-type/${id}`, {
         headers: {
           authorization: this._token,
         },

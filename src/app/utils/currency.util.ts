@@ -1,9 +1,9 @@
 import { ICurrency } from '@djonnyx/tornado-types';
 
-export const formatCurrencyModel = (currency: ICurrency) => {
+export const formatCurrencyModel = (model: ICurrency) => {
     return {
-        code: currency.code,
-        name: currency.name,
-        symbol: currency.symbol,
+        code: model.code,
+        name: model.name,
+        symbol: model.symbol,
     }
 }

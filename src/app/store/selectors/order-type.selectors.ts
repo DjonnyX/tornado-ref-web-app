@@ -1,41 +1,36 @@
 import { IAppState } from "../state";
 import { createSelector } from "@ngrx/store";
 
-export namespace CurrenciesSelectors {
-  export const selectCurrencies = (state: IAppState) => state.taCurrencies;
+export namespace OrderTypeSelectors {
+  export const selectOrderTypes = (state: IAppState) => state.taOrderType;
 
-  export const selectCollection = createSelector(
-    selectCurrencies,
-    state => state.collection,
-  );
-
-  export const selectRefInfo = createSelector(
-    selectCurrencies,
-    state => !!state.meta ? state.meta.ref : undefined,
+  export const selectEntity = createSelector(
+    selectOrderTypes,
+    state => state.orderType,
   );
 
   export const selectLoading = createSelector(
-    selectCurrencies,
+    selectOrderTypes,
     state => state.loading,
   );
 
   export const selectIsGetProcess = createSelector(
-    selectCurrencies,
+    selectOrderTypes,
     state => state.isGetProcess,
   );
 
   export const selectIsCreateProcess = createSelector(
-    selectCurrencies,
+    selectOrderTypes,
     state => state.isCreateProcess,
   );
 
   export const selectIsUpdateProcess = createSelector(
-    selectCurrencies,
+    selectOrderTypes,
     state => state.isUpdateProcess,
   );
 
   export const selectIsDeleteProcess = createSelector(
-    selectCurrencies,
+    selectOrderTypes,
     state => state.isDeleteProcess,
   );
 }

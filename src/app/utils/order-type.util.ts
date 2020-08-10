@@ -1,16 +1,14 @@
-import { ISelector } from '@djonnyx/tornado-types';
+import { IOrderType } from '@djonnyx/tornado-types';
 
-export const formatSelectorModel = (model: ISelector) => {
+export const formatOrderTypeModel = (model: IOrderType) => {
     return {
         active: model.active,
-        type: model.type,
         name: model.name,
-        color: model.color,
         description: model.description,
+        color: model.color,
         assets: model.assets,
         images: {
             main: !!model.images ? model.images.main : null,
-            thumbnail: !!model.images ? model.images.thumbnail : null,
             icon: !!model.images ? model.images.icon : null,
         },
         extra: model.extra,

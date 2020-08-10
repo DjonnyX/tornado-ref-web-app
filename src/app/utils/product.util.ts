@@ -1,21 +1,21 @@
 import { IProduct } from '@djonnyx/tornado-types';
 
-export const formatProductModel = (product: IProduct) => {
+export const formatProductModel = (model: IProduct) => {
     return {
-        active: product.active,
-        name: product.name,
-        color: product.color,
-        description: product.description,
-        prices: product.prices,
-        receipt: product.receipt,
-        tags: product.tags,
-        joint: product.joint,
-        assets: product.assets,
+        active: model.active,
+        name: model.name,
+        color: model.color,
+        description: model.description,
+        prices: model.prices,
+        receipt: model.receipt,
+        tags: model.tags,
+        joint: model.joint,
+        assets: model.assets,
         images: {
-            main: !!product.images ? product.images.main : null,
-            thumbnail: !!product.images ? product.images.thumbnail : null,
-            icon: !!product.images ? product.images.icon : null,
+            main: !!model.images ? model.images.main : null,
+            thumbnail: !!model.images ? model.images.thumbnail : null,
+            icon: !!model.images ? model.images.icon : null,
         },
-        extra: product.extra,
+        extra: model.extra,
     }
 }
