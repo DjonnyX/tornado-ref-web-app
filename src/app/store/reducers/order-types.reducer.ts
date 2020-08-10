@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { ICurrency } from '@djonnyx/tornado-types';
+import { IOrderType } from '@djonnyx/tornado-types';
 import { OrderTypesActions } from '@store/actions/order-types.action';
 import { IOrderTypesState } from '@store/state/order-types.state';
 
@@ -86,22 +86,22 @@ const orderTypesReducer = createReducer(
             loading: false,
         };
     }),
-    on(OrderTypesActions.createSuccess, (state, { currency, meta }) => {
+    on(OrderTypesActions.createSuccess, (state, { orderType, meta }) => {
         return {
             ...state,
-            collection: [...state.collection, currency],
+            collection: [...state.collection, orderType],
             meta,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(OrderTypesActions.updateSuccess, (state, { currency, meta }) => {
-        const existsCurrencyIndex = state.collection.findIndex(p => p.id === currency.id);
+    on(OrderTypesActions.updateSuccess, (state, { orderType, meta }) => {
+        const existsOrderTypeIndex = state.collection.findIndex(p => p.id === orderType.id);
         let collection = [...state.collection];
-        if (existsCurrencyIndex > -1) {
-            collection.splice(existsCurrencyIndex, 1);
-            collection.splice(existsCurrencyIndex, 0, currency);
+        if (existsOrderTypeIndex > -1) {
+            collection.splice(existsOrderTypeIndex, 1);
+            collection.splice(existsOrderTypeIndex, 0, orderType);
         }
         return {
             ...state,
@@ -113,10 +113,10 @@ const orderTypesReducer = createReducer(
         };
     }),
     on(OrderTypesActions.deleteSuccess, (state, { id, meta }) => {
-        const existsCurrencyIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<ICurrency> = [...state.collection];
-        if (existsCurrencyIndex > -1) {
-            collection.splice(existsCurrencyIndex, 1);
+        const existsOrderTypeIndex = state.collection.findIndex(p => p.id === id);
+        let collection: Array<IOrderType> = [...state.collection];
+        if (existsOrderTypeIndex > -1) {
+            collection.splice(existsOrderTypeIndex, 1);
         }
         return {
             ...state,

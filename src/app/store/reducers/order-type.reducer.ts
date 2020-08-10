@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { OrderTypeActions } from '@store/actions/currency.action';
+import { OrderTypeActions } from '@store/actions/order-type.action';
 import { IOrderTypeState } from '@store/state/order-type.state';
 
 export const initialState: IOrderTypeState = {
@@ -64,28 +64,28 @@ const orderTypeReducer = createReducer(
             loading: false,
         };
     }),
-    on(OrderTypeActions.getSuccess, (state, { currency }) => {
+    on(OrderTypeActions.getSuccess, (state, { orderType }) => {
         return {
             ...state,
-            currency,
+            orderType,
             error: undefined,
             isGetProcess: false,
             loading: false,
         };
     }),
-    on(OrderTypeActions.createSuccess, (state, { currency }) => {
+    on(OrderTypeActions.createSuccess, (state, { orderType }) => {
         return {
             ...state,
-            currency,
+            orderType,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(OrderTypeActions.updateSuccess, (state, { currency }) => {
+    on(OrderTypeActions.updateSuccess, (state, { orderType }) => {
         return {
             ...state,
-            currency,
+            orderType,
             error: undefined,
             isUpdateProcess: false,
             loading: false,
