@@ -18,6 +18,7 @@ import { ICurrenciesState } from './currencies.state';
 import { ICurrencyState } from './currency.state';
 import { IOrderTypesState } from './order-types.state';
 import { IOrderTypeState } from './order-type.state';
+import { IOrderTypeAssetsState } from './order-type-assets.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -40,4 +41,5 @@ export interface IAppState {
     taCurrency: ICurrencyState,
     taOrderTypes: IOrderTypesState,
     taOrderType: IOrderTypeState,
+    taOrderTypeAssets: IOrderTypeAssetsState,
 }

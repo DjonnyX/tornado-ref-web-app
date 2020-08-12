@@ -4,12 +4,24 @@
             go back
         </div>
         <div class="form">
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessMainOptions$ | async">
+                <ta-order-type-creator-form [isEditMode]="isEditMode" [orderType]="orderType$ | async"
+                    [images]="images$ | async" [assets]="orderTypeAssets$ | async" (save)="onMainOptionsSave($event)"
+                    (cancel)="onCancel()"></ta-order-type-creator-form>
+            </ta-query-progress>
+        </div>
+
+        <div class="form" *ngIf="isEditMode">
             <div class="form-header">
-                <h2>Main options</h2>
+                <h2>Images</h2>
             </div>
 
-            <ta-order-type-creator-form [isEditMode]="isEditMode" [orderType]="orderType$ | async" (submitForm)="onSubmit($event)"
-                (cancel)="onCancel()"></ta-order-type-creator-form>
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessAssets$ | async">
+                <ta-assets-uploader [collection]="orderTypeAssets$ | async" (upload)="onAssetUpload($event)"
+                    (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
+            </ta-query-progress>
         </div>
     </div>
 </ta-query-progress>

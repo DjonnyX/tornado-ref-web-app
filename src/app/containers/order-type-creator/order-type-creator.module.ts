@@ -4,6 +4,7 @@ import { OrderTypeCreatorContainer } from './order-type-creator.container';
 import { OrderTypeCreatorFormModule } from '@components/forms/order-type-creator-form/order-type-creator-form.module';
 import { OrderTypeCreatorRoutingModule } from './order-type-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     OrderTypeCreatorRoutingModule,
     OrderTypeCreatorFormModule,
     QueryProgressessModule,
+    AssetsUploaderModule,
   ]
 })
 export class OrderTypeCreatorModule { }

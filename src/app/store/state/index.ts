@@ -13,3 +13,6 @@ export { ITagsState } from './tags.state';
 export { IAssetsState } from './assets.state';
 export { IBusinessPeriodsState } from './bisiness-periods.state';
 export { IBusinessPeriodState } from './business-period.state';
+export { IOrderTypesState } from './order-types.state';
+export { IOrderTypeState } from './order-type.state';
+export { IOrderTypeAssetsState } from './order-type-assets.state';

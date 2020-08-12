@@ -21,6 +21,7 @@ import currenciesReducer from './currencies.reducer';
 import currencyReducer from './currency.reducer';
 import orderTypeReducer from './order-type.reducer';
 import orderTypesReducer from './order-types.reducer';
+import orderTypeAssetsReducer from './order-type-assets.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -43,6 +44,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taCurrency: currencyReducer,
   taOrderType: orderTypeReducer,
   taOrderTypes: orderTypesReducer,
+  taOrderTypeAssets: orderTypeAssetsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

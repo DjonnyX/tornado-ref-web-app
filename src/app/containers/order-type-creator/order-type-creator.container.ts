@@ -7,8 +7,9 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { OrderTypeActions } from '@store/actions/order-type.action';
 import { OrderTypeSelectors } from '@store/selectors/order-type.selectors';
-import { IOrderType } from '@djonnyx/tornado-types';
-import { CurrenciesSelectors } from '@store/selectors';
+import { IOrderType, IOrderTypeImages, IAsset } from '@djonnyx/tornado-types';
+import { CurrenciesSelectors, OrderTypeAssetsSelectors } from '@store/selectors';
+import { OrderTypeAssetsActions } from '@store/actions/order-type-assets.action';
 
 @Component({
   selector: 'ta-order-type-creator',
@@ -20,11 +21,19 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
   public isProcess$: Observable<boolean>;
 
+  isProcessMainOptions$: Observable<boolean>;
+
+  isProcessAssets$: Observable<boolean>;
+
   private _returnUrl: string;
 
   private _orderType: IOrderType;
 
   orderType$: Observable<IOrderType>;
+
+  orderTypeAssets$: Observable<Array<IAsset>>;
+
+  images$: Observable<IOrderTypeImages>;
 
   isEditMode = false;
 
@@ -52,6 +61,35 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       map(([isOrderTypeGetProcess, isCurrenciesGetProcess]) => isOrderTypeGetProcess || isCurrenciesGetProcess),
     );
 
+    this.isProcessAssets$ = combineLatest(
+      this._store.pipe(
+        select(OrderTypeAssetsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(OrderTypeAssetsSelectors.selectIsUpdateProcess),
+      ),
+      this._store.pipe(
+        select(OrderTypeAssetsSelectors.selectIsDeleteProcess),
+      ),
+    ).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+    );
+
+    this.isProcessMainOptions$ = combineLatest(
+      this._store.pipe(
+        select(OrderTypeSelectors.selectIsCreateProcess),
+      ),
+      this._store.pipe(
+        select(OrderTypeSelectors.selectIsUpdateProcess),
+      ),
+    ).pipe(
+      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    );
+
+    this.orderTypeAssets$ = this._store.pipe(
+      select(OrderTypeAssetsSelectors.selectCollection),
+    );
+
     this.orderType$ = this._store.pipe(
       select(OrderTypeSelectors.selectEntity),
     );
@@ -67,6 +105,7 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
     if (!!this._orderTypeId) {
       this._store.dispatch(OrderTypeActions.getRequest({ id: this._orderTypeId }));
+      this._store.dispatch(OrderTypeAssetsActions.getAllRequest({ orderTypeId: this._orderTypeId }));
     }
   }
 
@@ -74,9 +113,10 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     super.ngOnDestroy();
 
     this._store.dispatch(OrderTypeActions.clear());
+    this._store.dispatch(OrderTypeAssetsActions.clear());
   }
 
-  onSubmit(orderType: IOrderType): void {
+  onMainOptionsSave(orderType: IOrderType): void {
     if (this.isEditMode) {
       this._store.dispatch(OrderTypeActions.updateRequest({ id: orderType.id, orderType }));
     } else {
@@ -92,5 +132,17 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
   onToBack(): void {
     this._router.navigate([this._returnUrl]);
+  }
+
+  onAssetUpload(file: File): void {
+    this._store.dispatch(OrderTypeAssetsActions.createRequest({ orderTypeId: this._orderTypeId, file }));
+  }
+
+  onAssetUpdate(asset: IAsset): void {
+    this._store.dispatch(OrderTypeAssetsActions.updateRequest({ orderTypeId: this._orderTypeId, asset }));
+  }
+
+  onAssetDelete(asset: IAsset): void {
+    this._store.dispatch(OrderTypeAssetsActions.deleteRequest({ orderTypeId: this._orderTypeId, assetId: asset.id }));
   }
 }

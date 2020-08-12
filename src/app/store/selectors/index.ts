@@ -14,3 +14,4 @@ export { CurrenciesSelectors } from "./currencies.selectors";
 export { CurrencySelectors } from "./currency.selectors";
 export { OrderTypesSelectors } from "./order-types.selectors";
 export { OrderTypeSelectors } from "./order-type.selectors";
+export { OrderTypeAssetsSelectors } from "./order-type-assets.selectors";
