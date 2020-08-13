@@ -33,11 +33,17 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
     super();
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onToggleActive(event: Event, currency: ICurrency): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.update.emit({ ...currency, active: !currency.active });
   }
 
   onCreate(): void {

@@ -25,6 +25,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatIconModule,
     MatMenuModule,
     MatDialogModule,
+    MatCheckboxModule,
     DeleteEntityDialogModule,
     StatePanelModule,
     SearchPipeModule,
