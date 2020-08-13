@@ -15,6 +15,9 @@ import BusinessPeriodsEffects from './business-periods.effects';
 import BusinessPeriodEffects from './business-period.effects';
 import CurrenciesEffects from './currencies.effects';
 import CurrencyEffects from './currency.effects';
+import OrderTypesEffects from './order-types.effects';
+import OrderTypeEffects from './order-type.effects';
+import OrderTypeAssetsEffects from './order-type-assets.effects';
 
 const rootEffects = [
   UserEffects,
@@ -34,5 +37,8 @@ const rootEffects = [
   AssetsEffects,
   CurrenciesEffects,
   CurrencyEffects,
+  OrderTypesEffects,
+  OrderTypeEffects,
+  OrderTypeAssetsEffects,
 ];
 export default rootEffects;

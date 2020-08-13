@@ -16,6 +16,11 @@ export const initialState: ISelectorsState = {
 
 const selectorsReducer = createReducer(
     initialState,
+    on(SelectorsActions.clear, state => {
+        return {
+            ...initialState
+        };
+    }),
     on(SelectorsActions.getAllRequest, state => {
         return {
             ...state,

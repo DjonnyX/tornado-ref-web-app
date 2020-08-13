@@ -1,18 +1,18 @@
 import { ISelector } from '@djonnyx/tornado-types';
 
-export const formatSelectorModel = (selector: ISelector) => {
+export const formatSelectorModel = (model: ISelector) => {
     return {
-        active: selector.active,
-        type: selector.type,
-        name: selector.name,
-        color: selector.color,
-        description: selector.description,
-        assets: selector.assets,
+        active: model.active,
+        type: model.type,
+        name: model.name,
+        color: model.color,
+        description: model.description,
+        assets: model.assets,
         images: {
-            main: !!selector.images ? selector.images.main : null,
-            thumbnail: !!selector.images ? selector.images.thumbnail : null,
-            icon: !!selector.images ? selector.images.icon : null,
+            main: !!model.images ? model.images.main : null,
+            thumbnail: !!model.images ? model.images.thumbnail : null,
+            icon: !!model.images ? model.images.icon : null,
         },
-        extra: selector.extra,
+        extra: model.extra,
     }
 }

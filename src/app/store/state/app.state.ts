@@ -16,6 +16,9 @@ import { IBusinessPeriodState } from './business-period.state';
 import { ISelectorAssetsState } from './selector-assets.state';
 import { ICurrenciesState } from './currencies.state';
 import { ICurrencyState } from './currency.state';
+import { IOrderTypesState } from './order-types.state';
+import { IOrderTypeState } from './order-type.state';
+import { IOrderTypeAssetsState } from './order-type-assets.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -36,4 +39,7 @@ export interface IAppState {
     taBusinessPeriod: IBusinessPeriodState,
     taCurrencies: ICurrenciesState,
     taCurrency: ICurrencyState,
+    taOrderTypes: IOrderTypesState,
+    taOrderType: IOrderTypeState,
+    taOrderTypeAssets: IOrderTypeAssetsState,
 }

@@ -12,6 +12,7 @@ import { INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, SelectorType
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesActions } from '@store/actions/currencies.action';
+import { SelectorActions } from '@store/actions/selector.action';
 
 @Component({
   selector: 'ta-menu-tree-editor',
@@ -118,6 +119,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+
+    this._store.dispatch(SelectorsActions.clear());
   }
 
   onSearch(pattern: string): void {
