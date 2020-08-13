@@ -8,8 +8,13 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    justify-content: flex-start;
+    justify-content: space-around;
     background: rgba($block-color, 0.1);
     border-radius: 6px;
     padding: px2em(22);
+
+    .image-n,
+    .image-s {
+        margin-bottom: px2em(20);
+    }
 }

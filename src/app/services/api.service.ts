@@ -70,7 +70,7 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -654,6 +654,38 @@ export class ApiService {
       });
   }
 
+  public uploadOrderTypeImage(orderTypeId: string, type: OrderTypeImageTypes, file: File): Observable<IOrderTypeAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/image/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
   public createOrderTypeAsset(orderTypeId: string, file: File): Observable<IOrderTypeAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
@@ -790,7 +822,6 @@ export class ApiService {
         }),
       );
   }
-
 
   public createLanguageAsset(languageId: string, file: File): Observable<ILanguageAssetCreateResponse> {
     const formData = new FormData();

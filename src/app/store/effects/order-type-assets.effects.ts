@@ -25,6 +25,51 @@ export default class OrderTypeAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
+        public readonly uploadImageRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(OrderTypeAssetsActions.uploadImageRequest),
+            switchMap(({ orderTypeId, imageType, file }) => {
+                const id = String(this.nextTmpAssetId);
+                const ext = file.name.replace(/^.+\./, "");
+                const tmpAsset: IAsset = {
+                    id,
+                    active: true,
+                    lastupdate: Date.now(),
+                    name: file.name,
+                    path: undefined,
+                    mipmap: {
+                        x128: undefined,
+                        x32: undefined,
+                    },
+                    ext: ext,
+                }
+                return this._apiService.uploadOrderTypeImage(orderTypeId, imageType, file).pipe(
+                    mergeMap((res: any) => {
+                        if (!res) {
+                            return [OrderTypeAssetsActions.uploadImageProgress({
+                                tmpAsset,
+                                progress: {
+                                    total: 0,
+                                    progress: 0,
+                                    loaded: 0,
+                                }
+                            })];
+                        }
+                        if (!!res.data.progress) {
+                            return [OrderTypeAssetsActions.uploadImageProgress({ tmpAsset, progress: res.data.progress })];
+                        }
+                        return [OrderTypeAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, }), OrderTypeActions.getRequest({ id: orderTypeId })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(OrderTypeAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.getAllRequest),

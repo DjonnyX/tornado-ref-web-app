@@ -6,9 +6,9 @@
                     Image
                 </h2>
 
-                <ta-asset-picker *ngIf="isEditMode" [defaultValue]="!!images ? images.main : undefined"
-                    [assets]="assets" color="white" (select)="onMainImageSelect($event)">
-                </ta-asset-picker>
+                <ta-asset-picker-uploader *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.main : undefined"
+                    [assets]="assets" color="white" (upload)="onMainImageUpload($event)">
+                </ta-asset-picker-uploader>
             </div>
 
             <div class="image-s">
@@ -16,10 +16,10 @@
                     Icon
                 </h2>
 
-                <ta-asset-picker *ngIf="isEditMode" size="m"
-                    [defaultValue]="!!images ? images.icon || images.main : undefined" [assets]="assets" [color]="color"
-                    (select)="onIconImageSelect($event)">
-                </ta-asset-picker>
+                <ta-asset-picker-uploader *ngIf="isEditMode" size="m"
+                    [defaultValue]="!!images ? images.icon : undefined" [assets]="assets" [color]="color"
+                    (upload)="onIconImageUpload($event)">
+                </ta-asset-picker-uploader>
             </div>
 
             <div class="full-width">
