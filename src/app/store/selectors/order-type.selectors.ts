@@ -9,6 +9,11 @@ export namespace OrderTypeSelectors {
     state => state.orderType,
   );
 
+  export const selectImages = createSelector(
+    selectOrderTypes,
+    state => !!state.orderType ? state.orderType.images : undefined,
+  );
+
   export const selectLoading = createSelector(
     selectOrderTypes,
     state => state.loading,

@@ -94,6 +94,10 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       select(OrderTypeSelectors.selectEntity),
     );
 
+    this.images$ = this._store.pipe(
+      select(OrderTypeSelectors.selectImages),
+    );
+
     this.orderType$.pipe(
       takeUntil(this.unsubscribe$),
       filter(orderType => !!orderType),
@@ -122,8 +126,6 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     } else {
       this._store.dispatch(OrderTypeActions.createRequest({ orderType }));
     }
-
-    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {

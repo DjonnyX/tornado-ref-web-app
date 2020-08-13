@@ -44,7 +44,7 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
 
   @Input() isEditMode: boolean;
 
-  @Output() submitForm = new EventEmitter<IOrderType>();
+  @Output() save = new EventEmitter<IOrderType>();
 
   @Output() cancel = new EventEmitter<void>();
 
@@ -72,7 +72,7 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
     super.ngOnDestroy();
   }
 
-  onSubmit(): void {
+  onSave(): void {
     if (this.form.valid) {
       const images: IOrderTypeImages = {...this.images};
       if (!(images as any).hasOwnProperty("main")) {
@@ -82,7 +82,7 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
         images.icon = null;
       }
 
-      this.submitForm.emit({
+      this.save.emit({
         ...this._orderType,
         ...this.form.value,
         images,

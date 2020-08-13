@@ -45,7 +45,7 @@ export class SelectorsEditorContainer implements OnInit {
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
-    )
+    );
 
     this.isProcess$ = combineLatest(
       this._store.pipe(

@@ -1,12 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Router, ActivatedRoute } from '@angular/router';
 import { OrderTypesActions } from '@store/actions/order-types.action';
 import { OrderTypesSelectors } from '@store/selectors/order-types.selectors';
 import { OrderTypeActions } from '@store/actions/order-type.action';
-import { IOrderType, IRef } from '@djonnyx/tornado-types';
+import { IOrderType, IRef, IAsset } from '@djonnyx/tornado-types';
+import { AssetsSelectors } from '@store/selectors';
+import { map } from 'rxjs/operators';
+import { AssetsActions } from '@store/actions/assets.action';
 
 @Component({
   selector: 'ta-order-types-editor',
@@ -20,6 +23,8 @@ export class OrderTypesEditorContainer implements OnInit {
 
   public collection$: Observable<Array<IOrderType>>;
 
+  public assets$: Observable<Array<IAsset>>;
+
   public refInfo$: Observable<IRef>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
@@ -27,12 +32,25 @@ export class OrderTypesEditorContainer implements OnInit {
   ngOnInit(): void {
     this._store.dispatch(OrderTypesActions.getAllRequest());
 
-    this.isProcess$ = this._store.pipe(
-      select(OrderTypesSelectors.selectLoading),
+    this._store.dispatch(AssetsActions.getAllRequest());
+
+    this.isProcess$ = combineLatest(
+      this._store.pipe(
+        select(OrderTypesSelectors.selectLoading),
+      ),
+      this._store.pipe(
+        select(AssetsSelectors.selectLoading),
+      ),
+    ).pipe(
+      map(([isProductsProgress, isAssetsProgress]) => isProductsProgress || isAssetsProgress),
     );
 
     this.collection$ = this._store.pipe(
       select(OrderTypesSelectors.selectCollection),
+    );
+
+    this.assets$ = this._store.pipe(
+      select(AssetsSelectors.selectCollection),
     );
 
     this.refInfo$ = this._store.pipe(

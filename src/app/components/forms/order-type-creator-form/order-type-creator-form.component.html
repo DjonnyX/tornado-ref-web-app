@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+<form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
     <div [ngClass]="{'main-options-wrapper': isEditMode}">
         <div class="images">
             <div class="image-n">
@@ -16,8 +16,9 @@
                     Icon
                 </h2>
 
-                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.icon : undefined"
-                    [assets]="assets" [color]="color" (select)="onIconImageSelect($event)">
+                <ta-asset-picker *ngIf="isEditMode" size="m"
+                    [defaultValue]="!!images ? images.icon || images.main : undefined" [assets]="assets" [color]="color"
+                    (select)="onIconImageSelect($event)">
                 </ta-asset-picker>
             </div>
 
@@ -33,33 +34,34 @@
             </div>
         </div>
 
-    <div>
-        <h2 class="form-header">
-            Main options
-        </h2>
+        <div>
+            <h2 class="form-header">
+                Main options
+            </h2>
 
-        <div class="form__main-options">
-            <div class="form__input-block">
-                <div class="form-item">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Name</mat-label>
-                        <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
-                        <mat-error *ngIf="ctrlName.hasError('required')">
-                            <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+            <div class="form__main-options">
+                <div class="form__input-block">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
+                            <mat-error *ngIf="ctrlName.hasError('required')">
+                                <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
 
-                <div class="form-item">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Description</mat-label>
-                        <input matInput type="text" [formControl]="ctrlDescription" placeholder="Description">
-                    </mat-form-field>
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Description</mat-label>
+                            <input matInput type="text" class="order-type__description" [formControl]="ctrlDescription"
+                                placeholder="Description">
+                        </mat-form-field>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
     <div class="form__submit" align="end">
         <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>

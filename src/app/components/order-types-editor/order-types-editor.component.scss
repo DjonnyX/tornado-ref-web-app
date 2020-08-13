@@ -8,6 +8,16 @@ $entity-width-d: px2em(190);
 
 .editor {
     .entity {
+        .content {
+            display: grid;
+            grid-template-columns: auto 1fr;
+
+            .content__name {
+                margin-top: auto;
+                margin-bottom: auto;
+            }
+        }
+
         .color {
             width: 100%;
             height: px2em(10);

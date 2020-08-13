@@ -16,7 +16,7 @@
                     Thumbnail
                 </h2>
 
-                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.thumbnail : undefined"
+                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.thumbnail || images.main : undefined"
                     [assets]="assets" color="white" (select)="onThumbnailImageSelect($event)">
                 </ta-asset-picker>
             </div>
@@ -26,7 +26,7 @@
                     Icon
                 </h2>
 
-                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.icon : undefined"
+                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.icon || images.main : undefined"
                     [assets]="assets" [color]="color" (select)="onIconImageSelect($event)">
                 </ta-asset-picker>
             </div>
@@ -75,6 +75,6 @@
     <div class="form__submit" align="end">
         <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
         <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Edit' : 'Create'}}</button>
+            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
     </div>
 </form>
