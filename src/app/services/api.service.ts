@@ -70,7 +70,7 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -194,6 +194,38 @@ export class ApiService {
           authorization: this._token,
         },
       });
+  }
+
+  public uploadProductImage(productId: string, type: ProductImageTypes, file: File): Observable<IProductAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/image/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
   }
 
   public createProductAsset(productId: string, file: File): Observable<IProductAssetCreateResponse> {

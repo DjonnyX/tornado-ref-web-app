@@ -6,9 +6,9 @@
                     Image
                 </h2>
 
-                <ta-asset-picker [defaultValue]="!!images ? images.main : undefined" [assets]="assets" color="white"
-                    (select)="onMainImageSelect($event)">
-                </ta-asset-picker>
+                <ta-asset-picker-uploader [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
+                    color="white" (upload)="onMainImageUpload($event)">
+                </ta-asset-picker-uploader>
             </div>
 
             <div class="image-m">
@@ -16,9 +16,9 @@
                     Thumbnail
                 </h2>
 
-                <ta-asset-picker size="m" [defaultValue]="!!images ? images.thumbnail || images.main : undefined"
-                    [assets]="assets" color="white" (select)="onThumbnailImageSelect($event)">
-                </ta-asset-picker>
+                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.thumbnail : undefined"
+                    [assets]="assets" color="white" (upload)="onThumbnailImageUpload($event)">
+                </ta-asset-picker-uploader>
             </div>
 
             <div class="image-s">
@@ -26,9 +26,9 @@
                     Icon
                 </h2>
 
-                <ta-asset-picker size="m" [defaultValue]="!!images ? images.icon || images.main : undefined"
-                    [assets]="assets" [color]="color" (select)="onIconImageSelect($event)">
-                </ta-asset-picker>
+                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.icon : undefined" [assets]="assets"
+                    [color]="color" (upload)="onIconImageUpload($event)">
+                </ta-asset-picker-uploader>
             </div>
 
             <div class="full-width">

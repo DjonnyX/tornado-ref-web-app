@@ -5,7 +5,7 @@ import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
 import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map, filter } from 'rxjs/operators';
+import { takeUntil, map, filter, mergeMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
@@ -15,7 +15,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages, ProductImageTypes } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
@@ -50,6 +50,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   products$: Observable<Array<IProduct>>;
 
   productAssets$: Observable<Array<IAsset>>;
+
+  actualProductAssets$: Observable<Array<IAsset>>;
 
   assets$: Observable<Array<IAsset>>;
 
@@ -178,6 +180,14 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(ProductAssetsSelectors.selectCollection),
     );
 
+    this.actualProductAssets$ = combineLatest(
+      this.product$,
+      this.productAssets$,
+    ).pipe(
+      filter(([product, assets]) => !!product && !!assets),
+      map(([product, assets]) => assets.filter(asset => asset.id !== product.images.main && asset.id !== product.images.thumbnail && asset.id !== product.images.icon)),
+    );
+
     this.assets$ = this._store.pipe(
       select(AssetsSelectors.selectCollection),
     );
@@ -227,6 +237,18 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   onAssetDelete(asset: IAsset): void {
     this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId: asset.id }));
+  }
+
+  onMainImageUpload(file: File): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.MAIN, file }));
+  }
+
+  onThumbnailImageUpload(file: File): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.THUMBNAIL, file }));
+  }
+
+  onIconImageUpload(file: File): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.ICON, file }));
   }
 
   onCreateHierarchyNode(node: INode): void {
