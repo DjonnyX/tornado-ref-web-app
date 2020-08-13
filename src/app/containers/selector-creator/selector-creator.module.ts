@@ -4,7 +4,6 @@ import { SelectorCreatorContainer } from './selector-creator.container';
 import { SelectorCreatorFormModule } from '@components/forms/selector-creator-form/selector-creator-form.module';
 import { SelectorCreatorRoutingModule } from './selector-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
-import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +14,6 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
     SelectorCreatorRoutingModule,
     SelectorCreatorFormModule,
     QueryProgressessModule,
-    AssetsUploaderModule,
   ]
 })
 export class SelectorCreatorModule { }

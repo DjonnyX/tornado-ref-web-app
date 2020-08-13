@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
+import { SelectorImageTypes } from '@djonnyx/tornado-types';
 
 export enum SelectorAssetsActionTypes {
     GET_ALL_REQUEST = "TORNADO/selector/assets/get-all:request",
@@ -23,6 +24,11 @@ export enum SelectorAssetsActionTypes {
     DELETE_REQUEST = "TORNADO/selector/assets/delete:request",
     DELETE_SUCCESS = "TORNADO/selector/assets/delete:success",
     DELETE_ERROR = "TORNADO/selector/assets/delete:error",
+
+    UPLOAD_IMAGE_REQUEST = "TORNADO/selector/assets/upload-image:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/selector/assets/upload-image:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/selector/assets/upload-image:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/selector/assets/upload-image:error",
 
     CLEAR = "TORNADO/selector/assets/clear",
 }
@@ -110,6 +116,34 @@ export namespace SelectorAssetsActions {
     export const deleteError = createAction(
         SelectorAssetsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
+    );
+    
+    // upload
+    export const uploadImageRequest = createAction(
+        SelectorAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
+        props<{ selectorId: string, imageType: SelectorImageTypes, file: File }>()
+    );
+    export const uploadImageSuccess = createAction(
+        SelectorAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
+        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+    );
+    export const uploadImageProgress = createAction(
+        SelectorAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
+        props<{
+            tmpAsset: IAsset,
+            progress: {
+                total: number,
+                loaded: number,
+                progress: number,
+            }
+        }>()
+    );
+    export const uploadImageError = createAction(
+        SelectorAssetsActionTypes.UPLOAD_IMAGE_ERROR,
+        props<{
+            tmpAsset: IAsset,
+            error: string
+        }>()
     );
     
     export const clear = createAction(

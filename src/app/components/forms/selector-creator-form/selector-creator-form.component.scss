@@ -14,4 +14,10 @@
     background: rgba($block-color, 0.1);
     border-radius: 6px;
     padding: px2em(22);
+
+    .image-n,
+    .image-m,
+    .image-s {
+        margin-bottom: px2em(20);
+    }
 }
