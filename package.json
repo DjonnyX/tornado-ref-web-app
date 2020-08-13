@@ -28,7 +28,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
-    "@djonnyx/tornado-types": "^1.0.27",
+    "@djonnyx/tornado-types": "^1.0.28",
     "@ngrx/effects": "^9.1.2",
     "@ngrx/entity": "^9.1.2",
     "@ngrx/store": "^9.1.2",

@@ -11,17 +11,6 @@
                 </ta-asset-picker>
             </div>
 
-            <div class="image-s">
-                <h2 class="form-header">
-                    Icon
-                </h2>
-
-                <ta-asset-picker *ngIf="isEditMode" size="m"
-                    [defaultValue]="!!images ? images.icon || images.main : undefined" [assets]="assets" [color]="color"
-                    (select)="onIconImageSelect($event)">
-                </ta-asset-picker>
-            </div>
-
             <div class="full-width">
                 <h2 class="form-header">
                     Color

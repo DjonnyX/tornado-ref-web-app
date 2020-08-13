@@ -92,10 +92,6 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
     this.images = {...this.images, main: !!asset ? asset.id : null};
   }
 
-  onIconImageSelect(asset: IAsset): void {
-    this.images = {...this.images, icon: !!asset ? asset.id : null};
-  }
-
   onCancel(): void {
     this.cancel.emit();
   }
