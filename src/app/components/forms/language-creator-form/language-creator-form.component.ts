@@ -36,6 +36,8 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ILanguage>();
 
+  @Output() uploadMainImage = new EventEmitter<File>();
+
   constructor(private _fb: FormBuilder) {
     super();
 
@@ -73,8 +75,8 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  onMainImageSelect(asset: IAsset): void {
-    this.images = {...this.images, main: !!asset ? asset.id : null};
+  onMainImageUpload(file: File): void {
+    this.uploadMainImage.emit(file);
   }
 
   onCancel(): void {

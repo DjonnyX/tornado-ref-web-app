@@ -1,0 +1,13 @@
+<div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
+    <div class="asset-viewer">
+        <div [style.background-color]="color" class="asset-preview__substract"></div>
+        <div class="asset-preview" [style.background]="getThumbnail()"></div>
+    </div>
+    <div class="form-item">
+        <button mat-flat-button type="button" color="accent" class="full-width" (click)="fileSelector.open()">
+            Upload
+        </button>
+    </div>
+    <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector"
+        (select)="onUploadFile($event)"></ta-file-selector>
+</div>

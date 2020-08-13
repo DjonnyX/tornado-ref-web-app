@@ -70,7 +70,7 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -618,18 +618,18 @@ export class ApiService {
       });
   }
 
-  public createOrderType(currency: IOrderType): Observable<IOrderTypeCreateResponse> {
+  public createOrderType(orderType: IOrderType): Observable<IOrderTypeCreateResponse> {
     return this._http
-      .post<IOrderTypeCreateResponse>("api/v1/order-type", currency, {
+      .post<IOrderTypeCreateResponse>("api/v1/order-type", orderType, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public updateOrderType(id: string, currency: IOrderType): Observable<IOrderTypeUpdateResponse> {
+  public updateOrderType(id: string, orderType: IOrderType): Observable<IOrderTypeUpdateResponse> {
     return this._http
-      .put<IOrderTypeUpdateResponse>(`api/v1/order-type/${id}`, currency, {
+      .put<IOrderTypeUpdateResponse>(`api/v1/order-type/${id}`, orderType, {
         headers: {
           authorization: this._token,
         },
@@ -723,18 +723,18 @@ export class ApiService {
       });
   }
 
-  public createLanguage(currency: ILanguage): Observable<ILanguageCreateResponse> {
+  public createLanguage(language: ILanguage): Observable<ILanguageCreateResponse> {
     return this._http
-      .post<ILanguageCreateResponse>("api/v1/language", currency, {
+      .post<ILanguageCreateResponse>("api/v1/language", language, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public updateLanguage(id: string, currency: ILanguage): Observable<ILanguageUpdateResponse> {
+  public updateLanguage(id: string, language: ILanguage): Observable<ILanguageUpdateResponse> {
     return this._http
-      .put<ILanguageUpdateResponse>(`api/v1/language/${id}`, currency, {
+      .put<ILanguageUpdateResponse>(`api/v1/language/${id}`, language, {
         headers: {
           authorization: this._token,
         },
@@ -759,12 +759,12 @@ export class ApiService {
       });
   }
 
-  public createLanguageAsset(orderTypeId: string, file: File): Observable<ILanguageAssetCreateResponse> {
+  public uploadLanguageImage(languageId: string, type: LanguageImageTypes, file: File): Observable<ILanguageAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
 
     return this._http
-      .post<ILanguageAssetCreateResponse>(`api/v1/language/${orderTypeId}/asset`, formData, {
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/image/${type}`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -791,18 +791,51 @@ export class ApiService {
       );
   }
 
-  public updateLanguageAsset(orderTypeId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ILanguageAssetUpdateResponse> {
+
+  public createLanguageAsset(languageId: string, file: File): Observable<ILanguageAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
     return this._http
-      .put<ILanguageAssetUpdateResponse>(`api/v1/language/${orderTypeId}/asset/${assetId}`, asset, {
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/asset`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateLanguageAsset(languageId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ILanguageAssetUpdateResponse> {
+    return this._http
+      .put<ILanguageAssetUpdateResponse>(`api/v1/language/${languageId}/asset/${assetId}`, asset, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public deleteLanguageAsset(orderTypetId: string, assetId: string): Observable<ILanguageAssetDeleteResponse> {
+  public deleteLanguageAsset(languagetId: string, assetId: string): Observable<ILanguageAssetDeleteResponse> {
     return this._http
-      .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${orderTypetId}/asset/${assetId}`, {
+      .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${languagetId}/asset/${assetId}`, {
         headers: {
           authorization: this._token,
         },

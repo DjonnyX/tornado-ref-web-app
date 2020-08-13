@@ -10,7 +10,6 @@ import { NotificationService } from '@app/services/notification.service';
 import { LanguageAssetsActions } from '@store/actions/language-assets.action';
 import { IAsset } from '@models';
 import { LanguageActions } from '@store/actions/language.action';
-import { formatAssetModel } from '@app/utils/asset.util';
 
 @Injectable()
 export default class LanguageAssetsEffects {
@@ -24,6 +23,51 @@ export default class LanguageAssetsEffects {
 
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
+
+    public readonly uploadImageRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(LanguageAssetsActions.uploadImageRequest),
+            switchMap(({ languageId, imageType, file }) => {
+                const id = String(this.nextTmpAssetId);
+                const ext = file.name.replace(/^.+\./, "");
+                const tmpAsset: IAsset = {
+                    id,
+                    active: true,
+                    lastupdate: Date.now(),
+                    name: file.name,
+                    path: undefined,
+                    mipmap: {
+                        x128: undefined,
+                        x32: undefined,
+                    },
+                    ext: ext,
+                }
+                return this._apiService.uploadLanguageImage(languageId, imageType, file).pipe(
+                    mergeMap((res: any) => {
+                        if (!res) {
+                            return [LanguageAssetsActions.uploadImageProgress({
+                                tmpAsset,
+                                progress: {
+                                    total: 0,
+                                    progress: 0,
+                                    loaded: 0,
+                                }
+                            })];
+                        }
+                        if (!!res.data.progress) {
+                            return [LanguageAssetsActions.uploadImageProgress({ tmpAsset, progress: res.data.progress })];
+                        }
+                        return [LanguageAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, }), LanguageActions.getRequest({ id: languageId })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(LanguageAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
 
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(

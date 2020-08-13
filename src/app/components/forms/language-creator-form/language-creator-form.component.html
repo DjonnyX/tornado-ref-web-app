@@ -2,9 +2,9 @@
     <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
         <div class="images" *ngIf="isEditMode">
             <div class="image-n">
-                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.main : undefined"
-                    [assets]="assets" color="white" (select)="onMainImageSelect($event)">
-                </ta-asset-picker>
+                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.main : undefined"
+                    [assets]="assets" color="white" (upload)="onMainImageUpload($event)">
+                </ta-asset-picker-uploader>
             </div>
         </div>
 
