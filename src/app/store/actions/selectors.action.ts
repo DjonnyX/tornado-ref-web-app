@@ -22,6 +22,8 @@ export enum SelectorsActionTypes {
     DELETE_REQUEST = "TORNADO/selectors/delete:request",
     DELETE_SUCCESS = "TORNADO/selectors/delete:success",
     DELETE_ERROR = "TORNADO/selectors/delete:error",
+    
+    CLEAR = "TORNADO/selectors/clear",
 }
 
 export namespace SelectorsActions {
@@ -93,5 +95,9 @@ export namespace SelectorsActions {
     export const deleteError = createAction(
         SelectorsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    export const clear = createAction(
+        SelectorsActionTypes.CLEAR,
     );
 }

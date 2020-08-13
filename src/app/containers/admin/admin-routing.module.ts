@@ -69,6 +69,13 @@ const routes: Routes = [
           import('@containers/assets-editor/assets-editor.module').then(
             module => module.AssetsEditorModule,
           )
+      },
+      {
+        path: 'order-types',
+        loadChildren: () =>
+          import('@containers/order-types-editor/order-types-editor.module').then(
+            module => module.OrderTypesEditorModule,
+          )
       }
     ]
   }

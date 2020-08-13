@@ -1,0 +1,5 @@
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
+    <ta-order-types-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
+        [assets]="assets$ | async" (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)"
+        (delete)="onDelete($event)"></ta-order-types-editor-component>
+</ta-query-progress>

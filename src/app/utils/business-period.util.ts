@@ -1,11 +1,11 @@
 import { IBusinessPeriod } from '@djonnyx/tornado-types';
 
-export const formatBusinessPeriodModel = (businessPeriod: IBusinessPeriod) => {
+export const formatBusinessPeriodModel = (model: IBusinessPeriod) => {
     return {
-        active: businessPeriod.active,
-        name: businessPeriod.name,
-        description: businessPeriod.description,
-        schedule: businessPeriod.schedule,
-        extra: businessPeriod.extra,
+        active: model.active,
+        name: model.name,
+        description: model.description,
+        schedule: model.schedule,
+        extra: model.extra,
     }
 }

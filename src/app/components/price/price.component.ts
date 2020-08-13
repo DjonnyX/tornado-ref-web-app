@@ -75,6 +75,12 @@ export class PriceComponent extends BaseComponent implements OnInit {
       value: !!this._price ? this._price.value : 0,
     };
 
+    if (this._currency.active) {
+      this.ctrlPrice.enable();
+    } else {
+      this.ctrlPrice.disable();
+    }
+
     this.update.emit(this._value);
   }
 }

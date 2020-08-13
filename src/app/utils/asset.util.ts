@@ -1,13 +1,13 @@
 import { IAsset } from '@models'
 
-export const formatAssetModel = (asset: IAsset) => {
+export const formatAssetModel = (model: IAsset) => {
     return {
-        active: asset.active,
-        name: asset.name,
-        lastupdate: asset.lastupdate,
-        ext: asset.ext,
-        mipmap: asset.mipmap,
-        path: asset.path,
+        active: model.active,
+        name: model.name,
+        lastupdate: model.lastupdate,
+        ext: model.ext,
+        mipmap: model.mipmap,
+        path: model.path,
     }
 }
 

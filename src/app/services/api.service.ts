@@ -47,12 +47,21 @@ import {
   ICurrencyCreateResponse,
   ICurrencyUpdateResponse,
   ICurrencyDeleteResponse,
+  IOrderTypesGetResponse,
+  IOrderTypeGetResponse,
+  IOrderTypeCreateResponse,
+  IOrderTypeUpdateResponse,
+  IOrderTypeDeleteResponse,
+  IOrderTypeAssetGetResponse,
+  IOrderTypeAssetCreateResponse,
+  IOrderTypeAssetUpdateResponse,
+  IOrderTypeAssetDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -580,4 +589,111 @@ export class ApiService {
         },
       });
   }
+  
+  
+  // order-types
+  public getOrderTypes(): Observable<IOrderTypesGetResponse> {
+    return this._http
+      .get<IOrderTypesGetResponse>("api/v1/order-types", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  public getOrderType(id: string): Observable<IOrderTypeGetResponse> {
+    return this._http
+      .get<IOrderTypeGetResponse>(`api/v1/order-type/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createOrderType(currency: IOrderType): Observable<IOrderTypeCreateResponse> {
+    return this._http
+      .post<IOrderTypeCreateResponse>("api/v1/order-type", currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateOrderType(id: string, currency: IOrderType): Observable<IOrderTypeUpdateResponse> {
+    return this._http
+      .put<IOrderTypeUpdateResponse>(`api/v1/order-type/${id}`, currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteOrderType(id: string): Observable<IOrderTypeDeleteResponse> {
+    return this._http
+      .delete<IOrderTypeDeleteResponse>(`api/v1/order-type/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getOrderTypeAssets(orderTypeId: string): Observable<IOrderTypeAssetGetResponse> {
+    return this._http
+      .get<IOrderTypeAssetGetResponse>(`api/v1/order-type/${orderTypeId}/assets`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createOrderTypeAsset(orderTypeId: string, file: File): Observable<IOrderTypeAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/asset`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateOrderTypeAsset(orderTypeId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IOrderTypeAssetUpdateResponse> {
+    return this._http
+      .put<IOrderTypeAssetUpdateResponse>(`api/v1/order-type/${orderTypeId}/asset/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteOrderTypeAsset(orderTypetId: string, assetId: string): Observable<IOrderTypeAssetDeleteResponse> {
+    return this._http
+      .delete<IOrderTypeAssetDeleteResponse>(`api/v1/order-type/${orderTypetId}/asset/${assetId}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
 }

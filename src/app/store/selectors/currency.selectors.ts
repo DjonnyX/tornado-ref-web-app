@@ -2,35 +2,35 @@ import { IAppState } from "../state";
 import { createSelector } from "@ngrx/store";
 
 export namespace CurrencySelectors {
-  export const selectTag = (state: IAppState) => state.taCurrency;
+  export const selectCurrency = (state: IAppState) => state.taCurrency;
 
   export const selectEntity = createSelector(
-    selectTag,
+    selectCurrency,
     state => state.currency,
   );
 
   export const selectLoading = createSelector(
-    selectTag,
+    selectCurrency,
     state => state.loading,
   );
 
   export const selectIsGetProcess = createSelector(
-    selectTag,
+    selectCurrency,
     state => state.isGetProcess,
   );
 
   export const selectIsCreateProcess = createSelector(
-    selectTag,
+    selectCurrency,
     state => state.isCreateProcess,
   );
 
   export const selectIsUpdateProcess = createSelector(
-    selectTag,
+    selectCurrency,
     state => state.isUpdateProcess,
   );
 
   export const selectIsDeleteProcess = createSelector(
-    selectTag,
+    selectCurrency,
     state => state.isDeleteProcess,
   );
 }
