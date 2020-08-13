@@ -54,6 +54,15 @@ export { IOrderTypeAssetGetResponse } from './order-type-assets-get-response.int
 export { IOrderTypeAssetCreateResponse } from './order-type-asset-create-response.interface';
 export { IOrderTypeAssetUpdateResponse } from './order-type-asset-update-response.interface';
 export { IOrderTypeAssetDeleteResponse } from './order-type-asset-delete-response.interface';
+export { ILanguagesGetResponse } from './languages-get-response.interface';
+export { ILanguageGetResponse } from './language-get-response.interface';
+export { ILanguageCreateResponse } from './language-create-response.interface';
+export { ILanguageUpdateResponse } from './language-update-response.interface';
+export { ILanguageDeleteResponse } from './language-delete-response.interface';
+export { ILanguageAssetGetResponse } from './language-assets-get-response.interface';
+export { ILanguageAssetCreateResponse } from './language-asset-create-response.interface';
+export { ILanguageAssetUpdateResponse } from './language-asset-update-response.interface';
+export { ILanguageAssetDeleteResponse } from './language-asset-delete-response.interface';
 export { IMetaRefsResponse } from './meta-refs-response.interface';
 export { IAssetsGetResponse } from './assets-get-response.interface';
 export { IAssetsCreateResponse } from './assets-create-response.interface';

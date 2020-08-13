@@ -56,12 +56,21 @@ import {
   IOrderTypeAssetCreateResponse,
   IOrderTypeAssetUpdateResponse,
   IOrderTypeAssetDeleteResponse,
+  ILanguagesGetResponse,
+  ILanguageGetResponse,
+  ILanguageCreateResponse,
+  ILanguageUpdateResponse,
+  ILanguageDeleteResponse,
+  ILanguageAssetGetResponse,
+  ILanguageAssetCreateResponse,
+  ILanguageAssetUpdateResponse,
+  ILanguageAssetDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -187,6 +196,38 @@ export class ApiService {
       });
   }
 
+  public uploadProductImage(productId: string, type: ProductImageTypes, file: File): Observable<IProductAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/image/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
   public createProductAsset(productId: string, file: File): Observable<IProductAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
@@ -296,6 +337,38 @@ export class ApiService {
           authorization: this._token,
         },
       });
+  }
+
+  public uploadSelectorImage(selectorId: string, type: SelectorImageTypes, file: File): Observable<ISelectorAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/image/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
   }
 
   public createSelectorAsset(selectorId: string, file: File): Observable<ISelectorAssetCreateResponse> {
@@ -590,7 +663,6 @@ export class ApiService {
       });
   }
   
-  
   // order-types
   public getOrderTypes(): Observable<IOrderTypesGetResponse> {
     return this._http
@@ -610,18 +682,18 @@ export class ApiService {
       });
   }
 
-  public createOrderType(currency: IOrderType): Observable<IOrderTypeCreateResponse> {
+  public createOrderType(orderType: IOrderType): Observable<IOrderTypeCreateResponse> {
     return this._http
-      .post<IOrderTypeCreateResponse>("api/v1/order-type", currency, {
+      .post<IOrderTypeCreateResponse>("api/v1/order-type", orderType, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public updateOrderType(id: string, currency: IOrderType): Observable<IOrderTypeUpdateResponse> {
+  public updateOrderType(id: string, orderType: IOrderType): Observable<IOrderTypeUpdateResponse> {
     return this._http
-      .put<IOrderTypeUpdateResponse>(`api/v1/order-type/${id}`, currency, {
+      .put<IOrderTypeUpdateResponse>(`api/v1/order-type/${id}`, orderType, {
         headers: {
           authorization: this._token,
         },
@@ -644,6 +716,38 @@ export class ApiService {
           authorization: this._token,
         },
       });
+  }
+
+  public uploadOrderTypeImage(orderTypeId: string, type: OrderTypeImageTypes, file: File): Observable<IOrderTypeAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/image/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
   }
 
   public createOrderTypeAsset(orderTypeId: string, file: File): Observable<IOrderTypeAssetCreateResponse> {
@@ -696,4 +800,140 @@ export class ApiService {
       });
   }
 
+  // languages
+  public getLanguages(): Observable<ILanguagesGetResponse> {
+    return this._http
+      .get<ILanguagesGetResponse>("api/v1/languages", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  public getLanguage(id: string): Observable<ILanguageGetResponse> {
+    return this._http
+      .get<ILanguageGetResponse>(`api/v1/language/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createLanguage(language: ILanguage): Observable<ILanguageCreateResponse> {
+    return this._http
+      .post<ILanguageCreateResponse>("api/v1/language", language, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateLanguage(id: string, language: ILanguage): Observable<ILanguageUpdateResponse> {
+    return this._http
+      .put<ILanguageUpdateResponse>(`api/v1/language/${id}`, language, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteLanguage(id: string): Observable<ILanguageDeleteResponse> {
+    return this._http
+      .delete<ILanguageDeleteResponse>(`api/v1/language/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getLanguageAssets(orderTypeId: string): Observable<ILanguageAssetGetResponse> {
+    return this._http
+      .get<ILanguageAssetGetResponse>(`api/v1/language/${orderTypeId}/assets`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public uploadLanguageImage(languageId: string, type: LanguageImageTypes, file: File): Observable<ILanguageAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/image/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public createLanguageAsset(languageId: string, file: File): Observable<ILanguageAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/asset`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateLanguageAsset(languageId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ILanguageAssetUpdateResponse> {
+    return this._http
+      .put<ILanguageAssetUpdateResponse>(`api/v1/language/${languageId}/asset/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteLanguageAsset(languagetId: string, assetId: string): Observable<ILanguageAssetDeleteResponse> {
+    return this._http
+      .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${languagetId}/asset/${assetId}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
 }

@@ -9,19 +9,21 @@
                 <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
                     [tagList]="tags$ | async" [images]="images$ | async" [assets]="productAssets$ | async"
                     [currencies]="currencies$ | async" (save)="onMainOptionsSave($event)"
-                    (cancel)="onMainOptionsCancel()">
+                    (cancel)="onMainOptionsCancel()" (uploadMainImage)="onMainImageUpload($event)"
+                    (uploadIconImage)="onIconImageUpload($event)"
+                    (uploadThumbnailImage)="onThumbnailImageUpload($event)">>
                 </ta-product-creator-form>
             </ta-query-progress>
         </div>
 
         <div class="form" *ngIf="isEditMode">
             <div class="form-header">
-                <h2>Images</h2>
+                <h2>Image gallery</h2>
             </div>
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessAssets$ | async">
-                <ta-assets-uploader [collection]="productAssets$ | async" (upload)="onAssetUpload($event)"
+                <ta-assets-uploader [collection]="actualProductAssets$ | async" (upload)="onAssetUpload($event)"
                     (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
             </ta-query-progress>
         </div>

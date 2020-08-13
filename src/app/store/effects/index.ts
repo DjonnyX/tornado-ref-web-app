@@ -18,6 +18,9 @@ import CurrencyEffects from './currency.effects';
 import OrderTypesEffects from './order-types.effects';
 import OrderTypeEffects from './order-type.effects';
 import OrderTypeAssetsEffects from './order-type-assets.effects';
+import LanguagesEffects from './languages.effects';
+import LanguageEffects from './language.effects';
+import LanguageAssetsEffects from './language-assets.effects';
 
 const rootEffects = [
   UserEffects,
@@ -40,5 +43,8 @@ const rootEffects = [
   OrderTypesEffects,
   OrderTypeEffects,
   OrderTypeAssetsEffects,
+  LanguagesEffects,
+  LanguageEffects,
+  LanguageAssetsEffects,
 ];
 export default rootEffects;

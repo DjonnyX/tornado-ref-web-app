@@ -55,6 +55,12 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ISelector>();
 
+  @Output() uploadMainImage = new EventEmitter<File>();
+
+  @Output() uploadThumbnailImage = new EventEmitter<File>();
+
+  @Output() uploadIconImage = new EventEmitter<File>();
+
   constructor(private _fb: FormBuilder) {
     super();
 
@@ -101,16 +107,16 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  onMainImageSelect(asset: IAsset): void {
-    this.images = {...this.images, main: !!asset ? asset.id : null};
+  onMainImageUpload(file: File): void {
+    this.uploadMainImage.emit(file);
   }
 
-  onThumbnailImageSelect(asset: IAsset): void {
-    this.images = {...this.images, thumbnail: !!asset ? asset.id : null};
+  onThumbnailImageUpload(file: File): void {
+    this.uploadThumbnailImage.emit(file);
   }
 
-  onIconImageSelect(asset: IAsset): void {
-    this.images = {...this.images, icon: !!asset ? asset.id : null};
+  onIconImageUpload(file: File): void {
+    this.uploadIconImage.emit(file);
   }
 
   onCancel(): void {

@@ -9,7 +9,7 @@ import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { SelectorActions } from '@store/actions/selector.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
-import { ISelector, ITag, SelectorTypes, IAsset, ISelectorImages } from '@djonnyx/tornado-types';
+import { ISelector, ITag, SelectorTypes, IAsset, ISelectorImages, SelectorImageTypes } from '@djonnyx/tornado-types';
 import { SelectorAssetsSelectors, SelectorsSelectors } from '@store/selectors';
 import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
 
@@ -150,15 +150,15 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._router.navigate([this._returnUrl]);
   }
 
-  onAssetUpload(file: File): void {
-    this._store.dispatch(SelectorAssetsActions.createRequest({ selectorId: this._selectorId, file }));
+  onMainImageUpload(file: File): void {
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.MAIN, file }));
   }
 
-  onAssetUpdate(asset: IAsset): void {
-    this._store.dispatch(SelectorAssetsActions.updateRequest({ selectorId: this._selectorId, asset }));
+  onThumbnailImageUpload(file: File): void {
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.THUMBNAIL, file }));
   }
 
-  onAssetDelete(asset: IAsset): void {
-    this._store.dispatch(SelectorAssetsActions.deleteRequest({ selectorId: this._selectorId, assetId: asset.id }));
+  onIconImageUpload(file: File): void {
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.ICON, file }));
   }
 }

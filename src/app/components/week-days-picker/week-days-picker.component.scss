@@ -6,6 +6,7 @@ $border-radius: 5px;
     height: 44px;
 
     .week-days-picker__day-button {
+        cursor: pointer;
         outline: 0;
         width: 100%;
         display: flex;

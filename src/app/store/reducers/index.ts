@@ -22,6 +22,9 @@ import currencyReducer from './currency.reducer';
 import orderTypeReducer from './order-type.reducer';
 import orderTypesReducer from './order-types.reducer';
 import orderTypeAssetsReducer from './order-type-assets.reducer';
+import languageAssetsReducer from './language-assets.reducer';
+import languageReducer from './language.reducer';
+import languagesReducer from './languages.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -45,6 +48,9 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taOrderType: orderTypeReducer,
   taOrderTypes: orderTypesReducer,
   taOrderTypeAssets: orderTypeAssetsReducer,
+  taLanguage: languageReducer,
+  taLanguages: languagesReducer,
+  taLanguageAssets: languageAssetsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

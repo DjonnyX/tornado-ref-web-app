@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
+import { ProductImageTypes } from '@djonnyx/tornado-types';
 
 export enum ProductAssetsActionTypes {
     GET_ALL_REQUEST = "TORNADO/product/assets/get-all:request",
@@ -23,6 +24,11 @@ export enum ProductAssetsActionTypes {
     DELETE_REQUEST = "TORNADO/product/assets/delete:request",
     DELETE_SUCCESS = "TORNADO/product/assets/delete:success",
     DELETE_ERROR = "TORNADO/product/assets/delete:error",
+
+    UPLOAD_IMAGE_REQUEST = "TORNADO/product/assets/upload-image:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/product/assets/upload-image:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/product/assets/upload-image:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/product/assets/upload-image:error",
 
     CLEAR = "TORNADO/product/assets/clear",
 }
@@ -111,6 +117,35 @@ export namespace ProductAssetsActions {
         ProductAssetsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
     );
+    
+    // upload
+    export const uploadImageRequest = createAction(
+        ProductAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
+        props<{ productId: string, imageType: ProductImageTypes, file: File }>()
+    );
+    export const uploadImageSuccess = createAction(
+        ProductAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
+        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+    );
+    export const uploadImageProgress = createAction(
+        ProductAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
+        props<{
+            tmpAsset: IAsset,
+            progress: {
+                total: number,
+                loaded: number,
+                progress: number,
+            }
+        }>()
+    );
+    export const uploadImageError = createAction(
+        ProductAssetsActionTypes.UPLOAD_IMAGE_ERROR,
+        props<{
+            tmpAsset: IAsset,
+            error: string
+        }>()
+    );
+    
     
     export const clear = createAction(
         ProductAssetsActionTypes.CLEAR,

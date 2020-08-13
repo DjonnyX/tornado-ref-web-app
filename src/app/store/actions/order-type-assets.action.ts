@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
+import { OrderTypeImageTypes } from '@djonnyx/tornado-types';
 
 export enum OrderTypeAssetsActionTypes {
     GET_ALL_REQUEST = "TORNADO/order-type/assets/get-all:request",
@@ -23,6 +24,11 @@ export enum OrderTypeAssetsActionTypes {
     DELETE_REQUEST = "TORNADO/order-type/assets/delete:request",
     DELETE_SUCCESS = "TORNADO/order-type/assets/delete:success",
     DELETE_ERROR = "TORNADO/order-type/assets/delete:error",
+
+    UPLOAD_IMAGE_REQUEST = "TORNADO/order-type/assets/upload-image:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/order-type/assets/upload-image:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/order-type/assets/upload-image:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/order-type/assets/upload-image:error",
 
     CLEAR = "TORNADO/order-type/assets/clear",
 }
@@ -110,6 +116,34 @@ export namespace OrderTypeAssetsActions {
     export const deleteError = createAction(
         OrderTypeAssetsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
+    );
+    
+    // upload
+    export const uploadImageRequest = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
+        props<{ orderTypeId: string, imageType: OrderTypeImageTypes, file: File }>()
+    );
+    export const uploadImageSuccess = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
+        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+    );
+    export const uploadImageProgress = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
+        props<{
+            tmpAsset: IAsset,
+            progress: {
+                total: number,
+                loaded: number,
+                progress: number,
+            }
+        }>()
+    );
+    export const uploadImageError = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_ERROR,
+        props<{
+            tmpAsset: IAsset,
+            error: string
+        }>()
     );
     
     export const clear = createAction(

@@ -1,0 +1,37 @@
+<form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
+    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
+        <div class="images" *ngIf="isEditMode">
+            <div class="image-n">
+                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
+                    color="white" (upload)="onMainImageUpload($event)">
+                </ta-asset-picker-uploader>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="form-header">
+                Main options
+            </h2>
+
+            <div class="form__main-options">
+                <div class="form__input-block">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
+                            <mat-error *ngIf="ctrlName.hasError('required')">
+                                <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="accent" type="submit" class="button button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+    </div>
+</form>
