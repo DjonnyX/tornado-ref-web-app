@@ -1,5 +1,6 @@
 <div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
     <div class="asset-viewer">
+        <mat-progress-bar *ngIf="!!asset && !!asset.progress" mode="determinate" [value]="asset.progress.progress" style="z-index: 2;"></mat-progress-bar>
         <div [style.background-color]="color" class="asset-preview__substract"></div>
         <div class="asset-preview" [style.background]="getThumbnail()"></div>
     </div>

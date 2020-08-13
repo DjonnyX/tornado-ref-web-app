@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { IAsset } from '@djonnyx/tornado-types';
+import { IAsset } from '@models';
 import { BaseComponent } from '@components/base/base-component';
 import { getThumbnail } from '@app/utils/asset.util';
 

@@ -4,6 +4,7 @@ import { AssetPickerUploaderComponent } from './asset-picker-uploader.component'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { FileSelectorModule } from '../file-selector/file-selector.module';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { FileSelectorModule } from '../file-selector/file-selector.module';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatProgressBarModule,
     FileSelectorModule,
   ]
 })
