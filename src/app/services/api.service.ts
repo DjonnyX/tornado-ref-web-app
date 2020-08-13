@@ -56,12 +56,21 @@ import {
   IOrderTypeAssetCreateResponse,
   IOrderTypeAssetUpdateResponse,
   IOrderTypeAssetDeleteResponse,
+  ILanguagesGetResponse,
+  ILanguageGetResponse,
+  ILanguageCreateResponse,
+  ILanguageUpdateResponse,
+  ILanguageDeleteResponse,
+  ILanguageAssetGetResponse,
+  ILanguageAssetCreateResponse,
+  ILanguageAssetUpdateResponse,
+  ILanguageAssetDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -590,7 +599,6 @@ export class ApiService {
       });
   }
   
-  
   // order-types
   public getOrderTypes(): Observable<IOrderTypesGetResponse> {
     return this._http
@@ -696,4 +704,108 @@ export class ApiService {
       });
   }
 
+  // languages
+  public getLanguages(): Observable<ILanguagesGetResponse> {
+    return this._http
+      .get<ILanguagesGetResponse>("api/v1/languages", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  public getLanguage(id: string): Observable<ILanguageGetResponse> {
+    return this._http
+      .get<ILanguageGetResponse>(`api/v1/language/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createLanguage(currency: ILanguage): Observable<ILanguageCreateResponse> {
+    return this._http
+      .post<ILanguageCreateResponse>("api/v1/language", currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateLanguage(id: string, currency: ILanguage): Observable<ILanguageUpdateResponse> {
+    return this._http
+      .put<ILanguageUpdateResponse>(`api/v1/language/${id}`, currency, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteLanguage(id: string): Observable<ILanguageDeleteResponse> {
+    return this._http
+      .delete<ILanguageDeleteResponse>(`api/v1/language/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getLanguageAssets(orderTypeId: string): Observable<ILanguageAssetGetResponse> {
+    return this._http
+      .get<ILanguageAssetGetResponse>(`api/v1/language/${orderTypeId}/assets`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createLanguageAsset(orderTypeId: string, file: File): Observable<ILanguageAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${orderTypeId}/asset`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateLanguageAsset(orderTypeId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ILanguageAssetUpdateResponse> {
+    return this._http
+      .put<ILanguageAssetUpdateResponse>(`api/v1/language/${orderTypeId}/asset/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteLanguageAsset(orderTypetId: string, assetId: string): Observable<ILanguageAssetDeleteResponse> {
+    return this._http
+      .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${orderTypetId}/asset/${assetId}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LanguagesEditorContainer } from './languages-editor.container';
+import { LanguageCreatorContainer } from './language-creator.container';
 
-describe('LanguagesEditorContainer', () => {
-  let component: LanguagesEditorContainer;
-  let fixture: ComponentFixture<LanguagesEditorContainer>;
+describe('LanguageCreatorContainer', () => {
+  let component: LanguageCreatorContainer;
+  let fixture: ComponentFixture<LanguageCreatorContainer>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LanguagesEditorContainer ]
+      declarations: [ LanguageCreatorContainer ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LanguagesEditorContainer);
+    fixture = TestBed.createComponent(LanguageCreatorContainer);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

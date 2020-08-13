@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CurrenciesEditorComponent } from './currencies-editor.component';
+import { OrderTypesEditorComponent } from './order-types-editor.component';
 
-describe('CurrenciesEditorComponent', () => {
-  let component: CurrenciesEditorComponent;
-  let fixture: ComponentFixture<CurrenciesEditorComponent>;
+describe('OrderTypesEditorComponent', () => {
+  let component: OrderTypesEditorComponent;
+  let fixture: ComponentFixture<OrderTypesEditorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CurrenciesEditorComponent ]
+      declarations: [ OrderTypesEditorComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CurrenciesEditorComponent);
+    fixture = TestBed.createComponent(OrderTypesEditorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

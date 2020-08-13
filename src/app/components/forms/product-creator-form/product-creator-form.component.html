@@ -1,6 +1,6 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
     <div [ngClass]="{'main-options-wrapper': isEditMode}">
-        <div class="images">
+        <div class="images" *ngIf="isEditMode">
             <div class="image-n">
                 <h2 class="form-header">
                     Image
