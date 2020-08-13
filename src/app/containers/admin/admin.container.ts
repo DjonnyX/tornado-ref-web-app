@@ -59,6 +59,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       name: "Business periods",
       route: "business-periods",
     },
+    {
+      name: "Languages",
+      route: "languages",
+    },
   ];
 
   constructor(private _media: MediaObserver, private _router: Router, private _activatedRoute: ActivatedRoute, private _store: Store<IAppState>) {

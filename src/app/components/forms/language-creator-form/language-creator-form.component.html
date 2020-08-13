@@ -11,23 +11,14 @@
                 </ta-asset-picker>
             </div>
 
-            <div class="image-m">
-                <h2 class="form-header">
-                    Thumbnail
-                </h2>
-
-                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.thumbnail || images.main : undefined"
-                    [assets]="assets" color="white" (select)="onThumbnailImageSelect($event)">
-                </ta-asset-picker>
-            </div>
-
             <div class="image-s">
                 <h2 class="form-header">
                     Icon
                 </h2>
 
-                <ta-asset-picker *ngIf="isEditMode" size="m" [defaultValue]="!!images ? images.icon || images.main : undefined"
-                    [assets]="assets" [color]="color" (select)="onIconImageSelect($event)">
+                <ta-asset-picker *ngIf="isEditMode" size="m"
+                    [defaultValue]="!!images ? images.icon || images.main : undefined" [assets]="assets" [color]="color"
+                    (select)="onIconImageSelect($event)">
                 </ta-asset-picker>
             </div>
 
@@ -52,19 +43,11 @@
                 <div class="form__input-block">
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Selector name</mat-label>
-                            <input matInput type="text" [formControl]="ctrlName" placeholder="Selector name">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
                             <mat-error *ngIf="ctrlName.hasError('required')">
-                                Selector name - <strong>required</strong>
+                                <strong>required</strong>
                             </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Description</mat-label>
-                            <textarea matInput class="selector__description" type="text" [formControl]="ctrlDescription"
-                                placeholder="Description"></textarea>
                         </mat-form-field>
                     </div>
                 </div>

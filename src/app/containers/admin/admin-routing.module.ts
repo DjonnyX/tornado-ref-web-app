@@ -76,6 +76,13 @@ const routes: Routes = [
           import('@containers/order-types-editor/order-types-editor.module').then(
             module => module.OrderTypesEditorModule,
           )
+      },
+      {
+        path: 'languages',
+        loadChildren: () =>
+          import('@containers/languages-editor/languages-editor.module').then(
+            module => module.LanguagesEditorModule,
+          )
       }
     ]
   }
