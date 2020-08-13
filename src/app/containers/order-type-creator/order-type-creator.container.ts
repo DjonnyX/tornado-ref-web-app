@@ -7,7 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { OrderTypeActions } from '@store/actions/order-type.action';
 import { OrderTypeSelectors } from '@store/selectors/order-type.selectors';
-import { IOrderType, IOrderTypeImages, IAsset } from '@djonnyx/tornado-types';
+import { IOrderType, IOrderTypeImages, IAsset, OrderTypeImageTypes } from '@djonnyx/tornado-types';
 import { CurrenciesSelectors, OrderTypeAssetsSelectors } from '@store/selectors';
 import { OrderTypeAssetsActions } from '@store/actions/order-type-assets.action';
 
@@ -136,15 +136,11 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     this._router.navigate([this._returnUrl]);
   }
 
-  onAssetUpload(file: File): void {
-    this._store.dispatch(OrderTypeAssetsActions.createRequest({ orderTypeId: this._orderTypeId, file }));
+  onMainImageUpload(file: File): void {
+    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, imageType: OrderTypeImageTypes.MAIN, file }));
   }
 
-  onAssetUpdate(asset: IAsset): void {
-    this._store.dispatch(OrderTypeAssetsActions.updateRequest({ orderTypeId: this._orderTypeId, asset }));
-  }
-
-  onAssetDelete(asset: IAsset): void {
-    this._store.dispatch(OrderTypeAssetsActions.deleteRequest({ orderTypeId: this._orderTypeId, assetId: asset.id }));
+  onIconImageUpload(file: File): void {
+    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, imageType: OrderTypeImageTypes.ICON, file }));
   }
 }

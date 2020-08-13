@@ -28,7 +28,7 @@ const languageAssetsReducer = createReducer(
             loading: true,
         };
     }),
-    on(LanguageAssetsActions.createRequest, state => {
+    on(LanguageAssetsActions.createRequest, LanguageAssetsActions.uploadImageRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -57,7 +57,7 @@ const languageAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(LanguageAssetsActions.createError, (state, { error }) => {
+    on(LanguageAssetsActions.createError, LanguageAssetsActions.uploadImageError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -91,7 +91,7 @@ const languageAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(LanguageAssetsActions.createSuccess, (state, { asset, tmpAsset, meta }) => {
+    on(LanguageAssetsActions.createSuccess, LanguageAssetsActions.uploadImageSuccess, (state, { asset, tmpAsset, meta }) => {
         const existsTmpAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
         let collection = [...state.collection, asset];
         if (existsTmpAssetIndex > -1) {
@@ -106,10 +106,10 @@ const languageAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(LanguageAssetsActions.createProgress, (state, { tmpAsset, progress }) => {
+    on(LanguageAssetsActions.createProgress, LanguageAssetsActions.uploadImageProgress, (state, { tmpAsset, progress }) => {
         const existsAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
         let collection = [...state.collection];
-        const asset = {...tmpAsset};
+        const asset = { ...tmpAsset };
         asset.progress = progress;
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
@@ -135,21 +135,6 @@ const languageAssetsReducer = createReducer(
             meta,
             error: undefined,
             isUpdateProcess: false,
-            loading: false,
-        };
-    }),
-    on(LanguageAssetsActions.deleteSuccess, (state, { id, meta }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<IAsset> = [...state.collection];
-        if (existsAssetIndex > -1) {
-            collection.splice(existsAssetIndex, 1);
-        }
-        return {
-            ...state,
-            collection,
-            meta,
-            error: undefined,
-            isDeleteProcess: false,
             loading: false,
         };
     }),

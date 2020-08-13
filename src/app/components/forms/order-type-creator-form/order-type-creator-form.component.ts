@@ -50,6 +50,10 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
 
   @Output() update = new EventEmitter<IOrderType>();
 
+  @Output() uploadMainImage = new EventEmitter<File>();
+
+  @Output() uploadIconImage = new EventEmitter<File>();
+
   constructor(private _fb: FormBuilder) {
     super();
 
@@ -92,12 +96,12 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
     }
   }
 
-  onMainImageSelect(asset: IAsset): void {
-    this.images = {...this.images, main: !!asset ? asset.id : null};
+  onMainImageUpload(file: File): void {
+    this.uploadMainImage.emit(file);
   }
 
-  onIconImageSelect(asset: IAsset): void {
-    this.images = {...this.images, icon: !!asset ? asset.id : null};
+  onIconImageUpload(file: File): void {
+    this.uploadIconImage.emit(file);
   }
 
   onCancel(): void {

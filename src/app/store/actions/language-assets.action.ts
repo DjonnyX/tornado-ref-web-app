@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
+import { LanguageImageTypes } from '@djonnyx/tornado-types';
 
 export enum LanguageAssetsActionTypes {
     GET_ALL_REQUEST = "TORNADO/language/assets/get-all:request",
@@ -23,6 +24,11 @@ export enum LanguageAssetsActionTypes {
     DELETE_REQUEST = "TORNADO/language/assets/delete:request",
     DELETE_SUCCESS = "TORNADO/language/assets/delete:success",
     DELETE_ERROR = "TORNADO/language/assets/delete:error",
+
+    UPLOAD_IMAGE_REQUEST = "TORNADO/language/assets/upload-image:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/language/assets/upload-image:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/language/assets/upload-image:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/language/assets/upload-image:error",
 
     CLEAR = "TORNADO/language/assets/clear",
 }
@@ -110,6 +116,34 @@ export namespace LanguageAssetsActions {
     export const deleteError = createAction(
         LanguageAssetsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
+    );
+
+    // upload
+    export const uploadImageRequest = createAction(
+        LanguageAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
+        props<{ languageId: string, imageType: LanguageImageTypes, file: File }>()
+    );
+    export const uploadImageSuccess = createAction(
+        LanguageAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
+        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+    );
+    export const uploadImageProgress = createAction(
+        LanguageAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
+        props<{
+            tmpAsset: IAsset,
+            progress: {
+                total: number,
+                loaded: number,
+                progress: number,
+            }
+        }>()
+    );
+    export const uploadImageError = createAction(
+        LanguageAssetsActionTypes.UPLOAD_IMAGE_ERROR,
+        props<{
+            tmpAsset: IAsset,
+            error: string
+        }>()
     );
     
     export const clear = createAction(

@@ -5,6 +5,8 @@
 .color-picker {
     @include reset-input();
 
+    cursor: pointer;
+
     position: relative;
     border: 1px solid rgba($primary, 0.1);
     border-radius: 4px;

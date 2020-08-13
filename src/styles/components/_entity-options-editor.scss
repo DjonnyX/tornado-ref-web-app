@@ -20,6 +20,10 @@
             display: grid;
             grid-template-columns: px2em(336) auto;
             gap: px2em(32);
+
+            &.m {
+                grid-template-columns: px2em(176) auto;
+            }
         }
 
         .form {

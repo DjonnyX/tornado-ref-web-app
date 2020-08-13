@@ -15,7 +15,6 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
     LanguageCreatorRoutingModule,
     LanguageCreatorFormModule,
     QueryProgressessModule,
-    AssetsUploaderModule,
   ]
 })
 export class LanguageCreatorModule { }

@@ -7,7 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LanguageActions } from '@store/actions/language.action';
 import { LanguageSelectors } from '@store/selectors/language.selectors';
-import { ILanguage, ILanguageImages, IAsset } from '@djonnyx/tornado-types';
+import { ILanguage, ILanguageImages, IAsset, LanguageImageTypes } from '@djonnyx/tornado-types';
 import { CurrenciesSelectors, LanguageAssetsSelectors } from '@store/selectors';
 import { LanguageAssetsActions } from '@store/actions/language-assets.action';
 
@@ -137,14 +137,6 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onAssetUpload(file: File): void {
-    this._store.dispatch(LanguageAssetsActions.createRequest({ languageId: this._languageId, file }));
-  }
-
-  onAssetUpdate(asset: IAsset): void {
-    this._store.dispatch(LanguageAssetsActions.updateRequest({ languageId: this._languageId, asset }));
-  }
-
-  onAssetDelete(asset: IAsset): void {
-    this._store.dispatch(LanguageAssetsActions.deleteRequest({ languageId: this._languageId, assetId: asset.id }));
+    this._store.dispatch(LanguageAssetsActions.uploadImageRequest({ languageId: this._languageId, imageType: LanguageImageTypes.MAIN, file }));
   }
 }

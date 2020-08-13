@@ -1,36 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
-    <div [ngClass]="{'main-options-wrapper': isEditMode}">
+    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
         <div class="images" *ngIf="isEditMode">
             <div class="image-n">
-                <h2 class="form-header">
-                    Image
-                </h2>
-
-                <ta-asset-picker *ngIf="isEditMode" [defaultValue]="!!images ? images.main : undefined"
-                    [assets]="assets" color="white" (select)="onMainImageSelect($event)">
-                </ta-asset-picker>
-            </div>
-
-            <div class="image-s">
-                <h2 class="form-header">
-                    Icon
-                </h2>
-
-                <ta-asset-picker *ngIf="isEditMode" size="m"
-                    [defaultValue]="!!images ? images.icon || images.main : undefined" [assets]="assets" [color]="color"
-                    (select)="onIconImageSelect($event)">
-                </ta-asset-picker>
-            </div>
-
-            <div class="full-width">
-                <h2 class="form-header">
-                    Color
-                </h2>
-
-                <div class="form-item">
-                    <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value"
-                        [formControl]="ctrlColor" />
-                </div>
+                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
+                    color="white" (upload)="onMainImageUpload($event)">
+                </ta-asset-picker-uploader>
             </div>
         </div>
 

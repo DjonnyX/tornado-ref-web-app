@@ -13,16 +13,6 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   form: FormGroup;
 
-  get color() {
-    return this.ctrlColor.value;
-  }
-
-  set color(v: string) {
-    this.ctrlColor.setValue(v);
-  }
-
-  ctrlColor = new FormControl('#000000');
-
   ctrlName = new FormControl('', [Validators.required]);
 
   @Input() images: ILanguageImages;
@@ -35,7 +25,6 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
       this._language = language;
 
       this.ctrlName.setValue(language.name);
-      this.ctrlColor.setValue(language.color);
     }
   }
 
@@ -47,12 +36,13 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ILanguage>();
 
+  @Output() uploadMainImage = new EventEmitter<File>();
+
   constructor(private _fb: FormBuilder) {
     super();
 
     this.form = this._fb.group({
       name: this.ctrlName,
-      color: this.ctrlColor,
     })
   }
 
@@ -74,9 +64,6 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
       if (!(images as any).hasOwnProperty("main")) {
         images.main = null;
       }
-      if (!(images as any).hasOwnProperty("icon")) {
-        images.icon = null;
-      }
 
       this.save.emit({
         ...this._language,
@@ -88,12 +75,8 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  onMainImageSelect(asset: IAsset): void {
-    this.images = {...this.images, main: !!asset ? asset.id : null};
-  }
-
-  onIconImageSelect(asset: IAsset): void {
-    this.images = {...this.images, icon: !!asset ? asset.id : null};
+  onMainImageUpload(file: File): void {
+    this.uploadMainImage.emit(file);
   }
 
   onCancel(): void {

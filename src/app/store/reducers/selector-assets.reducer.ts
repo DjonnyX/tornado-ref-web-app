@@ -28,7 +28,7 @@ const selectorAssetsReducer = createReducer(
             loading: true,
         };
     }),
-    on(SelectorAssetsActions.createRequest, state => {
+    on(SelectorAssetsActions.createRequest, SelectorAssetsActions.uploadImageRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -57,7 +57,7 @@ const selectorAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SelectorAssetsActions.createError, (state, { error }) => {
+    on(SelectorAssetsActions.createError, SelectorAssetsActions.uploadImageError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -91,7 +91,7 @@ const selectorAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SelectorAssetsActions.createSuccess, (state, { asset, tmpAsset, meta }) => {
+    on(SelectorAssetsActions.createSuccess, SelectorAssetsActions.uploadImageSuccess, (state, { asset, tmpAsset, meta }) => {
         const existsTmpAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
         let collection = [...state.collection, asset];
         if (existsTmpAssetIndex > -1) {
@@ -106,7 +106,7 @@ const selectorAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SelectorAssetsActions.createProgress, (state, { tmpAsset, progress }) => {
+    on(SelectorAssetsActions.createProgress, SelectorAssetsActions.uploadImageProgress, (state, { tmpAsset, progress }) => {
         const existsAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
         let collection = [...state.collection];
         const asset = {...tmpAsset};

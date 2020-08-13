@@ -28,7 +28,7 @@ const orderTypeAssetsReducer = createReducer(
             loading: true,
         };
     }),
-    on(OrderTypeAssetsActions.createRequest, state => {
+    on(OrderTypeAssetsActions.createRequest, OrderTypeAssetsActions.uploadImageRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -57,7 +57,7 @@ const orderTypeAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(OrderTypeAssetsActions.createError, (state, { error }) => {
+    on(OrderTypeAssetsActions.createError, OrderTypeAssetsActions.uploadImageError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -91,7 +91,7 @@ const orderTypeAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(OrderTypeAssetsActions.createSuccess, (state, { asset, tmpAsset, meta }) => {
+    on(OrderTypeAssetsActions.createSuccess, OrderTypeAssetsActions.uploadImageSuccess, (state, { asset, tmpAsset, meta }) => {
         const existsTmpAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
         let collection = [...state.collection, asset];
         if (existsTmpAssetIndex > -1) {
@@ -106,7 +106,7 @@ const orderTypeAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(OrderTypeAssetsActions.createProgress, (state, { tmpAsset, progress }) => {
+    on(OrderTypeAssetsActions.createProgress, OrderTypeAssetsActions.uploadImageProgress, (state, { tmpAsset, progress }) => {
         const existsAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
         let collection = [...state.collection];
         const asset = {...tmpAsset};
