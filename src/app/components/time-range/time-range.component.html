@@ -2,15 +2,15 @@
     <div class="time-range__start">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Start</mat-label>
-            <input matInput placeholder="Start" [ngxTimepicker]="start" #startTime readonly>
+            <input matInput placeholder="Start" [ngxTimepicker]="start" [format]="24" #startTime readonly>
             <mat-icon matSuffix>access_time</mat-icon>
-            <ngx-material-timepicker #start [theme]="darkTheme"></ngx-material-timepicker>
+            <ngx-material-timepicker #start [theme]="darkTheme" [format]="24"></ngx-material-timepicker>
         </mat-form-field>
     </div>
     <div class="time-range__end">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>End</mat-label>
-            <input matInput placeholder="End" [ngxTimepicker]="end" #endTime readonly>
+            <input matInput placeholder="End" [ngxTimepicker]="end" [format]="24" #endTime readonly>
             <mat-icon matSuffix>access_time</mat-icon>
             <ngx-material-timepicker #end [theme]="darkTheme"></ngx-material-timepicker>
         </mat-form-field>
