@@ -140,6 +140,10 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
             value: value.value * 100,
           };
           break;
+        case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
+        case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
+          scenario.value = null;
+          break;
         default:
           scenario.value = value.value;
           break;
@@ -151,6 +155,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.form.statusChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(status => {
+      console.log(status)
       this.status.emit(status);
     });
   }
@@ -160,10 +165,15 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   }
 
   private resetValidators(action: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
-    this.ctrlValue.clearValidators();
     this.ctrlCurrency.clearValidators();
+    this.ctrlValue.clearValidators();
 
     switch (action) {
+      case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
+      case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
+        this.ctrlValue.setValue("");
+        this.ctrlCurrency.setValue("");
+        break;
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
       case ScenarioIntroActionTypes.DURATION:
       case ScenarioProductActionTypes.DOWN_LIMIT:
@@ -171,6 +181,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioSelectorActionTypes.MAX_USAGE:
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
         this.ctrlValue.setValidators([Validators.required]);
+        this.ctrlCurrency.setValue("");
         break;
       case ScenarioProductActionTypes.ADDITIONAL_PRICE:
       case ScenarioProductActionTypes.FIXED_PRICE:
