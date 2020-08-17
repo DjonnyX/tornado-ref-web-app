@@ -27,7 +27,7 @@ export class TranslateFormComponent implements OnInit {
         key: new FormControl(translate.key),
         value: new FormControl(translate.value),
         control: new FormControl(),
-      }, { updateOn: "blur" });
+      }, { updateOn: "change" });
     });
 
     this.controls = new FormArray(groups);
@@ -45,7 +45,7 @@ export class TranslateFormComponent implements OnInit {
       this.update.emit({
         key: ctrlKey.value,
         value: ctrlValue.value,
-      })
+      });
     }
    }
 
