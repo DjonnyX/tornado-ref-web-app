@@ -8,9 +8,9 @@
                 [process]="isProcessMainOptions$ | async">
                 <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
                     [tagList]="tags$ | async" [images]="images$ | async" [assets]="productAssets$ | async"
-                    [currencies]="currencies$ | async" (save)="onMainOptionsSave($event)"
-                    (cancel)="onMainOptionsCancel()" (uploadMainImage)="onMainImageUpload($event)"
-                    (uploadIconImage)="onIconImageUpload($event)"
+                    [currencies]="currencies$ | async" [defaultLanguage]="defaultLanguage$ | async"
+                    [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+                    (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
                     (uploadThumbnailImage)="onThumbnailImageUpload($event)">>
                 </ta-product-creator-form>
             </ta-query-progress>

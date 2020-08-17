@@ -3,9 +3,9 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors } from '@store/selectors';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguageSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map, filter, mergeMap } from 'rxjs/operators';
+import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
@@ -15,11 +15,12 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages, ProductImageTypes } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages, ProductImageTypes, ILanguage } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
 import { CurrenciesActions } from '@store/actions/currencies.action';
+import { LanguagesActions } from '@store/actions/languages.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -60,6 +61,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   currencies$: Observable<Array<ICurrency>>;
 
   images$: Observable<IProductImages>;
+
+  languages$: Observable<Array<ILanguage>>;
+
+  defaultLanguage$: Observable<ILanguage>;
 
   isEditMode = false;
 
@@ -105,9 +110,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(CurrenciesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(LanguagesSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -180,12 +188,23 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(ProductAssetsSelectors.selectCollection),
     );
 
+    this.languages$ = this._store.pipe(
+      select(LanguagesSelectors.selectCollection),
+    );
+
+    this.defaultLanguage$ = this.languages$.pipe(
+      filter(languages => !!languages),
+      map(languages => languages.find(v => !!v.isDefault)),
+      filter(language => !!language),
+    );
+
     this.actualProductAssets$ = combineLatest(
       this.product$,
       this.productAssets$,
+      this.defaultLanguage$,
     ).pipe(
-      filter(([product, assets]) => !!product && !!assets),
-      map(([product, assets]) => assets.filter(asset => asset.id !== product.images.main && asset.id !== product.images.thumbnail && asset.id !== product.images.icon)),
+      filter(([product, assets, defaultLanguage]) => !!product && !!assets && !!defaultLanguage),
+      map(([product, assets, defaultLanguage]) => assets.filter(asset => !product.content[defaultLanguage.code] || (asset.id !== product.content[defaultLanguage.code].images.main && asset.id !== product.content[defaultLanguage.code].images.thumbnail && asset.id !== product.content[defaultLanguage.code].images.icon))),
     );
 
     this.assets$ = this._store.pipe(
@@ -213,6 +232,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(AssetsActions.getAllRequest());
       this._store.dispatch(TagsActions.getAllRequest());
       this._store.dispatch(CurrenciesActions.getAllRequest());
+      this._store.dispatch(LanguagesActions.getAllRequest());
     });
 
     if (!!this._productId) {

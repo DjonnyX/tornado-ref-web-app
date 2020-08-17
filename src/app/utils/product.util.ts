@@ -1,21 +1,32 @@
 import { IProduct } from '@djonnyx/tornado-types';
 
 export const formatProductModel = (model: IProduct) => {
+    const content: any = {};
+    if (!!model.content) {
+        for (const lang in model.content) {
+            content[lang] = {
+                name: model.content.name,
+                description: model.content.description,
+                images: model.content.images || {
+                    main: null,
+                    thumbnail: null,
+                    icon: null,
+                },
+            }
+        }
+    }
     return {
         active: model.active,
-        name: model.name,
+        content,
         color: model.color,
-        description: model.description,
-        prices: model.prices,
+        prices: model.prices.map(price => ({
+            currency: price.currency,
+            value: price.value,
+        })),
         receipt: model.receipt,
         tags: model.tags,
         joint: model.joint,
         assets: model.assets,
-        images: {
-            main: !!model.images ? model.images.main : null,
-            thumbnail: !!model.images ? model.images.thumbnail : null,
-            icon: !!model.images ? model.images.icon : null,
-        },
         extra: model.extra,
-    }
+    };
 }

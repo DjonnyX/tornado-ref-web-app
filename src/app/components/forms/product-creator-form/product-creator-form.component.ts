@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetect
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductImages } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductImages, ILanguage } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -38,13 +38,17 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Input() assets: Array<IAsset>;
 
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
+
   private _product: IProduct;
   @Input() set product(product: IProduct) {
     if (product) {
       this._product = product;
 
-      this.ctrlName.setValue(product.name);
-      this.ctrlDescription.setValue(product.description);
+      this.ctrlName.setValue(product.content[this.defaultLanguage.code].name);
+      this.ctrlDescription.setValue(product.content[this.defaultLanguage.code].description);
       this.ctrlTags.setValue(product.tags);
       this.ctrlPrices.setValue(product.prices);
       this.ctrlColor.setValue(product.color);
@@ -115,7 +119,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.save.emit({
         ...this._product,
         ...this.form.value,
-        images,
+        // images,
         active: !!this._product && this._product.active !== undefined ? this._product.active : true,
         extra: !!this._product ? this._product.extra : {},
       });
