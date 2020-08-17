@@ -19,4 +19,4 @@ export { IOrderTypeAssetsState } from './order-type-assets.state';
 export { ILanguagesState } from './languages.state';
 export { ILanguageState } from './language.state';
 export { ILanguageAssetsState } from './language-assets.state';
-export { ITranslationsState } from './translations.state';
+export { ITranslationState } from './translation.state';

@@ -7,7 +7,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
-import { TranslateFormModule } from '../translate-form/translate-form.module';
 
 @NgModule({
   declarations: [
@@ -25,7 +24,6 @@ import { TranslateFormModule } from '../translate-form/translate-form.module';
     MatFormFieldModule,
     AssetPickerUploaderModule,
     ColorPickerModule,
-    TranslateFormModule,
   ]
 })
 export class LanguageCreatorFormModule { }

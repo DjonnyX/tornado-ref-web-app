@@ -1,5 +1,7 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ContentChildren, QueryList, ViewChildren } from '@angular/core';
 import { FormArray, FormGroup, FormControl } from '@angular/forms';
+import { ITranslate } from '@djonnyx/tornado-types/dist/interfaces/raw/ITranslation';
+import { EditableComponent } from '@components/base/editable/editable.component';
 
 @Component({
   selector: 'ta-translate-form',
@@ -7,9 +9,13 @@ import { FormArray, FormGroup, FormControl } from '@angular/forms';
   styleUrls: ['./translate-form.component.scss']
 })
 export class TranslateFormComponent implements OnInit {
-  @Input() collection: any;
+  @ViewChildren(EditableComponent) private _crlsValue: QueryList<EditableComponent>;
 
-  displayedColumns = ["key", "value"];
+  @Input() collection: Array<ITranslate>;
+
+  @Output() update = new EventEmitter<ITranslate>();
+
+  displayedColumns = ["key", "value", "control"];
 
   controls: FormArray;
 
@@ -18,18 +24,28 @@ export class TranslateFormComponent implements OnInit {
   ngOnInit(): void {
     const groups = this.collection.map(translate => {
       return new FormGroup({
-        position: new FormControl(translate.position),
-        name: new FormControl(translate.name),
+        key: new FormControl(translate.key),
+        value: new FormControl(translate.value),
+        control: new FormControl(),
       }, { updateOn: "blur" });
     });
 
     this.controls = new FormArray(groups);
   }
 
-  updateField(index: number, field: string) {
-    const control = this.getControl(index, field);
-    if (control.valid) {
-      // this.core.update(index,field,control.value);
+  onTurnOnEditMode(index: number): void {
+    const ctrlValue = this._crlsValue.toArray()[index];
+    ctrlValue.toEditMode();
+  }
+
+  onUpdate(index: number) {
+    const ctrlKey = this.getControl(index, 'key');
+    const ctrlValue = this.getControl(index, 'value');
+    if (ctrlValue.valid) {
+      this.update.emit({
+        key: ctrlKey.value,
+        value: ctrlValue.value,
+      })
     }
    }
 

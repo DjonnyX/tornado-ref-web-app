@@ -1,26 +1,39 @@
-import { Component, OnInit, ContentChild, Output, EventEmitter, ElementRef } from '@angular/core';
-import { Subject, fromEvent } from 'rxjs';
+import { Component, OnInit, ContentChild, Output, EventEmitter, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Subject, fromEvent, merge } from 'rxjs';
 import { BaseComponent } from '../base-component';
-import { takeUntil, filter, take, switchMapTo } from 'rxjs/operators';
+import { takeUntil, filter, take, switchMapTo, race, switchMap } from 'rxjs/operators';
 import { ViewModeDirective } from './view-mode.directive';
 import { EditModeDirective } from './edit-mode.directive';
+
+enum EditableModes {
+  VIEW = "view",
+  EDIT = "edit",
+}
 
 @Component({
   selector: 'ta-editable',
   templateUrl: './editable.component.html',
-  styleUrls: ['./editable.component.scss']
+  styleUrls: ['./editable.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class EditableComponent extends BaseComponent implements OnInit {
-  @ContentChild(ViewModeDirective) viewModeTpl: ViewModeDirective;
-  @ContentChild(EditModeDirective) editModeTpl: EditModeDirective;
+  @ContentChild(ViewModeDirective) _viewModeTemplate: ViewModeDirective;
+  @ContentChild(EditModeDirective) _editModeTemplate: EditModeDirective;
   @Output() update = new EventEmitter();
 
-  private _editMode = new Subject<boolean>();
+  private _editMode = new Subject<void>();
   editMode$ = this._editMode.asObservable();
 
-  mode: 'view' | 'edit' = 'view';
+  private _mode: EditableModes = EditableModes.VIEW;
+  set mode(v: EditableModes) {
+    this._mode = v;
+    this._cdr.markForCheck();
+  }
+  get mode() {
+    return this._mode;
+  }
 
-  constructor(private _elRef: ElementRef) {
+  constructor(private _elRef: ElementRef, private _cdr: ChangeDetectorRef) {
     super();
   }
 
@@ -30,8 +43,16 @@ export class EditableComponent extends BaseComponent implements OnInit {
   }
 
   toViewMode() {
-    this.update.next();
-    this.mode = 'view';
+    this.mode = EditableModes.VIEW;
+    this.update.emit();
+  }
+
+  toEditMode() {
+    this.mode = EditableModes.EDIT;
+  }
+
+  complete() {
+    this.toViewMode();
   }
 
   private get element() {
@@ -39,11 +60,11 @@ export class EditableComponent extends BaseComponent implements OnInit {
   }
 
   private viewModeHandler() {
-    fromEvent(this.element, 'dblclick').pipe(
+    fromEvent(this.element, 'click').pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(() => {
-      this.mode = 'edit';
-      this._editMode.next(true);
+      this.mode = EditableModes.EDIT;
+      this._editMode.next();
     });
   }
 
@@ -51,17 +72,20 @@ export class EditableComponent extends BaseComponent implements OnInit {
     const clickOutside$ = fromEvent(document, 'click').pipe(
       filter(({ target }) => this.element.contains(target) === false),
       take(1),
-    )
+    );
+    const clickEnter$ = fromEvent(this.element, 'keyup').pipe(
+      filter((event: KeyboardEvent) => event.keyCode === 13),
+      take(1),
+    );
 
     this.editMode$.pipe(
-      switchMapTo(clickOutside$),
-      take(1),
+      switchMap(() => merge(clickOutside$, clickEnter$)),
       takeUntil(this.unsubscribe$),
     ).subscribe(event => this.toViewMode());
   }
 
   get currentView() {
-    return this.mode === 'view' ? this.viewModeTpl.template : this.editModeTpl.template;
+    return this.mode === 'view' ? this._viewModeTemplate.template : this._editModeTemplate.template;
   }
 
   ngOnDestroy() {

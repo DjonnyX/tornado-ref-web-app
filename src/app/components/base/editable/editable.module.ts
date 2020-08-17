@@ -14,6 +14,8 @@ import { EditOnEnterDirective } from './edit-on-enter.directive';
   ],
   exports: [
     EditableComponent,
+    ViewModeDirective,
+    EditModeDirective,
   ],
   imports: [
     CommonModule,

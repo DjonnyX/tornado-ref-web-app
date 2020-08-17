@@ -18,4 +18,4 @@ export { OrderTypeAssetsSelectors } from "./order-type-assets.selectors";
 export { LanguagesSelectors } from "./languages.selectors";
 export { LanguageSelectors } from "./language.selectors";
 export { LanguageAssetsSelectors } from "./language-assets.selectors";
-export { TranslationsSelectors } from "./translations.selectors";
+export { TranslationSelectors } from "./translation.selectors";

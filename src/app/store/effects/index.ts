@@ -21,7 +21,7 @@ import OrderTypeAssetsEffects from './order-type-assets.effects';
 import LanguagesEffects from './languages.effects';
 import LanguageEffects from './language.effects';
 import LanguageAssetsEffects from './language-assets.effects';
-import TranslationAssetsEffects from './translations.effects';
+import TranslationEffects from './translation.effects';
 
 const rootEffects = [
   UserEffects,
@@ -47,6 +47,6 @@ const rootEffects = [
   LanguagesEffects,
   LanguageEffects,
   LanguageAssetsEffects,
-  TranslationAssetsEffects,
+  TranslationEffects,
 ];
 export default rootEffects;

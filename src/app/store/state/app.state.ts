@@ -22,7 +22,7 @@ import { IOrderTypeAssetsState } from './order-type-assets.state';
 import { ILanguagesState } from './languages.state';
 import { ILanguageState } from './language.state';
 import { ILanguageAssetsState } from './language-assets.state';
-import { ITranslationsState } from './translations.state';
+import { ITranslationState } from './translation.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -49,5 +49,5 @@ export interface IAppState {
     taLanguages: ILanguagesState,
     taLanguage: ILanguageState,
     taLanguageAssets: ILanguageAssetsState,
-    taTranslations: ITranslationsState,
+    taTranslation: ITranslationState,
 }
