@@ -13,6 +13,8 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   form: FormGroup;
 
+  ctrlCode = new FormControl('', [Validators.required]);
+
   ctrlName = new FormControl('', [Validators.required]);
 
   @Input() images: ILanguageImages;
@@ -24,6 +26,7 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
     if (language) {
       this._language = language;
 
+      this.ctrlCode.setValue(language.code);
       this.ctrlName.setValue(language.name);
     }
   }
@@ -43,6 +46,7 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
     this.form = this._fb.group({
       name: this.ctrlName,
+      code: this.ctrlCode,
     })
   }
 

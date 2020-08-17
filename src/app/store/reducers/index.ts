@@ -25,6 +25,7 @@ import orderTypeAssetsReducer from './order-type-assets.reducer';
 import languageAssetsReducer from './language-assets.reducer';
 import languageReducer from './language.reducer';
 import languagesReducer from './languages.reducer';
+import translationReducer from './translation.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -51,6 +52,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taLanguage: languageReducer,
   taLanguages: languagesReducer,
   taLanguageAssets: languageAssetsReducer,
+  taTranslation: translationReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

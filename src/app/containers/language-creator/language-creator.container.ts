@@ -7,9 +7,11 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LanguageActions } from '@store/actions/language.action';
 import { LanguageSelectors } from '@store/selectors/language.selectors';
-import { ILanguage, ILanguageImages, IAsset, LanguageImageTypes } from '@djonnyx/tornado-types';
-import { CurrenciesSelectors, LanguageAssetsSelectors } from '@store/selectors';
+import { ILanguage, ILanguageImages, IAsset, LanguageImageTypes, ITranslation } from '@djonnyx/tornado-types';
+import { CurrenciesSelectors, LanguageAssetsSelectors, TranslationSelectors } from '@store/selectors';
 import { LanguageAssetsActions } from '@store/actions/language-assets.action';
+import { TranslationActions } from '@store/actions/translation.action';
+import { ITranslate } from '@djonnyx/tornado-types/dist/interfaces/raw/ITranslation';
 
 @Component({
   selector: 'ta-language-creator',
@@ -23,7 +25,7 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
 
   isProcessMainOptions$: Observable<boolean>;
 
-  isProcessAssets$: Observable<boolean>;
+  isProcessTranslations$: Observable<boolean>;
 
   private _returnUrl: string;
 
@@ -33,11 +35,15 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
 
   languageAssets$: Observable<Array<IAsset>>;
 
+  translation$: Observable<ITranslation>;
+
   images$: Observable<ILanguageImages>;
 
   isEditMode = false;
 
   private _languageId: string;
+
+  private _translation: ITranslation;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -61,18 +67,15 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
       map(([isLanguageGetProcess, isCurrenciesGetProcess]) => isLanguageGetProcess || isCurrenciesGetProcess),
     );
 
-    this.isProcessAssets$ = combineLatest(
+    this.isProcessTranslations$ = combineLatest(
       this._store.pipe(
-        select(LanguageAssetsSelectors.selectIsGetProcess),
+        select(TranslationSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(LanguageAssetsSelectors.selectIsUpdateProcess),
-      ),
-      this._store.pipe(
-        select(LanguageAssetsSelectors.selectIsDeleteProcess),
+        select(TranslationSelectors.selectIsUpdateProcess),
       ),
     ).pipe(
-      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+      map(([isGetProcess, isUpdateProcess]) => isGetProcess || isUpdateProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -98,13 +101,24 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
       select(LanguageSelectors.selectImages),
     );
 
+    this.translation$ = this._store.pipe(
+      select(TranslationSelectors.selectEntity),
+    );
+
     this.language$.pipe(
       takeUntil(this.unsubscribe$),
       filter(language => !!language),
-      filter(language => this._languageId !== language.id),
     ).subscribe(language => {
-      this._languageId = language.id;
       this.isEditMode = !!this._languageId;
+
+      this._store.dispatch(TranslationActions.getRequest({ id: language.translation }));
+    });
+
+    this.translation$.pipe(
+      takeUntil(this.unsubscribe$),
+      filter(translation => !!translation),
+    ).subscribe(translation => {
+      this._translation = translation;
     });
 
     if (!!this._languageId) {
@@ -126,6 +140,16 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
     } else {
       this._store.dispatch(LanguageActions.createRequest({ language }));
     }
+  }
+
+  onTranslationUpdate(translate: ITranslate): void {
+    this._store.dispatch(TranslationActions.updateRequest({
+      id: this._translation.id,
+      translation: {
+        ...this._translation,
+        items: this._translation.items.map(item => ((item.key === translate.key) ? translate : item)),
+      },
+    }));
   }
 
   onCancel(): void {

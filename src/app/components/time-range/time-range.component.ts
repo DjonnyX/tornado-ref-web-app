@@ -78,36 +78,25 @@ export class TimeRangeComponent extends BaseComponent implements OnInit {
 }
 
 export const formatTime = (time: string): number => {
-  if (!time) {
+  if (time === undefined || time === null) {
     return 0;
   }
 
   const val = time.match(/([0-9]{1,2})/g);
-  const period = time.toUpperCase().match(/([AM|PM]+)/)[0];
-  let value = 0;
 
   const h = Number(val[0]);
-
-  if (!(period === 'AM' && h === 12)) {
-    value += h * 60 * 60 * 1000;
-  }
-
-  value += Number(val[1]) * 60 * 1000;
-
-  if (period === 'PM') {
-    value += 12 * 60 * 60 * 1000;
-  }
+  let value = h * 60 * 60 * 1000 + Number(val[1]) * 60 * 1000;
 
   return value;
 }
 
 export const formatLongToTime = (time: number): string => {
   if (!time) {
-    return "0:00 AM";
+    return "0:0";
   }
 
   const h = Math.floor(time / (60 * 60 * 1000));
   const m = String((time - h * 60 * 60 * 1000) / (60 * 1000));
 
-  return `${h > 12 ? h - 12 : h}:${m.length < 2 ? '0' + m : m} ${h > 12 ? 'PM' : 'AM'}`;
+  return `${h > 12 ? h - 12 : h}:${m.length < 2 ? '0' + m : m}`;
 }

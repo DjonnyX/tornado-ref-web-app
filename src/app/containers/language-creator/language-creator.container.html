@@ -8,18 +8,21 @@
                 [process]="isProcessMainOptions$ | async">
                 <ta-language-creator-form [isEditMode]="isEditMode" [language]="language$ | async"
                     [images]="images$ | async" [assets]="languageAssets$ | async" (save)="onMainOptionsSave($event)"
-                    (cancel)="onCancel()" (uploadMainImage)="onAssetUpload($event)"></ta-language-creator-form>
+                    (cancel)="onCancel()" (uploadMainImage)="onAssetUpload($event)">
+                </ta-language-creator-form>
             </ta-query-progress>
         </div>
 
         <div class="form" *ngIf="isEditMode">
             <div class="form-header">
-                <h2>Translation</h2>
+                <h2>Translations</h2>
             </div>
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="isProcessAssets$ | async">
-                <div></div>
+                [process]="isProcessTranslations$ | async">
+                <ta-translate-form *ngIf="!!(translation$ | async)?.items" [collection]="(translation$ | async).items"
+                    (update)="onTranslationUpdate($event)">
+                </ta-translate-form>
             </ta-query-progress>
         </div>
     </div>
