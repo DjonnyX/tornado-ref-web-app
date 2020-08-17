@@ -4,7 +4,7 @@ import { LanguageCreatorContainer } from './language-creator.container';
 import { LanguageCreatorFormModule } from '@components/forms/language-creator-form/language-creator-form.module';
 import { LanguageCreatorRoutingModule } from './language-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
-import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
+import { TranslateFormModule } from '@components/forms/translate-form/translate-form.module';
 
 @NgModule({
   declarations: [
@@ -15,6 +15,7 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
     LanguageCreatorRoutingModule,
     LanguageCreatorFormModule,
     QueryProgressessModule,
+    TranslateFormModule,
   ]
 })
 export class LanguageCreatorModule { }

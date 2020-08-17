@@ -68,3 +68,6 @@ export { IAssetsGetResponse } from './assets-get-response.interface';
 export { IAssetsCreateResponse } from './assets-create-response.interface';
 export { IAssetsUpdateResponse } from './assets-update-response.interface';
 export { IAssetsDeleteResponse } from './assets-delete-response.interface';
+export { ITranslationGetResponse } from './translation-get-response.interface';
+export { ITranslationUpdateResponse } from './translation-update-response.interface';
+export { ITranslationsGetResponse } from './translations-get-response.interface';

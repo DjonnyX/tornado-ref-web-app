@@ -65,12 +65,15 @@ import {
   ILanguageAssetCreateResponse,
   ILanguageAssetUpdateResponse,
   ILanguageAssetDeleteResponse,
+  ITranslationsGetResponse,
+  ITranslationGetResponse,
+  ITranslationUpdateResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes, ITranslation } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -931,6 +934,34 @@ export class ApiService {
   public deleteLanguageAsset(languagetId: string, assetId: string): Observable<ILanguageAssetDeleteResponse> {
     return this._http
       .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${languagetId}/asset/${assetId}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // translations
+  public getTranslations(): Observable<ITranslationsGetResponse> {
+    return this._http
+      .get<ITranslationsGetResponse>("api/v1/translations", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+  
+  public getTranslation(id: string): Observable<ITranslationGetResponse> {
+    return this._http
+      .get<ITranslationGetResponse>(`api/v1/translation/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateTranslation(id: string, translation: ITranslation): Observable<ITranslationUpdateResponse> {
+    return this._http
+      .put<ITranslationUpdateResponse>(`api/v1/translation/${id}`, translation, {
         headers: {
           authorization: this._token,
         },
