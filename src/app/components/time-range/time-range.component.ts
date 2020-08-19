@@ -84,8 +84,9 @@ export const formatTime = (time: string): number => {
 
   const val = time.match(/([0-9]{1,2})/g);
 
-  const h = Number(val[0]);
-  let value = h * 60 * 60 * 1000 + Number(val[1]) * 60 * 1000;
+  const h = !!val && val.length > 0 ? Number(val[0]) : 0;
+  const m = !!val && val.length > 1 ? Number(val[1]) : 0;
+  let value = h * 60 * 60 * 1000 + m * 60 * 1000;
 
   return value;
 }
