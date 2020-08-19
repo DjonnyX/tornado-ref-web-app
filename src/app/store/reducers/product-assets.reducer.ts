@@ -91,24 +91,24 @@ const productAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductAssetsActions.createSuccess, ProductAssetsActions.uploadImageSuccess, (state, { asset, tmpAsset, meta }) => {
-        const existsTmpAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection, asset];
+    on(ProductAssetsActions.createSuccess, ProductAssetsActions.uploadImageSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
+        const existsTmpAssetIndex = state.collection[langCode].findIndex(p => p.id === tmpAsset.id);
+        let collection = [...state.collection[langCode], asset];
         if (existsTmpAssetIndex > -1) {
             collection.splice(existsTmpAssetIndex, 1);
         }
         return {
             ...state,
-            collection,
+            collection: {...state.collection, ...{[langCode]: collection}},
             meta,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(ProductAssetsActions.createProgress, ProductAssetsActions.uploadImageProgress, (state, { tmpAsset, progress }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection];
+    on(ProductAssetsActions.createProgress, ProductAssetsActions.uploadImageProgress, (state, { tmpAsset, langCode, progress }) => {
+        const existsAssetIndex = state.collection[langCode].findIndex(p => p.id === tmpAsset.id);
+        let collection = [...state.collection[langCode]];
         const asset = {...tmpAsset};
         asset.progress = progress;
         if (existsAssetIndex > -1) {
@@ -119,34 +119,34 @@ const productAssetsReducer = createReducer(
         }
         return {
             ...state,
-            collection,
+            collection: {...state.collection, ...{[langCode]: collection}},
         };
     }),
-    on(ProductAssetsActions.updateSuccess, (state, { asset, meta }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === asset.id);
-        let collection = [...state.collection];
+    on(ProductAssetsActions.updateSuccess, (state, { asset, langCode, meta }) => {
+        const existsAssetIndex = state.collection[langCode].findIndex(p => p.id === asset.id);
+        let collection = [...state.collection[langCode]];
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
             collection.splice(existsAssetIndex, 0, asset);
         }
         return {
             ...state,
-            collection,
+            collection: {...state.collection, ...{[langCode]: collection}},
             meta,
             error: undefined,
             isUpdateProcess: false,
             loading: false,
         };
     }),
-    on(ProductAssetsActions.deleteSuccess, (state, { id, meta }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<IAsset> = [...state.collection];
+    on(ProductAssetsActions.deleteSuccess, (state, { id, langCode, meta }) => {
+        const existsAssetIndex = state.collection[langCode].findIndex(p => p.id === id);
+        let collection: Array<IAsset> = [...state.collection[langCode]];
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
         }
         return {
             ...state,
-            collection,
+            collection: {...state.collection, ...{[langCode]: collection}},
             meta,
             error: undefined,
             isDeleteProcess: false,

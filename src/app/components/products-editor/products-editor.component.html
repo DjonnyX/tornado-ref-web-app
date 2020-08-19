@@ -1,4 +1,4 @@
-<div class="editor">
+<div class="editor" *ngIf="!!defaultLanguage">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" *ngFor="let product of collection | search: searchPattern"
@@ -29,15 +29,15 @@
             <div matRipple class="entity-active-zone" (click)="onEditProduct(product)">
                 <div class="content">
                     <div class="content__name">
-                        {{product.name}}
+                        {{getProductName(product)}}
                     </div>
                     <div class="content__description">
-                        {{product.description}}
+                        {{getProductDescription(product)}}
                     </div>
                 </div>
                 <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(product.images.main)" class="entity-thumbnail"
-                        [src]="getThumbnail(product.images.main)">
+                    <img align="center" *ngIf="hasThumbnail(product)" class="entity-thumbnail"
+                        [src]="getThumbnail(product)">
                     <div class="tags">
                         <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
                             [matTooltip]="getTagName(tag)"></span>

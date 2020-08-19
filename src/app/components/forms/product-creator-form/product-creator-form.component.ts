@@ -2,7 +2,8 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetect
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductImages, ILanguage } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductImages, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { IFileUploadEvent } from '@models';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -14,29 +15,13 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   form: FormGroup;
 
-  get color() {
-    return this.ctrlColor.value;
-  }
-
-  set color(v: string) {
-    this.ctrlColor.setValue(v);
-  }
-
-  ctrlColor = new FormControl('#000000');
-
-  ctrlName = new FormControl('', [Validators.required]);
-
-  ctrlDescription = new FormControl('');
-
   ctrlTags = new FormControl([]);
 
   ctrlPrices = new FormControl([]);
 
   ctrlReceipt = new FormControl([]);
 
-  @Input() images: IProductImages;
-
-  @Input() assets: Array<IAsset>;
+  @Input() assets: { [lang: string]: Array<IAsset> };
 
   @Input() defaultLanguage: ILanguage;
 
@@ -47,11 +32,10 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     if (product) {
       this._product = product;
 
-      this.ctrlName.setValue(product.content[this.defaultLanguage.code].name);
-      this.ctrlDescription.setValue(product.content[this.defaultLanguage.code].description);
+      this._state = {...this._state, ...(this._product ? this._product.contents : undefined)};
+
       this.ctrlTags.setValue(product.tags);
       this.ctrlPrices.setValue(product.prices);
-      this.ctrlColor.setValue(product.color);
       // this.ctrlReceipt.setValue(product.receipt);
     }
   }
@@ -72,22 +56,21 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Output() update = new EventEmitter<IProduct>();
 
-  @Output() uploadMainImage = new EventEmitter<File>();
+  @Output() uploadMainImage = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<File>();
+  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<File>();
+  @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+
+  private _state: IProductContents = {};
 
   constructor(private _fb: FormBuilder) {
     super();
 
     this.form = this._fb.group({
-      name: this.ctrlName,
-      description: this.ctrlDescription,
       tags: this.ctrlTags,
       prices: this.ctrlPrices,
       receipt: this.ctrlReceipt,
-      color: this.ctrlColor,
     })
   }
 
@@ -104,7 +87,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   onSave(): void {
-    const images: IProductImages = {...this.images};
+    /*const images: IProductImages = { ...this.images };
     if (!(images as any).hasOwnProperty("main")) {
       images.main = null;
     }
@@ -113,29 +96,29 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     }
     if (!(images as any).hasOwnProperty("icon")) {
       images.icon = null;
-    }
+    }*/
 
     if (this.form.valid) {
       this.save.emit({
         ...this._product,
         ...this.form.value,
-        // images,
+        contents: { ...(!!this._product ? this._product.contents : undefined), ...this._state },
         active: !!this._product && this._product.active !== undefined ? this._product.active : true,
         extra: !!this._product ? this._product.extra : {},
       });
     }
   }
 
-  onMainImageUpload(file: File): void {
-    this.uploadMainImage.emit(file);
+  onMainImageUpload(file: File, lang: ILanguage): void {
+    this.uploadMainImage.emit({ file, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(file: File): void {
-    this.uploadThumbnailImage.emit(file);
+  onThumbnailImageUpload(file: File, lang: ILanguage): void {
+    this.uploadThumbnailImage.emit({ file, langCode: lang.code });
   }
 
-  onIconImageUpload(file: File): void {
-    this.uploadIconImage.emit(file);
+  onIconImageUpload(file: File, lang: ILanguage): void {
+    this.uploadIconImage.emit({ file, langCode: lang.code });
   }
 
   onChangePrices(prices: Array<IPrice>): void {
@@ -144,5 +127,22 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  getContent(lang: ILanguage): IProductContentsItem {
+    return this._product.contents[lang.code];
+  }
+
+  updateStateFor(state: IProductContents, lang: ILanguage): void {
+    const mergedState: IProductContents = { [lang.code]: { ...this._state[lang.code], ...state } };
+    this.updateState(mergedState);
+  }
+
+  getAssets(lang: ILanguage): Array<IAsset> {
+    return !!this.assets && !!this.assets[lang.code] ? this.assets[lang.code] : undefined;
+  }
+
+  private updateState(state: IProductContents): void {
+    this._state = { ...this._state, ...state };
   }
 }

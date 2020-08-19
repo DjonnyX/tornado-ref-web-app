@@ -8,7 +8,7 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency } from '@djonnyx/tornado-types';
+import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
@@ -151,6 +151,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Input() assetsDictionary: { [id: string]: IAsset };
 
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
+
   @Output() create = new EventEmitter<INode>();
 
   @Output() update = new EventEmitter<INode>();
@@ -272,8 +276,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
         const content = this.productsDictionary[this.node.contentId];
 
-        if (content && content.images.main && this.assetsDictionary[content.images.main]) {
-          return this.assetsDictionary[content.images.main].mipmap.x32;
+        if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+          return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
         }
       } else
         if (!!this.selectorsDictionary) {
@@ -302,7 +306,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   getContentName(): string {
     const content = this.getContent();
-    return !!content ? content.name : "";
+    return !!content ? !!(content as any).content ? (content as any).content[this.defaultLanguage.code].name : (content as any).name : "";
   }
 
   getContent(): IProduct | ISelector | null {

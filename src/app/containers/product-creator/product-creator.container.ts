@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguageSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IAsset } from '@models';
+import { IAsset, IFileUploadEvent } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
@@ -38,6 +38,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   isProcessAssets$: Observable<boolean>;
 
+  private _isProcessGetEntity$ = new BehaviorSubject<boolean>(true);
+  isProcessGetEntity$ = this._isProcessGetEntity$.asObservable();
+
   rootNodeId$: Observable<string>;
 
   product$: Observable<IProduct>;
@@ -50,17 +53,15 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   products$: Observable<Array<IProduct>>;
 
-  productAssets$: Observable<Array<IAsset>>;
+  productAssets$: Observable<{ [lang: string]: Array<IAsset> }>;
 
-  actualProductAssets$: Observable<Array<IAsset>>;
+  actualProductAssets$: Observable<{ [lang: string]: Array<IAsset> }>;
 
   assets$: Observable<Array<IAsset>>;
 
   tags$: Observable<Array<ITag>>;
 
   currencies$: Observable<Array<ICurrency>>;
-
-  images$: Observable<IProductImages>;
 
   languages$: Observable<Array<ILanguage>>;
 
@@ -113,9 +114,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
+      this.isProcessGetEntity$,
     ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess, isProcessGetEntity]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess || isProcessGetEntity),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -153,11 +155,13 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.product$.pipe(
       takeUntil(this.unsubscribe$),
-      filter(product => !!product),
     ).subscribe(product => {
-      this._product = product;
-      this._productId = product.id;
-      this.isEditMode = !!this._productId;
+      if (product) {
+        this._product = product;
+        this._productId = product.id;
+        this.isEditMode = !!this._productId;
+      }
+      this._isProcessGetEntity$.next(false);
     });
 
     this.tags$ = this._store.pipe(
@@ -204,15 +208,17 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this.defaultLanguage$,
     ).pipe(
       filter(([product, assets, defaultLanguage]) => !!product && !!assets && !!defaultLanguage),
-      map(([product, assets, defaultLanguage]) => assets.filter(asset => !product.content[defaultLanguage.code] || (asset.id !== product.content[defaultLanguage.code].images.main && asset.id !== product.content[defaultLanguage.code].images.thumbnail && asset.id !== product.content[defaultLanguage.code].images.icon))),
+      map(([product, assets, defaultLanguage]) => {
+        const result: { [lang: string]: Array<IAsset> } = {};
+        for (const lang in assets) {
+          result[lang] = assets[lang].filter(asset => !product.contents[defaultLanguage.code] || (asset.id !== product.contents[defaultLanguage.code].images.main && asset.id !== product.contents[defaultLanguage.code].images.thumbnail && asset.id !== product.contents[defaultLanguage.code].images.icon))
+        }
+        return result;
+      }),
     );
 
     this.assets$ = this._store.pipe(
       select(AssetsSelectors.selectCollection),
-    );
-
-    this.images$ = this._store.pipe(
-      select(ProductSelectors.selectImages),
     );
 
     this.rootNodeId$ = this.product$.pipe(
@@ -225,19 +231,20 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
       this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
-      this._store.dispatch(ProductsActions.getAllRequest());
-      this._store.dispatch(SelectorsActions.getAllRequest({}));
       this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
-      this._store.dispatch(BusinessPeriodsActions.getAllRequest());
-      this._store.dispatch(AssetsActions.getAllRequest());
-      this._store.dispatch(TagsActions.getAllRequest());
-      this._store.dispatch(CurrenciesActions.getAllRequest());
-      this._store.dispatch(LanguagesActions.getAllRequest());
     });
 
     if (!!this._productId) {
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
     }
+
+    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(ProductsActions.getAllRequest());
+    this._store.dispatch(SelectorsActions.getAllRequest({}));
+    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+    this._store.dispatch(AssetsActions.getAllRequest());
+    this._store.dispatch(TagsActions.getAllRequest());
+    this._store.dispatch(CurrenciesActions.getAllRequest());
   }
 
   ngOnDestroy(): void {
@@ -248,27 +255,27 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onAssetUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, file }));
+    // this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, file }));
   }
 
   onAssetUpdate(asset: IAsset): void {
-    this._store.dispatch(ProductAssetsActions.updateRequest({ productId: this._productId, asset }));
+    // this._store.dispatch(ProductAssetsActions.updateRequest({ productId: this._productId, asset }));
   }
 
   onAssetDelete(asset: IAsset): void {
-    this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId: asset.id }));
+    // this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId: asset.id }));
   }
 
-  onMainImageUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.MAIN, file }));
+  onMainImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.MAIN, data }));
   }
 
-  onThumbnailImageUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.THUMBNAIL, file }));
+  onThumbnailImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.THUMBNAIL, data }));
   }
 
-  onIconImageUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.ICON, file }));
+  onIconImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.ICON, data }));
   }
 
   onCreateHierarchyNode(node: INode): void {

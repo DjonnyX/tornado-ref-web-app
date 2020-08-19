@@ -1,0 +1,28 @@
+@import "../../../../../styles/components/color-picker";
+@import "../../../../../styles/themes";
+@import "../../../../../styles/utils/px2em";
+
+.product-content {
+    margin-top: px2em(44);
+    margin-bottom: px2em(44);
+}
+
+.product__description {
+    height: px2em(460);
+}
+
+.images {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-around;
+    background: rgba($block-color, 0.1);
+    border-radius: 6px;
+    padding: px2em(22);
+
+    .image-n,
+    .image-m,
+    .image-s {
+        margin-bottom: px2em(20);
+    }
+}

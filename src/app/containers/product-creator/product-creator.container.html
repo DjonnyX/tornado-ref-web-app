@@ -7,7 +7,7 @@
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
                 <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
-                    [tagList]="tags$ | async" [images]="images$ | async" [assets]="productAssets$ | async"
+                    [tagList]="tags$ | async" [assets]="productAssets$ | async"
                     [currencies]="currencies$ | async" [defaultLanguage]="defaultLanguage$ | async"
                     [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
                     (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
@@ -16,7 +16,7 @@
             </ta-query-progress>
         </div>
 
-        <div class="form" *ngIf="isEditMode">
+        <!--<div class="form" *ngIf="isEditMode">
             <div class="form-header">
                 <h2>Image gallery</h2>
             </div>
@@ -26,7 +26,7 @@
                 <ta-assets-uploader [collection]="actualProductAssets$ | async" (upload)="onAssetUpload($event)"
                     (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
             </ta-query-progress>
-        </div>
+        </div>-->
 
         <div class="form" *ngIf="isEditMode">
             <div class="form-header">

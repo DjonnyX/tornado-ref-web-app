@@ -101,9 +101,9 @@
                     [currenciesDictionary]="currenciesDictionary"
                     [businessPeriodsDictionary]="businessPeriodsDictionary" [productsDictionary]="productsDictionary"
                     [selectorsDictionary]="selectorsDictionary" [assetsDictionary]="assetsDictionary"
-                    [searchPattern]="searchPattern" [mode]="mode" (create)="createNodeForChild($event)"
-                    (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
-                    (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
+                    [searchPattern]="searchPattern" [mode]="mode" [defaultLanguage]="defaultLanguage"
+                    [languages]="languages" (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
+                    (delete)="deleteNodeForChild($event)" (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
             </ng-container>
             <ng-template #renderInstanceNode>
                 <ng-container *ngIf="!!nodeInstance">
@@ -117,6 +117,7 @@
                         [businessPeriodsDictionary]="businessPeriodsDictionary"
                         [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
                         [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
+                        [defaultLanguage]="defaultLanguage" [languages]="languages"
                         (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
                         (delete)="deleteNodeForChild($event)" (searchExpand)="onSearchExpand($event)">
                     </ta-node-tree-item>

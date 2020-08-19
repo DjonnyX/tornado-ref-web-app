@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { ProductsSelectors, AssetsSelectors } from '@store/selectors';
+import { ProductsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { ProductsActions } from '@store/actions/products.action';
 import { IAsset } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,8 +11,9 @@ import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { ProductActions } from '@store/actions/product.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { BaseComponent } from '@components/base/base-component';
-import { map } from 'rxjs/operators';
-import { IProduct, ITag, IRef } from '@djonnyx/tornado-types';
+import { map, filter } from 'rxjs/operators';
+import { IProduct, ITag, IRef, ILanguage } from '@djonnyx/tornado-types';
+import { LanguagesActions } from '@store/actions/languages.action';
 
 @Component({
   selector: 'ta-products-editor',
@@ -30,6 +31,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   public assets$: Observable<Array<IAsset>>;
 
+  languages$: Observable<Array<ILanguage>>;
+
+  defaultLanguage$: Observable<ILanguage>;
+
   public refInfo$: Observable<IRef>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
@@ -42,6 +47,8 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(TagsActions.getAllRequest());
 
     this._store.dispatch(AssetsActions.getAllRequest());
+    
+    this._store.dispatch(LanguagesActions.getAllRequest());
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
@@ -57,8 +64,11 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(TagsSelectors.selectLoading),
       ),
+      this._store.pipe(
+        select(LanguagesSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isProductsProgress, isAssetsProgress, isTagsProgress]) => isProductsProgress || isAssetsProgress || isTagsProgress),
+      map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess]) => isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess),
     );
 
     this.collection$ = this._store.pipe(
@@ -71,6 +81,16 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
     this.refInfo$ = this._store.pipe(
       select(ProductsSelectors.selectRefInfo),
+    );
+
+    this.languages$ = this._store.pipe(
+      select(LanguagesSelectors.selectCollection),
+    );
+
+    this.defaultLanguage$ = this.languages$.pipe(
+      filter(languages => !!languages),
+      map(languages => languages.find(v => !!v.isDefault)),
+      filter(language => !!language),
     );
   }
 
