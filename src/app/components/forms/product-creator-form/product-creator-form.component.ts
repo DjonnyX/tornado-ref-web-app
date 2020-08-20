@@ -22,11 +22,31 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   ctrlReceipt = new FormControl([]);
 
-  @Input() assets: { [lang: string]: Array<IAsset> };
+  @Input() assets: Array<IAsset>;
 
-  @Input() defaultLanguage: ILanguage;
+  private _defaultLanguage: ILanguage;
+  @Input() set defaultLanguage(v: ILanguage) {
+    if (this._defaultLanguage !== v) {
+      this._defaultLanguage = v;
 
-  @Input() languages: Array<ILanguage>;
+      this.sortLanguages();
+    }
+  }
+
+  get defaultLanguage() { return this._defaultLanguage; }
+
+  private _languages: Array<ILanguage>;
+  @Input() set languages(v: Array<ILanguage>) {
+    if (this._languages !== v) {
+      this._languages = v;
+
+      this.sortLanguages();
+    }
+  }
+
+  get languages() { return this._languages; }
+
+  sortedLanguages: Array<ILanguage>;
 
   private _product: IProduct;
   @Input() set product(product: IProduct) {
@@ -128,13 +148,21 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     this.updateState(mergedState);
   }
 
-  getAssets(lang: ILanguage): Array<IAsset> {
-    return !!this.assets && !!this.assets[lang.code] ? this.assets[lang.code] : undefined;
-  }
+  private sortLanguages(): void {
+    if (!this._languages || !this._defaultLanguage) {
+      return;
+    }
 
-  private _updateStateFor(state: IProductContents, lang: ILanguage): void {
-    const mergedState: IProductContents = { [lang.code]: { ...this._state[lang.code], ...state } };
-    this.updateState(mergedState);
+    const languages = new Array<ILanguage>();
+    this._languages.forEach(lang => {
+      if (lang.code === this._defaultLanguage.code) {
+        languages.unshift(lang);
+      } else {
+        languages.push(lang);
+      }
+    });
+
+    this.sortedLanguages = languages;
   }
 
   private updateState(state: IProductContents): void {

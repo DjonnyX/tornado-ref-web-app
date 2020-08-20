@@ -92,8 +92,9 @@ const productAssetsReducer = createReducer(
         };
     }),
     on(ProductAssetsActions.createSuccess, ProductAssetsActions.uploadImageSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
-        const existsTmpAssetIndex = state.collection[langCode].findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection[langCode], asset];
+        const c = state.collection[langCode] || [];
+        const existsTmpAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...c, asset];
         if (existsTmpAssetIndex > -1) {
             collection.splice(existsTmpAssetIndex, 1);
         }
@@ -107,8 +108,9 @@ const productAssetsReducer = createReducer(
         };
     }),
     on(ProductAssetsActions.createProgress, ProductAssetsActions.uploadImageProgress, (state, { tmpAsset, langCode, progress }) => {
-        const existsAssetIndex = state.collection[langCode].findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection[langCode]];
+        const c = state.collection[langCode] || [];
+        const existsAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...c];
         const asset = {...tmpAsset};
         asset.progress = progress;
         if (existsAssetIndex > -1) {
@@ -123,8 +125,9 @@ const productAssetsReducer = createReducer(
         };
     }),
     on(ProductAssetsActions.updateSuccess, (state, { asset, langCode, meta }) => {
-        const existsAssetIndex = state.collection[langCode].findIndex(p => p.id === asset.id);
-        let collection = [...state.collection[langCode]];
+        const c = state.collection[langCode] || [];
+        const existsAssetIndex = c.findIndex(p => p.id === asset.id);
+        let collection = [...c];
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
             collection.splice(existsAssetIndex, 0, asset);
@@ -139,8 +142,9 @@ const productAssetsReducer = createReducer(
         };
     }),
     on(ProductAssetsActions.deleteSuccess, (state, { id, langCode, meta }) => {
-        const existsAssetIndex = state.collection[langCode].findIndex(p => p.id === id);
-        let collection: Array<IAsset> = [...state.collection[langCode]];
+        const c = state.collection[langCode] || [];
+        const existsAssetIndex = c.findIndex(p => p.id === id);
+        let collection: Array<IAsset> = [...c];
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
         }

@@ -51,7 +51,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   products$: Observable<Array<IProduct>>;
 
-  productAssets$: Observable<{ [lang: string]: Array<IAsset> }>;
+  productAssets$: Observable<Array<IAsset>>;
 
   actualProductAssets$: Observable<{ [lang: string]: Array<IAsset> }>;
 
@@ -172,10 +172,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(BusinessPeriodsSelectors.selectCollection),
     );
 
-    this.productAssets$ = this._store.pipe(
-      select(ProductAssetsSelectors.selectCollection),
-    );
-
     this.languages$ = this._store.pipe(
       select(LanguagesSelectors.selectCollection),
     );
@@ -186,17 +182,47 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       filter(language => !!language),
     );
 
+
+    this.productAssets$ = combineLatest(
+      this._store.select(ProductAssetsSelectors.selectCollection),
+      this.languages$,
+    ).pipe(
+      filter(([assets, langs]) => !!assets && !!langs),
+      switchMap(([assets, langs]) => {
+        const result = new Array<IAsset>();
+
+        for (const lang in assets) {
+          result.push(...assets[lang]);
+        }
+
+        return of(result);
+      }),
+    );
+
     this.product$ = combineLatest(
       this._store.select(ProductSelectors.selectEntity),
+      this.languages$,
       this.defaultLanguage$,
     ).pipe(
-      filter(([product, defaultLang]) => !!product && !!defaultLang),
-      map(([product, defaultLang]) => {
+      filter(([product, langs, defaultLang]) => !!product && !!defaultLang && !!langs),
+      map(([product, langs, defaultLang]) => {
         const contents: IProductContents = {};
+
+        // мерджинг контента от дефолтового языка
         for (const lang in product.contents) {
           // переопределение контента для разных языков
           contents[lang] = lang === defaultLang.code ? product.contents[lang] : deepMergeObjects(product.contents[defaultLang.code], product.contents[lang]);
         }
+
+        // добовление контента языков которых нет в базе
+        for (const lang of langs) {
+          if (contents[lang.code]) {
+            continue;
+          }
+
+          contents[lang.code] = deepMergeObjects(product.contents[defaultLang.code], {});
+        }
+
         return { ...product, contents };
       })
     );
@@ -209,7 +235,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this.isEditMode = true;
     });
 
-    this.actualProductAssets$ = combineLatest(
+    /*this.actualProductAssets$ = combineLatest(
       this.product$,
       this.productAssets$,
       this.defaultLanguage$,
@@ -229,7 +255,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         }
         return result;
       }),
-    );
+    );*/
 
     this.assets$ = this._store.pipe(
       select(AssetsSelectors.selectCollection),
