@@ -155,7 +155,6 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.form.statusChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(status => {
-      console.log(status)
       this.status.emit(status);
     });
   }

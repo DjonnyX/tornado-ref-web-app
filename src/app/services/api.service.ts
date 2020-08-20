@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile, IAsset } from '@models';
+import { IUserProfile, IAsset, IFileUploadEvent } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -68,6 +68,7 @@ import {
   ITranslationsGetResponse,
   ITranslationGetResponse,
   ITranslationUpdateResponse,
+  IProductAssetGetByLangResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -190,7 +191,7 @@ export class ApiService {
       });
   }
 
-  public getProductAssets(productId: string): Observable<IProductAssetGetResponse> {
+  public getProductAllAssets(productId: string): Observable<IProductAssetGetResponse> {
     return this._http
       .get<IProductAssetGetResponse>(`api/v1/product/${productId}/assets`, {
         headers: {
@@ -199,82 +200,91 @@ export class ApiService {
       });
   }
 
-  public uploadProductImage(productId: string, type: ProductImageTypes, file: File): Observable<IProductAssetCreateResponse> {
-    const formData = new FormData();
-    formData.append("file", file, file.name);
-
+  public getProductAllByLangAssets(productId: string, langCode: string): Observable<IProductAssetGetByLangResponse> {
     return this._http
-      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/image/${type}`, formData, {
-        headers: {
-          authorization: this._token,
-        },
-        reportProgress: true,
-        observe: "events",
-      }).pipe(
-        map((event: any) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              const progress = Math.round(100 * event.loaded / event.total);
-              return {
-                data: {
-                  progress: {
-                    total: event.total,
-                    loaded: event.loaded,
-                    progress,
-                  },
-                }
-              }
-            case HttpEventType.Response:
-              return event.body;
-          }
-        }),
-      );
-  }
-
-  public createProductAsset(productId: string, file: File): Observable<IProductAssetCreateResponse> {
-    const formData = new FormData();
-    formData.append("file", file, file.name);
-
-    return this._http
-      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/asset`, formData, {
-        headers: {
-          authorization: this._token,
-        },
-        reportProgress: true,
-        observe: "events",
-      }).pipe(
-        map((event: any) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              const progress = Math.round(100 * event.loaded / event.total);
-              return {
-                data: {
-                  progress: {
-                    total: event.total,
-                    loaded: event.loaded,
-                    progress,
-                  },
-                }
-              }
-            case HttpEventType.Response:
-              return event.body;
-          }
-        }),
-      );
-  }
-
-  public updateProductAsset(productId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IProductAssetUpdateResponse> {
-    return this._http
-      .put<IProductAssetUpdateResponse>(`api/v1/product/${productId}/asset/${assetId}`, asset, {
+      .get<IProductAssetGetByLangResponse>(`api/v1/product/${productId}/assets/${langCode}`, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public deleteProductAsset(productId: string, assetId: string): Observable<IProductAssetDeleteResponse> {
+  public uploadProductImage(productId: string, type: ProductImageTypes, data: IFileUploadEvent): Observable<IProductAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
     return this._http
-      .delete<IProductAssetDeleteResponse>(`api/v1/product/${productId}/asset/${assetId}`, {
+      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/image/${data.langCode}/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public createProductAsset(productId: string, data: IFileUploadEvent): Observable<IProductAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/asset/${data.langCode}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateProductAsset(productId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IProductAssetUpdateResponse> {
+    return this._http
+      .put<IProductAssetUpdateResponse>(`api/v1/product/${productId}/asset/${langCode}/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteProductAsset(productId: string, langCode: string, assetId: string): Observable<IProductAssetDeleteResponse> {
+    return this._http
+      .delete<IProductAssetDeleteResponse>(`api/v1/product/${productId}/asset/${langCode}/${assetId}`, {
         headers: {
           authorization: this._token,
         },

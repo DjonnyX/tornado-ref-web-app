@@ -10,7 +10,7 @@ export class NotificationService {
 
   notify(message: string) {
     this._snackBar.open(message, "Close", {
-      duration: 100000,
+      duration: 20000,
       panelClass: "error-snack",
     })
   }

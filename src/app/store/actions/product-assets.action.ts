@@ -2,11 +2,16 @@ import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
 import { ProductImageTypes } from '@djonnyx/tornado-types';
+import { IFileUploadEvent } from '@models';
 
 export enum ProductAssetsActionTypes {
     GET_ALL_REQUEST = "TORNADO/product/assets/get-all:request",
     GET_ALL_SUCCESS = "TORNADO/product/assets/get-all:success",
     GET_ALL_ERROR = "TORNADO/product/assets/get-all:error",
+
+    GET_ALL_BY_LANG_REQUEST = "TORNADO/product/assets/get-all-by-lang:request",
+    GET_ALL_BY_LANG_SUCCESS = "TORNADO/product/assets/get-all-by-lang:success",
+    GET_ALL_BY_LANG_ERROR = "TORNADO/product/assets/get-all-by-lang:error",
 
     GET_REQUEST = "TORNADO/product/assets/get:request",
     GET_SUCCESS = "TORNADO/product/assets/get:success",
@@ -41,40 +46,41 @@ export namespace ProductAssetsActions {
     );
     export const getAllSuccess = createAction(
         ProductAssetsActionTypes.GET_ALL_SUCCESS,
-        props<{ collection: Array<IAsset>, meta?: IMetaRefsResponse }>()
+        props<{ collection: { [lang: string]: Array<IAsset> }, meta?: IMetaRefsResponse }>()
     );
     export const getAllError = createAction(
         ProductAssetsActionTypes.GET_ALL_ERROR,
         props<{ error: string }>()
     );
 
-    // get
-    export const getRequest = createAction(
-        ProductAssetsActionTypes.GET_REQUEST,
-        props<{ assetId: string }>()
+    // getAll
+    export const getAllByLangRequest = createAction(
+        ProductAssetsActionTypes.GET_ALL_BY_LANG_REQUEST,
+        props<{ productId: string, langCode: string, }>()
     );
-    export const getSuccess = createAction(
-        ProductAssetsActionTypes.GET_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+    export const getAllByLangSuccess = createAction(
+        ProductAssetsActionTypes.GET_ALL_BY_LANG_SUCCESS,
+        props<{ collection: Array<IAsset>, langCode: string, meta?: IMetaRefsResponse }>()
     );
-    export const getError = createAction(
-        ProductAssetsActionTypes.GET_ERROR,
+    export const getAllByLangError = createAction(
+        ProductAssetsActionTypes.GET_ALL_BY_LANG_ERROR,
         props<{ error: string }>()
     );
 
     // create
     export const createRequest = createAction(
         ProductAssetsActionTypes.CREATE_REQUEST,
-        props<{ productId: string, file: File, }>()
+        props<{ productId: string, langCode: string, data: IFileUploadEvent, }>()
     );
     export const createSuccess = createAction(
         ProductAssetsActionTypes.CREATE_SUCCESS,
-        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
     export const createProgress = createAction(
         ProductAssetsActionTypes.CREATE_PROGRESS,
         props<{
             tmpAsset: IAsset,
+            langCode: string,
             progress: {
                 total: number,
                 loaded: number,
@@ -93,11 +99,11 @@ export namespace ProductAssetsActions {
     // update
     export const updateRequest = createAction(
         ProductAssetsActionTypes.UPDATE_REQUEST,
-        props<{ productId: string, asset: IAsset }>()
+        props<{ productId: string, langCode: string, asset: IAsset }>()
     );
     export const updateSuccess = createAction(
         ProductAssetsActionTypes.UPDATE_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, meta?: IMetaRefsResponse }>()
     );
     export const updateError = createAction(
         ProductAssetsActionTypes.UPDATE_ERROR,
@@ -107,30 +113,31 @@ export namespace ProductAssetsActions {
     // delete
     export const deleteRequest = createAction(
         ProductAssetsActionTypes.DELETE_REQUEST,
-        props<{ productId: string, assetId: string }>()
+        props<{ productId: string, langCode: string, assetId: string }>()
     );
     export const deleteSuccess = createAction(
         ProductAssetsActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta?: IMetaRefsResponse }>()
+        props<{ id: string, langCode: string, meta?: IMetaRefsResponse }>()
     );
     export const deleteError = createAction(
         ProductAssetsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
     );
-    
+
     // upload
     export const uploadImageRequest = createAction(
         ProductAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ productId: string, imageType: ProductImageTypes, file: File }>()
+        props<{ productId: string, imageType: ProductImageTypes, data: IFileUploadEvent }>()
     );
     export const uploadImageSuccess = createAction(
         ProductAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
-        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
     export const uploadImageProgress = createAction(
         ProductAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
         props<{
             tmpAsset: IAsset,
+            langCode: string,
             progress: {
                 total: number,
                 loaded: number,
@@ -145,8 +152,8 @@ export namespace ProductAssetsActions {
             error: string
         }>()
     );
-    
-    
+
+
     export const clear = createAction(
         ProductAssetsActionTypes.CLEAR,
     );

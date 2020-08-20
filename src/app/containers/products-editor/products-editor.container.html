@@ -1,5 +1,6 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-products-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
-        [tagList]="tags$ | async" [assets]="assets$ | async" (create)="onCreate()" (edit)="onEdit($event)"
-        (update)="onUpdate($event)" (delete)="onDelete($event)"></ta-products-editor-component>
+        [tagList]="tags$ | async" [assets]="assets$ | async" [defaultLanguage]="defaultLanguage$ | async"
+        [languages]="languages$ | async" (create)="onCreate()" (edit)="onEdit($event)" (update)="onUpdate($event)"
+        (delete)="onDelete($event)"></ta-products-editor-component>
 </ta-query-progress>

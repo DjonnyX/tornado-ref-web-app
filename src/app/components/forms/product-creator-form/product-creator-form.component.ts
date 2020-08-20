@@ -1,8 +1,10 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { BaseComponent } from '@components/base/base-component';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductImages } from '@djonnyx/tornado-types';
+import * as _ from "lodash";
+import { BaseComponent } from '@components/base/base-component';
+import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { IFileUploadEvent } from '@models';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -14,40 +16,47 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   form: FormGroup;
 
-  get color() {
-    return this.ctrlColor.value;
-  }
-
-  set color(v: string) {
-    this.ctrlColor.setValue(v);
-  }
-
-  ctrlColor = new FormControl('#000000');
-
-  ctrlName = new FormControl('', [Validators.required]);
-
-  ctrlDescription = new FormControl('');
-
   ctrlTags = new FormControl([]);
 
   ctrlPrices = new FormControl([]);
 
   ctrlReceipt = new FormControl([]);
 
-  @Input() images: IProductImages;
-
   @Input() assets: Array<IAsset>;
+
+  private _defaultLanguage: ILanguage;
+  @Input() set defaultLanguage(v: ILanguage) {
+    if (this._defaultLanguage !== v) {
+      this._defaultLanguage = v;
+
+      this.sortLanguages();
+    }
+  }
+
+  get defaultLanguage() { return this._defaultLanguage; }
+
+  private _languages: Array<ILanguage>;
+  @Input() set languages(v: Array<ILanguage>) {
+    if (this._languages !== v) {
+      this._languages = v;
+
+      this.sortLanguages();
+    }
+  }
+
+  get languages() { return this._languages; }
+
+  sortedLanguages: Array<ILanguage>;
 
   private _product: IProduct;
   @Input() set product(product: IProduct) {
     if (product) {
       this._product = product;
 
-      this.ctrlName.setValue(product.name);
-      this.ctrlDescription.setValue(product.description);
+      this._state = { ...this._state, ...(this._product ? this._product.contents : undefined) };
+
       this.ctrlTags.setValue(product.tags);
       this.ctrlPrices.setValue(product.prices);
-      this.ctrlColor.setValue(product.color);
       // this.ctrlReceipt.setValue(product.receipt);
     }
   }
@@ -68,22 +77,21 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Output() update = new EventEmitter<IProduct>();
 
-  @Output() uploadMainImage = new EventEmitter<File>();
+  @Output() uploadMainImage = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<File>();
+  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<File>();
+  @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+
+  private _state: IProductContents = {};
 
   constructor(private _fb: FormBuilder) {
     super();
 
     this.form = this._fb.group({
-      name: this.ctrlName,
-      description: this.ctrlDescription,
       tags: this.ctrlTags,
       prices: this.ctrlPrices,
       receipt: this.ctrlReceipt,
-      color: this.ctrlColor,
     })
   }
 
@@ -100,38 +108,27 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   onSave(): void {
-    const images: IProductImages = {...this.images};
-    if (!(images as any).hasOwnProperty("main")) {
-      images.main = null;
-    }
-    if (!(images as any).hasOwnProperty("thumbnail")) {
-      images.thumbnail = null;
-    }
-    if (!(images as any).hasOwnProperty("icon")) {
-      images.icon = null;
-    }
-
     if (this.form.valid) {
       this.save.emit({
         ...this._product,
         ...this.form.value,
-        images,
+        contents: { ...(!!this._product ? this._product.contents : undefined), ...this._state },
         active: !!this._product && this._product.active !== undefined ? this._product.active : true,
         extra: !!this._product ? this._product.extra : {},
       });
     }
   }
 
-  onMainImageUpload(file: File): void {
-    this.uploadMainImage.emit(file);
+  onMainImageUpload(file: File, lang: ILanguage): void {
+    this.uploadMainImage.emit({ file, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(file: File): void {
-    this.uploadThumbnailImage.emit(file);
+  onThumbnailImageUpload(file: File, lang: ILanguage): void {
+    this.uploadThumbnailImage.emit({ file, langCode: lang.code });
   }
 
-  onIconImageUpload(file: File): void {
-    this.uploadIconImage.emit(file);
+  onIconImageUpload(file: File, lang: ILanguage): void {
+    this.uploadIconImage.emit({ file, langCode: lang.code });
   }
 
   onChangePrices(prices: Array<IPrice>): void {
@@ -140,5 +137,35 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  getContent(lang: ILanguage): IProductContentsItem {
+    return this._product.contents[lang.code];
+  }
+
+  updateStateFor(state: IProductContents, lang: ILanguage): void {
+    const mergedState: IProductContents = { [lang.code]: { ...this._state[lang.code], ...state } };
+    this.updateState(mergedState);
+  }
+
+  private sortLanguages(): void {
+    if (!this._languages || !this._defaultLanguage) {
+      return;
+    }
+
+    const languages = new Array<ILanguage>();
+    this._languages.forEach(lang => {
+      if (lang.code === this._defaultLanguage.code) {
+        languages.unshift(lang);
+      } else {
+        languages.push(lang);
+      }
+    });
+
+    this.sortedLanguages = languages;
+  }
+
+  private updateState(state: IProductContents): void {
+    this._state = { ...this._state, ...state };
   }
 }
