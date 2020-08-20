@@ -197,7 +197,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
           // переопределение контента для разных языков
           contents[lang] = lang === defaultLang.code ? product.contents[lang] : deepMergeObjects(product.contents[defaultLang.code], product.contents[lang]);
         }
-        return {...product, contents};
+        return { ...product, contents };
       })
     );
 
@@ -218,7 +218,14 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       map(([product, assets, defaultLanguage]) => {
         const result: { [lang: string]: Array<IAsset> } = {};
         for (const lang in assets) {
-          result[lang] = assets[lang].filter(asset => !product.contents[defaultLanguage.code] || (asset.id !== product.contents[defaultLanguage.code].images.main && asset.id !== product.contents[defaultLanguage.code].images.thumbnail && asset.id !== product.contents[defaultLanguage.code].images.icon))
+          result[lang] = assets[lang].filter(asset =>
+            !product.contents[defaultLanguage.code] ||
+            (
+              asset.id !==
+              product.contents[defaultLanguage.code].images.main && asset.id !==
+              product.contents[defaultLanguage.code].images.thumbnail && asset.id !==
+              product.contents[defaultLanguage.code].images.icon
+            ))
         }
         return result;
       }),
