@@ -2,10 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
-import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject, of } from 'rxjs';
 import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguageSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map, filter } from 'rxjs/operators';
+import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset, IFileUploadEvent } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
@@ -15,12 +15,13 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages, ProductImageTypes, ILanguage } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages, ProductImageTypes, ILanguage, IProductContents } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
   selector: 'ta-product-creator',
@@ -37,9 +38,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   isProcessHierarchy$: Observable<boolean>;
 
   isProcessAssets$: Observable<boolean>;
-
-  private _isProcessGetEntity$ = new BehaviorSubject<boolean>(true);
-  isProcessGetEntity$ = this._isProcessGetEntity$.asObservable();
 
   rootNodeId$: Observable<string>;
 
@@ -66,6 +64,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   languages$: Observable<Array<ILanguage>>;
 
   defaultLanguage$: Observable<ILanguage>;
+
+  isPrepareToConfigure$: Observable<boolean>;
 
   isEditMode = false;
 
@@ -114,10 +114,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-      this.isProcessGetEntity$,
     ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess, isProcessGetEntity]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess || isProcessGetEntity),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -148,21 +147,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ).pipe(
       map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
     );
-
-    this.product$ = this._store.pipe(
-      select(ProductSelectors.selectEntity),
-    );
-
-    this.product$.pipe(
-      takeUntil(this.unsubscribe$),
-    ).subscribe(product => {
-      if (product) {
-        this._product = product;
-        this._productId = product.id;
-        this.isEditMode = !!this._productId;
-      }
-      this._isProcessGetEntity$.next(false);
-    });
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
@@ -202,6 +186,29 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       filter(language => !!language),
     );
 
+    this.product$ = combineLatest(
+      this._store.select(ProductSelectors.selectEntity),
+      this.defaultLanguage$,
+    ).pipe(
+      filter(([product, defaultLang]) => !!product && !!defaultLang),
+      map(([product, defaultLang]) => {
+        const contents: IProductContents = {};
+        for (const lang in product.contents) {
+          // переопределение контента для разных языков
+          contents[lang] = lang === defaultLang.code ? product.contents[lang] : deepMergeObjects(product.contents[defaultLang.code], product.contents[lang]);
+        }
+        return {...product, contents};
+      })
+    );
+
+    this.product$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(product => {
+      this._product = product;
+      this._productId = product.id;
+      this.isEditMode = true;
+    });
+
     this.actualProductAssets$ = combineLatest(
       this.product$,
       this.productAssets$,
@@ -228,6 +235,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.rootNodeId$.pipe(
       takeUntil(this.unsubscribe$),
+      filter(rootNodeId => !!rootNodeId),
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
       this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
@@ -245,6 +253,35 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(AssetsActions.getAllRequest());
     this._store.dispatch(TagsActions.getAllRequest());
     this._store.dispatch(CurrenciesActions.getAllRequest());
+
+    this.isPrepareToConfigure$ = of(this._productId).pipe(
+      switchMap(id => {
+        return !!id ? combineLatest(
+          this.tags$,
+          this.currencies$,
+          this.nodes$,
+          this.product$,
+          this.selectors$,
+          this.products$,
+          this.businessPeriods$,
+          this.productAssets$,
+          this.languages$,
+          this.defaultLanguage$,
+          this.assets$,
+        ).pipe(
+          map(([tags, currencies, nodes, product, selectors, products, businessPeriods, productAssets, languages, defaultLanguage, assets]) =>
+            !!tags && !!currencies && !!nodes && !!product && !!selectors && !!products && !!businessPeriods && !!productAssets && !!languages && !!defaultLanguage && !!assets),
+        ) :
+          combineLatest(
+            this.tags$,
+            this.languages$,
+            this.defaultLanguage$,
+          ).pipe(
+            map(([tags, languages, defaultLanguage]) =>
+              !!tags && !!languages && !!defaultLanguage),
+          );
+      })
+    );
   }
 
   ngOnDestroy(): void {

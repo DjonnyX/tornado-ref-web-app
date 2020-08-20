@@ -4,9 +4,9 @@
             go back
         </div>
         <div class="form">
-            <ta-query-progress class="query-progress-container" style="position: relative;"
+            <ta-query-progress class="query-progress-container" style="position: relative; min-height: 20px;"
                 [process]="isProcessMainOptions$ | async">
-                <ta-product-creator-form [isEditMode]="isEditMode" [product]="product$ | async"
+                <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode" [product]="product$ | async"
                     [tagList]="tags$ | async" [assets]="productAssets$ | async"
                     [currencies]="currencies$ | async" [defaultLanguage]="defaultLanguage$ | async"
                     [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"

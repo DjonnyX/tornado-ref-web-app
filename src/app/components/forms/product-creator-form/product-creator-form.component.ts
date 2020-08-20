@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { BaseComponent } from '@components/base/base-component';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductImages, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import * as _ from "lodash";
+import { BaseComponent } from '@components/base/base-component';
+import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 
 @Component({
@@ -32,7 +33,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     if (product) {
       this._product = product;
 
-      this._state = {...this._state, ...(this._product ? this._product.contents : undefined)};
+      this._state = { ...this._state, ...(this._product ? this._product.contents : undefined) };
 
       this.ctrlTags.setValue(product.tags);
       this.ctrlPrices.setValue(product.prices);
@@ -87,17 +88,6 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   onSave(): void {
-    /*const images: IProductImages = { ...this.images };
-    if (!(images as any).hasOwnProperty("main")) {
-      images.main = null;
-    }
-    if (!(images as any).hasOwnProperty("thumbnail")) {
-      images.thumbnail = null;
-    }
-    if (!(images as any).hasOwnProperty("icon")) {
-      images.icon = null;
-    }*/
-
     if (this.form.valid) {
       this.save.emit({
         ...this._product,
@@ -140,6 +130,11 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   getAssets(lang: ILanguage): Array<IAsset> {
     return !!this.assets && !!this.assets[lang.code] ? this.assets[lang.code] : undefined;
+  }
+
+  private _updateStateFor(state: IProductContents, lang: ILanguage): void {
+    const mergedState: IProductContents = { [lang.code]: { ...this._state[lang.code], ...state } };
+    this.updateState(mergedState);
   }
 
   private updateState(state: IProductContents): void {

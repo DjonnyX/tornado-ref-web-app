@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { IAsset, IProductContentsItem } from '@djonnyx/tornado-types';
@@ -7,7 +7,8 @@ import { BaseComponent } from '@components/base/base-component';
 @Component({
   selector: 'ta-product-content',
   templateUrl: './product-content.component.html',
-  styleUrls: ['./product-content.component.scss']
+  styleUrls: ['./product-content.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductContentComponent extends BaseComponent implements OnInit, OnDestroy {
 
