@@ -44,6 +44,7 @@ $ctrl-panel-height: px2em(40);
         .content {
             line-height: 1.075;
             overflow: hidden;
+            height: 100%;
 
             .content__name {
                 text-transform: uppercase;

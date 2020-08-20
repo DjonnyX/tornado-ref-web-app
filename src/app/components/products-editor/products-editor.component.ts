@@ -83,6 +83,11 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return !!productContent ? productContent.description : undefined;
   }
 
+  getProductColor(product: IProduct): string | undefined {
+    const productContent = this.getProductContent(product);
+    return !!productContent ? productContent.color : undefined;
+  }
+
   hasThumbnail(product: IProduct): boolean {
     const productContent = this.getProductContent(product);
     const asset = !!productContent && !!productContent.images && !!productContent.images.main ? this._assetsDictionary[productContent.images.main] : undefined;
