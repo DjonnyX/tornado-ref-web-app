@@ -19,6 +19,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
     if (!!v && this._defaultValue !== v) {
       this._defaultValue = v;
 
+      console.log(v)
+
       this.updateAsset();
     }
   }

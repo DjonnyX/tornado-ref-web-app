@@ -5,6 +5,7 @@ import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
+import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -119,16 +120,16 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     }
   }
 
-  onMainImageUpload(file: File, lang: ILanguage): void {
-    this.uploadMainImage.emit({ file, langCode: lang.code });
+  onMainImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(file: File, lang: ILanguage): void {
-    this.uploadThumbnailImage.emit({ file, langCode: lang.code });
+  onThumbnailImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadThumbnailImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onIconImageUpload(file: File, lang: ILanguage): void {
-    this.uploadIconImage.emit({ file, langCode: lang.code });
+  onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
   onChangePrices(prices: Array<IPrice>): void {

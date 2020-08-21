@@ -3,6 +3,7 @@ import { takeUntil } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
 import { IAsset, IProductContentsItem } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
+import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 
 @Component({
   selector: 'ta-product-content',
@@ -55,11 +56,11 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   @Output() update = new EventEmitter<IProductContentsItem>();
 
-  @Output() uploadMainImage = new EventEmitter<File>();
+  @Output() uploadMainImage = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<File>();
+  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<File>();
+  @Output() uploadIconImage = new EventEmitter<IFileUploadEntityEvent>();
 
   constructor() {
     super();
@@ -89,16 +90,16 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
   }
 
-  onMainImageUpload(file: File): void {
-    this.uploadMainImage.emit(file);
+  onMainImageUpload(file: File, dataField: string): void {
+    this.uploadMainImage.emit({file, dataField});
   }
 
-  onThumbnailImageUpload(file: File): void {
-    this.uploadThumbnailImage.emit(file);
+  onThumbnailImageUpload(file: File, dataField: string): void {
+    this.uploadThumbnailImage.emit({file, dataField});
   }
 
-  onIconImageUpload(file: File): void {
-    this.uploadIconImage.emit(file);
+  onIconImageUpload(file: File, dataField: string): void {
+    this.uploadIconImage.emit({file, dataField});
   }
 
   private updateState(options?: any): void {

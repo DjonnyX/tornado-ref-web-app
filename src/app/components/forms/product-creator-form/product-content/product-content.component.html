@@ -6,7 +6,7 @@
             </h2>
 
             <ta-asset-picker-uploader [defaultValue]="!!content && !!content.images ? content.images.main : undefined" [assets]="assets"
-                color="white" (upload)="onMainImageUpload($event)">
+                color="white" (upload)="onMainImageUpload($event, 'main')">
             </ta-asset-picker-uploader>
         </div>
 
@@ -16,7 +16,7 @@
             </h2>
 
             <ta-asset-picker-uploader size="m" [defaultValue]="!!content && !!content.images ? content.images.thumbnail : undefined"
-                [assets]="assets" color="white" (upload)="onThumbnailImageUpload($event)">
+                [assets]="assets" color="white" (upload)="onThumbnailImageUpload($event, 'thumbnail')">
             </ta-asset-picker-uploader>
         </div>
 
@@ -26,7 +26,7 @@
             </h2>
 
             <ta-asset-picker-uploader size="m" [defaultValue]="!!content && !!content.images ? content.images.icon : undefined" [assets]="assets"
-                [color]="color" (upload)="onIconImageUpload($event)">
+                [color]="color" (upload)="onIconImageUpload($event, 'icon')">
             </ta-asset-picker-uploader>
         </div>
 

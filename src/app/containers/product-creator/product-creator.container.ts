@@ -235,7 +235,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this.isEditMode = true;
     });
 
-    /*this.actualProductAssets$ = combineLatest(
+    /*this.galleryProductAssets$ = combineLatest(
       this.product$,
       this.productAssets$,
       this.defaultLanguage$,
