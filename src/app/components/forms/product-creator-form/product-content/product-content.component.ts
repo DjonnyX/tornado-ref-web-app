@@ -33,6 +33,8 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   @Input() assets: Array<IAsset>;
 
+  @Input() imagesGallery: Array<IAsset>;
+
   private _content: IProductContentsItem;
   @Input() set content(content: IProductContentsItem) {
     if (!content) {
@@ -61,6 +63,12 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() uploadIconImage = new EventEmitter<IFileUploadEntityEvent>();
+
+  @Output() uploadAsset = new EventEmitter<File>();
+
+  @Output() updateAsset = new EventEmitter<IAsset>();
+
+  @Output() deleteAsset = new EventEmitter<IAsset>();
 
   constructor() {
     super();
@@ -100,6 +108,18 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   onIconImageUpload(file: File, dataField: string): void {
     this.uploadIconImage.emit({file, dataField});
+  }
+
+  onAssetUpload(file: File): void {
+    this.uploadAsset.emit(file);
+  }
+
+  onAssetUpdate(asset: IAsset): void {
+    this.updateAsset.emit(asset);
+  }
+
+  onAssetDelete(asset: IAsset): void {
+    this.deleteAsset.emit(asset);
   }
 
   private updateState(options?: any): void {

@@ -70,7 +70,7 @@ export namespace ProductAssetsActions {
     // create
     export const createRequest = createAction(
         ProductAssetsActionTypes.CREATE_REQUEST,
-        props<{ productId: string, langCode: string, data: IFileUploadEvent, }>()
+        props<{ productId: string, data: IFileUploadEvent, }>()
     );
     export const createSuccess = createAction(
         ProductAssetsActionTypes.CREATE_SUCCESS,

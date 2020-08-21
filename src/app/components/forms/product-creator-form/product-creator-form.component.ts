@@ -5,7 +5,7 @@ import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
-import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
+import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -66,6 +66,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     return this._product;
   }
 
+  @Input() imagesGallery: Array<{ [lang: string]: IAsset }>;
+
   @Input() currencies: Array<ICurrency>;
 
   @Input() isEditMode: boolean;
@@ -83,6 +85,12 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
 
   @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+
+  @Output() uploadAsset = new EventEmitter<IFileUploadEvent>();
+
+  @Output() updateAsset = new EventEmitter<IAssetUploadEvent>();
+
+  @Output() deleteAsset = new EventEmitter<IAssetUploadEvent>();
 
   private _state: IProductContents = {};
 
@@ -132,6 +140,18 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
+  onAssetUpload(file: File, lang: ILanguage): void {
+    this.uploadAsset.emit({ file, langCode: lang.code });
+  }
+
+  onAssetUpdate(asset: IAsset, lang: ILanguage): void {
+    this.updateAsset.emit({ asset, langCode: lang.code });
+  }
+
+  onAssetDelete(asset: IAsset, lang: ILanguage): void {
+    this.deleteAsset.emit({ asset, langCode: lang.code });
+  }
+
   onChangePrices(prices: Array<IPrice>): void {
     this.ctrlPrices.setValue(prices);
   }
@@ -142,6 +162,10 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   getContent(lang: ILanguage): IProductContentsItem {
     return this._product.contents[lang.code];
+  }
+
+  getImagesGallery(lang: ILanguage): Array<IAsset> {
+    return !!lang && !!this.imagesGallery && this.imagesGallery[lang.code] ? this.imagesGallery[lang.code] : [];
   }
 
   updateStateFor(state: IProductContents, lang: ILanguage): void {

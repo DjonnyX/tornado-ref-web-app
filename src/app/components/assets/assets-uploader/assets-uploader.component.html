@@ -4,7 +4,7 @@
             <div class="asset-ctrl-panel">
                 <mat-checkbox class="asset-checkbox-active" color="primary" #checkboxActive [checked]="asset.active"
                     (click)="onToggleActive($event, asset)"></mat-checkbox>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="asset-menu-button"
+                <button mat-icon-button [matMenuTriggerFor]="menu" type="button" class="asset-menu-button"
                     (click)="onShowMenu($event)" aria-label="Menu">
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
@@ -15,7 +15,7 @@
                         </mat-icon>
                         <span>{{asset.active ? 'Deactivate' : 'Active'}}</span>
                     </button>
-                    <button mat-menu-item (click)="onDeleteAsset(asset)">
+                    <button mat-menu-item type="button" (click)="onDeleteAsset(asset)">
                         <mat-icon>delete_forever</mat-icon>
                         <span>Delete</span>
                     </button>
@@ -36,7 +36,7 @@
                 </div>
             </ng-template>
         </div>
-        <button class="asset-btn-add" mat-flat-button color="accent" (click)="fileSelector.open()">
+        <button class="asset-btn-add" mat-flat-button color="accent" type="button" (click)="fileSelector.open()">
             <mat-icon>add</mat-icon>
         </button>
     </div>
