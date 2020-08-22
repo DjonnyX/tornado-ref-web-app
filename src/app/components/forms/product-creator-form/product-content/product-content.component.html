@@ -6,6 +6,10 @@
                     Image
                 </h2>
 
+                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('main')">
+                    Reset to default
+                </button>
+
                 <ta-asset-picker-uploader
                     [defaultValue]="!!content && !!content.images ? content.images.main : undefined" [assets]="assets"
                     color="white" (upload)="onMainImageUpload($event, 'main')">
@@ -19,6 +23,10 @@
                     Thumbnail
                 </h2>
 
+                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('thumbnail')">
+                    Reset to default
+                </button>
+
                 <ta-asset-picker-uploader size="m"
                     [defaultValue]="!!content && !!content.images ? content.images.thumbnail : undefined"
                     [assets]="assets" color="white" (upload)="onThumbnailImageUpload($event, 'thumbnail')">
@@ -29,6 +37,10 @@
                 <h2 class="form-header">
                     Icon
                 </h2>
+
+                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('icon')">
+                    Reset to default
+                </button>
 
                 <ta-asset-picker-uploader size="m"
                     [defaultValue]="!!content && !!content.images ? content.images.icon : undefined" [assets]="assets"

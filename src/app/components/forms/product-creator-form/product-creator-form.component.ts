@@ -6,6 +6,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -169,7 +170,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   updateStateFor(state: IProductContents, lang: ILanguage): void {
-    const mergedState: IProductContents = { [lang.code]: { ...this._state[lang.code], ...state } };
+    const mergedState: IProductContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
     this.updateState(mergedState);
   }
 
@@ -191,6 +192,6 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   private updateState(state: IProductContents): void {
-    this._state = { ...this._state, ...state };
+    this._state = deepMergeObjects(this._state, state, true);
   }
 }

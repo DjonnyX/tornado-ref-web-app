@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
     FormsModule,
     ReactiveFormsModule,
     MatInputModule,
+    MatButtonModule,
     MatFormFieldModule,
     AssetPickerUploaderModule,
     AssetsUploaderModule,

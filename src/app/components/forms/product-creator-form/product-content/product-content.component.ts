@@ -1,9 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
-import { IAsset, IProductContentsItem } from '@djonnyx/tornado-types';
+import { IAsset, IProductContentsItem, ProductImageTypes } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
   selector: 'ta-product-content',
@@ -30,6 +31,10 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   private _state: IProductContentsItem;
 
   @Input() isEditMode: boolean;
+
+  @Input() isDefault: boolean;
+
+  @Input() defaultContent: IProductContentsItem;
 
   @Input() assets: Array<IAsset>;
 
@@ -69,6 +74,8 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   @Output() updateAsset = new EventEmitter<IAsset>();
 
   @Output() deleteAsset = new EventEmitter<IAsset>();
+
+  @Output() save = new EventEmitter<void>();
 
   constructor() {
     super();
@@ -110,6 +117,23 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     this.uploadIconImage.emit({file, dataField});
   }
 
+  onResetImageToDefault(imageType: ProductImageTypes | string): void {
+    this.updateState({
+      images: {
+        [imageType]: null,
+      }
+    });
+
+    this.save.emit();
+  }
+
+  isEqualWithDefault(imageType: ProductImageTypes | string): boolean {
+    const asset = !!this.content && !!this.content.images ? this.content.images[imageType] : undefined;
+    const defaultAsset = !!this.defaultContent && !!this.defaultContent.images ? this.defaultContent.images[imageType] : undefined;
+
+    return asset !== defaultAsset && !!asset;
+  }
+
   onAssetUpload(file: File): void {
     this.uploadAsset.emit(file);
   }
@@ -124,10 +148,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   private updateState(options?: any): void {
     if (options) {
-      this._state = {
-        ...this._state,
-        ...options,
-      };
+      this._state = deepMergeObjects(this._state, options, true);
     }
     this.update.emit(this._state);
   }
