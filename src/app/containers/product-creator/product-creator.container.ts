@@ -250,12 +250,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         const result: { [lang: string]: Array<IAsset> } = {};
         for (const lang in assets) {
           result[lang] = assets[lang].filter(asset =>
-            !product.contents[defaultLang.code] ||
+            !product.contents[lang] ||
             (
-              !product.contents[defaultLang.code].images || (asset.id !== 
-              product.contents[defaultLang.code].images.main && asset.id !==
-              product.contents[defaultLang.code].images.thumbnail && asset.id !==
-              product.contents[defaultLang.code].images.icon)
+              !product.contents[lang].images || (asset.id !== 
+              product.contents[lang].images.main && asset.id !==
+              product.contents[lang].images.thumbnail && asset.id !==
+              product.contents[lang].images.icon)
             ))
         }
 
