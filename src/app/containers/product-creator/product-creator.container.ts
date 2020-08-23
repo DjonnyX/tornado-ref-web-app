@@ -23,6 +23,7 @@ import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { normalizeProductContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-product-creator',
@@ -75,6 +76,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   private _productId: string;
 
   private _product: IProduct;
+
+  private _defaultLanguage: ILanguage;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -186,6 +189,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       map(languages => languages.find(v => !!v.isDefault)),
       filter(language => !!language),
     );
+
+    this.defaultLanguage$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(lang => {
+      this._defaultLanguage = lang;
+    });
 
     this.productAssets$ = combineLatest(
       this._store.select(ProductAssetsSelectors.selectCollection),
@@ -371,7 +380,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   onMainOptionsSave(product: IProduct): void {
     if (this.isEditMode) {
-      this._store.dispatch(ProductActions.updateRequest({ id: product.id, product }));
+      const normalizedProduct: IProduct = {...product};
+
+      // нормализация контена
+      normalizeProductContents(normalizedProduct.contents, this._defaultLanguage.code);
+
+      this._store.dispatch(ProductActions.updateRequest({ id: product.id, product: normalizedProduct }));
     } else {
       this._store.dispatch(ProductActions.createRequest({ product }));
     }
