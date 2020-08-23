@@ -48,7 +48,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
     this._content = content;
 
-    this._state = {...content};
+    this._state = { ...content };
 
     this.ctrlName.setValue(content.name);
     this.ctrlDescription.setValue(content.description);
@@ -106,15 +106,15 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   }
 
   onMainImageUpload(file: File, dataField: string): void {
-    this.uploadMainImage.emit({file, dataField});
+    this.uploadMainImage.emit({ file, dataField });
   }
 
   onThumbnailImageUpload(file: File, dataField: string): void {
-    this.uploadThumbnailImage.emit({file, dataField});
+    this.uploadThumbnailImage.emit({ file, dataField });
   }
 
   onIconImageUpload(file: File, dataField: string): void {
-    this.uploadIconImage.emit({file, dataField});
+    this.uploadIconImage.emit({ file, dataField });
   }
 
   onResetImageToDefault(imageType: ProductImageTypes | string): void {
@@ -128,6 +128,13 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   }
 
   isEqualWithDefault(imageType: ProductImageTypes | string): boolean {
+    if (this.isDefault) {
+      const asset = !!this.content && !!this.content.images ? this.content.images[imageType] : undefined;
+      const defaultAsset = !!this.content && !!this.content.images ? this.content.images.main : undefined;
+
+      return asset !== defaultAsset && !!asset;
+    }
+
     const asset = !!this.content && !!this.content.images ? this.content.images[imageType] : undefined;
     const defaultAsset = !!this.defaultContent && !!this.defaultContent.images ? this.defaultContent.images[imageType] : undefined;
 

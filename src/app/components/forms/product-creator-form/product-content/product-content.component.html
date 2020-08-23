@@ -23,7 +23,7 @@
                     Thumbnail
                 </h2>
 
-                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('thumbnail')">
+                <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('thumbnail')">
                     Reset to default
                 </button>
 
@@ -38,7 +38,7 @@
                     Icon
                 </h2>
 
-                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('icon')">
+                <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('icon')">
                     Reset to default
                 </button>
 
