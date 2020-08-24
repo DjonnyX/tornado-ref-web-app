@@ -6,7 +6,8 @@
                     Image
                 </h2>
 
-                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('main')">
+                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary"
+                    type="button" class="reset-button" (click)="onResetImageToDefault('main')">
                     Reset to default
                 </button>
 
@@ -23,7 +24,8 @@
                     Thumbnail
                 </h2>
 
-                <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('thumbnail')">
+                <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
+                    class="reset-button" (click)="onResetImageToDefault('thumbnail')">
                     Reset to default
                 </button>
 
@@ -38,7 +40,8 @@
                     Icon
                 </h2>
 
-                <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button" (click)="onResetImageToDefault('icon')">
+                <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button"
+                    class="reset-button" (click)="onResetImageToDefault('icon')">
                     Reset to default
                 </button>
 
@@ -55,7 +58,8 @@
                     Color
                 </h2>
 
-                <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button" class="reset-button" (click)="onResetColorToDefault()">
+                <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
+                    class="reset-button" (click)="onResetColorToDefault()">
                     Reset to default
                 </button>
 
@@ -63,6 +67,18 @@
                     <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value"
                         cpPosition="top-right" [formControl]="ctrlColor" />
                 </div>
+            </div>
+        </div>
+
+
+        <div class="images-wrapper single">
+            <div class="full-width">
+                <div class="form-header">
+                    <h2>Images gallery</h2>
+                </div>
+
+                <ta-assets-uploader [collection]="imagesGallery" (upload)="onAssetUpload($event)"
+                    (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
             </div>
         </div>
     </div>
@@ -92,15 +108,6 @@
                     </mat-form-field>
                 </div>
             </div>
-        </div>
-
-        <div *ngIf="isEditMode">
-            <div class="form-header">
-                <h2>Images gallery</h2>
-            </div>
-
-            <ta-assets-uploader [collection]="imagesGallery" (upload)="onAssetUpload($event)"
-                (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
         </div>
     </div>
 </div>
