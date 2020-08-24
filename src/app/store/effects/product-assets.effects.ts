@@ -42,6 +42,11 @@ export default class ProductAssetsEffects {
                     },
                     ext: ext,
                 }
+                this._store.dispatch(ProductActions.updateImage({
+                    langCode: data.langCode,
+                    imageType,
+                    assetId: id,
+                }));
                 return this._apiService.uploadProductImage(productId, imageType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {

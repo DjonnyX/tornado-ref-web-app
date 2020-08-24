@@ -5,6 +5,8 @@ import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
+import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -65,6 +67,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     return this._product;
   }
 
+  @Input() imagesGallery: Array<{ [lang: string]: IAsset }>;
+
   @Input() currencies: Array<ICurrency>;
 
   @Input() isEditMode: boolean;
@@ -82,6 +86,12 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
 
   @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+
+  @Output() uploadAsset = new EventEmitter<IFileUploadEvent>();
+
+  @Output() updateAsset = new EventEmitter<IAssetUploadEvent>();
+
+  @Output() deleteAsset = new EventEmitter<IAssetUploadEvent>();
 
   private _state: IProductContents = {};
 
@@ -119,16 +129,28 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     }
   }
 
-  onMainImageUpload(file: File, lang: ILanguage): void {
-    this.uploadMainImage.emit({ file, langCode: lang.code });
+  onMainImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(file: File, lang: ILanguage): void {
-    this.uploadThumbnailImage.emit({ file, langCode: lang.code });
+  onThumbnailImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadThumbnailImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onIconImageUpload(file: File, lang: ILanguage): void {
-    this.uploadIconImage.emit({ file, langCode: lang.code });
+  onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  }
+
+  onAssetUpload(file: File, lang: ILanguage): void {
+    this.uploadAsset.emit({ file, langCode: lang.code });
+  }
+
+  onAssetUpdate(asset: IAsset, lang: ILanguage): void {
+    this.updateAsset.emit({ asset, langCode: lang.code });
+  }
+
+  onAssetDelete(asset: IAsset, lang: ILanguage): void {
+    this.deleteAsset.emit({ asset, langCode: lang.code });
   }
 
   onChangePrices(prices: Array<IPrice>): void {
@@ -143,8 +165,12 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     return this._product.contents[lang.code];
   }
 
+  getImagesGallery(lang: ILanguage): Array<IAsset> {
+    return !!lang && !!this.imagesGallery && this.imagesGallery[lang.code] ? this.imagesGallery[lang.code] : [];
+  }
+
   updateStateFor(state: IProductContents, lang: ILanguage): void {
-    const mergedState: IProductContents = { [lang.code]: { ...this._state[lang.code], ...state } };
+    const mergedState: IProductContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
     this.updateState(mergedState);
   }
 
@@ -166,6 +192,6 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   private updateState(state: IProductContents): void {
-    this._state = { ...this._state, ...state };
+    this._state = deepMergeObjects(this._state, state, true);
   }
 }

@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { IProductState } from '@store/state';
 import { ProductActions } from '@store/actions/product.action';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 export const initialState: IProductState = {
     loading: false,
@@ -15,6 +16,21 @@ export const initialState: IProductState = {
 const productReducer = createReducer(
     initialState,
     on(ProductActions.update, (state, { product }) => {
+        return {
+            ...initialState,
+            product,
+        };
+    }),
+    on(ProductActions.updateImage, (state, { langCode, imageType, assetId }) => {
+        const product = deepMergeObjects(state.product, {
+            contents: {
+                [langCode]: {
+                    images: {
+                        [imageType]: assetId,
+                    },
+                },
+            },
+        });
         return {
             ...initialState,
             product,

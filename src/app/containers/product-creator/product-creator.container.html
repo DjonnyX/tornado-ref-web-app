@@ -4,29 +4,19 @@
             go back
         </div>
         <div class="form">
-            <ta-query-progress class="query-progress-container" style="position: relative; min-height: 20px;"
+            <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-                <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode" [product]="product$ | async"
-                    [tagList]="tags$ | async" [assets]="productAssets$ | async"
-                    [currencies]="currencies$ | async" [defaultLanguage]="defaultLanguage$ | async"
-                    [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+                <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+                    [product]="product$ | async" [tagList]="tags$ | async" [assets]="productAssets$ | async"
+                    [imagesGallery]="galleryProductAssets$ | async" [currencies]="currencies$ | async"
+                    [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+                    (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
                     (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
-                    (uploadThumbnailImage)="onThumbnailImageUpload($event)">>
+                    (uploadThumbnailImage)="onThumbnailImageUpload($event)" (uploadAsset)="onAssetUpload($event)"
+                    (updateAsset)="onAssetUpdate($event)" (deleteAsset)="onAssetDelete($event)">
                 </ta-product-creator-form>
             </ta-query-progress>
         </div>
-
-        <!--<div class="form" *ngIf="isEditMode">
-            <div class="form-header">
-                <h2>Image gallery</h2>
-            </div>
-
-            <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="isProcessAssets$ | async">
-                <ta-assets-uploader [collection]="productAssets$ | async" (upload)="onAssetUpload($event)"
-                    (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
-            </ta-query-progress>
-        </div>-->
 
         <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
             <div class="form-header">
