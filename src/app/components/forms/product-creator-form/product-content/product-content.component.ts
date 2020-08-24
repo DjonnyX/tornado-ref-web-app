@@ -5,6 +5,7 @@ import { IAsset, IProductContentsItem, ProductImageTypes } from '@djonnyx/tornad
 import { BaseComponent } from '@components/base/base-component';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
+import { isEqualWithDefault } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-product-content',
@@ -128,18 +129,9 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   }
 
   isEqualWithDefault(imageType: ProductImageTypes | string): boolean {
-    if (this.isDefault) {
-      const asset = !!this.content && !!this.content.images ? this.content.images[imageType] : undefined;
-      const defaultAsset = !!this.content && !!this.content.images ? this.content.images.main : undefined;
+    return !isEqualWithDefault(this.defaultContent, this.content, imageType, this.isDefault);
+  };
 
-      return asset !== defaultAsset && !!asset;
-    }
-
-    const asset = !!this.content && !!this.content.images ? this.content.images[imageType] : undefined;
-    const defaultAsset = !!this.defaultContent && !!this.defaultContent.images ? this.defaultContent.images[imageType] : undefined;
-
-    return asset !== defaultAsset && !!asset;
-  }
 
   onAssetUpload(file: File): void {
     this.uploadAsset.emit(file);

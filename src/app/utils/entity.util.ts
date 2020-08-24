@@ -40,3 +40,18 @@ export const equalFromImages = (content: IProductContentsItem, image: string): b
     }
     return false;
 };
+
+export const isEqualWithDefault = (defaultContent: any, content: any, imageType: ProductImageTypes | string, isDefault: boolean): boolean => {
+    if (!!content && !!content.images) {
+        const isEqualtFromDefault = equalFromImages(defaultContent, content.images[imageType]);
+        if (imageType !== ProductImageTypes.MAIN && !!content.images.main && (!content.images[imageType] || content.images[imageType] === content.images.main || (isEqualtFromDefault && !isDefault))) {
+            return true;
+        } else if (imageType === ProductImageTypes.MAIN && !isDefault && isEqualtFromDefault && !isDefault) {
+            return true;
+        } else if (isDefault && (!content.images[imageType] || isEqualtFromDefault) && !!defaultContent && !!defaultContent?.images?.[imageType]) {
+            return !!defaultContent.images[imageType] || !!defaultContent.images.main;
+        }
+    }
+
+    return false;
+}
