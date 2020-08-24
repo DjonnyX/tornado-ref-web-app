@@ -59,7 +59,7 @@ $ctrl-panel-height: px2em(40);
 
         .bottom-panel {
             display: flex;
-            align-items: center;
+            align-items: baseline;
             justify-content: space-between;
             margin: px2em(4) px2em(8) px2em(8);
         }
