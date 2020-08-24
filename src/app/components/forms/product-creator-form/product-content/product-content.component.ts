@@ -128,10 +128,21 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     this.save.emit();
   }
 
+  onResetColorToDefault(): void {
+    this.updateState({
+      color: this.defaultContent?.color,
+    });
+
+    this.save.emit();
+  }
+
   isEqualWithDefault(imageType: ProductImageTypes | string): boolean {
     return !isEqualWithDefault(this.defaultContent, this.content, imageType, this.isDefault);
   };
 
+  isColorDefault(): boolean {
+    return this.defaultContent?.color === this.color;
+  }
 
   onAssetUpload(file: File): void {
     this.uploadAsset.emit(file);
