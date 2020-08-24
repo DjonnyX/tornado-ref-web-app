@@ -55,7 +55,7 @@
                     Color
                 </h2>
 
-                <button [disabled]="isColorDefault()" mat-button color="primary" type="button" class="reset-button" (click)="onResetColorToDefault()">
+                <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button" class="reset-button" (click)="onResetColorToDefault()">
                     Reset to default
                 </button>
 
