@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { Observable, combineLatest, of } from 'rxjs';
+import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import { SelectorsSelectors, SelectorAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
@@ -54,6 +54,9 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   private _selectorId: string;
 
+  private _selectorId$ = new BehaviorSubject<string>(undefined);
+  readonly selectorId$ = this._selectorId$.asObservable();
+
   private _selectorType: string;
 
   private _selector: ISelector;
@@ -68,6 +71,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
     this._selectorId = this._activatedRoute.snapshot.queryParams["id"];
+    this._selectorId$.next(this._selectorId);
 
     this._selectorType = this._activatedRoute.snapshot.queryParams["type"];
 
@@ -189,7 +193,19 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     ).subscribe(selector => {
       this._selector = selector;
       this._selectorId = selector.id;
+      this._selectorId$.next(this._selectorId);
       this.isEditMode = true;
+
+      this._store.dispatch(SelectorAssetsActions.getAllRequest({ selectorId: this._selectorId }));
+      
+      // для изменения параметров маршрута
+      this._router.navigate([], {
+        relativeTo: this._activatedRoute,
+        queryParams: {
+          id: this._selectorId,
+          returnUrl: this._returnUrl,
+        }
+      });
     });
 
     this.gallerySelectorAssets$ = combineLatest(
@@ -226,7 +242,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
     if (!!this._selectorId) {
       this._store.dispatch(SelectorActions.getRequest({ id: this._selectorId }));
-      this._store.dispatch(SelectorAssetsActions.getAllRequest({ selectorId: this._selectorId }));
     }
 
     this._store.dispatch(LanguagesActions.getAllRequest());
@@ -244,7 +259,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
         !!selectors && !!languages && !!defaultLanguage && !!assets),
     );
 
-    this.isPrepareToConfigure$ = of(this._selectorId).pipe(
+    this.isPrepareToConfigure$ = this.selectorId$.pipe(
       switchMap(id => {
         return !!id ? combineLatest(
           prepareMainRequests$,

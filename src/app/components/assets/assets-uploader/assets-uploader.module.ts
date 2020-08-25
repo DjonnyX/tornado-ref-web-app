@@ -8,6 +8,8 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 
 @NgModule({
   declarations: [
@@ -23,8 +25,10 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatButtonModule,
     MatMenuModule,
     MatIconModule,
+    MatDialogModule,
     MatProgressBarModule,
     MatCheckboxModule,
+    DeleteEntityDialogModule,
   ]
 })
 export class AssetsUploaderModule { }

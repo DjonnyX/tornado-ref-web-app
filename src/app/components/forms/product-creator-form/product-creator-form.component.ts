@@ -117,6 +117,15 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     super.ngOnDestroy();
   }
 
+  onEnterSubmit(event: KeyboardEvent): void {
+    if (event.keyCode === 13) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
+      this.onSave();
+    }
+  }
+
   onSave(): void {
     if (this.form.valid) {
       this.save.emit({
