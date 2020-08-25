@@ -2,8 +2,8 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
-import { Observable, combineLatest, BehaviorSubject, of } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguageSelectors, LanguagesSelectors } from '@store/selectors';
+import { Observable, combineLatest, of } from 'rxjs';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -15,7 +15,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages, ProductImageTypes, ILanguage, IProductContents } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductImageTypes, ILanguage, IProductContents } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
@@ -233,10 +233,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
             continue;
           }
 
-          contents[lang.code] = deepMergeObjects(product.contents[defaultLang.code], {});
+          contents[lang.code] = product.contents[defaultLang.code];
         }
 
-        return { ...product, contents };
+        return { ...product, contents: normalizeProductContents(contents, defaultLang.code) };
       })
     );
 

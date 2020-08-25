@@ -31,3 +31,7 @@ export const deepMergeObjects = (object1: any, object2: any, overrideToNull = fa
 
     return result;
 }
+
+export const deepClone = (object: any) => {
+    return deepMergeObjects(object, object);
+}
