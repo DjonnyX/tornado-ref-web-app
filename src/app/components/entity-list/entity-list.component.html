@@ -2,7 +2,7 @@
     <span matRipple class="list__item" (click)="onToggleSelect(item)" [class.active]="item.selected">
         <div class="item__content">
             <img class="content__thumbnail" *ngIf="!!getThumbnail(item)" [src]="getThumbnail(item)">
-            <span class="content__name">{{item.name}}</span>
+            <span class="content__name">{{getName(item)}}</span>
         </div>
         <ng-container *ngIf="!!item.selected">
             <mat-icon>check</mat-icon>
