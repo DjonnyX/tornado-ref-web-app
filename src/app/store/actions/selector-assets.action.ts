@@ -2,11 +2,16 @@ import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
 import { SelectorImageTypes } from '@djonnyx/tornado-types';
+import { IFileUploadEvent } from '@models';
 
 export enum SelectorAssetsActionTypes {
     GET_ALL_REQUEST = "TORNADO/selector/assets/get-all:request",
     GET_ALL_SUCCESS = "TORNADO/selector/assets/get-all:success",
     GET_ALL_ERROR = "TORNADO/selector/assets/get-all:error",
+
+    GET_ALL_BY_LANG_REQUEST = "TORNADO/selector/assets/get-all-by-lang:request",
+    GET_ALL_BY_LANG_SUCCESS = "TORNADO/selector/assets/get-all-by-lang:success",
+    GET_ALL_BY_LANG_ERROR = "TORNADO/selector/assets/get-all-by-lang:error",
 
     GET_REQUEST = "TORNADO/selector/assets/get:request",
     GET_SUCCESS = "TORNADO/selector/assets/get:success",
@@ -41,40 +46,41 @@ export namespace SelectorAssetsActions {
     );
     export const getAllSuccess = createAction(
         SelectorAssetsActionTypes.GET_ALL_SUCCESS,
-        props<{ collection: Array<IAsset>, meta?: IMetaRefsResponse }>()
+        props<{ collection: { [lang: string]: Array<IAsset> }, meta?: IMetaRefsResponse }>()
     );
     export const getAllError = createAction(
         SelectorAssetsActionTypes.GET_ALL_ERROR,
         props<{ error: string }>()
     );
 
-    // get
-    export const getRequest = createAction(
-        SelectorAssetsActionTypes.GET_REQUEST,
-        props<{ assetId: string }>()
+    // getAll
+    export const getAllByLangRequest = createAction(
+        SelectorAssetsActionTypes.GET_ALL_BY_LANG_REQUEST,
+        props<{ selectorId: string, langCode: string, }>()
     );
-    export const getSuccess = createAction(
-        SelectorAssetsActionTypes.GET_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+    export const getAllByLangSuccess = createAction(
+        SelectorAssetsActionTypes.GET_ALL_BY_LANG_SUCCESS,
+        props<{ collection: Array<IAsset>, langCode: string, meta?: IMetaRefsResponse }>()
     );
-    export const getError = createAction(
-        SelectorAssetsActionTypes.GET_ERROR,
+    export const getAllByLangError = createAction(
+        SelectorAssetsActionTypes.GET_ALL_BY_LANG_ERROR,
         props<{ error: string }>()
     );
 
     // create
     export const createRequest = createAction(
         SelectorAssetsActionTypes.CREATE_REQUEST,
-        props<{ selectorId: string, file: File, }>()
+        props<{ selectorId: string, data: IFileUploadEvent, }>()
     );
     export const createSuccess = createAction(
         SelectorAssetsActionTypes.CREATE_SUCCESS,
-        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
     export const createProgress = createAction(
         SelectorAssetsActionTypes.CREATE_PROGRESS,
         props<{
             tmpAsset: IAsset,
+            langCode: string,
             progress: {
                 total: number,
                 loaded: number,
@@ -93,11 +99,11 @@ export namespace SelectorAssetsActions {
     // update
     export const updateRequest = createAction(
         SelectorAssetsActionTypes.UPDATE_REQUEST,
-        props<{ selectorId: string, asset: IAsset }>()
+        props<{ selectorId: string, langCode: string, asset: IAsset }>()
     );
     export const updateSuccess = createAction(
         SelectorAssetsActionTypes.UPDATE_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, meta?: IMetaRefsResponse }>()
     );
     export const updateError = createAction(
         SelectorAssetsActionTypes.UPDATE_ERROR,
@@ -107,30 +113,31 @@ export namespace SelectorAssetsActions {
     // delete
     export const deleteRequest = createAction(
         SelectorAssetsActionTypes.DELETE_REQUEST,
-        props<{ selectorId: string, assetId: string }>()
+        props<{ selectorId: string, langCode: string, assetId: string }>()
     );
     export const deleteSuccess = createAction(
         SelectorAssetsActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta?: IMetaRefsResponse }>()
+        props<{ id: string, langCode: string, meta?: IMetaRefsResponse }>()
     );
     export const deleteError = createAction(
         SelectorAssetsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
     );
-    
+
     // upload
     export const uploadImageRequest = createAction(
         SelectorAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ selectorId: string, imageType: SelectorImageTypes, file: File }>()
+        props<{ selectorId: string, imageType: SelectorImageTypes, data: IFileUploadEvent }>()
     );
     export const uploadImageSuccess = createAction(
         SelectorAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
-        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
     export const uploadImageProgress = createAction(
         SelectorAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
         props<{
             tmpAsset: IAsset,
+            langCode: string,
             progress: {
                 total: number,
                 loaded: number,
@@ -145,7 +152,8 @@ export namespace SelectorAssetsActions {
             error: string
         }>()
     );
-    
+
+
     export const clear = createAction(
         SelectorAssetsActionTypes.CLEAR,
     );

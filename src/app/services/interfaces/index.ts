@@ -28,6 +28,7 @@ export { ISelectorsCreateResponse } from './selectors-create-response.interface'
 export { ISelectorsUpdateResponse } from './selectors-update-response.interface';
 export { ISelectorsDeleteResponse } from './selectors-delete-response.interface';
 export { ISelectorAssetGetResponse } from './selector-asset-get-response.interface';
+export { ISelectorAssetGetByLangResponse } from './selector-assets-get-by-lang-response.interface';
 export { ISelectorAssetCreateResponse } from './selector-asset-create-response.interface';
 export { ISelectorAssetUpdateResponse } from './selector-asset-update-response.interface';
 export { ISelectorAssetDeleteResponse } from './selector-asset-delete-response.interface';

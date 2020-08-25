@@ -69,6 +69,7 @@ import {
   ITranslationGetResponse,
   ITranslationUpdateResponse,
   IProductAssetGetByLangResponse,
+  ISelectorAssetGetByLangResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -343,7 +344,7 @@ export class ApiService {
       });
   }
 
-  public getSelectorAssets(selectorId: string): Observable<ISelectorAssetGetResponse> {
+  public getSelectorAllAssets(selectorId: string): Observable<ISelectorAssetGetResponse> {
     return this._http
       .get<ISelectorAssetGetResponse>(`api/v1/selector/${selectorId}/assets`, {
         headers: {
@@ -352,82 +353,91 @@ export class ApiService {
       });
   }
 
-  public uploadSelectorImage(selectorId: string, type: SelectorImageTypes, file: File): Observable<ISelectorAssetCreateResponse> {
-    const formData = new FormData();
-    formData.append("file", file, file.name);
-
+  public getSelectorAllByLangAssets(selectorId: string, langCode: string): Observable<ISelectorAssetGetByLangResponse> {
     return this._http
-      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/image/${type}`, formData, {
-        headers: {
-          authorization: this._token,
-        },
-        reportProgress: true,
-        observe: "events",
-      }).pipe(
-        map((event: any) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              const progress = Math.round(100 * event.loaded / event.total);
-              return {
-                data: {
-                  progress: {
-                    total: event.total,
-                    loaded: event.loaded,
-                    progress,
-                  },
-                }
-              }
-            case HttpEventType.Response:
-              return event.body;
-          }
-        }),
-      );
-  }
-
-  public createSelectorAsset(selectorId: string, file: File): Observable<ISelectorAssetCreateResponse> {
-    const formData = new FormData();
-    formData.append("file", file, file.name);
-
-    return this._http
-      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/asset`, formData, {
-        headers: {
-          authorization: this._token,
-        },
-        reportProgress: true,
-        observe: "events",
-      }).pipe(
-        map((event: any) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              const progress = Math.round(100 * event.loaded / event.total);
-              return {
-                data: {
-                  progress: {
-                    total: event.total,
-                    loaded: event.loaded,
-                    progress,
-                  },
-                }
-              }
-            case HttpEventType.Response:
-              return event.body;
-          }
-        }),
-      );
-  }
-
-  public updateSelectorAsset(selectorId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ISelectorAssetUpdateResponse> {
-    return this._http
-      .put<ISelectorAssetUpdateResponse>(`api/v1/selector/${selectorId}/asset/${assetId}`, asset, {
+      .get<ISelectorAssetGetByLangResponse>(`api/v1/selector/${selectorId}/assets/${langCode}`, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public deleteSelectorAsset(selectortId: string, assetId: string): Observable<ISelectorAssetDeleteResponse> {
+  public uploadSelectorImage(selectorId: string, type: SelectorImageTypes, data: IFileUploadEvent): Observable<ISelectorAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
     return this._http
-      .delete<ISelectorAssetDeleteResponse>(`api/v1/selector/${selectortId}/asset/${assetId}`, {
+      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/image/${data.langCode}/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public createSelectorAsset(selectorId: string, data: IFileUploadEvent): Observable<ISelectorAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/asset/${data.langCode}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateSelectorAsset(selectorId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ISelectorAssetUpdateResponse> {
+    return this._http
+      .put<ISelectorAssetUpdateResponse>(`api/v1/selector/${selectorId}/asset/${langCode}/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteSelectorAsset(selectorId: string, langCode: string, assetId: string): Observable<ISelectorAssetDeleteResponse> {
+    return this._http
+      .delete<ISelectorAssetDeleteResponse>(`api/v1/selector/${selectorId}/asset/${langCode}/${assetId}`, {
         headers: {
           authorization: this._token,
         },

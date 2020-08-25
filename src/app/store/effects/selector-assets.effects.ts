@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
 import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
 import { IAsset } from '@models';
-import { ProductActions } from '@store/actions/product.action';
 import { SelectorActions } from '@store/actions/selector.action';
 
 @Injectable()
@@ -25,17 +24,17 @@ export default class SelectorAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-        public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorAssetsActions.uploadImageRequest),
-            switchMap(({ selectorId, imageType, file }) => {
+            switchMap(({ selectorId, imageType, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -43,11 +42,17 @@ export default class SelectorAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.uploadSelectorImage(selectorId, imageType, file).pipe(
+                this._store.dispatch(SelectorActions.updateImage({
+                    langCode: data.langCode,
+                    imageType,
+                    assetId: id,
+                }));
+                return this._apiService.uploadSelectorImage(selectorId, imageType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [SelectorAssetsActions.uploadImageProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -56,9 +61,9 @@ export default class SelectorAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [SelectorAssetsActions.uploadImageProgress({ tmpAsset, progress: res.data.progress })];
+                            return [SelectorAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [SelectorAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, }), SelectorActions.getRequest({ id: selectorId })];
+                        return [SelectorAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), SelectorActions.getRequest({ id: selectorId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -74,7 +79,7 @@ export default class SelectorAssetsEffects {
         this._actions$.pipe(
             ofType(SelectorAssetsActions.getAllRequest),
             switchMap(({ selectorId }) => {
-                return this._apiService.getSelectorAssets(selectorId).pipe(
+                return this._apiService.getSelectorAllAssets(selectorId).pipe(
                     mergeMap(res => {
                         return [SelectorAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
@@ -88,17 +93,35 @@ export default class SelectorAssetsEffects {
         )
     );
 
+    public readonly getAllByLangRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(SelectorAssetsActions.getAllByLangRequest),
+            switchMap(({ selectorId, langCode }) => {
+                return this._apiService.getSelectorAllByLangAssets(selectorId, langCode).pipe(
+                    mergeMap(res => {
+                        return [SelectorAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(SelectorAssetsActions.getAllByLangError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorAssetsActions.createRequest),
-            switchMap(({ selectorId, file }) => {
+            switchMap(({ selectorId, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -106,11 +129,12 @@ export default class SelectorAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.createSelectorAsset(selectorId, file).pipe(
+                return this._apiService.createSelectorAsset(selectorId, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [SelectorAssetsActions.createProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -119,9 +143,9 @@ export default class SelectorAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [SelectorAssetsActions.createProgress({ tmpAsset, progress: res.data.progress })];
+                            return [SelectorAssetsActions.createProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [SelectorAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), SelectorActions.getRequest({ id: selectorId })];
+                        return [SelectorAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), SelectorActions.getRequest({ id: selectorId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -136,13 +160,13 @@ export default class SelectorAssetsEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorAssetsActions.updateRequest),
-            switchMap(({ asset, selectorId }) => {
-                return this._apiService.updateSelectorAsset(selectorId, asset.id, {
+            switchMap(({ asset, selectorId, langCode }) => {
+                return this._apiService.updateSelectorAsset(selectorId, langCode, asset.id, {
                     name: asset.name,
                     active: asset.active,
                 }).pipe(
                     mergeMap(res => {
-                        return [SelectorAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
+                        return [SelectorAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -157,10 +181,10 @@ export default class SelectorAssetsEffects {
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorAssetsActions.deleteRequest),
-            switchMap(({ selectorId, assetId }) => {
-                return this._apiService.deleteSelectorAsset(selectorId, assetId).pipe(
+            switchMap(({ selectorId, assetId, langCode }) => {
+                return this._apiService.deleteSelectorAsset(selectorId, langCode, assetId).pipe(
                     mergeMap(res => {
-                        return [SelectorAssetsActions.deleteSuccess({ id: assetId })];
+                        return [SelectorAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {

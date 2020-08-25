@@ -1,10 +1,10 @@
-import { IProductContents, IProductContentsItem, ProductImageTypes } from '@djonnyx/tornado-types';
+import { IEntityContentsItem, ProductImageTypes, IEntityContents } from '@djonnyx/tornado-types';
 import { deepMergeObjects } from './object.util';
 
-export const normalizeProductContents = (contents: IProductContents, defaultLang: string) => {
+export const normalizeEntityContents = (contents: IEntityContents, defaultLang: string) => {
     const result = deepMergeObjects(contents, contents);
 
-    let defaultContent: IProductContentsItem;
+    let defaultContent: IEntityContentsItem;
 
     // экстракт дефолтового контента
     for (const lang in result) {
@@ -31,7 +31,7 @@ export const normalizeProductContents = (contents: IProductContents, defaultLang
     return result;
 };
 
-export const equalFromImages = (content: IProductContentsItem, image: string): boolean => {
+export const equalFromImages = (content: IEntityContentsItem, image: string): boolean => {
     if (!!content && !!content.images) {
         for (const imageType in content) {
             if (image == content[imageType]) {
