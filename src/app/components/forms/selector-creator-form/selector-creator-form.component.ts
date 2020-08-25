@@ -1,53 +1,65 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { BaseComponent } from '@components/base/base-component';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { ISelector, ITag, IAsset, ISelectorImages } from '@djonnyx/tornado-types';
+import * as _ from "lodash";
+import { BaseComponent } from '@components/base/base-component';
+import { ISelector, ITag, IAsset, ICurrency, IPrice, ISelectorContents, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { IFileUploadEvent } from '@models';
+import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
   selector: 'ta-selector-creator-form',
   templateUrl: './selector-creator-form.component.html',
-  styleUrls: ['./selector-creator-form.component.scss']
+  styleUrls: ['./selector-creator-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectorCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   form: FormGroup;
 
-  get color() {
-    return this.ctrlColor.value;
-  }
-
-  set color(v: string) {
-    this.ctrlColor.setValue(v);
-  }
-
-  ctrlColor = new FormControl('#000000');
-
-  ctrlName = new FormControl('', [Validators.required]);
-
-  ctrlDescription = new FormControl('');
-
-  //ctrlTags = new FormControl([]);
-
-  @Input() images: ISelectorImages;
-
   @Input() assets: Array<IAsset>;
+
+  private _defaultLanguage: ILanguage;
+  @Input() set defaultLanguage(v: ILanguage) {
+    if (this._defaultLanguage !== v) {
+      this._defaultLanguage = v;
+
+      this.sortLanguages();
+    }
+  }
+
+  get defaultLanguage() { return this._defaultLanguage; }
+
+  private _languages: Array<ILanguage>;
+  @Input() set languages(v: Array<ILanguage>) {
+    if (this._languages !== v) {
+      this._languages = v;
+
+      this.sortLanguages();
+    }
+  }
+
+  get languages() { return this._languages; }
+
+  sortedLanguages: Array<ILanguage>;
 
   private _selector: ISelector;
   @Input() set selector(selector: ISelector) {
     if (selector) {
       this._selector = selector;
 
-      this.ctrlName.setValue(selector.name);
-      this.ctrlColor.setValue(selector.color);
-      this.ctrlDescription.setValue(selector.description);
-      //this.ctrlTags.setValue(selector.tags);
+      this._state = { ...this._state, ...(this._selector ? this._selector.contents : undefined) };
     }
   }
 
-  @Input() isEditMode: boolean;
+  get selector() {
+    return this._selector;
+  }
 
-  @Input() tagList: Array<ITag>;
+  @Input() imagesGallery: Array<{ [lang: string]: IAsset }>;
+
+  @Input() isEditMode: boolean;
 
   @Output() save = new EventEmitter<ISelector>();
 
@@ -55,21 +67,24 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ISelector>();
 
-  @Output() uploadMainImage = new EventEmitter<File>();
+  @Output() uploadMainImage = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<File>();
+  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<File>();
+  @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+
+  @Output() uploadAsset = new EventEmitter<IFileUploadEvent>();
+
+  @Output() updateAsset = new EventEmitter<IAssetUploadEvent>();
+
+  @Output() deleteAsset = new EventEmitter<IAssetUploadEvent>();
+
+  private _state: ISelectorContents = {};
 
   constructor(private _fb: FormBuilder) {
     super();
 
-    this.form = this._fb.group({
-      name: this.ctrlName,
-      description: this.ctrlDescription,
-      color: this.ctrlColor,
-      // tags: this.ctrlTags,
-    })
+    this.form = this._fb.group({})
   }
 
   ngOnInit(): void {
@@ -77,7 +92,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       this.update.emit(value);
-    })
+    });
   }
 
   ngOnDestroy(): void {
@@ -86,40 +101,71 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onSave(): void {
     if (this.form.valid) {
-      const images: ISelectorImages = {...this.images};
-      if (!(images as any).hasOwnProperty("main")) {
-        images.main = null;
-      }
-      if (!(images as any).hasOwnProperty("thumbnail")) {
-        images.thumbnail = null;
-      }
-      if (!(images as any).hasOwnProperty("icon")) {
-        images.icon = null;
-      }
-
       this.save.emit({
         ...this._selector,
         ...this.form.value,
-        images,
+        contents: { ...(!!this._selector ? this._selector.contents : undefined), ...this._state },
         active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true,
         extra: !!this._selector ? this._selector.extra : {},
       });
     }
   }
 
-  onMainImageUpload(file: File): void {
-    this.uploadMainImage.emit(file);
+  onMainImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(file: File): void {
-    this.uploadThumbnailImage.emit(file);
+  onThumbnailImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadThumbnailImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onIconImageUpload(file: File): void {
-    this.uploadIconImage.emit(file);
+  onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  }
+
+  onAssetUpload(file: File, lang: ILanguage): void {
+    this.uploadAsset.emit({ file, langCode: lang.code });
+  }
+
+  onAssetUpdate(asset: IAsset, lang: ILanguage): void {
+    this.updateAsset.emit({ asset, langCode: lang.code });
+  }
+
+  onAssetDelete(asset: IAsset, lang: ILanguage): void {
+    this.deleteAsset.emit({ asset, langCode: lang.code });
   }
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  getContent(lang: ILanguage): ISelectorContentsItem {
+    return this._selector.contents[lang.code];
+  }
+
+  updateStateFor(state: ISelectorContents, lang: ILanguage): void {
+    const mergedState: ISelectorContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
+    this.updateState(mergedState);
+  }
+
+  private sortLanguages(): void {
+    if (!this._languages || !this._defaultLanguage) {
+      return;
+    }
+
+    const languages = new Array<ILanguage>();
+    this._languages.forEach(lang => {
+      if (lang.code === this._defaultLanguage.code) {
+        languages.unshift(lang);
+      } else {
+        languages.push(lang);
+      }
+    });
+
+    this.sortedLanguages = languages;
+  }
+
+  private updateState(state: ISelectorContents): void {
+    this._state = deepMergeObjects(this._state, state, true);
   }
 }

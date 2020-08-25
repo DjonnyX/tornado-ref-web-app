@@ -2,15 +2,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { SelectorsSelectors, AssetsSelectors } from '@store/selectors';
+import { SelectorsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { SelectorActions } from '@store/actions/selector.action';
-import { ISelector, ITag, IRef, SelectorTypes, IAsset } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IRef, SelectorTypes, IAsset, ILanguage } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
-import { map } from 'rxjs/operators';
+import { map, filter } from 'rxjs/operators';
+import { LanguagesActions } from '@store/actions/languages.action';
 
 @Component({
   selector: 'ta-selectors-editor',
@@ -25,6 +26,10 @@ export class SelectorsEditorContainer implements OnInit {
   public collection$: Observable<Array<ISelector>>;
 
   public assets$: Observable<Array<IAsset>>;
+
+  languages$: Observable<Array<ILanguage>>;
+
+  defaultLanguage$: Observable<ILanguage>;
 
   public tags$: Observable<Array<ITag>>;
 
@@ -42,6 +47,8 @@ export class SelectorsEditorContainer implements OnInit {
     this._store.dispatch(TagsActions.getAllRequest());
 
     this._store.dispatch(AssetsActions.getAllRequest());
+    
+    this._store.dispatch(LanguagesActions.getAllRequest());
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
@@ -54,8 +61,11 @@ export class SelectorsEditorContainer implements OnInit {
       this._store.pipe(
         select(AssetsSelectors.selectLoading),
       ),
+      this._store.pipe(
+        select(LanguagesSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isProductsProgress, isAssetsProgress]) => isProductsProgress || isAssetsProgress),
+      map(([isProductsProgress, isAssetsProgress, isLanguagesProcess]) => isProductsProgress || isAssetsProgress || isLanguagesProcess),
     );
 
     this.collection$ = this._store.pipe(
@@ -68,6 +78,16 @@ export class SelectorsEditorContainer implements OnInit {
 
     this.refInfo$ = this._store.pipe(
       select(SelectorsSelectors.selectRefInfo),
+    );
+
+    this.languages$ = this._store.pipe(
+      select(LanguagesSelectors.selectCollection),
+    );
+
+    this.defaultLanguage$ = this.languages$.pipe(
+      filter(languages => !!languages),
+      map(languages => languages.find(v => !!v.isDefault)),
+      filter(language => !!language),
     );
   }
 

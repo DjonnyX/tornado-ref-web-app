@@ -23,7 +23,7 @@ import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
-import { normalizeProductContents } from '@app/utils/entity.util';
+import { normalizeEntityContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-product-creator',
@@ -236,7 +236,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
           contents[lang.code] = product.contents[defaultLang.code];
         }
 
-        return { ...product, contents: normalizeProductContents(contents, defaultLang.code) };
+        return { ...product, contents: normalizeEntityContents(contents, defaultLang.code) };
       })
     );
 
@@ -291,11 +291,11 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
       this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
-      this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
     });
 
     if (!!this._productId) {
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
+      this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
     }
 
     this._store.dispatch(LanguagesActions.getAllRequest());
@@ -383,7 +383,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       const normalizedProduct: IProduct = {...product};
 
       // нормализация контена
-      normalizeProductContents(normalizedProduct.contents, this._defaultLanguage.code);
+      normalizeEntityContents(normalizedProduct.contents, this._defaultLanguage.code);
 
       this._store.dispatch(ProductActions.updateRequest({ id: product.id, product: normalizedProduct }));
     } else {

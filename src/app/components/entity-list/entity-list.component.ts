@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { Observable } from 'rxjs';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { NodeTypes, IAsset } from '@djonnyx/tornado-types';
+import { NodeTypes, IAsset, ILanguage, IEntityContentsItem, IEntityContents } from '@djonnyx/tornado-types';
 
 interface IEntity {
   id: string;
@@ -45,6 +45,10 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
   get collection() {
     return this._collection;
   }
+
+  @Input() languages: Array<ILanguage>;
+
+  @Input() defaultLanguage: ILanguage;
 
   @Input() type: NodeTypes | string;
 
@@ -90,17 +94,33 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
     }
   }
 
-  getThumbnail(entity: IEntity): string {
-    const content: any = entity;
+  getContent(entity: {
+    contents: IEntityContents;
+  }): IEntityContentsItem {
+    return entity.contents[this.defaultLanguage.code];
+  }
 
-    if (!!this.assetsDictionary && !!content.images.main) {
+  getThumbnail(entity: {
+    contents: IEntityContents;
+  }): string {
+    const entityContent = this.getContent(entity);
+    const img = !!entityContent ? (entityContent as any)?.images?.main : undefined;
 
-      if (this.assetsDictionary[content.images.main]) {
-        return this.assetsDictionary[content.images.main].mipmap.x32;
+    if (!!this.assetsDictionary && !!img) {
+
+      if (this.assetsDictionary[img]) {
+        return this.assetsDictionary[img].mipmap.x32;
       }
     }
 
     return "";
+  }
+  
+  getName(entity: {
+    contents: IEntityContents;
+  }): string | undefined {
+    const entityContent = this.getContent(entity);
+    return !!entityContent ? (entityContent as any).name : undefined;
   }
 
   reset(): void {

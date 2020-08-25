@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { SelectorActions } from '@store/actions/selector.action';
 import { ISelectorState } from '@store/state/selector.state';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 export const initialState: ISelectorState = {
     loading: false,
@@ -15,6 +16,21 @@ export const initialState: ISelectorState = {
 const selectorReducer = createReducer(
     initialState,
     on(SelectorActions.update, (state, { selector }) => {
+        return {
+            ...initialState,
+            selector,
+        };
+    }),
+    on(SelectorActions.updateImage, (state, { langCode, imageType, assetId }) => {
+        const selector = deepMergeObjects(state.selector, {
+            contents: {
+                [langCode]: {
+                    images: {
+                        [imageType]: assetId,
+                    },
+                },
+            },
+        });
         return {
             ...initialState,
             selector,
