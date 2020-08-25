@@ -1,18 +1,20 @@
-<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <div class="entity-options-editor">
-        <div class="entity-options-editor__back-button" (click)="onToBack()">
-            go back
-        </div>
-        <div class="form">
-            <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="isProcessMainOptions$ | async">
-                <ta-selector-creator-form [isEditMode]="isEditMode" [selector]="selector$ | async"
-                    [tagList]="tags$ | async" [images]="images$ | async" [assets]="selectorAssets$ | async"
-                    (save)="onMainOptionsSave($event)" (cancel)="onCancel()"
-                    (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
-                    (uploadThumbnailImage)="onThumbnailImageUpload($event)">
-                </ta-selector-creator-form>
-            </ta-query-progress>
-        </div>
+<ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
+  <div class="entity-options-editor">
+    <div class="entity-options-editor__back-button" (click)="onToBack()">
+      go back
     </div>
+    <div class="form">
+      <ta-query-progress class="query-progress-container" style="position: relative;"
+        [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+        <ta-selector-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+          [selector]="selector$ | async" [assets]="selectorAssets$ | async"
+          [imagesGallery]="gallerySelectorAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
+          [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+          (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
+          (uploadThumbnailImage)="onThumbnailImageUpload($event)" (uploadAsset)="onAssetUpload($event)"
+          (updateAsset)="onAssetUpdate($event)" (deleteAsset)="onAssetDelete($event)">
+        </ta-selector-creator-form>
+      </ta-query-progress>
+    </div>
+  </div>
 </ta-query-progress>

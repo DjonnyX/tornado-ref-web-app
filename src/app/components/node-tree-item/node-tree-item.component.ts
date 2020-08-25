@@ -284,8 +284,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           if (this.node.type === NodeTypes.SELECTOR) {
             const content = this.selectorsDictionary[this.node.contentId];
 
-            if (content && content.images.main && this.assetsDictionary[content.images.main]) {
-              return this.assetsDictionary[content.images.main].mipmap.x32;
+            if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+              return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
             }
           }
           if (this.node.type === NodeTypes.SELECTOR_NODE) {
@@ -293,8 +293,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             if (!!node) {
               const content = this.selectorsDictionary[node.contentId];
 
-              if (content && content.images.main && this.assetsDictionary[content.images.main]) {
-                return this.assetsDictionary[content.images.main].mipmap.x32;
+              if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+                return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
               }
             }
           }
@@ -306,7 +306,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   getContentName(): string {
     const content = this.getContent();
-    return !!content ? !!(content as any).content ? (content as any).content[this.defaultLanguage.code].name : (content as any).name : "";
+    return !!content ? content.contents[this.defaultLanguage.code].name : "";
   }
 
   getContent(): IProduct | ISelector | null {
@@ -378,6 +378,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           schemaSelectors: this.selectors.filter(selector => selector.type === SelectorTypes.SCHEMA_CATEGORY),
           selectedDefaultEntityId: this.node.contentId,
           defaultCollection: this.node.type === NodeTypes.SELECTOR && !!content ? (content as ISelector).type : this.node.type,
+          languages: this.languages,
+          defaultLanguage: this.defaultLanguage,
           nodes: this.nodes,
           rights,
         },
@@ -437,6 +439,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
           selectorsDictionary: this.selectorsDictionary,
           schemaSelectors: this.selectors.filter(selector => selector.type === SelectorTypes.SCHEMA_CATEGORY),
+          languages: this.languages,
+          defaultLanguage: this.defaultLanguage,
           nodes: this.nodes,
           rights,
         },

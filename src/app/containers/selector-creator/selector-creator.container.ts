@@ -1,17 +1,22 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
+import { SelectorsSelectors, SelectorAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, filter, map } from 'rxjs/operators';
+import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { TagsSelectors } from '@store/selectors/tags.selectors';
-import { TagsActions } from '@store/actions/tags.action';
-import { SelectorActions } from '@store/actions/selector.action';
-import { SelectorSelectors } from '@store/selectors/selector.selectors';
-import { ISelector, ITag, SelectorTypes, IAsset, ISelectorImages, SelectorImageTypes } from '@djonnyx/tornado-types';
-import { SelectorAssetsSelectors, SelectorsSelectors } from '@store/selectors';
+import { IAsset, IFileUploadEvent } from '@models';
+import { SelectorsActions } from '@store/actions/selectors.action';
 import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
+import { SelectorSelectors } from '@store/selectors/selector.selectors';
+import { SelectorActions } from '@store/actions/selector.action';
+import { ISelector, SelectorImageTypes, ILanguage, ISelectorContents, SelectorTypes } from '@djonnyx/tornado-types';
+import { AssetsActions } from '@store/actions/assets.action';
+import { LanguagesActions } from '@store/actions/languages.action';
+import { deepMergeObjects } from '@app/utils/object.util';
+import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { normalizeEntityContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-selector-creator',
@@ -27,23 +32,33 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   isProcessAssets$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _selector: ISelector;
-
   selector$: Observable<ISelector>;
+
+  selectors$: Observable<Array<ISelector>>;
 
   selectorAssets$: Observable<Array<IAsset>>;
 
-  tags$: Observable<Array<ITag>>;
+  gallerySelectorAssets$: Observable<{ [lang: string]: Array<IAsset> }>;
 
-  images$: Observable<ISelectorImages>;
+  assets$: Observable<Array<IAsset>>;
+
+  languages$: Observable<Array<ILanguage>>;
+
+  defaultLanguage$: Observable<ILanguage>;
+
+  isPrepareToConfigure$: Observable<boolean>;
 
   isEditMode = false;
 
+  private _returnUrl: string;
+
   private _selectorId: string;
 
-  private _selectorType: SelectorTypes;
+  private _selectorType: string;
+
+  private _selector: ISelector;
+
+  private _defaultLanguage: ILanguage;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -63,10 +78,28 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
         select(SelectorSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(SelectorSelectors.selectIsCreateProcess),
+        select(SelectorsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(AssetsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(LanguagesSelectors.selectIsGetProcess),
       ),
     ).pipe(
-      map(([isSelectorGetProcess, isSelectorsGetProcess]) => isSelectorGetProcess || isSelectorsGetProcess),
+      map(([isGetSelectorProcess, isSelectorsProcess, isAssetsProcess, isLanguagesProcess]) =>
+        isGetSelectorProcess || isSelectorsProcess || isAssetsProcess || isLanguagesProcess),
+    );
+
+    this.isProcessMainOptions$ = combineLatest(
+      this._store.pipe(
+        select(SelectorSelectors.selectIsCreateProcess),
+      ),
+      this._store.pipe(
+        select(SelectorSelectors.selectIsUpdateProcess),
+      ),
+    ).pipe(
+      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
     );
 
     this.isProcessAssets$ = combineLatest(
@@ -83,48 +116,146 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
-      this._store.pipe(
-        select(SelectorSelectors.selectIsCreateProcess),
-      ),
-      this._store.pipe(
-        select(SelectorSelectors.selectIsUpdateProcess),
-      ),
+    this.selectors$ = this._store.pipe(
+      select(SelectorsSelectors.selectCollection),
+    );
+
+    this.languages$ = this._store.pipe(
+      select(LanguagesSelectors.selectCollection),
+    );
+
+    this.assets$ = this._store.pipe(
+      select(AssetsSelectors.selectCollection),
+    );
+
+    this.defaultLanguage$ = this.languages$.pipe(
+      filter(languages => !!languages),
+      map(languages => languages.find(v => !!v.isDefault)),
+      filter(language => !!language),
+    );
+
+    this.defaultLanguage$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(lang => {
+      this._defaultLanguage = lang;
+    });
+
+    this.selectorAssets$ = combineLatest(
+      this._store.select(SelectorAssetsSelectors.selectCollection),
+      this.languages$,
     ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+      filter(([assets, langs]) => !!assets && !!langs),
+      switchMap(([assets, langs]) => {
+        const result = new Array<IAsset>();
+
+        for (const lang in assets) {
+          result.push(...assets[lang]);
+        }
+
+        return of(result);
+      }),
     );
 
-    this.selectorAssets$ = this._store.pipe(
-      select(SelectorAssetsSelectors.selectCollection),
-    );
+    this.selector$ = combineLatest(
+      this._store.select(SelectorSelectors.selectEntity),
+      this.languages$,
+      this.defaultLanguage$,
+    ).pipe(
+      filter(([selector, langs, defaultLang]) => !!selector && !!defaultLang && !!langs),
+      map(([selector, langs, defaultLang]) => {
+        const contents: ISelectorContents = {};
 
-    this.images$ = this._store.pipe(
-      select(SelectorSelectors.selectImages),
-    );
+        // мерджинг контента от дефолтового языка
+        for (const lang in selector.contents) {
+          // переопределение контента для разных языков
+          contents[lang] = lang === defaultLang.code ? selector.contents[lang] : deepMergeObjects(selector.contents[defaultLang.code], selector.contents[lang]);
+        }
 
-    this._store.dispatch(TagsActions.getAllRequest());
+        // добовление контента языков которых нет в базе
+        for (const lang of langs) {
+          if (contents[lang.code]) {
+            continue;
+          }
 
-    this.tags$ = this._store.pipe(
-      select(TagsSelectors.selectCollection),
-    );
+          contents[lang.code] = selector.contents[defaultLang.code];
+        }
 
-    this.selector$ = this._store.pipe(
-      select(SelectorSelectors.selectEntity),
+        return { ...selector, contents: normalizeEntityContents(contents, defaultLang.code) };
+      })
     );
 
     this.selector$.pipe(
       takeUntil(this.unsubscribe$),
-      filter(selector => !!selector),
     ).subscribe(selector => {
       this._selector = selector;
       this._selectorId = selector.id;
-      this.isEditMode = !!this._selectorId;
+      this.isEditMode = true;
     });
+
+    this.gallerySelectorAssets$ = combineLatest(
+      this.selector$,
+      this._store.select(SelectorAssetsSelectors.selectCollection),
+      this.languages$,
+      this.defaultLanguage$,
+    ).pipe(
+      filter(([selector, assets, langs, defaultLang]) => !!selector && !!assets && !!langs && !!defaultLang),
+      map(([selector, assets, langs, defaultLang]) => {
+        const result: { [lang: string]: Array<IAsset> } = {};
+        for (const lang in assets) {
+          result[lang] = assets[lang].filter(asset =>
+            !selector.contents[lang] ||
+            (
+              !selector.contents[lang].images || (asset.id !==
+                selector.contents[lang].images.main && asset.id !==
+                selector.contents[lang].images.thumbnail && asset.id !==
+                selector.contents[lang].images.icon)
+            ))
+        }
+
+        // добовление контента языков которых нет в базе
+        for (const lang of langs) {
+          if (result[lang.code]) {
+            continue;
+          }
+
+          result[lang.code] = [];
+        }
+        return result;
+      }),
+    );
 
     if (!!this._selectorId) {
       this._store.dispatch(SelectorActions.getRequest({ id: this._selectorId }));
       this._store.dispatch(SelectorAssetsActions.getAllRequest({ selectorId: this._selectorId }));
     }
+
+    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(SelectorsActions.getAllRequest({}));
+    this._store.dispatch(AssetsActions.getAllRequest());
+    // this._store.dispatch(TagsActions.getAllRequest());
+
+    const prepareMainRequests$ = combineLatest(
+      this.selectors$,
+      this.languages$,
+      this.defaultLanguage$,
+      this.assets$,
+    ).pipe(
+      map(([selectors, languages, defaultLanguage, assets]) =>
+        !!selectors && !!languages && !!defaultLanguage && !!assets),
+    );
+
+    this.isPrepareToConfigure$ = of(this._selectorId).pipe(
+      switchMap(id => {
+        return !!id ? combineLatest(
+          prepareMainRequests$,
+          this.selector$,
+          this.selectorAssets$,
+        ).pipe(
+          map(([prepareMainRequests, selector, selectorAssets]) =>
+            !!prepareMainRequests && !!selector && !!selectorAssets),
+        ) : prepareMainRequests$;
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -134,31 +265,50 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SelectorAssetsActions.clear());
   }
 
-  onMainOptionsSave(selector: ISelector): void {
-    if (this.isEditMode) {
-      this._store.dispatch(SelectorActions.updateRequest({ id: selector.id, selector }));
-    } else {
-      this._store.dispatch(SelectorActions.createRequest({ selector: { ...selector, type: this._selectorType } }));
-    }
+  onAssetUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.createRequest({ selectorId: this._selectorId, data }));
   }
 
-  onCancel(): void {
+  onAssetUpdate(data: IAssetUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.updateRequest({ selectorId: this._selectorId, langCode: data.langCode, asset: data.asset }));
+  }
+
+  onAssetDelete(data: IAssetUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.deleteRequest({ selectorId: this._selectorId, langCode: data.langCode, assetId: data.asset.id }));
+  }
+
+  onMainImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.MAIN, data }));
+  }
+
+  onThumbnailImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.THUMBNAIL, data }));
+  }
+
+  onIconImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.ICON, data }));
+  }
+
+  onMainOptionsSave(selector: ISelector): void {
+    if (this.isEditMode) {
+      const normalizedSelector: ISelector = { ...selector };
+
+      // нормализация контена
+      normalizeEntityContents(normalizedSelector.contents, this._defaultLanguage.code);
+
+      this._store.dispatch(SelectorActions.updateRequest({ id: selector.id, selector: normalizedSelector }));
+    } else {
+      this._store.dispatch(SelectorActions.createRequest({ selector: { ...selector, type: this._selectorType as any } }));
+    }
+
+    // this._router.navigate([this._returnUrl]);
+  }
+
+  onMainOptionsCancel(): void {
     this._router.navigate([this._returnUrl]);
   }
 
   onToBack(): void {
     this._router.navigate([this._returnUrl]);
-  }
-
-  onMainImageUpload(file: File): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.MAIN, file }));
-  }
-
-  onThumbnailImageUpload(file: File): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.THUMBNAIL, file }));
-  }
-
-  onIconImageUpload(file: File): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.ICON, file }));
   }
 }

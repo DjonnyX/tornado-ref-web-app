@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { Observable } from 'rxjs';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ISelector, INode, NodeTypes, IAsset, IEntity } from '@djonnyx/tornado-types';
+import { ISelector, INode, NodeTypes, IAsset, IEntity, ILanguage, IEntityContents, IEntityContentsItem } from '@djonnyx/tornado-types';
 
 interface IProxyItem extends INode {
   selected?: boolean;
@@ -21,6 +21,10 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   @Input() selectorsDictionary: { [id: string]: ISelector };
 
   @Input() binder$: Observable<void>;
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
 
   private _selectedDefaultEntityId: string;
   @Input() set selectedDefaultEntityId(v: string) {
@@ -77,13 +81,27 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
     this.binder$ = null;
   }
 
+  getContent(entity: {
+    contents: IEntityContents;
+  }): IEntityContentsItem {
+    return entity.contents[this.defaultLanguage.code];
+  }
+  
+  getName(entity: {
+    contents: IEntityContents;
+  }): string | undefined {
+    const entityContent = this.getContent(entity);
+    return !!entityContent ? (entityContent as any).name : undefined;
+  }
+
   getThumbnail(node: INode): string {
-    const content: any = this.getContent(node);
+    const content: any = this.getNodeContent(node);
+    const entityContent = this.getContent(content);
+    const img = !!entityContent ? (entityContent as any)?.images?.main : undefined;
 
-    if (!!content && !!this.assetsDictionary && !!content.images.main) {
-
-      if (this.assetsDictionary[content.images.main]) {
-        return this.assetsDictionary[content.images.main].mipmap.x32;
+    if (!!this.assetsDictionary && !!img) {
+      if (this.assetsDictionary[img]) {
+        return this.assetsDictionary[img].mipmap.x32;
       }
     }
 
@@ -108,7 +126,7 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
     this._cdr.markForCheck();
   }
 
-  getContent(node: INode): ISelector | null {
+  getNodeContent(node: INode): ISelector | null {
     if (!!this.selectorsDictionary && node.type === NodeTypes.SELECTOR) {
       return this.selectorsDictionary[node.contentId];
     }
@@ -117,8 +135,8 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   getContentName(node: INode): string {
-    const content = this.getContent(node);
-    return !!content ? content.name : "";
+    const content = this.getNodeContent(node);
+    return this.getName(content);
   }
 
   onToggleSelect(item: IProxyItem): void {

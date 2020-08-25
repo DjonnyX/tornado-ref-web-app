@@ -6,8 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
+import { SelectorContentModule } from './selector-content/selector-content.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -24,8 +24,8 @@ import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploa
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
-    AssetPickerUploaderModule,
-    ColorPickerModule,
+    MatTabsModule,
+    SelectorContentModule,
   ]
 })
 export class SelectorCreatorFormModule { }
