@@ -1,13 +1,17 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IAsset } from '@models';
 import { getThumbnail } from '@app/utils/asset.util';
+import { MatDialog } from '@angular/material/dialog';
+import { take, takeUntil } from 'rxjs/operators';
+import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
+import { BaseComponent } from '@components/base/base-component';
 
 @Component({
   selector: 'ta-assets-uploader',
   templateUrl: './assets-uploader.component.html',
   styleUrls: ['./assets-uploader.component.scss']
 })
-export class AssetsUploaderComponent implements OnInit {
+export class AssetsUploaderComponent extends BaseComponent implements OnInit, OnDestroy {
 
   @Input() collection: Array<IAsset>;
 
@@ -17,9 +21,15 @@ export class AssetsUploaderComponent implements OnInit {
 
   @Output() delete = new EventEmitter<IAsset>();
 
-  constructor() { }
+  constructor(public dialog: MatDialog) {
+    super();
+  }
 
   ngOnInit(): void { }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
 
   getThumbnail(asset: IAsset): string {
     return getThumbnail(asset);
@@ -35,7 +45,22 @@ export class AssetsUploaderComponent implements OnInit {
   }
 
   onDeleteAsset(asset: IAsset): void {
-    this.delete.emit(asset);
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Delete the asset?",
+          message: `"${asset.name}" will be permanently deleted`,
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        this.delete.emit(asset);
+      }
+    });
   }
 
   onToggleActive(event: Event, asset: IAsset): void {
