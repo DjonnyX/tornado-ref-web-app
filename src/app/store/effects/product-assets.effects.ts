@@ -10,7 +10,6 @@ import { NotificationService } from '@app/services/notification.service';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { IAsset } from '@models';
 import { ProductActions } from '@store/actions/product.action';
-import { formatAssetModel } from '@app/utils/asset.util';
 
 @Injectable()
 export default class ProductAssetsEffects {
@@ -25,17 +24,17 @@ export default class ProductAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-        public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ProductAssetsActions.uploadImageRequest),
-            switchMap(({ productId, imageType, file }) => {
+            switchMap(({ productId, imageType, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -43,11 +42,17 @@ export default class ProductAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.uploadProductImage(productId, imageType, file).pipe(
+                this._store.dispatch(ProductActions.updateImage({
+                    langCode: data.langCode,
+                    imageType,
+                    assetId: id,
+                }));
+                return this._apiService.uploadProductImage(productId, imageType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [ProductAssetsActions.uploadImageProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -56,9 +61,9 @@ export default class ProductAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [ProductAssetsActions.uploadImageProgress({ tmpAsset, progress: res.data.progress })];
+                            return [ProductAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [ProductAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, }), ProductActions.getRequest({ id: productId })];
+                        return [ProductAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), ProductActions.getRequest({ id: productId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -74,7 +79,7 @@ export default class ProductAssetsEffects {
         this._actions$.pipe(
             ofType(ProductAssetsActions.getAllRequest),
             switchMap(({ productId }) => {
-                return this._apiService.getProductAssets(productId).pipe(
+                return this._apiService.getProductAllAssets(productId).pipe(
                     mergeMap(res => {
                         return [ProductAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
@@ -88,17 +93,35 @@ export default class ProductAssetsEffects {
         )
     );
 
+    public readonly getAllByLangRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(ProductAssetsActions.getAllByLangRequest),
+            switchMap(({ productId, langCode }) => {
+                return this._apiService.getProductAllByLangAssets(productId, langCode).pipe(
+                    mergeMap(res => {
+                        return [ProductAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(ProductAssetsActions.getAllByLangError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ProductAssetsActions.createRequest),
-            switchMap(({ productId, file }) => {
+            switchMap(({ productId, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -106,11 +129,12 @@ export default class ProductAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.createProductAsset(productId, file).pipe(
+                return this._apiService.createProductAsset(productId, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [ProductAssetsActions.createProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -119,9 +143,9 @@ export default class ProductAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [ProductAssetsActions.createProgress({ tmpAsset, progress: res.data.progress })];
+                            return [ProductAssetsActions.createProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [ProductAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), ProductActions.getRequest({ id: productId })];
+                        return [ProductAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), ProductActions.getRequest({ id: productId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -136,13 +160,13 @@ export default class ProductAssetsEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ProductAssetsActions.updateRequest),
-            switchMap(({ asset, productId }) => {
-                return this._apiService.updateProductAsset(productId, asset.id, {
+            switchMap(({ asset, productId, langCode }) => {
+                return this._apiService.updateProductAsset(productId, langCode, asset.id, {
                     name: asset.name,
                     active: asset.active,
                 }).pipe(
                     mergeMap(res => {
-                        return [ProductAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
+                        return [ProductAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -157,10 +181,10 @@ export default class ProductAssetsEffects {
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ProductAssetsActions.deleteRequest),
-            switchMap(({ productId, assetId }) => {
-                return this._apiService.deleteProductAsset(productId, assetId).pipe(
+            switchMap(({ productId, assetId, langCode }) => {
+                return this._apiService.deleteProductAsset(productId, langCode, assetId).pipe(
                     mergeMap(res => {
-                        return [ProductAssetsActions.deleteSuccess({ id: assetId })];
+                        return [ProductAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {

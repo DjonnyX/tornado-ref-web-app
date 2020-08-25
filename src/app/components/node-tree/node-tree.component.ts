@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
-import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency } from '@djonnyx/tornado-types';
+import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage } from '@djonnyx/tornado-types';
 
 interface IDictionary<T = any> {
   [id: string]: T;
@@ -106,6 +106,10 @@ export class NodeTreeComponent implements OnInit {
   get assets() {
     return this._assets;
   }
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
 
   assetsDictionary: { [id: string]: IAsset };
 

@@ -8,5 +8,5 @@ export interface IProductAssetsState extends IBaseState {
     isCreateProcess: boolean;
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
-    collection: Array<IAsset> | null;
+    collection: {[lang: string]: Array<IAsset> | null};
 }

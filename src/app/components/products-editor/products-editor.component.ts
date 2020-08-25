@@ -4,7 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
-import { IProduct, IRef, ITag } from '@djonnyx/tornado-types';
+import { IProduct, IRef, ITag, ILanguage, IProductContentsItem } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -19,6 +19,10 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   @Input() refInfo: IRef;
 
   @Input() tagList: Array<ITag>;
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
 
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -55,6 +59,10 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
   }
 
+  getProductContent(product: IProduct): IProductContentsItem {
+    return product.contents[this.defaultLanguage.code];
+  }
+
   getTagColor(id: string): string {
     const tag = !!this.tagList ? this.tagList.find(t => t.id === id) : undefined;
     return !!tag ? tag.color : "";
@@ -64,14 +72,31 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     const tag = !!this.tagList ? this.tagList.find(t => t.id === id) : undefined;
     return !!tag ? tag.name : "";
   }
-  
-  hasThumbnail(assetId: string): boolean {
-    const asset = this._assetsDictionary[assetId];
+
+  getProductName(product: IProduct): string | undefined {
+    const productContent = this.getProductContent(product);
+    return !!productContent ? productContent.name : undefined;
+  }
+
+  getProductDescription(product: IProduct): string | undefined {
+    const productContent = this.getProductContent(product);
+    return !!productContent ? productContent.description : undefined;
+  }
+
+  getProductColor(product: IProduct): string | undefined {
+    const productContent = this.getProductContent(product);
+    return !!productContent ? productContent.color : undefined;
+  }
+
+  hasThumbnail(product: IProduct): boolean {
+    const productContent = this.getProductContent(product);
+    const asset = !!productContent && !!productContent.images && !!productContent.images.main ? this._assetsDictionary[productContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
-  getThumbnail(assetId: string): string {
-    const asset = this._assetsDictionary[assetId];
+  getThumbnail(product: IProduct): string {
+    const productContent = this.getProductContent(product);
+    const asset = !!productContent && !!productContent.images && !!productContent.images.main ? this._assetsDictionary[productContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
@@ -95,7 +120,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
       {
         data: {
           title: "Delete the product?",
-          message: `"${product.name}" will be permanently deleted`,
+          message: `"${this.getProductName(product)}" will be permanently deleted`,
         },
       });
 

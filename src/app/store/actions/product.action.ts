@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IProduct } from '@djonnyx/tornado-types';
+import { IProduct, ProductImageTypes } from '@djonnyx/tornado-types';
 
 export enum ProductActionTypes {
     GET_REQUEST = "TORNADO/product/get:request",
@@ -13,6 +13,8 @@ export enum ProductActionTypes {
     UPDATE_REQUEST = "TORNADO/product/update:request",
     UPDATE_SUCCESS = "TORNADO/product/update:success",
     UPDATE_ERROR = "TORNADO/product/update:error",
+
+    UPDATE_IMAGE = "TORNADO/product/update-image",
 
     UPDATE = "TORNADO/product/update",
 
@@ -60,6 +62,12 @@ export namespace ProductActions {
     export const updateError = createAction(
         ProductActionTypes.UPDATE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // updateImage
+    export const updateImage = createAction(
+        ProductActionTypes.UPDATE_IMAGE,
+        props<{ langCode: string, imageType: ProductImageTypes, assetId: string }>(),
     );
 
     // update state

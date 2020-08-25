@@ -18,6 +18,7 @@ export { IProductsCreateResponse } from './products-create-response.interface';
 export { IProductsUpdateResponse } from './products-update-response.interface';
 export { IProductsDeleteResponse } from './products-delete-response.interface';
 export { IProductAssetGetResponse } from './product-assets-get-response.interface';
+export { IProductAssetGetByLangResponse } from './product-assets-get-by-lang-response.interface';
 export { IProductAssetCreateResponse } from './product-asset-create-response.interface';
 export { IProductAssetUpdateResponse } from './product-asset-update-response.interface';
 export { IProductAssetDeleteResponse } from './product-asset-delete-response.interface';

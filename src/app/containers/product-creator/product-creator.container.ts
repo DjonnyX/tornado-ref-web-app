@@ -2,12 +2,12 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
-import { Observable, combineLatest } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors } from '@store/selectors';
+import { Observable, combineLatest, of } from 'rxjs';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map, filter, mergeMap } from 'rxjs/operators';
+import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IAsset } from '@models';
+import { IAsset, IFileUploadEvent } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
 import { ProductNodesActions } from '@store/actions/product-nodes.action';
@@ -15,11 +15,15 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, IProductImages, ProductImageTypes } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductImageTypes, ILanguage, IProductContents } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
 import { CurrenciesActions } from '@store/actions/currencies.action';
+import { LanguagesActions } from '@store/actions/languages.action';
+import { deepMergeObjects } from '@app/utils/object.util';
+import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { normalizeProductContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-product-creator',
@@ -51,7 +55,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   productAssets$: Observable<Array<IAsset>>;
 
-  actualProductAssets$: Observable<Array<IAsset>>;
+  galleryProductAssets$: Observable<{ [lang: string]: Array<IAsset> }>;
 
   assets$: Observable<Array<IAsset>>;
 
@@ -59,7 +63,11 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   currencies$: Observable<Array<ICurrency>>;
 
-  images$: Observable<IProductImages>;
+  languages$: Observable<Array<ILanguage>>;
+
+  defaultLanguage$: Observable<ILanguage>;
+
+  isPrepareToConfigure$: Observable<boolean>;
 
   isEditMode = false;
 
@@ -68,6 +76,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   private _productId: string;
 
   private _product: IProduct;
+
+  private _defaultLanguage: ILanguage;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -105,9 +115,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(CurrenciesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(LanguagesSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -139,19 +152,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
-    this.product$ = this._store.pipe(
-      select(ProductSelectors.selectEntity),
-    );
-
-    this.product$.pipe(
-      takeUntil(this.unsubscribe$),
-      filter(product => !!product),
-    ).subscribe(product => {
-      this._product = product;
-      this._productId = product.id;
-      this.isEditMode = !!this._productId;
-    });
-
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
     );
@@ -176,24 +176,108 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(BusinessPeriodsSelectors.selectCollection),
     );
 
-    this.productAssets$ = this._store.pipe(
-      select(ProductAssetsSelectors.selectCollection),
-    );
-
-    this.actualProductAssets$ = combineLatest(
-      this.product$,
-      this.productAssets$,
-    ).pipe(
-      filter(([product, assets]) => !!product && !!assets),
-      map(([product, assets]) => assets.filter(asset => asset.id !== product.images.main && asset.id !== product.images.thumbnail && asset.id !== product.images.icon)),
+    this.languages$ = this._store.pipe(
+      select(LanguagesSelectors.selectCollection),
     );
 
     this.assets$ = this._store.pipe(
       select(AssetsSelectors.selectCollection),
     );
 
-    this.images$ = this._store.pipe(
-      select(ProductSelectors.selectImages),
+    this.defaultLanguage$ = this.languages$.pipe(
+      filter(languages => !!languages),
+      map(languages => languages.find(v => !!v.isDefault)),
+      filter(language => !!language),
+    );
+
+    this.defaultLanguage$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(lang => {
+      this._defaultLanguage = lang;
+    });
+
+    this.productAssets$ = combineLatest(
+      this._store.select(ProductAssetsSelectors.selectCollection),
+      this.languages$,
+    ).pipe(
+      filter(([assets, langs]) => !!assets && !!langs),
+      switchMap(([assets, langs]) => {
+        const result = new Array<IAsset>();
+
+        for (const lang in assets) {
+          result.push(...assets[lang]);
+        }
+
+        return of(result);
+      }),
+    );
+
+    this.product$ = combineLatest(
+      this._store.select(ProductSelectors.selectEntity),
+      this.languages$,
+      this.defaultLanguage$,
+    ).pipe(
+      filter(([product, langs, defaultLang]) => !!product && !!defaultLang && !!langs),
+      map(([product, langs, defaultLang]) => {
+        const contents: IProductContents = {};
+
+        // мерджинг контента от дефолтового языка
+        for (const lang in product.contents) {
+          // переопределение контента для разных языков
+          contents[lang] = lang === defaultLang.code ? product.contents[lang] : deepMergeObjects(product.contents[defaultLang.code], product.contents[lang]);
+        }
+
+        // добовление контента языков которых нет в базе
+        for (const lang of langs) {
+          if (contents[lang.code]) {
+            continue;
+          }
+
+          contents[lang.code] = product.contents[defaultLang.code];
+        }
+
+        return { ...product, contents: normalizeProductContents(contents, defaultLang.code) };
+      })
+    );
+
+    this.product$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(product => {
+      this._product = product;
+      this._productId = product.id;
+      this.isEditMode = true;
+    });
+
+    this.galleryProductAssets$ = combineLatest(
+      this.product$,
+      this._store.select(ProductAssetsSelectors.selectCollection),
+      this.languages$,
+      this.defaultLanguage$,
+    ).pipe(
+      filter(([product, assets, langs, defaultLang]) => !!product && !!assets && !!langs && !!defaultLang),
+      map(([product, assets, langs, defaultLang]) => {
+        const result: { [lang: string]: Array<IAsset> } = {};
+        for (const lang in assets) {
+          result[lang] = assets[lang].filter(asset =>
+            !product.contents[lang] ||
+            (
+              !product.contents[lang].images || (asset.id !== 
+              product.contents[lang].images.main && asset.id !==
+              product.contents[lang].images.thumbnail && asset.id !==
+              product.contents[lang].images.icon)
+            ))
+        }
+
+        // добовление контента языков которых нет в базе
+        for (const lang of langs) {
+          if (result[lang.code]) {
+            continue;
+          }
+
+          result[lang.code] = [];
+        }
+        return result;
+      }),
     );
 
     this.rootNodeId$ = this.product$.pipe(
@@ -203,21 +287,52 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.rootNodeId$.pipe(
       takeUntil(this.unsubscribe$),
+      filter(rootNodeId => !!rootNodeId),
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
       this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
-      this._store.dispatch(ProductsActions.getAllRequest());
-      this._store.dispatch(SelectorsActions.getAllRequest({}));
       this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
-      this._store.dispatch(BusinessPeriodsActions.getAllRequest());
-      this._store.dispatch(AssetsActions.getAllRequest());
-      this._store.dispatch(TagsActions.getAllRequest());
-      this._store.dispatch(CurrenciesActions.getAllRequest());
     });
 
     if (!!this._productId) {
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
     }
+
+    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(ProductsActions.getAllRequest());
+    this._store.dispatch(SelectorsActions.getAllRequest({}));
+    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+    this._store.dispatch(AssetsActions.getAllRequest());
+    this._store.dispatch(TagsActions.getAllRequest());
+    this._store.dispatch(CurrenciesActions.getAllRequest());
+
+    const prepareMainRequests$ = combineLatest(
+      this.tags$,
+      this.currencies$,
+      this.selectors$,
+      this.products$,
+      this.businessPeriods$,
+      this.languages$,
+      this.defaultLanguage$,
+      this.assets$,
+    ).pipe(
+      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets]) =>
+        !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages && !!defaultLanguage && !!assets),
+    );
+
+    this.isPrepareToConfigure$ = of(this._productId).pipe(
+      switchMap(id => {
+        return !!id ? combineLatest(
+          prepareMainRequests$,
+          this.nodes$,
+          this.product$,
+          this.productAssets$,
+        ).pipe(
+          map(([prepareMainRequests, nodes, product, productAssets]) =>
+            !!prepareMainRequests && !!nodes && !!product && !!productAssets),
+        ) : prepareMainRequests$;
+      })
+    );
   }
 
   ngOnDestroy(): void {
@@ -227,28 +342,28 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductAssetsActions.clear());
   }
 
-  onAssetUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, file }));
+  onAssetUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, data}));
   }
 
-  onAssetUpdate(asset: IAsset): void {
-    this._store.dispatch(ProductAssetsActions.updateRequest({ productId: this._productId, asset }));
+  onAssetUpdate(data: IAssetUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.updateRequest({ productId: this._productId, langCode: data.langCode, asset: data.asset }));
   }
 
-  onAssetDelete(asset: IAsset): void {
-    this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, assetId: asset.id }));
+  onAssetDelete(data: IAssetUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, langCode: data.langCode, assetId: data.asset.id }));
   }
 
-  onMainImageUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.MAIN, file }));
+  onMainImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.MAIN, data }));
   }
 
-  onThumbnailImageUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.THUMBNAIL, file }));
+  onThumbnailImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.THUMBNAIL, data }));
   }
 
-  onIconImageUpload(file: File): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.ICON, file }));
+  onIconImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.ICON, data }));
   }
 
   onCreateHierarchyNode(node: INode): void {
@@ -265,7 +380,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   onMainOptionsSave(product: IProduct): void {
     if (this.isEditMode) {
-      this._store.dispatch(ProductActions.updateRequest({ id: product.id, product }));
+      const normalizedProduct: IProduct = {...product};
+
+      // нормализация контена
+      normalizeProductContents(normalizedProduct.contents, this._defaultLanguage.code);
+
+      this._store.dispatch(ProductActions.updateRequest({ id: product.id, product: normalizedProduct }));
     } else {
       this._store.dispatch(ProductActions.createRequest({ product }));
     }
