@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ISelector, ITag, IRef, IAsset } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-selectors-editor-component',
@@ -18,6 +18,10 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   @Input() refInfo: IRef;
 
   @Input() tagList: Array<ITag>;
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
   
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -51,6 +55,10 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   ngOnInit(): void {
   }
 
+  getSelectorContent(selector: ISelector): ISelectorContentsItem {
+    return selector.contents[this.defaultLanguage.code];
+  }
+
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
@@ -64,14 +72,31 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     const tag = this.tagList.find(t => t.id === id);
     return !!tag ? tag.name : "";
   }
-  
-  hasThumbnail(assetId: string): boolean {
-    const asset = this._assetsDictionary[assetId];
+
+  getSelectorName(selector: ISelector): string | undefined {
+    const selectorContent = this.getSelectorContent(selector);
+    return !!selectorContent ? selectorContent.name : undefined;
+  }
+
+  getSelectorDescription(selector: ISelector): string | undefined {
+    const selectorContent = this.getSelectorContent(selector);
+    return !!selectorContent ? selectorContent.description : undefined;
+  }
+
+  getSelectorColor(selector: ISelector): string | undefined {
+    const selectorContent = this.getSelectorContent(selector);
+    return !!selectorContent ? selectorContent.color : undefined;
+  }
+
+  hasThumbnail(selector: ISelector): boolean {
+    const selectorContent = this.getSelectorContent(selector);
+    const asset = !!selectorContent && !!selectorContent.images && !!selectorContent.images.main ? this._assetsDictionary[selectorContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
-  getThumbnail(assetId: string): string {
-    const asset = this._assetsDictionary[assetId];
+  getThumbnail(selector: ISelector): string {
+    const selectorContent = this.getSelectorContent(selector);
+    const asset = !!selectorContent && !!selectorContent.images && !!selectorContent.images.main ? this._assetsDictionary[selectorContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
@@ -95,7 +120,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
       {
         data: {
           title: "Delete the category?",
-          message: `"${selector.name}" will be permanently deleted`,
+          message: `"${this.getSelectorName(selector)}" will be permanently deleted`,
         },
       });
 

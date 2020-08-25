@@ -6,13 +6,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { SelectorContentComponent } from './selector-content/selector-content.component';
 import { SelectorContentModule } from './selector-content/selector-content.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
     SelectorCreatorFormComponent,
-    SelectorContentComponent,
   ],
   exports: [
     SelectorCreatorFormComponent,
@@ -25,6 +24,7 @@ import { SelectorContentModule } from './selector-content/selector-content.modul
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTabsModule,
     SelectorContentModule,
   ]
 })

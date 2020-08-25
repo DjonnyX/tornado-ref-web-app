@@ -7,17 +7,12 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset, IFileUploadEvent } from '@models';
-import { TagsSelectors } from '@store/selectors/tags.selectors';
-import { TagsActions } from '@store/actions/tags.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
 import { SelectorActions } from '@store/actions/selector.action';
-import { INode, ISelector, ITag, IBusinessPeriod, ICurrency, SelectorImageTypes, ILanguage, ISelectorContents } from '@djonnyx/tornado-types';
-import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
+import { ISelector, SelectorImageTypes, ILanguage, ISelectorContents, SelectorTypes } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
-import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
-import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
@@ -59,6 +54,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   private _selectorId: string;
 
+  private _selectorType: string;
+
   private _selector: ISelector;
 
   private _defaultLanguage: ILanguage;
@@ -71,6 +68,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
     this._selectorId = this._activatedRoute.snapshot.queryParams["id"];
+
+    this._selectorType = this._activatedRoute.snapshot.queryParams["type"];
 
     this.isEditMode = !!this._selectorId;
 
@@ -206,10 +205,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
           result[lang] = assets[lang].filter(asset =>
             !selector.contents[lang] ||
             (
-              !selector.contents[lang].images || (asset.id !== 
-              selector.contents[lang].images.main && asset.id !==
-              selector.contents[lang].images.thumbnail && asset.id !==
-              selector.contents[lang].images.icon)
+              !selector.contents[lang].images || (asset.id !==
+                selector.contents[lang].images.main && asset.id !==
+                selector.contents[lang].images.thumbnail && asset.id !==
+                selector.contents[lang].images.icon)
             ))
         }
 
@@ -232,10 +231,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
     this._store.dispatch(LanguagesActions.getAllRequest());
     this._store.dispatch(SelectorsActions.getAllRequest({}));
-    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
     this._store.dispatch(AssetsActions.getAllRequest());
-    this._store.dispatch(TagsActions.getAllRequest());
-    this._store.dispatch(CurrenciesActions.getAllRequest());
+    // this._store.dispatch(TagsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest(
       this.selectors$,
@@ -269,7 +266,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onAssetUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.createRequest({ selectorId: this._selectorId, data}));
+    this._store.dispatch(SelectorAssetsActions.createRequest({ selectorId: this._selectorId, data }));
   }
 
   onAssetUpdate(data: IAssetUploadEvent): void {
@@ -294,14 +291,14 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   onMainOptionsSave(selector: ISelector): void {
     if (this.isEditMode) {
-      const normalizedSelector: ISelector = {...selector};
+      const normalizedSelector: ISelector = { ...selector };
 
       // нормализация контена
       normalizeEntityContents(normalizedSelector.contents, this._defaultLanguage.code);
 
       this._store.dispatch(SelectorActions.updateRequest({ id: selector.id, selector: normalizedSelector }));
     } else {
-      this._store.dispatch(SelectorActions.createRequest({ selector }));
+      this._store.dispatch(SelectorActions.createRequest({ selector: { ...selector, type: this._selectorType as any } }));
     }
 
     // this._router.navigate([this._returnUrl]);

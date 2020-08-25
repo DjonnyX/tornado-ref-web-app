@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter
 import { Observable } from 'rxjs';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ISelector, INode, NodeTypes, IAsset, IEntity } from '@djonnyx/tornado-types';
+import { ISelector, INode, NodeTypes, IAsset, IEntity, ILanguage } from '@djonnyx/tornado-types';
 
 interface IProxyItem extends INode {
   selected?: boolean;
@@ -21,6 +21,10 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   @Input() selectorsDictionary: { [id: string]: ISelector };
 
   @Input() binder$: Observable<void>;
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
 
   private _selectedDefaultEntityId: string;
   @Input() set selectedDefaultEntityId(v: string) {
@@ -118,7 +122,7 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
 
   getContentName(node: INode): string {
     const content = this.getContent(node);
-    return !!content ? content.name : "";
+    return !!content && !!content.contents && !!content.contents[this.defaultLanguage.code] ? content.contents[this.defaultLanguage.code].name : "";
   }
 
   onToggleSelect(item: IProxyItem): void {

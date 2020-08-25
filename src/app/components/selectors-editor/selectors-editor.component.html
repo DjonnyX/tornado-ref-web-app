@@ -1,7 +1,7 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" *ngFor="let selector of collection | search: searchPattern"
+        <div class="entity" *ngFor="let selector of collection | search:searchPattern:defaultLanguage.code"
             [class.disabled]="!selector.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
@@ -29,17 +29,17 @@
             <div matRipple class="entity-active-zone" (click)="onEditSelector(selector)">
                 <div class="content">
                     <div class="content__name">
-                        {{selector.name}}
+                        {{getSelectorName(selector)}}
                     </div>
                     <div class="content__description">
-                        {{selector.description}}
+                        {{getSelectorDescription(selector)}}
                     </div>
                 </div>
                 <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(selector.images.main)" class="entity-thumbnail"
-                        [src]="getThumbnail(selector.images.main)">
+                    <img align="center" *ngIf="hasThumbnail(selector)" class="entity-thumbnail"
+                        [src]="getThumbnail(selector)">
                 </div>
-                <div class="color" [style.background]="selector.color"></div>
+                <div class="color" [style.background]="getSelectorColor(selector)"></div>
                 <!--<div class="tags">
                     <span class="tag" *ngFor="let tag of selector.tags" [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)"></span>
                 </div>-->

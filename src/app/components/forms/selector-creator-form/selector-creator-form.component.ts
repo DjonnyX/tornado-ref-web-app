@@ -143,10 +143,6 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     return this._selector.contents[lang.code];
   }
 
-  getImagesGallery(lang: ILanguage): Array<IAsset> {
-    return !!lang && !!this.imagesGallery && this.imagesGallery[lang.code] ? this.imagesGallery[lang.code] : [];
-  }
-
   updateStateFor(state: ISelectorContents, lang: ILanguage): void {
     const mergedState: ISelectorContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
     this.updateState(mergedState);

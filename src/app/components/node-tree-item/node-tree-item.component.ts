@@ -284,8 +284,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           if (this.node.type === NodeTypes.SELECTOR) {
             const content = this.selectorsDictionary[this.node.contentId];
 
-            if (content && content.images.main && this.assetsDictionary[content.images.main]) {
-              return this.assetsDictionary[content.images.main].mipmap.x32;
+            if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+              return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
             }
           }
           if (this.node.type === NodeTypes.SELECTOR_NODE) {
@@ -293,8 +293,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             if (!!node) {
               const content = this.selectorsDictionary[node.contentId];
 
-              if (content && content.images.main && this.assetsDictionary[content.images.main]) {
-                return this.assetsDictionary[content.images.main].mipmap.x32;
+              if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+                return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
               }
             }
           }
