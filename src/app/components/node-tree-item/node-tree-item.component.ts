@@ -276,7 +276,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
         const content = this.productsDictionary[this.node.contentId];
 
-        if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+        if (!!content && !!content.contents[this.defaultLanguage.code].images?.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
           return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
         }
       } else
@@ -284,7 +284,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           if (this.node.type === NodeTypes.SELECTOR) {
             const content = this.selectorsDictionary[this.node.contentId];
 
-            if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+            if (!!content && !!content.contents[this.defaultLanguage.code].images?.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
               return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
             }
           }
@@ -293,7 +293,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             if (!!node) {
               const content = this.selectorsDictionary[node.contentId];
 
-              if (content && content.contents[this.defaultLanguage.code].images.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
+              if (!!content && !!content.contents[this.defaultLanguage.code].images?.main && this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main]) {
                 return this.assetsDictionary[content.contents[this.defaultLanguage.code].images.main].mipmap.x32;
               }
             }
@@ -345,7 +345,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       }
 
       this.isSearchMatch = false;
-      
+
       this.isSearchExpanded = isExpanded;
 
       this.searchExpand.emit(this.isSearchExpanded);
@@ -429,6 +429,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   onCreate(): void {
     const rights = this.getRights();
+
+    console.log(rights)
 
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
@@ -612,9 +614,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     rights.push(SelectContentFormRights.CATEGORIES);
 
     if (this.mode === NodeTreeModes.MENU) {
-      if (!(this.node.children && this.node.children.length > 0)) {
-        rights.push(SelectContentFormRights.PRODUCTS);
-      }
+      rights.push(SelectContentFormRights.PRODUCTS);
     } else {
       rights.push(SelectContentFormRights.PRODUCTS);
     }
