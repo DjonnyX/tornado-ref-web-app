@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
-import { Observable, combineLatest, of } from 'rxjs';
+import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
@@ -75,6 +75,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   private _productId: string;
 
+  private _productId$ = new BehaviorSubject<string>(undefined);
+  readonly productId$ = this._productId$.asObservable();
+
   private _product: IProduct;
 
   private _defaultLanguage: ILanguage;
@@ -87,6 +90,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
     this._productId = this._activatedRoute.snapshot.queryParams["id"];
+    this._productId$.next(this._productId);
 
     this.isEditMode = !!this._productId;
 
@@ -245,6 +249,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ).subscribe(product => {
       this._product = product;
       this._productId = product.id;
+      this._productId$.next(this._productId);
       this.isEditMode = true;
     });
 
@@ -291,11 +296,20 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
       this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
+      this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
+
+      // для изменения параметров маршрута
+      this._router.navigate([], {
+        relativeTo: this._activatedRoute,
+        queryParams: {
+          id: this._productId,
+          returnUrl: this._returnUrl,
+        }
+      });
     });
 
     if (!!this._productId) {
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
-      this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
     }
 
     this._store.dispatch(LanguagesActions.getAllRequest());
@@ -320,7 +334,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages && !!defaultLanguage && !!assets),
     );
 
-    this.isPrepareToConfigure$ = of(this._productId).pipe(
+    this.isPrepareToConfigure$ = this.productId$.pipe(
       switchMap(id => {
         return !!id ? combineLatest(
           prepareMainRequests$,
