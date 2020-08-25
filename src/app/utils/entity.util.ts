@@ -47,7 +47,9 @@ export const isEqualWithDefault = (defaultContent: any, content: any, imageType:
         const isEqualtFromDefault = equalFromImages(defaultContent, content.images[imageType]);
         if (imageType !== ProductImageTypes.MAIN && !!content.images.main && (!content.images[imageType] || content.images[imageType] === content.images.main || (isEqualtFromDefault && !isDefault))) {
             return true;
-        } else if (imageType === ProductImageTypes.MAIN && !isDefault && isEqualtFromDefault && !isDefault) {
+        } else if (imageType === ProductImageTypes.MAIN && !isDefault && isEqualtFromDefault) {
+            return true;
+        } else if (!content.images[imageType]) {
             return true;
         } else if (isDefault && (!content.images[imageType] || isEqualtFromDefault) && !!defaultContent && !!defaultContent?.images?.[imageType]) {
             return !!defaultContent.images[imageType] || !!defaultContent.images.main;
