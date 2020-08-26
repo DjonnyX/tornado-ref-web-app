@@ -23,6 +23,8 @@ export class SelectorsEditorContainer implements OnInit {
 
   public isProcess$: Observable<boolean>;
 
+  public isPrepareToShow$: Observable<boolean>;
+
   public collection$: Observable<Array<ISelector>>;
 
   public assets$: Observable<Array<IAsset>>;
@@ -88,6 +90,15 @@ export class SelectorsEditorContainer implements OnInit {
       filter(languages => !!languages),
       map(languages => languages.find(v => !!v.isDefault)),
       filter(language => !!language),
+    );
+
+    this.isPrepareToShow$ = combineLatest(
+      this.collection$,
+      this.assets$,
+      this.languages$,
+      this.tags$,
+    ).pipe(
+        map(([collection, assets, languages, tags]) => !!collection && !!assets && !!languages && !!tags),
     );
   }
 
