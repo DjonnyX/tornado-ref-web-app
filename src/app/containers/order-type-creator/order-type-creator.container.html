@@ -1,15 +1,20 @@
-<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <div class="entity-options-editor">
-        <div class="entity-options-editor__back-button" (click)="onToBack()">
-            go back
-        </div>
-        <div class="form">
-            <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="isProcessMainOptions$ | async">
-                <ta-order-type-creator-form [isEditMode]="isEditMode" [orderType]="orderType$ | async"
-                    [images]="images$ | async" [assets]="orderTypeAssets$ | async" (save)="onMainOptionsSave($event)"
-                    (cancel)="onCancel()" (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"></ta-order-type-creator-form>
-            </ta-query-progress>
-        </div>
+<ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
+  <div class="entity-options-editor">
+    <div class="entity-options-editor__back-button" (click)="onToBack()">
+      go back
     </div>
+    <div class="form">
+      <ta-query-progress class="query-progress-container" style="position: relative;"
+        [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+        <ta-order-type-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+          [orderType]="orderType$ | async" [assets]="orderTypeAssets$ | async"
+          [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+          (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+          (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
+          (uploadAsset)="onAssetUpload($event)" (updateAsset)="onAssetUpdate($event)"
+          (deleteAsset)="onAssetDelete($event)">
+        </ta-order-type-creator-form>
+      </ta-query-progress>
+    </div>
+  </div>
 </ta-query-progress>

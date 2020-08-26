@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OrderTypesEditorContainer } from './order-types-editor.container';
+import { OrderTypeContentComponent } from './order-type-content.component';
 
-describe('OrderTypesEditorContainer', () => {
-  let component: OrderTypesEditorContainer;
-  let fixture: ComponentFixture<OrderTypesEditorContainer>;
+describe('OrderTypeContentComponent', () => {
+  let component: OrderTypeContentComponent;
+  let fixture: ComponentFixture<OrderTypeContentComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OrderTypesEditorContainer ]
+      declarations: [ OrderTypeContentComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OrderTypesEditorContainer);
+    fixture = TestBed.createComponent(OrderTypeContentComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

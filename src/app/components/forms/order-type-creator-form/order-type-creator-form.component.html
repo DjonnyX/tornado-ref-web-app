@@ -1,70 +1,25 @@
-<form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
-    <div [ngClass]="{'main-options-wrapper': isEditMode}">
-        <div class="images" *ngIf="isEditMode">
-            <div class="image-n">
-                <h2 class="form-header">
-                    Image
-                </h2>
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+  <div *ngIf="!!orderType; else mainLangContent">
+    <mat-tab-group>
+      <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+        <ta-order-type-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
+          [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
+          (update)="updateStateFor($event, lang)" (uploadMainImage)="onMainImageUpload($event, lang)"
+          (uploadIconImage)="onIconImageUpload($event, lang)" (uploadAsset)="onAssetUpload($event, lang)"
+          (updateAsset)="onAssetUpdate($event, lang)" (deleteAsset)="onAssetDelete($event, lang)" (save)="onSave()">
+        </ta-order-type-content>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #mainLangContent>
+    <ta-order-type-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
+      [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
+    </ta-order-type-content>
+  </ng-template>
 
-                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
-                    color="white" (upload)="onMainImageUpload($event)">
-                </ta-asset-picker-uploader>
-            </div>
-
-            <div class="image-s">
-                <h2 class="form-header">
-                    Icon
-                </h2>
-
-                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.icon : undefined" [assets]="assets"
-                    [color]="color" (upload)="onIconImageUpload($event)">
-                </ta-asset-picker-uploader>
-            </div>
-
-            <div class="full-width">
-                <h2 class="form-header">
-                    Color
-                </h2>
-
-                <div class="form-item">
-                    <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value"
-                        cpPosition="top-right" [formControl]="ctrlColor" />
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <h2 class="form-header">
-                Main options
-            </h2>
-
-            <div class="form__main-options">
-                <div class="form__input-block">
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Name</mat-label>
-                            <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
-                            <mat-error *ngIf="ctrlName.hasError('required')">
-                                <strong>required</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Description</mat-label>
-                            <input matInput type="text" class="order-type__description" [formControl]="ctrlDescription"
-                                placeholder="Description">
-                        </mat-form-field>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
-        <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
-    </div>
+  <div class="form__submit" align="end">
+    <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+    <button mat-flat-button color="accent" type="submit" class="button button__text"
+      [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+  </div>
 </form>

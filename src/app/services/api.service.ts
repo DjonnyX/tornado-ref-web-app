@@ -76,6 +76,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
 import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes, ITranslation } from '@djonnyx/tornado-types';
+import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -732,7 +733,7 @@ export class ApiService {
       });
   }
 
-  public getOrderTypeAssets(orderTypeId: string): Observable<IOrderTypeAssetGetResponse> {
+  public getOrderTypeAllAssets(orderTypeId: string): Observable<IOrderTypeAssetGetResponse> {
     return this._http
       .get<IOrderTypeAssetGetResponse>(`api/v1/order-type/${orderTypeId}/assets`, {
         headers: {
@@ -741,82 +742,91 @@ export class ApiService {
       });
   }
 
-  public uploadOrderTypeImage(orderTypeId: string, type: OrderTypeImageTypes, file: File): Observable<IOrderTypeAssetCreateResponse> {
-    const formData = new FormData();
-    formData.append("file", file, file.name);
-
+  public getOrderTypeAllByLangAssets(orderTypeId: string, langCode: string): Observable<IOrderTypeAssetGetByLangResponse> {
     return this._http
-      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/image/${type}`, formData, {
-        headers: {
-          authorization: this._token,
-        },
-        reportProgress: true,
-        observe: "events",
-      }).pipe(
-        map((event: any) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              const progress = Math.round(100 * event.loaded / event.total);
-              return {
-                data: {
-                  progress: {
-                    total: event.total,
-                    loaded: event.loaded,
-                    progress,
-                  },
-                }
-              }
-            case HttpEventType.Response:
-              return event.body;
-          }
-        }),
-      );
-  }
-
-  public createOrderTypeAsset(orderTypeId: string, file: File): Observable<IOrderTypeAssetCreateResponse> {
-    const formData = new FormData();
-    formData.append("file", file, file.name);
-
-    return this._http
-      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/asset`, formData, {
-        headers: {
-          authorization: this._token,
-        },
-        reportProgress: true,
-        observe: "events",
-      }).pipe(
-        map((event: any) => {
-          switch (event.type) {
-            case HttpEventType.UploadProgress:
-              const progress = Math.round(100 * event.loaded / event.total);
-              return {
-                data: {
-                  progress: {
-                    total: event.total,
-                    loaded: event.loaded,
-                    progress,
-                  },
-                }
-              }
-            case HttpEventType.Response:
-              return event.body;
-          }
-        }),
-      );
-  }
-
-  public updateOrderTypeAsset(orderTypeId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IOrderTypeAssetUpdateResponse> {
-    return this._http
-      .put<IOrderTypeAssetUpdateResponse>(`api/v1/order-type/${orderTypeId}/asset/${assetId}`, asset, {
+      .get<IOrderTypeAssetGetByLangResponse>(`api/v1/order-type/${orderTypeId}/assets/${langCode}`, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public deleteOrderTypeAsset(orderTypetId: string, assetId: string): Observable<IOrderTypeAssetDeleteResponse> {
+  public uploadOrderTypeImage(orderTypeId: string, type: OrderTypeImageTypes, data: IFileUploadEvent): Observable<IOrderTypeAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
     return this._http
-      .delete<IOrderTypeAssetDeleteResponse>(`api/v1/order-type/${orderTypetId}/asset/${assetId}`, {
+      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/image/${data.langCode}/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public createOrderTypeAsset(orderTypeId: string, data: IFileUploadEvent): Observable<IOrderTypeAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/asset/${data.langCode}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateOrderTypeAsset(orderTypeId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IOrderTypeAssetUpdateResponse> {
+    return this._http
+      .put<IOrderTypeAssetUpdateResponse>(`api/v1/order-type/${orderTypeId}/asset/${langCode}/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteOrderTypeAsset(orderTypeId: string, langCode: string, assetId: string): Observable<IOrderTypeAssetDeleteResponse> {
+    return this._http
+      .delete<IOrderTypeAssetDeleteResponse>(`api/v1/order-type/${orderTypeId}/asset/${langCode}/${assetId}`, {
         headers: {
           authorization: this._token,
         },
