@@ -5,8 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { ColorPickerModule } from 'ngx-color-picker';
-import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
+import { OrderTypeContentModule } from './ordertype-content/ordertype-content.module';
 
 @NgModule({
   declarations: [
@@ -22,8 +21,7 @@ import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploa
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    AssetPickerUploaderModule,
-    ColorPickerModule,
+    OrderTypeContentModule,
   ]
 })
 export class OrderTypeCreatorFormModule { }
