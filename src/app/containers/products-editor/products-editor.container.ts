@@ -25,6 +25,8 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   public isProcess$: Observable<boolean>;
 
+  public isPrepareToShow$: Observable<boolean>;
+
   public collection$: Observable<Array<IProduct>>;
 
   public tags$: Observable<Array<ITag>>;
@@ -50,10 +52,6 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     
     this._store.dispatch(LanguagesActions.getAllRequest());
 
-    this.tags$ = this._store.pipe(
-      select(TagsSelectors.selectCollection),
-    )
-
     this.isProcess$ = combineLatest(
       this._store.pipe(
         select(ProductsSelectors.selectLoading),
@@ -69,6 +67,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       ),
     ).pipe(
       map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess]) => isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess),
+    );
+
+    this.tags$ = this._store.pipe(
+      select(TagsSelectors.selectCollection),
     );
 
     this.collection$ = this._store.pipe(
@@ -91,6 +93,15 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       filter(languages => !!languages),
       map(languages => languages.find(v => !!v.isDefault)),
       filter(language => !!language),
+    );
+
+    this.isPrepareToShow$ = combineLatest(
+      this.collection$,
+      this.assets$,
+      this.languages$,
+      this.tags$,
+    ).pipe(
+        map(([collection, assets, languages, tags]) => !!collection && !!assets && !!languages && !!tags),
     );
   }
 
