@@ -1,7 +1,7 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" *ngFor="let orderType of collection | search: searchPattern"
+        <div class="entity" *ngFor="let orderType of collection | search:searchPattern:defaultLanguage.code"
             [class.disabled]="!orderType.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
@@ -29,14 +29,14 @@
             <div matRipple class="entity-active-zone" (click)="onEdit(orderType)">
                 <div class="content">
                     <div class="bottom-panel">
-                        <img align="center" *ngIf="hasThumbnail(orderType.images.main)" class="entity-thumbnail"
-                            [src]="getThumbnail(orderType.images.main)">
+                        <img align="center" *ngIf="hasThumbnail(orderType)" class="entity-thumbnail"
+                            [src]="getThumbnail(orderType)">
                     </div>
                     <div class="content__name">
-                        {{orderType.name}}
+                        {{getName(orderType)}}
                     </div>
                 </div>
-                <div class="color" [style.background]="orderType.color"></div>
+                <div class="color" [style.background]="getColor(orderType)"></div>
             </div>
         </div>
         <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">

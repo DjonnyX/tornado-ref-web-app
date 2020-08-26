@@ -10,7 +10,6 @@ import { NotificationService } from '@app/services/notification.service';
 import { OrderTypeAssetsActions } from '@store/actions/order-type-assets.action';
 import { IAsset } from '@models';
 import { OrderTypeActions } from '@store/actions/order-type.action';
-import { formatAssetModel } from '@app/utils/asset.util';
 
 @Injectable()
 export default class OrderTypeAssetsEffects {
@@ -25,17 +24,17 @@ export default class OrderTypeAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-        public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.uploadImageRequest),
-            switchMap(({ orderTypeId, imageType, file }) => {
+            switchMap(({ orderTypeId, imageType, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -43,11 +42,17 @@ export default class OrderTypeAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.uploadOrderTypeImage(orderTypeId, imageType, file).pipe(
+                this._store.dispatch(OrderTypeActions.updateImage({
+                    langCode: data.langCode,
+                    imageType,
+                    assetId: id,
+                }));
+                return this._apiService.uploadOrderTypeImage(orderTypeId, imageType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [OrderTypeAssetsActions.uploadImageProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -56,9 +61,9 @@ export default class OrderTypeAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [OrderTypeAssetsActions.uploadImageProgress({ tmpAsset, progress: res.data.progress })];
+                            return [OrderTypeAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [OrderTypeAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, }), OrderTypeActions.getRequest({ id: orderTypeId })];
+                        return [OrderTypeAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), OrderTypeActions.getRequest({ id: orderTypeId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -74,7 +79,7 @@ export default class OrderTypeAssetsEffects {
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.getAllRequest),
             switchMap(({ orderTypeId }) => {
-                return this._apiService.getOrderTypeAssets(orderTypeId).pipe(
+                return this._apiService.getOrderTypeAllAssets(orderTypeId).pipe(
                     mergeMap(res => {
                         return [OrderTypeAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
@@ -88,17 +93,35 @@ export default class OrderTypeAssetsEffects {
         )
     );
 
+    public readonly getAllByLangRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(OrderTypeAssetsActions.getAllByLangRequest),
+            switchMap(({ orderTypeId, langCode }) => {
+                return this._apiService.getOrderTypeAllByLangAssets(orderTypeId, langCode).pipe(
+                    mergeMap(res => {
+                        return [OrderTypeAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(OrderTypeAssetsActions.getAllByLangError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.createRequest),
-            switchMap(({ orderTypeId, file }) => {
+            switchMap(({ orderTypeId, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -106,11 +129,12 @@ export default class OrderTypeAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.createOrderTypeAsset(orderTypeId, file).pipe(
+                return this._apiService.createOrderTypeAsset(orderTypeId, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [OrderTypeAssetsActions.createProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -119,9 +143,9 @@ export default class OrderTypeAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [OrderTypeAssetsActions.createProgress({ tmpAsset, progress: res.data.progress })];
+                            return [OrderTypeAssetsActions.createProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [OrderTypeAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), OrderTypeActions.getRequest({ id: orderTypeId })];
+                        return [OrderTypeAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), OrderTypeActions.getRequest({ id: orderTypeId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -136,13 +160,13 @@ export default class OrderTypeAssetsEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.updateRequest),
-            switchMap(({ asset, orderTypeId }) => {
-                return this._apiService.updateOrderTypeAsset(orderTypeId, asset.id, {
+            switchMap(({ asset, orderTypeId, langCode }) => {
+                return this._apiService.updateOrderTypeAsset(orderTypeId, langCode, asset.id, {
                     name: asset.name,
                     active: asset.active,
                 }).pipe(
                     mergeMap(res => {
-                        return [OrderTypeAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
+                        return [OrderTypeAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -157,10 +181,10 @@ export default class OrderTypeAssetsEffects {
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.deleteRequest),
-            switchMap(({ orderTypeId, assetId }) => {
-                return this._apiService.deleteOrderTypeAsset(orderTypeId, assetId).pipe(
+            switchMap(({ orderTypeId, assetId, langCode }) => {
+                return this._apiService.deleteOrderTypeAsset(orderTypeId, langCode, assetId).pipe(
                     mergeMap(res => {
-                        return [OrderTypeAssetsActions.deleteSuccess({ id: assetId })];
+                        return [OrderTypeAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
