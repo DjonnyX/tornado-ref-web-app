@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IOrderType, IRef, IAsset } from '@djonnyx/tornado-types';
+import { IOrderType, IRef, IAsset, IOrderTypeContentsItem, ILanguage } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-order-types-editor-component',
@@ -18,6 +18,10 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
   
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -54,14 +58,35 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
-  
-  hasThumbnail(assetId: string): boolean {
-    const asset = this._assetsDictionary[assetId];
+
+  getContent(orderType: IOrderType): IOrderTypeContentsItem {
+    return orderType.contents[this.defaultLanguage.code];
+  }
+
+  getName(orderType: IOrderType): string | undefined {
+    const orderTypeContent = this.getContent(orderType);
+    return !!orderTypeContent ? orderTypeContent.name : undefined;
+  }
+
+  getDescription(orderType: IOrderType): string | undefined {
+    const orderTypeContent = this.getContent(orderType);
+    return !!orderTypeContent ? orderTypeContent.description : undefined;
+  }
+
+  getColor(orderType: IOrderType): string | undefined {
+    const orderTypeContent = this.getContent(orderType);
+    return !!orderTypeContent ? orderTypeContent.color : undefined;
+  }
+
+  hasThumbnail(orderType: IOrderType): boolean {
+    const orderTypeContent = this.getContent(orderType);
+    const asset = !!orderTypeContent && !!orderTypeContent.images && !!orderTypeContent.images.main ? this._assetsDictionary[orderTypeContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
-  getThumbnail(assetId: string): string {
-    const asset = this._assetsDictionary[assetId];
+  getThumbnail(orderType: IOrderType): string {
+    const orderTypeContent = this.getContent(orderType);
+    const asset = !!orderTypeContent && !!orderTypeContent.images && !!orderTypeContent.images.main ? this._assetsDictionary[orderTypeContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
@@ -85,7 +110,7 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
       {
         data: {
           title: "Delete the orderType?",
-          message: `"${orderType.name}" will be permanently deleted`,
+          message: `"${this.getName(orderType)}" will be permanently deleted`,
         },
       });
 

@@ -9,9 +9,9 @@ import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-uplo
 import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
-  selector: 'ta-orderType-creator-form',
-  templateUrl: './orderType-creator-form.component.html',
-  styleUrls: ['./orderType-creator-form.component.scss'],
+  selector: 'ta-order-type-creator-form',
+  templateUrl: './order-type-creator-form.component.html',
+  styleUrls: ['./order-type-creator-form.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderTypeCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {

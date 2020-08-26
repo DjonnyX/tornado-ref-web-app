@@ -8,9 +8,9 @@ import { deepMergeObjects } from '@app/utils/object.util';
 import { isEqualWithDefault } from '@app/utils/entity.util';
 
 @Component({
-  selector: 'ta-ordertype-content',
-  templateUrl: './ordertype-content.component.html',
-  styleUrls: ['./ordertype-content.component.scss'],
+  selector: 'ta-order-type-content',
+  templateUrl: './order-type-content.component.html',
+  styleUrls: ['./order-type-content.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class OrderTypeContentComponent extends BaseComponent implements OnInit, OnDestroy {
