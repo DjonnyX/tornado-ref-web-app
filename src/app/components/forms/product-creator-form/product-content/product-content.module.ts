@@ -8,6 +8,7 @@ import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploa
 import { ColorPickerModule } from 'ngx-color-picker';
 import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
 import { MatButtonModule } from '@angular/material/button';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatExpansionModule,
     AssetPickerUploaderModule,
     AssetsUploaderModule,
     ColorPickerModule,

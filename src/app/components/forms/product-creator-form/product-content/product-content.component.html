@@ -69,17 +69,23 @@
       </div>
     </div>
 
+    <mat-accordion class="flat full-width" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Images gallery
+          </mat-panel-title>
+        </mat-expansion-panel-header>
 
-    <div class="images-wrapper single">
-      <div class="full-width">
-        <div class="form-header">
-          <h2>Images gallery</h2>
+        <div class="images-wrapper single">
+          <div class="full-width">
+            <ta-assets-uploader [collection]="imagesGallery" (upload)="onAssetUpload($event)"
+              (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
+          </div>
         </div>
 
-        <ta-assets-uploader [collection]="imagesGallery" (upload)="onAssetUpload($event)"
-          (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
-      </div>
-    </div>
+      </mat-expansion-panel>
+    </mat-accordion>
   </div>
 
   <div>
