@@ -10,9 +10,7 @@
           [orderType]="orderType$ | async" [assets]="orderTypeAssets$ | async"
           [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
           (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-          (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
-          (uploadAsset)="onAssetUpload($event)" (updateAsset)="onAssetUpdate($event)"
-          (deleteAsset)="onAssetDelete($event)">
+          (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)">
         </ta-order-type-creator-form>
       </ta-query-progress>
     </div>

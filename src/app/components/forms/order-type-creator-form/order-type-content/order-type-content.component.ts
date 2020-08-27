@@ -138,18 +138,6 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
     return this.defaultContent?.color === this.color;
   }
 
-  onAssetUpload(file: File): void {
-    this.uploadAsset.emit(file);
-  }
-
-  onAssetUpdate(asset: IAsset): void {
-    this.updateAsset.emit(asset);
-  }
-
-  onAssetDelete(asset: IAsset): void {
-    this.deleteAsset.emit(asset);
-  }
-
   private updateState(options?: any): void {
     if (options) {
       this._state = deepMergeObjects(this._state, options, true);
