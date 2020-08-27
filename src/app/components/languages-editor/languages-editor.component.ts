@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ILanguage, IRef, IAsset } from '@djonnyx/tornado-types';
+import { IRef, IAsset, ILanguageContentsItem, ILanguage } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-languages-editor-component',
@@ -18,6 +18,10 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
   
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -54,38 +58,54 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
-  
-  hasThumbnail(assetId: string): boolean {
-    const asset = this._assetsDictionary[assetId];
+
+  getContent(orderType: ILanguage): ILanguageContentsItem {
+    return orderType.contents[this.defaultLanguage.code];
+  }
+
+  getName(orderType: ILanguage): string | undefined {
+    const orderTypeContent = this.getContent(orderType);
+    return !!orderTypeContent ? orderTypeContent.name : undefined;
+  }
+
+  getColor(orderType: ILanguage): string | undefined {
+    const orderTypeContent = this.getContent(orderType);
+    return !!orderTypeContent ? orderTypeContent.color : undefined;
+  }
+
+  hasThumbnail(orderType: ILanguage): boolean {
+    const orderTypeContent = this.getContent(orderType);
+    const asset = !!orderTypeContent && !!orderTypeContent.images && !!orderTypeContent.images.main ? this._assetsDictionary[orderTypeContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
-  getThumbnail(assetId: string): string {
-    const asset = this._assetsDictionary[assetId];
+  getThumbnail(orderType: ILanguage): string {
+    const orderTypeContent = this.getContent(orderType);
+    const asset = !!orderTypeContent && !!orderTypeContent.images && !!orderTypeContent.images.main ? this._assetsDictionary[orderTypeContent.images.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
-  onToggleActive(event: Event, language: ILanguage): void {
+  onToggleActive(event: Event, orderType: ILanguage): void {
     event.stopImmediatePropagation();
     event.preventDefault();
 
-    this.update.emit({ ...language, active: !language.active });
+    this.update.emit({ ...orderType, active: !orderType.active });
   }
 
   onCreate(): void {
     this.create.emit();
   }
 
-  onEdit(language: ILanguage): void {
-    this.edit.emit(language);
+  onEdit(orderType: ILanguage): void {
+    this.edit.emit(orderType);
   }
 
-  onDelete(language: ILanguage): void {
+  onDelete(orderType: ILanguage): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the language?",
-          message: `"${language.name}" will be permanently deleted`,
+          title: "Delete the orderType?",
+          message: `"${this.getName(orderType)}" will be permanently deleted`,
         },
       });
 
@@ -94,7 +114,7 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
       takeUntil(this.unsubscribe$),
     ).subscribe(result => {
       if (result) {
-        this.delete.emit(language.id);
+        this.delete.emit(orderType.id);
       }
     });
   }

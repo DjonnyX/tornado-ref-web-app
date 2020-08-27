@@ -1,51 +1,51 @@
 <div class="editor">
-  <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-  <div class="entities-wrapper">
-    <div class="entity" *ngFor="let orderType of collection | search:searchPattern:defaultLanguage.code"
-      [class.disabled]="!orderType.active">
-      <div class="entity-ctrls">
-        <div class="entity-checkbox-active">
-          <mat-checkbox color="accent" #checkboxActive [checked]="orderType.active"
-            (click)="onToggleActive($event, orderType)"></mat-checkbox>
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div class="entities-wrapper">
+        <div class="entity" *ngFor="let orderType of collection | search:searchPattern:defaultLanguage.code"
+            [class.disabled]="!orderType.active">
+            <div class="entity-ctrls">
+                <div class="entity-checkbox-active">
+                    <mat-checkbox color="accent" #checkboxActive [checked]="orderType.active"
+                        (click)="onToggleActive($event, orderType)"></mat-checkbox>
+                </div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+                    <mat-icon class="icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleActive($event, orderType)">
+                        <mat-icon>{{orderType.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <span>{{orderType.active ? 'Deactivate' : 'Active'}}</span>
+                    </button>
+                    <button mat-menu-item (click)="onEdit(orderType)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(orderType)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <div matRipple class="entity-active-zone" (click)="onEdit(orderType)">
+                <div class="content">
+                    <div class="content-image">
+                        <img align="center" *ngIf="hasThumbnail(orderType)" class="entity-thumbnail"
+                            [src]="getThumbnail(orderType)">
+                    </div>
+                    <div class="content__text">
+                        <div class="content__name">
+                            {{getName(orderType)}}
+                        </div>
+                        <div *ngIf="getDescription(orderType)" class="content__description">
+                            {{getDescription(orderType)}}
+                        </div>
+                    </div>
+                </div>
+                <div class="color" [style.background]="getColor(orderType)"></div>
+            </div>
         </div>
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
-          <mat-icon class="icon">more_vert</mat-icon>
+        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
         </button>
-        <mat-menu #menu="matMenu">
-          <button mat-menu-item type="button" (click)="onToggleActive($event, orderType)">
-            <mat-icon>{{orderType.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-            <span>{{orderType.active ? 'Deactivate' : 'Active'}}</span>
-          </button>
-          <button mat-menu-item (click)="onEdit(orderType)">
-            <mat-icon>edit</mat-icon>
-            <span>Edit</span>
-          </button>
-          <button mat-menu-item (click)="onDelete(orderType)">
-            <mat-icon>delete_forever</mat-icon>
-            <span>Delete</span>
-          </button>
-        </mat-menu>
-      </div>
-      <div matRipple class="entity-active-zone" (click)="onEdit(orderType)">
-        <div class="content">
-          <div class="content-image">
-            <img align="center" *ngIf="hasThumbnail(orderType)" class="entity-thumbnail"
-              [src]="getThumbnail(orderType)">
-          </div>
-          <div class="content__text">
-            <div class="content__name">
-              {{getName(orderType)}}
-            </div>
-            <div *ngIf="getDescription(orderType)" class="content__description">
-              {{getDescription(orderType)}}
-            </div>
-          </div>
-        </div>
-        <div class="color" [style.background]="getColor(orderType)"></div>
-      </div>
     </div>
-    <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-      <mat-icon>add</mat-icon>
-    </button>
-  </div>
 </div>

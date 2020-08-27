@@ -1,7 +1,7 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" *ngFor="let language of collection | search: searchPattern"
+        <div class="entity" *ngFor="let language of collection | search:searchPattern:defaultLanguage.code"
             [class.disabled]="!language.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
@@ -28,14 +28,20 @@
             </div>
             <div matRipple class="entity-active-zone" (click)="onEdit(language)">
                 <div class="content">
-                    <div class="bottom-panel">
-                        <img align="center" *ngIf="hasThumbnail(language.images.main)" class="entity-thumbnail"
-                            [src]="getThumbnail(language.images.main)">
+                    <div class="content-image">
+                        <img align="center" *ngIf="hasThumbnail(language)" class="entity-thumbnail"
+                            [src]="getThumbnail(language)">
                     </div>
-                    <div class="content__name">
-                        {{language.name}}
+                    <div class="content__text">
+                        <div class="content__name">
+                            {{language?.code}}
+                        </div>
+                        <div *ngIf="getName(language)" class="content__description">
+                            {{getName(language)}}
+                        </div>
                     </div>
                 </div>
+                <div class="color" [style.background]="getColor(language)"></div>
             </div>
         </div>
         <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
