@@ -2,11 +2,16 @@ import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
 import { LanguageImageTypes } from '@djonnyx/tornado-types';
+import { IFileUploadEvent } from '@models';
 
 export enum LanguageAssetsActionTypes {
     GET_ALL_REQUEST = "TORNADO/language/assets/get-all:request",
     GET_ALL_SUCCESS = "TORNADO/language/assets/get-all:success",
     GET_ALL_ERROR = "TORNADO/language/assets/get-all:error",
+
+    GET_ALL_BY_LANG_REQUEST = "TORNADO/language/assets/get-all-by-lang:request",
+    GET_ALL_BY_LANG_SUCCESS = "TORNADO/language/assets/get-all-by-lang:success",
+    GET_ALL_BY_LANG_ERROR = "TORNADO/language/assets/get-all-by-lang:error",
 
     GET_REQUEST = "TORNADO/language/assets/get:request",
     GET_SUCCESS = "TORNADO/language/assets/get:success",
@@ -41,40 +46,41 @@ export namespace LanguageAssetsActions {
     );
     export const getAllSuccess = createAction(
         LanguageAssetsActionTypes.GET_ALL_SUCCESS,
-        props<{ collection: Array<IAsset>, meta?: IMetaRefsResponse }>()
+        props<{ collection: { [lang: string]: Array<IAsset> }, meta?: IMetaRefsResponse }>()
     );
     export const getAllError = createAction(
         LanguageAssetsActionTypes.GET_ALL_ERROR,
         props<{ error: string }>()
     );
 
-    // get
-    export const getRequest = createAction(
-        LanguageAssetsActionTypes.GET_REQUEST,
-        props<{ assetId: string }>()
+    // getAll
+    export const getAllByLangRequest = createAction(
+        LanguageAssetsActionTypes.GET_ALL_BY_LANG_REQUEST,
+        props<{ languageId: string, langCode: string, }>()
     );
-    export const getSuccess = createAction(
-        LanguageAssetsActionTypes.GET_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+    export const getAllByLangSuccess = createAction(
+        LanguageAssetsActionTypes.GET_ALL_BY_LANG_SUCCESS,
+        props<{ collection: Array<IAsset>, langCode: string, meta?: IMetaRefsResponse }>()
     );
-    export const getError = createAction(
-        LanguageAssetsActionTypes.GET_ERROR,
+    export const getAllByLangError = createAction(
+        LanguageAssetsActionTypes.GET_ALL_BY_LANG_ERROR,
         props<{ error: string }>()
     );
 
     // create
     export const createRequest = createAction(
         LanguageAssetsActionTypes.CREATE_REQUEST,
-        props<{ languageId: string, file: File, }>()
+        props<{ languageId: string, data: IFileUploadEvent, }>()
     );
     export const createSuccess = createAction(
         LanguageAssetsActionTypes.CREATE_SUCCESS,
-        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
     export const createProgress = createAction(
         LanguageAssetsActionTypes.CREATE_PROGRESS,
         props<{
             tmpAsset: IAsset,
+            langCode: string,
             progress: {
                 total: number,
                 loaded: number,
@@ -93,11 +99,11 @@ export namespace LanguageAssetsActions {
     // update
     export const updateRequest = createAction(
         LanguageAssetsActionTypes.UPDATE_REQUEST,
-        props<{ languageId: string, asset: IAsset }>()
+        props<{ languageId: string, langCode: string, asset: IAsset }>()
     );
     export const updateSuccess = createAction(
         LanguageAssetsActionTypes.UPDATE_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, meta?: IMetaRefsResponse }>()
     );
     export const updateError = createAction(
         LanguageAssetsActionTypes.UPDATE_ERROR,
@@ -107,11 +113,11 @@ export namespace LanguageAssetsActions {
     // delete
     export const deleteRequest = createAction(
         LanguageAssetsActionTypes.DELETE_REQUEST,
-        props<{ languageId: string, assetId: string }>()
+        props<{ languageId: string, langCode: string, assetId: string }>()
     );
     export const deleteSuccess = createAction(
         LanguageAssetsActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta?: IMetaRefsResponse }>()
+        props<{ id: string, langCode: string, meta?: IMetaRefsResponse }>()
     );
     export const deleteError = createAction(
         LanguageAssetsActionTypes.DELETE_ERROR,
@@ -121,16 +127,17 @@ export namespace LanguageAssetsActions {
     // upload
     export const uploadImageRequest = createAction(
         LanguageAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ languageId: string, imageType: LanguageImageTypes, file: File }>()
+        props<{ languageId: string, imageType: LanguageImageTypes, data: IFileUploadEvent }>()
     );
     export const uploadImageSuccess = createAction(
         LanguageAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
-        props<{ asset: IAsset, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
     export const uploadImageProgress = createAction(
         LanguageAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
         props<{
             tmpAsset: IAsset,
+            langCode: string,
             progress: {
                 total: number,
                 loaded: number,
@@ -145,7 +152,8 @@ export namespace LanguageAssetsActions {
             error: string
         }>()
     );
-    
+
+
     export const clear = createAction(
         LanguageAssetsActionTypes.CLEAR,
     );

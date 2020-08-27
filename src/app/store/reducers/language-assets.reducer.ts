@@ -91,25 +91,27 @@ const languageAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(LanguageAssetsActions.createSuccess, LanguageAssetsActions.uploadImageSuccess, (state, { asset, tmpAsset, meta }) => {
-        const existsTmpAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection, asset];
+    on(LanguageAssetsActions.createSuccess, LanguageAssetsActions.uploadImageSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
+        const c = state.collection[langCode] || [];
+        const existsTmpAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...c, asset];
         if (existsTmpAssetIndex > -1) {
             collection.splice(existsTmpAssetIndex, 1);
         }
         return {
             ...state,
-            collection,
+            collection: {...state.collection, ...{[langCode]: collection}},
             meta,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(LanguageAssetsActions.createProgress, LanguageAssetsActions.uploadImageProgress, (state, { tmpAsset, progress }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection];
-        const asset = { ...tmpAsset };
+    on(LanguageAssetsActions.createProgress, LanguageAssetsActions.uploadImageProgress, (state, { tmpAsset, langCode, progress }) => {
+        const c = state.collection[langCode] || [];
+        const existsAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...c];
+        const asset = {...tmpAsset};
         asset.progress = progress;
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
@@ -119,22 +121,39 @@ const languageAssetsReducer = createReducer(
         }
         return {
             ...state,
-            collection,
+            collection: {...state.collection, ...{[langCode]: collection}},
         };
     }),
-    on(LanguageAssetsActions.updateSuccess, (state, { asset, meta }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === asset.id);
-        let collection = [...state.collection];
+    on(LanguageAssetsActions.updateSuccess, (state, { asset, langCode, meta }) => {
+        const c = state.collection[langCode] || [];
+        const existsAssetIndex = c.findIndex(p => p.id === asset.id);
+        let collection = [...c];
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
             collection.splice(existsAssetIndex, 0, asset);
         }
         return {
             ...state,
-            collection,
+            collection: {...state.collection, ...{[langCode]: collection}},
             meta,
             error: undefined,
             isUpdateProcess: false,
+            loading: false,
+        };
+    }),
+    on(LanguageAssetsActions.deleteSuccess, (state, { id, langCode, meta }) => {
+        const c = state.collection[langCode] || [];
+        const existsAssetIndex = c.findIndex(p => p.id === id);
+        let collection: Array<IAsset> = [...c];
+        if (existsAssetIndex > -1) {
+            collection.splice(existsAssetIndex, 1);
+        }
+        return {
+            ...state,
+            collection: {...state.collection, ...{[langCode]: collection}},
+            meta,
+            error: undefined,
+            isDeleteProcess: false,
             loading: false,
         };
     }),

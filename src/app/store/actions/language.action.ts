@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { ILanguage } from '@djonnyx/tornado-types';
+import { ILanguage, LanguageImageTypes } from '@djonnyx/tornado-types';
 
 export enum LanguageActionTypes {
     GET_REQUEST = "TORNADO/language/get:request",
@@ -13,6 +13,8 @@ export enum LanguageActionTypes {
     UPDATE_REQUEST = "TORNADO/language/update:request",
     UPDATE_SUCCESS = "TORNADO/language/update:success",
     UPDATE_ERROR = "TORNADO/language/update:error",
+
+    UPDATE_IMAGE = "TORNADO/language/update-image",
 
     CLEAR = "TORNADO/language/clear",
 }
@@ -58,6 +60,12 @@ export namespace LanguageActions {
     export const updateError = createAction(
         LanguageActionTypes.UPDATE_ERROR,
         props<{ error: string }>()
+    );
+
+    // updateImage
+    export const updateImage = createAction(
+        LanguageActionTypes.UPDATE_IMAGE,
+        props<{ langCode: string, imageType: LanguageImageTypes, assetId: string }>(),
     );
 
     // clear

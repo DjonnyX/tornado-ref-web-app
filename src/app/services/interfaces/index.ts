@@ -66,6 +66,7 @@ export { ILanguageCreateResponse } from './language-create-response.interface';
 export { ILanguageUpdateResponse } from './language-update-response.interface';
 export { ILanguageDeleteResponse } from './language-delete-response.interface';
 export { ILanguageAssetGetResponse } from './language-assets-get-response.interface';
+export { ILanguageAssetGetByLangResponse } from "./language-assets-get-by-lang-response.interface"
 export { ILanguageAssetCreateResponse } from './language-asset-create-response.interface';
 export { ILanguageAssetUpdateResponse } from './language-asset-update-response.interface';
 export { ILanguageAssetDeleteResponse } from './language-asset-delete-response.interface';

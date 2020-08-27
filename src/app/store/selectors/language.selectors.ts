@@ -9,11 +9,6 @@ export namespace LanguageSelectors {
     state => state.language,
   );
 
-  export const selectImages = createSelector(
-    selectLanguage,
-    state => !!state.language ? state.language.images : undefined,
-  );
-
   export const selectLoading = createSelector(
     selectLanguage,
     state => state.loading,

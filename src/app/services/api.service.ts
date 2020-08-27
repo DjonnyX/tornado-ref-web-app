@@ -74,6 +74,7 @@ import {
   ITagAssetCreateResponse,
   ITagAssetUpdateResponse,
   ITagAssetDeleteResponse,
+  ILanguageAssetGetByLangResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -984,21 +985,30 @@ export class ApiService {
       });
   }
 
-  public getLanguageAssets(orderTypeId: string): Observable<ILanguageAssetGetResponse> {
+  public getLanguageAllAssets(languageId: string): Observable<ILanguageAssetGetResponse> {
     return this._http
-      .get<ILanguageAssetGetResponse>(`api/v1/language/${orderTypeId}/assets`, {
+      .get<ILanguageAssetGetResponse>(`api/v1/language/${languageId}/assets`, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public uploadLanguageImage(languageId: string, type: LanguageImageTypes, file: File): Observable<ILanguageAssetCreateResponse> {
+  public getLanguageAllByLangAssets(languageId: string, langCode: string): Observable<ILanguageAssetGetByLangResponse> {
+    return this._http
+      .get<ILanguageAssetGetByLangResponse>(`api/v1/language/${languageId}/assets/${langCode}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public uploadLanguageImage(languageId: string, type: LanguageImageTypes, data: IFileUploadEvent): Observable<ILanguageAssetCreateResponse> {
     const formData = new FormData();
-    formData.append("file", file, file.name);
+    formData.append("file", data.file, data.file.name);
 
     return this._http
-      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/image/${type}`, formData, {
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/image/${data.langCode}/${type}`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -1025,12 +1035,12 @@ export class ApiService {
       );
   }
 
-  public createLanguageAsset(languageId: string, file: File): Observable<ILanguageAssetCreateResponse> {
+  public createLanguageAsset(languageId: string, data: IFileUploadEvent): Observable<ILanguageAssetCreateResponse> {
     const formData = new FormData();
-    formData.append("file", file, file.name);
+    formData.append("file", data.file, data.file.name);
 
     return this._http
-      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/asset`, formData, {
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/asset/${data.langCode}`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -1057,18 +1067,18 @@ export class ApiService {
       );
   }
 
-  public updateLanguageAsset(languageId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ILanguageAssetUpdateResponse> {
+  public updateLanguageAsset(languageId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ILanguageAssetUpdateResponse> {
     return this._http
-      .put<ILanguageAssetUpdateResponse>(`api/v1/language/${languageId}/asset/${assetId}`, asset, {
+      .put<ILanguageAssetUpdateResponse>(`api/v1/language/${languageId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
           authorization: this._token,
         },
       });
   }
 
-  public deleteLanguageAsset(languagetId: string, assetId: string): Observable<ILanguageAssetDeleteResponse> {
+  public deleteLanguageAsset(languageId: string, langCode: string, assetId: string): Observable<ILanguageAssetDeleteResponse> {
     return this._http
-      .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${languagetId}/asset/${assetId}`, {
+      .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${languageId}/asset/${langCode}/${assetId}`, {
         headers: {
           authorization: this._token,
         },

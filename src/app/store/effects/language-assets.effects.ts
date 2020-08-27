@@ -27,14 +27,14 @@ export default class LanguageAssetsEffects {
     public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguageAssetsActions.uploadImageRequest),
-            switchMap(({ languageId, imageType, file }) => {
+            switchMap(({ languageId, imageType, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -42,11 +42,17 @@ export default class LanguageAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.uploadLanguageImage(languageId, imageType, file).pipe(
+                this._store.dispatch(LanguageActions.updateImage({
+                    langCode: data.langCode,
+                    imageType,
+                    assetId: id,
+                }));
+                return this._apiService.uploadLanguageImage(languageId, imageType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [LanguageAssetsActions.uploadImageProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -55,9 +61,9 @@ export default class LanguageAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [LanguageAssetsActions.uploadImageProgress({ tmpAsset, progress: res.data.progress })];
+                            return [LanguageAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [LanguageAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, }), LanguageActions.getRequest({ id: languageId })];
+                        return [LanguageAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), LanguageActions.getRequest({ id: languageId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -73,7 +79,7 @@ export default class LanguageAssetsEffects {
         this._actions$.pipe(
             ofType(LanguageAssetsActions.getAllRequest),
             switchMap(({ languageId }) => {
-                return this._apiService.getLanguageAssets(languageId).pipe(
+                return this._apiService.getLanguageAllAssets(languageId).pipe(
                     mergeMap(res => {
                         return [LanguageAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
@@ -87,17 +93,35 @@ export default class LanguageAssetsEffects {
         )
     );
 
+    public readonly getAllByLangRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(LanguageAssetsActions.getAllByLangRequest),
+            switchMap(({ languageId, langCode }) => {
+                return this._apiService.getLanguageAllByLangAssets(languageId, langCode).pipe(
+                    mergeMap(res => {
+                        return [LanguageAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.notify(error.message);
+                        return of(LanguageAssetsActions.getAllByLangError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguageAssetsActions.createRequest),
-            switchMap(({ languageId, file }) => {
+            switchMap(({ languageId, data }) => {
                 const id = String(this.nextTmpAssetId);
-                const ext = file.name.replace(/^.+\./, "");
+                const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
                     lastupdate: Date.now(),
-                    name: file.name,
+                    name: data.file.name,
                     path: undefined,
                     mipmap: {
                         x128: undefined,
@@ -105,11 +129,12 @@ export default class LanguageAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.createLanguageAsset(languageId, file).pipe(
+                return this._apiService.createLanguageAsset(languageId, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [LanguageAssetsActions.createProgress({
                                 tmpAsset,
+                                langCode: data.langCode,
                                 progress: {
                                     total: 0,
                                     progress: 0,
@@ -118,9 +143,9 @@ export default class LanguageAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [LanguageAssetsActions.createProgress({ tmpAsset, progress: res.data.progress })];
+                            return [LanguageAssetsActions.createProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [LanguageAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), LanguageActions.getRequest({ id: languageId })];
+                        return [LanguageAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), LanguageActions.getRequest({ id: languageId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -135,13 +160,13 @@ export default class LanguageAssetsEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguageAssetsActions.updateRequest),
-            switchMap(({ asset, languageId }) => {
-                return this._apiService.updateLanguageAsset(languageId, asset.id, {
+            switchMap(({ asset, languageId, langCode }) => {
+                return this._apiService.updateLanguageAsset(languageId, langCode, asset.id, {
                     name: asset.name,
                     active: asset.active,
                 }).pipe(
                     mergeMap(res => {
-                        return [LanguageAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
+                        return [LanguageAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -156,10 +181,10 @@ export default class LanguageAssetsEffects {
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguageAssetsActions.deleteRequest),
-            switchMap(({ languageId, assetId }) => {
-                return this._apiService.deleteLanguageAsset(languageId, assetId).pipe(
+            switchMap(({ languageId, assetId, langCode }) => {
+                return this._apiService.deleteLanguageAsset(languageId, langCode, assetId).pipe(
                     mergeMap(res => {
-                        return [LanguageAssetsActions.deleteSuccess({ id: assetId })];
+                        return [LanguageAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
