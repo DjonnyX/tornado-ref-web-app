@@ -70,13 +70,18 @@ import {
   ITranslationUpdateResponse,
   IProductAssetGetByLangResponse,
   ISelectorAssetGetByLangResponse,
+  ITagAssetGetResponse,
+  ITagAssetCreateResponse,
+  ITagAssetUpdateResponse,
+  ITagAssetDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes, ITranslation } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes, ITranslation, TagImageTypes } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
+import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -635,6 +640,106 @@ export class ApiService {
   public deleteTag(id: string): Observable<ITagDeleteResponse> {
     return this._http
       .delete<ITagDeleteResponse>(`api/v1/tag/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getTagAllAssets(tagId: string): Observable<ITagAssetGetResponse> {
+    return this._http
+      .get<ITagAssetGetResponse>(`api/v1/tag/${tagId}/assets`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getTagAllByLangAssets(tagId: string, langCode: string): Observable<ITagAssetGetByLangResponse> {
+    return this._http
+      .get<ITagAssetGetByLangResponse>(`api/v1/tag/${tagId}/assets/${langCode}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public uploadTagImage(tagId: string, type: TagImageTypes, data: IFileUploadEvent): Observable<ITagAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<ITagAssetCreateResponse>(`api/v1/tag/${tagId}/image/${data.langCode}/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public createTagAsset(tagId: string, data: IFileUploadEvent): Observable<ITagAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<ITagAssetCreateResponse>(`api/v1/tag/${tagId}/asset/${data.langCode}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateTagAsset(tagId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ITagAssetUpdateResponse> {
+    return this._http
+      .put<ITagAssetUpdateResponse>(`api/v1/tag/${tagId}/asset/${langCode}/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteTagAsset(tagId: string, langCode: string, assetId: string): Observable<ITagAssetDeleteResponse> {
+    return this._http
+      .delete<ITagAssetDeleteResponse>(`api/v1/tag/${tagId}/asset/${langCode}/${assetId}`, {
         headers: {
           authorization: this._token,
         },

@@ -23,6 +23,7 @@ import { ILanguagesState } from './languages.state';
 import { ILanguageState } from './language.state';
 import { ILanguageAssetsState } from './language-assets.state';
 import { ITranslationState } from './translation.state';
+import { ITagAssetsState } from './tag-assets.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -34,6 +35,7 @@ export interface IAppState {
     taProductAssets: IProductAssetsState,
     taTags: ITagsState;
     taTag: ITagState;
+    taTagAssets: ITagAssetsState,
     taSelectors: ISelectorsState,
     taSelector: ISelectorState,
     taSelectorAssets: ISelectorAssetsState,

@@ -3,9 +3,7 @@ import { ITag } from '@djonnyx/tornado-types';
 export const formatTagModel = (model: ITag) => {
     return {
         active: model.active,
-        name: model.name,
-        description: model.description,
-        color: model.color,
+        contents: model.contents,
         extra: model.extra,
     }
 }

@@ -26,6 +26,7 @@ import languageAssetsReducer from './language-assets.reducer';
 import languageReducer from './language.reducer';
 import languagesReducer from './languages.reducer';
 import translationReducer from './translation.reducer';
+import tagAssetsReducer from './tag-assets.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -37,6 +38,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taProductAssets: productAssetsReducer,
   taTags: tagsReducer,
   taTag: tagReducer,
+  taTagAssets: tagAssetsReducer,
   taSelectors: selectorsReducer,
   taSelector: selectorReducer,
   taSelectorAssets: selectorAssetsReducer,
