@@ -1,14 +1,21 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { Observable, combineLatest } from 'rxjs';
+import { TagsActions } from '@store/actions/tags.action';
+import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
+import { TagsSelectors, TagAssetsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, filter, map } from 'rxjs/operators';
+import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { TagsSelectors } from '@store/selectors/tags.selectors';
-import { TagActions } from '@store/actions/tag.action';
+import { IAsset, IFileUploadEvent } from '@models';
+import { TagAssetsActions } from '@store/actions/tag-assets.action';
 import { TagSelectors } from '@store/selectors/tag.selectors';
-import { ITag } from '@djonnyx/tornado-types';
+import { TagActions } from '@store/actions/tag.action';
+import { ITag, TagImageTypes, ILanguage, ITagContents } from '@djonnyx/tornado-types';
+import { AssetsActions } from '@store/actions/assets.action';
+import { LanguagesActions } from '@store/actions/languages.action';
+import { deepMergeObjects } from '@app/utils/object.util';
+import { normalizeEntityContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-tag-creator',
@@ -18,17 +25,40 @@ import { ITag } from '@djonnyx/tornado-types';
 })
 export class TagCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
 
-  public isProcess$: Observable<boolean>;
+  isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
+  isProcessMainOptions$: Observable<boolean>;x
 
-  private _tag: ITag;
+  isProcessAssets$: Observable<boolean>;
+
+  rootNodeId$: Observable<string>;
 
   tag$: Observable<ITag>;
 
+  tags$: Observable<Array<ITag>>;
+
+  tagAssets$: Observable<Array<IAsset>>;
+
+  assets$: Observable<Array<IAsset>>;
+
+  languages$: Observable<Array<ILanguage>>;
+
+  defaultLanguage$: Observable<ILanguage>;
+
+  isPrepareToConfigure$: Observable<boolean>;
+
   isEditMode = false;
 
+  private _returnUrl: string;
+
   private _tagId: string;
+
+  private _tagId$ = new BehaviorSubject<string>(undefined);
+  readonly tagId$ = this._tagId$.asObservable();
+
+  private _tag: ITag;
+
+  private _defaultLanguage: ILanguage;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -38,6 +68,7 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
     this._tagId = this._activatedRoute.snapshot.queryParams["id"];
+    this._tagId$.next(this._tagId);
 
     this.isEditMode = !!this._tagId;
 
@@ -46,47 +77,195 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
         select(TagSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(TagsSelectors.selectIsCreateProcess),
+        select(TagsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(AssetsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(LanguagesSelectors.selectIsGetProcess),
       ),
     ).pipe(
-      map(([isTagGetProcess, isTagsGetProcess]) => isTagGetProcess || isTagsGetProcess),
+      map(([isGetTagProcess, isTagsProcess, isAssetsProcess, isLanguagesProcess]) =>
+        isGetTagProcess || isTagsProcess || isAssetsProcess || isLanguagesProcess),
     );
 
-    this.tag$ = this._store.pipe(
-      select(TagSelectors.selectEntity),
+    this.isProcessMainOptions$ = combineLatest(
+      this._store.pipe(
+        select(TagSelectors.selectIsCreateProcess),
+      ),
+      this._store.pipe(
+        select(TagSelectors.selectIsUpdateProcess),
+      ),
+    ).pipe(
+      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    );
+
+    this.isProcessAssets$ = combineLatest(
+      this._store.pipe(
+        select(TagAssetsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(TagAssetsSelectors.selectIsUpdateProcess),
+      ),
+      this._store.pipe(
+        select(TagAssetsSelectors.selectIsDeleteProcess),
+      ),
+    ).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+    );
+
+    this.tags$ = this._store.pipe(
+      select(TagsSelectors.selectCollection),
+    );
+
+    this.languages$ = this._store.pipe(
+      select(LanguagesSelectors.selectCollection),
+    );
+
+    this.assets$ = this._store.pipe(
+      select(AssetsSelectors.selectCollection),
+    );
+
+    this.defaultLanguage$ = this.languages$.pipe(
+      filter(languages => !!languages),
+      map(languages => languages.find(v => !!v.isDefault)),
+      filter(language => !!language),
+    );
+
+    this.defaultLanguage$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(lang => {
+      this._defaultLanguage = lang;
+    });
+
+    this.tagAssets$ = combineLatest(
+      this._store.select(TagAssetsSelectors.selectCollection),
+      this.languages$,
+    ).pipe(
+      filter(([assets, langs]) => !!assets && !!langs),
+      switchMap(([assets, langs]) => {
+        const result = new Array<IAsset>();
+
+        for (const lang in assets) {
+          result.push(...assets[lang]);
+        }
+
+        return of(result);
+      }),
+    );
+
+    this.tag$ = combineLatest(
+      this._store.select(TagSelectors.selectEntity),
+      this.languages$,
+      this.defaultLanguage$,
+    ).pipe(
+      filter(([tag, langs, defaultLang]) => !!tag && !!defaultLang && !!langs),
+      map(([tag, langs, defaultLang]) => {
+        const contents: ITagContents = {};
+
+        // мерджинг контента от дефолтового языка
+        for (const lang in tag.contents) {
+          // переопределение контента для разных языков
+          contents[lang] = lang === defaultLang.code ? tag.contents[lang] : deepMergeObjects(tag.contents[defaultLang.code], tag.contents[lang]);
+        }
+
+        // добовление контента языков которых нет в базе
+        for (const lang of langs) {
+          if (contents[lang.code]) {
+            continue;
+          }
+
+          contents[lang.code] = tag.contents[defaultLang.code];
+        }
+
+        return { ...tag, contents: normalizeEntityContents(contents, defaultLang.code) };
+      })
     );
 
     this.tag$.pipe(
       takeUntil(this.unsubscribe$),
-      filter(tag => !!tag),
-      filter(tag => this._tagId !== tag.id),
     ).subscribe(tag => {
+      this._tag = tag;
       this._tagId = tag.id;
-      this.isEditMode = !!this._tagId;
+      this._tagId$.next(this._tagId);
+      this.isEditMode = true;
+
+      this._store.dispatch(TagAssetsActions.getAllRequest({ tagId: this._tagId }));
+
+      // для изменения параметров маршрута
+      this._router.navigate([], {
+        relativeTo: this._activatedRoute,
+        queryParams: {
+          id: this._tagId,
+          returnUrl: this._returnUrl,
+        }
+      });
     });
 
     if (!!this._tagId) {
       this._store.dispatch(TagActions.getRequest({ id: this._tagId }));
     }
+
+    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(TagsActions.getAllRequest());
+    this._store.dispatch(AssetsActions.getAllRequest());
+
+    const prepareMainRequests$ = combineLatest(
+      this.tags$,
+      this.languages$,
+      this.defaultLanguage$,
+      this.assets$,
+    ).pipe(
+      map(([tags, languages, defaultLanguage, assets]) =>
+        !!tags && !!languages && !!defaultLanguage && !!assets),
+    );
+
+    this.isPrepareToConfigure$ = this.tagId$.pipe(
+      switchMap(id => {
+        return !!id ? combineLatest(
+          prepareMainRequests$,
+          this.tag$,
+          this.tagAssets$,
+        ).pipe(
+          map(([prepareMainRequests, tag, tagAssets]) =>
+            !!prepareMainRequests && !!tag && !!tagAssets),
+        ) : prepareMainRequests$;
+      })
+    );
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
     this._store.dispatch(TagActions.clear());
+    this._store.dispatch(TagAssetsActions.clear());
   }
 
-  onSubmit(tag: ITag): void {
+  onMainImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, imageType: TagImageTypes.MAIN, data }));
+  }
+
+  onIconImageUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, imageType: TagImageTypes.ICON, data }));
+  }
+
+  onMainOptionsSave(tag: ITag): void {
     if (this.isEditMode) {
-      this._store.dispatch(TagActions.updateRequest({ id: tag.id, tag }));
+      const normalizedTag: ITag = {...tag};
+
+      // нормализация контена
+      normalizeEntityContents(normalizedTag.contents, this._defaultLanguage.code);
+
+      this._store.dispatch(TagActions.updateRequest({ id: tag.id, tag: normalizedTag }));
     } else {
       this._store.dispatch(TagActions.createRequest({ tag }));
     }
 
-    this._router.navigate([this._returnUrl]);
+    // this._router.navigate([this._returnUrl]);
   }
 
-  onCancel(): void {
+  onMainOptionsCancel(): void {
     this._router.navigate([this._returnUrl]);
   }
 

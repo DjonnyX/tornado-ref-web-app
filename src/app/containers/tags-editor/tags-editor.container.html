@@ -1,4 +1,7 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-tags-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
-        (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)"></ta-tags-editor-component>
-</ta-query-progress>
+    <ta-tags-editor-component *ngIf="isPrepareToShow$ | async" [collection]="collection$ | async" [refInfo]="refInfo$ | async"
+      [assets]="assets$ | async" [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+      (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)">
+    </ta-tags-editor-component>
+  </ta-query-progress>
+  

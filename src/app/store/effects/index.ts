@@ -7,6 +7,7 @@ import SelectorsEffects from './selectors.effects';
 import SelectorEffects from './selector.effects';
 import SelectorAssetsEffects from './selector-assets.effects';
 import TagsEffects from './tags.effects';
+import TagAssetsEffects from './tag-assets.effects';
 import MenuNodesEffects from './menu-nodes.effects';
 import AssetsEffects from './assets.effects';
 import ProductEffects from './product.effects';
@@ -38,6 +39,7 @@ const rootEffects = [
   BusinessPeriodEffects,
   TagsEffects,
   TagEffects,
+  TagAssetsEffects,
   AssetsEffects,
   CurrenciesEffects,
   CurrencyEffects,

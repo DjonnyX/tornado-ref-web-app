@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { TagActions } from '@store/actions/tag.action';
 import { ITagState } from '@store/state/tag.state';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 export const initialState: ITagState = {
     loading: false,
@@ -17,6 +18,21 @@ const tagReducer = createReducer(
     on(TagActions.clear, state => {
         return {
             ...initialState,
+        };
+    }),
+    on(TagActions.updateImage, (state, { langCode, imageType, assetId }) => {
+        const product = deepMergeObjects(state.tag, {
+            contents: {
+                [langCode]: {
+                    images: {
+                        [imageType]: assetId,
+                    },
+                },
+            },
+        });
+        return {
+            ...initialState,
+            product,
         };
     }),
     on(TagActions.getRequest, state => {

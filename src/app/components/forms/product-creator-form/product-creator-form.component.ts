@@ -3,7 +3,7 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
-import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage, ITagContentsItem } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
@@ -115,6 +115,20 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  getTagContent(tag: ITag): ITagContentsItem {
+    return tag?.contents[this.defaultLanguage.code];
+  }
+
+  getTagColor(tag: ITag): string {
+    const tagContent = this.getTagContent(tag);
+    return tagContent?.color || "";
+  }
+
+  getTagName(tag: ITag): string {
+    const tagContent = this.getTagContent(tag);
+    return tagContent?.name || "";
   }
 
   onEnterSubmit(event: KeyboardEvent): void {
