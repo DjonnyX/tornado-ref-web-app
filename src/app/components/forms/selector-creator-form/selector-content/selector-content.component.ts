@@ -70,12 +70,6 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
 
   @Output() uploadIconImage = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadAsset = new EventEmitter<File>();
-
-  @Output() updateAsset = new EventEmitter<IAsset>();
-
-  @Output() deleteAsset = new EventEmitter<IAsset>();
-
   @Output() save = new EventEmitter<void>();
 
   constructor() {
@@ -142,18 +136,6 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
 
   isColorDefault(): boolean {
     return this.defaultContent?.color === this.color;
-  }
-
-  onAssetUpload(file: File): void {
-    this.uploadAsset.emit(file);
-  }
-
-  onAssetUpdate(asset: IAsset): void {
-    this.updateAsset.emit(asset);
-  }
-
-  onAssetDelete(asset: IAsset): void {
-    this.deleteAsset.emit(asset);
   }
 
   private updateState(options?: any): void {

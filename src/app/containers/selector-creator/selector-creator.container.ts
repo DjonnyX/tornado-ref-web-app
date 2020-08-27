@@ -280,18 +280,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SelectorAssetsActions.clear());
   }
 
-  onAssetUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.createRequest({ selectorId: this._selectorId, data }));
-  }
-
-  onAssetUpdate(data: IAssetUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.updateRequest({ selectorId: this._selectorId, langCode: data.langCode, asset: data.asset }));
-  }
-
-  onAssetDelete(data: IAssetUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.deleteRequest({ selectorId: this._selectorId, langCode: data.langCode, assetId: data.asset.id }));
-  }
-
   onMainImageUpload(data: IFileUploadEvent): void {
     this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.MAIN, data }));
   }
