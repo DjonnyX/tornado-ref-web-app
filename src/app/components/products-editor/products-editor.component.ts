@@ -65,19 +65,19 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   }
 
   getTagContent(tag: ITag): ITagContentsItem {
-    return tag.contents[this.defaultLanguage.code];
+    return tag?.contents[this.defaultLanguage.code];
   }
 
   getTagColor(id: string): string {
     const tag = this.tagList.find(t => t.id === id);
     const tagContent = this.getTagContent(tag);
-    return !!tagContent ? tagContent.color : "";
+    return tagContent?.color || "";
   }
 
   getTagName(id: string): string {
     const tag = this.tagList.find(t => t.id === id);
     const tagContent = this.getTagContent(tag);
-    return !!tagContent ? tagContent.name : "";
+    return tagContent?.name || "";
   }
 
   getProductName(product: IProduct): string | undefined {
