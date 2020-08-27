@@ -73,12 +73,6 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadAsset = new EventEmitter<IFileUploadEvent>();
-
-  @Output() updateAsset = new EventEmitter<IAssetUploadEvent>();
-
-  @Output() deleteAsset = new EventEmitter<IAssetUploadEvent>();
-
   private _state: ISelectorContents = {};
 
   constructor(private _fb: FormBuilder) {
@@ -130,18 +124,6 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
-  }
-
-  onAssetUpload(file: File, lang: ILanguage): void {
-    this.uploadAsset.emit({ file, langCode: lang.code });
-  }
-
-  onAssetUpdate(asset: IAsset, lang: ILanguage): void {
-    this.updateAsset.emit({ asset, langCode: lang.code });
-  }
-
-  onAssetDelete(asset: IAsset, lang: ILanguage): void {
-    this.deleteAsset.emit({ asset, langCode: lang.code });
   }
 
   onCancel(): void {

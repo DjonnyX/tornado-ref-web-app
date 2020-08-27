@@ -6,16 +6,14 @@
           [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
           (update)="updateStateFor($event, lang)" (uploadMainImage)="onMainImageUpload($event, lang)"
           (uploadIconImage)="onIconImageUpload($event, lang)"
-          (uploadThumbnailImage)="onThumbnailImageUpload($event, lang)" (uploadAsset)="onAssetUpload($event, lang)"
-          (updateAsset)="onAssetUpdate($event, lang)" (deleteAsset)="onAssetDelete($event, lang)" (save)="onSave()">
+          (uploadThumbnailImage)="onThumbnailImageUpload($event, lang)" (save)="onSave()">
         </ta-selector-content>
       </mat-tab>
     </mat-tab-group>
   </div>
   <ng-template #mainLangContent>
     <ta-selector-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
-      [assets]="assets"
-      (update)="updateStateFor($event, defaultLanguage)">
+      [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
     </ta-selector-content>
   </ng-template>
 

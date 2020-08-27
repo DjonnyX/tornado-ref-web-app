@@ -11,8 +11,7 @@
           [imagesGallery]="gallerySelectorAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
           [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
           (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
-          (uploadThumbnailImage)="onThumbnailImageUpload($event)" (uploadAsset)="onAssetUpload($event)"
-          (updateAsset)="onAssetUpdate($event)" (deleteAsset)="onAssetDelete($event)">
+          (uploadThumbnailImage)="onThumbnailImageUpload($event)">
         </ta-selector-creator-form>
       </ta-query-progress>
     </div>

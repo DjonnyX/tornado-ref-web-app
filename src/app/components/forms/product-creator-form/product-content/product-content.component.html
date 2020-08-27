@@ -1,113 +1,118 @@
 <div [ngClass]="{'product-content': true, 'main-options-wrapper': isEditMode}">
-    <div class="images" *ngIf="isEditMode">
-        <div class="images-wrapper">
-            <div class="image-n">
-                <h2 class="form-header">
-                    Image
-                </h2>
-
-                <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary"
-                    type="button" class="reset-button" (click)="onResetImageToDefault('main')">
-                    Reset to default
-                </button>
-
-                <ta-asset-picker-uploader
-                    [defaultValue]="!!content && !!content.images ? content.images.main : undefined" [assets]="assets"
-                    color="white" (upload)="onMainImageUpload($event, 'main')">
-                </ta-asset-picker-uploader>
-            </div>
-        </div>
-
-        <div class="images-wrapper">
-            <div class="image-m">
-                <h2 class="form-header">
-                    Thumbnail
-                </h2>
-
-                <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
-                    class="reset-button" (click)="onResetImageToDefault('thumbnail')">
-                    Reset to default
-                </button>
-
-                <ta-asset-picker-uploader size="m"
-                    [defaultValue]="!!content && !!content.images ? content.images.thumbnail : undefined"
-                    [assets]="assets" color="white" (upload)="onThumbnailImageUpload($event, 'thumbnail')">
-                </ta-asset-picker-uploader>
-            </div>
-
-            <div class="image-s">
-                <h2 class="form-header">
-                    Icon
-                </h2>
-
-                <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button"
-                    class="reset-button" (click)="onResetImageToDefault('icon')">
-                    Reset to default
-                </button>
-
-                <ta-asset-picker-uploader size="m"
-                    [defaultValue]="!!content && !!content.images ? content.images.icon : undefined" [assets]="assets"
-                    [color]="color" (upload)="onIconImageUpload($event, 'icon')">
-                </ta-asset-picker-uploader>
-            </div>
-        </div>
-
-        <div class="images-wrapper single">
-            <div class="full-width">
-                <h2 class="form-header">
-                    Color
-                </h2>
-
-                <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
-                    class="reset-button" (click)="onResetColorToDefault()">
-                    Reset to default
-                </button>
-
-                <div class="form-item">
-                    <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value"
-                        cpPosition="top-right" [formControl]="ctrlColor" />
-                </div>
-            </div>
-        </div>
-
-
-        <div class="images-wrapper single">
-            <div class="full-width">
-                <div class="form-header">
-                    <h2>Images gallery</h2>
-                </div>
-
-                <ta-assets-uploader [collection]="imagesGallery" (upload)="onAssetUpload($event)"
-                    (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
-            </div>
-        </div>
-    </div>
-
-    <div>
+  <div class="images" *ngIf="isEditMode">
+    <div class="images-wrapper">
+      <div class="image-n">
         <h2 class="form-header">
-            Main options
+          Image
         </h2>
 
-        <div class="form__main-options">
-            <div class="form__input-block">
-                <div class="form-item">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Product name</mat-label>
-                        <input matInput type="text" [formControl]="ctrlName" placeholder="Product name">
-                        <mat-error *ngIf="ctrlName.hasError('required')">
-                            Product name - <strong>required</strong>
-                        </mat-error>
-                    </mat-form-field>
-                </div>
+        <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
+          class="reset-button" (click)="onResetImageToDefault('main')">
+          Reset to default
+        </button>
 
-                <div class="form-item">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Description</mat-label>
-                        <textarea matInput class="product__description" type="text" [formControl]="ctrlDescription"
-                            placeholder="Description"></textarea>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
+        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.images ? content.images.main : undefined"
+          [assets]="assets" class="transparent" (upload)="onMainImageUpload($event, 'main')">
+        </ta-asset-picker-uploader>
+      </div>
     </div>
+
+    <div class="images-wrapper double">
+      <div class="image-m">
+        <h2 class="form-header">
+          Thumbnail
+        </h2>
+
+        <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
+          class="reset-button" (click)="onResetImageToDefault('thumbnail')">
+          Reset to default
+        </button>
+
+        <ta-asset-picker-uploader size="m"
+          [defaultValue]="!!content && !!content.images ? content.images.thumbnail : undefined" [assets]="assets"
+          class="transparent" (upload)="onThumbnailImageUpload($event, 'thumbnail')">
+        </ta-asset-picker-uploader>
+      </div>
+
+      <div class="image-s">
+        <h2 class="form-header">
+          Icon
+        </h2>
+
+        <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
+          (click)="onResetImageToDefault('icon')">
+          Reset to default
+        </button>
+
+        <ta-asset-picker-uploader size="m"
+          [defaultValue]="!!content && !!content.images ? content.images.icon : undefined" [assets]="assets"
+          [color]="color" class="transparent" (upload)="onIconImageUpload($event, 'icon')">
+        </ta-asset-picker-uploader>
+      </div>
+    </div>
+
+    <div class="images-wrapper single">
+      <div class="full-width">
+        <h2 class="form-header">
+          Color
+        </h2>
+
+        <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
+          class="reset-button" (click)="onResetColorToDefault()">
+          Reset to default
+        </button>
+
+        <div class="form-item">
+          <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value"
+            cpPosition="top-right" [formControl]="ctrlColor" />
+        </div>
+      </div>
+    </div>
+
+    <mat-accordion class="flat full-width" multi>
+      <mat-expansion-panel>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Images gallery
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="images-wrapper single">
+          <div class="full-width">
+            <ta-assets-uploader [collection]="imagesGallery" (upload)="onAssetUpload($event)"
+              (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+
+  <div>
+    <h2 class="form-header">
+      Main options
+    </h2>
+
+    <div class="form__main-options">
+      <div class="form__input-block">
+        <div class="form-item">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Product name</mat-label>
+            <input matInput type="text" [formControl]="ctrlName" placeholder="Product name">
+            <mat-error *ngIf="ctrlName.hasError('required')">
+              Product name - <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-item">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput class="product__description" type="text" [formControl]="ctrlDescription"
+              placeholder="Description"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
