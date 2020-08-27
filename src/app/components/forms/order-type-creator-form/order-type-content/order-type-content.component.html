@@ -1,24 +1,21 @@
 <div [ngClass]="{'order-type-content': true, 'main-options-wrapper': isEditMode}">
   <div class="images" *ngIf="isEditMode">
-    <div class="images-wrapper">
+    <div class="images-wrapper double">
       <div class="image-s">
         <h2 class="form-header">
           Image
         </h2>
 
-        <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
+        <button [disabled]="!!isDefault || !isEqualWithDefault('main')" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetImageToDefault('main')">
           Reset to default
         </button>
 
-        <ta-asset-picker-uploader
-          [defaultValue]="!!content && !!content.images ? content.images.main : undefined" [assets]="assets"
-          color="white" (upload)="onMainImageUpload($event, 'main')">
+        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.images ? content.images.main : undefined"
+          [assets]="assets" class="transparent" (upload)="onMainImageUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
-    </div>
 
-    <div class="images-wrapper">
       <div class="image-s">
         <h2 class="form-header">
           Icon
@@ -29,9 +26,8 @@
           Reset to default
         </button>
 
-        <ta-asset-picker-uploader
-          [defaultValue]="!!content && !!content.images ? content.images.icon : undefined" [assets]="assets"
-          [color]="color" (upload)="onIconImageUpload($event, 'icon')">
+        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.images ? content.images.icon : undefined"
+          [assets]="assets" [color]="color" class="transparent" (upload)="onIconImageUpload($event, 'icon')">
         </ta-asset-picker-uploader>
       </div>
     </div>
