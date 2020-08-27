@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITag, IRef } from '@djonnyx/tornado-types';
+import { ITag, IRef, IAsset, ITagContentsItem, ILanguage } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-tags-editor-component',
@@ -18,6 +18,25 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
+  
+  private _assetsDictionary: { [id: string]: IAsset } = {};
+
+  private _assets: Array<IAsset>;
+  @Input() set assets(v: Array<IAsset>) {
+    if (this._assets !== v) {
+      this._assets = v;
+
+      this._assets.forEach(asset => {
+        this._assetsDictionary[asset.id] = asset;
+      });
+    }
+  }
+
+  get assets() { return this._assets; }
 
   @Output() create = new EventEmitter<void>();
 
@@ -40,6 +59,37 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
+  getContent(tag: ITag): ITagContentsItem {
+    return tag.contents[this.defaultLanguage.code];
+  }
+
+  getName(tag: ITag): string | undefined {
+    const tagContent = this.getContent(tag);
+    return !!tagContent ? tagContent.name : undefined;
+  }
+
+  getDescription(tag: ITag): string | undefined {
+    const tagContent = this.getContent(tag);
+    return !!tagContent ? tagContent.description : undefined;
+  }
+
+  getColor(tag: ITag): string | undefined {
+    const tagContent = this.getContent(tag);
+    return !!tagContent ? tagContent.color : undefined;
+  }
+
+  hasThumbnail(tag: ITag): boolean {
+    const tagContent = this.getContent(tag);
+    const asset = !!tagContent && !!tagContent.images && !!tagContent.images.main ? this._assetsDictionary[tagContent.images.main] : undefined;
+    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
+  }
+
+  getThumbnail(tag: ITag): string {
+    const tagContent = this.getContent(tag);
+    const asset = !!tagContent && !!tagContent.images && !!tagContent.images.main ? this._assetsDictionary[tagContent.images.main] : undefined;
+    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+  }
+
   onToggleActive(event: Event, tag: ITag): void {
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -47,20 +97,20 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     this.update.emit({ ...tag, active: !tag.active });
   }
 
-  onCreateTag(): void {
+  onCreate(): void {
     this.create.emit();
   }
 
-  onEditTag(tag: ITag): void {
+  onEdit(tag: ITag): void {
     this.edit.emit(tag);
   }
 
-  onDeleteTag(tag: ITag): void {
+  onDelete(tag: ITag): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
           title: "Delete the tag?",
-          message: `"${tag.name}" will be permanently deleted`,
+          message: `"${this.getName(tag)}" will be permanently deleted`,
         },
       });
 

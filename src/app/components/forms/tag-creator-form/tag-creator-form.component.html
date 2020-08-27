@@ -1,40 +1,25 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div class="form__input-block">
-        <h2 class="form-header">
-            Main options
-        </h2>
-
-        <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Tag name</mat-label>
-                <input matInput type="text" [formControl]="ctrlName" placeholder="Tag name">
-                <mat-error *ngIf="ctrlName.hasError('required')">
-                    Tag name - <strong>required</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-
-        <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Description</mat-label>
-                <textarea matInput [matTextareaAutosize]="true" type="text" [formControl]="ctrlDescription"
-                    placeholder="Description"></textarea>
-            </mat-form-field>
-        </div>
-
-        <h2 class="form-header">
-            Color
-        </h2>
-
-        <div class="form-item">
-            <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value"
-                cpPosition="top-right" [formControl]="ctrlColor" />
-        </div>
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div *ngIf="!!tag; else mainLangContent">
+      <mat-tab-group>
+        <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+          <ta-tag-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
+            [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
+            (update)="updateStateFor($event, lang)" (uploadMainImage)="onMainImageUpload($event, lang)"
+            (uploadIconImage)="onIconImageUpload($event, lang)" (save)="onSave()">
+          </ta-tag-content>
+        </mat-tab>
+      </mat-tab-group>
     </div>
-
+    <ng-template #mainLangContent>
+      <ta-tag-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
+        [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
+      </ta-tag-content>
+    </ng-template>
+  
     <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
-        <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+      <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+      <button mat-flat-button color="accent" type="submit" class="button button__text"
+        [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
     </div>
-</form>
+  </form>
+  

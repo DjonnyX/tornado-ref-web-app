@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { TagCreatorFormComponent } from './tag-creator-form.component';
+import { TagContentComponent } from './tag-content.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTabsModule } from '@angular/material/tabs';
-import { TagContentModule } from './tag-content/tag-content.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
-    TagCreatorFormComponent,
+    TagContentComponent,
   ],
   exports: [
-    TagCreatorFormComponent,
+    TagContentComponent,
   ],
   imports: [
     CommonModule,
@@ -22,8 +22,8 @@ import { TagContentModule } from './tag-content/tag-content.module';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatTabsModule,
-    TagContentModule,
+    AssetPickerUploaderModule,
+    ColorPickerModule,
   ]
 })
-export class TagCreatorFormModule { }
+export class TagContentModule { }

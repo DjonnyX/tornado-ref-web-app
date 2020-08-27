@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 
 @Component({
   selector: 'ta-selectors-editor-component',
@@ -59,18 +60,24 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     return selector.contents[this.defaultLanguage.code];
   }
 
+  getTagContent(tag: ITag): ITagContentsItem {
+    return tag.contents[this.defaultLanguage.code];
+  }
+
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
 
   getTagColor(id: string): string {
     const tag = this.tagList.find(t => t.id === id);
-    return !!tag ? tag.color : "";
+    const tagContent = this.getTagContent(tag);
+    return tagContent?.color || "";
   }
 
   getTagName(id: string): string {
     const tag = this.tagList.find(t => t.id === id);
-    return !!tag ? tag.name : "";
+    const tagContent = this.getTagContent(tag);
+    return tagContent?.name || "";
   }
 
   getSelectorName(selector: ISelector): string | undefined {

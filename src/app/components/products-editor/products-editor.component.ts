@@ -5,6 +5,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
 import { IProduct, IRef, ITag, ILanguage, IProductContentsItem } from '@djonnyx/tornado-types';
+import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -63,14 +64,20 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return product.contents[this.defaultLanguage.code];
   }
 
+  getTagContent(tag: ITag): ITagContentsItem {
+    return tag?.contents[this.defaultLanguage.code];
+  }
+
   getTagColor(id: string): string {
-    const tag = !!this.tagList ? this.tagList.find(t => t.id === id) : undefined;
-    return !!tag ? tag.color : "";
+    const tag = this.tagList.find(t => t.id === id);
+    const tagContent = this.getTagContent(tag);
+    return tagContent?.color || "";
   }
 
   getTagName(id: string): string {
-    const tag = !!this.tagList ? this.tagList.find(t => t.id === id) : undefined;
-    return !!tag ? tag.name : "";
+    const tag = this.tagList.find(t => t.id === id);
+    const tagContent = this.getTagContent(tag);
+    return tagContent?.name || "";
   }
 
   getProductName(product: IProduct): string | undefined {

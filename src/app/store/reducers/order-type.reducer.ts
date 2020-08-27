@@ -1,6 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { OrderTypeActions } from '@store/actions/order-type.action';
 import { IOrderTypeState } from '@store/state/order-type.state';
+import { deepMergeObjects } from '@app/utils/object.util';
 
 export const initialState: IOrderTypeState = {
     loading: false,
@@ -17,6 +18,21 @@ const orderTypeReducer = createReducer(
     on(OrderTypeActions.clear, state => {
         return {
             ...initialState,
+        };
+    }),
+    on(OrderTypeActions.updateImage, (state, { langCode, imageType, assetId }) => {
+        const product = deepMergeObjects(state.orderType, {
+            contents: {
+                [langCode]: {
+                    images: {
+                        [imageType]: assetId,
+                    },
+                },
+            },
+        });
+        return {
+            ...initialState,
+            product,
         };
     }),
     on(OrderTypeActions.getRequest, state => {
