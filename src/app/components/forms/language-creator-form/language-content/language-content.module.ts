@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LanguageCreatorFormComponent } from './language-creator-form.component';
+import { LanguageContentComponent } from './language-content.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTabsModule } from '@angular/material/tabs';
-import { LanguageContentModule } from './language-content/language-content.module';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
   declarations: [
-    LanguageCreatorFormComponent,
+    LanguageContentComponent,
   ],
   exports: [
-    LanguageCreatorFormComponent,
+    LanguageContentComponent,
   ],
   imports: [
     CommonModule,
@@ -22,8 +22,8 @@ import { LanguageContentModule } from './language-content/language-content.modul
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatTabsModule,
-    LanguageContentModule,
+    AssetPickerUploaderModule,
+    ColorPickerModule,
   ]
 })
-export class LanguageCreatorFormModule { }
+export class LanguageContentModule { }
