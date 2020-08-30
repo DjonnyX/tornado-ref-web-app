@@ -12,7 +12,7 @@ export class SearchPipe implements PipeTransform {
       ? items.filter(it =>
         !!it.contents && !!it.contents[defaultLanguage] && it.contents[defaultLanguage].name.toLowerCase().indexOf(pattern.toLowerCase()) !== -1)
       : items.filter(it =>
-        it.contents[defaultLanguage].name.toLowerCase().indexOf(pattern.toLowerCase()) !== -1);
+        it.name.toLowerCase().indexOf(pattern.toLowerCase()) !== -1);
   }
 
 }
