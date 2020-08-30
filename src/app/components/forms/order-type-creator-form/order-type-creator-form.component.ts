@@ -118,10 +118,6 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
     this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadThumbnailImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
-  }
-
   onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }

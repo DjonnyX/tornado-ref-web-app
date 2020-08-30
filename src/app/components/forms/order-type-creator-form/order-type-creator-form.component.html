@@ -1,24 +1,24 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-  <div *ngIf="!!orderType; else mainLangContent">
-    <mat-tab-group>
-      <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
-        <ta-order-type-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-          [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
-          (update)="updateStateFor($event, lang)" (uploadMainImage)="onMainImageUpload($event, lang)"
-          (uploadIconImage)="onIconImageUpload($event, lang)" (save)="onSave()">
+    <div *ngIf="!!orderType; else mainLangContent">
+        <mat-tab-group>
+            <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+                <ta-order-type-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
+                    [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
+                    (update)="updateStateFor($event, lang)" (uploadMainImage)="onMainImageUpload($event, lang)"
+                    (uploadIconImage)="onIconImageUpload($event, lang)" (save)="onSave()">
+                </ta-order-type-content>
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+    <ng-template #mainLangContent>
+        <ta-order-type-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
+            [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
         </ta-order-type-content>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-  <ng-template #mainLangContent>
-    <ta-order-type-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
-      [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
-    </ta-order-type-content>
-  </ng-template>
+    </ng-template>
 
-  <div class="form__submit" align="end">
-    <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
-    <button mat-flat-button color="accent" type="submit" class="button button__text"
-      [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
-  </div>
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+        <button mat-flat-button color="accent" type="submit" class="button button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+    </div>
 </form>

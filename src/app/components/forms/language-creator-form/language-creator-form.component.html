@@ -1,10 +1,12 @@
-<form [formGroup]="form" (ngSubmit)="onSave()" autocomplete="off">
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
         <div class="images" *ngIf="isEditMode">
-            <div class="image-n">
-                <ta-asset-picker-uploader size="m" [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
-                    color="white" (upload)="onMainImageUpload($event)">
-                </ta-asset-picker-uploader>
+            <div class="images-wrapper single">
+                <div class="image-n">
+                    <ta-asset-picker-uploader [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
+                        class="transparent" (upload)="onMainImageUpload($event)">
+                    </ta-asset-picker-uploader>
+                </div>
             </div>
         </div>
 

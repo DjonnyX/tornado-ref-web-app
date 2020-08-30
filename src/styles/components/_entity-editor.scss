@@ -25,6 +25,7 @@ $ctrl-panel-height: px2em(40);
         display: grid;
         grid-auto-flow: dense;
         grid-auto-rows: auto;
+        align-items: center;
     }
     .entity {
         position: relative;

@@ -15,8 +15,8 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
     }
 
     for (const lang in result) {
-        if (!!result[lang].images) {
-            const content = result[lang];
+        if (!!result[lang]?.images) {
+            const content = result[lang] || {};
             for (const imageType in content.images) {
                 const isEqualtFromDefault = equalFromImages(defaultContent, content.images[imageType]);
                 if (imageType !== ProductImageTypes.MAIN && !!content.images.main && (!content.images[imageType] || (isEqualtFromDefault && lang !== defaultLang))) {

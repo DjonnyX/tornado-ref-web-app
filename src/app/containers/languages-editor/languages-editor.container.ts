@@ -82,6 +82,10 @@ export class LanguagesEditorContainer implements OnInit {
     this._store.dispatch(LanguagesActions.updateRequest({id: language.id, language}));
   }
 
+  onUpdateAll(language: ILanguage): void {
+    this._store.dispatch(LanguagesActions.updateRequest({id: language.id, language, setDafault: true}));
+  }
+
   onDelete(id: string): void {
     this._store.dispatch(LanguagesActions.deleteRequest({ id }));
   }
