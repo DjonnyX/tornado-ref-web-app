@@ -8,5 +8,5 @@ export interface ILanguageAssetsState extends IBaseState {
     isCreateProcess: boolean;
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
-    collection: { [lang: string]: Array<IAsset> | null };
+    collection: Array<IAsset> | null;
 }

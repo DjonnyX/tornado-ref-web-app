@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { LanguageActions } from '@store/actions/language.action';
 import { ILanguageState } from '@store/state/language.state';
-import { deepMergeObjects } from '@app/utils/object.util';
 
 export const initialState: ILanguageState = {
     loading: false,
@@ -18,21 +17,6 @@ const languageReducer = createReducer(
     on(LanguageActions.clear, state => {
         return {
             ...initialState,
-        };
-    }),
-    on(LanguageActions.updateImage, (state, { langCode, imageType, assetId }) => {
-        const product = deepMergeObjects(state.language, {
-            contents: {
-                [langCode]: {
-                    images: {
-                        [imageType]: assetId,
-                    },
-                },
-            },
-        });
-        return {
-            ...initialState,
-            product,
         };
     }),
     on(LanguageActions.getRequest, state => {

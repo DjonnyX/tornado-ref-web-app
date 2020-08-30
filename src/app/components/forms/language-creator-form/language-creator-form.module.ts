@@ -5,8 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatTabsModule } from '@angular/material/tabs';
-import { LanguageContentModule } from './language-content/language-content.module';
+import { ColorPickerModule } from 'ngx-color-picker';
+import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
 
 @NgModule({
   declarations: [
@@ -22,8 +22,8 @@ import { LanguageContentModule } from './language-content/language-content.modul
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatTabsModule,
-    LanguageContentModule,
+    AssetPickerUploaderModule,
+    ColorPickerModule,
   ]
 })
 export class LanguageCreatorFormModule { }

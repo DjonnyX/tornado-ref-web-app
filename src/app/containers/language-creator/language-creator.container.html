@@ -1,16 +1,14 @@
-<ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <div class="entity-options-editor">
         <div class="entity-options-editor__back-button" (click)="onToBack()">
             go back
         </div>
         <div class="form">
             <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-                <ta-language-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-                    [language]="language$ | async" [assets]="languageAssets$ | async"
-                    [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-                    (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-                    (uploadMainImage)="onMainImageUpload($event)">
+                [process]="isProcessMainOptions$ | async">
+                <ta-language-creator-form [isEditMode]="isEditMode" [language]="language$ | async"
+                    [images]="images$ | async" [assets]="languageAssets$ | async" (save)="onMainOptionsSave($event)"
+                    (cancel)="onCancel()" (uploadMainImage)="onAssetUpload($event)">
                 </ta-language-creator-form>
             </ta-query-progress>
         </div>
@@ -21,7 +19,7 @@
             </div>
 
             <ta-query-progress class="query-progress-container" style="position: relative;"
-                [process]="(isProcessTranslations$ | async) || !(isPrepareToConfigure$ | async)">
+                [process]="isProcessTranslations$ | async">
                 <ta-translate-form *ngIf="!!(translation$ | async)?.items" [collection]="(translation$ | async).items"
                     (update)="onTranslationUpdate($event)">
                 </ta-translate-form>

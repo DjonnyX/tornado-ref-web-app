@@ -1,35 +1,45 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-    
-    <div class="form__main-options">
-        <div class="form__input-block">
-            <div class="form-item">
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Language code</mat-label>
-                <input matInput type="text" [formControl]="ctrlCode" placeholder="Language code">
-                <mat-error *ngIf="ctrlCode.hasError('required')">
-                  Language code - <strong>required</strong>
-                </mat-error>
-              </mat-form-field>
+    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
+        <div class="images" *ngIf="isEditMode">
+            <div class="images-wrapper single">
+                <div class="image-n">
+                    <ta-asset-picker-uploader [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
+                        class="transparent" (upload)="onMainImageUpload($event)">
+                    </ta-asset-picker-uploader>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h2 class="form-header">
+                Main options
+            </h2>
+
+            <div class="form__main-options">
+                <div class="form__input-block">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Code</mat-label>
+                            <input matInput type="text" [formControl]="ctrlCode" placeholder="Code">
+                            <mat-error *ngIf="ctrlCode.hasError('required')">
+                                <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Name</mat-label>
+                            <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
+                            <mat-error *ngIf="ctrlName.hasError('required')">
+                                <strong>required</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div *ngIf="!!language; else mainLangContent">
-        <mat-tab-group>
-            <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
-                <ta-language-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-                    [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
-                    (update)="updateStateFor($event, lang)" (uploadMainImage)="onMainImageUpload($event, lang)"
-                    (save)="onSave()">
-                </ta-language-content>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-    <ng-template #mainLangContent>
-        <ta-language-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
-            [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
-        </ta-language-content>
-    </ng-template>
 
     <div class="form__submit" align="end">
         <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
