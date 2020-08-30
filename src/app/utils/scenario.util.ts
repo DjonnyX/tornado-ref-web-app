@@ -1,7 +1,9 @@
-import { ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes } from '@djonnyx/tornado-types';
+import { ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, ScenarioProgrammActionTypes } from '@djonnyx/tornado-types';
 
-export const getScenarioTypeName = (type: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string => {
+export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string => {
   switch (type) {
+    case ScenarioProgrammActionTypes.SWITCH:
+      return "Switch";
     case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
       return "Visible by business periods";
     case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -42,6 +42,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     switch (v) {
       case NodeScenarioTypes.CATEGORY:
         this.types = [
+          ScenarioProgrammActionTypes.SWITCH,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
           ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioSelectorActionTypes.MAX_USAGE,
@@ -50,6 +51,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         break;
       case NodeScenarioTypes.PRODUCT:
         this.types = [
+          ScenarioProgrammActionTypes.SWITCH,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
           ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioProductActionTypes.UP_LIMIT,
@@ -59,6 +61,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         break;
       case NodeScenarioTypes.PRODUCT_IN_SCHEMA:
         this.types = [
+          ScenarioProgrammActionTypes.SWITCH,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
           ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioProductActionTypes.UP_LIMIT,
@@ -69,6 +72,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         break;
       case NodeScenarioTypes.CATEGORY_IN_SCHEMA:
         this.types = [
+          ScenarioProgrammActionTypes.SWITCH,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
           ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioSelectorActionTypes.MAX_USAGE,
@@ -94,7 +98,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   ctrlCurrency = new FormControl(undefined, [Validators.required]);
 
-  types: Array<ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes>;
+  types: Array<ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes>;
 
   readonly ScenarioCommonActionTypes = ScenarioCommonActionTypes;
 
@@ -103,6 +107,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   readonly ScenarioProductActionTypes = ScenarioProductActionTypes;
 
   readonly ScenarioSelectorActionTypes = ScenarioSelectorActionTypes;
+
+  readonly ScenarioProgrammActionTypes = ScenarioProgrammActionTypes;
 
   constructor() {
     super();
@@ -159,15 +165,18 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     });
   }
 
-  getTypeName(type: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string {
+  getTypeName(type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string {
     return getScenarioTypeName(type);
   }
 
-  private resetValidators(action: ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
+  private resetValidators(action: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
     this.ctrlCurrency.clearValidators();
     this.ctrlValue.clearValidators();
 
     switch (action) {
+      case ScenarioProgrammActionTypes.SWITCH:
+
+      break;
       case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
         this.ctrlValue.setValue("");
