@@ -69,7 +69,7 @@ export namespace LanguagesActions {
     // update
     export const updateRequest = createAction(
         LanguagesActionTypes.UPDATE_REQUEST,
-        props<{ id: string, language: ILanguage }>(),
+        props<{ id: string, language: ILanguage, setDafault?: boolean }>(),
     );
     export const updateSuccess = createAction(
         LanguagesActionTypes.UPDATE_SUCCESS,

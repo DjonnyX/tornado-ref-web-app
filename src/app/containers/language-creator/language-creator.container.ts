@@ -1,14 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LanguageActions } from '@store/actions/language.action';
 import { LanguageSelectors } from '@store/selectors/language.selectors';
 import { ILanguage, ILanguageImages, IAsset, LanguageImageTypes, ITranslation } from '@djonnyx/tornado-types';
-import { CurrenciesSelectors, LanguageAssetsSelectors, TranslationSelectors } from '@store/selectors';
+import { LanguageAssetsSelectors, TranslationSelectors } from '@store/selectors';
 import { LanguageAssetsActions } from '@store/actions/language-assets.action';
 import { TranslationActions } from '@store/actions/translation.action';
 import { ITranslate } from '@djonnyx/tornado-types/dist/interfaces/raw/ITranslation';
@@ -33,11 +33,16 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
 
   language$: Observable<ILanguage>;
 
+  private _languageId$ = new BehaviorSubject<string>(undefined);
+  readonly languageId$ = this._languageId$.asObservable();
+
   languageAssets$: Observable<Array<IAsset>>;
 
   translation$: Observable<ITranslation>;
 
   images$: Observable<ILanguageImages>;
+
+  isPrepareToConfigure$: Observable<boolean>;
 
   isEditMode = false;
 
@@ -53,6 +58,7 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
     this._languageId = this._activatedRoute.snapshot.queryParams["id"];
+    this._languageId$.next(this._languageId);
 
     this.isEditMode = !!this._languageId;
 
@@ -60,11 +66,8 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(LanguageSelectors.selectIsGetProcess),
       ),
-      this._store.pipe(
-        select(CurrenciesSelectors.selectIsCreateProcess),
-      ),
     ).pipe(
-      map(([isLanguageGetProcess, isCurrenciesGetProcess]) => isLanguageGetProcess || isCurrenciesGetProcess),
+      map(([isLanguageGetProcess]) => isLanguageGetProcess),
     );
 
     this.isProcessTranslations$ = combineLatest(
@@ -109,9 +112,21 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
       takeUntil(this.unsubscribe$),
       filter(language => !!language),
     ).subscribe(language => {
-      this.isEditMode = !!this._languageId;
+      this._language = language;
+      this._languageId = language.id;
+      this._languageId$.next(this._languageId);
+      this.isEditMode = true;
 
       this._store.dispatch(TranslationActions.getRequest({ id: language.translation }));
+
+      // для изменения параметров маршрута
+      this._router.navigate([], {
+        relativeTo: this._activatedRoute,
+        queryParams: {
+          id: this._languageId,
+          returnUrl: this._returnUrl,
+        }
+      });
     });
 
     this.translation$.pipe(
@@ -132,6 +147,7 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
 
     this._store.dispatch(LanguageActions.clear());
     this._store.dispatch(LanguageAssetsActions.clear());
+    this._store.dispatch(TranslationActions.clear());
   }
 
   onMainOptionsSave(language: ILanguage): void {

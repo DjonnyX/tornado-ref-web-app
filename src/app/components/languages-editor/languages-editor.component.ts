@@ -40,6 +40,8 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
 
   @Output() update = new EventEmitter<ILanguage>();
 
+  @Output() updateAll = new EventEmitter<ILanguage>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -70,6 +72,13 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
     event.preventDefault();
 
     this.update.emit({ ...language, active: !language.active });
+  }
+
+  onToggleDefault(event: Event, language: ILanguage): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.updateAll.emit({ ...language, isDefault: !language.isDefault });
   }
 
   onCreate(): void {

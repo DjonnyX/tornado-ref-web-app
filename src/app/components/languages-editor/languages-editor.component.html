@@ -2,7 +2,7 @@
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" *ngFor="let language of collection | search: searchPattern"
-            [class.disabled]="!language.active">
+            [ngClass]="{'is-default': language.isDefault, 'disabled': !language.active}">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
                     <mat-checkbox color="accent" #checkboxActive [checked]="language.active"
@@ -12,6 +12,10 @@
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleDefault($event, language)">
+                        <mat-icon>{{language.isDefault ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
+                        <span>{{language.isDefault ? 'Default' : 'Not default'}}</span>
+                    </button>
                     <button mat-menu-item type="button" (click)="onToggleActive($event, language)">
                         <mat-icon>{{language.active ? 'visibility_off' : 'visibility'}}</mat-icon>
                         <span>{{language.active ? 'Deactivate' : 'Active'}}</span>
@@ -29,8 +33,8 @@
             <div matRipple class="entity-active-zone" (click)="onEdit(language)">
                 <div class="content">
                     <div class="bottom-panel">
-                        <img align="center" *ngIf="hasThumbnail(language.images.main)" class="entity-thumbnail"
-                            [src]="getThumbnail(language.images.main)">
+                        <img align="center" *ngIf="hasThumbnail(language.images?.main)" class="entity-thumbnail"
+                            [src]="getThumbnail(language.images?.main)">
                     </div>
                     <div class="content__name">
                         {{language.name}}

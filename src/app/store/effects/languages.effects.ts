@@ -54,9 +54,13 @@ export default class LanguagesEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguagesActions.updateRequest),
-            switchMap(({ id, language }) => {
+            switchMap(({ id, language, setDafault }) => {
                 return this._apiService.updateLanguage(id, formatLanguageModel(language)).pipe(
                     mergeMap(res => {
+                        if (setDafault) {
+                            this._store.dispatch(LanguagesActions.getAllRequest());
+                            return [LanguagesActions.updateSuccess({ language: res.data, meta: res.meta })];
+                        }
                         return [LanguagesActions.updateSuccess({ language: res.data, meta: res.meta })];
                     }),
                     map(v => v),
