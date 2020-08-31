@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { ScheduleModule } from '@components/schedule/schedule.module';
 import { BusinessPeriodContentModule } from './business-period-content/business-period-content.module';
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { BusinessPeriodContentModule } from './business-period-content/business-
     MatButtonModule,
     MatSelectModule,
     MatFormFieldModule,
+    MatTabsModule,
     ScheduleModule,
     BusinessPeriodContentModule,
   ]
