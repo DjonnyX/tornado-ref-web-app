@@ -4,13 +4,13 @@
             go back
         </div>
         <div class="form">
-            <div class="form-header">
-                <h2>Main options</h2>
-            </div>
-
-            <ta-business-period-creator-form [isEditMode]="isEditMode" [businessPeriod]="businessPeriod$ | async"
-                (submit)="onSubmit($event)" (cancel)="onCancel()">
-            </ta-business-period-creator-form>
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+                <ta-business-period-creator-form [isEditMode]="isEditMode" [businessPeriod]="businessPeriod$ | async"
+                    [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+                    (save)="onMainOptionsSave($event)" (cancel)="onCancel()">
+                </ta-business-period-creator-form>
+            </ta-query-progress>
         </div>
     </div>
 </ta-query-progress>
