@@ -71,7 +71,8 @@
             <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
                 <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
                     [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
-                    [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
+                    [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages"
+                    [defaultLanguage]="defaultLanguage" (deleteAll)="onDeleteScenarios()"
                     (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
                     (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
                     (downward)="onDownwardScenario($event)" [lock]="lock"
@@ -84,7 +85,8 @@
                 *ngIf="!!nodeInstance.scenarios && nodeInstance.scenarios.length > 0">
                 <ta-scenario-list [scenarios]="nodeInstance.scenarios" [businessPeriods]="businessPeriods"
                     [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
-                    [businessPeriodsDictionary]="businessPeriodsDictionary" (deleteAll)="onDeleteScenarios()"
+                    [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages"
+                    [defaultLanguage]="defaultLanguage" (deleteAll)="onDeleteScenarios()"
                     (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
                     (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
                     (downward)="onDownwardScenario($event)" [lock]="true">

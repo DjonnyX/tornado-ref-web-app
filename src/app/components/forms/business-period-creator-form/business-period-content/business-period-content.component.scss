@@ -1,0 +1,43 @@
+@import "../../../../../styles/components/color-picker";
+@import "../../../../../styles/themes";
+@import "../../../../../styles/utils/px2em";
+
+.business-period-content {
+    margin-top: px2em(44);
+    margin-bottom: px2em(44);
+
+    .business-period__description {
+        height: px2em(250);
+    }
+
+    .reset-button {
+        padding: 0;
+    }
+
+    .images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: rgba($block-color, 0.1);
+        border-radius: 6px;
+        padding: px2em(22);
+
+        .images-wrapper {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: px2em(20);
+            width: 100%;
+
+            &.double {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .image-n,
+        .image-m,
+        .image-s {
+            width: 100%;
+            margin-bottom: px2em(20);
+        }
+    }
+}

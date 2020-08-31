@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IBusinessPeriod, IRef } from '@djonnyx/tornado-types';
+import { IBusinessPeriod, IRef, IBusinessPeriodContentsItem, ILanguage } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-business-periods-editor-component',
@@ -16,6 +16,10 @@ export class BusinessPeriodsEditorComponent extends BaseComponent implements OnI
   @Input() collection: Array<IBusinessPeriod>;
 
   @Input() refInfo: IRef;
+
+  @Input() defaultLanguage: ILanguage;
+
+  @Input() languages: Array<ILanguage>;
 
   @Output() create = new EventEmitter<void>();
 
@@ -38,6 +42,20 @@ export class BusinessPeriodsEditorComponent extends BaseComponent implements OnI
     super.ngOnDestroy();
   }
 
+  getContent(tag: IBusinessPeriod): IBusinessPeriodContentsItem {
+    return tag.contents[this.defaultLanguage.code];
+  }
+
+  getName(tag: IBusinessPeriod): string | undefined {
+    const tagContent = this.getContent(tag);
+    return !!tagContent ? tagContent.name : undefined;
+  }
+
+  getDescription(tag: IBusinessPeriod): string | undefined {
+    const tagContent = this.getContent(tag);
+    return !!tagContent ? tagContent.description : undefined;
+  }
+
   onToggleActive(event: Event, businessPeriod: IBusinessPeriod): void {
     event.stopImmediatePropagation();
     event.preventDefault();
@@ -58,7 +76,7 @@ export class BusinessPeriodsEditorComponent extends BaseComponent implements OnI
       {
         data: {
           title: "Delete the business period?",
-          message: `"${businessPeriod.name}" will be permanently deleted`,
+          message: `"${this.getName(businessPeriod)}" will be permanently deleted`,
         },
       });
 

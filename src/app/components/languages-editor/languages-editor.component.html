@@ -13,8 +13,8 @@
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item type="button" (click)="onToggleDefault($event, language)">
-                        <mat-icon>{{language.isDefault ? 'radio_button_checked' : 'radio_button_unchecked'}}</mat-icon>
-                        <span>{{language.isDefault ? 'Default' : 'Not default'}}</span>
+                        <mat-icon>{{language.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}</mat-icon>
+                        <span>{{language.isDefault ? 'Unmark default' : 'To default'}}</span>
                     </button>
                     <button mat-menu-item type="button" (click)="onToggleActive($event, language)">
                         <mat-icon>{{language.active ? 'visibility_off' : 'visibility'}}</mat-icon>

@@ -3,9 +3,9 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
-import { ITag, IAsset, ICurrency, ITagContents, ITagContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { ITag, IAsset, ITagContents, ITagContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
-import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
@@ -56,8 +56,6 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
   get tag() {
     return this._tag;
   }
-
-  @Input() currencies: Array<ICurrency>;
 
   @Input() isEditMode: boolean;
 

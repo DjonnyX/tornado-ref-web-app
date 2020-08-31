@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage } from '@djonnyx/tornado-types';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 
 @Component({
@@ -13,6 +13,10 @@ export class ScenarioListItemComponent implements OnInit {
   @Input() scenario: IScenario;
 
   @Input() businessPeriods: Array<IBusinessPeriod>;
+
+  @Input() languages: Array<ILanguage>;
+
+  @Input() defaultLanguage: ILanguage;
 
   @Input() businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
 
@@ -46,7 +50,7 @@ export class ScenarioListItemComponent implements OnInit {
 
     switch (this.scenario.action) {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-        value = `: ${this.scenario.value.map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v].name : "missing").join(", ")}`;
+        value = `: ${this.scenario.value.map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v]?.contents[this.defaultLanguage?.code]?.name : "missing").join(", ")}`;
         break;
       case ScenarioProductActionTypes.ADDITIONAL_PRICE:
       case ScenarioProductActionTypes.FIXED_PRICE:

@@ -27,7 +27,7 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
   isProcess$: Observable<boolean>;
 
-  isProcessMainOptions$: Observable<boolean>;x
+  isProcessMainOptions$: Observable<boolean>;
 
   isProcessAssets$: Observable<boolean>;
 
@@ -208,7 +208,6 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     }
 
     this._store.dispatch(LanguagesActions.getAllRequest());
-    this._store.dispatch(TagsActions.getAllRequest());
     this._store.dispatch(AssetsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest(
