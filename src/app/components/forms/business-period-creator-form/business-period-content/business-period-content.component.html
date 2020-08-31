@@ -1,0 +1,30 @@
+<div [ngClass]="{'business-period-content': true}">
+    <div>
+      <h2 class="form-header">
+        Main options
+      </h2>
+  
+      <div class="form__main-options">
+        <div class="form__input-block">
+          <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>BusinessPeriod name</mat-label>
+              <input matInput type="text" [formControl]="ctrlName" placeholder="BusinessPeriod name">
+              <mat-error *ngIf="ctrlName.hasError('required')">
+                BusinessPeriod name - <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+  
+          <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Description</mat-label>
+              <textarea matInput class="business-period__description" type="text" [formControl]="ctrlDescription"
+                placeholder="Description"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
