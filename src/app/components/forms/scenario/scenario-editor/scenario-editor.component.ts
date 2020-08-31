@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes } from '@djonnyx/tornado-types';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -14,6 +14,10 @@ import { NodeScenarioTypes } from '@enums/node-scenario-types';
 export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   @Input() currencies: Array<ICurrency>;
+
+  @Input() languages: Array<ILanguage>;
+
+  @Input() defaultLanguage: ILanguage;
 
   private _scenario: IScenario;
 
@@ -167,6 +171,10 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   getTypeName(type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string {
     return getScenarioTypeName(type);
+  }
+
+  getBusinessPeriodName(bp: IBusinessPeriod) {
+    return bp.contents[this.defaultLanguage?.code]?.name;
   }
 
   private resetValidators(action: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {

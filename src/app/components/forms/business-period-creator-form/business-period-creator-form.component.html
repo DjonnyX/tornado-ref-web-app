@@ -1,14 +1,21 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div *ngIf="!!businessPeriod; else mainLangContent">
         <mat-tab-group>
-          <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
-            <ta-business-period-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-              [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode"
-              (update)="updateStateFor($event, lang)" (save)="onSave()">
-            </ta-business-period-content>
-          </mat-tab>
+            <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+                <ta-business-period-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
+                    [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode"
+                    (update)="updateStateFor($event, lang)">
+                </ta-business-period-content>
+            </mat-tab>
         </mat-tab-group>
+    </div>
+    <ng-template #mainLangContent>
+        <ta-business-period-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null"
+            [isEditMode]="isEditMode" (update)="updateStateFor($event, defaultLanguage)">
+        </ta-business-period-content>
+    </ng-template>
 
+    <div class="full-width" [style.display]="!!businessPeriod ? 'inherit' : 'none'">
         <h2>
             Schedule
         </h2>
@@ -16,12 +23,7 @@
         <div class="schedule__wrapper">
             <ta-schedule #schedule></ta-schedule>
         </div>
-      </div>
-      <ng-template #mainLangContent>
-        <ta-business-period-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
-          (update)="updateStateFor($event, defaultLanguage)">
-        </ta-business-period-content>
-      </ng-template>
+    </div>
 
     <div class="form__submit" align="end">
         <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>

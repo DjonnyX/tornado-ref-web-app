@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IScenario, IBusinessPeriod, ICurrency } from '@djonnyx/tornado-types';
+import { IScenario, IBusinessPeriod, ICurrency, ILanguage } from '@djonnyx/tornado-types';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
@@ -10,6 +10,8 @@ interface IDialogData {
   scenario: IScenario;
   businessPeriods: Array<IBusinessPeriod>;
   currencies: Array<ICurrency>;
+  languages: Array<ILanguage>;
+  defaultLanguage: ILanguage;
 }
 
 @Component({

@@ -29,10 +29,10 @@
             <div matRipple class="entity-active-zone" (click)="onEditBusinessPeriod(businessPeriod)">
                 <div class="content">
                     <div class="content__name">
-                        {{businessPeriod.name}}
+                        {{getName(businessPeriod)}}
                     </div>
                     <div class="content__description">
-                        {{businessPeriod.description}}
+                        {{getDescription(businessPeriod)}}
                     </div>
                 </div>
             </div>

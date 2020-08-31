@@ -508,6 +508,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           scenario: undefined,
           businessPeriods: this.businessPeriods,
           currencies: this.currencies,
+          languages: this.languages,
+          defaultLanguage: this.defaultLanguage,
         },
       });
 
@@ -558,6 +560,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           scenario: scenario,
           businessPeriods: this.businessPeriods,
           currencies: this.currencies,
+          languages: this.languages,
+          defaultLanguage: this.defaultLanguage,
         },
       });
 

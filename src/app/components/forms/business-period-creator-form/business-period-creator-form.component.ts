@@ -13,7 +13,7 @@ import { deepMergeObjects } from '@app/utils/object.util';
 })
 export class BusinessPeriodCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @ViewChild("schedule", { static: true }) private _schedule: ScheduleComponent;
+  @ViewChild("schedule", { static: false }) private _schedule: ScheduleComponent;
 
   form: FormGroup;
 
@@ -50,9 +50,13 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
     }
   }
 
+  get businessPeriod() {
+    return this._businessPeriod;
+  }
+
   @Input() isEditMode: boolean;
 
-  @Output() submit = new EventEmitter<IBusinessPeriod>();
+  @Output() save = new EventEmitter<IBusinessPeriod>();
 
   @Output() cancel = new EventEmitter<void>();
 
@@ -89,7 +93,7 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
 
   onSave(): void {
     if (this.form.valid) {
-      this.submit.emit({
+      this.save.emit({
         ...this._businessPeriod,
         ...this.form.value, schedule: this._schedule.value || [],
         contents: { ...(!!this._businessPeriod ? this._businessPeriod.contents : undefined), ...this._state },
