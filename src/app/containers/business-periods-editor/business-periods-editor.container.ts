@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { BusinessPeriodActions } from '@store/actions/business-period.action';
 import { IBusinessPeriod, IRef, ILanguage } from '@djonnyx/tornado-types';
 import { map, filter } from 'rxjs/operators';
+import { LanguagesActions } from '@store/actions/languages.action';
 
 @Component({
   selector: 'ta-business-periods-editor',
@@ -33,6 +34,7 @@ export class BusinessPeriodsEditorContainer implements OnInit {
 
   ngOnInit(): void {
     this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest());
 
     this.isProcess$ = combineLatest(
       this._store.pipe(

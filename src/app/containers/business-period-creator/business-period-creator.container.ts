@@ -189,7 +189,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
     this._store.dispatch(BusinessPeriodActions.clear());
   }
 
-  onSubmit(businessPeriod: IBusinessPeriod): void {
+  onMainOptionsSave(businessPeriod: IBusinessPeriod): void {
     if (this.isEditMode) {
       const normalizedBusinessPeriod: IBusinessPeriod = {...businessPeriod};
 
