@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage } from '@djonnyx/tornado-types';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage, IScenarioPriceValue } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -30,8 +30,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       switch (v.action) {
         case ScenarioProductActionTypes.ADDITIONAL_PRICE:
         case ScenarioProductActionTypes.FIXED_PRICE:
-          this.ctrlValue.setValue(!!v.value ? v.value.value * 0.01 : 0);
-          this.ctrlCurrency.setValue(!!v.value ? v.value.currency : undefined);
+          this.ctrlValue.setValue(!!v.value ? (v.value as IScenarioPriceValue).value * 0.01 : 0);
+          this.ctrlCurrency.setValue(!!v.value ? (v.value as IScenarioPriceValue).currency : undefined);
           break;
         default:
           this.ctrlValue.setValue(v.value);
@@ -145,7 +145,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       switch (value.action) {
         case ScenarioProductActionTypes.ADDITIONAL_PRICE:
         case ScenarioProductActionTypes.FIXED_PRICE:
-          scenario.value = {
+          (scenario.value as IScenarioPriceValue) = {
             currency: value.currency,
             value: value.value * 100,
           };
