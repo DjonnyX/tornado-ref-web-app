@@ -1,14 +1,15 @@
 <ta-state-panel [searchFieldClass]="searchFieldClass" [refInfo]="refInfo" [hasShowRefInfo]="hasShowRefInfo"
-  (search)="onSearch($event)"></ta-state-panel>
+    (search)="onSearch($event)"></ta-state-panel>
 <div class="editor">
-  <ng-container *ngIf="!!nodesCollection && !!productsCollection && !!selectorsCollection && !!defaultLanguage">
-    <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id" [nodes]="nodesCollection"
-      [nodesDictionary]="nodesDictionary" [products]="productsCollection" [selectors]="selectorsCollection"
-      [businessPeriods]="businessPeriods" [currencies]="currenciesCollection"
-      [currenciesDictionary]="currenciesDictionary" [businessPeriodsDictionary]="businessPeriodsDictionary"
-      [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
-      [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
-      [defaultLanguage]="defaultLanguage" [languages]="languages" (create)="onCreate($event)"
-      (update)="onUpdate($event)" (delete)="onDelete($event)"></ta-node-tree-item>
-  </ng-container>
+    <ng-container *ngIf="!!nodesCollection && !!productsCollection && !!selectorsCollection && !!defaultLanguage">
+        <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id"
+            [nodes]="nodesCollection" [nodesDictionary]="nodesDictionary" [products]="productsCollection"
+            [selectors]="selectorsCollection" [businessPeriods]="businessPeriods" [currencies]="currenciesCollection"
+            [currenciesDictionary]="currenciesDictionary" [businessPeriodsDictionary]="businessPeriodsDictionary"
+            [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
+            [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
+            [defaultLanguage]="defaultLanguage" [languages]="languages" [languagesDictionary]="languagesDictionary"
+            [orderTypes]="orderTypes" [orderTypesDictionary]="orderTypesDictionary" (create)="onCreate($event)"
+            (update)="onUpdate($event)" (delete)="onDelete($event)"></ta-node-tree-item>
+    </ng-container>
 </div>

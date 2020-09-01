@@ -1,7 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { IScenario, IBusinessPeriod, ICurrency, ILanguage } from '@djonnyx/tornado-types';
+import { IScenario, IBusinessPeriod, ICurrency, ILanguage, IProduct, ISelector, IOrderType } from '@djonnyx/tornado-types';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
+import { ICollectionDictionary } from '@app/utils/collection.util';
 
 interface IDialogData {
   type: NodeScenarioTypes;
@@ -9,8 +10,17 @@ interface IDialogData {
   message: string;
   scenario: IScenario;
   businessPeriods: Array<IBusinessPeriod>;
+  businessPeriodsDictionary: ICollectionDictionary<IBusinessPeriod>;
   currencies: Array<ICurrency>;
+  currenciesDictionary: ICollectionDictionary<ICurrency>;
   languages: Array<ILanguage>;
+  languagesDictionary: ICollectionDictionary<ILanguage>;
+  products: Array<IProduct>;
+  productsDictionary: ICollectionDictionary<IProduct>;
+  selectors: Array<ISelector>;
+  selectorsDictionary: ICollectionDictionary<ISelector>;
+  orderTypes: Array<IOrderType>;
+  orderTypesDictionary: ICollectionDictionary<IOrderType>;
   defaultLanguage: ILanguage;
 }
 

@@ -1,10 +1,11 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage, IScenarioPriceValue } from '@djonnyx/tornado-types';
+import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage, IScenarioPriceValue, IOrderType, ISelector, IProduct } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
+import { ICollectionDictionary } from '@app/utils/collection.util';
 
 @Component({
   selector: 'ta-scenario-editor',
@@ -90,7 +91,25 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     }
   }
 
+  @Input() languagesDictionary: ICollectionDictionary<ILanguage>;
+
+  @Input() orderTypes: Array<IOrderType>;
+
+  @Input() orderTypesDictionary: ICollectionDictionary<IOrderType>;
+
+  @Input() currenciesDictionary: ICollectionDictionary<ICurrency>;
+
   @Input() businessPeriods: Array<IBusinessPeriod>;
+
+  @Input() businessPeriodsDictionary: ICollectionDictionary<IBusinessPeriod>;
+
+  @Input() selectors: Array<ISelector>;
+
+  @Input() selectorsDictionary: ICollectionDictionary<ISelector>;
+
+  @Input() products: Array<IProduct>;
+
+  @Input() productsDictionary: ICollectionDictionary<IProduct>;
 
   @Output() edit = new EventEmitter<IScenario>();
 

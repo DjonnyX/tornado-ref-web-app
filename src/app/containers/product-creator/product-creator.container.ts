@@ -3,7 +3,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
+import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors, OrderTypesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -15,7 +15,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductImageTypes, ILanguage, IProductContents } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductImageTypes, ILanguage, IProductContents, IOrderType } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
@@ -52,6 +52,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   selectors$: Observable<Array<ISelector>>;
 
   products$: Observable<Array<IProduct>>;
+
+  orderTypes$: Observable<Array<IOrderType>>;
 
   productAssets$: Observable<Array<IAsset>>;
 
@@ -122,9 +124,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(OrderTypesSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess),
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess, isOrderTypesProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -178,6 +183,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.businessPeriods$ = this._store.pipe(
       select(BusinessPeriodsSelectors.selectCollection),
+    );
+
+    this.orderTypes$ = this._store.pipe(
+      select(OrderTypesSelectors.selectCollection),
     );
 
     this.languages$ = this._store.pipe(

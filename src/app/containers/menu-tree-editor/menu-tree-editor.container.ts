@@ -2,17 +2,18 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
 import { IAppState } from '@store/state';
-import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors, AssetsSelectors, CurrenciesSelectors, LanguagesSelectors } from '@store/selectors';
+import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors, AssetsSelectors, CurrenciesSelectors, LanguagesSelectors, OrderTypesSelectors } from '@store/selectors';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductsActions } from '@store/actions/products.action';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage } from '@djonnyx/tornado-types';
+import { INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage, IOrderType } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
+import { OrderTypesActions } from '@store/actions/order-types.action';
 
 @Component({
   selector: 'ta-menu-tree-editor',
@@ -30,6 +31,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
   products$: Observable<Array<IProduct>>;
 
   businessPeriods$: Observable<Array<IBusinessPeriod>>;
+
+  orderTypes$: Observable<Array<IOrderType>>;
 
   assets$: Observable<Array<IAsset>>;
 
@@ -67,6 +70,7 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(AssetsActions.getAllRequest());
       this._store.dispatch(CurrenciesActions.getAllRequest());
       this._store.dispatch(LanguagesActions.getAllRequest());
+      this._store.dispatch(OrderTypesActions.getAllRequest());
     });
 
     this.nodes$ = this._store.pipe(
@@ -95,6 +99,10 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
     this.refInfo$ = this._store.pipe(
       select(MenuNodesSelectors.selectRefInfo),
+    );
+
+    this.orderTypes$ = this._store.pipe(
+      select(OrderTypesSelectors.selectCollection),
     );
 
     this.languages$ = this._store.pipe(
@@ -129,9 +137,12 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(OrderTypesSelectors.selectIsGetProcess),
+      ),
     ).pipe(
-      map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading, assetsLoading, isCurrenciesProcess, isLanguagesProcess]) => 
-      (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading || assetsLoading || isCurrenciesProcess || isLanguagesProcess)),
+      map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading, assetsLoading, isCurrenciesProcess, isLanguagesProcess, isOrderTypesProcess]) => 
+      (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading || assetsLoading || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess)),
     );
   }
 
