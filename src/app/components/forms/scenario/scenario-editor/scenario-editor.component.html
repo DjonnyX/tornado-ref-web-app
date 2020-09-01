@@ -26,6 +26,21 @@
             </div>
         </ng-container>
 
+        <ng-container *ngIf="ctrlAction.value === ScenarioProgrammActionTypes.EXPRESSION">
+            <div class="form-item">
+                <ta-expression-editor></ta-expression-editor>
+                <!--<mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Business periods</mat-label>
+                    <mat-select [formControl]="ctrlValue" multiple>
+                        <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ctrlValue.hasError('required')">
+                        <strong>required</strong>
+                    </mat-error>
+                </mat-form-field>-->
+            </div>
+        </ng-container>
+
         <ng-container *ngIf="ctrlAction.value === ScenarioIntroActionTypes.DURATION">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">

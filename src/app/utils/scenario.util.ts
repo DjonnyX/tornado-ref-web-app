@@ -4,6 +4,8 @@ export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | Scenario
   switch (type) {
     case ScenarioProgrammActionTypes.SWITCH:
       return "Switch";
+    case ScenarioProgrammActionTypes.EXPRESSION:
+      return "Expression";
     case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
       return "Visible by business periods";
     case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:

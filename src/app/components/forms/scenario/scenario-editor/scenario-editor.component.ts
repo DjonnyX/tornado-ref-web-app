@@ -46,18 +46,20 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     switch (v) {
       case NodeScenarioTypes.CATEGORY:
         this.types = [
-          ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioSelectorActionTypes.MAX_USAGE,
-          ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
+          // ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
         break;
       case NodeScenarioTypes.PRODUCT:
         this.types = [
-          ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.ADDITIONAL_PRICE,
           ScenarioProductActionTypes.FIXED_PRICE,
@@ -65,9 +67,10 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         break;
       case NodeScenarioTypes.PRODUCT_IN_SCHEMA:
         this.types = [
-          ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.DOWN_LIMIT,
           ScenarioProductActionTypes.ADDITIONAL_PRICE,
@@ -76,11 +79,12 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         break;
       case NodeScenarioTypes.CATEGORY_IN_SCHEMA:
         this.types = [
-          ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.SWITCH,
+          // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
           ScenarioSelectorActionTypes.MAX_USAGE,
-          ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
+          // ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
         break;
     }
@@ -183,6 +187,9 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
     switch (action) {
       case ScenarioProgrammActionTypes.SWITCH:
+
+      break;
+      case ScenarioProgrammActionTypes.EXPRESSION:
 
       break;
       case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
