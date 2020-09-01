@@ -30,10 +30,10 @@ export enum OrderTypeAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/orderType/assets/delete:success",
     DELETE_ERROR = "TORNADO/orderType/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/orderType/assets/upload-image:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/orderType/assets/upload-image:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/orderType/assets/upload-image:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/orderType/assets/upload-image:error",
+    UPLOAD_IMAGE_REQUEST = "TORNADO/orderType/assets/upload-resources:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/orderType/assets/upload-resources:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/orderType/assets/upload-resources:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/orderType/assets/upload-resources:error",
 
     CLEAR = "TORNADO/orderType/assets/clear",
 }
@@ -127,7 +127,7 @@ export namespace OrderTypeAssetsActions {
     // upload
     export const uploadImageRequest = createAction(
         OrderTypeAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ orderTypeId: string, imageType: OrderTypeImageTypes, data: IFileUploadEvent }>()
+        props<{ orderTypeId: string, resourcesType: OrderTypeImageTypes, data: IFileUploadEvent }>()
     );
     export const uploadImageSuccess = createAction(
         OrderTypeAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,

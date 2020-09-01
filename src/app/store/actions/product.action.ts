@@ -14,7 +14,7 @@ export enum ProductActionTypes {
     UPDATE_SUCCESS = "TORNADO/product/update:success",
     UPDATE_ERROR = "TORNADO/product/update:error",
 
-    UPDATE_IMAGE = "TORNADO/product/update-image",
+    UPDATE_IMAGE = "TORNADO/product/update-resources",
 
     UPDATE = "TORNADO/product/update",
 
@@ -67,7 +67,7 @@ export namespace ProductActions {
     // updateImage
     export const updateImage = createAction(
         ProductActionTypes.UPDATE_IMAGE,
-        props<{ langCode: string, imageType: ProductImageTypes, assetId: string }>(),
+        props<{ langCode: string, resourcesType: ProductImageTypes, assetId: string }>(),
     );
 
     // update state

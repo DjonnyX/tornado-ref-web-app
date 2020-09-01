@@ -4,7 +4,7 @@
             <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
                 <ta-product-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
                     [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
-                    [imagesGallery]="getImagesGallery(lang)" (update)="updateStateFor($event, lang)"
+                    [resourcesGallery]="getImagesGallery(lang)" (update)="updateStateFor($event, lang)"
                     (uploadMainImage)="onMainImageUpload($event, lang)"
                     (uploadIconImage)="onIconImageUpload($event, lang)"
                     (uploadThumbnailImage)="onThumbnailImageUpload($event, lang)"
@@ -16,7 +16,7 @@
     </div>
     <ng-template #mainLangContent>
         <ta-product-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
-            [assets]="assets" [imagesGallery]="getImagesGallery(defaultLanguage)"
+            [assets]="assets" [resourcesGallery]="getImagesGallery(defaultLanguage)"
             (update)="updateStateFor($event, defaultLanguage)">
         </ta-product-content>
     </ng-template>

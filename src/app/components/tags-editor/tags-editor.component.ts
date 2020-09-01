@@ -80,13 +80,13 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   hasThumbnail(tag: ITag): boolean {
     const tagContent = this.getContent(tag);
-    const asset = !!tagContent && !!tagContent.images && !!tagContent.images.main ? this._assetsDictionary[tagContent.images.main] : undefined;
+    const asset = !!tagContent && !!tagContent.resources && !!tagContent.resources.main ? this._assetsDictionary[tagContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
   getThumbnail(tag: ITag): string {
     const tagContent = this.getContent(tag);
-    const asset = !!tagContent && !!tagContent.images && !!tagContent.images.main ? this._assetsDictionary[tagContent.images.main] : undefined;
+    const asset = !!tagContent && !!tagContent.resources && !!tagContent.resources.main ? this._assetsDictionary[tagContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 

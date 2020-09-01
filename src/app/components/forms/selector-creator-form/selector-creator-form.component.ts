@@ -57,7 +57,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     return this._selector;
   }
 
-  @Input() imagesGallery: Array<{ [lang: string]: IAsset }>;
+  @Input() resourcesGallery: Array<{ [lang: string]: IAsset }>;
 
   @Input() isEditMode: boolean;
 

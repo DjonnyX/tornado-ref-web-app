@@ -40,7 +40,7 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
 
   translation$: Observable<ITranslation>;
 
-  images$: Observable<ILanguageImages>;
+  resources$: Observable<ILanguageImages>;
 
   isPrepareToConfigure$: Observable<boolean>;
 
@@ -100,7 +100,7 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
       select(LanguageSelectors.selectEntity),
     );
 
-    this.images$ = this._store.pipe(
+    this.resources$ = this._store.pipe(
       select(LanguageSelectors.selectImages),
     );
 
@@ -177,6 +177,6 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onAssetUpload(file: File): void {
-    this._store.dispatch(LanguageAssetsActions.uploadImageRequest({ languageId: this._languageId, imageType: LanguageImageTypes.MAIN, file }));
+    this._store.dispatch(LanguageAssetsActions.uploadImageRequest({ languageId: this._languageId, resourcesType: LanguageImageTypes.MAIN, file }));
   }
 }

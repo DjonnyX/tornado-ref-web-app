@@ -27,7 +27,7 @@ export default class OrderTypeAssetsEffects {
     public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.uploadImageRequest),
-            switchMap(({ orderTypeId, imageType, data }) => {
+            switchMap(({ orderTypeId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
@@ -44,10 +44,10 @@ export default class OrderTypeAssetsEffects {
                 }
                 this._store.dispatch(OrderTypeActions.updateImage({
                     langCode: data.langCode,
-                    imageType,
+                    resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadOrderTypeImage(orderTypeId, imageType, data).pipe(
+                return this._apiService.uploadOrderTypeImage(orderTypeId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [OrderTypeAssetsActions.uploadImageProgress({

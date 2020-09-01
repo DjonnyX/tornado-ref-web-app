@@ -266,10 +266,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
           result[lang] = assets[lang].filter(asset =>
             !product.contents[lang] ||
             (
-              !product.contents[lang].images || (asset.id !== 
-              product.contents[lang].images.main && asset.id !==
-              product.contents[lang].images.thumbnail && asset.id !==
-              product.contents[lang].images.icon)
+              !product.contents[lang].resources || (asset.id !== 
+              product.contents[lang].resources.main && asset.id !==
+              product.contents[lang].resources.thumbnail && asset.id !==
+              product.contents[lang].resources.icon)
             ))
         }
 
@@ -369,15 +369,15 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.MAIN, data }));
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, resourcesType: ProductImageTypes.MAIN, data }));
   }
 
   onThumbnailImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.THUMBNAIL, data }));
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, resourcesType: ProductImageTypes.THUMBNAIL, data }));
   }
 
   onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, imageType: ProductImageTypes.ICON, data }));
+    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, resourcesType: ProductImageTypes.ICON, data }));
   }
 
   onCreateHierarchyNode(node: INode): void {

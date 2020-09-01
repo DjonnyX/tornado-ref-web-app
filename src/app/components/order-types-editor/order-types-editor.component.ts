@@ -80,13 +80,13 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
 
   hasThumbnail(orderType: IOrderType): boolean {
     const orderTypeContent = this.getContent(orderType);
-    const asset = !!orderTypeContent && !!orderTypeContent.images && !!orderTypeContent.images.main ? this._assetsDictionary[orderTypeContent.images.main] : undefined;
+    const asset = !!orderTypeContent && !!orderTypeContent.resources && !!orderTypeContent.resources.main ? this._assetsDictionary[orderTypeContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
   getThumbnail(orderType: IOrderType): string {
     const orderTypeContent = this.getContent(orderType);
-    const asset = !!orderTypeContent && !!orderTypeContent.images && !!orderTypeContent.images.main ? this._assetsDictionary[orderTypeContent.images.main] : undefined;
+    const asset = !!orderTypeContent && !!orderTypeContent.resources && !!orderTypeContent.resources.main ? this._assetsDictionary[orderTypeContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 

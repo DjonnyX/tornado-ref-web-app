@@ -27,7 +27,7 @@ export default class ProductAssetsEffects {
     public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ProductAssetsActions.uploadImageRequest),
-            switchMap(({ productId, imageType, data }) => {
+            switchMap(({ productId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
@@ -44,10 +44,10 @@ export default class ProductAssetsEffects {
                 }
                 this._store.dispatch(ProductActions.updateImage({
                     langCode: data.langCode,
-                    imageType,
+                    resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadProductImage(productId, imageType, data).pipe(
+                return this._apiService.uploadProductImage(productId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [ProductAssetsActions.uploadImageProgress({

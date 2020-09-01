@@ -27,7 +27,7 @@ export default class LanguageAssetsEffects {
     public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguageAssetsActions.uploadImageRequest),
-            switchMap(({ languageId, imageType, file }) => {
+            switchMap(({ languageId, resourcesType, file }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
@@ -42,7 +42,7 @@ export default class LanguageAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.uploadLanguageImage(languageId, imageType, file).pipe(
+                return this._apiService.uploadLanguageImage(languageId, resourcesType, file).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [LanguageAssetsActions.uploadImageProgress({

@@ -11,7 +11,7 @@ export namespace LanguageSelectors {
 
   export const selectImages = createSelector(
     selectLanguage,
-    state => !!state.language ? state.language.images : undefined,
+    state => !!state.language ? state.language.resources : undefined,
   );
 
   export const selectLoading = createSelector(

@@ -30,10 +30,10 @@ export enum SelectorAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/selector/assets/delete:success",
     DELETE_ERROR = "TORNADO/selector/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/selector/assets/upload-image:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/selector/assets/upload-image:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/selector/assets/upload-image:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/selector/assets/upload-image:error",
+    UPLOAD_IMAGE_REQUEST = "TORNADO/selector/assets/upload-resources:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/selector/assets/upload-resources:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/selector/assets/upload-resources:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/selector/assets/upload-resources:error",
 
     CLEAR = "TORNADO/selector/assets/clear",
 }
@@ -127,7 +127,7 @@ export namespace SelectorAssetsActions {
     // upload
     export const uploadImageRequest = createAction(
         SelectorAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ selectorId: string, imageType: SelectorImageTypes, data: IFileUploadEvent }>()
+        props<{ selectorId: string, resourcesType: SelectorImageTypes, data: IFileUploadEvent }>()
     );
     export const uploadImageSuccess = createAction(
         SelectorAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,

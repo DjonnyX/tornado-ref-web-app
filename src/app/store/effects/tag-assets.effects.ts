@@ -27,7 +27,7 @@ export default class TagAssetsEffects {
     public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(TagAssetsActions.uploadImageRequest),
-            switchMap(({ tagId, imageType, data }) => {
+            switchMap(({ tagId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
@@ -44,10 +44,10 @@ export default class TagAssetsEffects {
                 }
                 this._store.dispatch(TagActions.updateImage({
                     langCode: data.langCode,
-                    imageType,
+                    resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadTagImage(tagId, imageType, data).pipe(
+                return this._apiService.uploadTagImage(tagId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [TagAssetsActions.uploadImageProgress({

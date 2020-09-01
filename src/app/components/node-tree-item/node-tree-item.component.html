@@ -82,7 +82,7 @@
         </ng-container>
         <ng-template #renderInstanceScenarios>
             <div class="node-tree-scenario-editor"
-                *ngIf="!!nodeInstance.scenarios && nodeInstance.scenarios.length > 0">
+                *ngIf="!!nodeInstance?.scenarios && nodeInstance?.scenarios?.length > 0">
                 <ta-scenario-list [scenarios]="nodeInstance.scenarios" [businessPeriods]="businessPeriods"
                     [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
                     [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages"

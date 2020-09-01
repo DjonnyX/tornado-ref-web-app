@@ -14,7 +14,7 @@ export enum OrderTypeActionTypes {
     UPDATE_SUCCESS = "TORNADO/order-type/update:success",
     UPDATE_ERROR = "TORNADO/order-type/update:error",
 
-    UPDATE_IMAGE = "TORNADO/order-type/update-image",
+    UPDATE_IMAGE = "TORNADO/order-type/update-resources",
 
     CLEAR = "TORNADO/order-type/clear",
 }
@@ -65,7 +65,7 @@ export namespace OrderTypeActions {
     // updateImage
     export const updateImage = createAction(
         OrderTypeActionTypes.UPDATE_IMAGE,
-        props<{ langCode: string, imageType: OrderTypeImageTypes, assetId: string }>(),
+        props<{ langCode: string, resourcesType: OrderTypeImageTypes, assetId: string }>(),
     );
 
     // clear

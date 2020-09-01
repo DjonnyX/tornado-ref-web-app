@@ -27,7 +27,7 @@ export default class SelectorAssetsEffects {
     public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorAssetsActions.uploadImageRequest),
-            switchMap(({ selectorId, imageType, data }) => {
+            switchMap(({ selectorId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
@@ -44,10 +44,10 @@ export default class SelectorAssetsEffects {
                 }
                 this._store.dispatch(SelectorActions.updateImage({
                     langCode: data.langCode,
-                    imageType,
+                    resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadSelectorImage(selectorId, imageType, data).pipe(
+                return this._apiService.uploadSelectorImage(selectorId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [SelectorAssetsActions.uploadImageProgress({

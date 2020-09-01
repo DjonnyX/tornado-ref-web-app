@@ -276,16 +276,16 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
         const content = this.productsDictionary[this.node.contentId];
 
-        if (!!content && !!content.contents[this.defaultLanguage?.code]?.images?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]) {
-          return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]?.mipmap?.x32;
+        if (!!content && !!content.contents[this.defaultLanguage?.code]?.resources?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]) {
+          return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]?.mipmap?.x32;
         }
       } else
         if (!!this.selectorsDictionary) {
           if (this.node.type === NodeTypes.SELECTOR) {
             const content = this.selectorsDictionary[this.node.contentId];
 
-            if (!!content && !!content.contents[this.defaultLanguage?.code]?.images?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]) {
-              return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]?.mipmap?.x32;
+            if (!!content && !!content.contents[this.defaultLanguage?.code]?.resources?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]) {
+              return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]?.mipmap?.x32;
             }
           }
           if (this.node.type === NodeTypes.SELECTOR_NODE) {
@@ -293,8 +293,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             if (!!node) {
               const content = this.selectorsDictionary[node.contentId];
 
-              if (!!content && !!content.contents[this.defaultLanguage?.code]?.images?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]) {
-                return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]?.mipmap?.x32;
+              if (!!content && !!content.contents[this.defaultLanguage?.code]?.resources?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]) {
+                return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]?.mipmap?.x32;
               }
             }
           }
@@ -317,10 +317,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
         return this.productsDictionary[this.node.contentId];
       } else
         if (!!this._nodesDictionary && this.node.type === NodeTypes.SELECTOR_NODE) {
-          const content = this._nodesDictionary[this.node.contentId];
-          const contentId = content.contentId;
+          const content = this._nodesDictionary[this.node?.contentId];
+          const contentId = content?.contentId;
           if (!!contentId && !!this.selectorsDictionary) {
-            return this.selectorsDictionary[content.contentId];
+            return this.selectorsDictionary[contentId];
           }
         }
 

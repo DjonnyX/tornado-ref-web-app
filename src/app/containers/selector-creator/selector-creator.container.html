@@ -8,7 +8,7 @@
         [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
         <ta-selector-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
           [selector]="selector$ | async" [assets]="selectorAssets$ | async"
-          [imagesGallery]="gallerySelectorAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
+          [resourcesGallery]="gallerySelectorAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
           [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
           (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
           (uploadThumbnailImage)="onThumbnailImageUpload($event)">
