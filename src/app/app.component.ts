@@ -61,7 +61,7 @@ export class AppComponent implements OnInit {
   ngOnInit(): void { }
 
   private extractUrlPath(url: string): string {
-    const urlPath = url?.match(/^.*(?=\?)/);
+    const urlPath = url?.match(/^.*(?=\?)|(.*)/);
     return !!urlPath && urlPath.length > 0 ? urlPath[0] : undefined;
   }
 
