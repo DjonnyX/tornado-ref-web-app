@@ -16,6 +16,7 @@ import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { normalizeEntityContents } from '@app/utils/entity.util';
+import { SelectorsActions } from '@store/actions/selectors.action';
 
 @Component({
   selector: 'ta-order-type-creator',
@@ -240,6 +241,7 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
     this._store.dispatch(OrderTypeActions.clear());
     this._store.dispatch(OrderTypeAssetsActions.clear());
+    this._store.dispatch(SelectorsActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {
