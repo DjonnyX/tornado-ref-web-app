@@ -67,7 +67,7 @@ export default class ProductAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -85,7 +85,7 @@ export default class ProductAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -103,7 +103,7 @@ export default class ProductAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -149,7 +149,7 @@ export default class ProductAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -170,7 +170,7 @@ export default class ProductAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -188,7 +188,7 @@ export default class ProductAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

@@ -67,7 +67,7 @@ export default class SelectorAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -85,7 +85,7 @@ export default class SelectorAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -103,7 +103,7 @@ export default class SelectorAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -149,7 +149,7 @@ export default class SelectorAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -170,7 +170,7 @@ export default class SelectorAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -188,7 +188,7 @@ export default class SelectorAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

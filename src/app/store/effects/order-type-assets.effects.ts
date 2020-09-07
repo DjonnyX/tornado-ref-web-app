@@ -67,7 +67,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -85,7 +85,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -103,7 +103,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -149,7 +149,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -170,7 +170,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -188,7 +188,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

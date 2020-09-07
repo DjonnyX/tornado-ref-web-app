@@ -61,7 +61,7 @@ export default class LanguageAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -79,7 +79,7 @@ export default class LanguageAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -124,7 +124,7 @@ export default class LanguageAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -145,7 +145,7 @@ export default class LanguageAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -163,7 +163,7 @@ export default class LanguageAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

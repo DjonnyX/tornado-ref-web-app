@@ -10,6 +10,8 @@ export class ResetPasswordVerifyTokenGuard implements CanActivate {
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         const token = route.queryParams["token"];
+        
+        console.log(token)
 
         if (!token) {
             this.gotoInvalidPage("Token is not valid.");
