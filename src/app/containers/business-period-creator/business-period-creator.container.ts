@@ -198,8 +198,6 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
     } else {
       this._store.dispatch(BusinessPeriodActions.createRequest({ businessPeriod }));
     }
-
-    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {

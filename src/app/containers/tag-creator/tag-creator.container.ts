@@ -259,8 +259,6 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     } else {
       this._store.dispatch(TagActions.createRequest({ tag }));
     }
-
-    // this._router.navigate([this._returnUrl]);
   }
 
   onMainOptionsCancel(): void {
