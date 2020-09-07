@@ -42,6 +42,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   isLoading: boolean = true;
 
+  isError: boolean = false;
+
   constructor() {
     super();
   }
@@ -50,6 +52,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   onUploadFile(file: File): void {
     this.isLoading = false;
+    this.isError = false;
     this.upload.emit(file);
   }
 
@@ -65,6 +68,11 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   loadingComplete() {
     this.isLoading = false;
+  }
+
+  loadingError() {
+    this.isLoading = false;
+    this.isError = true;
   }
 
   getThumbnail(): string {

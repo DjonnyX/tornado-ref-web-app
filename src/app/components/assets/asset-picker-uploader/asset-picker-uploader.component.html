@@ -5,7 +5,7 @@
         <div class="asset-preview__substract"></div>
         <div *ngIf="!!color" [style.background-color]="color" class="asset-preview__substract-color"></div>
         <div class="asset-preview">
-            <img [style.display]="isLoading ? 'none' : 'initial'" [src]="getThumbnail()" (load)="loadingComplete()">
+            <img [style.display]="isLoading || isError ? 'none' : 'initial'" [src]="getThumbnail()" (load)="loadingComplete()" (error)="loadingError()">
         </div>
     </div>
     <div class="form-item">
