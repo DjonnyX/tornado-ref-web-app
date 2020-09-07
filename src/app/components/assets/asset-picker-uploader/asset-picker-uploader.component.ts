@@ -19,6 +19,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
   @Input() set defaultValue(v: string) {
     if (!!v && this._defaultValue !== v) {
       this._defaultValue = v;
+      
+      this.isLoading = true;
 
       this.updateAsset();
     }
@@ -28,7 +30,6 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
   @Input() set assets(v: Array<IAsset>) {
     if (this._assets !== v) {
       this._assets = v;
-      this.isLoading = true;
 
       this.updateAsset();
     }
@@ -40,7 +41,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   asset: IAsset;
 
-  isLoading: boolean = true;
+  isLoading: boolean = false;
 
   isError: boolean = false;
 
