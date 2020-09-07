@@ -50,14 +50,14 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   ngOnInit(): void { }
 
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
   onUploadFile(file: File): void {
     this.isLoading = false;
     this.isError = false;
     this.upload.emit(file);
-  }
-
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
   }
 
   updateAsset(): void {
@@ -67,7 +67,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
   }
 
   loadingComplete() {
-    this.isLoading = false;
+    this.isLoading = this.isError = false;
   }
 
   loadingError() {
