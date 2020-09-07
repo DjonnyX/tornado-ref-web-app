@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
-import { ProductImageTypes } from '@djonnyx/tornado-types';
+import { ProductResourceTypes } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 
 export enum ProductAssetsActionTypes {
@@ -125,15 +125,15 @@ export namespace ProductAssetsActions {
     );
 
     // upload
-    export const uploadImageRequest = createAction(
+    export const uploadResourceRequest = createAction(
         ProductAssetsActionTypes.UPLOAD_RESOURCE_REQUEST,
-        props<{ productId: string, resourcesType: ProductImageTypes, data: IFileUploadEvent }>()
+        props<{ productId: string, resourcesType: ProductResourceTypes, data: IFileUploadEvent }>()
     );
-    export const uploadImageSuccess = createAction(
+    export const uploadResourceSuccess = createAction(
         ProductAssetsActionTypes.UPLOAD_RESOURCE_SUCCESS,
         props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
-    export const uploadImageProgress = createAction(
+    export const uploadResourceProgress = createAction(
         ProductAssetsActionTypes.UPLOAD_RESOURCE_PROGRESS,
         props<{
             tmpAsset: IAsset,
@@ -145,7 +145,7 @@ export namespace ProductAssetsActions {
             }
         }>()
     );
-    export const uploadImageError = createAction(
+    export const uploadResourceError = createAction(
         ProductAssetsActionTypes.UPLOAD_RESOURCE_ERROR,
         props<{
             tmpAsset: IAsset,

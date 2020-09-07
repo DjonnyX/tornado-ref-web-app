@@ -65,11 +65,11 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
 
   @Output() update = new EventEmitter<ITag>();
 
-  @Output() uploadMainImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadIconResource = new EventEmitter<IFileUploadEvent>();
 
   private _state: ITagContents = {};
 
@@ -112,16 +112,16 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
     }
   }
 
-  onMainImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadMainResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadThumbnailImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onThumbnailResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadThumbnailResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
   onCancel(): void {

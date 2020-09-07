@@ -24,9 +24,9 @@ export default class TagAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-    public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadResourceRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(TagAssetsActions.uploadImageRequest),
+            ofType(TagAssetsActions.uploadResourceRequest),
             switchMap(({ tagId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
@@ -42,15 +42,15 @@ export default class TagAssetsEffects {
                     },
                     ext: ext,
                 }
-                this._store.dispatch(TagActions.updateImage({
+                this._store.dispatch(TagActions.updateResource({
                     langCode: data.langCode,
                     resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadTagImage(tagId, resourcesType, data).pipe(
+                return this._apiService.uploadTagResource(tagId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
-                            return [TagAssetsActions.uploadImageProgress({
+                            return [TagAssetsActions.uploadResourceProgress({
                                 tmpAsset,
                                 langCode: data.langCode,
                                 progress: {
@@ -61,14 +61,14 @@ export default class TagAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [TagAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
+                            return [TagAssetsActions.uploadResourceProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [TagAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), TagActions.getRequest({ id: tagId })];
+                        return [TagAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), TagActions.getRequest({ id: tagId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(TagAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
+                        return of(TagAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
             })

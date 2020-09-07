@@ -11,11 +11,10 @@ import { IAsset, IFileUploadEvent } from '@models';
 import { OrderTypeAssetsActions } from '@store/actions/order-type-assets.action';
 import { OrderTypeSelectors } from '@store/selectors/order-type.selectors';
 import { OrderTypeActions } from '@store/actions/order-type.action';
-import { IOrderType, INode, ISelector, ITag, IBusinessPeriod, ICurrency, OrderTypeImageTypes, ILanguage, IOrderTypeContents } from '@djonnyx/tornado-types';
+import { IOrderType, OrderTypeResourceTypes, ILanguage, IOrderTypeContents } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
-import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents } from '@app/utils/entity.util';
 
 @Component({
@@ -243,12 +242,12 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     this._store.dispatch(OrderTypeAssetsActions.clear());
   }
 
-  onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, resourcesType: OrderTypeImageTypes.MAIN, data }));
+  onMainResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(OrderTypeAssetsActions.uploadResourceRequest({ orderTypeId: this._orderTypeId, resourcesType: OrderTypeResourceTypes.MAIN, data }));
   }
 
-  onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, resourcesType: OrderTypeImageTypes.ICON, data }));
+  onIconResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(OrderTypeAssetsActions.uploadResourceRequest({ orderTypeId: this._orderTypeId, resourcesType: OrderTypeResourceTypes.ICON, data }));
   }
 
   onMainOptionsSave(orderType: IOrderType): void {

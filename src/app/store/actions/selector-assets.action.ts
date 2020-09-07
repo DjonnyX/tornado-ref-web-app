@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
-import { SelectorImageTypes } from '@djonnyx/tornado-types';
+import { SelectorResourceTypes } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 
 export enum SelectorAssetsActionTypes {
@@ -125,15 +125,15 @@ export namespace SelectorAssetsActions {
     );
 
     // upload
-    export const uploadImageRequest = createAction(
+    export const uploadResourceRequest = createAction(
         SelectorAssetsActionTypes.UPLOAD_RESOURCE_REQUEST,
-        props<{ selectorId: string, resourcesType: SelectorImageTypes, data: IFileUploadEvent }>()
+        props<{ selectorId: string, resourcesType: SelectorResourceTypes, data: IFileUploadEvent }>()
     );
-    export const uploadImageSuccess = createAction(
+    export const uploadResourceSuccess = createAction(
         SelectorAssetsActionTypes.UPLOAD_RESOURCE_SUCCESS,
         props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
-    export const uploadImageProgress = createAction(
+    export const uploadResourceProgress = createAction(
         SelectorAssetsActionTypes.UPLOAD_RESOURCE_PROGRESS,
         props<{
             tmpAsset: IAsset,
@@ -145,7 +145,7 @@ export namespace SelectorAssetsActions {
             }
         }>()
     );
-    export const uploadImageError = createAction(
+    export const uploadResourceError = createAction(
         SelectorAssetsActionTypes.UPLOAD_RESOURCE_ERROR,
         props<{
             tmpAsset: IAsset,

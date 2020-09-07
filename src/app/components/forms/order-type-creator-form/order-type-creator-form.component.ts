@@ -67,11 +67,11 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
 
   @Output() update = new EventEmitter<IOrderType>();
 
-  @Output() uploadMainImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadIconResource = new EventEmitter<IFileUploadEvent>();
 
   private _state: IOrderTypeContents = {};
 
@@ -114,12 +114,12 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
     }
   }
 
-  onMainImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadMainResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
   onCancel(): void {

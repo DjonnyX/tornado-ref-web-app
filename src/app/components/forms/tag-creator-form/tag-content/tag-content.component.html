@@ -3,16 +3,16 @@
       <div class="resources-wrapper double">
         <div class="resources-s">
           <h2 class="form-header">
-            Image
+            Resource
           </h2>
   
           <button [disabled]="!!isDefault || !isEqualWithDefault('main')" mat-button color="primary" type="button"
-            class="reset-button" (click)="onResetImageToDefault('main')">
+            class="reset-button" (click)="onResetResourceToDefault('main')">
             Reset to default
           </button>
   
           <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
-            [assets]="assets" class="transparent" (upload)="onMainImageUpload($event, 'main')">
+            [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event, 'main')">
           </ta-asset-picker-uploader>
         </div>
   
@@ -22,12 +22,12 @@
           </h2>
   
           <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
-            (click)="onResetImageToDefault('icon')">
+            (click)="onResetResourceToDefault('icon')">
             Reset to default
           </button>
   
           <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined"
-            [assets]="assets" [color]="color" class="transparent" (upload)="onIconImageUpload($event, 'icon')">
+            [assets]="assets" [color]="color" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
           </ta-asset-picker-uploader>
         </div>
       </div>

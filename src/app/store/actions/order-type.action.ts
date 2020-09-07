@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IOrderType, OrderTypeImageTypes } from '@djonnyx/tornado-types';
+import { IOrderType, OrderTypeResourceTypes } from '@djonnyx/tornado-types';
 
 export enum OrderTypeActionTypes {
     GET_REQUEST = "TORNADO/order-type/get:request",
@@ -62,10 +62,10 @@ export namespace OrderTypeActions {
         props<{ error: string }>()
     );
 
-    // updateImage
-    export const updateImage = createAction(
+    // updateResource
+    export const updateResource = createAction(
         OrderTypeActionTypes.UPDATE_RESOURCE,
-        props<{ langCode: string, resourcesType: OrderTypeImageTypes, assetId: string }>(),
+        props<{ langCode: string, resourcesType: OrderTypeResourceTypes, assetId: string }>(),
     );
 
     // clear

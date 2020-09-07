@@ -3,16 +3,16 @@
     <div class="resources-wrapper">
       <div class="resources-n">
         <h2 class="form-header">
-          Image
+          Resource
         </h2>
 
         <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetImageToDefault('main')">
+          class="reset-button" (click)="onResetResourceToDefault('main')">
           Reset to default
         </button>
 
         <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
-          [assets]="assets" class="transparent" (upload)="onMainImageUpload($event, 'main')">
+          [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
     </div>
@@ -24,13 +24,13 @@
         </h2>
 
         <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetImageToDefault('thumbnail')">
+          class="reset-button" (click)="onResetResourceToDefault('thumbnail')">
           Reset to default
         </button>
 
         <ta-asset-picker-uploader size="m"
           [defaultValue]="!!content && !!content.resources ? content.resources.thumbnail : undefined" [assets]="assets"
-          class="transparent" (upload)="onThumbnailImageUpload($event, 'thumbnail')">
+          class="transparent" (upload)="onThumbnailResourceUpload($event, 'thumbnail')">
         </ta-asset-picker-uploader>
       </div>
 
@@ -40,13 +40,13 @@
         </h2>
 
         <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
-          (click)="onResetImageToDefault('icon')">
+          (click)="onResetResourceToDefault('icon')">
           Reset to default
         </button>
 
         <ta-asset-picker-uploader size="m"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
-          [color]="color" class="transparent" (upload)="onIconImageUpload($event, 'icon')">
+          [color]="color" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
         </ta-asset-picker-uploader>
       </div>
     </div>
@@ -73,7 +73,7 @@
       <mat-expansion-panel>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            Images gallery
+            Resources gallery
           </mat-panel-title>
         </mat-expansion-panel-header>
 

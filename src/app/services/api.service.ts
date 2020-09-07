@@ -79,7 +79,7 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes, ITranslation, TagImageTypes } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 
@@ -216,7 +216,7 @@ export class ApiService {
       });
   }
 
-  public uploadProductImage(productId: string, type: ProductImageTypes, data: IFileUploadEvent): Observable<IProductAssetCreateResponse> {
+  public uploadProductResource(productId: string, type: ProductResourceTypes, data: IFileUploadEvent): Observable<IProductAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -368,7 +368,7 @@ export class ApiService {
       });
   }
 
-  public uploadSelectorImage(selectorId: string, type: SelectorImageTypes, data: IFileUploadEvent): Observable<ISelectorAssetCreateResponse> {
+  public uploadSelectorResource(selectorId: string, type: SelectorResourceTypes, data: IFileUploadEvent): Observable<ISelectorAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -664,7 +664,7 @@ export class ApiService {
       });
   }
 
-  public uploadTagImage(tagId: string, type: TagImageTypes, data: IFileUploadEvent): Observable<ITagAssetCreateResponse> {
+  public uploadTagResource(tagId: string, type: TagResourceTypes, data: IFileUploadEvent): Observable<ITagAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -856,7 +856,7 @@ export class ApiService {
       });
   }
 
-  public uploadOrderTypeImage(orderTypeId: string, type: OrderTypeImageTypes, data: IFileUploadEvent): Observable<IOrderTypeAssetCreateResponse> {
+  public uploadOrderTypeResource(orderTypeId: string, type: OrderTypeResourceTypes, data: IFileUploadEvent): Observable<IOrderTypeAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -993,7 +993,7 @@ export class ApiService {
       });
   }
 
-  public uploadLanguageImage(languageId: string, type: LanguageImageTypes, file: File): Observable<ILanguageAssetCreateResponse> {
+  public uploadLanguageResource(languageId: string, type: LanguageResourceTypes, file: File): Observable<ILanguageAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
 

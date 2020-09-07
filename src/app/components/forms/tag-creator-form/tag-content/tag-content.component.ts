@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
-import { IAsset, ITagContentsItem, TagImageTypes } from '@djonnyx/tornado-types';
+import { IAsset, ITagContentsItem, TagResourceTypes } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
@@ -64,9 +64,9 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
 
   @Output() update = new EventEmitter<ITagContentsItem>();
 
-  @Output() uploadMainImage = new EventEmitter<IFileUploadEntityEvent>();
+  @Output() uploadMainResource = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<IFileUploadEntityEvent>();
+  @Output() uploadIconResource = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() uploadAsset = new EventEmitter<File>();
 
@@ -104,15 +104,15 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
     super.ngOnDestroy();
   }
 
-  onMainImageUpload(file: File, dataField: string): void {
-    this.uploadMainImage.emit({ file, dataField });
+  onMainResourceUpload(file: File, dataField: string): void {
+    this.uploadMainResource.emit({ file, dataField });
   }
 
-  onIconImageUpload(file: File, dataField: string): void {
-    this.uploadIconImage.emit({ file, dataField });
+  onIconResourceUpload(file: File, dataField: string): void {
+    this.uploadIconResource.emit({ file, dataField });
   }
 
-  onResetImageToDefault(resourcesType: TagImageTypes | string): void {
+  onResetResourceToDefault(resourcesType: TagResourceTypes | string): void {
     this.updateState({
       resources: {
         [resourcesType]: null,
@@ -130,7 +130,7 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
     this.save.emit();
   }
 
-  isEqualWithDefault(resourcesType: TagImageTypes | string): boolean {
+  isEqualWithDefault(resourcesType: TagResourceTypes | string): boolean {
     return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
   };
 

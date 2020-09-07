@@ -28,7 +28,7 @@ const selectorAssetsReducer = createReducer(
             loading: true,
         };
     }),
-    on(SelectorAssetsActions.createRequest, SelectorAssetsActions.uploadImageRequest, state => {
+    on(SelectorAssetsActions.createRequest, SelectorAssetsActions.uploadResourceRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -57,7 +57,7 @@ const selectorAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SelectorAssetsActions.createError, SelectorAssetsActions.uploadImageError, (state, { error }) => {
+    on(SelectorAssetsActions.createError, SelectorAssetsActions.uploadResourceError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -91,7 +91,7 @@ const selectorAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SelectorAssetsActions.createSuccess, SelectorAssetsActions.uploadImageSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
+    on(SelectorAssetsActions.createSuccess, SelectorAssetsActions.uploadResourceSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
         const c = state.collection[langCode] || [];
         const existsTmpAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
         let collection = [...c, asset];
@@ -107,7 +107,7 @@ const selectorAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SelectorAssetsActions.createProgress, SelectorAssetsActions.uploadImageProgress, (state, { tmpAsset, langCode, progress }) => {
+    on(SelectorAssetsActions.createProgress, SelectorAssetsActions.uploadResourceProgress, (state, { tmpAsset, langCode, progress }) => {
         const c = state.collection[langCode] || [];
         const existsAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
         let collection = [...c];

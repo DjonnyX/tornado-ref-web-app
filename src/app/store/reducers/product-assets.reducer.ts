@@ -28,7 +28,7 @@ const productAssetsReducer = createReducer(
             loading: true,
         };
     }),
-    on(ProductAssetsActions.createRequest, ProductAssetsActions.uploadImageRequest, state => {
+    on(ProductAssetsActions.createRequest, ProductAssetsActions.uploadResourceRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -57,7 +57,7 @@ const productAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductAssetsActions.createError, ProductAssetsActions.uploadImageError, (state, { error }) => {
+    on(ProductAssetsActions.createError, ProductAssetsActions.uploadResourceError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -91,7 +91,7 @@ const productAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductAssetsActions.createSuccess, ProductAssetsActions.uploadImageSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
+    on(ProductAssetsActions.createSuccess, ProductAssetsActions.uploadResourceSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
         const c = state.collection[langCode] || [];
         const existsTmpAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
         let collection = [...c, asset];
@@ -107,7 +107,7 @@ const productAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductAssetsActions.createProgress, ProductAssetsActions.uploadImageProgress, (state, { tmpAsset, langCode, progress }) => {
+    on(ProductAssetsActions.createProgress, ProductAssetsActions.uploadResourceProgress, (state, { tmpAsset, langCode, progress }) => {
         const c = state.collection[langCode] || [];
         const existsAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
         let collection = [...c];

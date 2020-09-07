@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
-import { IAsset, IOrderTypeContentsItem, OrderTypeImageTypes } from '@djonnyx/tornado-types';
+import { IAsset, IOrderTypeContentsItem, OrderTypeResourceTypes } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
@@ -64,9 +64,9 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
 
   @Output() update = new EventEmitter<IOrderTypeContentsItem>();
 
-  @Output() uploadMainImage = new EventEmitter<IFileUploadEntityEvent>();
+  @Output() uploadMainResource = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<IFileUploadEntityEvent>();
+  @Output() uploadIconResource = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() uploadAsset = new EventEmitter<File>();
 
@@ -104,15 +104,15 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
     super.ngOnDestroy();
   }
 
-  onMainImageUpload(file: File, dataField: string): void {
-    this.uploadMainImage.emit({ file, dataField });
+  onMainResourceUpload(file: File, dataField: string): void {
+    this.uploadMainResource.emit({ file, dataField });
   }
 
-  onIconImageUpload(file: File, dataField: string): void {
-    this.uploadIconImage.emit({ file, dataField });
+  onIconResourceUpload(file: File, dataField: string): void {
+    this.uploadIconResource.emit({ file, dataField });
   }
 
-  onResetImageToDefault(resourcesType: OrderTypeImageTypes | string): void {
+  onResetResourceToDefault(resourcesType: OrderTypeResourceTypes | string): void {
     this.updateState({
       resources: {
         [resourcesType]: null,
@@ -130,7 +130,7 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
     this.save.emit();
   }
 
-  isEqualWithDefault(resourcesType: OrderTypeImageTypes | string): boolean {
+  isEqualWithDefault(resourcesType: OrderTypeResourceTypes | string): boolean {
     return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
   };
 

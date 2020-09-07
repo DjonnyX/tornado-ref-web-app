@@ -21,7 +21,7 @@ const productReducer = createReducer(
             product,
         };
     }),
-    on(ProductActions.updateImage, (state, { langCode, resourcesType, assetId }) => {
+    on(ProductActions.updateResource, (state, { langCode, resourcesType, assetId }) => {
         const product = deepMergeObjects(state.product, {
             contents: {
                 [langCode]: {

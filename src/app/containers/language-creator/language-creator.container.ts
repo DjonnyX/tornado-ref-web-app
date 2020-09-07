@@ -7,7 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LanguageActions } from '@store/actions/language.action';
 import { LanguageSelectors } from '@store/selectors/language.selectors';
-import { ILanguage, ILanguageImages, IAsset, LanguageImageTypes, ITranslation } from '@djonnyx/tornado-types';
+import { ILanguage, ILanguageResources, IAsset, LanguageResourceTypes, ITranslation } from '@djonnyx/tornado-types';
 import { LanguageAssetsSelectors, TranslationSelectors } from '@store/selectors';
 import { LanguageAssetsActions } from '@store/actions/language-assets.action';
 import { TranslationActions } from '@store/actions/translation.action';
@@ -40,7 +40,7 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
 
   translation$: Observable<ITranslation>;
 
-  resources$: Observable<ILanguageImages>;
+  resources$: Observable<ILanguageResources>;
 
   isPrepareToConfigure$: Observable<boolean>;
 
@@ -101,7 +101,7 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
     );
 
     this.resources$ = this._store.pipe(
-      select(LanguageSelectors.selectImages),
+      select(LanguageSelectors.selectResources),
     );
 
     this.translation$ = this._store.pipe(
@@ -177,6 +177,6 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onAssetUpload(file: File): void {
-    this._store.dispatch(LanguageAssetsActions.uploadImageRequest({ languageId: this._languageId, resourcesType: LanguageImageTypes.MAIN, file }));
+    this._store.dispatch(LanguageAssetsActions.uploadResourceRequest({ languageId: this._languageId, resourcesType: LanguageResourceTypes.MAIN, file }));
   }
 }

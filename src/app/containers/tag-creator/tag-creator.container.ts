@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { TagsActions } from '@store/actions/tags.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import { TagsSelectors, TagAssetsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,7 +10,7 @@ import { IAsset, IFileUploadEvent } from '@models';
 import { TagAssetsActions } from '@store/actions/tag-assets.action';
 import { TagSelectors } from '@store/selectors/tag.selectors';
 import { TagActions } from '@store/actions/tag.action';
-import { ITag, TagImageTypes, ILanguage, ITagContents } from '@djonnyx/tornado-types';
+import { ITag, TagResourceTypes, ILanguage, ITagContents } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
@@ -241,12 +240,12 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     this._store.dispatch(TagAssetsActions.clear());
   }
 
-  onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, resourcesType: TagImageTypes.MAIN, data }));
+  onMainResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(TagAssetsActions.uploadResourceRequest({ tagId: this._tagId, resourcesType: TagResourceTypes.MAIN, data }));
   }
 
-  onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, resourcesType: TagImageTypes.ICON, data }));
+  onIconResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(TagAssetsActions.uploadResourceRequest({ tagId: this._tagId, resourcesType: TagResourceTypes.ICON, data }));
   }
 
   onMainOptionsSave(tag: ITag): void {

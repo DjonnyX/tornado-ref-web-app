@@ -24,9 +24,9 @@ export default class OrderTypeAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-    public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadResourceRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(OrderTypeAssetsActions.uploadImageRequest),
+            ofType(OrderTypeAssetsActions.uploadResourceRequest),
             switchMap(({ orderTypeId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
@@ -42,15 +42,15 @@ export default class OrderTypeAssetsEffects {
                     },
                     ext: ext,
                 }
-                this._store.dispatch(OrderTypeActions.updateImage({
+                this._store.dispatch(OrderTypeActions.updateResource({
                     langCode: data.langCode,
                     resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadOrderTypeImage(orderTypeId, resourcesType, data).pipe(
+                return this._apiService.uploadOrderTypeResource(orderTypeId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
-                            return [OrderTypeAssetsActions.uploadImageProgress({
+                            return [OrderTypeAssetsActions.uploadResourceProgress({
                                 tmpAsset,
                                 langCode: data.langCode,
                                 progress: {
@@ -61,14 +61,14 @@ export default class OrderTypeAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [OrderTypeAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
+                            return [OrderTypeAssetsActions.uploadResourceProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [OrderTypeAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), OrderTypeActions.getRequest({ id: orderTypeId })];
+                        return [OrderTypeAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), OrderTypeActions.getRequest({ id: orderTypeId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(OrderTypeAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
+                        return of(OrderTypeAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
             })

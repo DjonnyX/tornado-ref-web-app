@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { FormControl, Validators } from '@angular/forms';
-import { IAsset, IProductContentsItem, ProductImageTypes } from '@djonnyx/tornado-types';
+import { IAsset, IProductContentsItem, ProductResourceTypes } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
@@ -64,11 +64,11 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   @Output() update = new EventEmitter<IProductContentsItem>();
 
-  @Output() uploadMainImage = new EventEmitter<IFileUploadEntityEvent>();
+  @Output() uploadMainResource = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEntityEvent>();
+  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<IFileUploadEntityEvent>();
+  @Output() uploadIconResource = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() uploadAsset = new EventEmitter<File>();
 
@@ -106,19 +106,19 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
   }
 
-  onMainImageUpload(file: File, dataField: string): void {
-    this.uploadMainImage.emit({ file, dataField });
+  onMainResourceUpload(file: File, dataField: string): void {
+    this.uploadMainResource.emit({ file, dataField });
   }
 
-  onThumbnailImageUpload(file: File, dataField: string): void {
-    this.uploadThumbnailImage.emit({ file, dataField });
+  onThumbnailResourceUpload(file: File, dataField: string): void {
+    this.uploadThumbnailResource.emit({ file, dataField });
   }
 
-  onIconImageUpload(file: File, dataField: string): void {
-    this.uploadIconImage.emit({ file, dataField });
+  onIconResourceUpload(file: File, dataField: string): void {
+    this.uploadIconResource.emit({ file, dataField });
   }
 
-  onResetImageToDefault(resourcesType: ProductImageTypes | string): void {
+  onResetResourceToDefault(resourcesType: ProductResourceTypes | string): void {
     this.updateState({
       resources: {
         [resourcesType]: null,
@@ -136,7 +136,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     this.save.emit();
   }
 
-  isEqualWithDefault(resourcesType: ProductImageTypes | string): boolean {
+  isEqualWithDefault(resourcesType: ProductResourceTypes | string): boolean {
     return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
   };
 

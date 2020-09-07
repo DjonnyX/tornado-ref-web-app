@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { ITag, TagImageTypes } from '@djonnyx/tornado-types';
+import { ITag, TagResourceTypes } from '@djonnyx/tornado-types';
 
 export enum TagActionTypes {
     GET_REQUEST = "TORNADO/tag/get:request",
@@ -62,10 +62,10 @@ export namespace TagActions {
         props<{ error: string }>()
     );
 
-    // updateImage
-    export const updateImage = createAction(
+    // updateResource
+    export const updateResource = createAction(
         TagActionTypes.UPDATE_RESOURCE,
-        props<{ langCode: string, resourcesType: TagImageTypes, assetId: string }>(),
+        props<{ langCode: string, resourcesType: TagResourceTypes, assetId: string }>(),
     );
 
     // clear
