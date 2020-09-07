@@ -39,7 +39,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   @Input() assets: Array<IAsset>;
 
-  @Input() imagesGallery: Array<IAsset>;
+  @Input() resourcesGallery: Array<IAsset>;
 
   private _content: IProductContentsItem;
   @Input() set content(content: IProductContentsItem) {
@@ -118,10 +118,10 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     this.uploadIconImage.emit({ file, dataField });
   }
 
-  onResetImageToDefault(imageType: ProductImageTypes | string): void {
+  onResetImageToDefault(resourcesType: ProductImageTypes | string): void {
     this.updateState({
-      images: {
-        [imageType]: null,
+      resources: {
+        [resourcesType]: null,
       }
     });
 
@@ -136,8 +136,8 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     this.save.emit();
   }
 
-  isEqualWithDefault(imageType: ProductImageTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, imageType, this.isDefault);
+  isEqualWithDefault(resourcesType: ProductImageTypes | string): boolean {
+    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
   };
 
   isColorDefault(): boolean {

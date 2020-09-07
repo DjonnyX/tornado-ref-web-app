@@ -25,7 +25,7 @@ export default class SelectorsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -43,7 +43,7 @@ export default class SelectorsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorsActions.createError({ error: error.message }));
                     }),
                 );
@@ -61,7 +61,7 @@ export default class SelectorsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -79,7 +79,7 @@ export default class SelectorsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(SelectorsActions.deleteError({ error: error.message }));
                     }),
                 );

@@ -67,7 +67,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     return this._product;
   }
 
-  @Input() imagesGallery: Array<{ [lang: string]: IAsset }>;
+  @Input() resourcesGallery: Array<{ [lang: string]: IAsset }>;
 
   @Input() currencies: Array<ICurrency>;
 
@@ -189,7 +189,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   getImagesGallery(lang: ILanguage): Array<IAsset> {
-    return !!lang && !!this.imagesGallery && this.imagesGallery[lang.code] ? this.imagesGallery[lang.code] : [];
+    return !!lang && !!this.resourcesGallery && this.resourcesGallery[lang.code] ? this.resourcesGallery[lang.code] : [];
   }
 
   updateStateFor(state: IProductContents, lang: ILanguage): void {

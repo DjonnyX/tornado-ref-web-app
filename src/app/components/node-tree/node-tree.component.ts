@@ -1,20 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
-import { IEntity, INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage } from '@djonnyx/tornado-types';
-
-interface IDictionary<T = any> {
-  [id: string]: T;
-}
-
-const getMapOfCollection = <T extends IEntity>(collection: Array<T>): IDictionary<T> => {
-  const result: IDictionary<T> = {};
-
-  collection.forEach(item => {
-    result[item.id] = item;
-  });
-
-  return result;
-}
+import { INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage, IOrderType } from '@djonnyx/tornado-types';
+import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
 
 @Component({
   selector: 'ta-node-tree',
@@ -27,21 +14,21 @@ export class NodeTreeComponent implements OnInit {
   rootNode: INode;
 
   nodesCollection: Array<INode>;
-  nodesDictionary: { [id: string]: INode };
+  nodesDictionary: ICollectionDictionary<INode>;
 
   productsCollection: Array<IProduct>;
-  productsDictionary: { [id: string]: IProduct };
+  productsDictionary: ICollectionDictionary<IProduct>;
 
   selectorsCollection: Array<ISelector>;
-  selectorsDictionary: { [id: string]: ISelector };
+  selectorsDictionary: ICollectionDictionary<ISelector>;
 
   currenciesCollection: Array<ICurrency>;
-  currenciesDictionary: { [id: string]: ICurrency };
+  currenciesDictionary: ICollectionDictionary<ICurrency>;
 
   @Input() set currencies(v: Array<ICurrency>) {
     if (this.currenciesCollection !== v) {
       this.currenciesCollection = v;
-      this.currenciesDictionary = !!v ? getMapOfCollection(v) : {};
+      this.currenciesDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
 
@@ -59,7 +46,7 @@ export class NodeTreeComponent implements OnInit {
   @Input() set nodes(v: Array<INode>) {
     if (this.nodesCollection !== v) {
       this.nodesCollection = v;
-      this.nodesDictionary = !!v ? getMapOfCollection(v) : {};
+      this.nodesDictionary = !!v ? getMapOfCollection(v, "id") : {};
 
       this.resetRootNode();
     }
@@ -68,14 +55,14 @@ export class NodeTreeComponent implements OnInit {
   @Input() set selectors(v: Array<ISelector>) {
     if (this.selectorsCollection !== v) {
       this.selectorsCollection = v;
-      this.selectorsDictionary = !!v ? getMapOfCollection(v) : {};
+      this.selectorsDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
 
   @Input() set products(v: Array<IProduct>) {
     if (this.productsCollection !== v) {
       this.productsCollection = v;
-      this.productsDictionary = !!v ? getMapOfCollection(v) : {};
+      this.productsDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
 
@@ -84,7 +71,7 @@ export class NodeTreeComponent implements OnInit {
   @Input() set businessPeriods(v: Array<IBusinessPeriod>) {
     if (this._businessPeriods !== v) {
       this._businessPeriods = v;
-      this.businessPeriodsDictionary = !!v ? getMapOfCollection(v) : {};
+      this.businessPeriodsDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
 
@@ -92,14 +79,14 @@ export class NodeTreeComponent implements OnInit {
     return this._businessPeriods;
   }
 
-  businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
+  businessPeriodsDictionary: ICollectionDictionary<IBusinessPeriod>;
 
   private _assets: Array<IAsset>;
 
   @Input() set assets(v: Array<IAsset>) {
     if (this._assets !== v) {
       this._assets = v;
-      this.assetsDictionary = !!v ? getMapOfCollection(v) : {};
+      this.assetsDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
 
@@ -109,9 +96,37 @@ export class NodeTreeComponent implements OnInit {
 
   @Input() defaultLanguage: ILanguage;
 
-  @Input() languages: Array<ILanguage>;
+  private _languages: Array<ILanguage>;
 
-  assetsDictionary: { [id: string]: IAsset };
+  @Input() set languages(v: Array<ILanguage>) {
+    if (this._languages !== v) {
+      this._languages = v;
+      this.languagesDictionary = !!v ? getMapOfCollection(v, "id") : {};
+    }
+  }
+
+  get languages() {
+    return this._languages;
+  }
+
+  languagesDictionary: ICollectionDictionary<ILanguage>;
+
+  private _orderTypes: Array<IOrderType>;
+
+  @Input() set orderTypes(v: Array<IOrderType>) {
+    if (this._orderTypes !== v) {
+      this._orderTypes = v;
+      this.orderTypesDictionary = !!v ? getMapOfCollection(v, "id") : {};
+    }
+  }
+
+  get orderTypes() {
+    return this._orderTypes;
+  }
+
+  orderTypesDictionary: ICollectionDictionary<IOrderType>;
+
+  assetsDictionary: ICollectionDictionary<IAsset>;
 
   @Output() create = new EventEmitter<INode>();
 

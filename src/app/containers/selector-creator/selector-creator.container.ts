@@ -221,10 +221,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
           result[lang] = assets[lang].filter(asset =>
             !selector.contents[lang] ||
             (
-              !selector.contents[lang].images || (asset.id !==
-                selector.contents[lang].images.main && asset.id !==
-                selector.contents[lang].images.thumbnail && asset.id !==
-                selector.contents[lang].images.icon)
+              !selector.contents[lang].resources || (asset.id !==
+                selector.contents[lang].resources.main && asset.id !==
+                selector.contents[lang].resources.thumbnail && asset.id !==
+                selector.contents[lang].resources.icon)
             ))
         }
 
@@ -281,15 +281,15 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.MAIN, data }));
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, resourcesType: SelectorImageTypes.MAIN, data }));
   }
 
   onThumbnailImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.THUMBNAIL, data }));
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, resourcesType: SelectorImageTypes.THUMBNAIL, data }));
   }
 
   onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, imageType: SelectorImageTypes.ICON, data }));
+    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, resourcesType: SelectorImageTypes.ICON, data }));
   }
 
   onMainOptionsSave(selector: ISelector): void {

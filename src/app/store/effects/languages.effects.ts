@@ -25,7 +25,7 @@ export default class LanguagesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguagesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -43,7 +43,7 @@ export default class LanguagesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguagesActions.createError({ error: error.message }));
                     }),
                 );
@@ -65,7 +65,7 @@ export default class LanguagesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguagesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -83,7 +83,7 @@ export default class LanguagesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(LanguagesActions.deleteError({ error: error.message }));
                     }),
                 );

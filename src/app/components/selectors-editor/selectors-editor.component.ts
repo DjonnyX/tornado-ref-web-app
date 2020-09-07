@@ -97,13 +97,13 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   hasThumbnail(selector: ISelector): boolean {
     const selectorContent = this.getSelectorContent(selector);
-    const asset = !!selectorContent && !!selectorContent.images && !!selectorContent.images.main ? this._assetsDictionary[selectorContent.images.main] : undefined;
+    const asset = !!selectorContent && !!selectorContent.resources && !!selectorContent.resources.main ? this._assetsDictionary[selectorContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
   getThumbnail(selector: ISelector): string {
     const selectorContent = this.getSelectorContent(selector);
-    const asset = !!selectorContent && !!selectorContent.images && !!selectorContent.images.main ? this._assetsDictionary[selectorContent.images.main] : undefined;
+    const asset = !!selectorContent && !!selectorContent.resources && !!selectorContent.resources.main ? this._assetsDictionary[selectorContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 

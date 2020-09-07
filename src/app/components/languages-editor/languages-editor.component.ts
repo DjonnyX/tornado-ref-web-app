@@ -59,12 +59,12 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
   
   hasThumbnail(assetId: string): boolean {
     const asset = this._assetsDictionary[assetId];
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
+    return !!asset?.mipmap?.x128;
   }
 
   getThumbnail(assetId: string): string {
     const asset = this._assetsDictionary[assetId];
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+    return !!asset?.mipmap?.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
   onToggleActive(event: Event, language: ILanguage): void {

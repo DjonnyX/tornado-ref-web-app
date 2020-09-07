@@ -27,7 +27,7 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.notify(error.message);
+            this._notificationService.error(error.message);
             return of(UserActions.userSigninError({ error: error.message }));
           }),
         );
@@ -47,11 +47,13 @@ export default class UserEffects {
           confirmPassword: params.confirmPassword,
         }).pipe(
           mergeMap(user => {
+            this._router.navigate(["signin"]);
+            this._notificationService.success("Registration confirmed.");
             return [UserActions.userSignupSuccess()];
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.notify(error.message);
+            this._notificationService.error(error.message);
             return of(UserActions.userSignupError({ error: error.message }))
           }),
         );
@@ -69,7 +71,7 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.notify(error.message);
+            this._notificationService.error(error.message);
             return of(UserActions.signoutError({ error: error.message }))
           }),
         );
@@ -90,7 +92,7 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.notify(error.message);
+            this._notificationService.error(error.message);
             return of(UserActions.userForgotPasswordError({ error: error.message }))
           }),
         );
@@ -112,7 +114,7 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.notify(error.message);
+            this._notificationService.error(error.message);
             return of(UserActions.userResetPasswordError({ error: error.message }))
           }),
         );

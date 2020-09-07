@@ -20,12 +20,12 @@ const tagReducer = createReducer(
             ...initialState,
         };
     }),
-    on(TagActions.updateImage, (state, { langCode, imageType, assetId }) => {
+    on(TagActions.updateImage, (state, { langCode, resourcesType, assetId }) => {
         const product = deepMergeObjects(state.tag, {
             contents: {
                 [langCode]: {
-                    images: {
-                        [imageType]: assetId,
+                    resources: {
+                        [resourcesType]: assetId,
                     },
                 },
             },

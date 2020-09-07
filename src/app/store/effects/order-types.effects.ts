@@ -25,7 +25,7 @@ export default class OrderTypesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -43,7 +43,7 @@ export default class OrderTypesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.createError({ error: error.message }));
                     }),
                 );
@@ -61,7 +61,7 @@ export default class OrderTypesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -79,7 +79,7 @@ export default class OrderTypesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.deleteError({ error: error.message }));
                     }),
                 );

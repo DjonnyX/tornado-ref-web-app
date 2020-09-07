@@ -1,7 +1,7 @@
 <div [ngClass]="{'order-type-content': true, 'main-options-wrapper': isEditMode}">
-  <div class="images" *ngIf="isEditMode">
-    <div class="images-wrapper double">
-      <div class="image-s">
+  <div class="resources" *ngIf="isEditMode">
+    <div class="resources-wrapper double">
+      <div class="resources-s">
         <h2 class="form-header">
           Image
         </h2>
@@ -11,12 +11,12 @@
           Reset to default
         </button>
 
-        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.images ? content.images.main : undefined"
+        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
           [assets]="assets" class="transparent" (upload)="onMainImageUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
 
-      <div class="image-s">
+      <div class="resources-s">
         <h2 class="form-header">
           Icon
         </h2>
@@ -26,13 +26,13 @@
           Reset to default
         </button>
 
-        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.images ? content.images.icon : undefined"
+        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined"
           [assets]="assets" [color]="color" class="transparent" (upload)="onIconImageUpload($event, 'icon')">
         </ta-asset-picker-uploader>
       </div>
     </div>
 
-    <div class="images-wrapper single">
+    <div class="resources-wrapper single">
       <div class="full-width">
         <h2 class="form-header">
           Color

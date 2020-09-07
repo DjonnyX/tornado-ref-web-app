@@ -1,7 +1,7 @@
 @import "../../../../styles/themes";
 @import "../../../../styles/utils/px2em";
 
-.images {
+.resources {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -9,7 +9,7 @@
     border-radius: 6px;
     padding: px2em(22);
 
-    .images-wrapper {
+    .resources-wrapper {
         display: grid;
         grid-template-columns: 1fr;
         gap: px2em(20);
@@ -20,9 +20,9 @@
         }
     }
 
-    .image-n,
-    .image-m,
-    .image-s {
+    .resources-n,
+    .resources-m,
+    .resources-s {
         width: 100%;
         margin-bottom: px2em(20);
     }

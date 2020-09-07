@@ -27,7 +27,7 @@ export default class OrderTypeAssetsEffects {
     public readonly uploadImageRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypeAssetsActions.uploadImageRequest),
-            switchMap(({ orderTypeId, imageType, data }) => {
+            switchMap(({ orderTypeId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
                 const tmpAsset: IAsset = {
@@ -44,10 +44,10 @@ export default class OrderTypeAssetsEffects {
                 }
                 this._store.dispatch(OrderTypeActions.updateImage({
                     langCode: data.langCode,
-                    imageType,
+                    resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadOrderTypeImage(orderTypeId, imageType, data).pipe(
+                return this._apiService.uploadOrderTypeImage(orderTypeId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
                             return [OrderTypeAssetsActions.uploadImageProgress({
@@ -67,7 +67,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -85,7 +85,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -103,7 +103,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -149,7 +149,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -170,7 +170,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -188,7 +188,7 @@ export default class OrderTypeAssetsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

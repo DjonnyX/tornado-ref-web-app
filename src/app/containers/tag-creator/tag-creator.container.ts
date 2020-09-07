@@ -242,11 +242,11 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
   }
 
   onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, imageType: TagImageTypes.MAIN, data }));
+    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, resourcesType: TagImageTypes.MAIN, data }));
   }
 
   onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, imageType: TagImageTypes.ICON, data }));
+    this._store.dispatch(TagAssetsActions.uploadImageRequest({ tagId: this._tagId, resourcesType: TagImageTypes.ICON, data }));
   }
 
   onMainOptionsSave(tag: ITag): void {

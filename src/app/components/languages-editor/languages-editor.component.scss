@@ -6,7 +6,7 @@ $entity-height-d: px2em(110);
 $entity-width-m: px2em(140);
 $entity-width-d: px2em(190);
 $border-transpanent: 4px solid transparent;
-$border-active: 4px solid $accent;
+$border-active: 2px solid $accent;
 
 .editor {
     .entities-wrapper {
@@ -19,6 +19,7 @@ $border-active: 4px solid $accent;
 
         &.is-default {
             border: $border-active;
+            padding: 3px;
         }
 
         .content {
