@@ -2,9 +2,9 @@
   <div class="resources" *ngIf="isEditMode">
     <div class="resources-wrapper">
       <div class="resources-n">
-        <h2 class="form-header">
+        <p class="form-header">
           Resource
-        </h2>
+        </p>
 
         <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetResourceToDefault('main')">
@@ -19,9 +19,9 @@
 
     <div class="resources-wrapper double">
       <div class="resources-m">
-        <h2 class="form-header">
+        <p class="form-header">
           Thumbnail
-        </h2>
+        </p>
 
         <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetResourceToDefault('thumbnail')">
@@ -35,9 +35,9 @@
       </div>
 
       <div class="resources-s">
-        <h2 class="form-header">
+        <p class="form-header">
           Icon
-        </h2>
+        </p>
 
         <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
           (click)="onResetResourceToDefault('icon')">
@@ -53,9 +53,9 @@
 
     <div class="resources-wrapper single">
       <div class="full-width">
-        <h2 class="form-header">
+        <p class="form-header">
           Color
-        </h2>
+        </p>
 
         <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetColorToDefault()">

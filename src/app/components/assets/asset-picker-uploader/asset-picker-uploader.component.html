@@ -1,9 +1,12 @@
 <div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
     <div class="asset-viewer">
-        <mat-progress-bar *ngIf="!!asset && !!asset.progress" mode="determinate" [value]="asset.progress.progress" style="z-index: 2;"></mat-progress-bar>
+        <mat-progress-bar *ngIf="!!asset?.progress" mode="determinate" [value]="asset.progress.progress" style="z-index: 2;"></mat-progress-bar>
+        <mat-progress-bar mode="indeterminate" color="accent" style="z-index: 2;" *ngIf="!!!asset?.progress && isLoading;"></mat-progress-bar>
         <div class="asset-preview__substract"></div>
         <div *ngIf="!!color" [style.background-color]="color" class="asset-preview__substract-color"></div>
-        <div class="asset-preview" [style.background]="getThumbnail()"></div>
+        <div class="asset-preview">
+            <img [style.display]="isLoading ? 'none' : 'initial'" [src]="getThumbnail()" (load)="loadingComplete()">
+        </div>
     </div>
     <div class="form-item">
         <button mat-flat-button type="button" color="accent" class="full-width" (click)="fileSelector.open()">

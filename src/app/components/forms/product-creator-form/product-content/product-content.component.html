@@ -2,12 +2,12 @@
   <div class="resources" *ngIf="isEditMode">
     <div class="resources-wrapper">
       <div class="resources-n">
-        <h2 class="form-header">
+        <p class="form-header">
           Resource
-        </h2>
+        </p>
 
         <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetResourceToDefault('main')">
+          class="reset-button full-width" (click)="onResetResourceToDefault('main')">
           Reset to default
         </button>
 
@@ -19,25 +19,25 @@
 
     <div class="resources-wrapper double">
       <div class="resources-m">
-        <h2 class="form-header">
+        <p class="form-header">
           Thumbnail
-        </h2>
+        </p>
 
         <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetResourceToDefault('thumbnail')">
+          class="reset-button full-width" (click)="onResetResourceToDefault('thumbnail')">
           Reset to default
         </button>
 
         <ta-asset-picker-uploader size="m"
           [defaultValue]="!!content && !!content.resources ? content.resources.thumbnail : undefined" [assets]="assets"
-          class="transparent" (upload)="onThumbnailResourceUpload($event, 'thumbnail')">
+          class="transparent full-width" (upload)="onThumbnailResourceUpload($event, 'thumbnail')">
         </ta-asset-picker-uploader>
       </div>
 
       <div class="resources-s">
-        <h2 class="form-header">
+        <p class="form-header">
           Icon
-        </h2>
+        </p>
 
         <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
           (click)="onResetResourceToDefault('icon')">

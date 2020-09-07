@@ -23,7 +23,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     this.ctrlColor.setValue(v);
   }
 
-  ctrlColor = new FormControl("#000000");
+  ctrlColor = new FormControl('');
 
   ctrlName = new FormControl('', [Validators.required]);
 
@@ -53,7 +53,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
     this.ctrlName.setValue(content.name);
     this.ctrlDescription.setValue(content.description);
-    this.ctrlColor.setValue(content.color);
+    this.ctrlColor.setValue(content.color || '#ffffff');
 
     // this.ctrlReceipt.setValue(product.receipt);
   }

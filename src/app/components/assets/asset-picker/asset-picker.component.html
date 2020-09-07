@@ -2,7 +2,9 @@
     <div class="asset-viewer">
         <div class="asset-preview__substract"></div>
         <div [style.background-color]="color" class="asset-preview__substract-color"></div>
-        <div class="asset-preview" [style.background]="getThumbnail()"></div>
+        <div class="asset-preview">
+            <img [src]="getThumbnail()"/>
+        </div>
     </div>
     <div class="form-item">
         <mat-form-field class="full-width" appearance="fill">

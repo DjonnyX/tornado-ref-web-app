@@ -2,9 +2,9 @@
     <div class="resources" *ngIf="isEditMode">
       <div class="resources-wrapper double">
         <div class="resources-s">
-          <h2 class="form-header">
+          <p class="form-header">
             Resource
-          </h2>
+          </p>
   
           <button [disabled]="!!isDefault || !isEqualWithDefault('main')" mat-button color="primary" type="button"
             class="reset-button" (click)="onResetResourceToDefault('main')">
@@ -12,14 +12,14 @@
           </button>
   
           <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
-            [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event, 'main')">
+            [assets]="assets" class="transparent" size="m" (upload)="onMainResourceUpload($event, 'main')">
           </ta-asset-picker-uploader>
         </div>
   
         <div class="resources-s">
-          <h2 class="form-header">
+          <p class="form-header">
             Icon
-          </h2>
+          </p>
   
           <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
             (click)="onResetResourceToDefault('icon')">
@@ -27,16 +27,16 @@
           </button>
   
           <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined"
-            [assets]="assets" [color]="color" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
+            [assets]="assets" [color]="color" size="m" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
           </ta-asset-picker-uploader>
         </div>
       </div>
   
       <div class="resources-wrapper single">
         <div class="full-width">
-          <h2 class="form-header">
+          <p class="form-header">
             Color
-          </h2>
+          </p>
   
           <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
             class="reset-button" (click)="onResetColorToDefault()">

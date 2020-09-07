@@ -27,6 +27,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
   @Input() set assets(v: Array<IAsset>) {
     if (this._assets !== v) {
       this._assets = v;
+      this.isLoading = true;
 
       this.updateAsset();
     }
@@ -38,6 +39,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   asset: IAsset;
 
+  isLoading: boolean = true;
+
   constructor() {
     super();
   }
@@ -45,6 +48,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
   ngOnInit(): void { }
 
   onUploadFile(file: File): void {
+    this.isLoading = false;
     this.upload.emit(file);
   }
 
@@ -58,7 +62,11 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
     }
   }
 
+  loadingComplete() {
+    this.isLoading = false;
+  }
+
   getThumbnail(): string {
-    return getThumbnail(this.asset);
+    return this.asset?.mipmap?.x128;
   }
 }
