@@ -28,7 +28,7 @@ const tagAssetsReducer = createReducer(
             loading: true,
         };
     }),
-    on(TagAssetsActions.createRequest, TagAssetsActions.uploadImageRequest, state => {
+    on(TagAssetsActions.createRequest, TagAssetsActions.uploadResourceRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -57,7 +57,7 @@ const tagAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(TagAssetsActions.createError, TagAssetsActions.uploadImageError, (state, { error }) => {
+    on(TagAssetsActions.createError, TagAssetsActions.uploadResourceError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -91,7 +91,7 @@ const tagAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(TagAssetsActions.createSuccess, TagAssetsActions.uploadImageSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
+    on(TagAssetsActions.createSuccess, TagAssetsActions.uploadResourceSuccess, (state, { asset, langCode, tmpAsset, meta }) => {
         const c = state.collection[langCode] || [];
         const existsTmpAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
         let collection = [...c, asset];
@@ -107,7 +107,7 @@ const tagAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(TagAssetsActions.createProgress, TagAssetsActions.uploadImageProgress, (state, { tmpAsset, langCode, progress }) => {
+    on(TagAssetsActions.createProgress, TagAssetsActions.uploadResourceProgress, (state, { tmpAsset, langCode, progress }) => {
         const c = state.collection[langCode] || [];
         const existsAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
         let collection = [...c];

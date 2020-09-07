@@ -66,6 +66,6 @@ export class AssetPickerComponent extends BaseComponent implements OnInit, OnDes
   }
 
   getThumbnail(): string {
-    return getThumbnail(this._selectedAsset);
+    return this._selectedAsset?.mipmap?.x128;
   }
 }

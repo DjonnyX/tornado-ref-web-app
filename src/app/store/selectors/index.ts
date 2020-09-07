@@ -22,3 +22,6 @@ export { LanguagesSelectors } from "./languages.selectors";
 export { LanguageSelectors } from "./language.selectors";
 export { LanguageAssetsSelectors } from "./language-assets.selectors";
 export { TranslationSelectors } from "./translation.selectors";
+export { AdSelectors } from "./ad.selectors";
+export { AdsSelectors } from "./ads.selectors";
+export { AdAssetsSelectors } from "./ad-assets.selectors";

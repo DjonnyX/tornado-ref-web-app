@@ -12,9 +12,9 @@ export const formatAssetModel = (model: IAsset) => {
 }
 
 export const getThumbnail = (asset: IAsset): string => {
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x128 ? `url(${asset.mipmap.x128.replace('\\', '/')})` : "";
+    return `url(${asset?.mipmap?.x128.replace('\\', '/')})`;
 }
 
 export const getFavicon = (asset: IAsset): string => {
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? `url(${asset.mipmap.x32.replace('\\', '/')})` : "";
+    return `url(${asset?.mipmap?.x32.replace('\\', '/')})`;
 }

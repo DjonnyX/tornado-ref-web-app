@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { ISelector, SelectorImageTypes } from '@djonnyx/tornado-types';
+import { ISelector, SelectorResourceTypes } from '@djonnyx/tornado-types';
 
 export enum SelectorActionTypes {
     GET_REQUEST = "TORNADO/selector/get:request",
@@ -14,7 +14,7 @@ export enum SelectorActionTypes {
     UPDATE_SUCCESS = "TORNADO/selector/update:success",
     UPDATE_ERROR = "TORNADO/selector/update:error",
 
-    UPDATE_IMAGE = "TORNADO/selector/update-resources",
+    UPDATE_RESOURCE = "TORNADO/selector/update-resources",
 
     UPDATE = "TORNADO/selector/update",
 
@@ -64,10 +64,10 @@ export namespace SelectorActions {
         props<{ error: string }>()
     );
 
-    // updateImage
-    export const updateImage = createAction(
-        SelectorActionTypes.UPDATE_IMAGE,
-        props<{ langCode: string, resourcesType: SelectorImageTypes, assetId: string }>(),
+    // updateResource
+    export const updateResource = createAction(
+        SelectorActionTypes.UPDATE_RESOURCE,
+        props<{ langCode: string, resourcesType: SelectorResourceTypes, assetId: string }>(),
     );
 
     // update state

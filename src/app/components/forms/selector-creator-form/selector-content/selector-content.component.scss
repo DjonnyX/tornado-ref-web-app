@@ -9,35 +9,4 @@
     .selector__description {
         height: px2em(188);
     }
-
-    .reset-button {
-        padding: 0;
-    }
-
-    .resources {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        background: rgba($block-color, 0.1);
-        border-radius: 6px;
-        padding: px2em(22);
-
-        .resources-wrapper {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: px2em(20);
-            width: 100%;
-
-            &.double {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .resources-n,
-        .resources-m,
-        .resources-s {
-            width: 100%;
-            margin-bottom: px2em(20);
-        }
-    }
 }

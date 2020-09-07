@@ -24,9 +24,9 @@ export default class ProductAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-    public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadResourceRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(ProductAssetsActions.uploadImageRequest),
+            ofType(ProductAssetsActions.uploadResourceRequest),
             switchMap(({ productId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
@@ -42,15 +42,15 @@ export default class ProductAssetsEffects {
                     },
                     ext: ext,
                 }
-                this._store.dispatch(ProductActions.updateImage({
+                this._store.dispatch(ProductActions.updateResource({
                     langCode: data.langCode,
                     resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadProductImage(productId, resourcesType, data).pipe(
+                return this._apiService.uploadProductResource(productId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
-                            return [ProductAssetsActions.uploadImageProgress({
+                            return [ProductAssetsActions.uploadResourceProgress({
                                 tmpAsset,
                                 langCode: data.langCode,
                                 progress: {
@@ -61,14 +61,14 @@ export default class ProductAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [ProductAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
+                            return [ProductAssetsActions.uploadResourceProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [ProductAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), ProductActions.getRequest({ id: productId })];
+                        return [ProductAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), ProductActions.getRequest({ id: productId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(ProductAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
+                        return of(ProductAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
             })

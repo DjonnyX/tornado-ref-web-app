@@ -1,11 +1,11 @@
 {
   "name": "tornado-admin",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "author": {
     "email": "djonnyx@gmail.com",
     "name": "Eugene Grebennikov"
   },
-  "description": "Core server for Tornado SST",
+  "description": "Ref server for Tornado SST",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -29,7 +29,7 @@
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
     "@angular/router": "~9.1.0",
-    "@djonnyx/tornado-types": "^1.2.0",
+    "@djonnyx/tornado-types": "^1.3.5",
     "@ngrx/effects": "^9.1.2",
     "@ngrx/entity": "^9.1.2",
     "@ngrx/store": "^9.1.2",

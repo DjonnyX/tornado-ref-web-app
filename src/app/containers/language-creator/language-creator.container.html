@@ -8,7 +8,7 @@
                 [process]="isProcessMainOptions$ | async">
                 <ta-language-creator-form [isEditMode]="isEditMode" [language]="language$ | async"
                     [resources]="resources$ | async" [assets]="languageAssets$ | async" (save)="onMainOptionsSave($event)"
-                    (cancel)="onCancel()" (uploadMainImage)="onAssetUpload($event)">
+                    (cancel)="onCancel()" (uploadMainResource)="onAssetUpload($event)">
                 </ta-language-creator-form>
             </ta-query-progress>
         </div>

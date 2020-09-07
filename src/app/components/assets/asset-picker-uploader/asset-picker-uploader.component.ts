@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IAsset } from '@models';
 import { BaseComponent } from '@components/base/base-component';
-import { getThumbnail } from '@app/utils/asset.util';
 
 @Component({
   selector: 'ta-asset-picker-uploader',
@@ -9,6 +8,8 @@ import { getThumbnail } from '@app/utils/asset.util';
   styleUrls: ['./asset-picker-uploader.component.scss']
 })
 export class AssetPickerUploaderComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  @Input() extensions: Array<string> = ['.png', '.jpg'];
 
   @Input() size: string;
 
@@ -18,6 +19,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
   @Input() set defaultValue(v: string) {
     if (!!v && this._defaultValue !== v) {
       this._defaultValue = v;
+      
+      this.isLoading = true;
 
       this.updateAsset();
     }
@@ -38,18 +41,24 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   asset: IAsset;
 
+  isLoading: boolean = false;
+
+  isError: boolean = false;
+
   constructor() {
     super();
   }
 
   ngOnInit(): void { }
 
-  onUploadFile(file: File): void {
-    this.upload.emit(file);
-  }
-
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onUploadFile(file: File): void {
+    this.isLoading = false;
+    this.isError = false;
+    this.upload.emit(file);
   }
 
   updateAsset(): void {
@@ -58,7 +67,16 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
     }
   }
 
+  loadingComplete() {
+    this.isLoading = this.isError = false;
+  }
+
+  loadingError() {
+    this.isLoading = false;
+    this.isError = true;
+  }
+
   getThumbnail(): string {
-    return getThumbnail(this.asset);
+    return this.asset?.mipmap?.x128;
   }
 }

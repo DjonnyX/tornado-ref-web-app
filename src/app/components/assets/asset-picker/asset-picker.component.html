@@ -2,11 +2,13 @@
     <div class="asset-viewer">
         <div class="asset-preview__substract"></div>
         <div [style.background-color]="color" class="asset-preview__substract-color"></div>
-        <div class="asset-preview" [style.background]="getThumbnail()"></div>
+        <div class="asset-preview">
+            <img [src]="getThumbnail()"/>
+        </div>
     </div>
     <div class="form-item">
         <mat-form-field class="full-width" appearance="fill">
-            <mat-label>Image</mat-label>
+            <mat-label>Resource</mat-label>
             <mat-select [formControl]="ctrlAssets">
                 <mat-option *ngFor="let asset of assets" [value]="asset.id">{{asset.name}}</mat-option>
             </mat-select>

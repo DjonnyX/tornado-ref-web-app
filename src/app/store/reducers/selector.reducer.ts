@@ -21,7 +21,7 @@ const selectorReducer = createReducer(
             selector,
         };
     }),
-    on(SelectorActions.updateImage, (state, { langCode, resourcesType, assetId }) => {
+    on(SelectorActions.updateResource, (state, { langCode, resourcesType, assetId }) => {
         const selector = deepMergeObjects(state.selector, {
             contents: {
                 [langCode]: {

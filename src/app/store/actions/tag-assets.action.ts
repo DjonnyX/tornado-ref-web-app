@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
-import { TagImageTypes } from '@djonnyx/tornado-types';
+import { TagResourceTypes } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 
 export enum TagAssetsActionTypes {
@@ -30,10 +30,10 @@ export enum TagAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/tag/assets/delete:success",
     DELETE_ERROR = "TORNADO/tag/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/tag/assets/upload-resources:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/tag/assets/upload-resources:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/tag/assets/upload-resources:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/tag/assets/upload-resources:error",
+    UPLOAD_RESOURCE_REQUEST = "TORNADO/tag/assets/upload-resources:request",
+    UPLOAD_RESOURCE_PROGRESS = "TORNADO/tag/assets/upload-resources:progress",
+    UPLOAD_RESOURCE_SUCCESS = "TORNADO/tag/assets/upload-resources:success",
+    UPLOAD_RESOURCE_ERROR = "TORNADO/tag/assets/upload-resources:error",
 
     CLEAR = "TORNADO/tag/assets/clear",
 }
@@ -125,16 +125,16 @@ export namespace TagAssetsActions {
     );
 
     // upload
-    export const uploadImageRequest = createAction(
-        TagAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ tagId: string, resourcesType: TagImageTypes, data: IFileUploadEvent }>()
+    export const uploadResourceRequest = createAction(
+        TagAssetsActionTypes.UPLOAD_RESOURCE_REQUEST,
+        props<{ tagId: string, resourcesType: TagResourceTypes, data: IFileUploadEvent }>()
     );
-    export const uploadImageSuccess = createAction(
-        TagAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
+    export const uploadResourceSuccess = createAction(
+        TagAssetsActionTypes.UPLOAD_RESOURCE_SUCCESS,
         props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
-    export const uploadImageProgress = createAction(
-        TagAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
+    export const uploadResourceProgress = createAction(
+        TagAssetsActionTypes.UPLOAD_RESOURCE_PROGRESS,
         props<{
             tmpAsset: IAsset,
             langCode: string,
@@ -145,8 +145,8 @@ export namespace TagAssetsActions {
             }
         }>()
     );
-    export const uploadImageError = createAction(
-        TagAssetsActionTypes.UPLOAD_IMAGE_ERROR,
+    export const uploadResourceError = createAction(
+        TagAssetsActionTypes.UPLOAD_RESOURCE_ERROR,
         props<{
             tmpAsset: IAsset,
             error: string

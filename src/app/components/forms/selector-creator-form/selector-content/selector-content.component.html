@@ -2,60 +2,60 @@
   <div class="resources" *ngIf="isEditMode">
     <div class="resources-wrapper">
       <div class="resources-n">
-        <h2 class="form-header">
-          Image
-        </h2>
+        <p class="form-header">
+          Resource
+        </p>
 
         <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetImageToDefault('main')">
+          class="reset-button" (click)="onResetResourceToDefault('main')">
           Reset to default
         </button>
 
         <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
-          [assets]="assets" class="transparent" (upload)="onMainImageUpload($event, 'main')">
+          [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
     </div>
 
     <div class="resources-wrapper double">
       <div class="resources-m">
-        <h2 class="form-header">
+        <p class="form-header">
           Thumbnail
-        </h2>
+        </p>
 
         <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetImageToDefault('thumbnail')">
+          class="reset-button" (click)="onResetResourceToDefault('thumbnail')">
           Reset to default
         </button>
 
         <ta-asset-picker-uploader size="m"
           [defaultValue]="!!content && !!content.resources ? content.resources.thumbnail : undefined" [assets]="assets"
-          class="transparent" (upload)="onThumbnailImageUpload($event, 'thumbnail')">
+          class="transparent" (upload)="onThumbnailResourceUpload($event, 'thumbnail')">
         </ta-asset-picker-uploader>
       </div>
 
       <div class="resources-s">
-        <h2 class="form-header">
+        <p class="form-header">
           Icon
-        </h2>
+        </p>
 
         <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
-          (click)="onResetImageToDefault('icon')">
+          (click)="onResetResourceToDefault('icon')">
           Reset to default
         </button>
 
         <ta-asset-picker-uploader size="m"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
-          [color]="color" class="transparent" (upload)="onIconImageUpload($event, 'icon')">
+          [color]="color" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
         </ta-asset-picker-uploader>
       </div>
     </div>
 
     <div class="resources-wrapper single">
       <div class="full-width">
-        <h2 class="form-header">
+        <p class="form-header">
           Color
-        </h2>
+        </p>
 
         <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetColorToDefault()">

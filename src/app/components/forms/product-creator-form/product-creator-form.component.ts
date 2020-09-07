@@ -81,11 +81,11 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Output() update = new EventEmitter<IProduct>();
 
-  @Output() uploadMainImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadIconResource = new EventEmitter<IFileUploadEvent>();
 
   @Output() uploadAsset = new EventEmitter<IFileUploadEvent>();
 
@@ -152,16 +152,16 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     }
   }
 
-  onMainImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadMainResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadThumbnailImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onThumbnailResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadThumbnailResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
   onAssetUpload(file: File, lang: ILanguage): void {
@@ -188,7 +188,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     return this._product.contents[lang.code];
   }
 
-  getImagesGallery(lang: ILanguage): Array<IAsset> {
+  getResourcesGallery(lang: ILanguage): Array<IAsset> {
     return !!lang && !!this.resourcesGallery && this.resourcesGallery[lang.code] ? this.resourcesGallery[lang.code] : [];
   }
 

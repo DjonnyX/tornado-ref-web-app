@@ -11,7 +11,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
 import { SelectorActions } from '@store/actions/selector.action';
-import { ISelector, SelectorImageTypes, ILanguage, ISelectorContents, SelectorTypes } from '@djonnyx/tornado-types';
+import { ISelector, SelectorResourceTypes, ILanguage, ISelectorContents, SelectorTypes } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
@@ -280,16 +280,16 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SelectorAssetsActions.clear());
   }
 
-  onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, resourcesType: SelectorImageTypes.MAIN, data }));
+  onMainResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.uploadResourceRequest({ selectorId: this._selectorId, resourcesType: SelectorResourceTypes.MAIN, data }));
   }
 
-  onThumbnailImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, resourcesType: SelectorImageTypes.THUMBNAIL, data }));
+  onThumbnailResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.uploadResourceRequest({ selectorId: this._selectorId, resourcesType: SelectorResourceTypes.THUMBNAIL, data }));
   }
 
-  onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.uploadImageRequest({ selectorId: this._selectorId, resourcesType: SelectorImageTypes.ICON, data }));
+  onIconResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(SelectorAssetsActions.uploadResourceRequest({ selectorId: this._selectorId, resourcesType: SelectorResourceTypes.ICON, data }));
   }
 
   onMainOptionsSave(selector: ISelector): void {

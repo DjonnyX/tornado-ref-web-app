@@ -437,8 +437,6 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   onCreate(): void {
     const rights = this.getRights();
 
-    console.log(rights)
-
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {

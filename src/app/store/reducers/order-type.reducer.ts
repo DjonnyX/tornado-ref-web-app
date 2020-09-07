@@ -20,7 +20,7 @@ const orderTypeReducer = createReducer(
             ...initialState,
         };
     }),
-    on(OrderTypeActions.updateImage, (state, { langCode, resourcesType, assetId }) => {
+    on(OrderTypeActions.updateResource, (state, { langCode, resourcesType, assetId }) => {
         const product = deepMergeObjects(state.orderType, {
             contents: {
                 [langCode]: {

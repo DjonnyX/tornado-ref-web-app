@@ -24,7 +24,6 @@ import {
   IMenuNodesDeleteResponse,
   IAssetsDeleteResponse,
   IAssetsUpdateResponse,
-  IAssetsCreateResponse,
   IAssetsGetResponse,
   IProductAssetCreateResponse,
   IProductAssetUpdateResponse,
@@ -74,12 +73,22 @@ import {
   ITagAssetCreateResponse,
   ITagAssetUpdateResponse,
   ITagAssetDeleteResponse,
+  IAdsGetResponse,
+  IAdGetResponse,
+  IAdsCreateResponse,
+  IAdsUpdateResponse,
+  IAdsDeleteResponse,
+  IAdAssetGetResponse,
+  IAdAssetGetByLangResponse,
+  IAdAssetCreateResponse,
+  IAdAssetUpdateResponse,
+  IAdAssetDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageImageTypes, OrderTypeImageTypes, SelectorImageTypes, ProductImageTypes, ITranslation, TagImageTypes } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 
@@ -216,7 +225,7 @@ export class ApiService {
       });
   }
 
-  public uploadProductImage(productId: string, type: ProductImageTypes, data: IFileUploadEvent): Observable<IProductAssetCreateResponse> {
+  public uploadProductResource(productId: string, type: ProductResourceTypes, data: IFileUploadEvent): Observable<IProductAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -280,7 +289,7 @@ export class ApiService {
       );
   }
 
-  public updateProductAsset(productId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IProductAssetUpdateResponse> {
+  public updateProductAsset(productId: string, langCode: string, assetId: string, asset: { name?: string, active?: boolean }): Observable<IProductAssetUpdateResponse> {
     return this._http
       .put<IProductAssetUpdateResponse>(`api/v1/product/${productId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
@@ -368,7 +377,7 @@ export class ApiService {
       });
   }
 
-  public uploadSelectorImage(selectorId: string, type: SelectorImageTypes, data: IFileUploadEvent): Observable<ISelectorAssetCreateResponse> {
+  public uploadSelectorResource(selectorId: string, type: SelectorResourceTypes, data: IFileUploadEvent): Observable<ISelectorAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -432,7 +441,7 @@ export class ApiService {
       );
   }
 
-  public updateSelectorAsset(selectorId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ISelectorAssetUpdateResponse> {
+  public updateSelectorAsset(selectorId: string, langCode: string, assetId: string, asset: { name?: string, active?: boolean }): Observable<ISelectorAssetUpdateResponse> {
     return this._http
       .put<ISelectorAssetUpdateResponse>(`api/v1/selector/${selectorId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
@@ -609,7 +618,7 @@ export class ApiService {
         },
       });
   }
-  
+
   public getTag(id: string): Observable<ITagGetResponse> {
     return this._http
       .get<ITagGetResponse>(`api/v1/tag/${id}`, {
@@ -664,7 +673,7 @@ export class ApiService {
       });
   }
 
-  public uploadTagImage(tagId: string, type: TagImageTypes, data: IFileUploadEvent): Observable<ITagAssetCreateResponse> {
+  public uploadTagResource(tagId: string, type: TagResourceTypes, data: IFileUploadEvent): Observable<ITagAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -728,7 +737,7 @@ export class ApiService {
       );
   }
 
-  public updateTagAsset(tagId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ITagAssetUpdateResponse> {
+  public updateTagAsset(tagId: string, langCode: string, assetId: string, asset: { name?: string, active?: boolean }): Observable<ITagAssetUpdateResponse> {
     return this._http
       .put<ITagAssetUpdateResponse>(`api/v1/tag/${tagId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
@@ -745,7 +754,7 @@ export class ApiService {
         },
       });
   }
-  
+
   // currencies
   public getCurrencies(): Observable<ICurrenciesGetResponse> {
     return this._http
@@ -755,7 +764,7 @@ export class ApiService {
         },
       });
   }
-  
+
   public getCurrency(id: string): Observable<ICurrencyGetResponse> {
     return this._http
       .get<ICurrencyGetResponse>(`api/v1/currency/${id}`, {
@@ -791,7 +800,7 @@ export class ApiService {
         },
       });
   }
-  
+
   // order-types
   public getOrderTypes(): Observable<IOrderTypesGetResponse> {
     return this._http
@@ -801,7 +810,7 @@ export class ApiService {
         },
       });
   }
-  
+
   public getOrderType(id: string): Observable<IOrderTypeGetResponse> {
     return this._http
       .get<IOrderTypeGetResponse>(`api/v1/order-type/${id}`, {
@@ -856,7 +865,7 @@ export class ApiService {
       });
   }
 
-  public uploadOrderTypeImage(orderTypeId: string, type: OrderTypeImageTypes, data: IFileUploadEvent): Observable<IOrderTypeAssetCreateResponse> {
+  public uploadOrderTypeResource(orderTypeId: string, type: OrderTypeResourceTypes, data: IFileUploadEvent): Observable<IOrderTypeAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);
 
@@ -920,7 +929,7 @@ export class ApiService {
       );
   }
 
-  public updateOrderTypeAsset(orderTypeId: string, langCode: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<IOrderTypeAssetUpdateResponse> {
+  public updateOrderTypeAsset(orderTypeId: string, langCode: string, assetId: string, asset: { name?: string, active?: boolean }): Observable<IOrderTypeAssetUpdateResponse> {
     return this._http
       .put<IOrderTypeAssetUpdateResponse>(`api/v1/order-type/${orderTypeId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
@@ -947,7 +956,7 @@ export class ApiService {
         },
       });
   }
-  
+
   public getLanguage(id: string): Observable<ILanguageGetResponse> {
     return this._http
       .get<ILanguageGetResponse>(`api/v1/language/${id}`, {
@@ -993,7 +1002,7 @@ export class ApiService {
       });
   }
 
-  public uploadLanguageImage(languageId: string, type: LanguageImageTypes, file: File): Observable<ILanguageAssetCreateResponse> {
+  public uploadLanguageResource(languageId: string, type: LanguageResourceTypes, file: File): Observable<ILanguageAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", file, file.name);
 
@@ -1057,7 +1066,7 @@ export class ApiService {
       );
   }
 
-  public updateLanguageAsset(languageId: string, assetId: string, asset: {name?: string, active?: boolean}): Observable<ILanguageAssetUpdateResponse> {
+  public updateLanguageAsset(languageId: string, assetId: string, asset: { name?: string, active?: boolean }): Observable<ILanguageAssetUpdateResponse> {
     return this._http
       .put<ILanguageAssetUpdateResponse>(`api/v1/language/${languageId}/asset/${assetId}`, asset, {
         headers: {
@@ -1084,7 +1093,7 @@ export class ApiService {
         },
       });
   }
-  
+
   public getTranslation(id: string): Observable<ITranslationGetResponse> {
     return this._http
       .get<ITranslationGetResponse>(`api/v1/translation/${id}`, {
@@ -1097,6 +1106,158 @@ export class ApiService {
   public updateTranslation(id: string, translation: ITranslation): Observable<ITranslationUpdateResponse> {
     return this._http
       .put<ITranslationUpdateResponse>(`api/v1/translation/${id}`, translation, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // ads
+  public getAds(type: AdTypes): Observable<IAdsGetResponse> {
+    const params: any = {};
+    if (!!type) {
+      params.type = type;
+    }
+
+    return this._http
+      .get<IAdsGetResponse>("api/v1/ads", {
+        headers: {
+          authorization: this._token,
+        },
+        params,
+      });
+  }
+
+  public getAd(id: string): Observable<IAdGetResponse> {
+    return this._http
+      .get<IAdGetResponse>(`api/v1/ad/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createAd(ad: IAd): Observable<IAdsCreateResponse> {
+    return this._http
+      .post<IAdsCreateResponse>("api/v1/ad", ad, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateAd(id: string, ad: IAd): Observable<IAdsUpdateResponse> {
+    return this._http
+      .put<IAdsUpdateResponse>(`api/v1/ad/${id}`, ad, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteAd(id: string): Observable<IAdsDeleteResponse> {
+    return this._http
+      .delete<IAdsDeleteResponse>(`api/v1/ad/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getAdAllAssets(adId: string): Observable<IAdAssetGetResponse> {
+    return this._http
+      .get<IAdAssetGetResponse>(`api/v1/ad/${adId}/assets`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getAdAllByLangAssets(adId: string, langCode: string): Observable<IAdAssetGetByLangResponse> {
+    return this._http
+      .get<IAdAssetGetByLangResponse>(`api/v1/ad/${adId}/assets/${langCode}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public uploadAdResource(adId: string, type: AdResourceTypes, data: IFileUploadEvent): Observable<IAdAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<IAdAssetCreateResponse>(`api/v1/ad/${adId}/resource/${data.langCode}/${type}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public createAdAsset(adId: string, data: IFileUploadEvent): Observable<IAdAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<IAdAssetCreateResponse>(`api/v1/ad/${adId}/asset/${data.langCode}`, formData, {
+        headers: {
+          authorization: this._token,
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateAdAsset(adId: string, langCode: string, assetId: string, asset: { name?: string, active?: boolean }): Observable<IAdAssetUpdateResponse> {
+    return this._http
+      .put<IAdAssetUpdateResponse>(`api/v1/ad/${adId}/asset/${langCode}/${assetId}`, asset, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteAdAsset(adId: string, langCode: string, assetId: string): Observable<IAdAssetDeleteResponse> {
+    return this._http
+      .delete<IAdAssetDeleteResponse>(`api/v1/ad/${adId}/asset/${langCode}/${assetId}`, {
         headers: {
           authorization: this._token,
         },
