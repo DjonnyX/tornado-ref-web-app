@@ -1,7 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { IAsset } from '@models';
 import { BaseComponent } from '@components/base/base-component';
-import { getThumbnail } from '@app/utils/asset.util';
 
 @Component({
   selector: 'ta-asset-picker-uploader',
@@ -9,6 +8,8 @@ import { getThumbnail } from '@app/utils/asset.util';
   styleUrls: ['./asset-picker-uploader.component.scss']
 })
 export class AssetPickerUploaderComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  @Input() extensions: Array<string> = ['.png', '.jpg'];
 
   @Input() size: string;
 

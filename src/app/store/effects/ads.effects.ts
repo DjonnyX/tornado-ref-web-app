@@ -18,8 +18,8 @@ export default class AdsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AdsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getAds().pipe(
+            switchMap(({ adType }) => {
+                return this._apiService.getAds(adType).pipe(
                     mergeMap(res => {
                         return [AdsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
@@ -36,7 +36,7 @@ export default class AdsEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AdsActions.createRequest),
-            switchMap(ad => {
+            switchMap(({ ad }) => {
                 return this._apiService.createAd(formatAdModel(ad)).pipe(
                     mergeMap(res => {
                         return [AdsActions.createSuccess({ ad: res.data, meta: res.meta })];

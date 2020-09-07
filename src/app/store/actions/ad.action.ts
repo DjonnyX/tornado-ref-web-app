@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IAd, AdResourceTypes } from '@djonnyx/tornado-types';
+import { IAd, AdResourceTypes, AdTypes } from '@djonnyx/tornado-types';
 
 export enum AdActionTypes {
     GET_REQUEST = "TORNADO/ad/get:request",

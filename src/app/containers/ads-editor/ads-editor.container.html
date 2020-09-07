@@ -1,0 +1,6 @@
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
+  <ta-ads-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
+    [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async" [assets]="assets$ | async"
+    (create)="onCreate()" (edit)="onEdit($event)" (update)="onUpdate($event)" (delete)="onDelete($event)">
+  </ta-ads-editor-component>
+</ta-query-progress>

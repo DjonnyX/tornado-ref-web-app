@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IAd } from '@djonnyx/tornado-types';
+import { IAd, AdTypes } from '@djonnyx/tornado-types';
 
 export enum AdsActionTypes {
     GET_ALL_REQUEST = "TORNADO/ads/get-all:request",
@@ -22,12 +22,15 @@ export enum AdsActionTypes {
     DELETE_REQUEST = "TORNADO/ads/delete:request",
     DELETE_SUCCESS = "TORNADO/ads/delete:success",
     DELETE_ERROR = "TORNADO/ads/delete:error",
+    
+    CLEAR = "TORNADO/ads/clear",
 }
 
 export namespace AdsActions {
     // getAll
     export const getAllRequest = createAction(
         AdsActionTypes.GET_ALL_REQUEST,
+        props<{ adType?: AdTypes }>(),
     );
     export const getAllSuccess = createAction(
         AdsActionTypes.GET_ALL_SUCCESS,
@@ -35,13 +38,13 @@ export namespace AdsActions {
     );
     export const getAllError = createAction(
         AdsActionTypes.GET_ALL_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // get
     export const getRequest = createAction(
         AdsActionTypes.GET_REQUEST,
-        props<{ adId: string }>()
+        props<{ adId: string }>(),
     );
     export const getSuccess = createAction(
         AdsActionTypes.GET_SUCCESS,
@@ -49,48 +52,52 @@ export namespace AdsActions {
     );
     export const getError = createAction(
         AdsActionTypes.GET_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // create
     export const createRequest = createAction(
         AdsActionTypes.CREATE_REQUEST,
-        props<IAd>()
+        props<{ ad: IAd }>(),
     );
     export const createSuccess = createAction(
         AdsActionTypes.CREATE_SUCCESS,
-        props<{ ad: IAd, meta: IMetaRefsResponse }>()
+        props<{ ad: IAd, meta: IMetaRefsResponse }>(),
     );
     export const createError = createAction(
         AdsActionTypes.CREATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // update
     export const updateRequest = createAction(
         AdsActionTypes.UPDATE_REQUEST,
-        props<{ id: string, ad: IAd }>()
+        props<{ id: string, ad: IAd }>(),
     );
     export const updateSuccess = createAction(
         AdsActionTypes.UPDATE_SUCCESS,
-        props<{ ad: IAd, meta: IMetaRefsResponse }>()
+        props<{ ad: IAd, meta: IMetaRefsResponse }>(),
     );
     export const updateError = createAction(
         AdsActionTypes.UPDATE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
     );
 
     // delete
     export const deleteRequest = createAction(
         AdsActionTypes.DELETE_REQUEST,
-        props<{ id: string }>()
+        props<{ id: string }>(),
     );
     export const deleteSuccess = createAction(
         AdsActionTypes.DELETE_SUCCESS,
-        props<{ id: string, meta: IMetaRefsResponse }>()
+        props<{ id: string, meta: IMetaRefsResponse }>(),
     );
     export const deleteError = createAction(
         AdsActionTypes.DELETE_ERROR,
-        props<{ error: string }>()
+        props<{ error: string }>(),
+    );
+
+    export const clear = createAction(
+        AdsActionTypes.CLEAR,
     );
 }

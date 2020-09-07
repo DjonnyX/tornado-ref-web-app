@@ -1,0 +1,25 @@
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+  <div *ngIf="!!ad; else mainLangContent">
+    <mat-tab-group>
+      <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+        <ta-ad-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
+          [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
+          (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
+          (uploadIconResource)="onIconResourceUpload($event, lang)"
+          (uploadThumbnailResource)="onThumbnailResourceUpload($event, lang)" (save)="onSave()">
+        </ta-ad-content>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #mainLangContent>
+    <ta-ad-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
+      [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
+    </ta-ad-content>
+  </ng-template>
+
+  <div class="form__submit" align="end">
+    <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+    <button mat-flat-button color="accent" type="submit" class="button button__text"
+      [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+  </div>
+</form>

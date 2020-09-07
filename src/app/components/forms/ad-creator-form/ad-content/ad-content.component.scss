@@ -1,0 +1,12 @@
+@import "../../../../../styles/components/color-picker";
+@import "../../../../../styles/themes";
+@import "../../../../../styles/utils/px2em";
+
+.ad-content {
+    margin-top: px2em(44);
+    margin-bottom: px2em(44);
+
+    .ad__description {
+        height: px2em(188);
+    }
+}

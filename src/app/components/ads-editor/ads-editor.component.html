@@ -1,0 +1,49 @@
+<div class="editor">
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div class="entities-wrapper">
+        <div class="entity" *ngFor="let ad of collection | search:searchPattern:defaultLanguage.code"
+            [class.disabled]="!ad.active">
+            <div class="entity-ctrls">
+                <div class="entity-checkbox-active">
+                    <mat-checkbox color="accent" #checkboxActive [checked]="ad.active"
+                        (click)="onToggleActive($event, ad)"></mat-checkbox>
+                </div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+                    <mat-icon class="icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleActive($event, ad)">
+                        <mat-icon>{{ad.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <span>{{ad.active ? 'Deactivate' : 'Active'}}</span>
+                    </button>
+                    <button mat-menu-item (click)="onEditAd(ad)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Edit</span>
+                    </button>
+                    <button mat-menu-item (click)="onDeleteAd(ad)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Delete</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <div matRipple class="entity-active-zone" (click)="onEditAd(ad)">
+                <div class="content">
+                    <div class="content__name">
+                        {{getAdName(ad)}}
+                    </div>
+                </div>
+                <div class="bottom-panel">
+                    <img align="center" *ngIf="hasThumbnail(ad)" class="entity-thumbnail"
+                        [src]="getThumbnail(ad)">
+                </div>
+                <div class="color" [style.background]="getAdColor(ad)"></div>
+                <!--<div class="tags">
+                    <span class="tag" *ngFor="let tag of ad.tags" [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)"></span>
+                </div>-->
+            </div>
+        </div>
+        <button color="accent" mat-raised-button class="button-add" (click)="onCreateAd()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

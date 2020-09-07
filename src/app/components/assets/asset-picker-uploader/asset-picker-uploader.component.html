@@ -13,6 +13,6 @@
             Upload
         </button>
     </div>
-    <ta-file-selector [allowedExtensions]="['.png', '.jpg']" #fileSelector="fileSelector"
+    <ta-file-selector [allowedExtensions]="extensions" #fileSelector="fileSelector"
         (select)="onUploadFile($event)"></ta-file-selector>
 </div>

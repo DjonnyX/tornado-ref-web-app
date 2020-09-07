@@ -1,0 +1,11 @@
+@import "../../../styles/utils/px2em";
+
+.editor {
+    .entity {
+        .color {
+            width: 100%;
+            height: px2em(10);
+            min-height: px2em(10);
+        }
+    }
+}
