@@ -14,7 +14,7 @@ export enum SelectorActionTypes {
     UPDATE_SUCCESS = "TORNADO/selector/update:success",
     UPDATE_ERROR = "TORNADO/selector/update:error",
 
-    UPDATE_IMAGE = "TORNADO/selector/update-resources",
+    UPDATE_RESOURCE = "TORNADO/selector/update-resources",
 
     UPDATE = "TORNADO/selector/update",
 
@@ -66,7 +66,7 @@ export namespace SelectorActions {
 
     // updateImage
     export const updateImage = createAction(
-        SelectorActionTypes.UPDATE_IMAGE,
+        SelectorActionTypes.UPDATE_RESOURCE,
         props<{ langCode: string, resourcesType: SelectorImageTypes, assetId: string }>(),
     );
 
