@@ -221,7 +221,7 @@ export class ApiService {
     formData.append("file", data.file, data.file.name);
 
     return this._http
-      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/image/${data.langCode}/${type}`, formData, {
+      .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -373,7 +373,7 @@ export class ApiService {
     formData.append("file", data.file, data.file.name);
 
     return this._http
-      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/image/${data.langCode}/${type}`, formData, {
+      .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -669,7 +669,7 @@ export class ApiService {
     formData.append("file", data.file, data.file.name);
 
     return this._http
-      .post<ITagAssetCreateResponse>(`api/v1/tag/${tagId}/image/${data.langCode}/${type}`, formData, {
+      .post<ITagAssetCreateResponse>(`api/v1/tag/${tagId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -861,7 +861,7 @@ export class ApiService {
     formData.append("file", data.file, data.file.name);
 
     return this._http
-      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/image/${data.langCode}/${type}`, formData, {
+      .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
           authorization: this._token,
         },
@@ -998,7 +998,7 @@ export class ApiService {
     formData.append("file", file, file.name);
 
     return this._http
-      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/image/${type}`, formData, {
+      .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/resource/${type}`, formData, {
         headers: {
           authorization: this._token,
         },

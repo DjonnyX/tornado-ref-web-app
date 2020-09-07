@@ -104,7 +104,7 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
     contents: IEntityContents;
   }): string {
     const entityContent = this.getContent(entity);
-    const img = !!entityContent ? (entityContent as any)?.images?.main : undefined;
+    const img = !!entityContent ? (entityContent as any)?.resources?.main : undefined;
 
     if (!!this.assetsDictionary && !!img) {
 

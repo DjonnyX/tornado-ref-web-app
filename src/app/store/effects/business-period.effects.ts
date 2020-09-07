@@ -25,7 +25,7 @@ export default class BusinessPeriodEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(BusinessPeriodActions.getError({ error: error.message }));
                     }),
                 );
@@ -43,7 +43,7 @@ export default class BusinessPeriodEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(BusinessPeriodActions.createError({ error: error.message }));
                     }),
                 );
@@ -61,7 +61,7 @@ export default class BusinessPeriodEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(BusinessPeriodActions.updateError({ error: error.message }));
                     }),
                 );

@@ -39,7 +39,7 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
 
   @Input() assets: Array<IAsset>;
 
-  @Input() imagesGallery: Array<IAsset>;
+  @Input() resourcesGallery: Array<IAsset>;
 
   private _content: IOrderTypeContentsItem;
   @Input() set content(content: IOrderTypeContentsItem) {
@@ -112,10 +112,10 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
     this.uploadIconImage.emit({ file, dataField });
   }
 
-  onResetImageToDefault(imageType: OrderTypeImageTypes | string): void {
+  onResetImageToDefault(resourcesType: OrderTypeImageTypes | string): void {
     this.updateState({
-      images: {
-        [imageType]: null,
+      resources: {
+        [resourcesType]: null,
       }
     });
 
@@ -130,8 +130,8 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
     this.save.emit();
   }
 
-  isEqualWithDefault(imageType: OrderTypeImageTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, imageType, this.isDefault);
+  isEqualWithDefault(resourcesType: OrderTypeImageTypes | string): boolean {
+    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
   };
 
   isColorDefault(): boolean {

@@ -1,44 +1,45 @@
 <ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
-  <div class="entity-options-editor">
-    <div class="entity-options-editor__back-button" (click)="onToBack()">
-      go back
-    </div>
-    <div class="form">
-      <ta-query-progress class="query-progress-container" style="position: relative;"
-        [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-        <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-          [product]="product$ | async" [tagList]="tags$ | async" [assets]="productAssets$ | async"
-          [imagesGallery]="galleryProductAssets$ | async" [currencies]="currencies$ | async"
-          [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-          (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-          (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
-          (uploadThumbnailImage)="onThumbnailImageUpload($event)" (uploadAsset)="onAssetUpload($event)"
-          (updateAsset)="onAssetUpdate($event)" (deleteAsset)="onAssetDelete($event)">
-        </ta-product-creator-form>
-      </ta-query-progress>
-    </div>
-
-    <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
-      <div class="form-header">
-        <h2>Schema</h2>
-        <div>
-          In this block, the composition of the product is formed and a structure of behavior scenarios is
-          created.
+    <div class="entity-options-editor">
+        <div class="entity-options-editor__back-button" (click)="onToBack()">
+            go back
         </div>
-      </div>
-
-      <ta-query-progress class="query-progress-container" style="position: relative;"
-        [process]="isProcessHierarchy$ | async">
-        <div class="hierarchy-editor secondary">
-          <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false" [rootNodeId]="rootNodeId$ | async"
-            [nodes]="nodes$ | async" [products]="products$ | async" [selectors]="selectors$ | async"
-            [businessPeriods]="businessPeriods$ | async" [assets]="assets$ | async" [currencies]="currencies$ | async"
-            [languages]="languages$ | async" [defaultLanguage]="defaultLanguage$ | async"
-            (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
-            (delete)="onDeleteHierarchyNode($event)" mode="product">
-          </ta-node-tree>
+        <div class="form">
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+                <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+                    [product]="product$ | async" [tagList]="tags$ | async" [assets]="productAssets$ | async"
+                    [resourcesGallery]="galleryProductAssets$ | async" [currencies]="currencies$ | async"
+                    [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+                    (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+                    (uploadMainImage)="onMainImageUpload($event)" (uploadIconImage)="onIconImageUpload($event)"
+                    (uploadThumbnailImage)="onThumbnailImageUpload($event)" (uploadAsset)="onAssetUpload($event)"
+                    (updateAsset)="onAssetUpdate($event)" (deleteAsset)="onAssetDelete($event)">
+                </ta-product-creator-form>
+            </ta-query-progress>
         </div>
-      </ta-query-progress>
+
+        <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
+            <div class="form-header">
+                <h2>Schema</h2>
+                <div>
+                    In this block, the composition of the product is formed and a structure of behavior scenarios is
+                    created.
+                </div>
+            </div>
+
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+                [process]="isProcessHierarchy$ | async">
+                <div class="hierarchy-editor secondary">
+                    <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false"
+                        [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
+                        [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
+                        [assets]="assets$ | async" [currencies]="currencies$ | async" [languages]="languages$ | async"
+                        [orderTypes]="orderTypes$ | async" [defaultLanguage]="defaultLanguage$ | async"
+                        (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
+                        (delete)="onDeleteHierarchyNode($event)" mode="product">
+                    </ta-node-tree>
+                </div>
+            </ta-query-progress>
+        </div>
     </div>
-  </div>
 </ta-query-progress>

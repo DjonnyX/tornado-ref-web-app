@@ -97,13 +97,13 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   hasThumbnail(product: IProduct): boolean {
     const productContent = this.getProductContent(product);
-    const asset = !!productContent && !!productContent.images && !!productContent.images.main ? this._assetsDictionary[productContent.images.main] : undefined;
+    const asset = !!productContent && !!productContent.resources && !!productContent.resources.main ? this._assetsDictionary[productContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
   }
 
   getThumbnail(product: IProduct): string {
     const productContent = this.getProductContent(product);
-    const asset = !!productContent && !!productContent.images && !!productContent.images.main ? this._assetsDictionary[productContent.images.main] : undefined;
+    const asset = !!productContent && !!productContent.resources && !!productContent.resources.main ? this._assetsDictionary[productContent.resources.main] : undefined;
     return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 

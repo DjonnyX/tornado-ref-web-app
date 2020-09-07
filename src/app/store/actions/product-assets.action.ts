@@ -30,10 +30,10 @@ export enum ProductAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/product/assets/delete:success",
     DELETE_ERROR = "TORNADO/product/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/product/assets/upload-image:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/product/assets/upload-image:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/product/assets/upload-image:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/product/assets/upload-image:error",
+    UPLOAD_IMAGE_REQUEST = "TORNADO/product/assets/upload-resources:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/product/assets/upload-resources:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/product/assets/upload-resources:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/product/assets/upload-resources:error",
 
     CLEAR = "TORNADO/product/assets/clear",
 }
@@ -127,7 +127,7 @@ export namespace ProductAssetsActions {
     // upload
     export const uploadImageRequest = createAction(
         ProductAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ productId: string, imageType: ProductImageTypes, data: IFileUploadEvent }>()
+        props<{ productId: string, resourcesType: ProductImageTypes, data: IFileUploadEvent }>()
     );
     export const uploadImageSuccess = createAction(
         ProductAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,

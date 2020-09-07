@@ -25,7 +25,7 @@ export default class ProductsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -43,7 +43,7 @@ export default class ProductsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductsActions.createError({ error: error.message }));
                     }),
                 );
@@ -61,7 +61,7 @@ export default class ProductsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -79,7 +79,7 @@ export default class ProductsEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(ProductsActions.deleteError({ error: error.message }));
                     }),
                 );

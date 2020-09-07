@@ -39,7 +39,7 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
 
   @Input() assets: Array<IAsset>;
 
-  @Input() imagesGallery: Array<IAsset>;
+  @Input() resourcesGallery: Array<IAsset>;
 
   private _content: ITagContentsItem;
   @Input() set content(content: ITagContentsItem) {
@@ -112,10 +112,10 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
     this.uploadIconImage.emit({ file, dataField });
   }
 
-  onResetImageToDefault(imageType: TagImageTypes | string): void {
+  onResetImageToDefault(resourcesType: TagImageTypes | string): void {
     this.updateState({
-      images: {
-        [imageType]: null,
+      resources: {
+        [resourcesType]: null,
       }
     });
 
@@ -130,8 +130,8 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
     this.save.emit();
   }
 
-  isEqualWithDefault(imageType: TagImageTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, imageType, this.isDefault);
+  isEqualWithDefault(resourcesType: TagImageTypes | string): boolean {
+    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
   };
 
   isColorDefault(): boolean {

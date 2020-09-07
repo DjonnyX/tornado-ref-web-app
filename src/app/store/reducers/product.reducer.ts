@@ -21,12 +21,12 @@ const productReducer = createReducer(
             product,
         };
     }),
-    on(ProductActions.updateImage, (state, { langCode, imageType, assetId }) => {
+    on(ProductActions.updateImage, (state, { langCode, resourcesType, assetId }) => {
         const product = deepMergeObjects(state.product, {
             contents: {
                 [langCode]: {
-                    images: {
-                        [imageType]: assetId,
+                    resources: {
+                        [resourcesType]: assetId,
                     },
                 },
             },

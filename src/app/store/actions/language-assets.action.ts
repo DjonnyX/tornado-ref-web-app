@@ -25,10 +25,10 @@ export enum LanguageAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/language/assets/delete:success",
     DELETE_ERROR = "TORNADO/language/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/language/assets/upload-image:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/language/assets/upload-image:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/language/assets/upload-image:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/language/assets/upload-image:error",
+    UPLOAD_IMAGE_REQUEST = "TORNADO/language/assets/upload-resources:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/language/assets/upload-resources:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/language/assets/upload-resources:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/language/assets/upload-resources:error",
 
     CLEAR = "TORNADO/language/assets/clear",
 }
@@ -121,7 +121,7 @@ export namespace LanguageAssetsActions {
     // upload
     export const uploadImageRequest = createAction(
         LanguageAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ languageId: string, imageType: LanguageImageTypes, file: File }>()
+        props<{ languageId: string, resourcesType: LanguageImageTypes, file: File }>()
     );
     export const uploadImageSuccess = createAction(
         LanguageAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,

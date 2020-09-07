@@ -2,7 +2,11 @@
 <mat-dialog-content class="mat-typography" style="min-width: 320px;">
     <p *ngIf="!!data.message">{{data.message}}</p>
     <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [businessPeriods]="data.businessPeriods"
-        [currencies]="data.currencies" [languages]="data.languages" [defaultLanguage]="data.defaultLanguage"
+        [businessPeriodsDictionary]="data.businessPeriodsDictionary" [currencies]="data.currencies"
+        [currenciesDictionary]="data.currenciesDictionary" [products]="data.products"
+        [productsDictionary]="data.productsDictionary" [selectors]="data.selectors" [selectorsDictionary]="data.selectorsDictionary"
+        [languages]="data.languages" [languagesDictionary]="data.languagesDictionary" [orderTypes]="data.orderTypes"
+        [orderTypesDictionary]="data.orderTypesDictionary" [defaultLanguage]="data.defaultLanguage"
         (status)="onChangeStatus($event)" (edit)="onChangeScenario($event)">
     </ta-scenario-editor>
 </mat-dialog-content>

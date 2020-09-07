@@ -7,7 +7,7 @@
             <ta-query-progress class="query-progress-container" style="position: relative;"
                 [process]="isProcessMainOptions$ | async">
                 <ta-language-creator-form [isEditMode]="isEditMode" [language]="language$ | async"
-                    [images]="images$ | async" [assets]="languageAssets$ | async" (save)="onMainOptionsSave($event)"
+                    [resources]="resources$ | async" [assets]="languageAssets$ | async" (save)="onMainOptionsSave($event)"
                     (cancel)="onCancel()" (uploadMainImage)="onAssetUpload($event)">
                 </ta-language-creator-form>
             </ta-query-progress>

@@ -15,14 +15,14 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
     }
 
     for (const lang in result) {
-        if (!!result[lang]?.images) {
+        if (!!result[lang]?.resources) {
             const content = result[lang] || {};
-            for (const imageType in content.images) {
-                const isEqualtFromDefault = equalFromImages(defaultContent, content.images[imageType]);
-                if (imageType !== ProductImageTypes.MAIN && !!content.images.main && (!content.images[imageType] || (isEqualtFromDefault && lang !== defaultLang))) {
-                    content.images[imageType] = content.images.main;
-                } else if (lang !== defaultLang && (!content.images[imageType] || isEqualtFromDefault) && !!defaultContent?.images?.[imageType]) {
-                    content.images[imageType] = defaultContent.images[imageType] || defaultContent.images.main;
+            for (const resourcesType in content.resources) {
+                const isEqualtFromDefault = equalFromImages(defaultContent, content.resources[resourcesType]);
+                if (resourcesType !== ProductImageTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || (isEqualtFromDefault && lang !== defaultLang))) {
+                    content.resources[resourcesType] = content.resources.main;
+                } else if (lang !== defaultLang && (!content.resources[resourcesType] || isEqualtFromDefault) && !!defaultContent?.resources?.[resourcesType]) {
+                    content.resources[resourcesType] = defaultContent.resources[resourcesType] || defaultContent.resources.main;
                 }
             }
         }
@@ -31,10 +31,10 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
     return result;
 };
 
-export const equalFromImages = (content: IEntityContentsItem, image: string): boolean => {
-    if (!!content && !!content.images) {
-        for (const imageType in content) {
-            if (image == content[imageType]) {
+export const equalFromImages = (content: IEntityContentsItem, resources: string): boolean => {
+    if (!!content && !!content.resources) {
+        for (const resourcesType in content) {
+            if (resources == content[resourcesType]) {
                 return true;
             }
         }
@@ -42,17 +42,17 @@ export const equalFromImages = (content: IEntityContentsItem, image: string): bo
     return false;
 };
 
-export const isEqualWithDefault = (defaultContent: any, content: any, imageType: ProductImageTypes | string, isDefault: boolean): boolean => {
-    if (!!content && !!content.images) {
-        const isEqualtFromDefault = equalFromImages(defaultContent, content.images[imageType]);
-        if (imageType !== ProductImageTypes.MAIN && !!content.images.main && (!content.images[imageType] || content.images[imageType] === content.images.main || (isEqualtFromDefault && !isDefault))) {
+export const isEqualWithDefault = (defaultContent: any, content: any, resourcesType: ProductImageTypes | string, isDefault: boolean): boolean => {
+    if (!!content && !!content.resources) {
+        const isEqualtFromDefault = equalFromImages(defaultContent, content.resources[resourcesType]);
+        if (resourcesType !== ProductImageTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || content.resources[resourcesType] === content.resources.main || (isEqualtFromDefault && !isDefault))) {
             return true;
-        } else if (imageType === ProductImageTypes.MAIN && !isDefault && isEqualtFromDefault) {
+        } else if (resourcesType === ProductImageTypes.MAIN && !isDefault && isEqualtFromDefault) {
             return true;
-        } else if (!content.images[imageType]) {
+        } else if (!content.resources[resourcesType]) {
             return true;
-        } else if (isDefault && (!content.images[imageType] || isEqualtFromDefault) && !!defaultContent && !!defaultContent?.images?.[imageType]) {
-            return !!defaultContent.images[imageType] || !!defaultContent.images.main;
+        } else if (isDefault && (!content.resources[resourcesType] || isEqualtFromDefault) && !!defaultContent && !!defaultContent?.resources?.[resourcesType]) {
+            return !!defaultContent.resources[resourcesType] || !!defaultContent.resources.main;
         }
     }
 

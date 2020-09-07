@@ -17,7 +17,7 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   ctrlName = new FormControl('', [Validators.required]);
 
-  @Input() images: ILanguageImages;
+  @Input() resources: ILanguageImages;
 
   @Input() assets: Array<IAsset>;
 
@@ -73,15 +73,15 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   onSave(): void {
     if (this.form.valid) {
-      const images: ILanguageImages = {...this.images};
-      if (!(images as any).hasOwnProperty("main")) {
-        images.main = null;
+      const resources: ILanguageImages = {...this.resources};
+      if (!(resources as any).hasOwnProperty("main")) {
+        resources.main = null;
       }
 
       this.save.emit({
         ...this._language,
         ...this.form.value,
-        images,
+        resources,
         active: !!this._language && this._language.active !== undefined ? this._language.active : true,
         extra: !!this._language ? this._language.extra : {},
       });

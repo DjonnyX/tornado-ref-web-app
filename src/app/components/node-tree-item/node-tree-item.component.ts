@@ -8,9 +8,10 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage } from '@djonnyx/tornado-types';
+import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage, IOrderType } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
+import { ICollectionDictionary } from '@app/utils/collection.util';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -54,7 +55,11 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Input() currencies: Array<ICurrency>;
 
-  @Input() currenciesDictionary: { [id: string]: ICurrency };
+  @Input() currenciesDictionary: ICollectionDictionary<ICurrency>;
+
+  @Input() orderTypes: Array<IOrderType>;
+
+  @Input() orderTypesDictionary: ICollectionDictionary<IOrderType>;
 
   /**
    * Передаются либо селекторы меню, либо селекторы схем модификаторов
@@ -76,8 +81,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Input() content: ISelector | IProduct;
 
-  private _nodesDictionary: { [id: string]: INode };
-  @Input() set nodesDictionary(v: { [id: string]: INode }) {
+  private _nodesDictionary: ICollectionDictionary<INode>;
+  @Input() set nodesDictionary(v: ICollectionDictionary<INode>) {
     if (this._nodesDictionary !== v) {
       this._nodesDictionary = v;
       this.resetNode();
@@ -112,7 +117,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Input() businessPeriods: Array<IBusinessPeriod>;
 
-  @Input() businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
+  @Input() businessPeriodsDictionary: ICollectionDictionary<IBusinessPeriod>;
 
   resetIsLastChild(): void {
     if (this._parentChildrenLength > -1 && this._currentIndex > -1) {
@@ -143,17 +148,19 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
   }
 
-  @Input() productsDictionary: { [id: string]: IProduct };
+  @Input() productsDictionary: ICollectionDictionary<IProduct>;
 
-  @Input() selectorsDictionary: { [id: string]: ISelector };
+  @Input() selectorsDictionary: ICollectionDictionary<ISelector>;
 
-  @Input() additionalSelectorsDictionary: { [id: string]: ISelector };
+  @Input() additionalSelectorsDictionary: ICollectionDictionary<ISelector>;
 
-  @Input() assetsDictionary: { [id: string]: IAsset };
+  @Input() assetsDictionary: ICollectionDictionary<IAsset>;
 
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
+
+  @Input() languagesDictionary: ICollectionDictionary<IAsset>;
 
   @Output() create = new EventEmitter<INode>();
 
@@ -276,16 +283,16 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       if (!!this.productsDictionary && this.node.type === NodeTypes.PRODUCT) {
         const content = this.productsDictionary[this.node.contentId];
 
-        if (!!content && !!content.contents[this.defaultLanguage?.code]?.images?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]) {
-          return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]?.mipmap?.x32;
+        if (!!content && !!content.contents[this.defaultLanguage?.code]?.resources?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]) {
+          return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]?.mipmap?.x32;
         }
       } else
         if (!!this.selectorsDictionary) {
           if (this.node.type === NodeTypes.SELECTOR) {
             const content = this.selectorsDictionary[this.node.contentId];
 
-            if (!!content && !!content.contents[this.defaultLanguage?.code]?.images?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]) {
-              return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]?.mipmap?.x32;
+            if (!!content && !!content.contents[this.defaultLanguage?.code]?.resources?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]) {
+              return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]?.mipmap?.x32;
             }
           }
           if (this.node.type === NodeTypes.SELECTOR_NODE) {
@@ -293,8 +300,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             if (!!node) {
               const content = this.selectorsDictionary[node.contentId];
 
-              if (!!content && !!content.contents[this.defaultLanguage?.code]?.images?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]) {
-                return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.images?.main]?.mipmap?.x32;
+              if (!!content && !!content.contents[this.defaultLanguage?.code]?.resources?.main && this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]) {
+                return this.assetsDictionary[content.contents[this.defaultLanguage?.code]?.resources?.main]?.mipmap?.x32;
               }
             }
           }
@@ -317,10 +324,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
         return this.productsDictionary[this.node.contentId];
       } else
         if (!!this._nodesDictionary && this.node.type === NodeTypes.SELECTOR_NODE) {
-          const content = this._nodesDictionary[this.node.contentId];
-          const contentId = content.contentId;
+          const content = this._nodesDictionary[this.node?.contentId];
+          const contentId = content?.contentId;
           if (!!contentId && !!this.selectorsDictionary) {
-            return this.selectorsDictionary[content.contentId];
+            return this.selectorsDictionary[contentId];
           }
         }
 
@@ -507,8 +514,17 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Configure the scenario.",
           scenario: undefined,
           businessPeriods: this.businessPeriods,
+          businessPeriodsDictionary: this.businessPeriodsDictionary,
+          orderTypes: this.orderTypes,
+          orderTypesDictionary: this.orderTypesDictionary,
           currencies: this.currencies,
+          currenciesDictionary: this.currenciesDictionary,
           languages: this.languages,
+          languagesDictionary: this.languagesDictionary,
+          products: this.products,
+          productsDictionary: this.productsDictionary,
+          selectors: this.selectors,
+          selectorsDictionary: this.selectorsDictionary,
           defaultLanguage: this.defaultLanguage,
         },
       });

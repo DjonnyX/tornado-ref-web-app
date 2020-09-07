@@ -25,7 +25,7 @@ export default class TranslationEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(TranslationActions.getError({ error: error.message }));
                     }),
                 );
@@ -43,7 +43,7 @@ export default class TranslationEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(TranslationActions.updateError({ error: error.message }));
                     }),
                 );

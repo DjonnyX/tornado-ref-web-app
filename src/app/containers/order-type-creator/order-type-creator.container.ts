@@ -244,11 +244,11 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
   }
 
   onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, imageType: OrderTypeImageTypes.MAIN, data }));
+    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, resourcesType: OrderTypeImageTypes.MAIN, data }));
   }
 
   onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, imageType: OrderTypeImageTypes.ICON, data }));
+    this._store.dispatch(OrderTypeAssetsActions.uploadImageRequest({ orderTypeId: this._orderTypeId, resourcesType: OrderTypeImageTypes.ICON, data }));
   }
 
   onMainOptionsSave(orderType: IOrderType): void {

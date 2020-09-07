@@ -30,10 +30,10 @@ export enum TagAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/tag/assets/delete:success",
     DELETE_ERROR = "TORNADO/tag/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/tag/assets/upload-image:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/tag/assets/upload-image:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/tag/assets/upload-image:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/tag/assets/upload-image:error",
+    UPLOAD_IMAGE_REQUEST = "TORNADO/tag/assets/upload-resources:request",
+    UPLOAD_IMAGE_PROGRESS = "TORNADO/tag/assets/upload-resources:progress",
+    UPLOAD_IMAGE_SUCCESS = "TORNADO/tag/assets/upload-resources:success",
+    UPLOAD_IMAGE_ERROR = "TORNADO/tag/assets/upload-resources:error",
 
     CLEAR = "TORNADO/tag/assets/clear",
 }
@@ -127,7 +127,7 @@ export namespace TagAssetsActions {
     // upload
     export const uploadImageRequest = createAction(
         TagAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ tagId: string, imageType: TagImageTypes, data: IFileUploadEvent }>()
+        props<{ tagId: string, resourcesType: TagImageTypes, data: IFileUploadEvent }>()
     );
     export const uploadImageSuccess = createAction(
         TagAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,

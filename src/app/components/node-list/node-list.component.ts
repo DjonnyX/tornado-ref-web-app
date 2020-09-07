@@ -97,7 +97,7 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   getThumbnail(node: INode): string {
     const content: any = this.getNodeContent(node);
     const entityContent = this.getContent(content);
-    const img = !!entityContent ? (entityContent as any)?.images?.main : undefined;
+    const img = !!entityContent ? (entityContent as any)?.resources?.main : undefined;
 
     if (!!this.assetsDictionary && !!img) {
       if (this.assetsDictionary[img]) {

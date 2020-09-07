@@ -29,7 +29,7 @@ export default class MenuNodesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.getRootNodeIdError({ error: error.message }));
                     }),
                 );
@@ -47,7 +47,7 @@ export default class MenuNodesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -65,7 +65,7 @@ export default class MenuNodesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.createError({ error: error.message }));
                     }),
                 );
@@ -83,7 +83,7 @@ export default class MenuNodesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -101,7 +101,7 @@ export default class MenuNodesEffects {
                     }),
                     map(v => v),
                     catchError((error: Error) => {
-                        this._notificationService.notify(error.message);
+                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.deleteError({ error: error.message }));
                     }),
                 );

@@ -39,7 +39,7 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
 
   @Input() assets: Array<IAsset>;
 
-  @Input() imagesGallery: Array<IAsset>;
+  @Input() resourcesGallery: Array<IAsset>;
 
   private _content: ISelectorContentsItem;
   @Input() set content(content: ISelectorContentsItem) {
@@ -112,10 +112,10 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
     this.uploadIconImage.emit({ file, dataField });
   }
 
-  onResetImageToDefault(imageType: SelectorImageTypes | string): void {
+  onResetImageToDefault(resourcesType: SelectorImageTypes | string): void {
     this.updateState({
-      images: {
-        [imageType]: null,
+      resources: {
+        [resourcesType]: null,
       }
     });
 
@@ -130,8 +130,8 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
     this.save.emit();
   }
 
-  isEqualWithDefault(imageType: SelectorImageTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, imageType, this.isDefault);
+  isEqualWithDefault(resourcesType: SelectorImageTypes | string): boolean {
+    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
   };
 
   isColorDefault(): boolean {

@@ -14,7 +14,7 @@ export enum TagActionTypes {
     UPDATE_SUCCESS = "TORNADO/tag/update:success",
     UPDATE_ERROR = "TORNADO/tag/update:error",
 
-    UPDATE_IMAGE = "TORNADO/tag/update-image",
+    UPDATE_IMAGE = "TORNADO/tag/update-resources",
 
     CLEAR = "TORNADO/tag/clear",
 }
@@ -65,7 +65,7 @@ export namespace TagActions {
     // updateImage
     export const updateImage = createAction(
         TagActionTypes.UPDATE_IMAGE,
-        props<{ langCode: string, imageType: TagImageTypes, assetId: string }>(),
+        props<{ langCode: string, resourcesType: TagImageTypes, assetId: string }>(),
     );
 
     // clear

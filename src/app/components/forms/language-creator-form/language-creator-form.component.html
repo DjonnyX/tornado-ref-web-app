@@ -1,9 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
-        <div class="images" *ngIf="isEditMode">
-            <div class="images-wrapper single">
-                <div class="image-n">
-                    <ta-asset-picker-uploader [defaultValue]="!!images ? images.main : undefined" [assets]="assets"
+        <div class="resources" *ngIf="isEditMode">
+            <div class="resources-wrapper single">
+                <div class="resources-n">
+                    <ta-asset-picker-uploader [defaultValue]="!!resources ? resources.main : undefined" [assets]="assets"
                         class="transparent" (upload)="onMainImageUpload($event)">
                     </ta-asset-picker-uploader>
                 </div>
