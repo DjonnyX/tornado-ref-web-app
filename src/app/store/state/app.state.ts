@@ -24,6 +24,9 @@ import { ILanguageState } from './language.state';
 import { ILanguageAssetsState } from './language-assets.state';
 import { ITranslationState } from './translation.state';
 import { ITagAssetsState } from './tag-assets.state';
+import { IAdState } from './ad.state';
+import { IAdsState } from './ads.state';
+import { IAdAssetsState } from './ad-assets.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -52,4 +55,7 @@ export interface IAppState {
     taLanguage: ILanguageState,
     taLanguageAssets: ILanguageAssetsState,
     taTranslation: ITranslationState,
+    taAd: IAdState,
+    taAds: IAdsState,
+    taAdAssets: IAdAssetsState,
 }
