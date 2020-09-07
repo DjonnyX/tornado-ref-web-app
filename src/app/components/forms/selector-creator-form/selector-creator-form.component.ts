@@ -67,11 +67,11 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ISelector>();
 
-  @Output() uploadMainImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadIconImage = new EventEmitter<IFileUploadEvent>();
+  @Output() uploadIconResource = new EventEmitter<IFileUploadEvent>();
 
   private _state: ISelectorContents = {};
 
@@ -114,16 +114,16 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  onMainImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadMainImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadMainResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onThumbnailImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadThumbnailImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onThumbnailResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadThumbnailResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
-  onIconImageUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadIconImage.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
+    this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
   onCancel(): void {

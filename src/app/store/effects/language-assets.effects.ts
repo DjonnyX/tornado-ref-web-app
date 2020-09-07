@@ -24,9 +24,9 @@ export default class LanguageAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-    public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadResourceRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(LanguageAssetsActions.uploadImageRequest),
+            ofType(LanguageAssetsActions.uploadResourceRequest),
             switchMap(({ languageId, resourcesType, file }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = file.name.replace(/^.+\./, "");
@@ -42,10 +42,10 @@ export default class LanguageAssetsEffects {
                     },
                     ext: ext,
                 }
-                return this._apiService.uploadLanguageImage(languageId, resourcesType, file).pipe(
+                return this._apiService.uploadLanguageResource(languageId, resourcesType, file).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
-                            return [LanguageAssetsActions.uploadImageProgress({
+                            return [LanguageAssetsActions.uploadResourceProgress({
                                 tmpAsset,
                                 progress: {
                                     total: 0,
@@ -55,14 +55,14 @@ export default class LanguageAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [LanguageAssetsActions.uploadImageProgress({ tmpAsset, progress: res.data.progress })];
+                            return [LanguageAssetsActions.uploadResourceProgress({ tmpAsset, progress: res.data.progress })];
                         }
-                        return [LanguageAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, }), LanguageActions.getRequest({ id: languageId })];
+                        return [LanguageAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, }), LanguageActions.getRequest({ id: languageId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(LanguageAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
+                        return of(LanguageAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
             })

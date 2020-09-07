@@ -77,3 +77,14 @@ export { IAssetsDeleteResponse } from './assets-delete-response.interface';
 export { ITranslationGetResponse } from './translation-get-response.interface';
 export { ITranslationUpdateResponse } from './translation-update-response.interface';
 export { ITranslationsGetResponse } from './translations-get-response.interface';
+
+export { IAdsGetResponse } from './ads-get-response.interface';
+export { IAdGetResponse } from './ad-get-response.interface';
+export { IAdsCreateResponse } from './ads-create-response.interface';
+export { IAdsUpdateResponse } from './ads-update-response.interface';
+export { IAdsDeleteResponse } from './ads-delete-response.interface';
+export { IAdAssetGetResponse } from './ad-assets-get-response.interface';
+export { IAdAssetGetByLangResponse } from './ad-assets-get-by-lang-response.interface';
+export { IAdAssetCreateResponse } from './ad-asset-create-response.interface';
+export { IAdAssetUpdateResponse } from './ad-asset-update-response.interface';
+export { IAdAssetDeleteResponse } from './ad-asset-delete-response.interface';

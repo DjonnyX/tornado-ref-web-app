@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminContainer } from './admin.container';
-import { SelectorTypes } from '@djonnyx/tornado-types';
+import { SelectorTypes, AdTypes } from '@djonnyx/tornado-types';
 
 const routes: Routes = [
   {
@@ -33,6 +33,26 @@ const routes: Routes = [
           ),
         data: {
           type: SelectorTypes.SCHEMA_CATEGORY,
+        },
+      },
+      {
+        path: 'intros',
+        loadChildren: () =>
+          import('@containers/ads-editor/ads-editor.module').then(
+            module => module.AdsEditorModule,
+          ),
+        data: {
+          type: AdTypes.INTRO,
+        },
+      },
+      {
+        path: 'banners',
+        loadChildren: () =>
+          import('@containers/ads-editor/ads-editor.module').then(
+            module => module.AdsEditorModule,
+          ),
+        data: {
+          type: AdTypes.BANNER,
         },
       },
       {

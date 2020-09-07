@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ILanguage, ILanguageImages, IAsset } from '@djonnyx/tornado-types';
+import { ILanguage, ILanguageResources, IAsset } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-language-creator-form',
@@ -17,7 +17,7 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   ctrlName = new FormControl('', [Validators.required]);
 
-  @Input() resources: ILanguageImages;
+  @Input() resources: ILanguageResources;
 
   @Input() assets: Array<IAsset>;
 
@@ -39,7 +39,7 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ILanguage>();
 
-  @Output() uploadMainImage = new EventEmitter<File>();
+  @Output() uploadMainResource = new EventEmitter<File>();
 
   constructor(private _fb: FormBuilder) {
     super();
@@ -73,7 +73,7 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   onSave(): void {
     if (this.form.valid) {
-      const resources: ILanguageImages = {...this.resources};
+      const resources: ILanguageResources = {...this.resources};
       if (!(resources as any).hasOwnProperty("main")) {
         resources.main = null;
       }
@@ -88,8 +88,8 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  onMainImageUpload(file: File): void {
-    this.uploadMainImage.emit(file);
+  onMainResourceUpload(file: File): void {
+    this.uploadMainResource.emit(file);
   }
 
   onCancel(): void {

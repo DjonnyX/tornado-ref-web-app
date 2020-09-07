@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
-import { ProductImageTypes } from '@djonnyx/tornado-types';
+import { ProductResourceTypes } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 
 export enum ProductAssetsActionTypes {
@@ -30,10 +30,10 @@ export enum ProductAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/product/assets/delete:success",
     DELETE_ERROR = "TORNADO/product/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/product/assets/upload-resources:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/product/assets/upload-resources:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/product/assets/upload-resources:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/product/assets/upload-resources:error",
+    UPLOAD_RESOURCE_REQUEST = "TORNADO/product/assets/upload-resources:request",
+    UPLOAD_RESOURCE_PROGRESS = "TORNADO/product/assets/upload-resources:progress",
+    UPLOAD_RESOURCE_SUCCESS = "TORNADO/product/assets/upload-resources:success",
+    UPLOAD_RESOURCE_ERROR = "TORNADO/product/assets/upload-resources:error",
 
     CLEAR = "TORNADO/product/assets/clear",
 }
@@ -125,16 +125,16 @@ export namespace ProductAssetsActions {
     );
 
     // upload
-    export const uploadImageRequest = createAction(
-        ProductAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ productId: string, resourcesType: ProductImageTypes, data: IFileUploadEvent }>()
+    export const uploadResourceRequest = createAction(
+        ProductAssetsActionTypes.UPLOAD_RESOURCE_REQUEST,
+        props<{ productId: string, resourcesType: ProductResourceTypes, data: IFileUploadEvent }>()
     );
-    export const uploadImageSuccess = createAction(
-        ProductAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
+    export const uploadResourceSuccess = createAction(
+        ProductAssetsActionTypes.UPLOAD_RESOURCE_SUCCESS,
         props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
-    export const uploadImageProgress = createAction(
-        ProductAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
+    export const uploadResourceProgress = createAction(
+        ProductAssetsActionTypes.UPLOAD_RESOURCE_PROGRESS,
         props<{
             tmpAsset: IAsset,
             langCode: string,
@@ -145,8 +145,8 @@ export namespace ProductAssetsActions {
             }
         }>()
     );
-    export const uploadImageError = createAction(
-        ProductAssetsActionTypes.UPLOAD_IMAGE_ERROR,
+    export const uploadResourceError = createAction(
+        ProductAssetsActionTypes.UPLOAD_RESOURCE_ERROR,
         props<{
             tmpAsset: IAsset,
             error: string

@@ -15,7 +15,7 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductImageTypes, ILanguage, IProductContents, IOrderType } from '@djonnyx/tornado-types';
+import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage, IProductContents, IOrderType } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
@@ -377,16 +377,16 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductAssetsActions.deleteRequest({ productId: this._productId, langCode: data.langCode, assetId: data.asset.id }));
   }
 
-  onMainImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, resourcesType: ProductImageTypes.MAIN, data }));
+  onMainResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadResourceRequest({ productId: this._productId, resourcesType: ProductResourceTypes.MAIN, data }));
   }
 
-  onThumbnailImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, resourcesType: ProductImageTypes.THUMBNAIL, data }));
+  onThumbnailResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadResourceRequest({ productId: this._productId, resourcesType: ProductResourceTypes.THUMBNAIL, data }));
   }
 
-  onIconImageUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.uploadImageRequest({ productId: this._productId, resourcesType: ProductImageTypes.ICON, data }));
+  onIconResourceUpload(data: IFileUploadEvent): void {
+    this._store.dispatch(ProductAssetsActions.uploadResourceRequest({ productId: this._productId, resourcesType: ProductResourceTypes.ICON, data }));
   }
 
   onCreateHierarchyNode(node: INode): void {

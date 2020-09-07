@@ -1,4 +1,4 @@
-import { IEntityContentsItem, ProductImageTypes, IEntityContents } from '@djonnyx/tornado-types';
+import { IEntityContentsItem, ProductResourceTypes, IEntityContents } from '@djonnyx/tornado-types';
 import { deepMergeObjects } from './object.util';
 
 export const normalizeEntityContents = (contents: IEntityContents, defaultLang: string) => {
@@ -18,8 +18,8 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
         if (!!result[lang]?.resources) {
             const content = result[lang] || {};
             for (const resourcesType in content.resources) {
-                const isEqualtFromDefault = equalFromImages(defaultContent, content.resources[resourcesType]);
-                if (resourcesType !== ProductImageTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || (isEqualtFromDefault && lang !== defaultLang))) {
+                const isEqualtFromDefault = equalFromResources(defaultContent, content.resources[resourcesType]);
+                if (resourcesType !== ProductResourceTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || (isEqualtFromDefault && lang !== defaultLang))) {
                     content.resources[resourcesType] = content.resources.main;
                 } else if (lang !== defaultLang && (!content.resources[resourcesType] || isEqualtFromDefault) && !!defaultContent?.resources?.[resourcesType]) {
                     content.resources[resourcesType] = defaultContent.resources[resourcesType] || defaultContent.resources.main;
@@ -31,7 +31,7 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
     return result;
 };
 
-export const equalFromImages = (content: IEntityContentsItem, resources: string): boolean => {
+export const equalFromResources = (content: IEntityContentsItem, resources: string): boolean => {
     if (!!content && !!content.resources) {
         for (const resourcesType in content) {
             if (resources == content[resourcesType]) {
@@ -42,12 +42,12 @@ export const equalFromImages = (content: IEntityContentsItem, resources: string)
     return false;
 };
 
-export const isEqualWithDefault = (defaultContent: any, content: any, resourcesType: ProductImageTypes | string, isDefault: boolean): boolean => {
+export const isEqualWithDefault = (defaultContent: any, content: any, resourcesType: ProductResourceTypes | string, isDefault: boolean): boolean => {
     if (!!content && !!content.resources) {
-        const isEqualtFromDefault = equalFromImages(defaultContent, content.resources[resourcesType]);
-        if (resourcesType !== ProductImageTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || content.resources[resourcesType] === content.resources.main || (isEqualtFromDefault && !isDefault))) {
+        const isEqualtFromDefault = equalFromResources(defaultContent, content.resources[resourcesType]);
+        if (resourcesType !== ProductResourceTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || content.resources[resourcesType] === content.resources.main || (isEqualtFromDefault && !isDefault))) {
             return true;
-        } else if (resourcesType === ProductImageTypes.MAIN && !isDefault && isEqualtFromDefault) {
+        } else if (resourcesType === ProductResourceTypes.MAIN && !isDefault && isEqualtFromDefault) {
             return true;
         } else if (!content.resources[resourcesType]) {
             return true;

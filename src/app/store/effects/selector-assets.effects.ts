@@ -24,9 +24,9 @@ export default class SelectorAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-    public readonly uploadImageRequest = createEffect(() =>
+    public readonly uploadResourceRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(SelectorAssetsActions.uploadImageRequest),
+            ofType(SelectorAssetsActions.uploadResourceRequest),
             switchMap(({ selectorId, resourcesType, data }) => {
                 const id = String(this.nextTmpAssetId);
                 const ext = data.file.name.replace(/^.+\./, "");
@@ -42,15 +42,15 @@ export default class SelectorAssetsEffects {
                     },
                     ext: ext,
                 }
-                this._store.dispatch(SelectorActions.updateImage({
+                this._store.dispatch(SelectorActions.updateResource({
                     langCode: data.langCode,
                     resourcesType,
                     assetId: id,
                 }));
-                return this._apiService.uploadSelectorImage(selectorId, resourcesType, data).pipe(
+                return this._apiService.uploadSelectorResource(selectorId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
-                            return [SelectorAssetsActions.uploadImageProgress({
+                            return [SelectorAssetsActions.uploadResourceProgress({
                                 tmpAsset,
                                 langCode: data.langCode,
                                 progress: {
@@ -61,14 +61,14 @@ export default class SelectorAssetsEffects {
                             })];
                         }
                         if (!!res.data.progress) {
-                            return [SelectorAssetsActions.uploadImageProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
+                            return [SelectorAssetsActions.uploadResourceProgress({ tmpAsset, langCode: data.langCode, progress: res.data.progress })];
                         }
-                        return [SelectorAssetsActions.uploadImageSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), SelectorActions.getRequest({ id: selectorId })];
+                        return [SelectorAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), SelectorActions.getRequest({ id: selectorId })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(SelectorAssetsActions.uploadImageError({ tmpAsset, error: error.message }));
+                        return of(SelectorAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
             })

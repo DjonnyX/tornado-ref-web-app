@@ -8,7 +8,6 @@ import { takeUntil, filter, map, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { BusinessPeriodActions } from '@store/actions/business-period.action';
 import { IBusinessPeriod, ILanguage, IBusinessPeriodContents } from '@djonnyx/tornado-types';
-import { IBreadCrumbsSegment } from '@app/utils/url-extractor.util';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { normalizeEntityContents } from '@app/utils/entity.util';
 import { LanguagesActions } from '@store/actions/languages.action';
@@ -73,7 +72,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
         select(LanguagesSelectors.selectIsGetProcess),
       ),
     ).pipe(
-      map(([isSelectorGetProcess, isSelectorsGetProcess, isLanguagesProcess]) => isSelectorGetProcess || isSelectorsGetProcess || isLanguagesProcess),
+      map(([isBPGetProcess, isBPCreateProcess, isLanguagesProcess]) => isBPGetProcess || isBPCreateProcess || isLanguagesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest(
@@ -162,12 +161,11 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
     this._store.dispatch(LanguagesActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest(
-      this.businessPeriod$,
       this.languages$,
       this.defaultLanguage$,
     ).pipe(
-      map(([businessPeriods, languages, defaultLanguage]) =>
-        !!businessPeriods && !!languages && !!defaultLanguage),
+      map(([languages, defaultLanguage]) =>
+        !!languages && !!defaultLanguage),
     );
 
     this.isPrepareToConfigure$ = this.businessPeriodId$.pipe(
@@ -179,7 +177,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
           map(([prepareMainRequests, businessPeriod]) =>
             !!prepareMainRequests && !!businessPeriod),
         ) : prepareMainRequests$;
-      })
+      }),
     );
   }
 
@@ -200,8 +198,6 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
     } else {
       this._store.dispatch(BusinessPeriodActions.createRequest({ businessPeriod }));
     }
-
-    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {

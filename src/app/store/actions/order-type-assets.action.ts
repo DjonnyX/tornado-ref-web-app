@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IAsset } from '@app/models/asset.model';
-import { OrderTypeImageTypes } from '@djonnyx/tornado-types';
+import { OrderTypeResourceTypes } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 
 export enum OrderTypeAssetsActionTypes {
@@ -30,10 +30,10 @@ export enum OrderTypeAssetsActionTypes {
     DELETE_SUCCESS = "TORNADO/orderType/assets/delete:success",
     DELETE_ERROR = "TORNADO/orderType/assets/delete:error",
 
-    UPLOAD_IMAGE_REQUEST = "TORNADO/orderType/assets/upload-resources:request",
-    UPLOAD_IMAGE_PROGRESS = "TORNADO/orderType/assets/upload-resources:progress",
-    UPLOAD_IMAGE_SUCCESS = "TORNADO/orderType/assets/upload-resources:success",
-    UPLOAD_IMAGE_ERROR = "TORNADO/orderType/assets/upload-resources:error",
+    UPLOAD_RESOURCE_REQUEST = "TORNADO/orderType/assets/upload-resources:request",
+    UPLOAD_RESOURCE_PROGRESS = "TORNADO/orderType/assets/upload-resources:progress",
+    UPLOAD_RESOURCE_SUCCESS = "TORNADO/orderType/assets/upload-resources:success",
+    UPLOAD_RESOURCE_ERROR = "TORNADO/orderType/assets/upload-resources:error",
 
     CLEAR = "TORNADO/orderType/assets/clear",
 }
@@ -125,16 +125,16 @@ export namespace OrderTypeAssetsActions {
     );
 
     // upload
-    export const uploadImageRequest = createAction(
-        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_REQUEST,
-        props<{ orderTypeId: string, resourcesType: OrderTypeImageTypes, data: IFileUploadEvent }>()
+    export const uploadResourceRequest = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_RESOURCE_REQUEST,
+        props<{ orderTypeId: string, resourcesType: OrderTypeResourceTypes, data: IFileUploadEvent }>()
     );
-    export const uploadImageSuccess = createAction(
-        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_SUCCESS,
+    export const uploadResourceSuccess = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_RESOURCE_SUCCESS,
         props<{ asset: IAsset, langCode: string, tmpAsset: IAsset, meta?: IMetaRefsResponse }>()
     );
-    export const uploadImageProgress = createAction(
-        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_PROGRESS,
+    export const uploadResourceProgress = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_RESOURCE_PROGRESS,
         props<{
             tmpAsset: IAsset,
             langCode: string,
@@ -145,8 +145,8 @@ export namespace OrderTypeAssetsActions {
             }
         }>()
     );
-    export const uploadImageError = createAction(
-        OrderTypeAssetsActionTypes.UPLOAD_IMAGE_ERROR,
+    export const uploadResourceError = createAction(
+        OrderTypeAssetsActionTypes.UPLOAD_RESOURCE_ERROR,
         props<{
             tmpAsset: IAsset,
             error: string

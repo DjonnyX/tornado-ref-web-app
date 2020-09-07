@@ -20,7 +20,7 @@ const tagReducer = createReducer(
             ...initialState,
         };
     }),
-    on(TagActions.updateImage, (state, { langCode, resourcesType, assetId }) => {
+    on(TagActions.updateResource, (state, { langCode, resourcesType, assetId }) => {
         const product = deepMergeObjects(state.tag, {
             contents: {
                 [langCode]: {
