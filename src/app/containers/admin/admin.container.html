@@ -15,20 +15,8 @@
         <mat-sidenav class="mat-elevation-z2" role="navigation" ngClass.xs="sidenav--xs"
             [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
-            <!--<mat-selection-list [multiple]="false">
-                <div *ngFor="let item of roteCollection; let i = index;">
-                    <ng-container *ngIf="!!item.children">
-
-                    </ng-container>
-                    <mat-list-option (click)="selectRoute(i)" [selected]="(currentRouteIndex$ | async) === i"
-                        [focused]="(currentRouteIndex$ | async) === i">
-                        <a>
-                            <span class="label">{{item.name}}</span>
-                        </a>
-                    </mat-list-option>
-                </div>
-            </mat-selection-list>-->
-            <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async" (select)="selectRoute($event)"></ta-navigation-menu>
+            <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
+                (select)="selectRoute($event)"></ta-navigation-menu>
         </mat-sidenav>
         <mat-sidenav-content class="content">
             <main style="height: 100%;">
