@@ -1,18 +1,24 @@
-<mat-selection-list [multiple]="false">
+<div class="navigation-menu">
     <div *ngFor="let item of collection">
         <ng-container *ngIf="!!item.children; else link">
-            <p>
-                {{item.name}}
-            </p>
-            <ta-navigation-menu [collection]="item.children" (select)="selectRoute($event)" [selected]="selected">
-            </ta-navigation-menu>
+            <div class="navigation-menu__expantion-item">
+                <span class="expantion-item__wrapper" matRipple (click)="toggleExpand(item)">
+                    <span class="navigation-menu__expantion-item-label">{{item.name}}</span>
+                    <mat-icon>
+                        {{item.expanded || hasExistsIndex(item.children, selected) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </span>
+                <ta-navigation-menu
+                    [style.display]="item.expanded || hasExistsIndex(item.children, selected) ? '' : 'none'"
+                    [collection]="item.children" (select)="selectRoute($event)" [selected]="selected">
+                </ta-navigation-menu>
+            </div>
         </ng-container>
         <ng-template #link>
-            <mat-list-option (click)="selectRoute(item.index)" [selected]="item.index === selected">
-                <a>
-                    <span class="label">{{item.name}}</span>
-                </a>
-            </mat-list-option>
+            <div matRipple class="navigation-menu__item" (click)="selectRoute(item.index)"
+                [class.selected]="item.index === selected">
+                <span class="navigation-menu__item-label">{{item.name}}</span>
+            </div>
         </ng-template>
     </div>
-</mat-selection-list>
+</div>

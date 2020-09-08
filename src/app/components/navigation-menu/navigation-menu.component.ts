@@ -21,4 +21,24 @@ export class NavigationMenuComponent implements OnInit {
   selectRoute(index: number) {
     this.select.emit(index);
   }
+
+  toggleExpand(item: INavRoute) { 
+    item.expanded = !item.expanded;
+  }
+
+  hasExistsIndex(collection: Array<INavRoute>, index: number): boolean {
+    for (let i = 0, l = collection.length; i < l; i++) {
+      if (!!collection[i].children && collection[i].children.length > 0) {
+        const isExistsIndex = this.hasExistsIndex(collection[i].children, index);
+        if (!!isExistsIndex) {
+          return true;
+        }
+      } else {
+        if (collection[i].index === index) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }

@@ -1,0 +1,57 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+.navigation-menu {
+    min-width: px2em(200);
+
+    &__expantion-item {
+        user-select: none;
+
+        &-label {
+            color: inherit;
+        }
+    }
+
+    .expantion-item__wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: px2em(12);
+    }
+
+    &__item {
+        user-select: none;
+        padding: px2em(12);
+
+        &.selected {
+            background: rgba($primary, 0.1);
+        }
+
+        &-label {
+            color: inherit;
+        }
+    }
+}
+
+.navigation-menu {
+    .navigation-menu__expantion-item .expantion-item__wrapper,
+    .navigation-menu__item {
+        padding-left: px2em(8);
+    }
+
+    .navigation-menu {
+        .navigation-menu__expantion-item .expantion-item__wrapper,
+        .navigation-menu__item {
+            padding-left: px2em(24);
+        }
+    }
+
+    .navigation-menu {
+        .navigation-menu {
+            .navigation-menu__expantion-item .expantion-item__wrapper,
+            .navigation-menu__item {
+                padding-left: px2em(48);
+            }
+        }
+    }
+}
