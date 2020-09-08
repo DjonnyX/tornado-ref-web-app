@@ -58,8 +58,8 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the currency?",
-          message: `"${currency.name}" will be permanently deleted`,
+          title: "Удалить валюту?",
+          message: `"${currency.name}" будет безвозвратно удален.`,
         },
       });
 

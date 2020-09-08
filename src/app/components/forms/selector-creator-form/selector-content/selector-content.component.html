@@ -3,12 +3,12 @@
     <div class="resources-wrapper">
       <div class="resources-n">
         <p class="form-header">
-          Resource
+          Изображения
         </p>
 
         <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetResourceToDefault('main')">
-          Reset to default
+          Сбросить
         </button>
 
         <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
@@ -20,12 +20,12 @@
     <div class="resources-wrapper double">
       <div class="resources-m">
         <p class="form-header">
-          Thumbnail
+          Миниатюра
         </p>
 
         <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetResourceToDefault('thumbnail')">
-          Reset to default
+          Сбросить
         </button>
 
         <ta-asset-picker-uploader size="m"
@@ -36,12 +36,12 @@
 
       <div class="resources-s">
         <p class="form-header">
-          Icon
+          Иконка
         </p>
 
         <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
           (click)="onResetResourceToDefault('icon')">
-          Reset to default
+          Сбросить
         </button>
 
         <ta-asset-picker-uploader size="m"
@@ -54,12 +54,12 @@
     <div class="resources-wrapper single">
       <div class="full-width">
         <p class="form-header">
-          Color
+          Цвет
         </p>
 
         <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
           class="reset-button" (click)="onResetColorToDefault()">
-          Reset to default
+          Сбросить
         </button>
 
         <div class="form-item">
@@ -71,27 +71,27 @@
   </div>
 
   <div>
-    <h2 class="form-header">
-      Main options
-    </h2>
+    <p class="form-header">
+      Описание
+    </p>
 
     <div class="form__main-options">
       <div class="form__input-block">
         <div class="form-item">
           <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Selector name</mat-label>
-            <input matInput type="text" [formControl]="ctrlName" placeholder="Selector name">
+            <mat-label>Имя</mat-label>
+            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
             <mat-error *ngIf="ctrlName.hasError('required')">
-              Selector name - <strong>required</strong>
+              Имя - <strong>обязательное</strong>
             </mat-error>
           </mat-form-field>
         </div>
 
         <div class="form-item">
           <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Description</mat-label>
+            <mat-label>Описание</mat-label>
             <textarea matInput class="selector__description" type="text" [formControl]="ctrlDescription"
-              placeholder="Description"></textarea>
+              placeholder="Описание"></textarea>
           </mat-form-field>
         </div>
       </div>

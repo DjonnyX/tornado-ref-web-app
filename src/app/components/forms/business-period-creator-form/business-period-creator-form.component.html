@@ -16,9 +16,9 @@
     </ng-template>
 
     <div class="full-width" [style.display]="!!businessPeriod ? 'inherit' : 'none'">
-        <h2>
-            Schedule
-        </h2>
+        <p>
+            Расписание
+        </p>
 
         <div class="schedule__wrapper">
             <ta-schedule #schedule></ta-schedule>
@@ -26,8 +26,8 @@
     </div>
 
     <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+        <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
         <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
     </div>
 </form>

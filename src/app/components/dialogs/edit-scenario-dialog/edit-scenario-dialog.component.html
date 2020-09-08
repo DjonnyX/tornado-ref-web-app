@@ -11,9 +11,9 @@
     </ta-scenario-editor>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
+    <button mat-button mat-dialog-close>Отменить</button>
     <button color="accent" mat-flat-button [mat-dialog-close]="result" [disabled]="status !== 'VALID'">
-        {{data.scenario ? "Save" : "Create"}}
+        {{data.scenario ? "Сохранить" : "Создать"}}
     </button>
     <!--cdkFocusInitial-->
 </mat-dialog-actions>

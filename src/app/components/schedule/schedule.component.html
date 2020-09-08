@@ -11,11 +11,11 @@
             <mat-menu #menu="matMenu">
                 <button mat-menu-item type="button" (click)="onToggleActive(schedule)">
                     <mat-icon>{{schedule.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    <span>{{schedule.active ? 'Deactivate' : 'Active'}}</span>
+                    <span>{{schedule.active ? 'Деактивировать' : 'Активировать'}}</span>
                 </button>
                 <button mat-menu-item type="button" (click)="onDelete(schedule)">
                     <mat-icon>delete_forever</mat-icon>
-                    <span>Delete</span>
+                    <span>Удалить</span>
                 </button>
             </mat-menu>
         </div>

@@ -5,7 +5,7 @@
                 <mat-icon>menu</mat-icon>
             </button>
         </span>
-        <span class="page-title">{{(currentRoute$ | async).name}}</span>
+        <span class="page-title">{{(currentRoute$ | async)?.name}}</span>
         <span class="spacer"></span>
         <button mat-icon-button (click)="signout()">
             <mat-icon>exit_to_app</mat-icon>
@@ -15,12 +15,8 @@
         <mat-sidenav class="mat-elevation-z2" role="navigation" ngClass.xs="sidenav--xs"
             [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
-            <mat-nav-list role="listitem">
-                <a *ngFor="let item of roteCollection; let i = index;" mat-list-item type="button"
-                    (click)="selectRoute(i)" [class.active]="(currentRouteIndex$ | async) === i" [routerLink]="item.route">
-                    <span class="label">{{item.name}}</span>
-                </a>
-            </mat-nav-list>
+            <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
+                (select)="selectRoute($event)"></ta-navigation-menu>
         </mat-sidenav>
         <mat-sidenav-content class="content">
             <main style="height: 100%;">

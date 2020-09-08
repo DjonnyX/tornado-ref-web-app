@@ -11,28 +11,28 @@
         </div>
 
         <div>
-            <h2 class="form-header">
-                Main options
-            </h2>
+            <p class="form-header">
+                Описание
+            </p>
 
             <div class="form__main-options">
                 <div class="form__input-block">
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Code</mat-label>
-                            <input matInput type="text" [formControl]="ctrlCode" placeholder="Code">
+                            <mat-label>Код</mat-label>
+                            <input matInput type="text" [formControl]="ctrlCode" placeholder="Код">
                             <mat-error *ngIf="ctrlCode.hasError('required')">
-                                <strong>required</strong>
+                                <strong>обязательное</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
 
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Name</mat-label>
-                            <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
+                            <mat-label>Имя</mat-label>
+                            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
                             <mat-error *ngIf="ctrlName.hasError('required')">
-                                <strong>required</strong>
+                                <strong>обязательное</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -42,8 +42,8 @@
     </div>
 
     <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Cancel</button>
+        <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
         <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Save' : 'Create'}}</button>
+            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
     </div>
 </form>

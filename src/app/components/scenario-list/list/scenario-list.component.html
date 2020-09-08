@@ -7,7 +7,7 @@
                 </button>
             </span>
             <span>
-                scenarios
+                Сценарии
             </span>
             <button *ngIf="!lock" mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)"
                 aria-label="Menu">
@@ -16,11 +16,11 @@
             <mat-menu #menu="matMenu">
                 <button mat-menu-item (click)="onAdd()">
                     <mat-icon>linear_scale</mat-icon>
-                    <span>Add scenario</span>
+                    <span>Добавить сценарий</span>
                 </button>
                 <button mat-menu-item (click)="onDeleteAll()">
                     <mat-icon>delete_forever</mat-icon>
-                    <span>Delete scenarios</span>
+                    <span>Удалить сценарий</span>
                 </button>
             </mat-menu>
         </div>

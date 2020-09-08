@@ -3,26 +3,26 @@ import { ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductAct
 export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string => {
   switch (type) {
     case ScenarioProgrammActionTypes.SWITCH:
-      return "Switch";
+      return "Условие";
     case ScenarioProgrammActionTypes.EXPRESSION:
-      return "Expression";
+      return "Выражение";
     case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-      return "Visible by business periods";
+      return "Показыть в зависимости от бизнесс-периода";
     case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
-      return "Visible by points of sale";
+      return "Показыть в зависимости от точки продажи";
     case ScenarioIntroActionTypes.DURATION:
-      return "Intro duration";
+      return "Продолжительность (мс)";
     case ScenarioProductActionTypes.DOWN_LIMIT:
-      return "Down limit";
+      return "Нижний предел";
     case ScenarioProductActionTypes.UP_LIMIT:
-      return "Up limit";
+      return "Верхний предел";
     case ScenarioProductActionTypes.ADDITIONAL_PRICE:
-      return "Additional price";
+      return "Добавочная стоимость";
     case ScenarioProductActionTypes.FIXED_PRICE:
-      return "Fixed price";
+      return "Фиксированная цена";
     case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
-      return "Default products";
+      return "Продукты по-умолчанию";
     case ScenarioSelectorActionTypes.MAX_USAGE:
-      return "Max usage";
+      return "Максимальное количество";
   }
 }

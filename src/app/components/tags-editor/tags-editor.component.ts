@@ -109,8 +109,8 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the tag?",
-          message: `"${this.getName(tag)}" will be permanently deleted`,
+          title: "Удалить тэг?",
+          message: `"${this.getName(tag)}" будет безвозвратно удален.`,
         },
       });
 

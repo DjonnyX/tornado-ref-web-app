@@ -101,8 +101,8 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the category?",
-          message: `"${this.getAdName(ad)}" will be permanently deleted`,
+          title: "Удалить категорию?",
+          message: `"${this.getAdName(ad)}" будет безвозвратно удален.`,
         },
       });
 

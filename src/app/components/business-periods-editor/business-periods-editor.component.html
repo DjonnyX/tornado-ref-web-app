@@ -14,15 +14,15 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item type="button" (click)="onToggleActive($event, businessPeriod)">
                         <mat-icon>{{businessPeriod.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{businessPeriod.active ? 'Deactivate' : 'Active'}}</span>
+                        <span>{{businessPeriod.active ? 'Деактивировать' : 'Активировать'}}</span>
                     </button>
                     <button mat-menu-item (click)="onEditBusinessPeriod(businessPeriod)">
                         <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
+                        <span>Редактировать</span>
                     </button>
                     <button mat-menu-item (click)="onDeleteBusinessPeriod(businessPeriod)">
                         <mat-icon>delete_forever</mat-icon>
-                        <span>Delete</span>
+                        <span>Удалить</span>
                     </button>
                 </mat-menu>
             </div>

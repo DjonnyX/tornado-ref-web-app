@@ -14,19 +14,19 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item type="button" (click)="onToggleDefault($event, language)">
                         <mat-icon>{{language.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}</mat-icon>
-                        <span>{{language.isDefault ? 'Unmark default' : 'To default'}}</span>
+                        <span>{{language.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
                     </button>
                     <button mat-menu-item type="button" (click)="onToggleActive($event, language)">
                         <mat-icon>{{language.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{language.active ? 'Deactivate' : 'Active'}}</span>
+                        <span>{{language.active ? 'Деактивировать' : 'Активировать'}}</span>
                     </button>
                     <button mat-menu-item (click)="onEdit(language)">
                         <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
+                        <span>Редактировать</span>
                     </button>
                     <button mat-menu-item (click)="onDelete(language)">
                         <mat-icon>delete_forever</mat-icon>
-                        <span>Delete</span>
+                        <span>Удалить</span>
                     </button>
                 </mat-menu>
             </div>
