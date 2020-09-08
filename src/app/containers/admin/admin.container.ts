@@ -6,7 +6,7 @@ import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { AdminSelectors } from '@store/selectors';
-import { INavRoute } from './interfaces';
+import { INavRoute } from '@components/navigation-menu/interfaces';
 import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
 import { UserActions } from '@store/actions/user.action';
@@ -32,12 +32,17 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       route: "menu-tree",
     },
     {
-      name: "Menu categories",
-      route: "menu-categories",
-    },
-    {
-      name: "Schema categories",
-      route: "schema-categories",
+      name: "Categories",
+      children: [
+        {
+          name: "Menu categories",
+          route: "menu-categories",
+        },
+        {
+          name: "Schema categories",
+          route: "schema-categories",
+        },
+      ]
     },
     {
       name: "Products",
@@ -64,12 +69,17 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       route: "languages",
     },
     {
-      name: "Intros",
-      route: "intros",
-    },
-    {
-      name: "Banners",
-      route: "banners",
+      name: "Adverts",
+      children: [
+        {
+          name: "Intros",
+          route: "intros",
+        },
+        {
+          name: "Banners",
+          route: "banners",
+        },
+      ],
     },
   ];
 
@@ -84,18 +94,65 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return !!urlPath && urlPath.length > 0 ? urlPath[0] : undefined;
   }
 
-  private getIndexByRoute(route: string): number {
-    return this.roteCollection.findIndex(v => v.route === route);
+  private getIndexByRoute(route: string, collection: Array<INavRoute>): number {
+    let result = -1;
+    for (let i = 0, l = collection.length; i < l; i++) {
+      if (!!collection[i].children) {
+        const index = this.getIndexByRoute(route, collection[i].children);
+        if (index > -1) {
+          return index;
+        }
+      } else {
+        if (collection[i].route === route) {
+          return collection[i].index;
+        }
+      }
+    }
+    return result;
+  }
+
+  private findRouteByIndex(index: number, collection: Array<INavRoute>): INavRoute {
+    let result: INavRoute;
+    for (let i = 0, l = collection.length; i < l; i++) {
+      if (!!collection[i].children && collection[i].children.length > 0) {
+        const route = this.findRouteByIndex(index, collection[i].children);
+        if (!!route) {
+          return route;
+        }
+      } else {
+        if (collection[i].index === index) {
+          return collection[i];
+        }
+      }
+    }
+    return result;
+  }
+
+  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0): number {
+    let result = 0;
+    for (let i = 0, l = collection.length; i < l; i++) {
+      if (!!collection[i].children && collection[i].children.length > 0) {
+        result += this.normalizedRoutesCollection(collection[i].children, result);
+      } else {
+        const normalizedIndex = result + startIndex;
+        collection[i].index = normalizedIndex;
+        result ++;
+      }
+    }
+
+    return result;
   }
 
   ngOnInit() {
+
+    this.normalizedRoutesCollection(this.roteCollection);
 
     this._router.events.pipe(
       filter(event => event instanceof NavigationStart)
     ).subscribe((event: NavigationStart) => {
       const url = this.extractUrlPath(event.url);
-      const index = this.getIndexByRoute(url);
-      
+      const index = this.getIndexByRoute(url, this.roteCollection);
+
       if (index > -1 && this._currentRouteIndex !== index) {
         this._store.dispatch(AdminActions.setCurrentRouteIndex({ currentRouteIndex: index }));
       }
@@ -118,8 +175,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     this.currentRoute$ = this.currentRouteIndex$.pipe(
       map(v => this.roteCollection[v]),
     );
-
-    this.currentRouteIndex$.subscribe(v => console.log(v))
 
     this.isMobile$ = this._media.media$.pipe(
       map(v => v.suffix === 'Xs')
@@ -145,7 +200,16 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   }
 
   selectRoute(index: number) {
-    this._store.dispatch(AdminActions.setCurrentRouteIndex({ currentRouteIndex: index }));
+    const route = this.findRouteByIndex(index, this.roteCollection);
+
+    if (!route?.route) {
+      return;
+    }
+
+    this._router.navigate([route.route], {
+      relativeTo: this._activatedRoute,
+    });
+    this._store.dispatch(AdminActions.setCurrentRouteIndex({ currentRouteIndex: route.index }));
     this.closeSidenav();
   }
 

@@ -1,0 +1,18 @@
+<mat-selection-list [multiple]="false">
+    <div *ngFor="let item of collection">
+        <ng-container *ngIf="!!item.children; else link">
+            <p>
+                {{item.name}}
+            </p>
+            <ta-navigation-menu [collection]="item.children" (select)="selectRoute($event)" [selected]="selected">
+            </ta-navigation-menu>
+        </ng-container>
+        <ng-template #link>
+            <mat-list-option (click)="selectRoute(item.index)" [selected]="item.index === selected">
+                <a>
+                    <span class="label">{{item.name}}</span>
+                </a>
+            </mat-list-option>
+        </ng-template>
+    </div>
+</mat-selection-list>
