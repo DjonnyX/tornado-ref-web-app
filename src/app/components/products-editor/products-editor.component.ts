@@ -126,8 +126,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the product?",
-          message: `"${this.getProductName(product)}" will be permanently deleted`,
+          title: "Удалить продукт?",
+          message: `"${this.getProductName(product)}" будет безвозвратно удален.`,
         },
       });
 

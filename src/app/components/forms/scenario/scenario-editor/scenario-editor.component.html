@@ -2,12 +2,12 @@
     <div class="form__input-block">
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Action</mat-label>
+                <mat-label>Действие</mat-label>
                 <mat-select [formControl]="ctrlAction">
                     <mat-option *ngFor="let type of types" [value]="type">{{getTypeName(type)}}</mat-option>
                 </mat-select>
                 <mat-error *ngIf="ctrlValue.hasError('required')">
-                    <strong>required</strong>
+                    <strong>обязательное</strong>
                 </mat-error>
             </mat-form-field>
         </div>
@@ -15,12 +15,12 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Business periods</mat-label>
+                    <mat-label>Бизнесс-периоды</mat-label>
                     <mat-select [formControl]="ctrlValue" multiple>
                         <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обзательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -44,10 +44,10 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioIntroActionTypes.DURATION">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Duration</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Duration">
+                    <mat-label>Продолжительность</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Продолжительность">
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -56,10 +56,10 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.UP_LIMIT">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Up limit</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Up limit">
+                    <mat-label>Верхний предел</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Верхний предел">
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -68,10 +68,10 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.DOWN_LIMIT">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Down limit</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Down limit">
+                    <mat-label>Нижний предел</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Нижний предел">
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -80,22 +80,22 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.ADDITIONAL_PRICE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Currency</mat-label>
+                    <mat-label>Валюта</mat-label>
                     <mat-select [formControl]="ctrlCurrency">
                         <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.code}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlCurrency.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
 
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Additional price</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Additional price">
+                    <mat-label>Добавочная стоимость</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Добавочная стоимость">
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -104,22 +104,22 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.FIXED_PRICE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Currency</mat-label>
+                    <mat-label>Валюта</mat-label>
                     <mat-select [formControl]="ctrlCurrency">
                         <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.code}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlCurrency.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
 
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Fixed price</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Fixed price">
+                    <mat-label>Фиксированная цена</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Фиксированная цена">
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -152,10 +152,10 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioSelectorActionTypes.MAX_USAGE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Max usage</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Max usage">
+                    <mat-label>Максимальное количество</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Максимальное количество">
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>

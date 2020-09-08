@@ -14,15 +14,15 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
                         <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{product.active ? 'Deactivate' : 'Active'}}</span>
+                        <span>{{product.active ? 'Деактивировать' : 'Активировать'}}</span>
                     </button>
                     <button mat-menu-item (click)="onEditProduct(product)">
                         <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
+                        <span>Редактировать</span>
                     </button>
                     <button mat-menu-item (click)="onDeleteProduct(product)">
                         <mat-icon>delete_forever</mat-icon>
-                        <span>Delete</span>
+                        <span>Удалить</span>
                     </button>
                 </mat-menu>
             </div>

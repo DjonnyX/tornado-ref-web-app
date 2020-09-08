@@ -126,8 +126,8 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the category?",
-          message: `"${this.getSelectorName(selector)}" will be permanently deleted`,
+          title: "Удалить категорию?",
+          message: `"${this.getSelectorName(selector)}" будет безвозвратно удален.`,
         },
       });
 
