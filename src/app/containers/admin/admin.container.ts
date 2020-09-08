@@ -28,58 +28,58 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   roteCollection: Array<INavRoute> = [
     {
-      name: "Refs",
+      name: "Справочники",
       children: [
         {
-          name: "Menu",
+          name: "Меню",
           route: "menu-tree",
         },
         {
-          name: "Categories",
+          name: "Категории",
           children: [
             {
-              name: "Menu categories",
+              name: "Для меню",
               route: "menu-categories",
             },
             {
-              name: "Schema categories",
+              name: "Для продуктов",
               route: "schema-categories",
             },
           ]
         },
         {
-          name: "Products",
+          name: "Продукты",
           route: "products",
         },
         {
-          name: "Currencies",
+          name: "Валюты",
           route: "currencies",
         },
         {
-          name: "Tags",
+          name: "Тэги",
           route: "tags",
         },
         {
-          name: "Order types",
+          name: "Типы заказов",
           route: "order-types",
         },
         {
-          name: "Business periods",
+          name: "Бизнесс-периоды",
           route: "business-periods",
         },
         {
-          name: "Languages",
+          name: "Языки",
           route: "languages",
         },
         {
-          name: "Adverts",
+          name: "Рекламы",
           children: [
             {
-              name: "Intros",
+              name: "Заставки",
               route: "intros",
             },
             {
-              name: "Banners",
+              name: "Банеры",
               route: "banners",
             },
           ],
