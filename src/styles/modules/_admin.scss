@@ -12,6 +12,15 @@
     color: #ffffff;
 }
 
+/*.mat-drawer {
+    background-color: #687982;
+    color: rgb(255, 255, 255);
+}*/
+
+.mat-drawer-side {
+    border-right: none;
+}
+
 .main-toolbar {
     background-color: $primary-700;
     color: white;

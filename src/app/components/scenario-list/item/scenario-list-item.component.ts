@@ -50,7 +50,7 @@ export class ScenarioListItemComponent implements OnInit {
 
     switch (this.scenario.action) {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-        value = `: ${(this.scenario.value as Array<string>).map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v]?.contents[this.defaultLanguage?.code]?.name : "missing").join(", ")}`;
+        value = `: ${(this.scenario.value as Array<string>).map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")}`;
         break;
       case ScenarioProductActionTypes.ADDITIONAL_PRICE:
       case ScenarioProductActionTypes.FIXED_PRICE:
@@ -59,7 +59,7 @@ export class ScenarioListItemComponent implements OnInit {
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioSelectorActionTypes.MAX_USAGE:
-        value = `: ${this.scenario.value} pcs`;
+        value = `: ${this.scenario.value} шт`;
         break;
       case ScenarioIntroActionTypes.DURATION:
         value = `: ${this.scenario.value}`;

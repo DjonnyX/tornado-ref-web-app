@@ -54,8 +54,8 @@ export class AssetsEditorComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the asset?",
-          message: `"${asset.name}" will be permanently deleted`,
+          title: "Удалить ресурс?",
+          message: `"${asset.name}" будет безвозвратно удален.`,
         },
       });
 

@@ -16,19 +16,19 @@
     <mat-menu #menu="matMenu">
         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
             <mat-icon>arrow_upward</mat-icon>
-            <span>Upward</span>
+            <span>Вверх</span>
         </button>
         <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
             <mat-icon>arrow_downward</mat-icon>
-            <span>Downward</span>
+            <span>Вниз</span>
         </button>
         <button mat-menu-item (click)="onEdit()">
             <mat-icon>edit</mat-icon>
-            <span>Edit</span>
+            <span>Редактировать</span>
         </button>
         <button mat-menu-item (click)="onDelete()">
             <mat-icon>delete_forever</mat-icon>
-            <span>Delete</span>
+            <span>Удалить</span>
         </button>
     </mat-menu>
 </div>

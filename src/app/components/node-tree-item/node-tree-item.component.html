@@ -23,13 +23,13 @@
                         (click)="!lock ? onSetContent($event) : undefined">
                         <img class="content__thumbnail" *ngIf="!!getThumbnail()" [src]="getThumbnail()">
                         <div class="content__text">
-                            {{getContentName() || "Content is missing."}}
+                            {{getContentName() || "Контент недоступен"}}
                         </div>
                     </span>
                 </ng-container>
                 <ng-template #root>
                     <span>
-                        Root
+                        Корень
                     </span>
                 </ng-template>
                 <span *ngIf="!isRoot && !lock">
@@ -41,27 +41,27 @@
                             <mat-icon>
                                 {{!!nodeInstance ? nodeInstance.active : node.active ? 'visibility_off' : 'visibility'}}
                             </mat-icon>
-                            <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Deactivate' : 'Active'}}</span>
+                            <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Деактивировать' : 'Активировать'}}</span>
                         </button>
                         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
                             <mat-icon>arrow_upward</mat-icon>
-                            <span>Upward</span>
+                            <span>Вверх</span>
                         </button>
                         <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
                             <mat-icon>arrow_downward</mat-icon>
-                            <span>Downward</span>
+                            <span>Вниз</span>
                         </button>
                         <button mat-menu-item (click)="onSetContent()">
                             <mat-icon>edit</mat-icon>
-                            <span>Edit</span>
+                            <span>Редактировать</span>
                         </button>
                         <button mat-menu-item (click)="onAddScenario()">
                             <mat-icon>linear_scale</mat-icon>
-                            <span>Add scenario</span>
+                            <span>Добавить сценарий</span>
                         </button>
                         <button mat-menu-item (click)="onDelete()">
                             <mat-icon>delete_forever</mat-icon>
-                            <span>Delete</span>
+                            <span>Удалить</span>
                         </button>
                     </mat-menu>
                 </span>

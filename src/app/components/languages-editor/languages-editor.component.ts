@@ -93,8 +93,8 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the language?",
-          message: `"${language.name}" will be permanently deleted`,
+          title: "Удалить язык?",
+          message: `"${language.name}" будет безвозвратно удален.`,
         },
       });
 

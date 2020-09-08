@@ -2,30 +2,30 @@
     <div class="form__input-block">
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Code</mat-label>
-                <input matInput type="text" [formControl]="ctrlCode" placeholder="Code">
+                <mat-label>Код валюты</mat-label>
+                <input matInput type="text" [formControl]="ctrlCode" placeholder="Код валюты">
                 <mat-error *ngIf="ctrlCode.hasError('required')">
-                    <strong>required</strong>
+                    <strong>обязательное</strong>
                 </mat-error>
             </mat-form-field>
         </div>
         
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Name</mat-label>
-                <input matInput type="text" [formControl]="ctrlName" placeholder="Name">
+                <mat-label>Имя валюты</mat-label>
+                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя валюты">
                 <mat-error *ngIf="ctrlName.hasError('required')">
-                    <strong>required</strong>
+                    <strong>обязательное</strong>
                 </mat-error>
             </mat-form-field>
         </div>
         
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Symbol</mat-label>
-                <input matInput type="text" [formControl]="ctrlSymbol" placeholder="Symbol">
+                <mat-label>Символ валюты</mat-label>
+                <input matInput type="text" [formControl]="ctrlSymbol" placeholder="Символ валюты">
                 <mat-error *ngIf="ctrlSymbol.hasError('required')">
-                    <strong>required</strong>
+                    <strong>обязательное</strong>
                 </mat-error>
             </mat-form-field>
         </div>

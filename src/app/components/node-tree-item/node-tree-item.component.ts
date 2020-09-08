@@ -377,7 +377,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
-          title: "Select a content for the node.",
+          title: "Выберите контент для узла",
           assetsDictionary: this.assetsDictionary,
           products: this.products,
           selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
@@ -440,7 +440,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
-          title: "Select a content for the node.",
+          title: "Выберите контент для узла",
           assetsDictionary: this.assetsDictionary,
           products: this.products,
           selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
@@ -489,8 +489,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Delete the product?",
-          message: `"${this.getContentName()}" will be permanently deleted. ${!!this.node.children && this.node.children.length > 0 ? "His children will be permanently deleted." : ""}`,
+          title: "Удалить продукт?",
+          message: `"${this.getContentName()}" будет безвозвратно удален.. ${!!this.node.children && this.node.children.length > 0 ? "Его дети будет безвозвратно удалены.." : ""}`,
         },
       });
 
@@ -509,7 +509,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           type: this.getNodeScenarioType(),
-          title: "Configure the scenario.",
+          title: "Настроить сценарий",
           scenario: undefined,
           businessPeriods: this.businessPeriods,
           businessPeriodsDictionary: this.businessPeriodsDictionary,
@@ -570,7 +570,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           type: this.getNodeScenarioType(),
-          title: "Edit the scenario.",
+          title: "Редактировать сценарий",
           scenario: scenario,
           businessPeriods: this.businessPeriods,
           currencies: this.currencies,

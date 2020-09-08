@@ -1,7 +1,7 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" *ngFor="let ad of collection | search:searchPattern:defaultLanguage.code"
+        <div class="entity" *ngFor="let ad of collection | search:searchPattern:defaultLanguage?.code"
             [class.disabled]="!ad.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
@@ -14,15 +14,15 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item type="button" (click)="onToggleActive($event, ad)">
                         <mat-icon>{{ad.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{ad.active ? 'Deactivate' : 'Active'}}</span>
+                        <span>{{ad.active ? 'Деактивировать' : 'Активировать'}}</span>
                     </button>
                     <button mat-menu-item (click)="onEditAd(ad)">
                         <mat-icon>edit</mat-icon>
-                        <span>Edit</span>
+                        <span>Редактировать</span>
                     </button>
                     <button mat-menu-item (click)="onDeleteAd(ad)">
                         <mat-icon>delete_forever</mat-icon>
-                        <span>Delete</span>
+                        <span>Удалить</span>
                     </button>
                 </mat-menu>
             </div>

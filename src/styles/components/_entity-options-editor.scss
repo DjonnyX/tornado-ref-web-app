@@ -18,12 +18,8 @@
 
         .main-options-wrapper {
             display: grid;
-            grid-template-columns: px2em(224) auto;
+            grid-template-columns: px2em(298) auto;
             gap: px2em(32);
-
-            &.m {
-                grid-template-columns: px2em(176) auto;
-            }
         }
 
         .form {
@@ -45,7 +41,7 @@
 
         .main-options-wrapper {
             display: grid;
-            grid-template-columns: px2em(200) auto;
+            grid-template-columns: px2em(268) auto;
             gap: px2em(20);
         }
 
