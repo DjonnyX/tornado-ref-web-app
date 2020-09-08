@@ -1,7 +1,7 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" *ngFor="let ad of collection | search:searchPattern:defaultLanguage.code"
+        <div class="entity" *ngFor="let ad of collection | search:searchPattern:defaultLanguage?.code"
             [class.disabled]="!ad.active">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
