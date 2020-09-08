@@ -28,11 +28,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   roteCollection: Array<INavRoute> = [
     {
-      name: "Магазины",
+      name: "Настройки",
       children: [
         {
           name: "Терминалы",
           route: "terminals",
+        },
+        {
+          name: "Магазины",
+          route: "stores",
         },
       ]
     },
