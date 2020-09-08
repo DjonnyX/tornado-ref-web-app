@@ -28,6 +28,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   roteCollection: Array<INavRoute> = [
     {
+      name: "Магазины",
+      children: [
+        {
+          name: "Терминалы",
+          route: "terminals",
+        },
+      ]
+    },
+    {
       name: "Справочники",
       children: [
         {
@@ -134,13 +143,12 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   }
 
   private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0): number {
-    let result = 0;
+    let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
       if (!!collection[i].children && collection[i].children.length > 0) {
-        result += this.normalizedRoutesCollection(collection[i].children, result);
+        result = this.normalizedRoutesCollection(collection[i].children, result);
       } else {
-        const normalizedIndex = result + startIndex;
-        collection[i].index = normalizedIndex;
+        collection[i].index = result;
         result++;
       }
     }
@@ -149,7 +157,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-
     this.normalizedRoutesCollection(this.roteCollection);
 
     this._router.events.pipe(
