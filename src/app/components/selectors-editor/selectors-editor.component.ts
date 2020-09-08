@@ -57,11 +57,11 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   }
 
   getSelectorContent(selector: ISelector): ISelectorContentsItem {
-    return selector.contents[this.defaultLanguage.code];
+    return selector.contents[this.defaultLanguage?.code];
   }
 
   getTagContent(tag: ITag): ITagContentsItem {
-    return tag.contents[this.defaultLanguage.code];
+    return tag.contents[this.defaultLanguage?.code];
   }
 
   ngOnDestroy(): void {
@@ -82,29 +82,29 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   getSelectorName(selector: ISelector): string | undefined {
     const selectorContent = this.getSelectorContent(selector);
-    return !!selectorContent ? selectorContent.name : undefined;
+    return selectorContent?.name;
   }
 
   getSelectorDescription(selector: ISelector): string | undefined {
     const selectorContent = this.getSelectorContent(selector);
-    return !!selectorContent ? selectorContent.description : undefined;
+    return selectorContent?.description;
   }
 
   getSelectorColor(selector: ISelector): string | undefined {
     const selectorContent = this.getSelectorContent(selector);
-    return !!selectorContent ? selectorContent.color : undefined;
+    return selectorContent?.color;
   }
 
   hasThumbnail(selector: ISelector): boolean {
     const selectorContent = this.getSelectorContent(selector);
-    const asset = !!selectorContent && !!selectorContent.resources && !!selectorContent.resources.main ? this._assetsDictionary[selectorContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
+    const asset = !!selectorContent?.resources?.main ? this._assetsDictionary[selectorContent.resources.main] : undefined;
+    return !!asset?.mipmap?.x128;
   }
 
   getThumbnail(selector: ISelector): string {
     const selectorContent = this.getSelectorContent(selector);
     const asset = !!selectorContent && !!selectorContent.resources && !!selectorContent.resources.main ? this._assetsDictionary[selectorContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+    return !!asset?.mipmap?.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
   }
 
   onToggleActive(event: Event, selector: ISelector): void {
