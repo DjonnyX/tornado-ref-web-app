@@ -28,58 +28,63 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   roteCollection: Array<INavRoute> = [
     {
-      name: "Menu",
-      route: "menu-tree",
-    },
-    {
-      name: "Categories",
+      name: "Refs",
       children: [
         {
-          name: "Menu categories",
-          route: "menu-categories",
+          name: "Menu",
+          route: "menu-tree",
         },
         {
-          name: "Schema categories",
-          route: "schema-categories",
+          name: "Categories",
+          children: [
+            {
+              name: "Menu categories",
+              route: "menu-categories",
+            },
+            {
+              name: "Schema categories",
+              route: "schema-categories",
+            },
+          ]
+        },
+        {
+          name: "Products",
+          route: "products",
+        },
+        {
+          name: "Currencies",
+          route: "currencies",
+        },
+        {
+          name: "Tags",
+          route: "tags",
+        },
+        {
+          name: "Order types",
+          route: "order-types",
+        },
+        {
+          name: "Business periods",
+          route: "business-periods",
+        },
+        {
+          name: "Languages",
+          route: "languages",
+        },
+        {
+          name: "Adverts",
+          children: [
+            {
+              name: "Intros",
+              route: "intros",
+            },
+            {
+              name: "Banners",
+              route: "banners",
+            },
+          ],
         },
       ]
-    },
-    {
-      name: "Products",
-      route: "products",
-    },
-    {
-      name: "Currencies",
-      route: "currencies",
-    },
-    {
-      name: "Tags",
-      route: "tags",
-    },
-    {
-      name: "Order types",
-      route: "order-types",
-    },
-    {
-      name: "Business periods",
-      route: "business-periods",
-    },
-    {
-      name: "Languages",
-      route: "languages",
-    },
-    {
-      name: "Adverts",
-      children: [
-        {
-          name: "Intros",
-          route: "intros",
-        },
-        {
-          name: "Banners",
-          route: "banners",
-        },
-      ],
     },
   ];
 
@@ -136,7 +141,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       } else {
         const normalizedIndex = result + startIndex;
         collection[i].index = normalizedIndex;
-        result ++;
+        result++;
       }
     }
 
@@ -173,7 +178,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     });
 
     this.currentRoute$ = this.currentRouteIndex$.pipe(
-      map(v => this.roteCollection[v]),
+      map(index => this.findRouteByIndex(index, this.roteCollection)),
     );
 
     this.isMobile$ = this._media.media$.pipe(
