@@ -7,5 +7,25 @@
             height: px2em(10);
             min-height: px2em(10);
         }
+
+        .entity-active-zone {
+            align-items: initial;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            justify-content: stretch;
+        }
+
+        .bottom-panel {
+            justify-content: space-between;
+            overflow: hidden;
+            height: 100%;
+            margin: 0 px2em(8) px2em(8);
+        }
+
+        .entity-thumbnail {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+        }
     }
 }
