@@ -51,11 +51,11 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
           name: "Категории",
           children: [
             {
-              name: "Для меню",
+              name: "Категории меню",
               route: "menu-categories",
             },
             {
-              name: "Для продуктов",
+              name: "Категории конструктора продуктов",
               route: "schema-categories",
             },
           ]
@@ -150,6 +150,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
       if (!!collection[i].children && collection[i].children.length > 0) {
+        collection[i].expanded = true;
         result = this.normalizedRoutesCollection(collection[i].children, result);
       } else {
         collection[i].index = result;
