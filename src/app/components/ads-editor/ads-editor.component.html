@@ -28,18 +28,16 @@
             </div>
             <div matRipple class="entity-active-zone" (click)="onEditAd(ad)">
                 <div class="content">
-                    <div class="content__name">
-                        {{getAdName(ad)}}
+                    <div>
+                        <div class="content__name">
+                            {{getAdName(ad)}}
+                        </div>
                     </div>
                 </div>
                 <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(ad)" class="entity-thumbnail"
-                        [src]="getThumbnail(ad)">
+                    <img align="center" *ngIf="hasThumbnail(ad)" class="entity-thumbnail" [src]="getThumbnail(ad)">
                 </div>
                 <div class="color" [style.background]="getAdColor(ad)"></div>
-                <!--<div class="tags">
-                    <span class="tag" *ngFor="let tag of ad.tags" [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)"></span>
-                </div>-->
             </div>
         </div>
         <button color="accent" mat-raised-button class="button-add" (click)="onCreateAd()">

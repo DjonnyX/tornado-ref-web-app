@@ -27,7 +27,7 @@ export class AdContentComponent extends BaseComponent implements OnInit, OnDestr
 
   ctrlName = new FormControl('', [Validators.required]);
 
-  ctrlDescription = new FormControl('');
+  ctrlDuration = new FormControl(0);
 
   private _state: IAdContentsItem;
 
@@ -81,10 +81,10 @@ export class AdContentComponent extends BaseComponent implements OnInit, OnDestr
     ).subscribe(value => {
       this.updateState({ name: value });
     });
-    this.ctrlDescription.valueChanges.pipe(
+    this.ctrlDuration.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
-      this.updateState({ description: value });
+      this.updateState({ duration: value });
     });
     this.ctrlColor.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
