@@ -63,12 +63,17 @@ $ctrl-panel-height: px2em(40);
             align-items: baseline;
             justify-content: space-between;
             margin: px2em(4) px2em(8) px2em(8);
+
+            img {
+                image-rendering: pixelated;
+            }
         }
 
         .entity-thumbnail {
             height: px2em(32);
             border-radius: 4px;
             overflow: hidden;
+            image-rendering: pixelated;
         }
 
         .entity-ctrls {

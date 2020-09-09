@@ -79,7 +79,7 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
   getThumbnail(ad: IAd): string {
     const adContent = this.getAdContent(ad);
     const asset = !!adContent && !!adContent.resources && !!adContent.resources.main ? this._assetsDictionary[adContent.resources.main] : undefined;
-    return asset?.mipmap?.x32?.replace("\\", "/") || "";
+    return asset?.mipmap?.x128?.replace("\\", "/") || "";
   }
 
   onToggleActive(event: Event, ad: IAd): void {
