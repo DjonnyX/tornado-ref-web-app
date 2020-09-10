@@ -81,8 +81,6 @@ export class CurrencyCreatorContainer extends BaseComponent implements OnInit, O
     } else {
       this._store.dispatch(CurrencyActions.createRequest({ currency }));
     }
-
-    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {
