@@ -39,7 +39,6 @@ $ctrl-panel-height: px2em(40);
             color: $primary-700;
             background: $background-color;
             box-sizing: border-box;
-            border-radius: 0 0 4px 4px;
         }
 
         .content {
@@ -71,7 +70,6 @@ $ctrl-panel-height: px2em(40);
 
         .entity-thumbnail {
             height: px2em(32);
-            border-radius: 4px;
             overflow: hidden;
             image-rendering: pixelated;
         }
@@ -80,7 +78,6 @@ $ctrl-panel-height: px2em(40);
             display: flex;
             justify-content: space-between;
             background: #ffffff;
-            border-radius: 4px 4px 0 0;
             height: $ctrl-panel-height;
             border-bottom: 1px solid rgba($primary, 0.1);
         }
@@ -103,6 +100,7 @@ $ctrl-panel-height: px2em(40);
 
     .button-add {
         width: 100%;
+        border-radius: 0;
     }
 }
 
