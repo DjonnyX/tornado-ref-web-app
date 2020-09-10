@@ -92,3 +92,7 @@ export { IStoreGetResponse } from './store-get-response.interface';
 export { IStoreCreateResponse } from './store-create-response.interface';
 export { IStoreUpdateResponse } from './store-update-response.interface';
 export { IStoreDeleteResponse } from './store-delete-response.interface';
+export { ITerminalsGetResponse } from './terminals-get-response.interface';
+export { ITerminalGetResponse } from './terminal-get-response.interface';
+export { ITerminalUpdateResponse } from './terminal-update-response.interface';
+export { ITerminalDeleteResponse } from './terminal-delete-response.interface';

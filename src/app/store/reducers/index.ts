@@ -32,6 +32,8 @@ import adAssetsReducer from './ad-assets.reducer';
 import adReducer from './ad.reducer';
 import storeReducer from './store.reducer';
 import storesReducer from './stores.reducer';
+import terminalReducer from './terminal.reducer';
+import terminalsReducer from './terminals.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -65,6 +67,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taAdAssets: adAssetsReducer,
   taStore: storeReducer,
   taStores: storesReducer,
+  taTerminal: terminalReducer,
+  taTerminals: terminalsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
