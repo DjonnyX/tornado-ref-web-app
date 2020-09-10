@@ -107,14 +107,14 @@ $block-color: lighten($primary, 10);
 .mat-flat-button,
 .mat-fab,
 .mat-mini-fab {
-    border-radius: 0;
+    border-radius: 3px;
 }
 
 .mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
     color: white;
-    border-radius: 0;
+    border-radius: 3px;
 }
 
 .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
-    border-radius: 0;
+    border-radius: 3px;
 }

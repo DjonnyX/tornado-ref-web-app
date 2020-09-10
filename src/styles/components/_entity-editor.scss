@@ -39,6 +39,7 @@ $ctrl-panel-height: px2em(40);
             color: $primary-700;
             background: $background-color;
             box-sizing: border-box;
+            border-radius: 0 0 3px 3px;
         }
 
         .content {
@@ -72,6 +73,7 @@ $ctrl-panel-height: px2em(40);
             height: px2em(32);
             overflow: hidden;
             image-rendering: pixelated;
+            border-radius: 3px;
         }
 
         .entity-ctrls {
@@ -80,6 +82,7 @@ $ctrl-panel-height: px2em(40);
             background: #ffffff;
             height: $ctrl-panel-height;
             border-bottom: 1px solid rgba($primary, 0.1);
+            border-radius: 3px 3px 0 0;
         }
 
         .entity-checkbox-active {
@@ -100,7 +103,7 @@ $ctrl-panel-height: px2em(40);
 
     .button-add {
         width: 100%;
-        border-radius: 0;
+        border-radius: 3px;
     }
 }
 
