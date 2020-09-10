@@ -28,6 +28,8 @@ import AdEffects from './ad.effects';
 import AdAssetsEffects from './ad-assets.effects';
 import StoreEffects from './store.effects';
 import StoresEffects from './stores.effects';
+import TerminalEffects from './terminal.effects';
+import TerminalsEffects from './terminals.effects';
 
 const rootEffects = [
   UserEffects,
@@ -60,5 +62,7 @@ const rootEffects = [
   AdAssetsEffects,
   StoreEffects,
   StoresEffects,
+  TerminalEffects,
+  TerminalsEffects,
 ];
 export default rootEffects;

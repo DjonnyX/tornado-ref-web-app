@@ -88,12 +88,16 @@ import {
   IStoreCreateResponse,
   IStoreUpdateResponse,
   IStoreDeleteResponse,
+  ITerminalsGetResponse,
+  ITerminalGetResponse,
+  ITerminalUpdateResponse,
+  ITerminalDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore, ITerminal } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 
@@ -1309,6 +1313,43 @@ export class ApiService {
   public deleteStore(id: string): Observable<IStoreDeleteResponse> {
     return this._http
       .delete<IStoreDeleteResponse>(`api/v1/store/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // terminals
+  public getTerminals(): Observable<ITerminalsGetResponse> {
+    return this._http
+      .get<ITerminalsGetResponse>("api/v1/terminals", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getTerminal(id: string): Observable<ITerminalGetResponse> {
+    return this._http
+      .get<ITerminalGetResponse>(`api/v1/terminal/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateTerminal(id: string, terminal: ITerminal): Observable<ITerminalUpdateResponse> {
+    return this._http
+      .put<ITerminalUpdateResponse>(`api/v1/terminal/${id}`, terminal, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteTerminal(id: string): Observable<ITerminalDeleteResponse> {
+    return this._http
+      .delete<ITerminalDeleteResponse>(`api/v1/terminal/${id}`, {
         headers: {
           authorization: this._token,
         },
