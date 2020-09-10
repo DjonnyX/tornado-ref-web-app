@@ -25,3 +25,5 @@ export { TranslationSelectors } from "./translation.selectors";
 export { AdSelectors } from "./ad.selectors";
 export { AdsSelectors } from "./ads.selectors";
 export { AdAssetsSelectors } from "./ad-assets.selectors";
+export { StoreSelectors } from "./store.selectors";
+export { StoresSelectors } from "./stores.selectors";

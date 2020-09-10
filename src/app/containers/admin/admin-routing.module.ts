@@ -103,6 +103,13 @@ const routes: Routes = [
           import('@containers/languages-editor/languages-editor.module').then(
             module => module.LanguagesEditorModule,
           )
+      },
+      {
+        path: 'stores',
+        loadChildren: () =>
+          import('@containers/stores-editor/stores-editor.module').then(
+            module => module.StoresEditorModule,
+          )
       }
     ]
   }

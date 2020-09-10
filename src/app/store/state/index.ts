@@ -25,3 +25,5 @@ export { ITranslationState } from './translation.state';
 export { IAdState } from './ad.state';
 export { IAdsState } from './ads.state';
 export { IAdAssetsState } from './ad-assets.state';
+export { IStoreState } from './store.state';
+export { IStoresState } from './stores.state';
