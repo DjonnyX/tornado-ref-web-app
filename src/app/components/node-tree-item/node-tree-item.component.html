@@ -14,7 +14,7 @@
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
                     <div *ngIf="!isRoot" class="content__checkbox-active">
-                        <mat-checkbox color="primary" #checkboxActive [checked]="node.active"
+                        <mat-checkbox color="accent" #checkboxActive [checked]="node.active"
                             (click)="onToggleActive($event)"></mat-checkbox>
                     </div>
                 </span>
