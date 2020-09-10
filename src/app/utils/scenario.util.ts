@@ -7,9 +7,9 @@ export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | Scenario
     case ScenarioProgrammActionTypes.EXPRESSION:
       return "Выражение";
     case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-      return "Показыть в зависимости от бизнесс-периода";
-    case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
-      return "Показыть в зависимости от точки продажи";
+      return "Бизнесс-период";
+    case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
+      return "Магазин";
     case ScenarioIntroActionTypes.DURATION:
       return "Продолжительность (мс)";
     case ScenarioProductActionTypes.DOWN_LIMIT:
