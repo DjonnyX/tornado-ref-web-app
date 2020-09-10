@@ -26,6 +26,8 @@ import TranslationEffects from './translation.effects';
 import AdsEffects from './ads.effects';
 import AdEffects from './ad.effects';
 import AdAssetsEffects from './ad-assets.effects';
+import StoreEffects from './store.effects';
+import StoresEffects from './stores.effects';
 
 const rootEffects = [
   UserEffects,
@@ -55,6 +57,8 @@ const rootEffects = [
   TranslationEffects,
   AdsEffects,
   AdEffects,
-  AdAssetsEffects
+  AdAssetsEffects,
+  StoreEffects,
+  StoresEffects,
 ];
 export default rootEffects;

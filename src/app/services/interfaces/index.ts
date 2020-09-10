@@ -77,7 +77,6 @@ export { IAssetsDeleteResponse } from './assets-delete-response.interface';
 export { ITranslationGetResponse } from './translation-get-response.interface';
 export { ITranslationUpdateResponse } from './translation-update-response.interface';
 export { ITranslationsGetResponse } from './translations-get-response.interface';
-
 export { IAdsGetResponse } from './ads-get-response.interface';
 export { IAdGetResponse } from './ad-get-response.interface';
 export { IAdsCreateResponse } from './ads-create-response.interface';
@@ -88,3 +87,8 @@ export { IAdAssetGetByLangResponse } from './ad-assets-get-by-lang-response.inte
 export { IAdAssetCreateResponse } from './ad-asset-create-response.interface';
 export { IAdAssetUpdateResponse } from './ad-asset-update-response.interface';
 export { IAdAssetDeleteResponse } from './ad-asset-delete-response.interface';
+export { IStoresGetResponse } from './stores-get-response.interface';
+export { IStoreGetResponse } from './store-get-response.interface';
+export { IStoreCreateResponse } from './store-create-response.interface';
+export { IStoreUpdateResponse } from './store-update-response.interface';
+export { IStoreDeleteResponse } from './store-delete-response.interface';

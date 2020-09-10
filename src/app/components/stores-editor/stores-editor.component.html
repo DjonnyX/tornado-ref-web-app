@@ -1,0 +1,37 @@
+<div class="editor">
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div class="entities-wrapper">
+        <div class="entity" *ngFor="let store of collection | search: searchPattern"
+            [class.disabled]="!store.active">
+            <div class="entity-ctrls">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+                    <mat-icon class="icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onEdit(store)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Редактировать</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(store)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Удалить</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <div matRipple class="entity-active-zone" (click)="onEdit(store)">
+                <div class="content">
+                    <div class="content__name">
+                        {{store.name}}
+                    </div>
+                    <div class="content__description" style="text-transform: none;">
+                        {{store.address}}
+                    </div>
+                </div>
+                <div class="color" [style.background]="store.color"></div>
+            </div>
+        </div>
+        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>
