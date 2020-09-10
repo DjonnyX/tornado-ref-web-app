@@ -2,7 +2,7 @@
 @import "../../../styles/utils/px2em";
 
 $entity-height-m: px2em(100);
-$entity-height-d: px2em(110);
+$entity-height-d: px2em(120);
 $entity-width-m: px2em(140);
 $entity-width-d: px2em(190);
 
@@ -12,6 +12,7 @@ $entity-width-d: px2em(190);
             display: grid;
             grid-template-columns: auto 1fr;
             gap: px2em(20);
+            margin: 0.5em 0.5em 1em;
 
             .content__name {
                 margin-top: auto;
