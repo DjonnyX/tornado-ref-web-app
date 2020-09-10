@@ -20,17 +20,4 @@
         width: 100%;
         margin-bottom: px2em(20);
     }
-
-    button {
-        width: 100%;
-        white-space: normal;
-        font-size: 0.815em;
-        line-height: 1.1;
-        padding: px2em(16) px2em(12);
-
-        &.reset-button {
-            padding: px2em(10) 0;
-            font-size: 0.815em;
-        }
-    }
 }

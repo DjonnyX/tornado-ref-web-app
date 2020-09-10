@@ -1,6 +1,6 @@
 @import "../utils/px2em";
 
-$n-size: px2em(128);
+$n-size: px2em(168);
 $m-size: px2em(96);
 $s-size: px2em(48);
 
@@ -16,6 +16,21 @@ $s-size: px2em(48);
 
 .asset-picker {
     width: 100%;
+    
+    .reset-content-button {
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 2;
+    }
+
+    .upload-button {
+        width: 100%;
+        white-space: normal;
+        font-size: 0.815em;
+        line-height: 1.1;
+        padding: px2em(16) px2em(12);
+    }
 
     .asset-viewer {
         width: 100%;

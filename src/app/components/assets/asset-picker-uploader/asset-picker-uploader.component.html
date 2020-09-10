@@ -1,18 +1,24 @@
 <div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
     <div class="asset-viewer">
-        <mat-progress-bar *ngIf="!!asset?.progress" mode="determinate" [value]="asset.progress.progress" style="z-index: 2;"></mat-progress-bar>
-        <mat-progress-bar mode="indeterminate" color="accent" style="z-index: 2;" *ngIf="!!!asset?.progress && isLoading;"></mat-progress-bar>
+        <button [disabled]="resetButtonDisabled" class="reset-content-button" type="button" (click)="onReset()">
+            <mat-icon>settings_backup_restore</mat-icon>
+        </button>
+        <mat-progress-bar *ngIf="!!asset?.progress" mode="determinate" [value]="asset.progress.progress"
+            style="z-index: 2;"></mat-progress-bar>
+        <mat-progress-bar mode="indeterminate" color="accent" style="z-index: 2;"
+            *ngIf="!!!asset?.progress && isLoading;"></mat-progress-bar>
         <div class="asset-preview__substract"></div>
         <div *ngIf="!!color" [style.background-color]="color" class="asset-preview__substract-color"></div>
         <div class="asset-preview">
-            <img [style.display]="isLoading || isError ? 'none' : 'initial'" [src]="getThumbnail()" (load)="loadingComplete()" (error)="loadingError()">
+            <img [style.display]="isLoading || isError ? 'none' : 'initial'" [src]="getThumbnail()"
+                (load)="loadingComplete()" (error)="loadingError()">
         </div>
     </div>
     <div class="form-item">
-        <button mat-flat-button type="button" color="primary" class="full-width" (click)="fileSelector.open()">
+        <button mat-flat-button type="button" color="primary" class="upload-button full-width" (click)="fileSelector.open()">
             Загрузить
         </button>
     </div>
-    <ta-file-selector [allowedExtensions]="extensions" #fileSelector="fileSelector"
-        (select)="onUploadFile($event)"></ta-file-selector>
+    <ta-file-selector [allowedExtensions]="extensions" #fileSelector="fileSelector" (select)="onUploadFile($event)">
+    </ta-file-selector>
 </div>
