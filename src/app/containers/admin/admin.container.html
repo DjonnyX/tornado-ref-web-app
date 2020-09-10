@@ -15,11 +15,21 @@
         <mat-sidenav class="mat-elevation-z2" role="navigation" ngClass.xs="sidenav--xs"
             [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
+            <!--<div fxHide.sm="true" class="saturn-menu-logo">
+                <div class="saturn-menu-logo__wrapper">
+                    <span class="icon-saturn-logo"></span>
+                    <span class="icon-saturn-text-logo"></span>
+                </div>
+            </div>-->
             <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
-                (select)="selectRoute($event)"></ta-navigation-menu>
+                (select)="selectRoute($event)">
+            </ta-navigation-menu>
         </mat-sidenav>
         <mat-sidenav-content class="content">
-            <main style="height: 100%;">
+            <div class="saturn-page-logo__wrapper">
+                <img class="saturn-page-logo" src="assets/icons/saturn-page-logo.svg">
+            </div>
+            <main>
                 <router-outlet></router-outlet>
             </main>
         </mat-sidenav-content>

@@ -28,70 +28,87 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   roteCollection: Array<INavRoute> = [
     {
+      icon: "settings",
       name: "Настройки",
       children: [
         {
+          icon: "terminal",
           name: "Терминалы",
           route: "terminals",
         },
         {
+          icon: "store",
           name: "Магазины",
           route: "stores",
         },
       ]
     },
     {
+      icon: "refs",
       name: "Справочники",
       children: [
         {
+          icon: "menu",
           name: "Меню",
           route: "menu-tree",
         },
         {
+          icon: "categories",
           name: "Категории",
           children: [
             {
+              icon: "categories-menu",
               name: "Категории меню",
               route: "menu-categories",
             },
             {
+              icon: "categories-constructor",
               name: "Категории конструктора продуктов",
               route: "schema-categories",
             },
           ]
         },
         {
+          icon: "products",
           name: "Продукты",
           route: "products",
         },
         {
+          icon: "currencies",
           name: "Валюты",
           route: "currencies",
         },
         {
+          icon: "tags",
           name: "Тэги",
           route: "tags",
         },
         {
+          icon: "order-types",
           name: "Типы заказов",
           route: "order-types",
         },
         {
+          icon: "business-periods",
           name: "Бизнесс-периоды",
           route: "business-periods",
         },
         {
+          icon: "languages",
           name: "Языки",
           route: "languages",
         },
         {
+          icon: "ads",
           name: "Рекламы",
           children: [
             {
+              icon: "intros",
               name: "Заставки",
               route: "intros",
             },
             {
+              icon: "banners",
               name: "Банеры",
               route: "banners",
             },

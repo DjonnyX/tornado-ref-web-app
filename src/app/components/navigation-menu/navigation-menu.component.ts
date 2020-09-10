@@ -26,6 +26,10 @@ export class NavigationMenuComponent implements OnInit {
     item.expanded = !item.expanded;
   }
 
+  getIconClass(item: INavRoute): string {
+    return `icon-${item.icon}`;
+  }
+
   hasExistsIndex(collection: Array<INavRoute>, index: number): boolean {
     for (let i = 0, l = collection.length; i < l; i++) {
       if (!!collection[i].children && collection[i].children.length > 0) {

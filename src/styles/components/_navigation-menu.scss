@@ -2,9 +2,11 @@
 @import "../utils/px2em";
 
 $border: 1px dotted rgba($primary-800, 0.24);
+$icon-size: px2em(24);
 
 .navigation-menu {
     min-width: 320px;
+    color: $primary-700;
 
     &__expantion-item {
         user-select: none;
@@ -13,6 +15,10 @@ $border: 1px dotted rgba($primary-800, 0.24);
 
         &-label {
             color: inherit;
+        }
+
+        &-icon {
+            font-size: $icon-size;
         }
     }
 
@@ -32,17 +38,22 @@ $border: 1px dotted rgba($primary-800, 0.24);
 
     &__item,
     .expantion-item__wrapper {
-        padding: px2em(16);
+        padding: px2em(20);
     }
 
     .expantion-item__wrapper {
-        display: flex;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
         align-items: center;
-        justify-content: space-between;
+        gap: px2em(16);
     }
 
     &__item {
         user-select: none;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        align-items: center;
+        gap: px2em(16);
 
         &.selected {
             background: rgba($primary, 0.1);
@@ -51,18 +62,18 @@ $border: 1px dotted rgba($primary-800, 0.24);
         &-label {
             color: inherit;
         }
+
+        &-icon {
+            font-size: $icon-size;
+        }
     }
 }
 
 .navigation-menu {
     .expantion-item__wrapper {
         box-shadow: none;
-        background: $primary;
+        background: darken($primary-700, 3);
         color: white;
-    }
-
-    .navigation-menu__item {
-        padding-left: px2em(12);
     }
 
     .navigation-menu {
@@ -74,16 +85,19 @@ $border: 1px dotted rgba($primary-800, 0.24);
             }
         }
 
-        .navigation-menu__item {
-            padding-left: px2em(12);
-        }
-
         .navigation-menu {
             background: rgba($primary, 0.025);
+        }
+    }
+}
 
-            .navigation-menu__item {
-                padding-left: px2em(24);
-            }
+@media screen and (min-width: 600px) and (max-width: 959px) {
+    .navigation-menu {
+        min-width: auto;
+
+        &__item,
+        .expantion-item__wrapper {
+            grid-template-columns: auto;
         }
     }
 }
