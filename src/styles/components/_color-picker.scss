@@ -21,9 +21,14 @@
         margin-bottom: px2em(24);
 
         z-index: 0;
+
+        &.with-reset {
+            border-radius: 4px 0 0 4px;
+        }
     }
 
     .reset-content-button {
         position: relative;
+        border-radius:  0 4px 4px 0;
     }
 }
