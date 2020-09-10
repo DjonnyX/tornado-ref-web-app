@@ -1,6 +1,6 @@
 <div [ngClass]="{'product-content': true, 'main-options-wrapper': isEditMode}">
   <div class="resources" *ngIf="isEditMode">
-    <div class="resources-wrapper">
+    <div class="resources-wrapper double">
       <div class="resources-n">
         <p class="form-header">
           Изображения
@@ -15,25 +15,7 @@
           [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
-    </div>
-
-    <div class="resources-wrapper double">
-      <div class="resources-m">
-        <p class="form-header">
-          Миниатюра
-        </p>
-
-        <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
-          class="reset-button full-width" (click)="onResetResourceToDefault('thumbnail')">
-          Сбросить
-        </button>
-
-        <ta-asset-picker-uploader size="m"
-          [defaultValue]="!!content && !!content.resources ? content.resources.thumbnail : undefined" [assets]="assets"
-          class="transparent full-width" (upload)="onThumbnailResourceUpload($event, 'thumbnail')">
-        </ta-asset-picker-uploader>
-      </div>
-
+      
       <div class="resources-s">
         <p class="form-header">
           Иконка

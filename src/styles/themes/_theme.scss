@@ -114,3 +114,7 @@ $block-color: lighten($primary, 10);
     color: white;
     border-radius: 0;
 }
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    border-radius: 0;
+}

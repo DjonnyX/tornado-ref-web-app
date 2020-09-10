@@ -69,8 +69,6 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEvent>();
-
   @Output() uploadIconResource = new EventEmitter<IFileUploadEvent>();
 
   private _state: ISelectorContents = {};
@@ -116,10 +114,6 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadMainResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
-  }
-
-  onThumbnailResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadThumbnailResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
   onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {

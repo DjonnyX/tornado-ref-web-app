@@ -223,7 +223,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
             (
               !selector.contents[lang].resources || (asset.id !==
                 selector.contents[lang].resources.main && asset.id !==
-                selector.contents[lang].resources.thumbnail && asset.id !==
                 selector.contents[lang].resources.icon)
             ))
         }
@@ -282,10 +281,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   onMainResourceUpload(data: IFileUploadEvent): void {
     this._store.dispatch(SelectorAssetsActions.uploadResourceRequest({ selectorId: this._selectorId, resourcesType: SelectorResourceTypes.MAIN, data }));
-  }
-
-  onThumbnailResourceUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(SelectorAssetsActions.uploadResourceRequest({ selectorId: this._selectorId, resourcesType: SelectorResourceTypes.THUMBNAIL, data }));
   }
 
   onIconResourceUpload(data: IFileUploadEvent): void {

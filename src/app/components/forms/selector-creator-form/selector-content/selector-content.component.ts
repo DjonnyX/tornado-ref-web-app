@@ -66,8 +66,6 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
 
   @Output() uploadMainResource = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEntityEvent>();
-
   @Output() uploadIconResource = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() save = new EventEmitter<void>();
@@ -102,10 +100,6 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
 
   onMainResourceUpload(file: File, dataField: string): void {
     this.uploadMainResource.emit({ file, dataField });
-  }
-
-  onThumbnailResourceUpload(file: File, dataField: string): void {
-    this.uploadThumbnailResource.emit({ file, dataField });
   }
 
   onIconResourceUpload(file: File, dataField: string): void {

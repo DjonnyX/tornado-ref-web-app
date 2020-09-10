@@ -10,8 +10,7 @@
           [selector]="selector$ | async" [assets]="selectorAssets$ | async"
           [resourcesGallery]="gallerySelectorAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
           [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-          (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)"
-          (uploadThumbnailResource)="onThumbnailResourceUpload($event)">
+          (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)">
         </ta-selector-creator-form>
       </ta-query-progress>
     </div>

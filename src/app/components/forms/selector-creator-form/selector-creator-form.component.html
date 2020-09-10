@@ -5,8 +5,7 @@
         <ta-selector-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
           [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
           (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
-          (uploadIconResource)="onIconResourceUpload($event, lang)"
-          (uploadThumbnailResource)="onThumbnailResourceUpload($event, lang)" (save)="onSave()">
+          (uploadIconResource)="onIconResourceUpload($event, lang)" (save)="onSave()">
         </ta-selector-content>
       </mat-tab>
     </mat-tab-group>
