@@ -10,12 +10,14 @@ $border: 1px solid rgba($primary, 0.75);
         background: #ffffff;
         box-sizing: border-box;
         overflow: hidden;
+        border-radius: 0 0 3px 3px;
 
         .content {
             display: grid;
             grid-template-columns: auto 1fr auto;
             user-select: none;
             cursor: pointer;
+            border-radius: 3px;
             align-items: baseline;
             overflow: hidden;
             padding: px2em(4);
@@ -28,6 +30,7 @@ $border: 1px solid rgba($primary, 0.75);
                 white-space: nowrap;
                 padding: px2em(12);
                 margin: auto 0;
+                border-radius: 3px;
             }
         }
 
