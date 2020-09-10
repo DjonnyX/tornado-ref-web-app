@@ -8,7 +8,6 @@ import { BaseComponent } from '@components/base/base-component';
 import { CurrencyActions } from '@store/actions/currency.action';
 import { CurrencySelectors } from '@store/selectors/currency.selectors';
 import { ICurrency } from '@djonnyx/tornado-types';
-import { CurrenciesSelectors } from '@store/selectors';
 
 @Component({
   selector: 'ta-currency-creator',
@@ -46,10 +45,10 @@ export class CurrencyCreatorContainer extends BaseComponent implements OnInit, O
         select(CurrencySelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(CurrenciesSelectors.selectIsCreateProcess),
+        select(CurrencySelectors.selectIsUpdateProcess),
       ),
     ).pipe(
-      map(([isCurrencyGetProcess, isCurrenciesGetProcess]) => isCurrencyGetProcess || isCurrenciesGetProcess),
+      map(([isCurrencyGetProcess, selectIsUpdateProcess]) => isCurrencyGetProcess || selectIsUpdateProcess),
     );
 
     this.currency$ = this._store.pipe(
