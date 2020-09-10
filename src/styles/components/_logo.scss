@@ -1,0 +1,66 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+.saturn-page-logo__wrapper {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.1;
+    left: 320px;
+    top: 64px;
+    bottom: 0;
+    right: 0;
+
+    .saturn-page-logo {
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+    }
+}
+
+@media screen and (min-width: 600px) and (max-width: 959px) {
+    .saturn-page-logo__wrapper {
+        left: 64px;
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .saturn-page-logo__wrapper {
+        top: 56px;
+        left: 0;
+    }
+}
+
+.saturn-menu-logo {
+    background: #394b54;
+    color: rgba(255, 255, 255, 0.1);
+    text-shadow: 0px -1px 0px #1a2b33;
+    display: flex;
+    align-items: center;
+    height: 64px;
+    font-size: 1.5em;
+    border-bottom: 1px solid;
+    border-top: 1px solid;
+    padding-left: px2em(20);
+
+    .saturn-menu-logo__wrapper {
+        display: flex;
+        align-items: center;
+    }
+
+    .icon-saturn-logo {
+        font-size: px2em(28);
+        margin-right: px2em(2);
+    }
+
+    .icon-saturn-text-logo {
+        font-size: px2em(18);
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .saturn-menu-logo {
+        height: 56px;
+    }
+}

@@ -53,7 +53,7 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
   ngOnInit(): void { }
 
   getAdContent(ad: IAd): IAdContentsItem {
-    return ad.contents[this.defaultLanguage.code];
+    return ad.contents[this.defaultLanguage?.code];
   }
 
   ngOnDestroy(): void {
@@ -72,13 +72,13 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
 
   hasThumbnail(ad: IAd): boolean {
     const adContent = this.getAdContent(ad);
-    const asset = !!adContent && !!adContent.resources && !!adContent.resources.main ? this._assetsDictionary[adContent.resources.main] : undefined;
+    const asset = !!adContent?.resources?.main ? this._assetsDictionary[adContent.resources.main] : undefined;
     return !!asset?.mipmap?.x128;
   }
 
   getThumbnail(ad: IAd): string {
     const adContent = this.getAdContent(ad);
-    const asset = !!adContent && !!adContent.resources && !!adContent.resources.main ? this._assetsDictionary[adContent.resources.main] : undefined;
+    const asset = !!adContent?.resources?.main ? this._assetsDictionary[adContent.resources.main] : undefined;
     return asset?.mipmap?.x128?.replace("\\", "/") || "";
   }
 
