@@ -6,13 +6,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.1;
 
     &.workflow {
         left: 320px;
         top: 64px;
         bottom: 0;
-        right: 20px; // чтобы не блокировался суроллбар (костыль)
+        right: 20px; // чтобы не блокировался скроллбар (костыль)
+        opacity: 0.05;
     }
 
     &.centered {
@@ -20,6 +20,7 @@
         top: 0;
         bottom: 0;
         right: 0;
+        opacity: 0.1;
     }
 
     &.medium {
@@ -27,6 +28,7 @@
         top: 0;
         bottom: 0;
         right: 0;
+        opacity: 0.05;
     }
 
     .saturn-page-logo {
