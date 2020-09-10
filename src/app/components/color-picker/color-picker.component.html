@@ -1,0 +1,7 @@
+<div class="color-picker-component">
+    <input class="color-picker-component__input" [(colorPicker)]="color" [style.background]="control.value"
+        [cpPosition]="cpPosition" #input />
+    <button [disabled]="resetButtonDisabled" class="reset-content-button" type="button" (click)="onReset()">
+        <mat-icon>settings_backup_restore</mat-icon>
+    </button>
+</div>

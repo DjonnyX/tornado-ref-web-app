@@ -1,36 +1,15 @@
 <div [ngClass]="{'selector-content': true, 'main-options-wrapper': isEditMode}">
   <div class="resources" *ngIf="isEditMode">
-    <div class="resources-wrapper">
+    <div class="resources-wrapper double">
       <div class="resources-n">
         <p class="form-header">
           Изображения
         </p>
 
-        <button *ngIf="!isDefault" [disabled]="!isEqualWithDefault('main')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetResourceToDefault('main')">
-          Сбросить
-        </button>
-
-        <ta-asset-picker-uploader [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
-          [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event, 'main')">
-        </ta-asset-picker-uploader>
-      </div>
-    </div>
-
-    <div class="resources-wrapper double">
-      <div class="resources-m">
-        <p class="form-header">
-          Миниатюра
-        </p>
-
-        <button [disabled]="!isEqualWithDefault('thumbnail')" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetResourceToDefault('thumbnail')">
-          Сбросить
-        </button>
-
-        <ta-asset-picker-uploader size="m"
-          [defaultValue]="!!content && !!content.resources ? content.resources.thumbnail : undefined" [assets]="assets"
-          class="transparent" (upload)="onThumbnailResourceUpload($event, 'thumbnail')">
+        <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="!isEqualWithDefault('main')"
+          (reset)="onResetResourceToDefault('main')"
+          [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined" [assets]="assets"
+          class="transparent" (upload)="onMainResourceUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
 
@@ -39,12 +18,8 @@
           Иконка
         </p>
 
-        <button [disabled]="!isEqualWithDefault('icon')" mat-button color="primary" type="button" class="reset-button"
-          (click)="onResetResourceToDefault('icon')">
-          Сбросить
-        </button>
-
-        <ta-asset-picker-uploader size="m"
+        <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="!isEqualWithDefault('icon')"
+          (reset)="onResetResourceToDefault('icon')"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
           [color]="color" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
         </ta-asset-picker-uploader>
@@ -53,18 +28,9 @@
 
     <div class="resources-wrapper single">
       <div class="full-width">
-        <p class="form-header">
-          Цвет
-        </p>
-
-        <button *ngIf="!isDefault" [disabled]="isColorDefault()" mat-button color="primary" type="button"
-          class="reset-button" (click)="onResetColorToDefault()">
-          Сбросить
-        </button>
-
         <div class="form-item">
-          <input class="color-picker" [(colorPicker)]="color" [style.background]="ctrlColor.value"
-            cpPosition="top-right" [formControl]="ctrlColor" />
+          <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
+          (reset)="onResetColorToDefault()"  [control]="ctrlColor" cpPosition="top-right"></ta-color-picker>
         </div>
       </div>
     </div>

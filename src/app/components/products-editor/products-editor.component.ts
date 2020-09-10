@@ -65,11 +65,15 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   }
 
   getTagContent(tag: ITag): ITagContentsItem {
+    if (!tag) {
+      return undefined;
+    }
+    
     return tag?.contents[this.defaultLanguage.code];
   }
 
   getTagColor(id: string): string {
-    const tag = this.tagList.find(t => t.id === id);
+    const tag = this.tagList?.find(t => t.id === id);
     const tagContent = this.getTagContent(tag);
     return tagContent?.color || "";
   }

@@ -83,8 +83,6 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
-  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEvent>();
-
   @Output() uploadIconResource = new EventEmitter<IFileUploadEvent>();
 
   @Output() uploadAsset = new EventEmitter<IFileUploadEvent>();
@@ -154,10 +152,6 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadMainResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
-  }
-
-  onThumbnailResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
-    this.uploadThumbnailResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
   }
 
   onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {

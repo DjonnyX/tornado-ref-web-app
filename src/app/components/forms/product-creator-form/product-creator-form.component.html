@@ -7,7 +7,6 @@
                     [resourcesGallery]="getResourcesGallery(lang)" (update)="updateStateFor($event, lang)"
                     (uploadMainResource)="onMainResourceUpload($event, lang)"
                     (uploadIconResource)="onIconResourceUpload($event, lang)"
-                    (uploadThumbnailResource)="onThumbnailResourceUpload($event, lang)"
                     (uploadAsset)="onAssetUpload($event, lang)" (updateAsset)="onAssetUpdate($event, lang)"
                     (deleteAsset)="onAssetDelete($event, lang)" (save)="onSave()">
                 </ta-product-content>
@@ -47,7 +46,7 @@
             </ta-prices>
         </div>
     </ng-container>
-    
+
     <div class="form__submit" align="end">
         <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
         <button mat-flat-button color="accent" type="submit" class="button button__text"
