@@ -50,7 +50,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioSelectorActionTypes.MAX_USAGE,
           // ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
@@ -60,7 +60,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.ADDITIONAL_PRICE,
           ScenarioProductActionTypes.FIXED_PRICE,
@@ -71,7 +71,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.DOWN_LIMIT,
           ScenarioProductActionTypes.ADDITIONAL_PRICE,
@@ -83,7 +83,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioSelectorActionTypes.MAX_USAGE,
           // ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
@@ -173,7 +173,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
             value: value.value * 100,
           };
           break;
-        case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
+        case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
         case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
           scenario.value = null;
           break;
@@ -211,7 +211,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioProgrammActionTypes.EXPRESSION:
 
       break;
-      case ScenarioCommonActionTypes.VISIBLE_BY_POINT_OF_SALE:
+      case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
         this.ctrlValue.setValue("");
         this.ctrlCurrency.setValue("");

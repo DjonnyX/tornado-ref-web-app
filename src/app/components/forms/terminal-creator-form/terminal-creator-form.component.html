@@ -1,0 +1,30 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <div class="form__input-block">
+        <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Имя терминала</mat-label>
+                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя терминала">
+                <mat-error *ngIf="ctrlName.hasError('required')">
+                    <strong>обязательное</strong>
+                </mat-error>
+            </mat-form-field>
+        </div>
+        
+        <div class="form__input-block">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Магазин</mat-label>
+                    <mat-select [formControl]="ctrlStore">
+                        <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
+        <button mat-flat-button color="accent" type="submit" class="button button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+    </div>
+</form>

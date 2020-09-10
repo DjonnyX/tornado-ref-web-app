@@ -110,7 +110,14 @@ const routes: Routes = [
           import('@containers/stores-editor/stores-editor.module').then(
             module => module.StoresEditorModule,
           )
-      }
+      },
+      {
+        path: 'terminals',
+        loadChildren: () =>
+          import('@containers/terminals-editor/terminals-editor.module').then(
+            module => module.TerminalsEditorModule,
+          )
+      },
     ]
   }
 ];

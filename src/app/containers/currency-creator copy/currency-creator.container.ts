@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { IAppState } from '@store/state';
+import { IAppState } from './node_modules/@store/state';
 import { Observable, combineLatest } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, filter, map } from 'rxjs/operators';
-import { BaseComponent } from '@components/base/base-component';
-import { CurrencyActions } from '@store/actions/currency.action';
-import { CurrencySelectors } from '@store/selectors/currency.selectors';
+import { BaseComponent } from './node_modules/@components/base/base-component';
+import { CurrencyActions } from './node_modules/@store/actions/currency.action';
+import { CurrencySelectors } from './node_modules/@store/selectors/currency.selectors';
 import { ICurrency } from '@djonnyx/tornado-types';
 
 @Component({
@@ -81,6 +81,8 @@ export class CurrencyCreatorContainer extends BaseComponent implements OnInit, O
     } else {
       this._store.dispatch(CurrencyActions.createRequest({ currency }));
     }
+
+    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {
