@@ -1,8 +1,4 @@
-export interface IRef {
-    name: string;
-    version: number;
-    lastUpdate: number;
-}
+import { IRef } from '@djonnyx/tornado-types';
 
 export interface IMetaRefsResponse {
     ref: IRef;
