@@ -76,6 +76,7 @@ $way-border-weight: 2px;
                 }
 
                 .content__thumbnail {
+                    image-rendering: pixelated;
                     width: px2em(32);
                     height: px2em(32);
                     margin-top: -px2em(12);

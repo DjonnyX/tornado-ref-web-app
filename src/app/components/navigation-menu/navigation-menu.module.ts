@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { NavigationMenuComponent } from "./navigation-menu.component";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { NavigationMenuComponent } from "./navigation-menu.component";
   ],
   imports: [
     CommonModule,
+    FlexLayoutModule,
     MatIconModule,
     MatRippleModule,
   ]

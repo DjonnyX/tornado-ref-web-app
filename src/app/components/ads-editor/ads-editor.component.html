@@ -35,9 +35,9 @@
                     </div>
                 </div>
                 <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(ad)" class="entity-thumbnail" [src]="getThumbnail(ad)">
+                    <img align="center" *ngIf="hasThumbnail(ad)" class="entity-thumbnail" style="image-rendering: auto;" [src]="getThumbnail(ad)">
                 </div>
-                <div class="color" [style.background]="getAdColor(ad)"></div>
+                <div class="color"></div>
             </div>
         </div>
         <button color="accent" mat-raised-button class="button-add" (click)="onCreateAd()">

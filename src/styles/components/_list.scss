@@ -26,6 +26,7 @@
             align-self: center;
 
             .content__thumbnail {
+                image-rendering: pixelated;
                 height: px2em(32);
                 margin-right: px2em(20);
             }
