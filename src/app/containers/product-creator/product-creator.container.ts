@@ -277,7 +277,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
             (
               !product.contents[lang].resources || (asset.id !== 
               product.contents[lang].resources.main && asset.id !==
-              product.contents[lang].resources.thumbnail && asset.id !==
               product.contents[lang].resources.icon)
             ))
         }
@@ -379,10 +378,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   onMainResourceUpload(data: IFileUploadEvent): void {
     this._store.dispatch(ProductAssetsActions.uploadResourceRequest({ productId: this._productId, resourcesType: ProductResourceTypes.MAIN, data }));
-  }
-
-  onThumbnailResourceUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.uploadResourceRequest({ productId: this._productId, resourcesType: ProductResourceTypes.THUMBNAIL, data }));
   }
 
   onIconResourceUpload(data: IFileUploadEvent): void {

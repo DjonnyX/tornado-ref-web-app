@@ -1,0 +1,24 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+.reset-content-button {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 2;
+    width: px2em(48);
+    height: px2em(48);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb($primary-800, 0.5);
+    border-radius: 4px;
+    outline: none;
+    border: 0;
+    color: #ffffff;
+    cursor: pointer;
+
+    &:disabled {
+        opacity: 0.35;
+    }
+}

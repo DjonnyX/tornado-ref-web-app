@@ -15,6 +15,10 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Input() color: string;
 
+  @Input() resetButtonShow: boolean;
+
+  @Input() resetButtonDisabled: boolean;
+
   private _defaultValue: string;
   @Input() set defaultValue(v: string) {
     if (!!v && this._defaultValue !== v) {
@@ -39,6 +43,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Output() upload = new EventEmitter<File>();
 
+  @Output() reset = new EventEmitter<void>();
+
   asset: IAsset;
 
   isLoading: boolean = false;
@@ -59,6 +65,10 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
     this.isLoading = false;
     this.isError = false;
     this.upload.emit(file);
+  }
+
+  onReset(): void {
+    this.reset.emit();
   }
 
   updateAsset(): void {

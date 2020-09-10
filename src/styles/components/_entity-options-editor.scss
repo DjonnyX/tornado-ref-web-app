@@ -23,7 +23,7 @@
         }
 
         .form {
-            padding: px2em(40);
+            padding: px2em(36) px2em(40) px2em(40);
             background: #ffffff;
         }
 
@@ -40,7 +40,7 @@
 
         .main-options-wrapper {
             display: grid;
-            grid-template-columns: px2em(268) auto;
+            grid-template-columns: px2em(192) auto;
             gap: px2em(20);
         }
 
@@ -50,6 +50,11 @@
 
         .form + .form {
             margin-top: px2em(20);
+        }
+
+        &__back-button {
+            padding-left: px2em(20);
+            padding-top: px2em(20);
         }
     }
 }

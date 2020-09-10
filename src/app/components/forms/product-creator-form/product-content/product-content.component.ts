@@ -66,8 +66,6 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   @Output() uploadMainResource = new EventEmitter<IFileUploadEntityEvent>();
 
-  @Output() uploadThumbnailResource = new EventEmitter<IFileUploadEntityEvent>();
-
   @Output() uploadIconResource = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() uploadAsset = new EventEmitter<File>();
@@ -108,10 +106,6 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   onMainResourceUpload(file: File, dataField: string): void {
     this.uploadMainResource.emit({ file, dataField });
-  }
-
-  onThumbnailResourceUpload(file: File, dataField: string): void {
-    this.uploadThumbnailResource.emit({ file, dataField });
   }
 
   onIconResourceUpload(file: File, dataField: string): void {

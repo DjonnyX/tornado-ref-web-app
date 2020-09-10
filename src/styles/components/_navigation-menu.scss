@@ -2,11 +2,13 @@
 @import "../utils/px2em";
 
 $border: 1px dotted rgba($primary-800, 0.24);
-$icon-size: px2em(24);
+$icon-size: 18px;
+$text-size: 14px;
+$color: #698495;
 
 .navigation-menu {
-    min-width: 320px;
-    color: $primary-700;
+    min-width: 340px;
+    color: $primary-600;
 
     &__expantion-item {
         user-select: none;
@@ -15,6 +17,8 @@ $icon-size: px2em(24);
 
         &-label {
             color: inherit;
+            font-size: $text-size;
+            font-weight: 600;
         }
 
         &-icon {
@@ -45,7 +49,7 @@ $icon-size: px2em(24);
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        gap: px2em(16);
+        gap: px2em(24);
     }
 
     &__item {
@@ -53,14 +57,16 @@ $icon-size: px2em(24);
         display: grid;
         grid-template-columns: auto 1fr;
         align-items: center;
-        gap: px2em(16);
+        gap: px2em(24);
 
         &.selected {
-            background: rgba($primary, 0.1);
+            background: rgba($primary-700, 0.15);
         }
 
         &-label {
             color: inherit;
+            font-size: $text-size;
+            font-weight: 600;
         }
 
         &-icon {
@@ -72,7 +78,7 @@ $icon-size: px2em(24);
 .navigation-menu {
     .expantion-item__wrapper {
         box-shadow: none;
-        background: darken($primary-700, 3);
+        background: $color;
         color: white;
     }
 

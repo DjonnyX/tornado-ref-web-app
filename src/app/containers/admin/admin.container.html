@@ -5,6 +5,12 @@
                 <mat-icon>menu</mat-icon>
             </button>
         </span>
+        <!--<span fxHide.sm="true" class="saturn-menu-logo">
+            <div class="saturn-menu-logo__wrapper">
+                <span class="icon-saturn-logo"></span>
+                <span class="icon-saturn-text-logo"></span>
+            </div>
+        </span>-->
         <span class="page-title">{{(currentRoute$ | async)?.name}}</span>
         <span class="spacer"></span>
         <button mat-icon-button (click)="signout()">
@@ -15,18 +21,12 @@
         <mat-sidenav class="mat-elevation-z2" role="navigation" ngClass.xs="sidenav--xs"
             [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
-            <!--<div fxHide.sm="true" class="saturn-menu-logo">
-                <div class="saturn-menu-logo__wrapper">
-                    <span class="icon-saturn-logo"></span>
-                    <span class="icon-saturn-text-logo"></span>
-                </div>
-            </div>-->
             <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
                 (select)="selectRoute($event)">
             </ta-navigation-menu>
         </mat-sidenav>
         <mat-sidenav-content class="content">
-            <div class="saturn-page-logo__wrapper">
+            <div class="saturn-page-logo__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
                 <img class="saturn-page-logo" src="assets/icons/saturn-page-logo.svg">
             </div>
             <main>
