@@ -27,6 +27,8 @@ import { ITagAssetsState } from './tag-assets.state';
 import { IAdState } from './ad.state';
 import { IAdsState } from './ads.state';
 import { IAdAssetsState } from './ad-assets.state';
+import { IStoreState } from './store.state';
+import { IStoresState } from './stores.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -58,4 +60,6 @@ export interface IAppState {
     taAd: IAdState,
     taAds: IAdsState,
     taAdAssets: IAdAssetsState,
+    taStore: IStoreState,
+    taStores: IStoresState,
 }

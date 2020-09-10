@@ -83,12 +83,17 @@ import {
   IAdAssetCreateResponse,
   IAdAssetUpdateResponse,
   IAdAssetDeleteResponse,
+  IStoresGetResponse,
+  IStoreGetResponse,
+  IStoreCreateResponse,
+  IStoreUpdateResponse,
+  IStoreDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 
@@ -1258,6 +1263,52 @@ export class ApiService {
   public deleteAdAsset(adId: string, langCode: string, assetId: string): Observable<IAdAssetDeleteResponse> {
     return this._http
       .delete<IAdAssetDeleteResponse>(`api/v1/ad/${adId}/asset/${langCode}/${assetId}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  // stores
+  public getStores(): Observable<IStoresGetResponse> {
+    return this._http
+      .get<IStoresGetResponse>("api/v1/stores", {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public getStore(id: string): Observable<IStoreGetResponse> {
+    return this._http
+      .get<IStoreGetResponse>(`api/v1/store/${id}`, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public createStore(store: IStore): Observable<IStoreCreateResponse> {
+    return this._http
+      .post<IStoreCreateResponse>("api/v1/store", store, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public updateStore(id: string, store: IStore): Observable<IStoreUpdateResponse> {
+    return this._http
+      .put<IStoreUpdateResponse>(`api/v1/store/${id}`, store, {
+        headers: {
+          authorization: this._token,
+        },
+      });
+  }
+
+  public deleteStore(id: string): Observable<IStoreDeleteResponse> {
+    return this._http
+      .delete<IStoreDeleteResponse>(`api/v1/store/${id}`, {
         headers: {
           authorization: this._token,
         },
