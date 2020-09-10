@@ -4,6 +4,7 @@
 $border: 1px dotted rgba($primary-800, 0.24);
 $icon-size: 18px;
 $text-size: 14px;
+$color: #698495;
 
 .navigation-menu {
     min-width: 340px;
@@ -59,7 +60,7 @@ $text-size: 14px;
         gap: px2em(24);
 
         &.selected {
-            background: rgba($primary, 0.1);
+            background: rgba($primary-700, 0.15);
         }
 
         &-label {
@@ -77,7 +78,7 @@ $text-size: 14px;
 .navigation-menu {
     .expantion-item__wrapper {
         box-shadow: none;
-        background: $accent;
+        background: $color;
         color: white;
     }
 
