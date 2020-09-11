@@ -18,6 +18,7 @@ $border-active: 2px solid $accent;
 
         &.is-default {
             border: $border-active;
+            border-radius: 4px;
             padding: 3px;
         }
 
