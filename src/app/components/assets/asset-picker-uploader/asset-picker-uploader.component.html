@@ -1,6 +1,6 @@
 <div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
     <div class="asset-viewer">
-        <button [disabled]="resetButtonDisabled" class="reset-content-button" type="button" (click)="onReset()">
+        <button *ngIf="resetButtonShow" [disabled]="resetButtonDisabled" class="reset-content-button" type="button" (click)="onReset()">
             <mat-icon>settings_backup_restore</mat-icon>
         </button>
         <mat-progress-bar *ngIf="!!asset?.progress" mode="determinate" [value]="asset.progress.progress"

@@ -6,7 +6,7 @@
           Ресурсы
         </p>
 
-        <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="!isEqualWithDefault('main')"
+        <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="isEqualWithDefault('main')"
           (reset)="onResetResourceToDefault('main')" [extensions]="['.png', '.jpg', '.mp4']"
           [defaultValue]="content?.resources?.main" [assets]="assets" class="transparent"
           (upload)="onMainResourceUpload($event, 'main')">

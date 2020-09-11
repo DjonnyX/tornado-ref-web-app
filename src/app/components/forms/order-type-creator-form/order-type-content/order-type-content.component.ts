@@ -131,7 +131,7 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
   }
 
   isEqualWithDefault(resourcesType: OrderTypeResourceTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
+    return isEqualWithDefault(this.defaultContent, this.content, resourcesType);
   };
 
   isColorDefault(): boolean {

@@ -9,7 +9,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { BusinessPeriodActions } from '@store/actions/business-period.action';
 import { IBusinessPeriod, ILanguage, IBusinessPeriodContents } from '@djonnyx/tornado-types';
 import { deepMergeObjects } from '@app/utils/object.util';
-import { normalizeEntityContents } from '@app/utils/entity.util';
+import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 import { LanguagesActions } from '@store/actions/languages.action';
 
 @Component({
@@ -113,24 +113,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
     ).pipe(
       filter(([bp, langs, defaultLang]) => !!bp && !!defaultLang && !!langs),
       map(([bp, langs, defaultLang]) => {
-        const contents: IBusinessPeriodContents = {};
-
-        // мерджинг контента от дефолтового языка
-        for (const lang in bp.contents) {
-          // переопределение контента для разных языков
-          contents[lang] = lang === defaultLang.code ? bp.contents[lang] : deepMergeObjects(bp.contents[defaultLang.code], bp.contents[lang]);
-        }
-
-        // добовление контента языков которых нет в базе
-        for (const lang of langs) {
-          if (contents[lang.code]) {
-            continue;
-          }
-
-          contents[lang.code] = bp.contents[defaultLang.code];
-        }
-
-        return { ...bp, contents: normalizeEntityContents(contents, defaultLang.code) };
+        return { ...bp, contents: getCompiledContents(bp.contents, langs, defaultLang) };
       })
     );
 

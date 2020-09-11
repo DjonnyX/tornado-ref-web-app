@@ -15,7 +15,7 @@ import { IOrderType, OrderTypeResourceTypes, ILanguage, IOrderTypeContents } fro
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
-import { normalizeEntityContents } from '@app/utils/entity.util';
+import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 import { SelectorsActions } from '@store/actions/selectors.action';
 
 @Component({
@@ -163,24 +163,7 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     ).pipe(
       filter(([orderType, langs, defaultLang]) => !!orderType && !!defaultLang && !!langs),
       map(([orderType, langs, defaultLang]) => {
-        const contents: IOrderTypeContents = {};
-
-        // мерджинг контента от дефолтового языка
-        for (const lang in orderType.contents) {
-          // переопределение контента для разных языков
-          contents[lang] = lang === defaultLang.code ? orderType.contents[lang] : deepMergeObjects(orderType.contents[defaultLang.code], orderType.contents[lang]);
-        }
-
-        // добовление контента языков которых нет в базе
-        for (const lang of langs) {
-          if (contents[lang.code]) {
-            continue;
-          }
-
-          contents[lang.code] = orderType.contents[defaultLang.code];
-        }
-
-        return { ...orderType, contents: normalizeEntityContents(contents, defaultLang.code) };
+        return { ...orderType, contents: getCompiledContents(orderType.contents, langs, defaultLang) };
       })
     );
 

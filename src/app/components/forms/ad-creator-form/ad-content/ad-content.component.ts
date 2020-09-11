@@ -130,7 +130,7 @@ export class AdContentComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   isEqualWithDefault(resourcesType: AdResourceTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
+    return isEqualWithDefault(this.defaultContent, this.content, resourcesType);
   };
 
   isColorDefault(): boolean {
