@@ -1,8 +1,8 @@
-import { IEntityContentsItem, ProductResourceTypes, IEntityContents } from '@djonnyx/tornado-types';
-import { deepMergeObjects } from './object.util';
+import { IEntityContentsItem, ProductResourceTypes, IEntityContents, ILanguage } from '@djonnyx/tornado-types';
+import { deepClone, deepMergeObjects } from './object.util';
 
 export const normalizeEntityContents = (contents: IEntityContents, defaultLang: string) => {
-    const result = deepMergeObjects(contents, contents);
+    const result = deepClone(contents);
 
     let defaultContent: IEntityContentsItem;
 
@@ -13,12 +13,12 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
             break;
         }
     }
-
+    
     for (const lang in result) {
         if (!!result[lang]?.resources) {
             const content = result[lang] || {};
             for (const resourcesType in content.resources) {
-                const isEqualtFromDefault = equalFromResources(defaultContent, content.resources[resourcesType]);
+                const isEqualtFromDefault = equalFromResources(defaultContent, content, resourcesType);
                 if (resourcesType !== ProductResourceTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || (isEqualtFromDefault && lang !== defaultLang))) {
                     content.resources[resourcesType] = content.resources.main;
                 } else if (lang !== defaultLang && (!content.resources[resourcesType] || isEqualtFromDefault) && !!defaultContent?.resources?.[resourcesType]) {
@@ -31,30 +31,38 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
     return result;
 };
 
-export const equalFromResources = (content: IEntityContentsItem, resources: string): boolean => {
+export const equalFromResources = (defaultContent: IEntityContentsItem, content: IEntityContentsItem, resourceType: string): boolean => {
     if (!!content && !!content.resources) {
-        for (const resourcesType in content) {
-            if (resources == content[resourcesType]) {
-                return true;
-            }
+        if (content !== defaultContent) {
+            return !content.resources[resourceType] || content.resources[resourceType] === defaultContent.resources[resourceType] || content.resources[resourceType] === defaultContent.resources["main"];
+        } else {
+            return !content.resources[resourceType] || content.resources[resourceType] === content.resources["main"];
         }
     }
     return false;
 };
 
-export const isEqualWithDefault = (defaultContent: any, content: any, resourcesType: ProductResourceTypes | string, isDefault: boolean): boolean => {
-    if (!!content && !!content.resources) {
-        const isEqualtFromDefault = equalFromResources(defaultContent, content.resources[resourcesType]);
-        if (resourcesType !== ProductResourceTypes.MAIN && !!content.resources.main && (!content.resources[resourcesType] || content.resources[resourcesType] === content.resources.main || (isEqualtFromDefault && !isDefault))) {
-            return true;
-        } else if (resourcesType === ProductResourceTypes.MAIN && !isDefault && isEqualtFromDefault) {
-            return true;
-        } else if (!content.resources[resourcesType]) {
-            return true;
-        } else if (isDefault && (!content.resources[resourcesType] || isEqualtFromDefault) && !!defaultContent && !!defaultContent?.resources?.[resourcesType]) {
-            return !!defaultContent.resources[resourcesType] || !!defaultContent.resources.main;
-        }
+export const isEqualWithDefault = (defaultContent: any, content: any, resourcesType: ProductResourceTypes | string): boolean => {
+    return equalFromResources(defaultContent, content, resourcesType);
+}
+
+export const getCompiledContents = (contents: any, languages: Array<ILanguage>, defaultLanguage: ILanguage) => {
+    const result = {};
+    for (const lang in contents) {
+        // переопределение контента для разных языков
+        result[lang] = lang === defaultLanguage.code ? deepClone(contents[lang]) : deepMergeObjects(contents[defaultLanguage.code], contents[lang]);
     }
 
-    return false;
+    // добовление контента языков которых нет в базе
+    for (const lang of languages) {
+        if (result[lang.code]) {
+            continue;
+        }
+
+        result[lang.code] = deepClone(result[defaultLanguage.code]);
+    }
+
+    normalizeEntityContents(result, defaultLanguage.code);
+
+    return result;
 }

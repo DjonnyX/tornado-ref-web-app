@@ -23,7 +23,7 @@ export class StatePanelComponent implements OnInit {
   }
 
   formatLastUpdate(): string {
-    return formatDT(this.refInfo.lastUpdate);
+    return formatDT(this.refInfo.lastupdate);
   }
 
   onSearch(pattern: string): void {

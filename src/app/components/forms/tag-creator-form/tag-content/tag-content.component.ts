@@ -131,7 +131,7 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
   }
 
   isEqualWithDefault(resourcesType: TagResourceTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
+    return isEqualWithDefault(this.defaultContent, this.content, resourcesType);
   };
 
   isColorDefault(): boolean {

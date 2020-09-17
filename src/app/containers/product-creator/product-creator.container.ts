@@ -21,9 +21,9 @@ import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects } from '@app/utils/object.util';
+import { deepMergeObjects, deepClone } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
-import { normalizeEntityContents } from '@app/utils/entity.util';
+import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-product-creator',
@@ -232,24 +232,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ).pipe(
       filter(([product, langs, defaultLang]) => !!product && !!defaultLang && !!langs),
       map(([product, langs, defaultLang]) => {
-        const contents: IProductContents = {};
-
-        // мерджинг контента от дефолтового языка
-        for (const lang in product.contents) {
-          // переопределение контента для разных языков
-          contents[lang] = lang === defaultLang.code ? product.contents[lang] : deepMergeObjects(product.contents[defaultLang.code], product.contents[lang]);
-        }
-
-        // добовление контента языков которых нет в базе
-        for (const lang of langs) {
-          if (contents[lang.code]) {
-            continue;
-          }
-
-          contents[lang.code] = product.contents[defaultLang.code];
-        }
-
-        return { ...product, contents: normalizeEntityContents(contents, defaultLang.code) };
+        return { ...product, contents: getCompiledContents(product.contents, langs, defaultLang) };
       })
     );
 

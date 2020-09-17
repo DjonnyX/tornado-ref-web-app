@@ -15,7 +15,7 @@ import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
-import { normalizeEntityContents } from '@app/utils/entity.util';
+import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-ad-creator',
@@ -157,24 +157,7 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
     ).pipe(
       filter(([ad, langs, defaultLang]) => !!ad && !!defaultLang && !!langs),
       map(([ad, langs, defaultLang]) => {
-        const contents: IAdContents = {};
-
-        // мерджинг контента от дефолтового языка
-        for (const lang in ad.contents) {
-          // переопределение контента для разных языков
-          contents[lang] = lang === defaultLang.code ? ad.contents[lang] : deepMergeObjects(ad.contents[defaultLang.code], ad.contents[lang]);
-        }
-
-        // добовление контента языков которых нет в базе
-        for (const lang of langs) {
-          if (contents[lang.code]) {
-            continue;
-          }
-
-          contents[lang.code] = ad.contents[defaultLang.code];
-        }
-
-        return { ...ad, contents: normalizeEntityContents(contents, defaultLang.code) };
+        return { ...ad, contents: getCompiledContents(ad.contents, langs, defaultLang) };
       })
     );
 
