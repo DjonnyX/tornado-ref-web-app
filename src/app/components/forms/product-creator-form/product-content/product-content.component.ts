@@ -131,7 +131,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   }
 
   isEqualWithDefault(resourcesType: ProductResourceTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
+    return isEqualWithDefault(this.defaultContent, this.content, resourcesType);
   };
 
   isColorDefault(): boolean {

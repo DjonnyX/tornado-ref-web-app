@@ -14,7 +14,7 @@ import { ITag, TagResourceTypes, ILanguage, ITagContents } from '@djonnyx/tornad
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
-import { normalizeEntityContents } from '@app/utils/entity.util';
+import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-tag-creator',
@@ -161,24 +161,7 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     ).pipe(
       filter(([tag, langs, defaultLang]) => !!tag && !!defaultLang && !!langs),
       map(([tag, langs, defaultLang]) => {
-        const contents: ITagContents = {};
-
-        // мерджинг контента от дефолтового языка
-        for (const lang in tag.contents) {
-          // переопределение контента для разных языков
-          contents[lang] = lang === defaultLang.code ? tag.contents[lang] : deepMergeObjects(tag.contents[defaultLang.code], tag.contents[lang]);
-        }
-
-        // добовление контента языков которых нет в базе
-        for (const lang of langs) {
-          if (contents[lang.code]) {
-            continue;
-          }
-
-          contents[lang.code] = tag.contents[defaultLang.code];
-        }
-
-        return { ...tag, contents: normalizeEntityContents(contents, defaultLang.code) };
+        return { ...tag, contents: getCompiledContents(tag.contents, langs, defaultLang) };
       })
     );
 
@@ -250,7 +233,7 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
   onMainOptionsSave(tag: ITag): void {
     if (this.isEditMode) {
-      const normalizedTag: ITag = {...tag};
+      const normalizedTag: ITag = { ...tag };
 
       // нормализация контена
       normalizeEntityContents(normalizedTag.contents, this._defaultLanguage.code);

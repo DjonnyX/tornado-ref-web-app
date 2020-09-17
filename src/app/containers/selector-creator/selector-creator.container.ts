@@ -16,7 +16,7 @@ import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
-import { normalizeEntityContents } from '@app/utils/entity.util';
+import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 
 @Component({
   selector: 'ta-selector-creator',
@@ -167,24 +167,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     ).pipe(
       filter(([selector, langs, defaultLang]) => !!selector && !!defaultLang && !!langs),
       map(([selector, langs, defaultLang]) => {
-        const contents: ISelectorContents = {};
-
-        // мерджинг контента от дефолтового языка
-        for (const lang in selector.contents) {
-          // переопределение контента для разных языков
-          contents[lang] = lang === defaultLang.code ? selector.contents[lang] : deepMergeObjects(selector.contents[defaultLang.code], selector.contents[lang]);
-        }
-
-        // добовление контента языков которых нет в базе
-        for (const lang of langs) {
-          if (contents[lang.code]) {
-            continue;
-          }
-
-          contents[lang.code] = selector.contents[defaultLang.code];
-        }
-
-        return { ...selector, contents: normalizeEntityContents(contents, defaultLang.code) };
+        return { ...selector, contents: getCompiledContents(selector.contents, langs, defaultLang) };
       })
     );
 

@@ -125,7 +125,7 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
   }
 
   isEqualWithDefault(resourcesType: SelectorResourceTypes | string): boolean {
-    return !isEqualWithDefault(this.defaultContent, this.content, resourcesType, this.isDefault);
+    return isEqualWithDefault(this.defaultContent, this.content, resourcesType);
   };
 
   isColorDefault(): boolean {

@@ -15,7 +15,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Input() color: string;
 
-  @Input() resetButtonShow: boolean;
+  @Input() resetButtonShow: boolean = true;
 
   @Input() resetButtonDisabled: boolean;
 

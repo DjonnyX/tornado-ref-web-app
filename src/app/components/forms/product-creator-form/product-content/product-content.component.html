@@ -6,7 +6,7 @@
           Изображения
         </p>
 
-        <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="!isEqualWithDefault('main')"
+        <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="isEqualWithDefault('main')"
           (reset)="onResetResourceToDefault('main')"
           [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined" [assets]="assets"
           class="transparent" (upload)="onMainResourceUpload($event, 'main')">
@@ -18,7 +18,7 @@
           Иконка
         </p>
 
-        <ta-asset-picker-uploader [resetButtonDisabled]="!isEqualWithDefault('icon')"
+        <ta-asset-picker-uploader [resetButtonDisabled]="isEqualWithDefault('icon')"
           (reset)="onResetResourceToDefault('icon')"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
           [color]="color" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
