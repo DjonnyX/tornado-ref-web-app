@@ -54,9 +54,13 @@ export default class CurrenciesEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(CurrenciesActions.updateRequest),
-            switchMap(({ id, currency }) => {
+            switchMap(({ id, currency, setDafault }) => {
                 return this._apiService.updateCurrency(id, formatCurrencyModel(currency)).pipe(
                     mergeMap(res => {
+                        if (setDafault) {
+                            this._store.dispatch(CurrenciesActions.getAllRequest());
+                            return [CurrenciesActions.updateSuccess({ currency: res.data, meta: res.meta })];
+                        }
                         return [CurrenciesActions.updateSuccess({ currency: res.data, meta: res.meta })];
                     }),
                     map(v => v),

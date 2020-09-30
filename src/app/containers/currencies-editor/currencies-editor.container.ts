@@ -64,6 +64,10 @@ export class CurrenciesEditorContainer implements OnInit {
     this._store.dispatch(CurrenciesActions.updateRequest({id: currency.id, currency}));
   }
 
+  onUpdateAll(currency: ICurrency): void {
+    this._store.dispatch(CurrenciesActions.updateRequest({id: currency.id, currency, setDafault: true}));
+  }
+
   onDelete(id: string): void {
     this._store.dispatch(CurrenciesActions.deleteRequest({ id }));
   }

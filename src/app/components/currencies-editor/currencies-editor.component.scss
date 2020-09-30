@@ -5,9 +5,23 @@ $entity-height-m: px2em(100);
 $entity-height-d: px2em(110);
 $entity-width-m: px2em(140);
 $entity-width-d: px2em(190);
+$border-transpanent: 4px solid transparent;
+$border-active: 2px solid $accent;
 
 .editor {
+    .entities-wrapper {
+        gap: px2em(6);
+    }
+
     .entity {
+        border: $border-transpanent;
+
+        &.is-default {
+            border: $border-active;
+            border-radius: 4px;
+            padding: 3px;
+        }
+
         .color {
             width: 100%;
             height: px2em(10);
