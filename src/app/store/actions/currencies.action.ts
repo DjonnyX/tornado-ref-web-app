@@ -69,7 +69,7 @@ export namespace CurrenciesActions {
     // update
     export const updateRequest = createAction(
         CurrenciesActionTypes.UPDATE_REQUEST,
-        props<{ id: string, currency: ICurrency }>(),
+        props<{ id: string, currency: ICurrency, setDafault?: boolean }>(),
     );
     export const updateSuccess = createAction(
         CurrenciesActionTypes.UPDATE_SUCCESS,

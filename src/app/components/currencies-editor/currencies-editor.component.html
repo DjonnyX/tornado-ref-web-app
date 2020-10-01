@@ -2,7 +2,7 @@
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" *ngFor="let currency of collection | search: searchPattern"
-            [class.disabled]="!currency.active">
+            [ngClass]="{'is-default': currency.isDefault, 'disabled': !currency.active}">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
                     <mat-checkbox color="accent" #checkboxActive [checked]="currency.active"
@@ -12,6 +12,10 @@
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleDefault($event, currency)">
+                        <mat-icon>{{currency.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}</mat-icon>
+                        <span>{{currency.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
+                    </button>
                     <button mat-menu-item type="button" (click)="onToggleActive($event, currency)">
                         <mat-icon>{{currency.active ? 'visibility_off' : 'visibility'}}</mat-icon>
                         <span>{{currency.active ? 'Деактивировать' : 'Активировать'}}</span>
