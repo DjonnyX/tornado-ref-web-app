@@ -25,6 +25,8 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
 
   @Output() update = new EventEmitter<ICurrency>();
 
+  @Output() updateAll = new EventEmitter<ICurrency>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -44,6 +46,13 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
     event.preventDefault();
 
     this.update.emit({ ...currency, active: !currency.active });
+  }
+
+  onToggleDefault(event: Event, currency: ICurrency): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.updateAll.emit({ ...currency, isDefault: !currency.isDefault });
   }
 
   onCreate(): void {
