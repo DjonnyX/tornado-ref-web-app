@@ -54,7 +54,7 @@ export class ScenarioListItemComponent implements OnInit {
         break;
       case ScenarioProductActionTypes.ADDITIONAL_PRICE:
       case ScenarioProductActionTypes.FIXED_PRICE:
-        value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].code : ""}`;
+        value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].name : ""}`;
         break;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
