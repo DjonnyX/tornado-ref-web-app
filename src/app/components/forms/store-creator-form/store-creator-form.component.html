@@ -23,7 +23,7 @@
         <div class="form__input-block">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Терминалы</mat-label>
+                    <mat-label>Устройства</mat-label>
                     <mat-select [formControl]="ctrlTerminals" multiple>
                         <mat-option *ngFor="let terminal of terminals" [value]="terminal.id">{{terminal.name}}</mat-option>
                     </mat-select>

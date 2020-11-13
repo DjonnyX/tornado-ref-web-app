@@ -66,7 +66,7 @@ export class PriceComponent extends BaseComponent implements OnInit {
 
   getCurrencyName(): string {
     const currency = this.currenciesDictionary[this._currency.id];
-    return !!currency ? currency.code : "Unknown";
+    return !!currency ? currency.name : "Unknown";
   }
 
   private updateValue(): void {
