@@ -33,7 +33,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       children: [
         {
           icon: "terminal",
-          name: "Терминалы",
+          name: "Устройства",
           route: "terminals",
         },
         {
