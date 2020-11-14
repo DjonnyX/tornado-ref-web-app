@@ -2,7 +2,7 @@ export { IBaseResponse } from './base-response.interface';
 export { IErrorResponse } from './error-response.interface';
 export { IUserSigninRequest } from './user-signin-request.interface';
 export { IUserSigninResponse } from './user-signin-response.interface';
-export { IUserSignupRequest } from './user-signup-request.interface';
+export { IUserSignupRequest, IUserSignupParamsRequest } from './user-signup-request.interface';
 export { IUserSignupResponse } from './user-signup-response.interface';
 export { IUserResetPasswordRequest } from './user-reset-password-request.interface';
 export { IUserResetPasswordResponse } from './user-reset-password-response.interface';

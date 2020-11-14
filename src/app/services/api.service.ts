@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpEventType } from "@angular/common/http";
 import { Observable } from 'rxjs';
-import { IUserProfile, IAsset, IFileUploadEvent } from '@models';
+import { IUserProfile, IAsset, IFileUploadEvent, ICaptcha } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
@@ -100,6 +100,7 @@ import { UserSelectors } from '@store/selectors';
 import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore, ITerminal } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
+import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -119,6 +120,16 @@ export class ApiService {
   public signin(params: IUserSigninRequest): Observable<IUserProfile> {
     return this._http
       .post<IUserSigninResponse>("api/v1/auth/signin", params)
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public signupParams(): Observable<{
+    captcha: ICaptcha;
+}> {
+    return this._http
+      .get<IUserSignupParamsResponse>("api/v1/auth/signup")
       .pipe(
         map(res => res.data),
       );

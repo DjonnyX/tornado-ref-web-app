@@ -5,12 +5,14 @@ import { UserActions } from '@store/actions/user.action';
 export const initialState: IUserState = {
   loading: false,
   isSigninProgress: false,
+  isSignupParamsProgress: false,
   isSignupProgress: false,
   isSignoutProgress: false,
   isForgotPasswordProgress: false,
   isResetPasswordProgress: false,
   error: undefined,
   profile: undefined,
+  captcha: undefined,
 };
 
 const userReducer = createReducer(
@@ -33,6 +35,13 @@ const userReducer = createReducer(
       ...state,
       loading: true,
       isSignupProgress: true,
+    };
+  }),
+  on(UserActions.userSignupParamsRequest, state => {
+    return {
+      ...state,
+      loading: true,
+      isSignupParamsProgress: true,
     };
   }),
   on(UserActions.signoutRequest, state => {
@@ -63,6 +72,14 @@ const userReducer = createReducer(
       profile: undefined,
       loading: false,
       isSigninProgress: false,
+    };
+  }),
+  on(UserActions.userSignupParamsError, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      loading: false,
+      isSignupParamsProgress: false,
     };
   }),
   on(UserActions.userSignupError, (state, { error }) => {
@@ -112,6 +129,15 @@ const userReducer = createReducer(
       error: undefined,
       loading: false,
       isSignupProgress: false,
+    };
+  }),
+  on(UserActions.userSignupParamsSuccess, (state, { captcha }) => {
+    return {
+      ...state,
+      error: undefined,
+      loading: false,
+      isSignupParamsProgress: false,
+      captcha,
     };
   }),
   on(UserActions.signoutSuccess, (state) => {

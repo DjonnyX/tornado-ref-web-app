@@ -5,7 +5,7 @@ import { SignupContainer } from './signup.container';
 const routes: Routes = [
   {
     path: '',
-    component: SignupContainer
+    component: SignupContainer,
   }
 ];
 
