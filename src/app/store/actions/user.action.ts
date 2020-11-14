@@ -1,7 +1,7 @@
 import { createAction, props } from "@ngrx/store";
-import { IUserProfile } from '@models';
+import { ICaptcha, IUserProfile } from '@models';
 import {
-  IUserSigninRequest, IUserSignupRequest, IErrorResponse,
+  IUserSigninRequest, IUserSignupParamsRequest, IUserSignupRequest, IErrorResponse,
   IUserResetPasswordRequest, IUserForgotPasswordRequest
 } from '@services';
 
@@ -13,6 +13,10 @@ export enum UserActionTypes {
   USER_SIGNUP_REQUEST = "TORNADO/user-signup:request",
   USER_SIGNUP_SUCCESS = "TORNADO/user-signup:success",
   USER_SIGNUP_ERROR = "TORNADO/user-signup:error",
+
+  USER_SIGNUP_PARAMS_REQUEST = "TORNADO/user-signup-params:request",
+  USER_SIGNUP_PARAMS_SUCCESS = "TORNADO/user-signup-params:success",
+  USER_SIGNUP_PARAMS_ERROR = "TORNADO/user-signup-params:error",
 
   USER_FORGOT_PASSWORD_REQUEST = "TORNADO/user-forgot-password:request",
   USER_FORGOT_PASSWORD_SUCCESS = "TORNADO/user-forgot-password:success",
@@ -41,6 +45,20 @@ export namespace UserActions {
   );
   export const userSigninError = createAction(
     UserActionTypes.USER_SIGNIN_ERROR,
+    props<{ error: string }>()
+  );
+
+  // signup request
+  export const userSignupParamsRequest = createAction(
+    UserActionTypes.USER_SIGNUP_PARAMS_REQUEST,
+    props<IUserSignupParamsRequest>()
+  );
+  export const userSignupParamsSuccess = createAction(
+    UserActionTypes.USER_SIGNUP_PARAMS_SUCCESS,
+    props<{ captcha: ICaptcha }>()
+  );
+  export const userSignupParamsError = createAction(
+    UserActionTypes.USER_SIGNUP_PARAMS_ERROR,
     props<{ error: string }>()
   );
 

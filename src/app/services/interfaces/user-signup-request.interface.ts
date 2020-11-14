@@ -1,7 +1,10 @@
 export interface IUserSignupRequest {
+    captchaId: string;
+    captchaValue: string;
     firstName: string;
     lastName: string;
     email: string;
     password: string;
-    confirmPassword: string;
 }
+
+export interface IUserSignupParamsRequest { }

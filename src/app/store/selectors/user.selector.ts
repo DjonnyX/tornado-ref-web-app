@@ -19,6 +19,11 @@ export namespace UserSelectors {
     state => state.isSigninProgress
   );
 
+  export const selectIsSignupParamsProcess = createSelector(
+    selectUser,
+    state => state.isSignupParamsProgress
+  );
+
   export const selectIsSignupProcess = createSelector(
     selectUser,
     state => state.isSignupProgress
@@ -37,5 +42,10 @@ export namespace UserSelectors {
   export const selectLoaded = createSelector(
     selectUser,
     state => state.loading
+  );
+
+  export const selectCaptcha = createSelector(
+    selectUser,
+    state => state.captcha
   );
 }

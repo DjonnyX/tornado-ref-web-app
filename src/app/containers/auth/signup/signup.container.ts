@@ -1,23 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserActions } from '@store/actions/user.action';
 import { UserSelectors } from '@store/selectors/user.selector';
 import { IUserSignupRequest } from '@services';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@app/core/patterns';
 import { equalControlsValidator } from '@app/validators/equals-control.validator';
+import { map, takeUntil } from 'rxjs/operators';
+import { ICaptcha } from '@models';
+import { BaseComponent } from '@components/base/base-component';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
   selector: 'ta-signup',
   templateUrl: './signup.container.html',
   styleUrls: ['./signup.container.scss']
 })
-export class SignupContainer implements OnInit {
+export class SignupContainer extends BaseComponent implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
+
+  public captcha$: Observable<ICaptcha>;
+  private _captcha: ICaptcha;
+  private _safeCaptchaSvg: SafeHtml;
+  get safeCaptchaSvg() { return this._safeCaptchaSvg; }
 
   public form: FormGroup;
 
@@ -28,21 +37,26 @@ export class SignupContainer implements OnInit {
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
   ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
   ctrlconfirmPassword = new FormControl('', [Validators.required, equalControlsValidator(this.ctrlPassword)]);
+  ctrlCaptcha = new FormControl('', Validators.required);
   ctrlRememberMe = new FormControl('', Validators.required);
 
   constructor(
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
+    private _sanitizer: DomSanitizer,
   ) {
+    super();
+
     this.form = this._fb.group({
       firstName: this.ctrlFirstName,
       lastName: this.ctrlLastName,
       email: this.ctrlEmail,
       password: this.ctrlPassword,
       confirmPassword: this.ctrlconfirmPassword,
+      captchaValue: this.ctrlCaptcha,
       rememberMe: this.ctrlRememberMe
-    })
+    });
   }
 
   ngOnInit() {
@@ -50,9 +64,32 @@ export class SignupContainer implements OnInit {
     if (!!queryParams && !!queryParams['returnUrl'])
       this.registerQueryParams = { 'returnUrl': queryParams['returnUrl'] };
 
+    this.isProcess$ = combineLatest(
+      [
+        this._store
+          .pipe(select(UserSelectors.selectIsSignupParamsProcess)),
+        this._store
+          .pipe(select(UserSelectors.selectIsSignupProcess)),
+      ]
+    ).pipe(
+      map(([isSignupParamsProcess, isSignupProcess]) => isSignupParamsProcess && isSignupProcess),
+    );
 
-    this.isProcess$ = this._store
-      .pipe(select(UserSelectors.selectIsSignupProcess));
+    this.captcha$ = this._store
+      .pipe(select(UserSelectors.selectCaptcha));
+
+    this.captcha$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(v => {
+      this._captcha = v;
+      this._safeCaptchaSvg = this._sanitizer.bypassSecurityTrustHtml(this._captcha.svg);
+    });
+
+    this._store.dispatch(UserActions.userSignupParamsRequest({}));
+  }
+
+  ngOnDestroy() {
+    super.ngOnDestroy();
   }
 
   public onSubmit() {
@@ -62,7 +99,8 @@ export class SignupContainer implements OnInit {
         lastName: this.form.get('lastName').value,
         email: this.form.get('email').value,
         password: this.form.get('password').value,
-        confirmPassword: this.form.get('confirmPassword').value,
+        captchaId: this._captcha?.id,
+        captchaValue: this.form.get('captchaValue').value,
       };
       this._store.dispatch(UserActions.userSignupRequest(userCredentials));
     }
