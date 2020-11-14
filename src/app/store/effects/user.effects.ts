@@ -3,7 +3,7 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { of } from "rxjs";
 import { switchMap, catchError, mergeMap, map } from "rxjs/operators";
 import { Store } from '@ngrx/store';
-import { ApiService, IUserSigninRequest, IUserSignupRequest, IUserResetPasswordRequest, IUserForgotPasswordRequest } from "@services";
+import { ApiService, IUserSigninRequest, IUserSignupRequest, IUserResetPasswordRequest, IUserForgotPasswordRequest, IUserSignupParamsRequest } from "@services";
 import { UserActions } from '@store/actions/user.action';
 import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
@@ -35,6 +35,24 @@ export default class UserEffects {
     )
   );
 
+  public readonly userSignupParamsRequest = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.userSignupParamsRequest),
+      switchMap((params: IUserSignupParamsRequest) => {
+        return this._apiService.signupParams().pipe(
+          mergeMap(({ captcha }) => {
+            return [UserActions.userSignupParamsSuccess({ captcha })];
+          }),
+          map(v => v),
+          catchError((error: Error) => {
+            this._notificationService.error(error.message);
+            return of(UserActions.userSignupParamsError({ error: error.message }))
+          }),
+        );
+      })
+    )
+  );
+
   public readonly userSignupRequest = createEffect(() =>
     this._actions$.pipe(
       ofType(UserActions.userSignupRequest),
@@ -44,7 +62,8 @@ export default class UserEffects {
           lastName: params.lastName,
           email: params.email,
           password: params.password,
-          confirmPassword: params.confirmPassword,
+          captchaId: params.captchaId,
+          captchaValue: params.captchaValue,
         }).pipe(
           mergeMap(user => {
             this._router.navigate(["signin"]);
