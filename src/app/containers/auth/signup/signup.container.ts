@@ -105,4 +105,8 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
       this._store.dispatch(UserActions.userSignupRequest(userCredentials));
     }
   }
+
+  public onResetCatcha() {
+    this._store.dispatch(UserActions.userSignupParamsRequest({}));
+  }
 }
