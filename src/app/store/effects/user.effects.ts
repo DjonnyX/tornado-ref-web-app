@@ -84,16 +84,7 @@ export default class UserEffects {
     this._actions$.pipe(
       ofType(UserActions.signoutRequest),
       switchMap(_ => {
-        return this._apiService.signout().pipe(
-          mergeMap(_ => {
-            return [UserActions.clearProfile(), UserActions.signoutSuccess()];
-          }),
-          map(v => v),
-          catchError((error: Error) => {
-            this._notificationService.error(error.message);
-            return of(UserActions.signoutError({ error: error.message }))
-          }),
-        );
+        return [UserActions.clearProfile(), UserActions.signoutSuccess()];
       })
     )
   );
