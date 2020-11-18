@@ -33,7 +33,7 @@ export default class SelectorAssetsEffects {
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
-                    lastupdate: new Date(Date.now()),
+                    lastUpdate: new Date(Date.now()),
                     name: data.file.name,
                     path: undefined,
                     mipmap: {
@@ -120,7 +120,7 @@ export default class SelectorAssetsEffects {
                 const tmpAsset: IAsset = {
                     id,
                     active: true,
-                    lastupdate: new Date(Date.now()),
+                    lastUpdate: new Date(Date.now()),
                     name: data.file.name,
                     path: undefined,
                     mipmap: {

@@ -22,8 +22,8 @@ export class StatePanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  formatLastUpdate(): string {
-    return formatDT(this.refInfo.lastupdate);
+  formatlastUpdate(): string {
+    return formatDT(this.refInfo.lastUpdate);
   }
 
   onSearch(pattern: string): void {
