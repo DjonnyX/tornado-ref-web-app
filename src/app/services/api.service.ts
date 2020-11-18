@@ -167,20 +167,6 @@ export class ApiService {
       );
   }
 
-  // protected
-
-  public signout(): Observable<{}> {
-    return this._http
-      .post<any>("api/v1/auth/signout", {}, {
-        headers: {
-          "x-authorization": this._token,
-        },
-      })
-      .pipe(
-        map(res => res.data),
-      );
-  }
-
   // products
   public getProducts(): Observable<IProductsGetResponse> {
     return this._http
