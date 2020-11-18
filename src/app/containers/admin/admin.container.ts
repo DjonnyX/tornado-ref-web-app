@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { MediaObserver } from '@angular/flex-layout';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { AdminSelectors } from '@store/selectors';
@@ -30,6 +30,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "settings",
       name: "Настройки",
+      roles: ["client"],
       children: [
         {
           icon: "terminal",
@@ -46,6 +47,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "refs",
       name: "Справочники",
+      roles: ["client"],
       children: [
         {
           icon: "menu",
@@ -182,9 +184,9 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     this.normalizedRoutesCollection(this.roteCollection);
 
     this._router.events.pipe(
-      filter(event => event instanceof NavigationStart)
-    ).subscribe((event: NavigationStart) => {
-      const url = this.extractUrlPath(event.url);
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      const url = this.extractUrlPath(event.urlAfterRedirects);
       const index = this.getIndexByRoute(url, this.roteCollection);
 
       if (index > -1 && this._currentRouteIndex !== index) {
