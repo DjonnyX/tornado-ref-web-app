@@ -118,6 +118,13 @@ const routes: Routes = [
             module => module.TerminalsEditorModule,
           )
       },
+      {
+        path: 'licenses',
+        loadChildren: () =>
+          import('@containers/licenses-editor/licenses-editor.module').then(
+            module => module.LicensesEditorModule,
+          )
+      },
     ]
   }
 ];
