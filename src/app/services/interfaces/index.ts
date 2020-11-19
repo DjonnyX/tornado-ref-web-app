@@ -96,3 +96,7 @@ export { ITerminalsGetResponse } from './terminals-get-response.interface';
 export { ITerminalGetResponse } from './terminal-get-response.interface';
 export { ITerminalUpdateResponse } from './terminal-update-response.interface';
 export { ITerminalDeleteResponse } from './terminal-delete-response.interface';
+export { ILicensesGetResponse } from './licenses-get-response.interface';
+export { ILicenseGetResponse } from './license-get-response.interface';
+export { ILicenseUpdateResponse } from './license-update-response.interface';
+export { ILicenseDeleteResponse } from './license-delete-response.interface';

@@ -92,6 +92,10 @@ import {
   ITerminalGetResponse,
   ITerminalUpdateResponse,
   ITerminalDeleteResponse,
+  ILicensesGetResponse,
+  ILicenseGetResponse,
+  ILicenseUpdateResponse,
+  ILicenseDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -101,6 +105,7 @@ import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurr
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
+import { ILicense } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -1347,6 +1352,43 @@ export class ApiService {
   public deleteTerminal(id: string): Observable<ITerminalDeleteResponse> {
     return this._http
       .delete<ITerminalDeleteResponse>(`api/v1/terminal/${id}`, {
+        headers: {
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  // licenses
+  public getLicenses(): Observable<ILicensesGetResponse> {
+    return this._http
+      .get<ILicensesGetResponse>("api/v1/licenses", {
+        headers: {
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  public getLicense(id: string): Observable<ILicenseGetResponse> {
+    return this._http
+      .get<ILicenseGetResponse>(`api/v1/license/${id}`, {
+        headers: {
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  public updateLicense(id: string, license: ILicense): Observable<ILicenseUpdateResponse> {
+    return this._http
+      .put<ILicenseUpdateResponse>(`api/v1/license/${id}`, license, {
+        headers: {
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  public deleteLicense(id: string): Observable<ILicenseDeleteResponse> {
+    return this._http
+      .delete<ILicenseDeleteResponse>(`api/v1/license/${id}`, {
         headers: {
           "x-authorization": this._token,
         },
