@@ -8,6 +8,10 @@ import {
 import { Observable } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { IBaseResponse, IErrorResponse } from '@services';
+import { IAppState } from '@store/state';
+import { Store } from '@ngrx/store';
+import { UserActions } from '@store/actions/user.action';
+import { Injectable } from '@angular/core';
 
 const extractError = (error: IErrorResponse): string => {
     if (error.length === 0) return;
@@ -19,7 +23,10 @@ const extractError = (error: IErrorResponse): string => {
     return errorMessage;
 }
 
+@Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
+
+    constructor(private _store: Store<IAppState>) { }
 
     intercept(
         request: HttpRequest<IBaseResponse<{}, {}>>,
@@ -28,6 +35,11 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(
             catchError((error: HttpErrorResponse) => {
                 let errorMessage = "";
+
+                if (error.status === 401) {
+                    this._store.dispatch(UserActions.clearProfile());
+                    errorMessage = "Время сессии истекло.";
+                } else
                 if (!!error.error && error.error.error instanceof Array) {
                     errorMessage = extractError(error.error.error);
                 } else {
