@@ -10,6 +10,7 @@ import { INavRoute } from '@components/navigation-menu/interfaces';
 import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
 import { UserActions } from '@store/actions/user.action';
+import { RoleTypes } from '@enums/role-types';
 
 @Component({
   selector: 'ta-admin',
@@ -30,8 +31,13 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "settings",
       name: "Настройки",
-      roles: ["client"],
+      roles: [RoleTypes.CLIENT],
       children: [
+        {
+          icon: "license",
+          name: "Лицензии",
+          route: "licenses",
+        },
         {
           icon: "terminal",
           name: "Устройства",
@@ -47,7 +53,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "settings",
       name: "Лицензии",
-      roles: ["client"],
+      roles: [RoleTypes.CLIENT],
       children: [
         {
           icon: "terminal",
