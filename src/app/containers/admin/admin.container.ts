@@ -45,6 +45,23 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       ]
     },
     {
+      icon: "settings",
+      name: "Лицензии",
+      roles: ["client"],
+      children: [
+        {
+          icon: "terminal",
+          name: "Устройства",
+          route: "terminals",
+        },
+        {
+          icon: "store",
+          name: "Магазины",
+          route: "stores",
+        },
+      ]
+    },
+    {
       icon: "refs",
       name: "Справочники",
       roles: ["client"],
