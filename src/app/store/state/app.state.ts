@@ -31,6 +31,8 @@ import { IStoreState } from './store.state';
 import { IStoresState } from './stores.state';
 import { ITerminalState } from './terminal.state';
 import { ITerminalsState } from './terminals.state';
+import { ILicenseState } from './license.state';
+import { ILicensesState } from './licenses.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -66,4 +68,6 @@ export interface IAppState {
     taStores: IStoresState,
     taTerminal: ITerminalState,
     taTerminals: ITerminalsState,
+    taLicense: ILicenseState,
+    taLicenses: ILicensesState,
 }

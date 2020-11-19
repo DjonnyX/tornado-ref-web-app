@@ -29,3 +29,5 @@ export { StoreSelectors } from "./store.selectors";
 export { StoresSelectors } from "./stores.selectors";
 export { TerminalSelectors } from "./terminal.selectors";
 export { TerminalsSelectors } from "./terminals.selectors";
+export { LicenseSelectors } from "./license.selectors";
+export { LicensesSelectors } from "./licenses.selectors";
