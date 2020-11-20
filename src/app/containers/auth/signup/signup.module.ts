@@ -10,6 +10,7 @@ import { SignupContainer } from './signup.container';
 import { SignupRoutingModule } from './signup-routing.module';
 import { RouterModule } from '@angular/router';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [SignupContainer],
@@ -18,6 +19,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
+    MatIconModule,
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,

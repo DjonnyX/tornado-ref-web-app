@@ -18,6 +18,7 @@ import {
   MatSnackBarModule,
 } from '@angular/material/snack-bar';
 import { NotificationService } from './services/notification.service';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { NotificationService } from './services/notification.service';
       multi: true
     },
     NotificationService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

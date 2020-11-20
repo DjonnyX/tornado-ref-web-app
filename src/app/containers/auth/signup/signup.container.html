@@ -81,7 +81,14 @@
                     </div>
 
                     <div class="form-item">
-                        <div *ngIf="captcha$ | async" [innerHtml]="safeCaptchaSvg"></div>
+                        <div *ngIf="captcha$ | async" class="captcha">
+                            <span [innerHtml]="safeCaptchaSvg" class="captcha__img"></span>
+                            <span class="captcha__reset-button">
+                                <button mat-icon-button type="button" (click)="onResetCatcha()">
+                                    <mat-icon>settings_backup_restore</mat-icon>
+                                </button>
+                            </span>
+                        </div>
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Введите текст с картинки</mat-label>
                             <input matInput type="text" [formControl]="ctrlCaptcha">

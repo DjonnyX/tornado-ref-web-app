@@ -4,7 +4,7 @@ export const formatAssetModel = (model: IAsset) => {
     return {
         active: model.active,
         name: model.name,
-        lastupdate: model.lastupdate,
+        lastUpdate: model.lastUpdate,
         ext: model.ext,
         mipmap: model.mipmap,
         path: model.path,
