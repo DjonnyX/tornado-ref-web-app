@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { AuthService } from '@app/services/auth.service';
 import { INavRoute } from './interfaces';
 
 @Component({
@@ -14,7 +15,7 @@ export class NavigationMenuComponent implements OnInit {
 
   @Output() select = new EventEmitter<number>();
 
-  constructor() { }
+  constructor(public readonly authService: AuthService) { }
 
   ngOnInit(): void { }
 

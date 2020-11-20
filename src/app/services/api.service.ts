@@ -92,6 +92,10 @@ import {
   ITerminalGetResponse,
   ITerminalUpdateResponse,
   ITerminalDeleteResponse,
+  ILicensesGetResponse,
+  ILicenseGetResponse,
+  ILicenseUpdateResponse,
+  ILicenseDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -101,6 +105,7 @@ import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurr
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
+import { ILicense } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -167,26 +172,12 @@ export class ApiService {
       );
   }
 
-  // protected
-
-  public signout(): Observable<{}> {
-    return this._http
-      .post<any>("api/v1/auth/signout", {}, {
-        headers: {
-          authorization: this._token,
-        },
-      })
-      .pipe(
-        map(res => res.data),
-      );
-  }
-
   // products
   public getProducts(): Observable<IProductsGetResponse> {
     return this._http
       .get<IProductsGetResponse>("api/v1/products", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -195,7 +186,7 @@ export class ApiService {
     return this._http
       .get<IProductGetResponse>(`api/v1/product/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -204,7 +195,7 @@ export class ApiService {
     return this._http
       .post<IProductsCreateResponse>("api/v1/product", product, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -213,7 +204,7 @@ export class ApiService {
     return this._http
       .put<IProductsUpdateResponse>(`api/v1/product/${id}`, product, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -222,7 +213,7 @@ export class ApiService {
     return this._http
       .delete<IProductsDeleteResponse>(`api/v1/product/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -231,7 +222,7 @@ export class ApiService {
     return this._http
       .get<IProductAssetGetResponse>(`api/v1/product/${productId}/assets`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -240,7 +231,7 @@ export class ApiService {
     return this._http
       .get<IProductAssetGetByLangResponse>(`api/v1/product/${productId}/assets/${langCode}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -252,7 +243,7 @@ export class ApiService {
     return this._http
       .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -284,7 +275,7 @@ export class ApiService {
     return this._http
       .post<IProductAssetCreateResponse>(`api/v1/product/${productId}/asset/${data.langCode}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -313,7 +304,7 @@ export class ApiService {
     return this._http
       .put<IProductAssetUpdateResponse>(`api/v1/product/${productId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -322,7 +313,7 @@ export class ApiService {
     return this._http
       .delete<IProductAssetDeleteResponse>(`api/v1/product/${productId}/asset/${langCode}/${assetId}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -337,7 +328,7 @@ export class ApiService {
     return this._http
       .get<ISelectorsGetResponse>("api/v1/selectors", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         params,
       });
@@ -347,7 +338,7 @@ export class ApiService {
     return this._http
       .get<ISelectorGetResponse>(`api/v1/selector/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -356,7 +347,7 @@ export class ApiService {
     return this._http
       .post<ISelectorsCreateResponse>("api/v1/selector", selector, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -365,7 +356,7 @@ export class ApiService {
     return this._http
       .put<ISelectorsUpdateResponse>(`api/v1/selector/${id}`, selector, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -374,7 +365,7 @@ export class ApiService {
     return this._http
       .delete<ISelectorsDeleteResponse>(`api/v1/selector/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -383,7 +374,7 @@ export class ApiService {
     return this._http
       .get<ISelectorAssetGetResponse>(`api/v1/selector/${selectorId}/assets`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -392,7 +383,7 @@ export class ApiService {
     return this._http
       .get<ISelectorAssetGetByLangResponse>(`api/v1/selector/${selectorId}/assets/${langCode}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -404,7 +395,7 @@ export class ApiService {
     return this._http
       .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -436,7 +427,7 @@ export class ApiService {
     return this._http
       .post<ISelectorAssetCreateResponse>(`api/v1/selector/${selectorId}/asset/${data.langCode}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -465,7 +456,7 @@ export class ApiService {
     return this._http
       .put<ISelectorAssetUpdateResponse>(`api/v1/selector/${selectorId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -474,7 +465,7 @@ export class ApiService {
     return this._http
       .delete<ISelectorAssetDeleteResponse>(`api/v1/selector/${selectorId}/asset/${langCode}/${assetId}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -484,7 +475,7 @@ export class ApiService {
     return this._http
       .get<IBusinessPeriodsGetResponse>("api/v1/business-periods", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -493,7 +484,7 @@ export class ApiService {
     return this._http
       .get<IBusinessPeriodGetResponse>(`api/v1/business-period/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -502,7 +493,7 @@ export class ApiService {
     return this._http
       .post<IBusinessPeriodCreateResponse>("api/v1/business-period", businessPeriod, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -511,7 +502,7 @@ export class ApiService {
     return this._http
       .put<IBusinessPeriodUpdateResponse>(`api/v1/business-period/${id}`, businessPeriod, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -520,7 +511,7 @@ export class ApiService {
     return this._http
       .delete<IBusinessPeriodDeleteResponse>(`api/v1/business-period/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -530,7 +521,7 @@ export class ApiService {
     return this._http
       .get<IAssetsGetResponse>("api/v1/assets", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -539,7 +530,7 @@ export class ApiService {
     return this._http
       .post<any>("api/v1/asset", asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -568,7 +559,7 @@ export class ApiService {
     return this._http
       .put<IAssetsUpdateResponse>(`api/v1/asset/${id}`, asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -577,7 +568,7 @@ export class ApiService {
     return this._http
       .delete<IAssetsDeleteResponse>(`api/v1/asset/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -587,7 +578,7 @@ export class ApiService {
     return this._http
       .get<IMenuNodesGetResponse>("api/v1/root-nodes", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -597,7 +588,7 @@ export class ApiService {
     return this._http
       .get<IMenuNodesGetResponse>(!!id ? `api/v1/nodes/${id}` : "api/v1/nodes", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -606,7 +597,7 @@ export class ApiService {
     return this._http
       .post<IMenuNodesCreateResponse>("api/v1/node", node, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -615,7 +606,7 @@ export class ApiService {
     return this._http
       .put<IMenuNodesUpdateResponse>(`api/v1/node/${id}`, node, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -624,7 +615,7 @@ export class ApiService {
     return this._http
       .delete<IMenuNodesDeleteResponse>(`api/v1/node/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -634,7 +625,7 @@ export class ApiService {
     return this._http
       .get<ITagsGetResponse>("api/v1/tags", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -643,7 +634,7 @@ export class ApiService {
     return this._http
       .get<ITagGetResponse>(`api/v1/tag/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -652,7 +643,7 @@ export class ApiService {
     return this._http
       .post<ITagCreateResponse>("api/v1/tag", tag, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -661,7 +652,7 @@ export class ApiService {
     return this._http
       .put<ITagUpdateResponse>(`api/v1/tag/${id}`, tag, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -670,7 +661,7 @@ export class ApiService {
     return this._http
       .delete<ITagDeleteResponse>(`api/v1/tag/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -679,7 +670,7 @@ export class ApiService {
     return this._http
       .get<ITagAssetGetResponse>(`api/v1/tag/${tagId}/assets`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -688,7 +679,7 @@ export class ApiService {
     return this._http
       .get<ITagAssetGetByLangResponse>(`api/v1/tag/${tagId}/assets/${langCode}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -700,7 +691,7 @@ export class ApiService {
     return this._http
       .post<ITagAssetCreateResponse>(`api/v1/tag/${tagId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -732,7 +723,7 @@ export class ApiService {
     return this._http
       .post<ITagAssetCreateResponse>(`api/v1/tag/${tagId}/asset/${data.langCode}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -761,7 +752,7 @@ export class ApiService {
     return this._http
       .put<ITagAssetUpdateResponse>(`api/v1/tag/${tagId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -770,7 +761,7 @@ export class ApiService {
     return this._http
       .delete<ITagAssetDeleteResponse>(`api/v1/tag/${tagId}/asset/${langCode}/${assetId}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -780,7 +771,7 @@ export class ApiService {
     return this._http
       .get<ICurrenciesGetResponse>("api/v1/currencies", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -789,7 +780,7 @@ export class ApiService {
     return this._http
       .get<ICurrencyGetResponse>(`api/v1/currency/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -798,7 +789,7 @@ export class ApiService {
     return this._http
       .post<ICurrencyCreateResponse>("api/v1/currency", currency, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -807,7 +798,7 @@ export class ApiService {
     return this._http
       .put<ICurrencyUpdateResponse>(`api/v1/currency/${id}`, currency, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -816,7 +807,7 @@ export class ApiService {
     return this._http
       .delete<ICurrencyDeleteResponse>(`api/v1/currency/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -826,7 +817,7 @@ export class ApiService {
     return this._http
       .get<IOrderTypesGetResponse>("api/v1/order-types", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -835,7 +826,7 @@ export class ApiService {
     return this._http
       .get<IOrderTypeGetResponse>(`api/v1/order-type/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -844,7 +835,7 @@ export class ApiService {
     return this._http
       .post<IOrderTypeCreateResponse>("api/v1/order-type", orderType, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -853,7 +844,7 @@ export class ApiService {
     return this._http
       .put<IOrderTypeUpdateResponse>(`api/v1/order-type/${id}`, orderType, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -862,7 +853,7 @@ export class ApiService {
     return this._http
       .delete<IOrderTypeDeleteResponse>(`api/v1/order-type/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -871,7 +862,7 @@ export class ApiService {
     return this._http
       .get<IOrderTypeAssetGetResponse>(`api/v1/order-type/${orderTypeId}/assets`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -880,7 +871,7 @@ export class ApiService {
     return this._http
       .get<IOrderTypeAssetGetByLangResponse>(`api/v1/order-type/${orderTypeId}/assets/${langCode}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -892,7 +883,7 @@ export class ApiService {
     return this._http
       .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -924,7 +915,7 @@ export class ApiService {
     return this._http
       .post<IOrderTypeAssetCreateResponse>(`api/v1/order-type/${orderTypeId}/asset/${data.langCode}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -953,7 +944,7 @@ export class ApiService {
     return this._http
       .put<IOrderTypeAssetUpdateResponse>(`api/v1/order-type/${orderTypeId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -962,7 +953,7 @@ export class ApiService {
     return this._http
       .delete<IOrderTypeAssetDeleteResponse>(`api/v1/order-type/${orderTypeId}/asset/${langCode}/${assetId}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -972,7 +963,7 @@ export class ApiService {
     return this._http
       .get<ILanguagesGetResponse>("api/v1/languages", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -981,7 +972,7 @@ export class ApiService {
     return this._http
       .get<ILanguageGetResponse>(`api/v1/language/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -990,7 +981,7 @@ export class ApiService {
     return this._http
       .post<ILanguageCreateResponse>("api/v1/language", language, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -999,7 +990,7 @@ export class ApiService {
     return this._http
       .put<ILanguageUpdateResponse>(`api/v1/language/${id}`, language, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1008,7 +999,7 @@ export class ApiService {
     return this._http
       .delete<ILanguageDeleteResponse>(`api/v1/language/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1017,7 +1008,7 @@ export class ApiService {
     return this._http
       .get<ILanguageAssetGetResponse>(`api/v1/language/${orderTypeId}/assets`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1029,7 +1020,7 @@ export class ApiService {
     return this._http
       .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/resource/${type}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -1061,7 +1052,7 @@ export class ApiService {
     return this._http
       .post<ILanguageAssetCreateResponse>(`api/v1/language/${languageId}/asset`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -1090,7 +1081,7 @@ export class ApiService {
     return this._http
       .put<ILanguageAssetUpdateResponse>(`api/v1/language/${languageId}/asset/${assetId}`, asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1099,7 +1090,7 @@ export class ApiService {
     return this._http
       .delete<ILanguageAssetDeleteResponse>(`api/v1/language/${languagetId}/asset/${assetId}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1109,7 +1100,7 @@ export class ApiService {
     return this._http
       .get<ITranslationsGetResponse>("api/v1/translations", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1118,7 +1109,7 @@ export class ApiService {
     return this._http
       .get<ITranslationGetResponse>(`api/v1/translation/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1127,7 +1118,7 @@ export class ApiService {
     return this._http
       .put<ITranslationUpdateResponse>(`api/v1/translation/${id}`, translation, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1142,7 +1133,7 @@ export class ApiService {
     return this._http
       .get<IAdsGetResponse>("api/v1/ads", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         params,
       });
@@ -1152,7 +1143,7 @@ export class ApiService {
     return this._http
       .get<IAdGetResponse>(`api/v1/ad/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1161,7 +1152,7 @@ export class ApiService {
     return this._http
       .post<IAdsCreateResponse>("api/v1/ad", ad, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1170,7 +1161,7 @@ export class ApiService {
     return this._http
       .put<IAdsUpdateResponse>(`api/v1/ad/${id}`, ad, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1179,7 +1170,7 @@ export class ApiService {
     return this._http
       .delete<IAdsDeleteResponse>(`api/v1/ad/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1188,7 +1179,7 @@ export class ApiService {
     return this._http
       .get<IAdAssetGetResponse>(`api/v1/ad/${adId}/assets`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1197,7 +1188,7 @@ export class ApiService {
     return this._http
       .get<IAdAssetGetByLangResponse>(`api/v1/ad/${adId}/assets/${langCode}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1209,7 +1200,7 @@ export class ApiService {
     return this._http
       .post<IAdAssetCreateResponse>(`api/v1/ad/${adId}/resource/${data.langCode}/${type}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -1241,7 +1232,7 @@ export class ApiService {
     return this._http
       .post<IAdAssetCreateResponse>(`api/v1/ad/${adId}/asset/${data.langCode}`, formData, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
         reportProgress: true,
         observe: "events",
@@ -1270,7 +1261,7 @@ export class ApiService {
     return this._http
       .put<IAdAssetUpdateResponse>(`api/v1/ad/${adId}/asset/${langCode}/${assetId}`, asset, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1279,7 +1270,7 @@ export class ApiService {
     return this._http
       .delete<IAdAssetDeleteResponse>(`api/v1/ad/${adId}/asset/${langCode}/${assetId}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1289,7 +1280,7 @@ export class ApiService {
     return this._http
       .get<IStoresGetResponse>("api/v1/stores", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1298,7 +1289,7 @@ export class ApiService {
     return this._http
       .get<IStoreGetResponse>(`api/v1/store/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1307,7 +1298,7 @@ export class ApiService {
     return this._http
       .post<IStoreCreateResponse>("api/v1/store", store, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1316,7 +1307,7 @@ export class ApiService {
     return this._http
       .put<IStoreUpdateResponse>(`api/v1/store/${id}`, store, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1325,7 +1316,7 @@ export class ApiService {
     return this._http
       .delete<IStoreDeleteResponse>(`api/v1/store/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1335,7 +1326,7 @@ export class ApiService {
     return this._http
       .get<ITerminalsGetResponse>("api/v1/terminals", {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1344,7 +1335,7 @@ export class ApiService {
     return this._http
       .get<ITerminalGetResponse>(`api/v1/terminal/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1353,7 +1344,7 @@ export class ApiService {
     return this._http
       .put<ITerminalUpdateResponse>(`api/v1/terminal/${id}`, terminal, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
         },
       });
   }
@@ -1362,7 +1353,44 @@ export class ApiService {
     return this._http
       .delete<ITerminalDeleteResponse>(`api/v1/terminal/${id}`, {
         headers: {
-          authorization: this._token,
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  // licenses
+  public getLicenses(): Observable<ILicensesGetResponse> {
+    return this._http
+      .get<ILicensesGetResponse>("api/v1/licenses", {
+        headers: {
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  public getLicense(id: string): Observable<ILicenseGetResponse> {
+    return this._http
+      .get<ILicenseGetResponse>(`api/v1/license/${id}`, {
+        headers: {
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  public updateLicense(id: string, license: ILicense): Observable<ILicenseUpdateResponse> {
+    return this._http
+      .put<ILicenseUpdateResponse>(`api/v1/license/${id}`, license, {
+        headers: {
+          "x-authorization": this._token,
+        },
+      });
+  }
+
+  public deleteLicense(id: string): Observable<ILicenseDeleteResponse> {
+    return this._http
+      .delete<ILicenseDeleteResponse>(`api/v1/license/${id}`, {
+        headers: {
+          "x-authorization": this._token,
         },
       });
   }

@@ -30,6 +30,8 @@ import StoreEffects from './store.effects';
 import StoresEffects from './stores.effects';
 import TerminalEffects from './terminal.effects';
 import TerminalsEffects from './terminals.effects';
+import LicenseEffects from './license.effects';
+import LicensesEffects from './licenses.effects';
 
 const rootEffects = [
   UserEffects,
@@ -64,5 +66,7 @@ const rootEffects = [
   StoresEffects,
   TerminalEffects,
   TerminalsEffects,
+  LicenseEffects,
+  LicensesEffects,
 ];
 export default rootEffects;

@@ -3,4 +3,5 @@ export interface IUserProfile {
     email: string;
     lastName: string;
     firstName: string;
+    role: string;
 }
