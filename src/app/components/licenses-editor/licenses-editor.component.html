@@ -22,7 +22,7 @@
             <div matRipple class="entity-active-zone" (click)="onEdit(license)">
                 <div class="content">
                     <div class="content__name">
-                        {{license.name}}
+                        {{license.key}}
                     </div>
                     <!--<div class="content__description" style="text-transform: none;">
                         {{license.code}} / {{license.symbol}}
@@ -31,12 +31,8 @@
                 <div class="color"></div>
             </div>
         </div>
+        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+        </button>
     </div>
 </div>
-<ng-container *ngIf="!collection || collection.length === 0">
-    <div class="licenses-none__wrapper">
-        <div class="licenses-none__text">
-            Лицензии отсутствуют
-        </div>
-    </div>
-</ng-container>
