@@ -1,0 +1,1 @@
+export { AllowAdminGuard } from "./allow-admin.guard";
