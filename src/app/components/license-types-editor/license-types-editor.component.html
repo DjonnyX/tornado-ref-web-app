@@ -1,0 +1,37 @@
+<div class="editor">
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div class="entities-wrapper">
+        <div class="entity" *ngFor="let licenseType of collection | search: searchPattern"
+            [ngClass]="{'is-default': licenseType.isDefault, 'disabled': !licenseType.active}">
+            <div class="entity-ctrls">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+                    <mat-icon class="icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onEdit(licenseType)">
+                        <mat-icon>edit</mat-icon>
+                        <span>Редактировать</span>
+                    </button>
+                    <button mat-menu-item (click)="onDelete(licenseType)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Удалить</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <div matRipple class="entity-active-zone" (click)="onEdit(licenseType)">
+                <div class="content">
+                    <div class="bottom-panel">
+                        <img align="center" *ngIf="hasThumbnail(licenseType.resources?.main)" class="entity-thumbnail"
+                            [src]="getThumbnail(licenseType.resources?.main)">
+                    </div>
+                    <div class="content__name">
+                        {{licenseType.name}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+</div>

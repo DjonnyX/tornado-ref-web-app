@@ -1,8 +1,8 @@
 import { createReducer, on } from '@ngrx/store';
-import { LicenseActions } from '@store/actions/license.action';
-import { ILicenseState } from '@store/state/license.state';
+import { LicenseTypeActions } from '@store/actions/license-type.action';
+import { ILicenseTypeState } from '@store/state/license-type.state';
 
-export const initialState: ILicenseState = {
+export const initialState: ILicenseTypeState = {
     loading: false,
     isGetProcess: false,
     isUpdateProcess: false,
@@ -11,28 +11,28 @@ export const initialState: ILicenseState = {
     licenseType: undefined,
 };
 
-const licenseReducer = createReducer(
+const licenseTypeReducer = createReducer(
     initialState,
-    on(LicenseActions.clear, state => {
+    on(LicenseTypeActions.clear, state => {
         return {
             ...initialState,
         };
     }),
-    on(LicenseActions.getRequest, state => {
+    on(LicenseTypeActions.getRequest, state => {
         return {
             ...state,
             isGetProcess: true,
             loading: true,
         };
     }),
-    on(LicenseActions.updateRequest, state => {
+    on(LicenseTypeActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
             loading: true,
         };
     }),
-    on(LicenseActions.getError, (state, { error }) => {
+    on(LicenseTypeActions.getError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -40,7 +40,7 @@ const licenseReducer = createReducer(
             loading: false,
         };
     }),
-    on(LicenseActions.updateError, (state, { error }) => {
+    on(LicenseTypeActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -48,19 +48,19 @@ const licenseReducer = createReducer(
             loading: false,
         };
     }),
-    on(LicenseActions.getSuccess, (state, { license }) => {
+    on(LicenseTypeActions.getSuccess, (state, { licenseType }) => {
         return {
             ...state,
-            license,
+            licenseType,
             error: undefined,
             isGetProcess: false,
             loading: false,
         };
     }),
-    on(LicenseActions.updateSuccess, (state, { license }) => {
+    on(LicenseTypeActions.updateSuccess, (state, { licenseType }) => {
         return {
             ...state,
-            license,
+            licenseType,
             error: undefined,
             isUpdateProcess: false,
             loading: false,
@@ -68,4 +68,4 @@ const licenseReducer = createReducer(
     }),
 );
 
-export default licenseReducer;
+export default licenseTypeReducer;

@@ -100,3 +100,7 @@ export { ILicensesGetResponse } from './licenses-get-response.interface';
 export { ILicenseGetResponse } from './license-get-response.interface';
 export { ILicenseUpdateResponse } from './license-update-response.interface';
 export { ILicenseDeleteResponse } from './license-delete-response.interface';
+export { ILicenseTypesGetResponse } from './license-types-get-response.interface';
+export { ILicenseTypeGetResponse } from './license-type-get-response.interface';
+export { ILicenseTypeUpdateResponse } from './license-type-update-response.interface';
+export { ILicenseTypeDeleteResponse } from './license-type-delete-response.interface';

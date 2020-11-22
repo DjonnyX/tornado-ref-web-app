@@ -125,6 +125,13 @@ const routes: Routes = [
             module => module.LicensesEditorModule,
           )
       },
+      {
+        path: 'license-types',
+        loadChildren: () =>
+          import('@containers/license-types-editor/license-types-editor.module').then(
+            module => module.LicenseTypesEditorModule,
+          )
+      },
     ]
   }
 ];

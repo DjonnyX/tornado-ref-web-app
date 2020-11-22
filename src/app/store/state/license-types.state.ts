@@ -1,9 +1,11 @@
 import { IBaseState } from './base';
+import { IMetaRefsResponse } from '@services';
 import { ILicenseType } from '@djonnyx/tornado-types';
 
-export interface ILicenseState extends IBaseState {
-    licenseType: ILicenseType;
+export interface ILicenseTypesState extends IBaseState {
+    meta: IMetaRefsResponse;
     isGetProcess: boolean;
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
+    collection: Array<ILicenseType> | null;
 }
