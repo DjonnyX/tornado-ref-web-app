@@ -70,4 +70,6 @@ export interface IAppState {
     taTerminals: ITerminalsState,
     taLicense: ILicenseState,
     taLicenses: ILicensesState,
+    taLicenseType: ILicenseState,
+    taLicenseTypes: ILicensesState,
 }
