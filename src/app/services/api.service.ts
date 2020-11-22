@@ -5,97 +5,28 @@ import { IUserProfile, IAsset, IFileUploadEvent, ICaptcha } from '@models';
 import {
   IUserSigninRequest, IUserSigninResponse, IUserSignupRequest, IUserSignupResponse,
   IUserResetPasswordRequest, IUserResetPasswordResponse, IUserForgotPasswordRequest,
-  IUserForgotPasswordResponse,
-  IProductsGetResponse,
-  IProductsCreateResponse,
-  IProductsUpdateResponse,
-  IProductsDeleteResponse,
-  ITagsGetResponse,
-  ITagCreateResponse,
-  ITagUpdateResponse,
-  ITagDeleteResponse,
-  ISelectorsGetResponse,
-  ISelectorsCreateResponse,
-  ISelectorsUpdateResponse,
-  ISelectorsDeleteResponse,
-  IMenuNodesGetResponse,
-  IMenuNodesCreateResponse,
-  IMenuNodesUpdateResponse,
-  IMenuNodesDeleteResponse,
-  IAssetsDeleteResponse,
-  IAssetsUpdateResponse,
-  IAssetsGetResponse,
-  IProductAssetCreateResponse,
-  IProductAssetUpdateResponse,
-  IProductAssetDeleteResponse,
-  IProductAssetGetResponse,
-  IProductGetResponse,
-  ITagGetResponse,
-  ISelectorGetResponse,
-  IBusinessPeriodsGetResponse,
-  IBusinessPeriodGetResponse,
-  IBusinessPeriodCreateResponse,
-  IBusinessPeriodUpdateResponse,
-  IBusinessPeriodDeleteResponse,
-  ISelectorAssetDeleteResponse,
-  ISelectorAssetGetResponse,
-  ISelectorAssetCreateResponse,
-  ISelectorAssetUpdateResponse,
-  ICurrenciesGetResponse,
-  ICurrencyGetResponse,
-  ICurrencyCreateResponse,
-  ICurrencyUpdateResponse,
-  ICurrencyDeleteResponse,
-  IOrderTypesGetResponse,
-  IOrderTypeGetResponse,
-  IOrderTypeCreateResponse,
-  IOrderTypeUpdateResponse,
-  IOrderTypeDeleteResponse,
-  IOrderTypeAssetGetResponse,
-  IOrderTypeAssetCreateResponse,
-  IOrderTypeAssetUpdateResponse,
-  IOrderTypeAssetDeleteResponse,
-  ILanguagesGetResponse,
-  ILanguageGetResponse,
-  ILanguageCreateResponse,
-  ILanguageUpdateResponse,
-  ILanguageDeleteResponse,
-  ILanguageAssetGetResponse,
-  ILanguageAssetCreateResponse,
-  ILanguageAssetUpdateResponse,
-  ILanguageAssetDeleteResponse,
-  ITranslationsGetResponse,
-  ITranslationGetResponse,
-  ITranslationUpdateResponse,
-  IProductAssetGetByLangResponse,
-  ISelectorAssetGetByLangResponse,
-  ITagAssetGetResponse,
-  ITagAssetCreateResponse,
-  ITagAssetUpdateResponse,
-  ITagAssetDeleteResponse,
-  IAdsGetResponse,
-  IAdGetResponse,
-  IAdsCreateResponse,
-  IAdsUpdateResponse,
-  IAdsDeleteResponse,
-  IAdAssetGetResponse,
-  IAdAssetGetByLangResponse,
-  IAdAssetCreateResponse,
-  IAdAssetUpdateResponse,
-  IAdAssetDeleteResponse,
-  IStoresGetResponse,
-  IStoreGetResponse,
-  IStoreCreateResponse,
-  IStoreUpdateResponse,
-  IStoreDeleteResponse,
-  ITerminalsGetResponse,
-  ITerminalGetResponse,
-  ITerminalUpdateResponse,
-  ITerminalDeleteResponse,
-  ILicensesGetResponse,
-  ILicenseGetResponse,
-  ILicenseUpdateResponse,
-  ILicenseDeleteResponse,
+  IUserForgotPasswordResponse, IProductsGetResponse, IProductsCreateResponse, IProductsUpdateResponse, IProductsDeleteResponse,
+  ITagsGetResponse, ITagCreateResponse, ITagUpdateResponse, ITagDeleteResponse,
+  ISelectorsGetResponse, ISelectorsCreateResponse, ISelectorsUpdateResponse, ISelectorsDeleteResponse,
+  IMenuNodesGetResponse, IMenuNodesCreateResponse, IMenuNodesUpdateResponse, IMenuNodesDeleteResponse,
+  IAssetsDeleteResponse, IAssetsUpdateResponse, IAssetsGetResponse,
+  IProductAssetCreateResponse, IProductAssetUpdateResponse, IProductAssetDeleteResponse, IProductAssetGetResponse, IProductGetResponse,
+  ITagGetResponse, ISelectorGetResponse,
+  IBusinessPeriodsGetResponse, IBusinessPeriodGetResponse, IBusinessPeriodCreateResponse, IBusinessPeriodUpdateResponse, IBusinessPeriodDeleteResponse,
+  ISelectorAssetDeleteResponse, ISelectorAssetGetResponse, ISelectorAssetCreateResponse, ISelectorAssetUpdateResponse,
+  ICurrenciesGetResponse, ICurrencyGetResponse, ICurrencyCreateResponse, ICurrencyUpdateResponse, ICurrencyDeleteResponse,
+  IOrderTypesGetResponse, IOrderTypeGetResponse, IOrderTypeCreateResponse, IOrderTypeUpdateResponse, IOrderTypeDeleteResponse,
+  IOrderTypeAssetGetResponse, IOrderTypeAssetCreateResponse, IOrderTypeAssetUpdateResponse, IOrderTypeAssetDeleteResponse,
+  ILanguagesGetResponse, ILanguageGetResponse, ILanguageCreateResponse, ILanguageUpdateResponse, ILanguageDeleteResponse,
+  ILanguageAssetGetResponse, ILanguageAssetCreateResponse, ILanguageAssetUpdateResponse, ILanguageAssetDeleteResponse,
+  ITranslationsGetResponse, ITranslationGetResponse, ITranslationUpdateResponse, IProductAssetGetByLangResponse, ISelectorAssetGetByLangResponse,
+  ITagAssetGetResponse, ITagAssetCreateResponse, ITagAssetUpdateResponse, ITagAssetDeleteResponse,
+  IAdsGetResponse, IAdGetResponse, IAdsCreateResponse, IAdsUpdateResponse, IAdsDeleteResponse,
+  IAdAssetGetResponse, IAdAssetGetByLangResponse, IAdAssetCreateResponse, IAdAssetUpdateResponse, IAdAssetDeleteResponse,
+  IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
+  ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
+  ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
+  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -105,7 +36,7 @@ import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurr
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
-import { ILicense } from '@djonnyx/tornado-types';
+import { ILicense, ILicenseType } from '@djonnyx/tornado-types';
 
 @Injectable({
   providedIn: 'root'
@@ -1393,6 +1324,43 @@ export class ApiService {
   public deleteLicense(id: string): Observable<ILicenseDeleteResponse> {
     return this._http
       .delete<ILicenseDeleteResponse>(`api/v1/license/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+  
+  // licenses
+  public getLicenseTypes(): Observable<ILicenseTypesGetResponse> {
+    return this._http
+      .get<ILicenseTypesGetResponse>("api/v1/license-types", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public getLicenseType(id: string): Observable<ILicenseTypeGetResponse> {
+    return this._http
+      .get<ILicenseTypeGetResponse>(`api/v1/license-type/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateLicenseType(id: string, license: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
+    return this._http
+      .put<ILicenseTypeUpdateResponse>(`api/v1/license-type/${id}`, license, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteLicenseType(id: string): Observable<ILicenseTypeDeleteResponse> {
+    return this._http
+      .delete<ILicenseTypeDeleteResponse>(`api/v1/license-type/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
