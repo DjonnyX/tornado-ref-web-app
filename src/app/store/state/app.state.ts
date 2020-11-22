@@ -33,6 +33,8 @@ import { ITerminalState } from './terminal.state';
 import { ITerminalsState } from './terminals.state';
 import { ILicenseState } from './license.state';
 import { ILicensesState } from './licenses.state';
+import { ILicenseTypeState } from './license-type.state';
+import { ILicenseTypesState } from './license-types.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -70,6 +72,6 @@ export interface IAppState {
     taTerminals: ITerminalsState,
     taLicense: ILicenseState,
     taLicenses: ILicensesState,
-    taLicenseType: ILicenseState,
-    taLicenseTypes: ILicensesState,
+    taLicenseType: ILicenseTypeState,
+    taLicenseTypes: ILicenseTypesState,
 }

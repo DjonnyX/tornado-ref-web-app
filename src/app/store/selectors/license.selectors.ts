@@ -6,7 +6,7 @@ export namespace LicenseSelectors {
 
   export const selectEntity = createSelector(
     selectLicense,
-    state => state.license,
+    state => state.licenseType,
   );
 
   export const selectLoading = createSelector(

@@ -8,7 +8,7 @@ export const initialState: ILicenseState = {
     isUpdateProcess: false,
     isDeleteProcess: false,
     error: undefined,
-    license: undefined,
+    licenseType: undefined,
 };
 
 const licenseReducer = createReducer(
