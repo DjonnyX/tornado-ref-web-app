@@ -32,6 +32,8 @@ import TerminalEffects from './terminal.effects';
 import TerminalsEffects from './terminals.effects';
 import LicenseEffects from './license.effects';
 import LicensesEffects from './licenses.effects';
+import LicenseTypeEffects from './license-type.effects';
+import LicenseTypesEffects from './license-types.effects';
 
 const rootEffects = [
   UserEffects,
@@ -68,5 +70,7 @@ const rootEffects = [
   TerminalsEffects,
   LicenseEffects,
   LicensesEffects,
+  LicenseTypeEffects,
+  LicenseTypesEffects,
 ];
 export default rootEffects;

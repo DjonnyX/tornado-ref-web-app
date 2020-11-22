@@ -36,6 +36,8 @@ import terminalReducer from './terminal.reducer';
 import terminalsReducer from './terminals.reducer';
 import licenseReducer from './license.reducer';
 import licensesReducer from './licenses.reducer';
+import licenseTypeReducer from './license-type.reducer';
+import licenseTypesReducer from './license-types.reducer';
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -73,6 +75,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taTerminals: terminalsReducer,
   taLicense: licenseReducer,
   taLicenses: licensesReducer,
+  taLicenseType: licenseTypeReducer,
+  taLicenseTypes: licenseTypesReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

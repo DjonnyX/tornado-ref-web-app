@@ -29,3 +29,7 @@ export { IStoreState } from './store.state';
 export { IStoresState } from './stores.state';
 export { ITerminalState } from './terminal.state';
 export { ITerminalsState } from './terminals.state';
+export { ILicenseState } from './license.state';
+export { ILicensesState } from './licenses.state';
+export { ILicenseTypeState } from './license-type.state';
+export { ILicenseTypesState } from './license-types.state';

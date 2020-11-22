@@ -1,31 +1,36 @@
 import { IAppState } from "../state";
 import { createSelector } from "@ngrx/store";
 
-export namespace LicenseSelectors {
-  export const selectLicense = (state: IAppState) => state.taLicense;
+export namespace LicenseTypesSelectors {
+  export const selectLicenseTypes = (state: IAppState) => state.taLicenseTypes;
 
-  export const selectEntity = createSelector(
-    selectLicense,
-    state => state.licenseType,
+  export const selectCollection = createSelector(
+    selectLicenseTypes,
+    state => state.collection,
+  );
+
+  export const selectRefInfo = createSelector(
+    selectLicenseTypes,
+    state => !!state.meta ? state.meta.ref : undefined,
   );
 
   export const selectLoading = createSelector(
-    selectLicense,
+    selectLicenseTypes,
     state => state.loading,
   );
 
   export const selectIsGetProcess = createSelector(
-    selectLicense,
+    selectLicenseTypes,
     state => state.isGetProcess,
   );
 
   export const selectIsUpdateProcess = createSelector(
-    selectLicense,
+    selectLicenseTypes,
     state => state.isUpdateProcess,
   );
 
   export const selectIsDeleteProcess = createSelector(
-    selectLicense,
+    selectLicenseTypes,
     state => state.isDeleteProcess,
   );
 }
