@@ -1349,9 +1349,9 @@ export class ApiService {
       });
   }
 
-  public updateLicenseType(id: string, license: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
+  public updateLicenseType(id: string, licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
     return this._http
-      .put<ILicenseTypeUpdateResponse>(`api/v1/license-type/${id}`, license, {
+      .put<ILicenseTypeUpdateResponse>(`api/v1/license-type/${id}`, licenseType, {
         headers: {
           "authorization": this.getAuthToken(),
         },

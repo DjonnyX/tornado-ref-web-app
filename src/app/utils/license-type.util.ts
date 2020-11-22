@@ -2,14 +2,12 @@ import { ILicenseType } from '@djonnyx/tornado-types';
 
 export const formatLicenseTypeModel = (model: ILicenseType) => {
     return {
-        userId: model.userId,
-        dateStart: model.dateStart,
-        dateEnd: model.dateEnd,
-        status: model.status,
-        key: model.key,
-        state: model.state,
-        licTypeId: model.licTypeId,
-        lastUpdate: model.lastUpdate,
+        name: model.name,
+        description: model.description,
+        price: model.price,
+        payNotice: model.payNotice,
+        integrationId: model.integrationId,
+        lastUpdate: model.integrationId,
         extra: model.extra,
     }
 }
