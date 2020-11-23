@@ -135,6 +135,14 @@ const routes: Routes = [
           ),
         // canLoad: [AllowAdminGuard],
       },
+      {
+        path: 'applications',
+        loadChildren: () =>
+        import('@containers/applications-editor/applications-editor.module').then(
+          module => module.ApplicationsEditorModule,
+          ),
+        // canLoad: [AllowAdminGuard],
+      },
     ]
   }
 ];
