@@ -35,6 +35,8 @@ import { ILicenseState } from './license.state';
 import { ILicensesState } from './licenses.state';
 import { ILicenseTypeState } from './license-type.state';
 import { ILicenseTypesState } from './license-types.state';
+import { IApplicationState } from './application.state';
+import { IApplicationsState } from './applications.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -74,4 +76,6 @@ export interface IAppState {
     taLicenses: ILicensesState,
     taLicenseType: ILicenseTypeState,
     taLicenseTypes: ILicenseTypesState,
+    taApplication: IApplicationState,
+    taApplications: IApplicationsState,
 }
