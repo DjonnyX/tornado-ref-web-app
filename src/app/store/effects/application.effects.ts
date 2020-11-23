@@ -33,6 +33,24 @@ export default class ApplicationEffects {
         )
     );
 
+    public readonly createRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(ApplicationActions.createRequest),
+            switchMap(({ application }) => {
+                return this._apiService.createApplication(formatApplicationModel(application)).pipe(
+                    mergeMap(res => {
+                        return [ApplicationActions.createSuccess({ application: res.data })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(ApplicationActions.createError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ApplicationActions.updateRequest),

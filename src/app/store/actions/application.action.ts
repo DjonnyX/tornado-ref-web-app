@@ -32,6 +32,20 @@ export namespace ApplicationActions {
         props<{ error: string }>(),
     );
 
+    // create
+    export const createRequest = createAction(
+        ApplicationActionTypes.CREATE_REQUEST,
+        props<{ application: IApplication }>()
+    );
+    export const createSuccess = createAction(
+        ApplicationActionTypes.CREATE_SUCCESS,
+        props<{ application: IApplication }>()
+    );
+    export const createError = createAction(
+        ApplicationActionTypes.CREATE_ERROR,
+        props<{ error: string }>()
+    );
+
     // update
     export const updateRequest = createAction(
         ApplicationActionTypes.UPDATE_REQUEST,

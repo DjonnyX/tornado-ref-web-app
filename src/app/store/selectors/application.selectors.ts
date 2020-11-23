@@ -19,6 +19,11 @@ export namespace ApplicationSelectors {
     state => state.isGetProcess,
   );
 
+  export const selectIsCreateProcess = createSelector(
+    selectApplication,
+    state => state.isCreateProcess,
+  );
+
   export const selectIsUpdateProcess = createSelector(
     selectApplication,
     state => state.isUpdateProcess,

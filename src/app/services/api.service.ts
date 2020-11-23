@@ -1404,18 +1404,18 @@ export class ApiService {
       });
   }
 
-  public createApplication(id: string, licenseType: IApplication): Observable<IApplicationUpdateResponse> {
+  public createApplication(application: IApplication): Observable<IApplicationUpdateResponse> {
     return this._http
-      .post<IApplicationUpdateResponse>(`api/v1/application/${id}`, licenseType, {
+      .post<IApplicationUpdateResponse>("api/v1/application", application, {
         headers: {
           "authorization": this.getAuthToken(),
         },
       });
   }
 
-  public updateApplication(id: string, licenseType: IApplication): Observable<IApplicationUpdateResponse> {
+  public updateApplication(id: string, application: IApplication): Observable<IApplicationUpdateResponse> {
     return this._http
-      .put<IApplicationUpdateResponse>(`api/v1/application/${id}`, licenseType, {
+      .put<IApplicationUpdateResponse>(`api/v1/application/${id}`, application, {
         headers: {
           "authorization": this.getAuthToken(),
         },

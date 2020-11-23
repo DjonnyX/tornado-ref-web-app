@@ -4,6 +4,7 @@ import { IApplication } from '@djonnyx/tornado-types';
 export interface IApplicationState extends IBaseState {
     application: IApplication;
     isGetProcess: boolean;
+    isCreateProcess: boolean;
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
 }
