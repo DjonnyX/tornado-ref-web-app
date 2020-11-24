@@ -56,16 +56,6 @@ export class LicenseTypesEditorComponent extends BaseComponent implements OnInit
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
-  
-  hasThumbnail(assetId: string): boolean {
-    const asset = this._assetsDictionary[assetId];
-    return !!asset?.mipmap?.x128;
-  }
-
-  getThumbnail(assetId: string): string {
-    const asset = this._assetsDictionary[assetId];
-    return !!asset?.mipmap?.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
-  }
 
   onCreate(): void {
     this.create.emit();

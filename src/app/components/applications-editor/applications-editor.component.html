@@ -20,10 +20,6 @@
             </div>
             <div matRipple class="entity-active-zone" (click)="onEdit(licenseType)">
                 <div class="content">
-                    <div class="bottom-panel">
-                        <img align="center" *ngIf="hasThumbnail(licenseType.resources?.main)" class="entity-thumbnail"
-                            [src]="getThumbnail(licenseType.resources?.main)">
-                    </div>
                     <div class="content__name">
                         {{licenseType.name}}
                     </div>

@@ -33,6 +33,24 @@ export default class LicenseTypeEffects {
         )
     );
 
+    public readonly createRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(LicenseTypeActions.createRequest),
+            switchMap(({ licenseType }) => {
+                return this._apiService.createLicenseType(formatLicenseTypeModel(licenseType)).pipe(
+                    mergeMap(res => {
+                        return [LicenseTypeActions.createSuccess({ licenseType: res.data })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(LicenseTypeActions.createError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LicenseTypeActions.updateRequest),

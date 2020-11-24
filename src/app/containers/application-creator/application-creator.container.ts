@@ -48,13 +48,16 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
         select(ApplicationSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
+        select(ApplicationSelectors.selectIsCreateProcess),
+      ),
+      this._store.pipe(
         select(ApplicationSelectors.selectIsUpdateProcess),
       ),
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
     ).pipe(
-      map(([isApplicationGetProcess, selectIsUpdateProcess, isStoresGetProcess]) => isApplicationGetProcess || selectIsUpdateProcess || isStoresGetProcess),
+      map(([isApplicationGetProcess, isApplicationCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) => isApplicationGetProcess || isApplicationCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
     this.application$ = this._store.pipe(

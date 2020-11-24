@@ -57,30 +57,20 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
     super.ngOnDestroy();
   }
   
-  hasThumbnail(assetId: string): boolean {
-    const asset = this._assetsDictionary[assetId];
-    return !!asset?.mipmap?.x128;
-  }
-
-  getThumbnail(assetId: string): string {
-    const asset = this._assetsDictionary[assetId];
-    return !!asset?.mipmap?.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
-  }
-
   onCreate(): void {
     this.create.emit();
   }
 
-  onEdit(licenseType: IApplication): void {
-    this.edit.emit(licenseType);
+  onEdit(application: IApplication): void {
+    this.edit.emit(application);
   }
 
-  onDelete(licenseType: IApplication): void {
+  onDelete(application: IApplication): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить тип лицензии?",
-          message: `"${licenseType.name}" будет безвозвратно удален.`,
+          title: "Удалить приложение?",
+          message: `"${application.name}" будет безвозвратно удален.`,
         },
       });
 
@@ -89,7 +79,7 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
       takeUntil(this.unsubscribe$),
     ).subscribe(result => {
       if (result) {
-        this.delete.emit(licenseType.id);
+        this.delete.emit(application.id);
       }
     });
   }

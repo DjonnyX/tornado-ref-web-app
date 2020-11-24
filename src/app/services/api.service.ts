@@ -1312,9 +1312,9 @@ export class ApiService {
       });
   }
 
-  public createLicense(id: string, license: ILicense): Observable<ILicenseUpdateResponse> {
+  public createLicense(license: ILicense): Observable<ILicenseUpdateResponse> {
     return this._http
-      .post<ILicenseUpdateResponse>(`api/v1/license/${id}`, license, {
+      .post<ILicenseUpdateResponse>(`api/v1/license`, license, {
         headers: {
           "authorization": this.getAuthToken(),
         },
@@ -1358,9 +1358,9 @@ export class ApiService {
       });
   }
 
-  public createLicenseType(id: string, licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
+  public createLicenseType(licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
     return this._http
-      .put<ILicenseTypeUpdateResponse>(`api/v1/license-type/${id}`, licenseType, {
+      .post<ILicenseTypeUpdateResponse>(`api/v1/license-type`, licenseType, {
         headers: {
           "authorization": this.getAuthToken(),
         },

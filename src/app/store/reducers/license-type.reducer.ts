@@ -5,6 +5,7 @@ import { ILicenseTypeState } from '@store/state/license-type.state';
 export const initialState: ILicenseTypeState = {
     loading: false,
     isGetProcess: false,
+    isCreateProcess: false,
     isUpdateProcess: false,
     isDeleteProcess: false,
     error: undefined,
@@ -25,6 +26,13 @@ const licenseTypeReducer = createReducer(
             loading: true,
         };
     }),
+    on(LicenseTypeActions.createRequest, state => {
+        return {
+            ...state,
+            isCreateProcess: true,
+            loading: true,
+        };
+    }),
     on(LicenseTypeActions.updateRequest, state => {
         return {
             ...state,
@@ -37,6 +45,14 @@ const licenseTypeReducer = createReducer(
             ...state,
             error,
             isGetProcess: false,
+            loading: false,
+        };
+    }),
+    on(LicenseTypeActions.createError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isCreateProcess: false,
             loading: false,
         };
     }),
@@ -54,6 +70,15 @@ const licenseTypeReducer = createReducer(
             licenseType,
             error: undefined,
             isGetProcess: false,
+            loading: false,
+        };
+    }),
+    on(LicenseTypeActions.createSuccess, (state, { licenseType }) => {
+        return {
+            ...state,
+            licenseType,
+            error: undefined,
+            isCreateProcess: false,
             loading: false,
         };
     }),

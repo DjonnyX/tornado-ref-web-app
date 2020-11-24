@@ -48,13 +48,16 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
         select(LicenseTypeSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
+        select(LicenseTypeSelectors.selectIsCreateProcess),
+      ),
+      this._store.pipe(
         select(LicenseTypeSelectors.selectIsUpdateProcess),
       ),
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
     ).pipe(
-      map(([isLicenseTypeGetProcess, selectIsUpdateProcess, isStoresGetProcess]) => isLicenseTypeGetProcess || selectIsUpdateProcess || isStoresGetProcess),
+      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) => isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
     this.licenseType$ = this._store.pipe(
@@ -88,6 +91,8 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
   onSubmit(licenseType: ILicenseType): void {
     if (this.isEditMode) {
       this._store.dispatch(LicenseTypeActions.updateRequest({ id: licenseType.id, licenseType }));
+    } else {
+      this._store.dispatch(LicenseTypeActions.createRequest({ licenseType }));
     }
   }
 
