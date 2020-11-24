@@ -31,10 +31,11 @@ export class AuthService {
   }
 
   hasAuthority(roles: Array<string>): boolean {
-    if (!this._profile?.role || !roles || roles.length === 0) {
+    /*if (!this._profile?.role || !roles || roles.length === 0) {
       return true;
     }
 
-    return roles.indexOf(this._profile.role) > -1;
+    return roles.indexOf(this._profile.role) > -1;*/
+    return true;
   }
 }
