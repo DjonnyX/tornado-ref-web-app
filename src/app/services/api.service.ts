@@ -26,7 +26,7 @@ import {
   IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
   ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
   ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
-  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
+  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse, IAuthCaptchaResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -57,6 +57,14 @@ export class ApiService {
     return `Bearer ${this._token}`;
   }
 
+  public getAuthCaptcha(): Observable<ICaptcha> {
+    return this._http
+      .get<IAuthCaptchaResponse>("api/v1/auth/captcha")
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
   public signin(params: IUserSigninRequest): Observable<IUserProfile> {
     return this._http
       .post<IUserSigninResponse>("api/v1/auth/signin", params)
@@ -85,15 +93,21 @@ export class ApiService {
 
   public forgotPassword(params: IUserForgotPasswordRequest): Observable<{}> {
     return this._http
-      .post<IUserForgotPasswordResponse>("api/v1/auth/forgot-password", params)
+      .get<IUserForgotPasswordResponse>("api/v1/auth/forgot-password", {
+        params: params as any,
+      })
       .pipe(
         map(res => res.data),
       );
   }
 
-  public verifyResetPasswordToken(token: string): Observable<{}> {
+  public verifyResetPasswordToken(restorePassCode: string): Observable<{}> {
     return this._http
-      .post<IUserResetPasswordResponse>("api/v1/auth/verify-reset-password-token", { token })
+      .get<IUserResetPasswordResponse>("api/v1/auth/verify-reset-password-token", {
+        params: {
+          restorePassCode,
+        }
+      })
       .pipe(
         map(res => res.data),
       );
