@@ -33,3 +33,5 @@ export { ILicenseState } from './license.state';
 export { ILicensesState } from './licenses.state';
 export { ILicenseTypeState } from './license-type.state';
 export { ILicenseTypesState } from './license-types.state';
+export { IApplicationState } from './application.state';
+export { IApplicationsState } from './applications.state';

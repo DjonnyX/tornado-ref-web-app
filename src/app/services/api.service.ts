@@ -26,13 +26,13 @@ import {
   IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
   ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
   ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
-  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
+  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse, IAuthCaptchaResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore, ITerminal } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore, ITerminal, IApplication } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
@@ -55,6 +55,14 @@ export class ApiService {
 
   private getAuthToken(): string {
     return `Bearer ${this._token}`;
+  }
+
+  public getAuthCaptcha(): Observable<ICaptcha> {
+    return this._http
+      .get<IAuthCaptchaResponse>("api/v1/auth/captcha")
+      .pipe(
+        map(res => res.data),
+      );
   }
 
   public signin(params: IUserSigninRequest): Observable<IUserProfile> {
@@ -85,15 +93,21 @@ export class ApiService {
 
   public forgotPassword(params: IUserForgotPasswordRequest): Observable<{}> {
     return this._http
-      .post<IUserForgotPasswordResponse>("api/v1/auth/forgot-password", params)
+      .get<IUserForgotPasswordResponse>("api/v1/auth/forgot-password", {
+        params: params as any,
+      })
       .pipe(
         map(res => res.data),
       );
   }
 
-  public verifyResetPasswordToken(token: string): Observable<{}> {
+  public verifyResetPasswordToken(restorePassCode: string): Observable<{}> {
     return this._http
-      .post<IUserResetPasswordResponse>("api/v1/auth/verify-reset-password-token", { token })
+      .get<IUserResetPasswordResponse>("api/v1/auth/verify-reset-password-token", {
+        params: {
+          restorePassCode,
+        }
+      })
       .pipe(
         map(res => res.data),
       );
@@ -1312,6 +1326,15 @@ export class ApiService {
       });
   }
 
+  public createLicense(license: ILicense): Observable<ILicenseUpdateResponse> {
+    return this._http
+      .post<ILicenseUpdateResponse>(`api/v1/license`, license, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   public updateLicense(id: string, license: ILicense): Observable<ILicenseUpdateResponse> {
     return this._http
       .put<ILicenseUpdateResponse>(`api/v1/license/${id}`, license, {
@@ -1330,7 +1353,7 @@ export class ApiService {
       });
   }
   
-  // licenses
+  // license types
   public getLicenseTypes(): Observable<ILicenseTypesGetResponse> {
     return this._http
       .get<ILicenseTypesGetResponse>("api/v1/license-types", {
@@ -1349,6 +1372,15 @@ export class ApiService {
       });
   }
 
+  public createLicenseType(licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
+    return this._http
+      .post<ILicenseTypeUpdateResponse>(`api/v1/license-type`, licenseType, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   public updateLicenseType(id: string, licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
     return this._http
       .put<ILicenseTypeUpdateResponse>(`api/v1/license-type/${id}`, licenseType, {
@@ -1361,6 +1393,52 @@ export class ApiService {
   public deleteLicenseType(id: string): Observable<ILicenseTypeDeleteResponse> {
     return this._http
       .delete<ILicenseTypeDeleteResponse>(`api/v1/license-type/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+  
+  // applications
+  public getApplications(): Observable<IApplicationsGetResponse> {
+    return this._http
+      .get<IApplicationsGetResponse>("api/v1/applications", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public getApplication(id: string): Observable<IApplicationGetResponse> {
+    return this._http
+      .get<IApplicationGetResponse>(`api/v1/application/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createApplication(application: IApplication): Observable<IApplicationUpdateResponse> {
+    return this._http
+      .post<IApplicationUpdateResponse>("api/v1/application", application, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateApplication(id: string, application: IApplication): Observable<IApplicationUpdateResponse> {
+    return this._http
+      .put<IApplicationUpdateResponse>(`api/v1/application/${id}`, application, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteApplication(id: string): Observable<IApplicationDeleteResponse> {
+    return this._http
+      .delete<IApplicationDeleteResponse>(`api/v1/application/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

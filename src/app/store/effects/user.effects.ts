@@ -95,6 +95,8 @@ export default class UserEffects {
       switchMap((params: IUserForgotPasswordRequest) => {
         return this._apiService.forgotPassword({
           email: params.email,
+          captchaId: params.captchaId,
+          captchaVal: params.captchaVal,
         }).pipe(
           mergeMap(_ => {
             this._router.navigate(["forgot-password-result"]);
@@ -115,7 +117,7 @@ export default class UserEffects {
       ofType(UserActions.userResetPasswordRequest),
       switchMap((params: IUserResetPasswordRequest) => {
         return this._apiService.resetPassword({
-          token: params.token,
+          restorePassCode: params.restorePassCode,
           password: params.password,
         }).pipe(
           mergeMap(_ => {

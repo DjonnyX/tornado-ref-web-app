@@ -28,7 +28,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   sidenavIsOpen$: Observable<boolean>;
 
   roteCollection: Array<INavRoute> = [
-    {
+    /*{
       icon: "settings",
       name: "Настройки",
       roles: [RoleTypes.ADMIN],
@@ -43,12 +43,17 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
           name: "Лицензии",
           route: "licenses",
         },
+        {
+          icon: "application",
+          name: "Приложения",
+          route: "applications",
+        },
       ]
-    },
+    },*/
     {
       icon: "settings",
       name: "Настройки",
-      roles: [RoleTypes.CLIENT],
+      // roles: [RoleTypes.CLIENT],
       children: [
         {
           icon: "license",

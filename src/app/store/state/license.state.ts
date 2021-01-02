@@ -1,9 +1,10 @@
 import { IBaseState } from './base';
-import { ILicenseType } from '@djonnyx/tornado-types';
+import { ILicense } from '@djonnyx/tornado-types';
 
 export interface ILicenseState extends IBaseState {
-    licenseType: ILicenseType;
+    license: ILicense;
     isGetProcess: boolean;
+    isCreateProcess: boolean;
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
 }

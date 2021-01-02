@@ -5,13 +5,13 @@
     <div class="form__wrapper">
         <div class="form__heading">
             <span>
-                <h4 class="heading__title m0">Sign in</h4>
+                <h4 class="heading__title m0">Вход</h4>
             </span>
             <span>
-                <a [routerLink]="['/signup']" [queryParams]="registerQueryParams" class="form__link">
+                <!--<a [routerLink]="['/signup']" [queryParams]="registerQueryParams" class="form__link">
                     &nbsp;Create Account
                 </a>
-                <span class="form__text">instead?</span>
+                <span class="form__text">instead?</span>-->
             </span>
         </div>
         <mat-divider></mat-divider>
@@ -23,10 +23,10 @@
                             <mat-label>Email</mat-label>
                             <input matInput type="text" [formControl]="ctrlEmail" name="username" placeholder="Email">
                             <mat-error *ngIf="!ctrlEmail.hasError('required')">
-                                Please enter a valid email address
+                                Пожалуйста введите корректный email адрес
                             </mat-error>
                             <mat-error *ngIf="ctrlEmail.hasError('required')">
-                                Email - <strong>required</strong>
+                                Email - <strong>обязательное</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>
@@ -44,7 +44,7 @@
                 </div>
                 <div class="form__params-block">
                     <div class="form-item">
-                        <a [routerLink]="['/forgot-password']" class="form__link">Trouble signing in?</a>
+                        <a [routerLink]="['/forgot-password']" class="form__link">Не получается войти?</a>
                     </div>
                     <!--<div class="form-item">
                         <mat-checkbox color="accent" [formControl]="ctrlRememberMe">
@@ -55,7 +55,7 @@
 
                 <div class="form__submit">
                     <button mat-flat-button color="accent" type="submit" class="button button__text"
-                        [disabled]="!form.valid">Sign in</button>
+                        [disabled]="!form.valid">Войти</button>
                 </div>
             </form>
         </ta-query-progress>

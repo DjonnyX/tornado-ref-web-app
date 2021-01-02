@@ -1,4 +1,4 @@
 export interface IUserResetPasswordRequest {
-    token: string;
+    restorePassCode: string;
     password: string;
 }

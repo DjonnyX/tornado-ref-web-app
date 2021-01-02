@@ -1,0 +1,15 @@
+.key-value {
+    display: grid;
+    grid-template-columns: auto minmax(100px, 1fr) auto;
+    margin-bottom: 8px;
+
+    &__key {
+
+    }
+    &__separator {
+        border-bottom: 1px dotted;
+    }
+    &__value {
+
+    }
+}

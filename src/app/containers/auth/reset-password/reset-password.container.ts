@@ -22,7 +22,7 @@ export class ResetPasswordContainer extends BaseComponent implements OnInit, OnD
 
   public form: FormGroup;
 
-  private _token: string;
+  private _restorePassCode: string;
 
   ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
 
@@ -39,10 +39,10 @@ export class ResetPasswordContainer extends BaseComponent implements OnInit, OnD
 
     this._activatedRoute.queryParams.pipe(
       takeUntil(this.unsubscribe$),
-      map(params => params.token as string),
-      filter(token => !!token),
-    ).subscribe(token => {
-      this._token = token;
+      map(params => params.restorePassCode as string),
+      filter(restorePassCode => !!restorePassCode),
+    ).subscribe(restorePassCode => {
+      this._restorePassCode = restorePassCode;
     });
   }
 
@@ -59,7 +59,7 @@ export class ResetPasswordContainer extends BaseComponent implements OnInit, OnD
     if (this.form.valid) {
       const params: IUserResetPasswordRequest = {
         password: this.form.get('password').value,
-        token: this._token,
+        restorePassCode: this._restorePassCode,
       };
       this._store.dispatch(UserActions.userResetPasswordRequest(params));
     }

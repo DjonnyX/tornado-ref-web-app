@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminContainer } from './admin.container';
 import { SelectorTypes, AdTypes } from '@djonnyx/tornado-types';
+import { AllowAdminGuard } from '@guards';
 
 const routes: Routes = [
   {
@@ -123,14 +124,24 @@ const routes: Routes = [
         loadChildren: () =>
           import('@containers/licenses-editor/licenses-editor.module').then(
             module => module.LicensesEditorModule,
-          )
+          ),
+        // canLoad: [AllowAdminGuard],
       },
       {
         path: 'license-types',
         loadChildren: () =>
           import('@containers/license-types-editor/license-types-editor.module').then(
             module => module.LicenseTypesEditorModule,
-          )
+          ),
+        // canLoad: [AllowAdminGuard],
+      },
+      {
+        path: 'applications',
+        loadChildren: () =>
+        import('@containers/applications-editor/applications-editor.module').then(
+          module => module.ApplicationsEditorModule,
+          ),
+        // canLoad: [AllowAdminGuard],
       },
     ]
   }
