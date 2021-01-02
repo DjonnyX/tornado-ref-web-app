@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ILicense, IRef } from '@djonnyx/tornado-types';
+import { ILicense, IRef, LicenseStates } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-licenses-editor-component',
@@ -22,6 +22,8 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
   @Output() create = new EventEmitter<void>();
 
   @Output() edit = new EventEmitter<ILicense>();
+
+  @Output() view = new EventEmitter<ILicense>();
 
   @Output() update = new EventEmitter<ILicense>();
 
@@ -51,7 +53,7 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
   }
 
   onEdit(license: ILicense): void {
-    this.edit.emit(license);
+    this.view.emit(license);
   }
 
   onDelete(license: ILicense): void {
@@ -75,5 +77,9 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  isLicenseDisabled(license: ILicense): boolean {
+    return license.state === LicenseStates.DEACTIVE || license.state === LicenseStates.NOT_ACTIVE;
   }
 }

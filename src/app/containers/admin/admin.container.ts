@@ -53,7 +53,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "settings",
       name: "Настройки",
-      roles: [RoleTypes.CLIENT],
+      // roles: [RoleTypes.CLIENT],
       children: [
         {
           icon: "license",

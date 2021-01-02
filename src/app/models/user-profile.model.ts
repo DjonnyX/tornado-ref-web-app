@@ -8,6 +8,7 @@ export interface IUserProfile {
         name: string;
         language: string;
     },
+    role: string;
     token: string;
     rights: [
         {

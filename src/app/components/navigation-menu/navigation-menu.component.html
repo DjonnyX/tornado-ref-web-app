@@ -1,7 +1,7 @@
 <div class="navigation-menu">
     <ng-content></ng-content>
     <ng-container *ngFor="let item of collection">
-        <ng-container *hasVisibleByRoles="item.roles">
+        <ng-container *ngIf="authService.hasAuthority(item.roles)">
             <ng-container *ngIf="!!item.children; else link">
                 <div class="navigation-menu__expantion-item">
                     <span class="expantion-item__wrapper"

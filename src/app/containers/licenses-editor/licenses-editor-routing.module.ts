@@ -7,7 +7,7 @@ const routes: Routes = [
     path: '',
     component: LicensesEditorContainer,
   },
-  /*{
+  {
     path: 'create',
     loadChildren: () =>
       import('@containers/license-creator/license-creator.module').then(
@@ -20,7 +20,17 @@ const routes: Routes = [
       import('@containers/license-creator/license-creator.module').then(
         module => module.LicenseCreatorModule,
       )
-  },*/
+  },
+  {
+    path: 'view',
+    loadChildren: () =>
+      import('@containers/license-creator/license-creator.module').then(
+        module => module.LicenseCreatorModule,
+      ),
+      data: {
+        hasEdit: false,
+      }
+  },
 ];
 
 @NgModule({
