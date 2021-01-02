@@ -4,12 +4,6 @@
             Назад
         </div>
         <div class="form">
-            <div class="form-header">
-                <p>
-                    Описание
-                </p>
-            </div>
-
             <ta-license-creator-form [isEditMode]="isEditMode" [license]="license$ | async" (save)="onSubmit($event)"
                 (cancel)="onCancel()"></ta-license-creator-form>
         </div>

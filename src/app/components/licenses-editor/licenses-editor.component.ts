@@ -53,6 +53,10 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
   }
 
   onEdit(license: ILicense): void {
+    this.edit.emit(license);
+  }
+
+  onView(license: ILicense): void {
     this.view.emit(license);
   }
 

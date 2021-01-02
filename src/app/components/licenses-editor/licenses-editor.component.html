@@ -20,18 +20,15 @@
                     <div *ngIf="!!license.licType?.name" class="content__name">
                         {{license.licType?.name}}
                     </div>
-                    <div class="content__description">
-                        {{license.key}}
+                    <div class="content__description" style="text-transform: none;">
+                        Ключ: <b>{{license.key}}</b>
                     </div>
-                    <!--<div class="content__description" style="text-transform: none;">
-                        {{license.code}} / {{license.symbol}}
-                    </div>-->
                 </div>
                 <div class="color"></div>
             </div>
         </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+        <!--<button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
             <mat-icon>add</mat-icon>
-        </button>
+        </button>-->
     </div>
 </div>

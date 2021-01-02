@@ -47,7 +47,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LicenseSelectors.selectIsGetProcess),
       ),
-      this._store.pipe(
+      /*this._store.pipe(
         select(LicenseSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
@@ -55,18 +55,18 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       ),
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
-      ),
+      ),*/
     ).pipe(
-      map(([isLicenseGetProcess, isCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) => isLicenseGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
+      map(([isLicenseGetProcess, /*isCreateProcess, selectIsUpdateProcess, isStoresGetProcess*/]) => isLicenseGetProcess/* || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess*/),
     );
 
     this.license$ = this._store.pipe(
       select(LicenseSelectors.selectEntity),
     );
 
-    this.stores$ = this._store.pipe(
+    /*this.stores$ = this._store.pipe(
       select(StoresSelectors.selectCollection),
-    );
+    );*/
 
     this.license$.pipe(
       takeUntil(this.unsubscribe$),
@@ -74,7 +74,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       filter(license => this._licenseId !== license.id),
     ).subscribe(license => {
       this._licenseId = license.id;
-      this.isEditMode = !!this._licenseId;
+      this.isEditMode = false/*!!this._licenseId*/;
     });
 
     if (!!this._licenseId) {
