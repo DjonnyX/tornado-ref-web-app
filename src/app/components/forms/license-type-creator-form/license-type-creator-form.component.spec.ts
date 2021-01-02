@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LanguageCreatorFormComponent } from './license-type-creator-form.component';
+import { LicenseTypeCreatorFormComponent } from './license-type-creator-form.component';
 
-describe('LanguageCreatorFormComponent', () => {
-  let component: LanguageCreatorFormComponent;
-  let fixture: ComponentFixture<LanguageCreatorFormComponent>;
+describe('LicenseTypeCreatorFormComponent', () => {
+  let component: LicenseTypeCreatorFormComponent;
+  let fixture: ComponentFixture<LicenseTypeCreatorFormComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LanguageCreatorFormComponent ]
+      declarations: [ LicenseTypeCreatorFormComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LanguageCreatorFormComponent);
+    fixture = TestBed.createComponent(LicenseTypeCreatorFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

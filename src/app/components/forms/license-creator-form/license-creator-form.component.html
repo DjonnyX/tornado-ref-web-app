@@ -1,0 +1,57 @@
+<form (keydown)="onEnterSubmit($event)" autocomplete="off"> <!-- [formGroup]="form" (ngSubmit)="onSave()" -->
+    <div style="width: 100%;">
+        <div>
+            <h1 class="form-header">
+                Информация о лицензии
+            </h1>
+
+            <div class="form__main-options">
+                <div class="form__input-block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.name"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.dateStart"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.dateEnd"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.key"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.price"></ta-key-value>
+                    </div>
+
+                    <!--<div class="form-item">
+                        <mat-label>
+                            Описание
+                        </mat-label>
+                        <div>
+                            {{license?.licType?.description}}
+                        </div>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-label>
+                            Цена
+                        </mat-label>
+                        <div>
+                            {{license?.licType?.price | price}}
+                        </div>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Закрыть</button>
+        <!--<button mat-flat-button color="accent" type="submit" class="button button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>-->
+    </div>
+</form>

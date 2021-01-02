@@ -72,7 +72,6 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
       this.save.emit({
         ...this._licenseType,
         ...this.form.value,
-        extra: !!this._licenseType ? this._licenseType.extra : {},
       });
     }
   }

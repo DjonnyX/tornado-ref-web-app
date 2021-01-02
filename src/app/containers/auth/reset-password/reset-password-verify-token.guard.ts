@@ -9,14 +9,14 @@ export class ResetPasswordVerifyTokenGuard implements CanActivate {
     constructor(private _apiService: ApiService, private _router: Router) { }
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        const token = route.queryParams["token"];
+        const restorePassCode = route.queryParams["restorePassCode"];
 
-        if (!token) {
+        if (!restorePassCode) {
             this.gotoInvalidPage("Token is not valid.");
             return of(false);
         }
 
-        return this._apiService.verifyResetPasswordToken(token).pipe(
+        return this._apiService.verifyResetPasswordToken(restorePassCode).pipe(
             take(1),
             switchMap(v => {
                 return of(!!v);

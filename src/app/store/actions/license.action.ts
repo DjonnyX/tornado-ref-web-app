@@ -32,6 +32,20 @@ export namespace LicenseActions {
         props<{ error: string }>(),
     );
 
+    // create
+    export const createRequest = createAction(
+        LicenseActionTypes.CREATE_REQUEST,
+        props<{ license: ILicense }>()
+    );
+    export const createSuccess = createAction(
+        LicenseActionTypes.CREATE_SUCCESS,
+        props<{ license: ILicense }>()
+    );
+    export const createError = createAction(
+        LicenseActionTypes.CREATE_ERROR,
+        props<{ error: string }>()
+    );
+
     // update
     export const updateRequest = createAction(
         LicenseActionTypes.UPDATE_REQUEST,

@@ -19,6 +19,11 @@ export namespace LicenseTypeSelectors {
     state => state.isGetProcess,
   );
 
+  export const selectIsCreateProcess = createSelector(
+    selectLicenseType,
+    state => state.isCreateProcess,
+  );
+
   export const selectIsUpdateProcess = createSelector(
     selectLicenseType,
     state => state.isUpdateProcess,

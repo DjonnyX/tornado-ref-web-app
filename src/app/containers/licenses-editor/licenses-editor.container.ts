@@ -60,6 +60,16 @@ export class LicensesEditorContainer implements OnInit {
     });
   }
 
+  onView(license: ILicense): void {
+
+    this._store.dispatch(LicenseActions.clear());
+
+    this._router.navigate(["view"], {
+      relativeTo: this._activatedRoute,
+      queryParams: { id: license.id, returnUrl: this._router.routerState.snapshot.url, },
+    });
+  }
+
   onUpdate(license: ILicense): void {
     this._store.dispatch(LicensesActions.updateRequest({id: license.id, license}));
   }

@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDividerModule } from '@angular/material/divider';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
     MatButtonModule,
     MatFormFieldModule,
     MatDividerModule,
+    MatIconModule,
     QueryProgressessModule,
     ForgotPasswordRoutingModule,
   ]

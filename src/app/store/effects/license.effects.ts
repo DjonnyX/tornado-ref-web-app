@@ -18,10 +18,10 @@ export default class LicenseEffects {
     public readonly getRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LicenseActions.getRequest),
-            switchMap(({id}) => {
-                return this._apiService.getLicense(id).pipe(
+            switchMap(({ id }) => {
+                return this._apiService.getLicenses().pipe(
                     mergeMap(res => {
-                        return [LicenseActions.getSuccess({ license: res.data })];
+                        return [LicenseActions.getSuccess({ license: res.data.find(l => l.id === id) })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {

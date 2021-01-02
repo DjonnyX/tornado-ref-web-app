@@ -5,10 +5,11 @@ import { ILicenseState } from '@store/state/license.state';
 export const initialState: ILicenseState = {
     loading: false,
     isGetProcess: false,
+    isCreateProcess: false,
     isUpdateProcess: false,
     isDeleteProcess: false,
     error: undefined,
-    licenseType: undefined,
+    license: undefined,
 };
 
 const licenseReducer = createReducer(
@@ -22,6 +23,13 @@ const licenseReducer = createReducer(
         return {
             ...state,
             isGetProcess: true,
+            loading: true,
+        };
+    }),
+    on(LicenseActions.createRequest, state => {
+        return {
+            ...state,
+            isCreateProcess: true,
             loading: true,
         };
     }),
@@ -40,6 +48,14 @@ const licenseReducer = createReducer(
             loading: false,
         };
     }),
+    on(LicenseActions.createError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isCreateProcess: false,
+            loading: false,
+        };
+    }),
     on(LicenseActions.updateError, (state, { error }) => {
         return {
             ...state,
@@ -54,6 +70,15 @@ const licenseReducer = createReducer(
             license,
             error: undefined,
             isGetProcess: false,
+            loading: false,
+        };
+    }),
+    on(LicenseActions.createSuccess, (state, { license }) => {
+        return {
+            ...state,
+            license,
+            error: undefined,
+            isCreateProcess: false,
             loading: false,
         };
     }),

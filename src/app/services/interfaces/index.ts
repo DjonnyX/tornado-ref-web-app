@@ -104,3 +104,8 @@ export { ILicenseTypesGetResponse } from './license-types-get-response.interface
 export { ILicenseTypeGetResponse } from './license-type-get-response.interface';
 export { ILicenseTypeUpdateResponse } from './license-type-update-response.interface';
 export { ILicenseTypeDeleteResponse } from './license-type-delete-response.interface';
+export { IApplicationsGetResponse } from './applications-get-response.interface';
+export { IApplicationGetResponse } from './application-get-response.interface';
+export { IApplicationUpdateResponse } from './application-update-response.interface';
+export { IApplicationDeleteResponse } from './application-delete-response.interface';
+export { IAuthCaptchaResponse } from "./auth.captcha-request.interface";

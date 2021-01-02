@@ -5,8 +5,8 @@ import {
     HttpRequest,
     HttpErrorResponse
 } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { catchError } from "rxjs/operators";
+import { Observable, throwError } from "rxjs";
+import { catchError, map, tap } from "rxjs/operators";
 import { IBaseResponse, IErrorResponse } from '@services';
 import { IAppState } from '@store/state';
 import { Store } from '@ngrx/store';
@@ -33,6 +33,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(
+            tap(() => {
+                const error = request.body?.error;
+                if (!!error && error instanceof Array) {
+                    return throwError(extractError(error)) as any;
+                } else if (!!error) {
+                    return throwError(`${error}\n`) as any;
+                }
+            }),
             catchError((error: HttpErrorResponse) => {
                 let errorMessage = "";
 

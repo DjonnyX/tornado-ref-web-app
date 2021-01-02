@@ -1,0 +1,36 @@
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
+        <div>
+            <p class="form-header">
+                Описание
+            </p>
+
+            <div class="form__main-options">
+                <div class="form__input-block">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Имя</mat-label>
+                            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
+                            <mat-error *ngIf="ctrlName.hasError('required')">
+                                <strong>обязательное</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Описание</mat-label>
+                            <input matInput type="text" [formControl]="ctrlDescription" placeholder="Имя">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
+        <button mat-flat-button color="accent" type="submit" class="button button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+    </div>
+</form>
