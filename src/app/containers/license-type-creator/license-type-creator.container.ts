@@ -47,17 +47,17 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
       this._store.pipe(
         select(LicenseTypeSelectors.selectIsGetProcess),
       ),
-      this._store.pipe(
+      /*this._store.pipe(
         select(LicenseTypeSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(LicenseTypeSelectors.selectIsUpdateProcess),
-      ),
+      ),*/
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
     ).pipe(
-      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) => isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
+      map(([isLicenseTypeGetProcess, /*isCreateProcess, selectIsUpdateProcess,*/ isStoresGetProcess]) => isLicenseTypeGetProcess || /*isCreateProcess || selectIsUpdateProcess ||*/ isStoresGetProcess),
     );
 
     this.licenseType$ = this._store.pipe(

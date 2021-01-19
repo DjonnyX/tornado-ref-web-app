@@ -89,11 +89,11 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onSubmit(license: ILicense): void {
-    if (this.isEditMode) {
+    /*if (this.isEditMode) {
       this._store.dispatch(LicenseActions.updateRequest({ id: license.id, license }));
     } else {
       this._store.dispatch(LicenseActions.createRequest({ license }));
-    }
+    }*/
   }
 
   onCancel(): void {

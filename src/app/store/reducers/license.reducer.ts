@@ -5,9 +5,9 @@ import { ILicenseState } from '@store/state/license.state';
 export const initialState: ILicenseState = {
     loading: false,
     isGetProcess: false,
-    isCreateProcess: false,
+    /*isCreateProcess: false,
     isUpdateProcess: false,
-    isDeleteProcess: false,
+    isDeleteProcess: false,*/
     error: undefined,
     license: undefined,
 };
@@ -26,7 +26,7 @@ const licenseReducer = createReducer(
             loading: true,
         };
     }),
-    on(LicenseActions.createRequest, state => {
+    /*on(LicenseActions.createRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -39,7 +39,7 @@ const licenseReducer = createReducer(
             isUpdateProcess: true,
             loading: true,
         };
-    }),
+    }),*/
     on(LicenseActions.getError, (state, { error }) => {
         return {
             ...state,
@@ -48,7 +48,7 @@ const licenseReducer = createReducer(
             loading: false,
         };
     }),
-    on(LicenseActions.createError, (state, { error }) => {
+    /*on(LicenseActions.createError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -63,7 +63,7 @@ const licenseReducer = createReducer(
             isUpdateProcess: false,
             loading: false,
         };
-    }),
+    }),*/
     on(LicenseActions.getSuccess, (state, { license }) => {
         return {
             ...state,
@@ -73,7 +73,7 @@ const licenseReducer = createReducer(
             loading: false,
         };
     }),
-    on(LicenseActions.createSuccess, (state, { license }) => {
+    /*on(LicenseActions.createSuccess, (state, { license }) => {
         return {
             ...state,
             license,
@@ -90,7 +90,7 @@ const licenseReducer = createReducer(
             isUpdateProcess: false,
             loading: false,
         };
-    }),
+    }),*/
 );
 
 export default licenseReducer;

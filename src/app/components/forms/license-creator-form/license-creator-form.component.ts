@@ -67,6 +67,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   private generateData(): void {
+    console.log(this._license)
     this._data = {
       name: {
         key: "Название",

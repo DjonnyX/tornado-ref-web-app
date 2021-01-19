@@ -18,10 +18,10 @@ export default class LicenseEffects {
     public readonly getRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LicenseActions.getRequest),
-            switchMap(({ id }) => {
-                return this._apiService.getLicenses().pipe(
+            switchMap(({id}) => {
+                return this._apiService.getLicense(id).pipe(
                     mergeMap(res => {
-                        return [LicenseActions.getSuccess({ license: res.data.find(l => l.id === id) })];
+                        return [LicenseActions.getSuccess({ license: res.data })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
@@ -33,7 +33,7 @@ export default class LicenseEffects {
         )
     );
 
-    public readonly updateRequest = createEffect(() =>
+    /*public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LicenseActions.updateRequest),
             switchMap(({ id, license }) => {
@@ -49,5 +49,5 @@ export default class LicenseEffects {
                 );
             })
         )
-    );
+    );*/
 }

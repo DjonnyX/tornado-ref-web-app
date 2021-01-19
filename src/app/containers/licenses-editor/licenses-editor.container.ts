@@ -71,10 +71,10 @@ export class LicensesEditorContainer implements OnInit {
   }
 
   onUpdate(license: ILicense): void {
-    this._store.dispatch(LicensesActions.updateRequest({id: license.id, license}));
+    // this._store.dispatch(LicensesActions.updateRequest({id: license.id, license}));
   }
 
   onDelete(id: string): void {
-    this._store.dispatch(LicensesActions.deleteRequest({ id }));
+    // this._store.dispatch(LicensesActions.deleteRequest({ id }));
   }
 }

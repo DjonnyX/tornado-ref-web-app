@@ -11,7 +11,7 @@ export enum LicensesActionTypes {
     GET_SUCCESS = "TORNADO/licenses/get:success",
     GET_ERROR = "TORNADO/licenses/get:error",
 
-    CREATE_REQUEST = "TORNADO/licenses/create:request",
+    /*CREATE_REQUEST = "TORNADO/licenses/create:request",
     CREATE_SUCCESS = "TORNADO/licenses/create:success",
     CREATE_ERROR = "TORNADO/licenses/create:error",
 
@@ -21,7 +21,7 @@ export enum LicensesActionTypes {
 
     DELETE_REQUEST = "TORNADO/licenses/delete:request",
     DELETE_SUCCESS = "TORNADO/licenses/delete:success",
-    DELETE_ERROR = "TORNADO/licenses/delete:error",
+    DELETE_ERROR = "TORNADO/licenses/delete:error",*/
 }
 
 export namespace LicensesActions {
@@ -52,6 +52,7 @@ export namespace LicensesActions {
         props<{ error: string }>(),
     );
 
+    /*
     // update
     export const updateRequest = createAction(
         LicensesActionTypes.UPDATE_REQUEST,
@@ -79,4 +80,5 @@ export namespace LicensesActions {
         LicensesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
     );
+    */
 }
