@@ -1,0 +1,20 @@
+<div class="cookies" *ngIf="!isAccepted || hideProcess">
+  <div class="cookies__wrapper" #consent [class.hide]="hideProcess">
+    <div class="cookies__content">
+      <span class="cookies__message">
+        <div>
+          TORNADO SST использует файлы cookie с целью персонализации сервисов и повышения удобства
+          пользования веб-сайтом. Продолжая использовать наш сайт, вы даете согласие на обработку
+          файлов
+          cookie. Если вы не хотите использовать файлы cookie, измените настройки браузера.
+        </div>
+        <a href="cookies​">
+          Подробнее
+        </a>
+      </span>
+      <button color="primary" mat-flat-button type="button" class="cookies__accept-btn" (click)="onAccept()">
+        Принять
+      </button>
+    </div>
+  </div>
+</div>
