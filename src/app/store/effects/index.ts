@@ -36,6 +36,8 @@ import LicenseTypeEffects from './license-type.effects';
 import LicenseTypesEffects from './license-types.effects';
 import ApplicationEffects from './application.effects';
 import ApplicationsEffects from './applications.effects';
+import IntegrationEffects from './integration.effects';
+import IntegrationsEffects from './integrations.effects';
 
 const rootEffects = [
   UserEffects,
@@ -76,5 +78,7 @@ const rootEffects = [
   LicenseTypesEffects,
   ApplicationEffects,
   ApplicationsEffects,
+  IntegrationEffects,
+  IntegrationsEffects,
 ];
 export default rootEffects;

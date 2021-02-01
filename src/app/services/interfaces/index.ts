@@ -109,3 +109,6 @@ export { IApplicationGetResponse } from './application-get-response.interface';
 export { IApplicationUpdateResponse } from './application-update-response.interface';
 export { IApplicationDeleteResponse } from './application-delete-response.interface';
 export { IAuthCaptchaResponse } from "./auth.captcha-request.interface";
+export { IIntegrationsGetResponse } from './integrations-get-response.interface';
+export { IIntegrationGetResponse } from './integration-get-response.interface';
+export { IIntegrationUpdateResponse } from './integration-update-response.interface';

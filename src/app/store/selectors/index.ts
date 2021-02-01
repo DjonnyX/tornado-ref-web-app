@@ -35,3 +35,5 @@ export { LicenseTypeSelectors } from "./license-type.selectors";
 export { LicenseTypesSelectors } from "./license-types.selectors";
 export { ApplicationSelectors } from "./application.selectors";
 export { ApplicationsSelectors } from "./applications.selectors";
+export { IntegrationSelectors } from "./integration.selectors";
+export { IntegrationsSelectors } from "./integrations.selectors";

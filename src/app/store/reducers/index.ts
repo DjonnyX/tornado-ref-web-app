@@ -40,6 +40,8 @@ import licenseTypeReducer from './license-type.reducer';
 import licenseTypesReducer from './license-types.reducer';
 import applicationReducer from './application.reducer';
 import applicationsReducer from './applications.reducer';
+import integrationReducer from "./integration.reducer";
+import integrationsReducer from "./integrations.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -81,6 +83,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taLicenseTypes: licenseTypesReducer,
   taApplication: applicationReducer,
   taApplications: applicationsReducer,
+  taIntegration: integrationReducer,
+  taIntegrations: integrationsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
