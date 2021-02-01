@@ -16,15 +16,7 @@ $border-active: 2px solid $accent;
     .entity {
         border: $border-transpanent;
 
-        &.is-default {
-            border: $border-active;
-            border-radius: 4px;
-            padding: 3px;
-        }
-
         .content {
-            display: grid;
-            grid-template-columns: auto 1fr;
 
             .content__name {
                 margin-top: auto;

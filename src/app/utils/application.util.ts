@@ -1,10 +1,10 @@
 import { IApplication } from '@djonnyx/tornado-types';
+import { formatVersionModel } from './version.util';
 
-export const formatApplicationModel = (model: IApplication) => {
+export const formatApplicationModel = (model: IApplication): IApplication => {
     return {
         name: model.name,
         description: model.description,
-        version: model.version,
-        lastUpdate: model.lastUpdate,
+        version: formatVersionModel(model.version),
     }
 }

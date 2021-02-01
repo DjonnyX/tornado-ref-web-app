@@ -1,5 +1,5 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
+    <div>
         <div>
             <p class="form-header">
                 Описание
@@ -10,7 +10,7 @@
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Имя</mat-label>
-                            <input matInput type="text" formControlName="name" placeholder="Имя">
+                            <input matInput type="text" formControlName="name" placeholder="Имя" required>
                             <mat-error *ngIf="ctrlName.hasError('required')">
                                 <strong>обязательное</strong>
                             </mat-error>

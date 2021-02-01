@@ -2,6 +2,8 @@ import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { IVersion } from '@djonnyx/tornado-types';
 
+const VERSION_PATTERN = /^[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}$/;
+
 const INIT_STATE: IVersion = {
   name: "",
   code: 0,
@@ -16,16 +18,20 @@ const INIT_STATE: IVersion = {
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => VersionComponent),
     multi: true,
-  }/*,
+  },
   {
     provide: NG_VALIDATORS,
     useExisting: forwardRef(() => VersionComponent),
     multi: true,
-  }*/]
+  }]
 })
 export class VersionComponent implements OnInit, ControlValueAccessor, Validator {
 
-  private _value: IVersion;
+  public mName: string = INIT_STATE.name;
+  public mCode: number = INIT_STATE.code;
+  public mVersion: string = INIT_STATE.version;
+
+  private _value: IVersion = { ...INIT_STATE };
 
   get value() {
     return this._value;
@@ -35,6 +41,10 @@ export class VersionComponent implements OnInit, ControlValueAccessor, Validator
   set value(val: IVersion) {
     this._value = val || { ...INIT_STATE };
 
+    this.mName = this._value.name;
+    this.mCode = this._value.code;
+    this.mVersion = this._value.version;
+
     this.onChangeModel();
   }
 
@@ -42,9 +52,7 @@ export class VersionComponent implements OnInit, ControlValueAccessor, Validator
 
   onValidatorChange = () => { };
 
-  onChange(value: IVersion) { this.updateInitialStateIfNeed(); }
-
-  private initialState: IVersion = { ...INIT_STATE };
+  onChange(value: IVersion) { }
 
   constructor() { }
 
@@ -53,13 +61,18 @@ export class VersionComponent implements OnInit, ControlValueAccessor, Validator
   }
 
   onChangeModel() {
+    this._value = {
+      name: this.mName,
+      code: this.mCode,
+      version: this.mVersion,
+    };
+
     this.onChange(this._value);
     this.onValidatorChange();
   }
 
   writeValue(value: IVersion) {
     this.value = value;
-    this.updateInitialStateIfNeed();
   }
 
   registerOnChange(fn: any) {
@@ -70,20 +83,17 @@ export class VersionComponent implements OnInit, ControlValueAccessor, Validator
     this.onTouched = fn;
   }
 
+  checkVersionPattern() {
+    return VERSION_PATTERN.test(this._value.version);
+  }
+
   validate(control: AbstractControl): ValidationErrors | null {
-    let valid = !!this._value.name && this._value.code !== undefined && !!this._value.version;
+    let valid = !!this._value.name && this._value.code != undefined && !!this._value.version && this.checkVersionPattern();
 
     return valid ? null : { invalid: true };
   }
 
   registerOnValidatorChange?(fn: () => void): void {
     this.onValidatorChange = fn;
-  }
-
-  private updateInitialStateIfNeed() {
-    if (!!this.value) {
-      if (!this.initialState)
-        this.initialState = { ...this.value };
-    }
   }
 }

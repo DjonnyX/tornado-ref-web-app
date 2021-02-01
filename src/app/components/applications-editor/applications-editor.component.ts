@@ -19,7 +19,7 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
 
   @Input() searchFieldClass = "accent";
   
-  private _assetsDictionary: { [id: string]: IAsset } = {};
+  /*private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
   @Input() set assets(v: Array<IAsset>) {
@@ -32,7 +32,7 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
     }
   }
 
-  get assets() { return this._assets; }
+  get assets() { return this._assets; }*/
 
   @Output() create = new EventEmitter<void>();
 
