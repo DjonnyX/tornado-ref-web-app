@@ -1,29 +1,55 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
-        <div>
-            <p class="form-header">
-                Описание
-            </p>
+    <div class="form__main-options">
+        <div class="form__input-block">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Имя</mat-label>
+                    <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
+                    <mat-error *ngIf="ctrlName.hasError('required')">
+                        <strong>обязательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
 
-            <div class="form__main-options">
-                <div class="form__input-block">
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Имя</mat-label>
-                            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
-                            <mat-error *ngIf="ctrlName.hasError('required')">
-                                <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Описание</mat-label>
+                    <input matInput type="text" [formControl]="ctrlDescription" placeholder="Имя">
+                </mat-form-field>
+            </div>
 
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Описание</mat-label>
-                            <input matInput type="text" [formControl]="ctrlDescription" placeholder="Имя">
-                        </mat-form-field>
-                    </div>
+            <div class="form-item">
+                <div class="price">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>РУБ</mat-label>
+                        <input matInput [value]="ctrlPrice.value" [formControl]="ctrlPrice" type="number" required>
+                        <mat-error *ngIf="ctrlPrice.hasError('required')">
+                            <strong>обязательное</strong>
+                        </mat-error>
+                    </mat-form-field>
                 </div>
+            </div>
+
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Описание способа оплаты</mat-label>
+                    <input matInput type="text" [formControl]="ctrlPayNotice" placeholder="Описание способа оплаты"
+                        required>
+                    <mat-error *ngIf="ctrlPayNotice.hasError('required')">
+                        <strong>обязательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Интеграция</mat-label>
+                    <mat-select [formControl]="ctrlIntegration">
+                        <mat-option *ngFor="let integration of integrations" [value]="integration.id">
+                            {{integration.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
         </div>
     </div>
