@@ -143,6 +143,14 @@ const routes: Routes = [
           ),
         canActivate: [AllowAdminGuard],
       },
+      {
+        path: 'integrations',
+        loadChildren: () =>
+          import('@containers/integrations-editor/integrations-editor.module').then(
+            module => module.IntegrationsEditorModule,
+          ),
+        canActivate: [AllowAdminGuard],
+      },
     ]
   }
 ];
