@@ -6,13 +6,13 @@ export enum LicenseActionTypes {
     GET_SUCCESS = "TORNADO/license/get:success",
     GET_ERROR = "TORNADO/license/get:error",
 
-    /*CREATE_REQUEST = "TORNADO/license/create:request",
+    CREATE_REQUEST = "TORNADO/license/create:request",
     CREATE_SUCCESS = "TORNADO/license/create:success",
     CREATE_ERROR = "TORNADO/license/create:error",
 
     UPDATE_REQUEST = "TORNADO/license/update:request",
     UPDATE_SUCCESS = "TORNADO/license/update:success",
-    UPDATE_ERROR = "TORNADO/license/update:error",*/
+    UPDATE_ERROR = "TORNADO/license/update:error",
 
     CLEAR = "TORNADO/license/clear",
 }
@@ -32,7 +32,6 @@ export namespace LicenseActions {
         props<{ error: string }>(),
     );
 
-    /*
     // create
     export const createRequest = createAction(
         LicenseActionTypes.CREATE_REQUEST,
@@ -60,7 +59,6 @@ export namespace LicenseActions {
         LicenseActionTypes.UPDATE_ERROR,
         props<{ error: string }>()
     );
-    */
 
     // clear
     export const clear = createAction(

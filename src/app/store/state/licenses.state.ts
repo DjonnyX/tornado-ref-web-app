@@ -5,7 +5,7 @@ import { ILicense } from '@djonnyx/tornado-types';
 export interface ILicensesState extends IBaseState {
     meta: IMetaRefsResponse;
     isGetProcess: boolean;
-    /*isUpdateProcess: boolean;
-    isDeleteProcess: boolean;*/
+    isUpdateProcess: boolean;
+    isDeleteProcess: boolean;
     collection: Array<ILicense> | null;
 }

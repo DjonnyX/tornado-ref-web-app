@@ -7,8 +7,8 @@ export const initialState: ILicensesState = {
     meta: undefined,
     loading: false,
     isGetProcess: false,
-    /*isUpdateProcess: false,
-    isDeleteProcess: false,*/
+    isUpdateProcess: false,
+    isDeleteProcess: false,
     error: undefined,
     collection: undefined,
 };
@@ -22,7 +22,7 @@ const licensesReducer = createReducer(
             loading: true,
         };
     }),
-    /*on(LicensesActions.updateRequest, state => {
+    on(LicensesActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
@@ -35,7 +35,7 @@ const licensesReducer = createReducer(
             isDeleteProcess: true,
             loading: true,
         };
-    }),*/
+    }),
     on(LicensesActions.getAllError, (state, { error }) => {
         return {
             ...state,
@@ -44,7 +44,7 @@ const licensesReducer = createReducer(
             loading: false,
         };
     }),
-    /*on(LicensesActions.updateError, (state, { error }) => {
+    on(LicensesActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -59,7 +59,7 @@ const licensesReducer = createReducer(
             isDeleteProcess: false,
             loading: false,
         };
-    }),*/
+    }),
     on(LicensesActions.getAllSuccess, (state, { collection, meta }) => {
         return {
             ...state,
@@ -70,7 +70,7 @@ const licensesReducer = createReducer(
             loading: false,
         };
     }),
-    /*on(LicensesActions.updateSuccess, (state, { license, meta }) => {
+    on(LicensesActions.updateSuccess, (state, { license, meta }) => {
         const existsLicenseIndex = state.collection.findIndex(p => p.id === license.id);
         let collection = [...state.collection];
         if (existsLicenseIndex > -1) {
@@ -100,7 +100,7 @@ const licensesReducer = createReducer(
             isDeleteProcess: false,
             loading: false,
         };
-    }),*/
+    }),
 );
 
 export default licensesReducer;

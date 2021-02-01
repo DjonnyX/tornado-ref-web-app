@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ILicense } from '@djonnyx/tornado-types';
+import { IIntegration, ILicense, ILicenseType } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
@@ -25,9 +25,30 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   form: FormGroup;
 
-  /*ctrlName = new FormControl('', [Validators.required]);
+  ctrlLicenseType = new FormControl('', [Validators.required]);
 
-  ctrlDescription = new FormControl('');*/
+  @Input() licenseTypes: Array<ILicenseType>;
+
+  private _integrationsMap: { [id: string]: IIntegration };
+
+  get integrationsMap() {
+    return this._integrationsMap;
+  }
+
+  private _integrations: Array<IIntegration>;
+  @Input() set integrations(v: Array<IIntegration>) {
+    if (this._integrations !== v) {
+      this._integrations = v;
+
+      this._integrationsMap = {};
+
+      if (this._integrations) {
+        this._integrations.forEach(int => {
+          this._integrationsMap[int.id] = int;
+        });
+      }
+    }
+  }
 
   private _license: ILicense;
   @Input() set license(license: ILicense) {
@@ -35,9 +56,8 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       this._license = license;
 
       this.generateData();
-      /*this.ctrlName.setValue(license.name);
-      this.ctrlDescription.setValue(license.description);*/
 
+      this.ctrlLicenseType.setValue(license.licTypeId);
     }
   }
 
@@ -57,13 +77,14 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   @Output() update = new EventEmitter<ILicense>();
 
+  isEdit = false;
+
   constructor(private _fb: FormBuilder) {
     super();
 
-    /*this.form = this._fb.group({
-      name: this.ctrlName,
-      description: this.ctrlDescription,
-    })*/
+    this.form = this._fb.group({
+      licTypeId: this.ctrlLicenseType,
+    });
   }
 
   private generateData(): void {
@@ -116,19 +137,25 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       event.stopImmediatePropagation();
       event.preventDefault();
 
-      // this.onSave();
+      this.onSave();
     }
   }
 
-  /*onSave(): void {
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onSave(): void {
     if (this.form.valid) {
       
       this.save.emit({
         ...this._license,
         ...this.form.value,
       });
+
+      this.isEdit = false;
     }
-  }*/
+  }
 
   onCancel(): void {
     this.cancel.emit();

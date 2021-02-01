@@ -1,9 +1,7 @@
 import { ILicense } from '@djonnyx/tornado-types';
-import { formatLicenseTypeModel } from './license-type.util';
 
-export const formatLicenseModel = (model: ILicense) => {
+export const formatLicenseModel = (model: ILicense): ILicense => {
     return {
-        id: model.id,
         clientId: model.clientId,
         dateStart: model.dateStart,
         dateEnd: model.dateEnd,
@@ -11,7 +9,6 @@ export const formatLicenseModel = (model: ILicense) => {
         key: model.key,
         state: model.state,
         licTypeId: model.licTypeId,
-        licType: formatLicenseTypeModel(model.licType),
-        lastUpdate: model.lastUpdate,
-    }
+        // without imei && md5key && licType && lastUpdate
+    } as any;
 }

@@ -6,6 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { KeyValueModule } from '@components/key-value/key-value.module';
+import { MatSelectModule } from '@angular/material/select';
+import { DateRangeModule } from '@components/date-range/date-range.module';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { KeyValueModule } from '@components/key-value/key-value.module';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
     KeyValueModule,
+    DateRangeModule,
   ]
 })
 export class LicenseCreatorFormModule { }

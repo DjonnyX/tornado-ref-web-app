@@ -33,7 +33,7 @@ export default class LicenseEffects {
         )
     );
 
-    /*public readonly updateRequest = createEffect(() =>
+    public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LicenseActions.updateRequest),
             switchMap(({ id, license }) => {
@@ -49,5 +49,5 @@ export default class LicenseEffects {
                 );
             })
         )
-    );*/
+    );
 }
