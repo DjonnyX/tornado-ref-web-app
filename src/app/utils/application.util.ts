@@ -5,7 +5,6 @@ export const formatApplicationModel = (model: IApplication) => {
         name: model.name,
         description: model.description,
         version: model.version,
-        state: model.state,
         lastUpdate: model.lastUpdate,
     }
 }

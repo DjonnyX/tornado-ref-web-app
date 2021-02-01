@@ -10,7 +10,7 @@
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Имя</mat-label>
-                            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
+                            <input matInput type="text" formControlName="name" placeholder="Имя">
                             <mat-error *ngIf="ctrlName.hasError('required')">
                                 <strong>обязательное</strong>
                             </mat-error>
@@ -20,8 +20,14 @@
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Описание</mat-label>
-                            <input matInput type="text" [formControl]="ctrlDescription" placeholder="Имя">
+                            <input matInput type="text" formControlName="description" placeholder="Имя">
                         </mat-form-field>
+                    </div>
+                    <div class="form__input-block">
+                        <p class="form-header">
+                            Версия
+                        </p>
+                        <ta-version formControlName="version"></ta-version>
                     </div>
                 </div>
             </div>

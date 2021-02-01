@@ -4,8 +4,6 @@ import { formatLicenseTypeModel } from './license-type.util';
 export const formatLicenseModel = (model: ILicense) => {
     return {
         id: model.id,
-        integrationSubscriptionId: model.integrationSubscriptionId,
-        integrationUser: model.integrationUser,
         clientId: model.clientId,
         dateStart: model.dateStart,
         dateEnd: model.dateEnd,

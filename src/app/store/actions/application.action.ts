@@ -2,19 +2,19 @@ import { createAction, props } from "@ngrx/store";
 import { IApplication } from '@djonnyx/tornado-types';
 
 export enum ApplicationActionTypes {
-    GET_REQUEST = "TORNADO/license-type/get:request",
-    GET_SUCCESS = "TORNADO/license-type/get:success",
-    GET_ERROR = "TORNADO/license-type/get:error",
+    GET_REQUEST = "TORNADO/application/get:request",
+    GET_SUCCESS = "TORNADO/application/get:success",
+    GET_ERROR = "TORNADO/application/get:error",
 
-    CREATE_REQUEST = "TORNADO/license-type/create:request",
-    CREATE_SUCCESS = "TORNADO/license-type/create:success",
-    CREATE_ERROR = "TORNADO/license-type/create:error",
+    CREATE_REQUEST = "TORNADO/application/create:request",
+    CREATE_SUCCESS = "TORNADO/application/create:success",
+    CREATE_ERROR = "TORNADO/application/create:error",
 
-    UPDATE_REQUEST = "TORNADO/license-type/update:request",
-    UPDATE_SUCCESS = "TORNADO/license-type/update:success",
-    UPDATE_ERROR = "TORNADO/license-type/update:error",
+    UPDATE_REQUEST = "TORNADO/application/update:request",
+    UPDATE_SUCCESS = "TORNADO/application/update:success",
+    UPDATE_ERROR = "TORNADO/application/update:error",
 
-    CLEAR = "TORNADO/license-type/clear",
+    CLEAR = "TORNADO/application/clear",
 }
 
 export namespace ApplicationActions {
