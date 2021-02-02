@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicense, ILicenseType } from '@djonnyx/tornado-types';
+import { IIntegration, ILicense, ILicenseType, IAccount } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
@@ -29,6 +29,8 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   ctrlDateStart = new FormControl(new Date());
 
   ctrlDateEnd = new FormControl(new Date(Date.now() + 8640000));
+
+  ctrlAccount = new FormControl('', [Validators.required]);
   
   range = new FormGroup({
     start: this.ctrlDateStart,
@@ -36,6 +38,8 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   });
 
   @Input() licenseTypes: Array<ILicenseType>;
+
+  @Input() accounts: Array<IAccount>;
 
   private _integrationsMap: { [id: string]: IIntegration };
 
@@ -91,6 +95,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     super();
 
     this.form = this._fb.group({
+      clientId: this.ctrlAccount,
       licTypeId: this.ctrlLicenseType,
       dateStart: this.ctrlDateStart,
       dateEnd: this.ctrlDateEnd,

@@ -7,8 +7,8 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LicenseActions } from '@store/actions/license.action';
 import { LicenseSelectors } from '@store/selectors/license.selectors';
-import { IIntegration, ILicense, ILicenseType, IStore } from '@djonnyx/tornado-types';
-import { IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors } from '@store/selectors';
+import { IAccount, IIntegration, ILicense, ILicenseType, IStore } from '@djonnyx/tornado-types';
+import { AccountsSelectors, IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors } from '@store/selectors';
 import { LicenseTypesActions } from '@store/actions/license-types.action';
 import { IntegrationsActions } from '@store/actions/integrations.action';
 
@@ -32,6 +32,8 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
   integrations$: Observable<Array<IIntegration>>;
 
+  accounts$: Observable<Array<IAccount>>;
+
   stores$: Observable<Array<IStore>>;
 
   isEditMode = false;
@@ -49,7 +51,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
     this.isEditMode = !!this._licenseId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(LicenseSelectors.selectIsGetProcess),
       ),
@@ -68,11 +70,14 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
-    ).pipe(
+      this._store.pipe(
+        select(AccountsSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
       map(([isLicenseGetProcess, isLicenseCreateProcess, isLicenseUpdateProcess, isStoresGetProcess,
-        isLicenseTypesGetProcess, isIntegrationsGetProcess]) =>
+        isLicenseTypesGetProcess, isIntegrationsGetProcess, isAccountsGetProcess]) =>
         isLicenseGetProcess || isLicenseCreateProcess || isLicenseUpdateProcess || isStoresGetProcess ||
-        isLicenseTypesGetProcess || isIntegrationsGetProcess),
+        isLicenseTypesGetProcess || isIntegrationsGetProcess || isAccountsGetProcess),
     );
 
     this.integrations$ = this._store.pipe(

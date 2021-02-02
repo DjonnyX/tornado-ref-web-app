@@ -83,5 +83,5 @@ export interface IAppState {
     taApplications: IApplicationsState,
     taIntegration: IIntegrationState,
     taIntegrations: IIntegrationsState,
-    taAccouns: IAccountsState,
+    taAccounts: IAccountsState,
 }

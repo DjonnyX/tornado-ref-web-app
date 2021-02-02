@@ -68,6 +68,18 @@
                 <div class="form__main-options">
                     <div class="form__input-block">
                         <div class="form-item">
+                            
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Клиент</mat-label>
+                                <mat-select [formControl]="ctrlAccount">
+                                    <mat-option *ngFor="let account of accounts" [value]="account.id">
+                                        <span>
+                                            {{account.email}}
+                                        </span>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
                             <mat-form-field class="full-width" appearance="outline">
                                 <mat-label>Тип лицензии</mat-label>
                                 <mat-select [formControl]="ctrlLicenseType">
