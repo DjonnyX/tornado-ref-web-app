@@ -38,6 +38,7 @@ import ApplicationEffects from './application.effects';
 import ApplicationsEffects from './applications.effects';
 import IntegrationEffects from './integration.effects';
 import IntegrationsEffects from './integrations.effects';
+import AccountsEffects from './accounts.effects';
 
 const rootEffects = [
   UserEffects,
@@ -80,5 +81,6 @@ const rootEffects = [
   ApplicationsEffects,
   IntegrationEffects,
   IntegrationsEffects,
+  AccountsEffects,
 ];
 export default rootEffects;

@@ -12,7 +12,7 @@ import {
   IAssetsDeleteResponse, IAssetsUpdateResponse, IAssetsGetResponse,
   IProductAssetCreateResponse, IProductAssetUpdateResponse, IProductAssetDeleteResponse, IProductAssetGetResponse, IProductGetResponse,
   ITagGetResponse, ISelectorGetResponse,
-  IBusinessPeriodsGetResponse, IBusinessPeriodGetResponse, IBusinessPeriodCreateResponse, IBusinessPeriodUpdateResponse, IBusinessPeriodDeleteResponse,
+  IBusinessPeriodsGetResponse, IBusinessPeriodGetResponse, IBusinessPeriodCreateResponse, IBusinessPeriodUpdateResponse,IBusinessPeriodDeleteResponse,
   ISelectorAssetDeleteResponse, ISelectorAssetGetResponse, ISelectorAssetCreateResponse, ISelectorAssetUpdateResponse,
   ICurrenciesGetResponse, ICurrencyGetResponse, ICurrencyCreateResponse, ICurrencyUpdateResponse, ICurrencyDeleteResponse,
   IOrderTypesGetResponse, IOrderTypeGetResponse, IOrderTypeCreateResponse, IOrderTypeUpdateResponse, IOrderTypeDeleteResponse,
@@ -26,13 +26,13 @@ import {
   IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
   ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
   ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
-  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse, IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse,
+  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse, IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse, IAccountsGetResponse, IAccountUpdateResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore, ITerminal, IApplication, IIntegration } from '@djonnyx/tornado-types';
+import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore, ITerminal, IApplication, IIntegration, IAccount } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
@@ -75,7 +75,7 @@ export class ApiService {
 
   public signupParams(): Observable<{
     captcha: ICaptcha;
-}> {
+  }> {
     return this._http
       .get<IUserSignupParamsResponse>("api/v1/auth/signup")
       .pipe(
@@ -1352,7 +1352,7 @@ export class ApiService {
         },
       });
   }
-  
+
   // license types
   public getLicenseTypes(): Observable<ILicenseTypesGetResponse> {
     return this._http
@@ -1398,7 +1398,7 @@ export class ApiService {
         },
       });
   }
-  
+
   // applications
   public getApplications(): Observable<IApplicationsGetResponse> {
     return this._http
@@ -1444,7 +1444,7 @@ export class ApiService {
         },
       });
   }
-  
+
   // integrations
   public getIntegrations(): Observable<IIntegrationsGetResponse> {
     return this._http
@@ -1467,6 +1467,34 @@ export class ApiService {
   public updateIntegration(id: string, integration: IIntegration): Observable<IIntegrationUpdateResponse> {
     return this._http
       .put<IIntegrationUpdateResponse>(`api/v1/integration/${id}`, integration, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // accounts
+  public getAccounts(): Observable<IAccountsGetResponse> {
+    return this._http
+      .get<IAccountsGetResponse>("api/v1/accounts", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public getAccount(id: string): Observable<IAccountGetResponse> {
+    return this._http
+      .get<IAccountGetResponse>(`api/v1/account/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateAccount(id: string, account: IAccount): Observable<IAccountUpdateResponse> {
+    return this._http
+      .put<IAccountUpdateResponse>(`api/v1/account/${id}`, account, {
         headers: {
           "authorization": this.getAuthToken(),
         },

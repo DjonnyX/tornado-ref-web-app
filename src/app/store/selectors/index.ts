@@ -37,3 +37,4 @@ export { ApplicationSelectors } from "./application.selectors";
 export { ApplicationsSelectors } from "./applications.selectors";
 export { IntegrationSelectors } from "./integration.selectors";
 export { IntegrationsSelectors } from "./integrations.selectors";
+export { AccountsSelectors } from "./accounts.selectors";

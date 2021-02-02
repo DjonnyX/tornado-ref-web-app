@@ -112,3 +112,6 @@ export { IAuthCaptchaResponse } from "./auth.captcha-request.interface";
 export { IIntegrationsGetResponse } from './integrations-get-response.interface';
 export { IIntegrationGetResponse } from './integration-get-response.interface';
 export { IIntegrationUpdateResponse } from './integration-update-response.interface';
+export { IAccountsGetResponse } from './accounts-get-response.interface';
+export { IAccountGetResponse } from './account-get-response.interface';
+export { IAccountUpdateResponse } from './account-update-response.interface';

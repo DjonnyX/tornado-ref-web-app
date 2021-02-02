@@ -37,3 +37,4 @@ export { IApplicationState } from './application.state';
 export { IApplicationsState } from './applications.state';
 export { IIntegrationState } from './integration.state';
 export { IIntegrationsState } from './integrations.state';
+export { IAccountsState } from './accounts.state';

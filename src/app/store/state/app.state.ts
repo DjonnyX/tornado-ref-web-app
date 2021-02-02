@@ -39,6 +39,7 @@ import { IApplicationState } from './application.state';
 import { IApplicationsState } from './applications.state';
 import { IIntegrationState } from './integration.state';
 import { IIntegrationsState } from './integrations.state';
+import { IAccountsState } from './accounts.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -82,4 +83,5 @@ export interface IAppState {
     taApplications: IApplicationsState,
     taIntegration: IIntegrationState,
     taIntegrations: IIntegrationsState,
+    taAccouns: IAccountsState,
 }
