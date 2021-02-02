@@ -11,6 +11,7 @@ import { IAccount, IIntegration, ILicense, ILicenseType, IStore } from '@djonnyx
 import { AccountsSelectors, IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors } from '@store/selectors';
 import { LicenseTypesActions } from '@store/actions/license-types.action';
 import { IntegrationsActions } from '@store/actions/integrations.action';
+import { AccountsActions } from '@store/actions/accounts.action';
 
 @Component({
   selector: 'ta-license-creator',
@@ -92,6 +93,10 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       select(LicenseSelectors.selectEntity),
     );
 
+    this.accounts$ = this._store.pipe(
+      select(AccountsSelectors.selectCollection),
+    );
+
     this.stores$ = this._store.pipe(
       select(StoresSelectors.selectCollection),
     );
@@ -111,6 +116,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
     this._store.dispatch(LicenseTypesActions.getAllRequest());
     this._store.dispatch(IntegrationsActions.getAllRequest());
+    this._store.dispatch(AccountsActions.getAllRequest());
   }
 
   ngOnDestroy(): void {
