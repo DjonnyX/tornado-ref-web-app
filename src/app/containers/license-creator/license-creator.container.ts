@@ -27,7 +27,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
   private _license: ILicense;
 
   license$: Observable<ILicense>;
-  
+
   licenseTypes$: Observable<Array<ILicenseType>>;
 
   integrations$: Observable<Array<IIntegration>>;
@@ -69,8 +69,10 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
     ).pipe(
-      map(([isLicenseGetProcess, isCreateProcess, selectIsUpdateProcess, isStoresGetProcess, isLicenseTypesProcess, isIntegrationsProcess]) =>
-      isLicenseGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess || isLicenseTypesProcess || isIntegrationsProcess),
+      map(([isLicenseGetProcess, isLicenseCreateProcess, isLicenseUpdateProcess, isStoresGetProcess,
+        isLicenseTypesGetProcess, isIntegrationsGetProcess]) =>
+        isLicenseGetProcess || isLicenseCreateProcess || isLicenseUpdateProcess || isStoresGetProcess ||
+        isLicenseTypesGetProcess || isIntegrationsGetProcess),
     );
 
     this.integrations$ = this._store.pipe(
@@ -101,7 +103,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
     if (!!this._licenseId) {
       this._store.dispatch(LicenseActions.getRequest({ id: this._licenseId }));
     }
-    
+
     this._store.dispatch(LicenseTypesActions.getAllRequest());
     this._store.dispatch(IntegrationsActions.getAllRequest());
   }

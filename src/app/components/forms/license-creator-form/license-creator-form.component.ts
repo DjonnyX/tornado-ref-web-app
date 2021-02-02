@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { takeUntil } from 'rxjs/operators';
 import { IIntegration, ILicense, ILicenseType } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
@@ -26,6 +25,15 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   form: FormGroup;
 
   ctrlLicenseType = new FormControl('', [Validators.required]);
+
+  ctrlDateStart = new FormControl(new Date());
+
+  ctrlDateEnd = new FormControl(new Date(Date.now() + 8640000));
+  
+  range = new FormGroup({
+    start: this.ctrlDateStart,
+    end: this.ctrlDateEnd,
+  });
 
   @Input() licenseTypes: Array<ILicenseType>;
 
@@ -84,6 +92,8 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
     this.form = this._fb.group({
       licTypeId: this.ctrlLicenseType,
+      dateStart: this.ctrlDateStart,
+      dateEnd: this.ctrlDateEnd,
     });
   }
 
