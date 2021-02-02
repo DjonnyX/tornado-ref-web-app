@@ -1,7 +1,24 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { BaseComponent } from '@components/base/base-component';
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { forwardRef } from '@angular/core';
+import * as _moment from 'moment';
+import { default as _rollupMoment } from 'moment';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+
+const moment = _rollupMoment || _moment;
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'LL',
+  },
+  display: {
+    dateInput: 'LL',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 interface IRange {
   start: Date;
@@ -17,21 +34,39 @@ const INIT_STATE: IRange = {
   selector: 'ta-date-range',
   templateUrl: './date-range.component.html',
   styleUrls: ['./date-range.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => DateRangeComponent),
-    multi: true,
-  },
-  {
-    provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => DateRangeComponent),
-    multi: true,
-  }]
+  providers: [
+    {
+      provide: MAT_DATE_LOCALE,
+      useValue: 'ru-RU',
+    },
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [
+        MAT_DATE_LOCALE,
+        MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+      ],
+    },
+
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: MY_FORMATS
+    },
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => DateRangeComponent),
+      multi: true,
+    },
+    {
+      provide: NG_VALIDATORS,
+      useExisting: forwardRef(() => DateRangeComponent),
+      multi: true,
+    }]
 })
 export class DateRangeComponent implements OnInit, ControlValueAccessor, Validator {
   range = new FormGroup({
-    start: new FormControl(new Date()),
-    end: new FormControl(new Date(Date.now() + 8640000)),
+    start: new FormControl(moment(new Date())),
+    end: new FormControl(moment(new Date(Date.now() + 8640000))),
   });
 
   private _value: IRange = { ...INIT_STATE };
