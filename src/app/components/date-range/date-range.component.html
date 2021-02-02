@@ -1,6 +1,6 @@
 <mat-form-field appearance="fill">
     <mat-label>Период действия лицензии</mat-label>
-    <mat-date-range-input [formGroup]="range" [rangePicker]="picker" (dateChange)="onChangeModel()">
+    <mat-date-range-input [rangePicker]="picker" (dateChange)="onChangeModel()">
         <input matStartDate formControlName="start" placeholder="Start date">
         <input matEndDate formControlName="end" placeholder="End date">
     </mat-date-range-input>

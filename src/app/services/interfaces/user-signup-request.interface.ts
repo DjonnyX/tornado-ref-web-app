@@ -7,4 +7,6 @@ export interface IUserSignupRequest {
     password: string;
 }
 
-export interface IUserSignupParamsRequest { }
+export interface IUserSignupParamsRequest {
+    [x: string]: any;
+}
