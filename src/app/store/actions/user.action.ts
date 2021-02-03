@@ -51,7 +51,7 @@ export namespace UserActions {
   // signup request
   export const userSignupParamsRequest = createAction(
     UserActionTypes.USER_SIGNUP_PARAMS_REQUEST,
-    props<IUserSignupParamsRequest>()
+    props<IUserSignupParamsRequest>(),
   );
   export const userSignupParamsSuccess = createAction(
     UserActionTypes.USER_SIGNUP_PARAMS_SUCCESS,

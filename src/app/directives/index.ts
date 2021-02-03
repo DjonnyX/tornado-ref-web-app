@@ -1,1 +1,0 @@
-export { HasVisibleByRolesModule } from "./has-visible-by-roles/has-visible-by-roles.module";

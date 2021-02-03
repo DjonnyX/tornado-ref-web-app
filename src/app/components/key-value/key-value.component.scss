@@ -4,12 +4,12 @@
     margin-bottom: 8px;
 
     &__key {
-
+        text-align: left;
     }
     &__separator {
         border-bottom: 1px dotted;
     }
     &__value {
-
+        text-align: right;
     }
 }

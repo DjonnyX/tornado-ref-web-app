@@ -24,7 +24,7 @@ export namespace LicenseTypesSelectors {
     state => state.isGetProcess,
   );
 
-  export const selectIsUpdateProcess = createSelector(
+  /*export const selectIsUpdateProcess = createSelector(
     selectLicenseTypes,
     state => state.isUpdateProcess,
   );
@@ -32,5 +32,5 @@ export namespace LicenseTypesSelectors {
   export const selectIsDeleteProcess = createSelector(
     selectLicenseTypes,
     state => state.isDeleteProcess,
-  );
+  );*/
 }

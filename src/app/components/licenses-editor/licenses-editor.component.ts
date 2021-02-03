@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ILicense, IRef, LicenseStates } from '@djonnyx/tornado-types';
+import { IAccount, IIntegration, ILicense, IRef, LicenseStates } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-licenses-editor-component',
@@ -15,6 +15,48 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() collection: Array<ILicense>;
 
+  private _integrationsMap: { [id: string]: IIntegration };
+
+  get integrationsMap() {
+    return this._integrationsMap;
+  }
+
+  private _integrations: Array<IIntegration>;
+  @Input() set integrations(v: Array<IIntegration>) {
+    if (this._integrations !== v) {
+      this._integrations = v;
+
+      this._integrationsMap = {};
+
+      if (this._integrations) {
+        this._integrations.forEach(int => {
+          this._integrationsMap[int.id] = int;
+        });
+      }
+    }
+  }
+
+  private _accountsMap: { [id: string]: IAccount };
+
+  get accountsMap() {
+    return this._accountsMap;
+  }
+
+  private _accounts: Array<IAccount>;
+  @Input() set accounts(v: Array<IAccount>) {
+    if (this._accounts !== v) {
+      this._accounts = v;
+
+      this._accountsMap = {};
+
+      if (this._accounts) {
+        this._accounts.forEach(int => {
+          this._accountsMap[int.id] = int;
+        });
+      }
+    }
+  }
+  
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";

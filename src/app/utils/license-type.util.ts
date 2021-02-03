@@ -6,5 +6,6 @@ export const formatLicenseTypeModel = (model: ILicenseType) => {
         description: model.description,
         price: model.price,
         payNotice: model.payNotice,
+        integrationId: model.integrationId,
     }
 }

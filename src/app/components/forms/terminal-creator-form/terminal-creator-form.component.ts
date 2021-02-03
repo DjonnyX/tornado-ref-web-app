@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
-import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { ITerminal, IStore } from '@djonnyx/tornado-types';
+import { BaseComponent } from '@components/base/base-component';
 
 @Component({
   selector: 'ta-terminal-creator-form',
@@ -25,7 +25,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       this._terminal = terminal;
 
       this.ctrlName.setValue(terminal.name);
-      this.ctrlStore.setValue(terminal.store);
+      this.ctrlStore.setValue(terminal.storeId);
     }
   }
 

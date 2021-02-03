@@ -19,6 +19,8 @@ import {
 } from '@angular/material/snack-bar';
 import { NotificationService } from './services/notification.service';
 import { AuthService } from './services/auth.service';
+import { CookieConsentModule } from '@components/cookie-consent/cookie-consent.module';
+import { PricePipe } from './pipes/price/price.pipe';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { AuthService } from './services/auth.service';
     FlexLayoutModule,
     QueryProgressessModule,
     MatSnackBarModule,
+    CookieConsentModule,
   ],
   providers: [
     {

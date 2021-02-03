@@ -81,7 +81,7 @@
                     </div>
 
                     <div class="form-item">
-                        <div *ngIf="captcha$ | async" class="captcha">
+                        <div class="captcha">
                             <span [innerHtml]="safeCaptchaSvg" class="captcha__img"></span>
                             <span class="captcha__reset-button">
                                 <button mat-icon-button type="button" (click)="onResetCatcha()">

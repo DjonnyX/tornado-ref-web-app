@@ -4,7 +4,7 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserActions } from '@store/actions/user.action';
 import { UserSelectors } from '@store/selectors/user.selector';
-import { IUserSignupRequest } from '@services';
+import { ApiService, IUserSignupRequest } from '@services';
 import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@app/core/patterns';
@@ -42,6 +42,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
 
   constructor(
     private _fb: FormBuilder,
+    private _apiService: ApiService,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
     private _sanitizer: DomSanitizer,
@@ -85,7 +86,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
       this._safeCaptchaSvg = this._sanitizer.bypassSecurityTrustHtml(this._captcha.svg);
     });
 
-    this._store.dispatch(UserActions.userSignupParamsRequest({}));
+    this.onResetCatcha();
   }
 
   ngOnDestroy() {
@@ -107,6 +108,11 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
   }
 
   public onResetCatcha() {
-    this._store.dispatch(UserActions.userSignupParamsRequest({}));
+    this._apiService.getAuthCaptcha().pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(v => {
+      this._captcha = v;
+      this._safeCaptchaSvg = this._sanitizer.bypassSecurityTrustHtml(this._captcha.svg);
+    })
   }
 }

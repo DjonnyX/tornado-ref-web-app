@@ -18,15 +18,33 @@ export default class LicenseEffects {
     public readonly getRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LicenseActions.getRequest),
-            switchMap(({ id }) => {
-                return this._apiService.getLicenses().pipe(
+            switchMap(({id}) => {
+                return this._apiService.getLicense(id).pipe(
                     mergeMap(res => {
-                        return [LicenseActions.getSuccess({ license: res.data.find(l => l.id === id) })];
+                        return [LicenseActions.getSuccess({ license: res.data })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LicenseActions.getError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
+    public readonly createRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(LicenseActions.createRequest),
+            switchMap(({ license }) => {
+                return this._apiService.createLicense(formatLicenseModel(license)).pipe(
+                    mergeMap(res => {
+                        return [LicenseActions.createSuccess({ license: res.data })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(LicenseActions.createError({ error: error.message }));
                     }),
                 );
             })
