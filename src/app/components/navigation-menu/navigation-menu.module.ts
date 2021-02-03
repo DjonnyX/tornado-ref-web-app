@@ -4,7 +4,6 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRippleModule } from '@angular/material/core';
 import { NavigationMenuComponent } from "./navigation-menu.component";
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { HasVisibleByRolesModule } from '@directives';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,6 @@ import { HasVisibleByRolesModule } from '@directives';
     FlexLayoutModule,
     MatIconModule,
     MatRippleModule,
-    HasVisibleByRolesModule,
   ]
 })
 export class NavigationMenuModule { }

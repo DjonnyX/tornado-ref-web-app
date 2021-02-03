@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ILicenseType, IRef, IAsset } from '@djonnyx/tornado-types';
+import { ILicenseType, IRef, IAsset, IIntegration } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-license-types-editor-component',
@@ -18,7 +18,28 @@ export class LicenseTypesEditorComponent extends BaseComponent implements OnInit
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
-  
+
+  private _integrationsMap: { [id: string]: IIntegration };
+
+  get integrationsMap() {
+    return this._integrationsMap;
+  }
+
+  private _integrations: Array<IIntegration>;
+  @Input() set integrations(v: Array<IIntegration>) {
+    if (this._integrations !== v) {
+      this._integrations = v;
+
+      this._integrationsMap = {};
+
+      if (this._integrations) {
+        this._integrations.forEach(int => {
+          this._integrationsMap[int.id] = int;
+        });
+      }
+    }
+  }
+
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -86,5 +107,9 @@ export class LicenseTypesEditorComponent extends BaseComponent implements OnInit
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  getIntegrationName(licenseType: ILicenseType): string {
+    return this._integrationsMap[licenseType.integrationId]?.name;
   }
 }

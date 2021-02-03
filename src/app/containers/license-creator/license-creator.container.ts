@@ -7,8 +7,11 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LicenseActions } from '@store/actions/license.action';
 import { LicenseSelectors } from '@store/selectors/license.selectors';
-import { ILicense, IStore } from '@djonnyx/tornado-types';
-import { StoresSelectors } from '@store/selectors';
+import { IAccount, IIntegration, ILicense, ILicenseType, IStore } from '@djonnyx/tornado-types';
+import { AccountsSelectors, IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors } from '@store/selectors';
+import { LicenseTypesActions } from '@store/actions/license-types.action';
+import { IntegrationsActions } from '@store/actions/integrations.action';
+import { AccountsActions } from '@store/actions/accounts.action';
 
 @Component({
   selector: 'ta-license-creator',
@@ -25,6 +28,12 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
   private _license: ILicense;
 
   license$: Observable<ILicense>;
+
+  licenseTypes$: Observable<Array<ILicenseType>>;
+
+  integrations$: Observable<Array<IIntegration>>;
+
+  accounts$: Observable<Array<IAccount>>;
 
   stores$: Observable<Array<IStore>>;
 
@@ -43,11 +52,11 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
     this.isEditMode = !!this._licenseId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(LicenseSelectors.selectIsGetProcess),
       ),
-      /*this._store.pipe(
+      this._store.pipe(
         select(LicenseSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
@@ -55,18 +64,42 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       ),
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
-      ),*/
-    ).pipe(
-      map(([isLicenseGetProcess, /*isCreateProcess, selectIsUpdateProcess, isStoresGetProcess*/]) => isLicenseGetProcess/* || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess*/),
+      ),
+      this._store.pipe(
+        select(LicenseTypesSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(IntegrationsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(AccountsSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isLicenseGetProcess, isLicenseCreateProcess, isLicenseUpdateProcess, isStoresGetProcess,
+        isLicenseTypesGetProcess, isIntegrationsGetProcess, isAccountsGetProcess]) =>
+        isLicenseGetProcess || isLicenseCreateProcess || isLicenseUpdateProcess || isStoresGetProcess ||
+        isLicenseTypesGetProcess || isIntegrationsGetProcess || isAccountsGetProcess),
+    );
+
+    this.integrations$ = this._store.pipe(
+      select(IntegrationsSelectors.selectCollection),
+    );
+
+    this.licenseTypes$ = this._store.pipe(
+      select(LicenseTypesSelectors.selectCollection),
     );
 
     this.license$ = this._store.pipe(
       select(LicenseSelectors.selectEntity),
     );
 
-    /*this.stores$ = this._store.pipe(
+    this.accounts$ = this._store.pipe(
+      select(AccountsSelectors.selectCollection),
+    );
+
+    this.stores$ = this._store.pipe(
       select(StoresSelectors.selectCollection),
-    );*/
+    );
 
     this.license$.pipe(
       takeUntil(this.unsubscribe$),
@@ -74,12 +107,16 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       filter(license => this._licenseId !== license.id),
     ).subscribe(license => {
       this._licenseId = license.id;
-      this.isEditMode = false/*!!this._licenseId*/;
+      this.isEditMode = !!this._licenseId;
     });
 
     if (!!this._licenseId) {
       this._store.dispatch(LicenseActions.getRequest({ id: this._licenseId }));
     }
+
+    this._store.dispatch(LicenseTypesActions.getAllRequest());
+    this._store.dispatch(IntegrationsActions.getAllRequest());
+    this._store.dispatch(AccountsActions.getAllRequest());
   }
 
   ngOnDestroy(): void {

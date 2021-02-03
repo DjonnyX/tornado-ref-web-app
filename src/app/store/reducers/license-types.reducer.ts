@@ -7,8 +7,8 @@ export const initialState: ILicenseTypesState = {
     meta: undefined,
     loading: false,
     isGetProcess: false,
-    isUpdateProcess: false,
-    isDeleteProcess: false,
+    /*isUpdateProcess: false,
+    isDeleteProcess: false,*/
     error: undefined,
     collection: undefined,
 };
@@ -22,7 +22,7 @@ const licenseTypesReducer = createReducer(
             loading: true,
         };
     }),
-    on(LicenseTypesActions.updateRequest, state => {
+    /*on(LicenseTypesActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
@@ -35,7 +35,7 @@ const licenseTypesReducer = createReducer(
             isDeleteProcess: true,
             loading: true,
         };
-    }),
+    }),*/
     on(LicenseTypesActions.getAllError, (state, { error }) => {
         return {
             ...state,
@@ -44,7 +44,7 @@ const licenseTypesReducer = createReducer(
             loading: false,
         };
     }),
-    on(LicenseTypesActions.updateError, (state, { error }) => {
+    /*on(LicenseTypesActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -59,7 +59,7 @@ const licenseTypesReducer = createReducer(
             isDeleteProcess: false,
             loading: false,
         };
-    }),
+    }),*/
     on(LicenseTypesActions.getAllSuccess, (state, { collection, meta }) => {
         return {
             ...state,
@@ -70,7 +70,7 @@ const licenseTypesReducer = createReducer(
             loading: false,
         };
     }),
-    on(LicenseTypesActions.updateSuccess, (state, { licenseType, meta }) => {
+    /*on(LicenseTypesActions.updateSuccess, (state, { licenseType, meta }) => {
         const existsLicenseTypeIndex = state.collection.findIndex(p => p.id === licenseType.id);
         let collection = [...state.collection];
         if (existsLicenseTypeIndex > -1) {
@@ -100,7 +100,7 @@ const licenseTypesReducer = createReducer(
             isDeleteProcess: false,
             loading: false,
         };
-    }),
+    }),*/
 );
 
 export default licenseTypesReducer;

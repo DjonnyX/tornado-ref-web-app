@@ -1,0 +1,32 @@
+<div class="version-wrapper">
+    <span class="form-item">
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Имя</mat-label>
+            <input matInput type="text" [(ngModel)]="mName" (ngModelChange)="onChangeModel()" placeholder="Имя" required>
+            <mat-error *ngIf="!!mName">
+                <strong>обязательное</strong>
+            </mat-error>
+        </mat-form-field>
+    </span>
+    <span class="form-item">
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Код</mat-label>
+            <input matInput type="number" [(ngModel)]="mCode" (ngModelChange)="onChangeModel()" placeholder="Код" required>
+            <mat-error *ngIf="mCode !== undefined">
+                <strong>обязательное</strong>
+            </mat-error>
+        </mat-form-field>
+    </span>
+    <span class="form-item">
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Версия</mat-label>
+            <input matInput type="text" [(ngModel)]="mVersion" (ngModelChange)="onChangeModel()" placeholder="Версия" required>
+            <mat-error *ngIf="!!mVersion">
+                <strong>обязательное</strong>
+            </mat-error>
+            <mat-error *ngIf="!checkVersionPattern()">
+                <strong>Формат версии должен быть вида "x.x.x"</strong>
+            </mat-error>
+        </mat-form-field>
+    </span>
+</div>

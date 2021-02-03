@@ -16,6 +16,8 @@ export class ApplicationCreatorFormComponent extends BaseComponent implements On
   ctrlName = new FormControl('', [Validators.required]);
 
   ctrlDescription = new FormControl('');
+  
+  ctrlVersion = new FormControl(null);
 
   private _application: IApplication;
   @Input() set application(application: IApplication) {
@@ -24,7 +26,7 @@ export class ApplicationCreatorFormComponent extends BaseComponent implements On
 
       this.ctrlName.setValue(application.name);
       this.ctrlDescription.setValue(application.description);
-
+      this.ctrlVersion.setValue(application.version);
     }
   }
 
@@ -42,6 +44,7 @@ export class ApplicationCreatorFormComponent extends BaseComponent implements On
     this.form = this._fb.group({
       name: this.ctrlName,
       description: this.ctrlDescription,
+      version: this.ctrlVersion,
     })
   }
 

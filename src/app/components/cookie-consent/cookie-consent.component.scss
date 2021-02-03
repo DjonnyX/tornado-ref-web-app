@@ -1,0 +1,41 @@
+.cookies {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #435761;
+  z-index: 100;
+}
+
+.cookies__wrapper {
+  padding: 34px 20px;
+  justify-content: center;
+  display: flex;
+}
+
+.cookies__content {
+  max-width: 1024px;
+  display: grid;
+  align-items: normal;
+  grid-template-columns: 1fr 110px;
+  gap: 10px;
+  color: white;
+}
+
+.cookies__message {
+  font-family: roboto, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.cookies__message>a {
+  font-weight: 600;
+  display: block;
+  padding-top: 3px;
+  color: #e49d24;
+}
+
+.cookies__accept-btn {
+  height: 36px;
+}

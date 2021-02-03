@@ -125,7 +125,7 @@ const routes: Routes = [
           import('@containers/licenses-editor/licenses-editor.module').then(
             module => module.LicensesEditorModule,
           ),
-        // canLoad: [AllowAdminGuard],
+        canActivate: [AllowAdminGuard],
       },
       {
         path: 'license-types',
@@ -133,15 +133,23 @@ const routes: Routes = [
           import('@containers/license-types-editor/license-types-editor.module').then(
             module => module.LicenseTypesEditorModule,
           ),
-        // canLoad: [AllowAdminGuard],
+        canActivate: [AllowAdminGuard],
       },
       {
         path: 'applications',
         loadChildren: () =>
-        import('@containers/applications-editor/applications-editor.module').then(
-          module => module.ApplicationsEditorModule,
+          import('@containers/applications-editor/applications-editor.module').then(
+            module => module.ApplicationsEditorModule,
           ),
-        // canLoad: [AllowAdminGuard],
+        canActivate: [AllowAdminGuard],
+      },
+      {
+        path: 'integrations',
+        loadChildren: () =>
+          import('@containers/integrations-editor/integrations-editor.module').then(
+            module => module.IntegrationsEditorModule,
+          ),
+        canActivate: [AllowAdminGuard],
       },
     ]
   }

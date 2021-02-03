@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { ILicenseType } from '@djonnyx/tornado-types';
+import { IIntegration, ILicenseType } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-license-type-creator-form',
@@ -17,6 +17,14 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
 
   ctrlDescription = new FormControl('');
 
+  ctrlPrice = new FormControl(0, [Validators.required]);
+
+  ctrlPayNotice = new FormControl('', [Validators.required]);
+
+  ctrlIntegration = new FormControl('', [Validators.required]);
+
+  @Input() integrations: Array<IIntegration>;
+
   private _licenseType: ILicenseType;
   @Input() set licenseType(licenseType: ILicenseType) {
     if (licenseType) {
@@ -24,6 +32,9 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
 
       this.ctrlName.setValue(licenseType.name);
       this.ctrlDescription.setValue(licenseType.description);
+      this.ctrlPrice.setValue(Number(licenseType.price) * 0.01);
+      this.ctrlPayNotice.setValue(licenseType.payNotice);
+      this.ctrlIntegration.setValue(licenseType.integrationId);
 
     }
   }
@@ -42,6 +53,9 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
     this.form = this._fb.group({
       name: this.ctrlName,
       description: this.ctrlDescription,
+      price: this.ctrlPrice,
+      payNotice: this.ctrlPayNotice,
+      integrationId: this.ctrlIntegration,
     })
   }
 
@@ -68,10 +82,11 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
 
   onSave(): void {
     if (this.form.valid) {
-      
+
       this.save.emit({
         ...this._licenseType,
         ...this.form.value,
+        price: parseInt(this.form.get("price").value) * 100,
       });
     }
   }

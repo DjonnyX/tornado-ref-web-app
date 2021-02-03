@@ -3,8 +3,8 @@
 
 $entity-height-m: px2em(100);
 $entity-height-d: px2em(110);
-$entity-width-m: px2em(140);
-$entity-width-d: px2em(190);
+$entity-width-m: px2em(180);
+$entity-width-d: px2em(230);
 $border-transpanent: 4px solid transparent;
 $border-active: 2px solid $accent;
 
@@ -16,16 +16,7 @@ $border-active: 2px solid $accent;
     .entity {
         border: $border-transpanent;
 
-        &.is-default {
-            border: $border-active;
-            border-radius: 4px;
-            padding: 3px;
-        }
-
         .content {
-            display: grid;
-            grid-template-columns: auto 1fr;
-
             .content__name {
                 margin-top: auto;
                 margin-bottom: auto;

@@ -10,7 +10,7 @@
                 </p>
             </div>
 
-            <ta-license-type-creator-form [isEditMode]="isEditMode" [licenseType]="licenseType$ | async" (save)="onSubmit($event)"
+            <ta-license-type-creator-form [isEditMode]="isEditMode" [licenseType]="licenseType$ | async" [integrations]="integrations$ | async" (save)="onSubmit($event)"
                 (cancel)="onCancel()"></ta-license-type-creator-form>
         </div>
     </div>

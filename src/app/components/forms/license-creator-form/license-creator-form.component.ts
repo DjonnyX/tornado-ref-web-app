@@ -1,10 +1,45 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { takeUntil } from 'rxjs/operators';
-import { ILicense } from '@djonnyx/tornado-types';
+import { IIntegration, ILicense, ILicenseType, IAccount, LicenseStatuses, LicenseStates } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
+
+interface ISelectOption extends Array<{ name: string, value: number | string }> { }
+
+const LICENSE_STATUSES: ISelectOption = [
+  {
+    name: "Новый",
+    value: LicenseStatuses.NEW,
+  },
+  {
+    name: "Дэмо",
+    value: LicenseStatuses.DEMO,
+  },
+  {
+    name: "Активный",
+    value: LicenseStatuses.ACTIVE,
+  },
+  {
+    name: "Деактивированный",
+    value: LicenseStatuses.DEACTIVE,
+  },
+];
+
+const LICENSE_STATES: ISelectOption = [
+  {
+    name: "Неактивный",
+    value: LicenseStates.NOT_ACTIVE,
+  },
+  {
+    name: "Деактивированный",
+    value: LicenseStates.DEACTIVE,
+  },
+  {
+    name: "Активный",
+    value: LicenseStates.ACTIVE,
+  },
+];
 
 interface IData {
   name: IKeyValue;
@@ -14,6 +49,9 @@ interface IData {
   price: IKeyValue;
   state: IKeyValue;
   status: IKeyValue;
+  integration: IKeyValue;
+  integrationDescription: IKeyValue;
+  integrationVersion: IKeyValue;
 }
 
 @Component({
@@ -23,11 +61,59 @@ interface IData {
 })
 export class LicenseCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  public get licenseStatuses() {
+    return LICENSE_STATUSES;
+  }
+
+  public get licenseStates() {
+    return LICENSE_STATES;
+  }
+
   form: FormGroup;
 
-  /*ctrlName = new FormControl('', [Validators.required]);
+  ctrlLicenseType = new FormControl('', [Validators.required]);
 
-  ctrlDescription = new FormControl('');*/
+  ctrlDateStart = new FormControl(new Date());
+
+  ctrlDateEnd = new FormControl(new Date(Date.now() + 8640000));
+
+  ctrlAccount = new FormControl('', [Validators.required]);
+
+  ctrlState = new FormControl('', [Validators.required]);
+
+  ctrlStatus = new FormControl('', [Validators.required]);
+
+  range = new FormGroup({
+    start: this.ctrlDateStart,
+    end: this.ctrlDateEnd,
+  });
+
+  @Input() licenseTypes: Array<ILicenseType>;
+
+  @Input() accounts: Array<IAccount>;
+
+  private _integrationsMap: { [id: string]: IIntegration };
+
+  get integrationsMap() {
+    return this._integrationsMap;
+  }
+
+  private _integrations: Array<IIntegration>;
+  @Input() set integrations(v: Array<IIntegration>) {
+    if (this._integrations !== v) {
+      this._integrations = v;
+
+      this._integrationsMap = {};
+
+      if (this._integrations) {
+        this._integrations.forEach(int => {
+          this._integrationsMap[int.id] = int;
+        });
+      }
+
+      this.generateData();
+    }
+  }
 
   private _license: ILicense;
   @Input() set license(license: ILicense) {
@@ -35,9 +121,13 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       this._license = license;
 
       this.generateData();
-      /*this.ctrlName.setValue(license.name);
-      this.ctrlDescription.setValue(license.description);*/
 
+      this.ctrlAccount.setValue(license.clientId);
+      this.ctrlLicenseType.setValue(license.licTypeId);
+      this.ctrlDateStart.setValue(license.dateStart);
+      this.ctrlDateEnd.setValue(license.dateEnd);
+      this.ctrlStatus.setValue(license.status);
+      this.ctrlState.setValue(license.state);
     }
   }
 
@@ -57,13 +147,19 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   @Output() update = new EventEmitter<ILicense>();
 
+  isEdit = false;
+
   constructor(private _fb: FormBuilder) {
     super();
 
-    /*this.form = this._fb.group({
-      name: this.ctrlName,
-      description: this.ctrlDescription,
-    })*/
+    this.form = this._fb.group({
+      clientId: this.ctrlAccount,
+      licTypeId: this.ctrlLicenseType,
+      dateStart: this.ctrlDateStart,
+      dateEnd: this.ctrlDateEnd,
+      status: this.ctrlStatus,
+      state: this.ctrlState,
+    });
   }
 
   private generateData(): void {
@@ -96,16 +192,22 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
         key: "Состояние",
         value: this._license?.status,
       },
+      integration: {
+        key: "Название",
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : '',
+      },
+      integrationDescription: {
+        key: "Описание интеграции",
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : '',
+      },
+      integrationVersion: {
+        key: "Версия интеграции",
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.version.version : '',
+      },
     }
   }
 
-  ngOnInit(): void {
-    /*this.form.valueChanges.pipe(
-      takeUntil(this.unsubscribe$),
-    ).subscribe(value => {
-      this.update.emit(value);
-    })*/;
-  }
+  ngOnInit(): void { }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
@@ -116,19 +218,29 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       event.stopImmediatePropagation();
       event.preventDefault();
 
-      // this.onSave();
+      this.onSave();
     }
   }
 
-  /*onSave(): void {
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onSave(): void {
     if (this.form.valid) {
-      
+
       this.save.emit({
         ...this._license,
         ...this.form.value,
       });
+
+      this.isEdit = false;
     }
-  }*/
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
+  }
 
   onCancel(): void {
     this.cancel.emit();
