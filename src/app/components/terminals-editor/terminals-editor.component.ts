@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ITerminal, IRef } from '@djonnyx/tornado-types';
+import { ITerminal, IRef, TerminalStatusTypes } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-terminals-editor-component',
@@ -75,5 +75,9 @@ export class TerminalsEditorComponent extends BaseComponent implements OnInit, O
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  isTerminalActive(terminal: ITerminal) {
+    return terminal.status === TerminalStatusTypes.ONLINE;
   }
 }

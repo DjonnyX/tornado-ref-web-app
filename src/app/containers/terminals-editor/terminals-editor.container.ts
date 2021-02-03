@@ -25,8 +25,6 @@ export class TerminalsEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(TerminalsActions.getAllRequest());
-
     this.isProcess$ = this._store.pipe(
       select(TerminalsSelectors.selectLoading),
     );
@@ -38,6 +36,8 @@ export class TerminalsEditorContainer implements OnInit {
     this.refInfo$ = this._store.pipe(
       select(TerminalsSelectors.selectRefInfo),
     );
+    
+    this._store.dispatch(TerminalsActions.getAllRequest());
   }
 
   onCreate(): void {
