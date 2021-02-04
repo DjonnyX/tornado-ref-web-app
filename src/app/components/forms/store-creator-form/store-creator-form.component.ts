@@ -10,20 +10,11 @@ import { IStore } from '@djonnyx/tornado-types';
   styleUrls: ['./store-creator-form.component.scss']
 })
 export class StoreCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
-
-  @Input() terminals: Array<any>; // ITerminal
-
-  @Input() employes: Array<any>; // IEmploee
-
   form: FormGroup;
 
   ctrlName = new FormControl('', [Validators.required]);
 
   ctrlAddress = new FormControl('', [Validators.required]);
-
-  ctrlTerminals = new FormControl([]);
-
-  ctrlEmployes = new FormControl([]);
 
   private _store: IStore;
   @Input() set store(store: IStore) {
@@ -32,8 +23,6 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
 
       this.ctrlName.setValue(store.name);
       this.ctrlAddress.setValue(store.address);
-      this.ctrlTerminals.setValue(store.terminals);
-      this.ctrlEmployes.setValue(store.employes);
     }
   }
 
@@ -51,8 +40,6 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
     this.form = this._fb.group({
       name: this.ctrlName,
       address: this.ctrlAddress,
-      terminals: this.ctrlTerminals,
-      employes: this.ctrlEmployes,
     })
   }
 
