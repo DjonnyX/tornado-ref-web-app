@@ -75,51 +75,24 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
 
   @Input() accounts: Array<IAccount>;
 
-  private _terminalsMap: { [id: string]: ITerminal };
-
-  get terminalsMap() {
-    return this._terminalsMap;
-  }
-
-  private _terminals: Array<ITerminal>;
-  @Input() set terminals(v: Array<ITerminal>) {
-    if (this._terminals !== v) {
-      this._terminals = v;
-
-      this._terminalsMap = {};
-
-      if (this._terminals) {
-        this._terminals.forEach(t => {
-          this._terminalsMap[t.id] = t;
-        });
-      }
+  private _terminal: ITerminal;
+  @Input() set terminal(v: ITerminal) {
+    if (this._terminal !== v) {
+      this._terminal = v;
 
       this.generateData();
     }
   }
 
-  private _storesMap: { [id: string]: IStore };
-
-  get storesMap() {
-    return this._storesMap;
-  }
-
-  private _stores: Array<IStore>;
-  @Input() set stores(v: Array<IStore>) {
-    if (this._stores !== v) {
-      this._stores = v;
-
-      this._storesMap = {};
-
-      if (this._stores) {
-        this._stores.forEach(t => {
-          this._storesMap[t.id] = t;
-        });
-      }
+  private _store: IStore;
+  @Input() set store(v: IStore) {
+    if (this._store !== v) {
+      this._store = v;
 
       this.generateData();
     }
   }
+
 
   private _integrationsMap: { [id: string]: IIntegration };
 
@@ -168,7 +141,7 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
   }
 
   private generateData(): void {
-    if (!this._integrationsMap || !this._storesMap || !this._terminalsMap) {
+    if (!this._integrationsMap) {
       return;
     }
 
@@ -215,16 +188,16 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
       },
       terminalName: {
         key: "Название терминала",
-        value: !!this._terminalsMap ? this._terminalsMap[this._license?.terminalId]?.name : '',
+        value: this._terminal?.name || '',
         link: ["/admin/terminals/edit", { id: this._license?.terminalId }],
       },
       terminalStoreName: {
         key: "Название магазина",
-        value: !!this._terminalsMap && !!this._storesMap ? this._storesMap[this._terminalsMap[this._license?.terminalId]?.storeId]?.name : '',
+        value: this._store?.name || '',
       },
       terminalStoreAddress: {
         key: "Адрес магазина",
-        value: !!this._terminalsMap && !!this._storesMap ? this._storesMap[this._terminalsMap[this._license?.terminalId]?.storeId]?.address : '',
+        value: this._store?.address || '',
       },
     }
   }
@@ -247,6 +220,6 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
   }
 
   isBindToTerminal(): boolean {
-    return !!this._license.terminalId && !!this._terminalsMap[this._license.terminalId];
+    return !!this._terminal;
   }
 }

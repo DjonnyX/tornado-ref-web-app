@@ -1,8 +1,8 @@
 import { IBaseState } from './base';
-import { ILicense } from '@djonnyx/tornado-types';
+import { ILicenseAccount } from '@djonnyx/tornado-types';
 
 export interface ILicenseState extends IBaseState {
-    license: ILicense;
+    license: ILicenseAccount;
     isGetProcess: boolean;
     isCreateProcess: boolean;
     isUpdateProcess: boolean;

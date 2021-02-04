@@ -8,11 +8,11 @@ import { BaseComponent } from '@components/base/base-component';
 import { LicenseAccountActions } from '@store/actions/license-account.action';
 import { LicenseAccountSelectors } from '@store/selectors/license-account.selectors';
 import { IIntegration, ILicenseAccount, ILicenseType, IStore, ITerminal } from '@djonnyx/tornado-types';
-import { IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors, TerminalsSelectors } from '@store/selectors';
+import { IntegrationsSelectors, LicenseTypesSelectors, StoreSelectors, TerminalSelectors } from '@store/selectors';
 import { LicenseTypesActions } from '@store/actions/license-types.action';
 import { IntegrationsActions } from '@store/actions/integrations.action';
-import { TerminalsActions } from '@store/actions/terminals.action';
-import { StoresActions } from '@store/actions/stores.action';
+import { StoreActions } from '@store/actions/store.action';
+import { TerminalActions } from '@store/actions/terminal.action';
 
 @Component({
   selector: 'ta-license-account-creator',
@@ -30,9 +30,9 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
 
   integrations$: Observable<Array<IIntegration>>;
 
-  terminals$: Observable<Array<ITerminal>>;
+  terminal$: Observable<ITerminal>;
 
-  stores$: Observable<Array<IStore>>;
+  store$: Observable<IStore>;
 
   private _licenseId: string;
 
@@ -48,7 +48,7 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
         select(LicenseAccountSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(StoresSelectors.selectIsGetProcess),
+        select(StoreSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(LicenseTypesSelectors.selectIsGetProcess),
@@ -57,15 +57,15 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(TerminalsSelectors.selectIsGetProcess),
+        select(TerminalSelectors.selectIsGetProcess),
       ),
     ]).pipe(
-      map(([isLicenseAccountGetProcess, isStoresGetProcess,
+      map(([isLicenseAccountGetProcess, isStoreGetProcess,
         isLicenseTypesGetProcess, isIntegrationsGetProcess,
-        isTerminalsGetProcess]) =>
-        isLicenseAccountGetProcess || isStoresGetProcess ||
+        isTerminalGetProcess]) =>
+        isLicenseAccountGetProcess || isStoreGetProcess ||
         isLicenseTypesGetProcess || isIntegrationsGetProcess ||
-        isTerminalsGetProcess),
+        isTerminalGetProcess),
     );
 
     this.integrations$ = this._store.pipe(
@@ -79,21 +79,33 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
     this.license$ = this._store.pipe(
       select(LicenseAccountSelectors.selectEntity),
     );
-
-    this.terminals$ = this._store.pipe(
-      select(TerminalsSelectors.selectCollection),
+    
+    this.terminal$ = this._store.pipe(
+      select(TerminalSelectors.selectEntity),
     );
 
-    this.stores$ = this._store.pipe(
-      select(StoresSelectors.selectCollection),
+    this.terminal$.pipe(
+      takeUntil(this.unsubscribe$),
+      filter(t => !!t),
+    ).subscribe(terminal => {
+      if (!!terminal.storeId) {
+        this._store.dispatch(StoreActions.getRequest({ id: terminal.storeId }));
+      }
+    });
+
+    this.store$ = this._store.pipe(
+      select(StoreSelectors.selectEntity),
     );
 
     this.license$.pipe(
       takeUntil(this.unsubscribe$),
       filter(license => !!license),
-      filter(license => this._licenseId !== license.id),
     ).subscribe(license => {
       this._licenseId = license.id;
+
+      if (!!license.terminalId) {
+        this._store.dispatch(TerminalActions.getRequest({ id: license.terminalId }));
+      }
     });
 
     if (!!this._licenseId) {
@@ -102,8 +114,6 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
 
     this._store.dispatch(LicenseTypesActions.getAllRequest());
     this._store.dispatch(IntegrationsActions.getAllRequest());
-    this._store.dispatch(TerminalsActions.getAllRequest());
-    this._store.dispatch(StoresActions.getAllRequest());
   }
 
   ngOnDestroy(): void {

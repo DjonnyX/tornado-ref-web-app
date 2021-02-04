@@ -7,11 +7,16 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LicenseActions } from '@store/actions/license.action';
 import { LicenseSelectors } from '@store/selectors/license.selectors';
-import { IAccount, IIntegration, ILicense, ILicenseType, IStore } from '@djonnyx/tornado-types';
-import { AccountsSelectors, IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors } from '@store/selectors';
+import { IAccount, IIntegration, ILicenseAccount, ILicenseType, IStore, ITerminal } from '@djonnyx/tornado-types';
+import {
+  AccountsSelectors, IntegrationsSelectors, LicenseTypesSelectors,
+  StoreSelectors, TerminalSelectors,
+} from '@store/selectors';
 import { LicenseTypesActions } from '@store/actions/license-types.action';
 import { IntegrationsActions } from '@store/actions/integrations.action';
 import { AccountsActions } from '@store/actions/accounts.action';
+import { TerminalActions } from '@store/actions/terminal.action';
+import { StoreActions } from '@store/actions/store.action';
 
 @Component({
   selector: 'ta-license-creator',
@@ -23,7 +28,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
   public isProcess$: Observable<boolean>;
 
-  license$: Observable<ILicense>;
+  license$: Observable<ILicenseAccount>;
 
   licenseTypes$: Observable<Array<ILicenseType>>;
 
@@ -31,7 +36,9 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
   accounts$: Observable<Array<IAccount>>;
 
-  stores$: Observable<Array<IStore>>;
+  terminal$: Observable<ITerminal>;
+
+  store$: Observable<IStore>;
 
   isEditMode = false;
 
@@ -57,7 +64,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
         select(LicenseSelectors.selectIsUpdateProcess),
       ),
       this._store.pipe(
-        select(StoresSelectors.selectIsGetProcess),
+        select(StoreSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(LicenseTypesSelectors.selectIsGetProcess),
@@ -68,11 +75,14 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(AccountsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(TerminalSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isLicenseGetProcess, isLicenseCreateProcess, isLicenseUpdateProcess, isStoresGetProcess,
-        isLicenseTypesGetProcess, isIntegrationsGetProcess, isAccountsGetProcess]) =>
-        isLicenseGetProcess || isLicenseCreateProcess || isLicenseUpdateProcess || isStoresGetProcess ||
-        isLicenseTypesGetProcess || isIntegrationsGetProcess || isAccountsGetProcess),
+      map(([isLicenseGetProcess, isLicenseCreateProcess, isLicenseUpdateProcess, isStoreGetProcess,
+        isLicenseTypesGetProcess, isIntegrationsGetProcess, isAccountsGetProcess, isTerminalGetProcess]) =>
+        isLicenseGetProcess || isLicenseCreateProcess || isLicenseUpdateProcess || isStoreGetProcess ||
+        isLicenseTypesGetProcess || isIntegrationsGetProcess || isAccountsGetProcess || isTerminalGetProcess),
     );
 
     this.integrations$ = this._store.pipe(
@@ -91,17 +101,33 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       select(AccountsSelectors.selectCollection),
     );
 
-    this.stores$ = this._store.pipe(
-      select(StoresSelectors.selectCollection),
+    this.terminal$ = this._store.pipe(
+      select(TerminalSelectors.selectEntity),
+    );
+
+    this.terminal$.pipe(
+      takeUntil(this.unsubscribe$),
+      filter(t => !!t),
+    ).subscribe(terminal => {
+      if (!!terminal.storeId) {
+        this._store.dispatch(StoreActions.getRequest({ id: terminal.storeId }));
+      }
+    });
+
+    this.store$ = this._store.pipe(
+      select(StoreSelectors.selectEntity),
     );
 
     this.license$.pipe(
       takeUntil(this.unsubscribe$),
       filter(license => !!license),
-      filter(license => this._licenseId !== license.id),
     ).subscribe(license => {
       this._licenseId = license.id;
       this.isEditMode = !!this._licenseId;
+
+      if (!!license.terminalId) {
+        this._store.dispatch(TerminalActions.getRequest({ id: license.terminalId }));
+      }
     });
 
     if (!!this._licenseId) {
@@ -119,7 +145,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(LicenseActions.clear());
   }
 
-  onSubmit(license: ILicense): void {
+  onSubmit(license: ILicenseAccount): void {
     if (this.isEditMode) {
       this._store.dispatch(LicenseActions.updateRequest({ id: license.id, license }));
     } else {
