@@ -123,14 +123,10 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
   }
 
   onCancel(): void {
-    this._router.navigate(["../", {
-      relativeTo: this._activatedRoute,
-    }]);
+    this._router.navigate(["/admin/licenses-account"]);
   }
 
   onToBack(): void {
-    this._router.navigate(["../", {
-      relativeTo: this._activatedRoute,
-    }]);
+    this._router.navigate(["/admin/licenses-account"]);
   }
 }
