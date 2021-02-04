@@ -108,7 +108,7 @@ export class SelectorsEditorContainer implements OnInit {
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url, type: this._selectorsType },
+      queryParams: { type: this._selectorsType },
     });
   }
 
@@ -118,7 +118,7 @@ export class SelectorsEditorContainer implements OnInit {
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: selector.id, returnUrl: this._router.routerState.snapshot.url, type: this._selectorsType },
+      queryParams: { id: selector.id, type: this._selectorsType },
     });
   }
 

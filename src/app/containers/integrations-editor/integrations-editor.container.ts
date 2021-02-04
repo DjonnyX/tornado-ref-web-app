@@ -45,7 +45,7 @@ export class IntegrationsEditorContainer implements OnInit {
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: integration.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: integration.id, },
     });
   }
 

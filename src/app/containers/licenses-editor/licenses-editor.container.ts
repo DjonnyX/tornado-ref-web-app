@@ -75,7 +75,6 @@ export class LicensesEditorContainer implements OnInit {
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
@@ -84,7 +83,7 @@ export class LicensesEditorContainer implements OnInit {
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: license.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: license.id, },
     });
   }
 
@@ -93,7 +92,7 @@ export class LicensesEditorContainer implements OnInit {
 
     this._router.navigate(["view"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: license.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: license.id, },
     });
   }
 

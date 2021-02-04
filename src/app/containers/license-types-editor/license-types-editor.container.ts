@@ -63,7 +63,6 @@ export class LicenseTypesEditorContainer implements OnInit {
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
@@ -72,7 +71,7 @@ export class LicenseTypesEditorContainer implements OnInit {
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: licenseType.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: licenseType.id, },
     });
   }
 

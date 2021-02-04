@@ -45,7 +45,6 @@ export class StoresEditorContainer implements OnInit {
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
@@ -55,7 +54,7 @@ export class StoresEditorContainer implements OnInit {
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: store.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: store.id, },
     });
   }
 

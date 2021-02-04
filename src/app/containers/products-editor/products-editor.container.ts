@@ -109,7 +109,6 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url }
     });
   }
 
@@ -118,7 +117,7 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: product.id, returnUrl: this._router.routerState.snapshot.url }
+      queryParams: { id: product.id, }
     });
   }
 
