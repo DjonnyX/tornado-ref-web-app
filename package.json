@@ -12,8 +12,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "flattenroutes": "tsc --project utils/routing-exporter/tsconfig.json && node \"utils/routing-exporter/.bin\" src/app/app-routing.module.ts routes txt && node \"utils/cleanup.js\" ./utils/routing-exporter/.bin"
+    "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
