@@ -5,7 +5,7 @@
     "email": "djonnyx@gmail.com",
     "name": "Eugene Grebennikov"
   },
-  "description": "Ref server for Tornado SST",
+  "description": "PA & AP systems for TornadoSST",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
