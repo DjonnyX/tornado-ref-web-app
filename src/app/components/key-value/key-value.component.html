@@ -3,7 +3,14 @@
         {{data?.key}}
     </span>
     <span class="key-value__separator"></span>
-    <span class="key-value__value">
-        {{data?.value}}
-    </span>
+    <ng-container *ngIf="!!data?.link; else value">
+        <a [routerLink]="data?.link" class="key-value__value">
+            {{data?.value}}
+        </a>
+    </ng-container>
+    <ng-template #value>
+        <span class="key-value__value">
+            {{data?.value}}
+        </span>
+    </ng-template>
 </div>

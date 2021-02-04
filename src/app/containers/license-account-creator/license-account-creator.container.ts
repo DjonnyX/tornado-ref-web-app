@@ -7,11 +7,12 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LicenseAccountActions } from '@store/actions/license-account.action';
 import { LicenseAccountSelectors } from '@store/selectors/license-account.selectors';
-import { IAccount, IIntegration, ILicenseAccount, ILicenseType, IStore } from '@djonnyx/tornado-types';
-import { AccountsSelectors, IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors } from '@store/selectors';
+import { IIntegration, ILicenseAccount, ILicenseType, IStore, ITerminal } from '@djonnyx/tornado-types';
+import { IntegrationsSelectors, LicenseTypesSelectors, StoresSelectors, TerminalsSelectors } from '@store/selectors';
 import { LicenseTypesActions } from '@store/actions/license-types.action';
 import { IntegrationsActions } from '@store/actions/integrations.action';
-import { AccountsActions } from '@store/actions/accounts.action';
+import { TerminalsActions } from '@store/actions/terminals.action';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-license-account-creator',
@@ -33,11 +34,9 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
 
   integrations$: Observable<Array<IIntegration>>;
 
-  accounts$: Observable<Array<IAccount>>;
+  terminals$: Observable<Array<ITerminal>>;
 
   stores$: Observable<Array<IStore>>;
-
-  isEditMode = false;
 
   private _licenseId: string;
 
@@ -49,8 +48,6 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
     this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
 
     this._licenseId = this._activatedRoute.snapshot.queryParams["id"];
-
-    this.isEditMode = !!this._licenseId;
 
     this.isProcess$ = combineLatest([
       this._store.pipe(
@@ -66,13 +63,15 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(AccountsSelectors.selectIsGetProcess),
+        select(TerminalsSelectors.selectIsGetProcess),
       ),
     ]).pipe(
       map(([isLicenseAccountGetProcess, isStoresGetProcess,
-        isLicenseTypesGetProcess, isIntegrationsGetProcess, isAccountsGetProcess]) =>
+        isLicenseTypesGetProcess, isIntegrationsGetProcess,
+        isTerminalsGetProcess]) =>
         isLicenseAccountGetProcess || isStoresGetProcess ||
-        isLicenseTypesGetProcess || isIntegrationsGetProcess || isAccountsGetProcess),
+        isLicenseTypesGetProcess || isIntegrationsGetProcess ||
+        isTerminalsGetProcess),
     );
 
     this.integrations$ = this._store.pipe(
@@ -87,8 +86,8 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
       select(LicenseAccountSelectors.selectEntity),
     );
 
-    this.accounts$ = this._store.pipe(
-      select(AccountsSelectors.selectCollection),
+    this.terminals$ = this._store.pipe(
+      select(TerminalsSelectors.selectCollection),
     );
 
     this.stores$ = this._store.pipe(
@@ -101,7 +100,6 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
       filter(license => this._licenseId !== license.id),
     ).subscribe(license => {
       this._licenseId = license.id;
-      this.isEditMode = !!this._licenseId;
     });
 
     if (!!this._licenseId) {
@@ -110,7 +108,8 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
 
     this._store.dispatch(LicenseTypesActions.getAllRequest());
     this._store.dispatch(IntegrationsActions.getAllRequest());
-    this._store.dispatch(AccountsActions.getAllRequest());
+    this._store.dispatch(TerminalsActions.getAllRequest());
+    this._store.dispatch(StoresActions.getAllRequest());
   }
 
   ngOnDestroy(): void {

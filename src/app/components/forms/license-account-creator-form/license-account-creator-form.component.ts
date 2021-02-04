@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicenseAccount, ILicenseType, IAccount, LicenseStatuses, LicenseStates } from '@djonnyx/tornado-types';
+import { IIntegration, ILicenseAccount, ILicenseType, IAccount, LicenseStatuses, LicenseStates, ITerminal, IStore } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
-interface ISelectOption extends Array<{ name: string, value: number | string }> { }
+interface ISelectOption extends Array<{ name: string, value: number | string, link?: string }> { }
 
 const LICENSE_STATUSES: ISelectOption = [
   {
@@ -51,6 +51,9 @@ interface IData {
   integration: IKeyValue;
   integrationDescription: IKeyValue;
   integrationVersion: IKeyValue;
+  terminalName: IKeyValue;
+  terminalStoreName: IKeyValue;
+  terminalStoreAddress: IKeyValue;
 }
 
 @Component({
@@ -71,6 +74,52 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
   @Input() licenseTypes: Array<ILicenseType>;
 
   @Input() accounts: Array<IAccount>;
+
+  private _terminalsMap: { [id: string]: ITerminal };
+
+  get terminalsMap() {
+    return this._terminalsMap;
+  }
+
+  private _terminals: Array<ITerminal>;
+  @Input() set terminals(v: Array<ITerminal>) {
+    if (this._terminals !== v) {
+      this._terminals = v;
+
+      this._terminalsMap = {};
+
+      if (this._terminals) {
+        this._terminals.forEach(t => {
+          this._terminalsMap[t.id] = t;
+        });
+      }
+
+      this.generateData();
+    }
+  }
+
+  private _storesMap: { [id: string]: IStore };
+
+  get storesMap() {
+    return this._storesMap;
+  }
+
+  private _stores: Array<IStore>;
+  @Input() set stores(v: Array<IStore>) {
+    if (this._stores !== v) {
+      this._stores = v;
+
+      this._storesMap = {};
+
+      if (this._stores) {
+        this._stores.forEach(t => {
+          this._storesMap[t.id] = t;
+        });
+      }
+
+      this.generateData();
+    }
+  }
 
   private _integrationsMap: { [id: string]: IIntegration };
 
@@ -119,6 +168,10 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
   }
 
   private generateData(): void {
+    if (!this._integrationsMap || !this._storesMap || !this._terminalsMap) {
+      return;
+    }
+
     this._data = {
       name: {
         key: "Название",
@@ -160,6 +213,19 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
         key: "Версия интеграции",
         value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.version.version : '',
       },
+      terminalName: {
+        key: "Название терминала",
+        value: !!this._terminalsMap ? this._terminalsMap[this._license?.terminalId]?.name : '',
+        link: ["/admin/terminals", `edit?id=${this._license?.terminalId}`],
+      },
+      terminalStoreName: {
+        key: "Название магазина",
+        value: !!this._terminalsMap && !!this._storesMap ? this._storesMap[this._terminalsMap[this._license?.terminalId]?.storeId]?.name : '',
+      },
+      terminalStoreAddress: {
+        key: "Адрес магазина",
+        value: !!this._terminalsMap && !!this._storesMap ? this._storesMap[this._terminalsMap[this._license?.terminalId]?.storeId]?.address : '',
+      },
     }
   }
 
@@ -178,5 +244,9 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  isBindToTerminal(): boolean {
+    return !!this._license.terminalId && !!this._terminalsMap[this._license.terminalId];
   }
 }

@@ -4,8 +4,8 @@
             Назад
         </div>
         <div class="form">
-            <ta-license-account-creator-form [license]="license$ | async"
-                [accounts]="accounts$ | async" [licenseTypes]="licenseTypes$ | async"
+            <ta-license-account-creator-form [license]="license$ | async" [stores]="stores$ | async"
+                [terminals]="terminals$ | async" [licenseTypes]="licenseTypes$ | async"
                 [integrations]="integrations$ | async" (cancel)="onCancel()">
             </ta-license-account-creator-form>
         </div>
