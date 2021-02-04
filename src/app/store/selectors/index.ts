@@ -31,6 +31,8 @@ export { TerminalSelectors } from "./terminal.selectors";
 export { TerminalsSelectors } from "./terminals.selectors";
 export { LicenseSelectors } from "./license.selectors";
 export { LicensesSelectors } from "./licenses.selectors";
+export { LicenseAccountSelectors } from "./license-account.selectors";
+export { LicensesAccountSelectors } from "./licenses-account.selectors";
 export { LicenseTypeSelectors } from "./license-type.selectors";
 export { LicenseTypesSelectors } from "./license-types.selectors";
 export { ApplicationSelectors } from "./application.selectors";

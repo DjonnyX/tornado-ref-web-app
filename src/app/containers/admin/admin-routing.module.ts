@@ -120,6 +120,13 @@ const routes: Routes = [
           )
       },
       {
+        path: 'licenses-account',
+        loadChildren: () =>
+          import('@containers/licenses-account-editor/licenses-account-editor.module').then(
+            module => module.LicensesAccountEditorModule,
+          ),
+      },
+      {
         path: 'licenses',
         loadChildren: () =>
           import('@containers/licenses-editor/licenses-editor.module').then(

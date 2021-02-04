@@ -63,7 +63,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "license",
           name: "Лицензии",
-          route: "licenses",
+          route: "licenses-account",
         },
         {
           icon: "terminal",
