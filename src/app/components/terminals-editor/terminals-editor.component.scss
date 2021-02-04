@@ -1,8 +1,8 @@
 @import "../../../styles/components/entity-editor";
 @import "../../../styles/utils/px2em";
 
-$entity-height-m: px2em(100);
-$entity-height-d: px2em(110);
+$entity-height-m: px2em(120);
+$entity-height-d: px2em(130);
 $entity-width-m: px2em(140);
 $entity-width-d: px2em(190);
 
@@ -10,8 +10,8 @@ $entity-width-d: px2em(190);
     .entity {
         .color {
             width: 100%;
-            height: px2em(10);
-            min-height: px2em(10);
+            height: px2em(4);
+            min-height: px2em(4);
         }
     }
 }

@@ -10,7 +10,7 @@
                 </p>
             </div>
 
-            <ta-terminal-creator-form [isEditMode]="isEditMode" [terminal]="terminal$ | async" [terminal]="stores$ | async" (submitForm)="onSubmit($event)"
+            <ta-terminal-creator-form [isEditMode]="isEditMode" [terminal]="terminal$ | async" [stores]="stores$ | async" (submitForm)="onSubmit($event)"
                 (cancel)="onCancel()"></ta-terminal-creator-form>
         </div>
     </div>

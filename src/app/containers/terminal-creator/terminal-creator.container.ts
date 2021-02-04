@@ -9,6 +9,7 @@ import { TerminalActions } from '@store/actions/terminal.action';
 import { TerminalSelectors } from '@store/selectors/terminal.selectors';
 import { ITerminal, IStore } from '@djonnyx/tornado-types';
 import { StoresSelectors } from '@store/selectors';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-terminal-creator',
@@ -43,7 +44,7 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
 
     this.isEditMode = !!this._terminalId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(TerminalSelectors.selectIsGetProcess),
       ),
@@ -53,7 +54,7 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isTerminalGetProcess, selectIsUpdateProcess, isStoresGetProcess]) => isTerminalGetProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
@@ -77,6 +78,8 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
     if (!!this._terminalId) {
       this._store.dispatch(TerminalActions.getRequest({ id: this._terminalId }));
     }
+
+    this._store.dispatch(StoresActions.getAllRequest());
   }
 
   ngOnDestroy(): void {

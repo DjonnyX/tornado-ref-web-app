@@ -1,12 +1,15 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TerminalsActions } from '@store/actions/terminals.action';
 import { TerminalsSelectors } from '@store/selectors/terminals.selectors';
 import { TerminalActions } from '@store/actions/terminal.action';
-import { ITerminal, IRef } from '@djonnyx/tornado-types';
+import { ITerminal, IRef, IStore } from '@djonnyx/tornado-types';
+import { map } from 'rxjs/operators';
+import { StoresSelectors } from '@store/selectors';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-terminals-editor',
@@ -20,30 +23,44 @@ export class TerminalsEditorContainer implements OnInit {
 
   public collection$: Observable<Array<ITerminal>>;
 
+  public stores$: Observable<Array<IStore>>;
+
   public refInfo$: Observable<IRef>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.isProcess$ = this._store.pipe(
-      select(TerminalsSelectors.selectLoading),
+    this.isProcess$ = combineLatest([
+      this._store.pipe(
+        select(TerminalsSelectors.selectLoading),
+      ),
+      this._store.pipe(
+        select(StoresSelectors.selectLoading),
+      ),
+    ]).pipe(
+      map(([isTerminalsLoading, isStoresLoading]) =>
+        isTerminalsLoading || isStoresLoading)
     );
 
     this.collection$ = this._store.pipe(
       select(TerminalsSelectors.selectCollection),
     );
 
+    this.stores$ = this._store.pipe(
+      select(StoresSelectors.selectCollection),
+    );
+
     this.refInfo$ = this._store.pipe(
       select(TerminalsSelectors.selectRefInfo),
     );
-    
+
     this._store.dispatch(TerminalsActions.getAllRequest());
+    this._store.dispatch(StoresActions.getAllRequest());
   }
 
   onCreate(): void {
-
     this._store.dispatch(TerminalActions.clear());
-    
+
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
       queryParams: { returnUrl: this._router.routerState.snapshot.url },
@@ -51,7 +68,6 @@ export class TerminalsEditorContainer implements OnInit {
   }
 
   onEdit(terminal: ITerminal): void {
-
     this._store.dispatch(TerminalActions.clear());
 
     this._router.navigate(["edit"], {
@@ -61,7 +77,7 @@ export class TerminalsEditorContainer implements OnInit {
   }
 
   onUpdate(terminal: ITerminal): void {
-    this._store.dispatch(TerminalsActions.updateRequest({id: terminal.id, terminal}));
+    this._store.dispatch(TerminalsActions.updateRequest({ id: terminal.id, terminal }));
   }
 
   onDelete(id: string): void {

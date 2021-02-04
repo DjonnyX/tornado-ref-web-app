@@ -42,7 +42,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
 
     this.form = this._fb.group({
       name: this.ctrlName,
-      store: this.ctrlStore,
+      storeId: this.ctrlStore,
     })
   }
 

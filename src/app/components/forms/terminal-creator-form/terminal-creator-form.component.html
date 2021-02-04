@@ -3,7 +3,7 @@
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Имя терминала</mat-label>
-                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя терминала">
+                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя терминала" required>
                 <mat-error *ngIf="ctrlName.hasError('required')">
                     <strong>обязательное</strong>
                 </mat-error>
@@ -14,7 +14,7 @@
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Магазин</mat-label>
-                    <mat-select [formControl]="ctrlStore">
+                    <mat-select [formControl]="ctrlStore" required>
                         <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
