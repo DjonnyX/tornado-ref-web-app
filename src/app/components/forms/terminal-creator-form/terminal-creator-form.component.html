@@ -1,30 +1,105 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
-    <div class="form__input-block">
-        <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Имя терминала</mat-label>
-                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя терминала" required>
-                <mat-error *ngIf="ctrlName.hasError('required')">
-                    <strong>обязательное</strong>
-                </mat-error>
-            </mat-form-field>
-        </div>
-        
-        <div class="form__input-block">
-            <div class="form-item">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Магазин</mat-label>
-                    <mat-select [formControl]="ctrlStore" required>
-                        <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+<form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div style="width: 100%;">
+        <div>
+            <div class="form__main-options">
+                <h1 class="form-header">
+                    Информация об устройстве
+                </h1>
+
+                <div class="form__input-block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalType"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalImei"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalStatus"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalLastwork"></ta-key-value>
+                    </div>
+                </div>
+
+                <h1 class="form-header">
+                    Магазин
+                </h1>
+
+                <div class="form__input-block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalStoreName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalStoreAddress"></ta-key-value>
+                    </div>
+                </div>
+
+                <h1 class="form-header">
+                    Лицензия
+                </h1>
+
+                <div class="form__input-block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalLicenseType"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalLicenseDateStart"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.terminalLicenseDateEnd"></ta-key-value>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
-        <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+        <button mat-button class="button button__text" (click)="onCancel()">Закрыть</button>
+        <button mat-flat-button color="accent" class="button button__text" (click)="onEdit()">
+            Редактировать
+        </button>
     </div>
 </form>
+
+<ng-template #editForm>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+        <div class="form__input-block">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Имя терминала</mat-label>
+                    <input matInput type="text" [formControl]="ctrlName" placeholder="Имя терминала" required>
+                    <mat-error *ngIf="ctrlName.hasError('required')">
+                        <strong>обязательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form__input-block">
+                <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <mat-label>Магазин</mat-label>
+                        <mat-select [formControl]="ctrlStore" required>
+                            <mat-option *ngFor="let store of stores" [value]="store.id">{{store.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div class="form__submit" align="end">
+            <button mat-button class="button button__text" (click)="onEditCancel()">Отменить</button>
+            <button mat-flat-button color="accent" type="submit" class="button button__text"
+                [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+        </div>
+    </form>
+</ng-template>
