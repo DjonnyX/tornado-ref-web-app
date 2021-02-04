@@ -191,39 +191,39 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     this._data = {
       name: {
         key: "Название",
-        value: this._license?.licType?.name,
+        value: this._license?.licType?.name || ' ---',
       },
       price: {
         key: "Цена",
-        value: (this._license?.licType?.price * 0.01).toFixed(2),
+        value: (this._license?.licType?.price * 0.01).toFixed(2) || ' ---',
       },
       dateStart: {
         key: "Время начала лицензионного периода",
-        value: moment(this._license?.dateStart).format("DD-MM-YYYY"),
+        value: moment(this._license?.dateStart).format("DD-MM-YYYY") || ' ---',
       },
       dateEnd: {
         key: "Время завершения лицензионного периода",
-        value: moment(this._license?.dateEnd).format("DD-MM-YYYY"),
+        value: moment(this._license?.dateEnd).format("DD-MM-YYYY") || ' ---',
       },
       key: {
         key: "Лицензионный ключ",
-        value: this._license?.key,
+        value: this._license?.key || ' ---',
       },
       state: {
         key: "Статус",
-        value: String(this._license?.state),
+        value: String(this._license?.state) || ' ---',
       },
       status: {
         key: "Состояние",
-        value: this._license?.status,
+        value: this._license?.status || ' ---',
       },
       integration: {
         key: "Название",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : '',
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : ' ---',
       },
       integrationDescription: {
         key: "Описание интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : '',
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
@@ -231,15 +231,15 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       },
       terminalName: {
         key: "Название терминала",
-        value: this._terminal?.name || '',
+        value: this._terminal?.name || ' ---',
       },
       terminalStoreName: {
         key: "Название магазина",
-        value: this._store?.name || '',
+        value: this._store?.name || ' ---',
       },
       terminalStoreAddress: {
         key: "Адрес магазина",
-        value: this._store?.address || '',
+        value: this._store?.address || ' ---',
       },
     }
   }
@@ -255,7 +255,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       event.stopImmediatePropagation();
       event.preventDefault();
 
-      this.onSave();
+      this.onSubmit();
     }
   }
 
@@ -263,7 +263,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     this.isEdit = true;
   }
 
-  onSave(): void {
+  onSubmit(): void {
     if (this.form.valid) {
 
       this.save.emit({

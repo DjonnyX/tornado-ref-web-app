@@ -148,56 +148,56 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
     this._data = {
       name: {
         key: "Название",
-        value: this._license?.licType?.name,
+        value: this._license?.licType?.name || ' ---',
       },
       price: {
         key: "Цена",
-        value: (this._license?.licType?.price * 0.01).toFixed(2),
+        value: (this._license?.licType?.price * 0.01).toFixed(2) || ' ---',
       },
       dateStart: {
         key: "Время начала лицензионного периода",
-        value: moment(this._license?.dateStart).format("DD-MM-YYYY"),
+        value: moment(this._license?.dateStart).format("DD-MM-YYYY") || ' ---',
       },
       dateEnd: {
         key: "Время завершения лицензионного периода",
-        value: moment(this._license?.dateEnd).format("DD-MM-YYYY"),
+        value: moment(this._license?.dateEnd).format("DD-MM-YYYY") || ' ---',
       },
       key: {
         key: "Лицензионный ключ",
-        value: this._license?.key,
+        value: this._license?.key || ' ---',
       },
       state: {
         key: "Статус",
-        value: String(this._license?.state),
+        value: String(this._license?.state) || ' ---',
       },
       status: {
         key: "Состояние",
-        value: this._license?.status,
+        value: this._license?.status || ' ---',
       },
       integration: {
         key: "Название",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : '',
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : ' ---',
       },
       integrationDescription: {
         key: "Описание интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : '',
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.version.version : '',
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.version.version : ' ---',
       },
       terminalName: {
         key: "Название терминала",
-        value: this._terminal?.name || '',
+        value: this._terminal?.name || ' ---',
         link: ["/admin/terminals/edit", { id: this._license?.terminalId }],
       },
       terminalStoreName: {
         key: "Название магазина",
-        value: this._store?.name || '',
+        value: this._store?.name || ' ---',
       },
       terminalStoreAddress: {
         key: "Адрес магазина",
-        value: this._store?.address || '',
+        value: this._store?.address || ' ---',
       },
     }
   }

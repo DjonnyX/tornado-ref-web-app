@@ -83,7 +83,7 @@
 </form>
 
 <ng-template #editForm>
-    <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
         <div style="width: 100%;">
             <div>
                 <h1 class="form-header">
