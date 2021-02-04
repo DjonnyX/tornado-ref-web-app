@@ -19,10 +19,6 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _storeEntity: IStore;
-
   store$: Observable<IStore>;
 
   isEditMode = false;
@@ -34,20 +30,18 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._storeEntityId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._storeEntityId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(StoreSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(StoreSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isStoreGetProcess, isStoreUpdateProcess]) => isStoreGetProcess || isStoreUpdateProcess),
     );
 
@@ -81,15 +75,13 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
     } else {
       this._store.dispatch(StoreActions.createRequest({ store }));
     }
-
-    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/stores"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/stores"]);
   }
 }

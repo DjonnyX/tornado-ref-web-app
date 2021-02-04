@@ -4,7 +4,7 @@
     </span>
     <span class="key-value__separator"></span>
     <ng-container *ngIf="!!data?.link; else value">
-        <a [routerLink]="data?.link" class="key-value__value">
+        <a [routerLink]="data?.link[0]" [queryParams]="data?.link[1]" class="key-value__value">
             {{data?.value}}
         </a>
     </ng-container>

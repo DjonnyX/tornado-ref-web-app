@@ -51,9 +51,6 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
   }
 
   ngOnInit(): void {
-
-    this._store.dispatch(MenuNodesActions.getRootNodeIdRequest());
-
     this.rootNodeId$ = this._store.pipe(
       select(MenuNodesSelectors.selectRootNodeId),
     );
@@ -115,7 +112,7 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       filter(language => !!language),
     );
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(MenuNodesSelectors.selectLoading),
       ),
@@ -140,10 +137,14 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(OrderTypesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading, assetsLoading, isCurrenciesProcess, isLanguagesProcess, isOrderTypesProcess]) => 
-      (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading || assetsLoading || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess)),
+    ]).pipe(
+      map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading,
+        assetsLoading, isCurrenciesProcess, isLanguagesProcess, isOrderTypesProcess]) =>
+      (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading ||
+        assetsLoading || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess)),
     );
+
+    this._store.dispatch(MenuNodesActions.getRootNodeIdRequest());
   }
 
   ngOnDestroy(): void {

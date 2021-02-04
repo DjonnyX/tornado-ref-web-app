@@ -34,15 +34,16 @@ export class LanguagesEditorContainer implements OnInit {
 
     this._store.dispatch(AssetsActions.getAllRequest());
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(LanguagesSelectors.selectLoading),
       ),
       this._store.pipe(
         select(AssetsSelectors.selectLoading),
       ),
-    ).pipe(
-      map(([isProductsProgress, isAssetsProgress]) => isProductsProgress || isAssetsProgress),
+    ]).pipe(
+      map(([isProductsProgress, isAssetsProgress]) =>
+      isProductsProgress || isAssetsProgress),
     );
 
     this.collection$ = this._store.pipe(
@@ -61,7 +62,7 @@ export class LanguagesEditorContainer implements OnInit {
   onCreate(): void {
 
     this._store.dispatch(LanguageActions.clear());
-    
+
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
       queryParams: { returnUrl: this._router.routerState.snapshot.url },
@@ -79,11 +80,11 @@ export class LanguagesEditorContainer implements OnInit {
   }
 
   onUpdate(language: ILanguage): void {
-    this._store.dispatch(LanguagesActions.updateRequest({id: language.id, language}));
+    this._store.dispatch(LanguagesActions.updateRequest({ id: language.id, language }));
   }
 
   onUpdateAll(language: ILanguage): void {
-    this._store.dispatch(LanguagesActions.updateRequest({id: language.id, language, setDafault: true}));
+    this._store.dispatch(LanguagesActions.updateRequest({ id: language.id, language, setDafault: true }));
   }
 
   onDelete(id: string): void {

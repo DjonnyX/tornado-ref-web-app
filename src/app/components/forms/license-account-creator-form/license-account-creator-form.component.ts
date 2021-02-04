@@ -216,7 +216,7 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
       terminalName: {
         key: "Название терминала",
         value: !!this._terminalsMap ? this._terminalsMap[this._license?.terminalId]?.name : '',
-        link: ["/admin/terminals", `edit?id=${this._license?.terminalId}`],
+        link: ["/admin/terminals/edit", { id: this._license?.terminalId }],
       },
       terminalStoreName: {
         key: "Название магазина",

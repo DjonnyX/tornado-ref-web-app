@@ -20,10 +20,10 @@
                     <div *ngIf="!!license.licType?.name" class="content__name">
                         {{license.licType?.name}}
                     </div>
-                    <div class="content__description" style="text-transform: none;">
+                    <div *ngIf="!!integrationsMap" class="content__description" style="text-transform: none;">
                         Интеграция: {{integrationsMap[license.licType?.integrationId]?.name}}
                     </div>
-                    <div class="content__description" style="text-transform: none;">
+                    <div *ngIf="!!accountsMap" class="content__description" style="text-transform: none;">
                         <span>
                             Клиент: {{accountsMap[license.clientId]?.email}}
                         </span>

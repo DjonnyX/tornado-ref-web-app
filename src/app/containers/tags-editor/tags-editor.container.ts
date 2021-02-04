@@ -30,20 +30,14 @@ export class TagsEditorContainer implements OnInit {
 
   defaultLanguage$: Observable<ILanguage>;
 
-  isPrepareToShow$ : Observable<boolean>;
+  isPrepareToShow$: Observable<boolean>;
 
   public refInfo$: Observable<IRef>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(TagsActions.getAllRequest());
-
-    this._store.dispatch(AssetsActions.getAllRequest());
-
-    this._store.dispatch(LanguagesActions.getAllRequest());
-
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(TagsSelectors.selectLoading),
       ),
@@ -53,8 +47,9 @@ export class TagsEditorContainer implements OnInit {
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isProductsProgress, isAssetsProgress, isLanguageProgress]) => isProductsProgress || isAssetsProgress || isLanguageProgress),
+    ]).pipe(
+      map(([isProductsProgress, isAssetsProgress, isLanguageProgress]) =>
+        isProductsProgress || isAssetsProgress || isLanguageProgress),
     );
 
     this.collection$ = this._store.pipe(
@@ -79,17 +74,21 @@ export class TagsEditorContainer implements OnInit {
       filter(language => !!language),
     );
 
-    this.isPrepareToShow$ = combineLatest(
+    this.isPrepareToShow$ = combineLatest([
       this.collection$,
       this.assets$,
       this.languages$,
-    ).pipe(
-        map(([collection, assets, languages]) => !!collection && !!assets && !!languages),
+    ]).pipe(
+      map(([collection, assets, languages]) =>
+        !!collection && !!assets && !!languages),
     );
+
+    this._store.dispatch(TagsActions.getAllRequest());
+    this._store.dispatch(AssetsActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest());
   }
 
   onCreate(): void {
-
     this._store.dispatch(TagActions.clear());
 
     this._router.navigate(["create"], {
@@ -99,7 +98,6 @@ export class TagsEditorContainer implements OnInit {
   }
 
   onEdit(tag: ITag): void {
-
     this._store.dispatch(TagActions.clear());
 
     this._router.navigate(["edit"], {

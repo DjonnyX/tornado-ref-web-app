@@ -28,7 +28,7 @@ export class BusinessPeriodsEditorContainer implements OnInit {
 
   defaultLanguage$: Observable<ILanguage>;
 
-  isPrepareToShow$ : Observable<boolean>;
+  isPrepareToShow$: Observable<boolean>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
@@ -36,15 +36,16 @@ export class BusinessPeriodsEditorContainer implements OnInit {
     this._store.dispatch(BusinessPeriodsActions.getAllRequest());
     this._store.dispatch(LanguagesActions.getAllRequest());
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(BusinessPeriodsSelectors.selectLoading),
       ),
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isProductsProgress, isLanguageProgress]) => isProductsProgress || isLanguageProgress),
+    ]).pipe(
+      map(([isProductsProgress, isLanguageProgress]) =>
+        isProductsProgress || isLanguageProgress),
     );
 
     this.collection$ = this._store.pipe(
@@ -65,16 +66,15 @@ export class BusinessPeriodsEditorContainer implements OnInit {
       filter(language => !!language),
     );
 
-    this.isPrepareToShow$ = combineLatest(
+    this.isPrepareToShow$ = combineLatest([
       this.collection$,
       this.languages$,
-    ).pipe(
-        map(([collection, languages]) => !!collection && !!languages),
+    ]).pipe(
+      map(([collection, languages]) => !!collection && !!languages),
     );
   }
 
   onCreate(): void {
-
     this._store.dispatch(BusinessPeriodActions.clear());
 
     this._router.navigate(["create"], {
@@ -88,7 +88,6 @@ export class BusinessPeriodsEditorContainer implements OnInit {
   }
 
   onEdit(businessPeriod: IBusinessPeriod): void {
-
     this._store.dispatch(BusinessPeriodActions.clear());
 
     this._router.navigate(["edit"], {

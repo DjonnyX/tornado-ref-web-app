@@ -48,14 +48,10 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
   isEditMode = false;
 
-  private _returnUrl: string;
-
   private _tagId: string;
 
   private _tagId$ = new BehaviorSubject<string>(undefined);
   readonly tagId$ = this._tagId$.asObservable();
-
-  private _tag: ITag;
 
   private _defaultLanguage: ILanguage;
 
@@ -64,14 +60,12 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._tagId = this._activatedRoute.snapshot.queryParams["id"];
     this._tagId$.next(this._tagId);
 
     this.isEditMode = !!this._tagId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(TagSelectors.selectIsGetProcess),
       ),
@@ -84,23 +78,24 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isGetTagProcess, isTagsProcess, isAssetsProcess, isLanguagesProcess]) =>
         isGetTagProcess || isTagsProcess || isAssetsProcess || isLanguagesProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
+    this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
         select(TagSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(TagSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    ]).pipe(
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
-    this.isProcessAssets$ = combineLatest(
+    this.isProcessAssets$ = combineLatest([
       this._store.pipe(
         select(TagAssetsSelectors.selectIsGetProcess),
       ),
@@ -110,8 +105,9 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
       this._store.pipe(
         select(TagAssetsSelectors.selectIsDeleteProcess),
       ),
-    ).pipe(
-      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+    ]).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) =>
+        isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
     this.tags$ = this._store.pipe(
@@ -138,10 +134,10 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
       this._defaultLanguage = lang;
     });
 
-    this.tagAssets$ = combineLatest(
+    this.tagAssets$ = combineLatest([
       this._store.select(TagAssetsSelectors.selectCollection),
       this.languages$,
-    ).pipe(
+    ]).pipe(
       filter(([assets, langs]) => !!assets && !!langs),
       switchMap(([assets, langs]) => {
         const result = new Array<IAsset>();
@@ -154,11 +150,11 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
       }),
     );
 
-    this.tag$ = combineLatest(
+    this.tag$ = combineLatest([
       this._store.select(TagSelectors.selectEntity),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       filter(([tag, langs, defaultLang]) => !!tag && !!defaultLang && !!langs),
       map(([tag, langs, defaultLang]) => {
         return { ...tag, contents: getCompiledContents(tag.contents, langs, defaultLang) };
@@ -168,7 +164,6 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     this.tag$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(tag => {
-      this._tag = tag;
       this._tagId = tag.id;
       this._tagId$.next(this._tagId);
       this.isEditMode = true;
@@ -180,7 +175,6 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
         relativeTo: this._activatedRoute,
         queryParams: {
           id: this._tagId,
-          returnUrl: this._returnUrl,
         }
       });
     });
@@ -192,23 +186,23 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     this._store.dispatch(LanguagesActions.getAllRequest());
     this._store.dispatch(AssetsActions.getAllRequest());
 
-    const prepareMainRequests$ = combineLatest(
+    const prepareMainRequests$ = combineLatest([
       this.tags$,
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
-    ).pipe(
+    ]).pipe(
       map(([tags, languages, defaultLanguage, assets]) =>
         !!tags && !!languages && !!defaultLanguage && !!assets),
     );
 
     this.isPrepareToConfigure$ = this.tagId$.pipe(
       switchMap(id => {
-        return !!id ? combineLatest(
+        return !!id ? combineLatest([
           prepareMainRequests$,
           this.tag$,
           this.tagAssets$,
-        ).pipe(
+        ]).pipe(
           map(([prepareMainRequests, tag, tagAssets]) =>
             !!prepareMainRequests && !!tag && !!tagAssets),
         ) : prepareMainRequests$;
@@ -245,10 +239,10 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
   }
 
   onMainOptionsCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/tags"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/tags"]);
   }
 }

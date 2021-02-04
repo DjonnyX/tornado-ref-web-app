@@ -24,14 +24,6 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
 
   isProcessMainOptions$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  get returnUrl() {
-    return this._returnUrl;
-  }
-
-  private _businessPeriod: IBusinessPeriod;
-
   businessPeriod$: Observable<IBusinessPeriod>;
 
   isEditMode = false;
@@ -54,14 +46,12 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._businessPeriodId = this._activatedRoute.snapshot.queryParams["id"];
     this._businessPeriodId$.next(this._businessPeriodId);
 
     this.isEditMode = !!this._businessPeriodId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(BusinessPeriodSelectors.selectIsGetProcess),
       ),
@@ -71,19 +61,21 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isBPGetProcess, isBPCreateProcess, isLanguagesProcess]) => isBPGetProcess || isBPCreateProcess || isLanguagesProcess),
+    ]).pipe(
+      map(([isBPGetProcess, isBPCreateProcess, isLanguagesProcess]) =>
+        isBPGetProcess || isBPCreateProcess || isLanguagesProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
+    this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
         select(BusinessPeriodSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(BusinessPeriodSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    ]).pipe(
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
     this.businessPeriod$ = this._store.pipe(
@@ -105,12 +97,12 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
     ).subscribe(lang => {
       this._defaultLanguage = lang;
     });
-    
-    this.businessPeriod$ = combineLatest(
+
+    this.businessPeriod$ = combineLatest([
       this._store.select(BusinessPeriodSelectors.selectEntity),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       filter(([bp, langs, defaultLang]) => !!bp && !!defaultLang && !!langs),
       map(([bp, langs, defaultLang]) => {
         return { ...bp, contents: getCompiledContents(bp.contents, langs, defaultLang) };
@@ -122,7 +114,6 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
       filter(businessPeriod => !!businessPeriod),
       filter(businessPeriod => this._businessPeriodId !== businessPeriod.id),
     ).subscribe(businessPeriod => {
-      this._businessPeriod = businessPeriod;
       this._businessPeriodId = businessPeriod.id;
       this._businessPeriodId$.next(this._businessPeriodId);
       this.isEditMode = true;
@@ -132,7 +123,6 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
         relativeTo: this._activatedRoute,
         queryParams: {
           id: this._businessPeriodId,
-          returnUrl: this._returnUrl,
         }
       });
     });
@@ -143,20 +133,20 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
 
     this._store.dispatch(LanguagesActions.getAllRequest());
 
-    const prepareMainRequests$ = combineLatest(
+    const prepareMainRequests$ = combineLatest([
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       map(([languages, defaultLanguage]) =>
         !!languages && !!defaultLanguage),
     );
 
     this.isPrepareToConfigure$ = this.businessPeriodId$.pipe(
       switchMap(id => {
-        return !!id ? combineLatest(
+        return !!id ? combineLatest([
           prepareMainRequests$,
           this.businessPeriod$,
-        ).pipe(
+        ]).pipe(
           map(([prepareMainRequests, businessPeriod]) =>
             !!prepareMainRequests && !!businessPeriod),
         ) : prepareMainRequests$;
@@ -172,7 +162,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
 
   onMainOptionsSave(businessPeriod: IBusinessPeriod): void {
     if (this.isEditMode) {
-      const normalizedBusinessPeriod: IBusinessPeriod = {...businessPeriod};
+      const normalizedBusinessPeriod: IBusinessPeriod = { ...businessPeriod };
 
       // нормализация контена
       normalizeEntityContents(normalizedBusinessPeriod.contents, this._defaultLanguage.code);
@@ -184,10 +174,10 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/business-periods"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/business-periods"]);
   }
 }

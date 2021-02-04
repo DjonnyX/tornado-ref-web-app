@@ -21,10 +21,6 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _licenseType: ILicenseType;
-
   licenseType$: Observable<ILicenseType>;
 
   public integrations$: Observable<Array<IIntegration>>;
@@ -40,13 +36,11 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._licenseTypeId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._licenseTypeId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(LicenseTypeSelectors.selectIsGetProcess),
       ),
@@ -62,9 +56,9 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
       this._store.pipe(
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isStoresGetProcess, isIntegrationsProcess]) =>
-      isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess || isIntegrationsProcess),
+        isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess || isIntegrationsProcess),
     );
 
     this.licenseType$ = this._store.pipe(
@@ -91,7 +85,7 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
     if (!!this._licenseTypeId) {
       this._store.dispatch(LicenseTypeActions.getRequest({ id: this._licenseTypeId }));
     }
-    
+
     this._store.dispatch(IntegrationsActions.getAllRequest());
   }
 
@@ -110,10 +104,10 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/license-types"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/license-types"]);
   }
 }

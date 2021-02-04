@@ -20,10 +20,6 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _application: IApplication;
-
   application$: Observable<IApplication>;
 
   stores$: Observable<Array<IStore>>;
@@ -37,13 +33,11 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._applicationId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._applicationId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(ApplicationSelectors.selectIsGetProcess),
       ),
@@ -56,8 +50,9 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isApplicationGetProcess, isApplicationCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) => isApplicationGetProcess || isApplicationCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
+    ]).pipe(
+      map(([isApplicationGetProcess, isApplicationCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) =>
+        isApplicationGetProcess || isApplicationCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
     this.application$ = this._store.pipe(
@@ -97,10 +92,10 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/applications"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/applications"]);
   }
 }

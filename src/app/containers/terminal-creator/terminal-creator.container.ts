@@ -21,10 +21,6 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _terminal: ITerminal;
-
   terminal$: Observable<ITerminal>;
 
   stores$: Observable<Array<IStore>>;
@@ -38,8 +34,6 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._terminalId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._terminalId;
@@ -95,10 +89,10 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/terminals"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/terminals"]);
   }
 }

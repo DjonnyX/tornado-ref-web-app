@@ -23,10 +23,6 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _license: ILicense;
-
   license$: Observable<ILicense>;
 
   licenseTypes$: Observable<Array<ILicenseType>>;
@@ -46,8 +42,6 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._licenseId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._licenseId;
@@ -134,10 +128,10 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/licenses"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/licenses"]);
   }
 }

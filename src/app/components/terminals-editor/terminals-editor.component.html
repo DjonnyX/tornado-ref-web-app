@@ -24,10 +24,10 @@
                     <div class="content__name">
                         {{terminal.name}}
                     </div>
-                    <div class="content__description" style="text-transform: none;">
+                    <div *ngIf="!!storesMap" class="content__description" style="text-transform: none;">
                         {{storesMap[terminal.storeId]?.name}}
                     </div>
-                    <div class="content__description" style="text-transform: none;">
+                    <div *ngIf="!!storesMap" class="content__description" style="text-transform: none;">
                         {{storesMap[terminal.storeId]?.address}}
                     </div>
                 </div>

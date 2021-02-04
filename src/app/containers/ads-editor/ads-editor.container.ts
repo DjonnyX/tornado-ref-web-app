@@ -43,10 +43,10 @@ export class AdsEditorContainer implements OnInit {
     this._store.dispatch(AdsActions.getAllRequest({ adType: this._adsType }));
 
     this._store.dispatch(AssetsActions.getAllRequest());
-    
+
     this._store.dispatch(LanguagesActions.getAllRequest());
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(AdsSelectors.selectLoading),
       ),
@@ -56,8 +56,9 @@ export class AdsEditorContainer implements OnInit {
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isProductsProgress, isAssetsProgress, isLanguagesProcess]) => isProductsProgress || isAssetsProgress || isLanguagesProcess),
+    ]).pipe(
+      map(([isProductsProgress, isAssetsProgress, isLanguagesProcess]) =>
+        isProductsProgress || isAssetsProgress || isLanguagesProcess),
     );
 
     this.collection$ = this._store.pipe(
@@ -82,17 +83,16 @@ export class AdsEditorContainer implements OnInit {
       filter(language => !!language),
     );
 
-    this.isPrepareToShow$ = combineLatest(
+    this.isPrepareToShow$ = combineLatest([
       this.collection$,
       this.assets$,
       this.languages$,
-    ).pipe(
-        map(([collection, assets, languages]) => !!collection && !!assets && !!languages),
+    ]).pipe(
+      map(([collection, assets, languages]) => !!collection && !!assets && !!languages),
     );
   }
 
   onCreate(): void {
-
     this._store.dispatch(AdActions.clear());
 
     this._router.navigate(["create"], {
@@ -102,7 +102,6 @@ export class AdsEditorContainer implements OnInit {
   }
 
   onEdit(ad: IAd): void {
-
     this._store.dispatch(AdActions.clear());
 
     this._router.navigate(["edit"], {

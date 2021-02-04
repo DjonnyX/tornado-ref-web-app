@@ -20,10 +20,6 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _integration: IIntegration;
-
   integration$: Observable<IIntegration>;
 
   stores$: Observable<Array<IStore>>;
@@ -35,11 +31,9 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._integrationId = this._activatedRoute.snapshot.queryParams["id"];
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(IntegrationSelectors.selectIsGetProcess),
       ),
@@ -49,8 +43,9 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isIntegrationGetProcess, selectIsUpdateProcess, isStoresGetProcess]) => isIntegrationGetProcess || selectIsUpdateProcess || isStoresGetProcess),
+    ]).pipe(
+      map(([isIntegrationGetProcess, selectIsUpdateProcess, isStoresGetProcess]) =>
+        isIntegrationGetProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
     this.integration$ = this._store.pipe(
@@ -85,10 +80,10 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/integrations"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/integrations"]);
   }
 }

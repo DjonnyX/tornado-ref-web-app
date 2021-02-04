@@ -24,10 +24,6 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _license: ILicenseAccount;
-
   license$: Observable<ILicenseAccount>;
 
   licenseTypes$: Observable<Array<ILicenseType>>;
@@ -45,8 +41,6 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._licenseId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isProcess$ = combineLatest([
@@ -119,10 +113,14 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["../", {
+      relativeTo: this._activatedRoute,
+    }]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["../", {
+      relativeTo: this._activatedRoute,
+    }]);
   }
 }

@@ -80,7 +80,6 @@ export class LicensesEditorContainer implements OnInit {
   }
 
   onEdit(license: ILicense): void {
-
     this._store.dispatch(LicenseActions.clear());
 
     this._router.navigate(["edit"], {
@@ -90,7 +89,6 @@ export class LicensesEditorContainer implements OnInit {
   }
 
   onView(license: ILicense): void {
-
     this._store.dispatch(LicenseActions.clear());
 
     this._router.navigate(["view"], {

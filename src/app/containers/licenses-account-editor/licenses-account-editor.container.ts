@@ -70,12 +70,11 @@ export class LicensesAccountEditorContainer implements OnInit {
   }
 
   onView(license: ILicense): void {
-
     this._store.dispatch(LicenseActions.clear());
 
     this._router.navigate(["view"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: license.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: license.id, },
     });
   }
 }

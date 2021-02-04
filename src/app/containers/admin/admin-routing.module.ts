@@ -24,6 +24,7 @@ const routes: Routes = [
           ),
         data: {
           type: SelectorTypes.MENU_CATEGORY,
+          path: 'menu-categories',
         },
       },
       {
@@ -34,6 +35,7 @@ const routes: Routes = [
           ),
         data: {
           type: SelectorTypes.SCHEMA_CATEGORY,
+          path: 'schema-categories',
         },
       },
       {
@@ -44,6 +46,7 @@ const routes: Routes = [
           ),
         data: {
           type: AdTypes.INTRO,
+          path: 'intros',
         },
       },
       {
@@ -54,6 +57,7 @@ const routes: Routes = [
           ),
         data: {
           type: AdTypes.BANNER,
+          path: 'banners',
         },
       },
       {

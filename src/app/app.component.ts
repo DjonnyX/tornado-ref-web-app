@@ -19,6 +19,7 @@ export class AppComponent implements OnInit {
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
 
+    this._store.dispatch(CapabilitiesActions.setReturnUrl({ returnUrl: undefined }));
     this._router.events.pipe(
       filter(event => event instanceof NavigationStart)
     ).subscribe((event: NavigationStart) => {
@@ -28,26 +29,24 @@ export class AppComponent implements OnInit {
       }
     });
 
-    combineLatest(
+    combineLatest([
       this._store.pipe(
         select(UserSelectors.selectToken),
       ),
-    ).subscribe(([token]) => {
+    ]).subscribe(([token]) => {
       this._store.pipe(
         take(1),
         select(CapabilitiesSelectors.selectReturnUrl),
       ).subscribe(returnUrl => {
-        
+
         // signin
         if (!!token) {
           const url = extractURL(decodeURIComponent(returnUrl));
-          
+
           if (!!returnUrl) {
             this._router.navigate([url.path], {
               queryParams: url.query,
             });
-          } else {
-            this._router.navigate(["/admin/menu-tree"]);
           }
         }
         // signout

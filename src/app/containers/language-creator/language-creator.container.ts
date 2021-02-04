@@ -27,10 +27,6 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
 
   isProcessTranslations$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _language: ILanguage;
-
   language$: Observable<ILanguage>;
 
   private _languageId$ = new BehaviorSubject<string>(undefined);
@@ -55,41 +51,42 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._languageId = this._activatedRoute.snapshot.queryParams["id"];
     this._languageId$.next(this._languageId);
 
     this.isEditMode = !!this._languageId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(LanguageSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isLanguageGetProcess]) => isLanguageGetProcess),
+    ]).pipe(
+      map(([isLanguageGetProcess]) =>
+        isLanguageGetProcess),
     );
 
-    this.isProcessTranslations$ = combineLatest(
+    this.isProcessTranslations$ = combineLatest([
       this._store.pipe(
         select(TranslationSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(TranslationSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isGetProcess, isUpdateProcess]) => isGetProcess || isUpdateProcess),
+    ]).pipe(
+      map(([isGetProcess, isUpdateProcess]) =>
+        isGetProcess || isUpdateProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
+    this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
         select(LanguageSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(LanguageSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    ]).pipe(
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
     this.languageAssets$ = this._store.pipe(
@@ -112,7 +109,6 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
       takeUntil(this.unsubscribe$),
       filter(language => !!language),
     ).subscribe(language => {
-      this._language = language;
       this._languageId = language.id;
       this._languageId$.next(this._languageId);
       this.isEditMode = true;
@@ -124,7 +120,6 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
         relativeTo: this._activatedRoute,
         queryParams: {
           id: this._languageId,
-          returnUrl: this._returnUrl,
         }
       });
     });
@@ -169,11 +164,11 @@ export class LanguageCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/languages"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/languages"]);
   }
 
   onAssetUpload(file: File): void {

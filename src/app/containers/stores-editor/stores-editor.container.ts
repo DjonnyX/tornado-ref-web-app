@@ -25,8 +25,6 @@ export class StoresEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(StoresActions.getAllRequest());
-
     this.isProcess$ = this._store.pipe(
       select(StoresSelectors.selectLoading),
     );
@@ -38,12 +36,13 @@ export class StoresEditorContainer implements OnInit {
     this.refInfo$ = this._store.pipe(
       select(StoresSelectors.selectRefInfo),
     );
+
+    this._store.dispatch(StoresActions.getAllRequest());
   }
 
   onCreate(): void {
-
     this._store.dispatch(StoreActions.clear());
-    
+
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
       queryParams: { returnUrl: this._router.routerState.snapshot.url },
@@ -61,7 +60,7 @@ export class StoresEditorContainer implements OnInit {
   }
 
   onUpdate(store: IStore): void {
-    this._store.dispatch(StoresActions.updateRequest({id: store.id, store}));
+    this._store.dispatch(StoresActions.updateRequest({ id: store.id, store }));
   }
 
   onDelete(id: string): void {

@@ -41,7 +41,6 @@ export class IntegrationsEditorContainer implements OnInit {
   }
 
   onEdit(integration: IIntegration): void {
-
     this._store.dispatch(IntegrationActions.clear());
 
     this._router.navigate(["edit"], {

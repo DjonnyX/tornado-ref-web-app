@@ -41,7 +41,6 @@ export class CurrenciesEditorContainer implements OnInit {
   }
 
   onCreate(): void {
-
     this._store.dispatch(CurrencyActions.clear());
     
     this._router.navigate(["create"], {
@@ -51,7 +50,6 @@ export class CurrenciesEditorContainer implements OnInit {
   }
 
   onEdit(currency: ICurrency): void {
-
     this._store.dispatch(CurrencyActions.clear());
 
     this._router.navigate(["edit"], {

@@ -59,7 +59,6 @@ export class LicenseTypesEditorContainer implements OnInit {
   }
 
   onCreate(): void {
-
     this._store.dispatch(LicenseTypeActions.clear());
 
     this._router.navigate(["create"], {
@@ -69,7 +68,6 @@ export class LicenseTypesEditorContainer implements OnInit {
   }
 
   onEdit(licenseType: ILicenseType): void {
-
     this._store.dispatch(LicenseTypeActions.clear());
 
     this._router.navigate(["edit"], {

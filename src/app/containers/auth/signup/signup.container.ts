@@ -65,14 +65,12 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
     if (!!queryParams && !!queryParams['returnUrl'])
       this.registerQueryParams = { 'returnUrl': queryParams['returnUrl'] };
 
-    this.isProcess$ = combineLatest(
-      [
-        this._store
-          .pipe(select(UserSelectors.selectIsSignupParamsProcess)),
-        this._store
-          .pipe(select(UserSelectors.selectIsSignupProcess)),
-      ]
-    ).pipe(
+    this.isProcess$ = combineLatest([
+      this._store
+        .pipe(select(UserSelectors.selectIsSignupParamsProcess)),
+      this._store
+        .pipe(select(UserSelectors.selectIsSignupProcess)),
+    ]).pipe(
       map(([isSignupParamsProcess, isSignupProcess]) => isSignupParamsProcess && isSignupProcess),
     );
 

@@ -41,7 +41,6 @@ export class ApplicationsEditorContainer implements OnInit {
   }
 
   onCreate(): void {
-
     this._store.dispatch(ApplicationActions.clear());
     
     this._router.navigate(["create"], {
@@ -51,7 +50,6 @@ export class ApplicationsEditorContainer implements OnInit {
   }
 
   onEdit(application: IApplication): void {
-
     this._store.dispatch(ApplicationActions.clear());
 
     this._router.navigate(["edit"], {

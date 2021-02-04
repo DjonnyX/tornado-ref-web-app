@@ -19,10 +19,6 @@ export class CurrencyCreatorContainer extends BaseComponent implements OnInit, O
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _currency: ICurrency;
-
   currency$: Observable<ICurrency>;
 
   isEditMode = false;
@@ -34,20 +30,18 @@ export class CurrencyCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._currencyId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._currencyId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(CurrencySelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(CurrencySelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isCurrencyGetProcess, selectIsUpdateProcess]) => isCurrencyGetProcess || selectIsUpdateProcess),
     );
 
@@ -84,10 +78,10 @@ export class CurrencyCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/currencies"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/currencies"]);
   }
 }
