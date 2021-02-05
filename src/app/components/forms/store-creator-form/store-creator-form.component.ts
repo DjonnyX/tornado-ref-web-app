@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IStore } from '@djonnyx/tornado-types';
+import { IStore, ITerminal } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 
 interface IData {
@@ -38,6 +38,15 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
 
       this.ctrlName.setValue(store.name);
       this.ctrlAddress.setValue(store.address);
+    }
+  }
+
+  private _terminals: Array<ITerminal>;
+  @Input() set terminals(terminals: Array<ITerminal>) {
+    if (terminals) {
+      this._terminals = terminals;
+
+      this.generateData();
     }
   }
 
@@ -77,12 +86,13 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
       storeTerminals: [],
     };
 
-    /*
-    terminalStoreName: {
-      key: "Название магазина",
-      value: this._store?.name || ' ---',
-      link: ["/admin/stores/edit", { id: this._store?.id }],
-    },*/
+    if (!!this._terminals && this._terminals.length > 0) {
+      this._data.storeTerminals = this._terminals.map(v => ({
+        key: v.type,
+        value: v.name,
+        link: ["/admin/terminals/edit", { id: v.id }],
+      }));
+    }
   }
 
   ngOnInit(): void {

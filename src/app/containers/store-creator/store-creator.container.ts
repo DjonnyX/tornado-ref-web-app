@@ -7,8 +7,9 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { StoreActions } from '@store/actions/store.action';
 import { StoreSelectors } from '@store/selectors/store.selectors';
-import { IStore } from '@djonnyx/tornado-types';
+import { IStore, ITerminal } from '@djonnyx/tornado-types';
 import { TerminalsActions } from '@store/actions/terminals.action';
+import { TerminalsSelectors } from '@store/selectors';
 
 @Component({
   selector: 'ta-store-creator',
@@ -21,6 +22,8 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
   public isProcess$: Observable<boolean>;
 
   store$: Observable<IStore>;
+
+  terminals$: Observable<Array<ITerminal>>;
 
   isEditMode = false;
 
@@ -42,12 +45,20 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
       this._store.pipe(
         select(StoreSelectors.selectIsUpdateProcess),
       ),
+      this._store.pipe(
+        select(TerminalsSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isStoreGetProcess, isStoreUpdateProcess]) => isStoreGetProcess || isStoreUpdateProcess),
+      map(([isStoreGetProcess, isStoreUpdateProcess, isTerminalsGetProcess]) =>
+        isStoreGetProcess || isStoreUpdateProcess || isTerminalsGetProcess),
     );
 
     this.store$ = this._store.pipe(
       select(StoreSelectors.selectEntity),
+    );
+
+    this.terminals$ = this._store.pipe(
+      select(TerminalsSelectors.selectCollection),
     );
 
     this.store$.pipe(
