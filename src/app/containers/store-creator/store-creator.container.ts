@@ -8,6 +8,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { StoreActions } from '@store/actions/store.action';
 import { StoreSelectors } from '@store/selectors/store.selectors';
 import { IStore } from '@djonnyx/tornado-types';
+import { TerminalsActions } from '@store/actions/terminals.action';
 
 @Component({
   selector: 'ta-store-creator',
@@ -52,10 +53,15 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
     this.store$.pipe(
       takeUntil(this.unsubscribe$),
       filter(store => !!store),
-      filter(store => this._storeEntityId !== store.id),
     ).subscribe(store => {
       this._storeEntityId = store.id;
       this.isEditMode = !!this._storeEntityId;
+
+      this._store.dispatch(TerminalsActions.getAllRequest({
+        options: {
+          filter: [{ id: 'storeId', operation: 'INCLUDE', value: store.id }]
+        },
+      }));
     });
 
     if (!!this._storeEntityId) {

@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IMetaRefsResponse } from '@services';
+import { IMetaRefsResponse, IRequestOptions } from '@services';
 import { ITerminal } from '@djonnyx/tornado-types';
 
 export enum TerminalsActionTypes {
@@ -28,6 +28,7 @@ export namespace TerminalsActions {
     // getAll
     export const getAllRequest = createAction(
         TerminalsActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         TerminalsActionTypes.GET_ALL_SUCCESS,

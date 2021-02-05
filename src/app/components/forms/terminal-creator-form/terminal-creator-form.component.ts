@@ -6,42 +6,6 @@ import { BaseComponent } from '@components/base/base-component';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
-interface ISelectOption extends Array<{ name: string, value: number | string }> { }
-
-const LICENSE_STATUSES: ISelectOption = [
-  {
-    name: "Новый",
-    value: LicenseStatuses.NEW,
-  },
-  {
-    name: "Дэмо",
-    value: LicenseStatuses.DEMO,
-  },
-  {
-    name: "Активный",
-    value: LicenseStatuses.ACTIVE,
-  },
-  {
-    name: "Деактивированный",
-    value: LicenseStatuses.DEACTIVE,
-  },
-];
-
-const LICENSE_STATES: ISelectOption = [
-  {
-    name: "Неактивный",
-    value: LicenseStates.NOT_ACTIVE,
-  },
-  {
-    name: "Деактивированный",
-    value: LicenseStates.DEACTIVE,
-  },
-  {
-    name: "Активный",
-    value: LicenseStates.ACTIVE,
-  },
-];
-
 interface IData {
   terminalName: IKeyValue;
   terminalType: IKeyValue;
@@ -61,14 +25,6 @@ interface IData {
   styleUrls: ['./terminal-creator-form.component.scss']
 })
 export class TerminalCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
-
-  public get licenseStatuses() {
-    return LICENSE_STATUSES;
-  }
-
-  public get licenseStates() {
-    return LICENSE_STATES;
-  }
 
   form: FormGroup;
 

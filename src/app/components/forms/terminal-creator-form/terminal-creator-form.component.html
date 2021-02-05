@@ -72,7 +72,7 @@
 </form>
 
 <ng-template #editForm>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
         <div class="form__input-block">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">

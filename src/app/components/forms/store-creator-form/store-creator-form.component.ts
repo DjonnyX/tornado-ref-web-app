@@ -3,6 +3,13 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { IStore } from '@djonnyx/tornado-types';
+import { IKeyValue } from '@components/key-value/key-value.component';
+
+interface IData {
+  storeName: IKeyValue;
+  storeAddress: IKeyValue;
+  storeTerminals: Array<IKeyValue>;
+}
 
 @Component({
   selector: 'ta-store-creator-form',
@@ -16,10 +23,18 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
 
   ctrlAddress = new FormControl('', [Validators.required]);
 
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   private _store: IStore;
   @Input() set store(store: IStore) {
     if (store) {
       this._store = store;
+
+      this.generateData();
 
       this.ctrlName.setValue(store.name);
       this.ctrlAddress.setValue(store.address);
@@ -34,6 +49,8 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
 
   @Output() update = new EventEmitter<IStore>();
 
+  isEdit = false;
+
   constructor(private _fb: FormBuilder) {
     super();
 
@@ -41,6 +58,31 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
       name: this.ctrlName,
       address: this.ctrlAddress,
     })
+  }
+
+  private generateData(): void {
+    if (!this._store) {
+      return;
+    }
+
+    this._data = {
+      storeName: {
+        key: "Название",
+        value: this._store?.name || ' ---',
+      },
+      storeAddress: {
+        key: "Адрес",
+        value: this._store?.address || ' ---',
+      },
+      storeTerminals: [],
+    };
+
+    /*
+    terminalStoreName: {
+      key: "Название магазина",
+      value: this._store?.name || ' ---',
+      link: ["/admin/stores/edit", { id: this._store?.id }],
+    },*/
   }
 
   ngOnInit(): void {
@@ -55,6 +97,19 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
     super.ngOnDestroy();
   }
 
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEnterSubmit(event: KeyboardEvent): void {
+    if (event.keyCode === 13) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
+      this.onSubmit();
+    }
+  }
+
   onSubmit(): void {
     if (this.form.valid) {
       this.submitForm.emit({
@@ -63,6 +118,12 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
         extra: !!this._store ? this._store.extra : {},
       });
     }
+
+    this.isEdit = false;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {

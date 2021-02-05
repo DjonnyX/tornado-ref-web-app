@@ -54,7 +54,7 @@ export class TerminalsEditorContainer implements OnInit {
       select(TerminalsSelectors.selectRefInfo),
     );
 
-    this._store.dispatch(TerminalsActions.getAllRequest());
+    this._store.dispatch(TerminalsActions.getAllRequest({}));
     this._store.dispatch(StoresActions.getAllRequest());
   }
 

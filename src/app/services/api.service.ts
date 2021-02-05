@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType } from "@angular/common/http";
+import { HttpClient, HttpEventType, HttpParams } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IUserProfile, IAsset, IFileUploadEvent, ICaptcha } from '@models';
 import {
@@ -12,7 +12,7 @@ import {
   IAssetsDeleteResponse, IAssetsUpdateResponse, IAssetsGetResponse,
   IProductAssetCreateResponse, IProductAssetUpdateResponse, IProductAssetDeleteResponse, IProductAssetGetResponse, IProductGetResponse,
   ITagGetResponse, ISelectorGetResponse,
-  IBusinessPeriodsGetResponse, IBusinessPeriodGetResponse, IBusinessPeriodCreateResponse, IBusinessPeriodUpdateResponse,IBusinessPeriodDeleteResponse,
+  IBusinessPeriodsGetResponse, IBusinessPeriodGetResponse, IBusinessPeriodCreateResponse, IBusinessPeriodUpdateResponse, IBusinessPeriodDeleteResponse,
   ISelectorAssetDeleteResponse, ISelectorAssetGetResponse, ISelectorAssetCreateResponse, ISelectorAssetUpdateResponse,
   ICurrenciesGetResponse, ICurrencyGetResponse, ICurrencyCreateResponse, ICurrencyUpdateResponse, ICurrencyDeleteResponse,
   IOrderTypesGetResponse, IOrderTypeGetResponse, IOrderTypeCreateResponse, IOrderTypeUpdateResponse, IOrderTypeDeleteResponse,
@@ -26,7 +26,7 @@ import {
   IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
   ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
   ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
-  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse, IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse, IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse,
+  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse, IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse, IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, IRequestOptions,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -37,6 +37,47 @@ import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
 import { ILicense, ILicenseType } from '@djonnyx/tornado-types';
+import { HttpParameterCodec } from "@angular/common/http";
+
+export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
+  encodeKey(k: string): string { return standardEncoding(k); }
+  encodeValue(v: string): string { return standardEncoding(v); }
+  decodeKey(k: string): string { return decodeURIComponent(k); }
+  decodeValue(v: string) { return decodeURIComponent(v); }
+}
+function standardEncoding(v: string): string {
+  return encodeURIComponent(v);
+}
+
+const extractParams = (options?: IRequestOptions): HttpParams => {
+  let httpParams = new HttpParams({ encoder: new HttpCustomUrlEncodingCodec() });
+  /*if (!!options && !!options.pager) {
+      httpParams = httpParams.set('page', String(options.pager.pageNum - 1));
+      httpParams = httpParams.set('size', String(options.pager.pageSize));
+  }*/
+  // filter
+  if (!!options && !!options.filter && options.filter.length > 0) {
+    options.filter.forEach(f => {
+      httpParams = httpParams.append(`${f.id}.${f.operation}`, String(f.value));
+    });
+  }
+  // query
+  if (!!options && !!options.queryParams) {
+    const queryKeys = Object.keys(options.queryParams);
+    if (queryKeys.length > 0) {
+      queryKeys.forEach(key => {
+        httpParams = httpParams.append(key, options.queryParams[key]);
+      });
+    }
+  }
+  //sort
+  /*if(!!options && !!options.sort && options.sort.length > 0) {
+      options.sort.forEach((s, idx, arr) => {
+          httpParams = httpParams.append('sort', `${s.field},${s.dir}`);
+      });
+  }*/
+  return httpParams;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -1271,12 +1312,13 @@ export class ApiService {
   }
 
   // terminals
-  public getTerminals(): Observable<ITerminalsGetResponse> {
+  public getTerminals(options?: IRequestOptions): Observable<ITerminalsGetResponse> {
     return this._http
       .get<ITerminalsGetResponse>("api/v1/terminals", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
