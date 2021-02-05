@@ -47,6 +47,10 @@
 
 <ng-template #editForm>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+        <h1 class="form-header">
+            Информация о магазине
+        </h1>
+
         <div class="form__input-block">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
