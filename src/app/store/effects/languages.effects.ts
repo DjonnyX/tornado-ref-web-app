@@ -58,7 +58,7 @@ export default class LanguagesEffects {
                 return this._apiService.updateLanguage(id, formatLanguageModel(language)).pipe(
                     mergeMap(res => {
                         if (setDafault) {
-                            this._store.dispatch(LanguagesActions.getAllRequest());
+                            this._store.dispatch(LanguagesActions.getAllRequest({}));
                             return [LanguagesActions.updateSuccess({ language: res.data, meta: res.meta })];
                         }
                         return [LanguagesActions.updateSuccess({ language: res.data, meta: res.meta })];

@@ -58,7 +58,7 @@ export default class CurrenciesEffects {
                 return this._apiService.updateCurrency(id, formatCurrencyModel(currency)).pipe(
                     mergeMap(res => {
                         if (setDafault) {
-                            this._store.dispatch(CurrenciesActions.getAllRequest());
+                            this._store.dispatch(CurrenciesActions.getAllRequest({}));
                             return [CurrenciesActions.updateSuccess({ currency: res.data, meta: res.meta })];
                         }
                         return [CurrenciesActions.updateSuccess({ currency: res.data, meta: res.meta })];

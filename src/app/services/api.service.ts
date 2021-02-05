@@ -37,9 +37,11 @@ import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
+import {
+  IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
-  TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount } from '@djonnyx/tornado-types';
+  TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount
+} from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
@@ -568,12 +570,13 @@ export class ApiService {
   }
 
   // root-nodes
-  public getRootNodes(): Observable<IMenuNodesGetResponse> {
+  public getRootNodes(options?: IRequestOptions): Observable<IMenuNodesGetResponse> {
     return this._http
       .get<IMenuNodesGetResponse>("api/v1/root-nodes", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
