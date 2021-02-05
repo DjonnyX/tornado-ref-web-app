@@ -70,7 +70,7 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
 
       this._store.dispatch(TerminalsActions.getAllRequest({
         options: {
-          filter: [{ id: 'storeId', operation: 'INCLUDE', value: store.id }]
+          filter: [{ id: 'storeId', operation: 'equals', value: store.id }]
         },
       }));
     });
