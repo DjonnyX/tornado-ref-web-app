@@ -10,6 +10,7 @@ import { StoreSelectors } from '@store/selectors/store.selectors';
 import { IStore, ITerminal } from '@djonnyx/tornado-types';
 import { TerminalsActions } from '@store/actions/terminals.action';
 import { TerminalsSelectors } from '@store/selectors';
+import { LicenseActions } from '@store/actions/license.action';
 
 @Component({
   selector: 'ta-store-creator',
@@ -84,6 +85,7 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
     super.ngOnDestroy();
 
     this._store.dispatch(StoreActions.clear());
+    this._store.dispatch(LicenseActions.clear());
   }
 
   onSubmit(store: IStore): void {

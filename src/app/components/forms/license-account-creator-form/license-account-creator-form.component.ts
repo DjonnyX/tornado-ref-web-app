@@ -156,11 +156,11 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
       },
       dateStart: {
         key: "Время начала лицензионного периода",
-        value: moment(this._license?.dateStart).format("DD-MM-YYYY") || ' ---',
+        value: this._license ? moment(this._license?.dateStart).format("DD-MM-YYYY") : ' ---',
       },
       dateEnd: {
         key: "Время завершения лицензионного периода",
-        value: moment(this._license?.dateEnd).format("DD-MM-YYYY") || ' ---',
+        value: this._license ? moment(this._license?.dateEnd).format("DD-MM-YYYY") : ' ---',
       },
       key: {
         key: "Лицензионный ключ",
@@ -189,7 +189,7 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
       terminalName: {
         key: "Название терминала",
         value: this._terminal?.name || ' ---',
-        link: ["/admin/terminals/edit", { id: this._license?.terminalId }],
+        link: this._terminal ? ["/admin/terminals/edit", { id: this._license?.terminalId }] : undefined,
       },
       terminalStoreName: {
         key: "Название магазина",

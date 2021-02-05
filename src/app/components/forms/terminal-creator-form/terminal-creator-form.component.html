@@ -1,11 +1,11 @@
 <form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div style="width: 100%;">
         <div>
-            <div class="form__main-options">
-                <h1 class="form-header">
-                    Информация об устройстве
-                </h1>
+            <h1 class="form-header">
+                Информация об устройстве
+            </h1>
 
+            <div class="form__main-options">
                 <div class="form__input-block" *ngIf="!!data">
                     <div class="form-item full-width">
                         <ta-key-value [data]="data.terminalName"></ta-key-value>
@@ -46,19 +46,24 @@
                     Лицензия
                 </h1>
 
-                <div class="form__input-block" *ngIf="!!data">
-                    <div class="form-item full-width">
-                        <ta-key-value [data]="data.terminalLicenseType"></ta-key-value>
-                    </div>
+                <ng-container *ngIf="!license; else licenseInfo">
+                    Лицензия отсутствует.
+                </ng-container>
+                <ng-template #licenseInfo>
+                    <div class="form__input-block" *ngIf="!!data">
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.terminalLicenseType"></ta-key-value>
+                        </div>
 
-                    <div class="form-item full-width">
-                        <ta-key-value [data]="data.terminalLicenseDateStart"></ta-key-value>
-                    </div>
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.terminalLicenseDateStart"></ta-key-value>
+                        </div>
 
-                    <div class="form-item full-width">
-                        <ta-key-value [data]="data.terminalLicenseDateEnd"></ta-key-value>
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.terminalLicenseDateEnd"></ta-key-value>
+                        </div>
                     </div>
-                </div>
+                </ng-template>
             </div>
         </div>
     </div>

@@ -70,6 +70,8 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
+  get license() { return this._license; }
+
   @Input() isEditMode: boolean;
 
   @Output() submitForm = new EventEmitter<ITerminal>();
@@ -113,12 +115,12 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       },
       terminalLastwork: {
         key: "Последнее время доступности",
-        value: moment(this._terminal?.lastwork).format("DD-MM-YYYY") || ' ---',
+        value: this._terminal ? moment(this._terminal?.lastwork).format("DD-MM-YYYY") : ' ---',
       },
       terminalStoreName: {
         key: "Название магазина",
         value: this._store?.name || ' ---',
-        link: ["/admin/stores/edit", { id: this._store?.id }],
+        link: this._store ? ["/admin/stores/edit", { id: this._store?.id }] : undefined,
       },
       terminalStoreAddress: {
         key: "Адрес магазина",
@@ -127,15 +129,15 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       terminalLicenseType: {
         key: "Лицензия",
         value: this._license?.licType?.name || ' ---',
-        link: ["/admin/licenses-account/view", { id: this._license?.id }],
+        link: this._license ? ["/admin/licenses-account/view", { id: this._license?.id }] : undefined,
       },
       terminalLicenseDateStart: {
         key: "Время начала лицензионного периода",
-        value: moment(this._license?.dateStart).format("DD-MM-YYYY") || ' ---',
+        value: this._license ? moment(this._license?.dateStart).format("DD-MM-YYYY") : ' ---',
       },
       terminalLicenseDateEnd: {
         key: "Время завершения лицензионного периода",
-        value: moment(this._license?.dateEnd).format("DD-MM-YYYY") || ' ---',
+        value: this._license ? moment(this._license?.dateEnd).format("DD-MM-YYYY") : ' ---',
       },
     }
   }

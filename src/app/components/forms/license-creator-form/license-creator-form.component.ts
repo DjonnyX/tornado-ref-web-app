@@ -199,11 +199,11 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       },
       dateStart: {
         key: "Время начала лицензионного периода",
-        value: moment(this._license?.dateStart).format("DD-MM-YYYY") || ' ---',
+        value: this._license ? moment(this._license?.dateStart).format("DD-MM-YYYY") : ' ---',
       },
       dateEnd: {
         key: "Время завершения лицензионного периода",
-        value: moment(this._license?.dateEnd).format("DD-MM-YYYY") || ' ---',
+        value: this._license ? moment(this._license?.dateEnd).format("DD-MM-YYYY") : ' ---',
       },
       key: {
         key: "Лицензионный ключ",
