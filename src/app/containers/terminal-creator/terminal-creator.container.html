@@ -4,12 +4,6 @@
             Назад
         </div>
         <div class="form">
-            <div class="form-header">
-                <p>
-                    Описание
-                </p>
-            </div>
-
             <ta-terminal-creator-form [isEditMode]="isEditMode" [terminal]="terminal$ | async" [store]="store$ | async"
                 [license]="license$ | async" [stores]="stores$ | async" (submitForm)="onSubmit($event)"
                 (cancel)="onCancel()">
