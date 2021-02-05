@@ -1,4 +1,4 @@
-<form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
+<form class="form" *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div style="width: 100%;">
         <div>
             <h1 class="form-header">
@@ -6,7 +6,7 @@
             </h1>
 
             <div class="form__main-options">
-                <div class="form__input-block" *ngIf="!!data">
+                <div class="form__block" *ngIf="!!data">
                     <div class="form-item full-width">
                         <ta-key-value [data]="data.storeName"></ta-key-value>
                     </div>
@@ -26,7 +26,7 @@
                         Устройства отсутствуют
                     </ng-container>
                     <ng-template #terminalsInfo>
-                        <div class="form__input-block">
+                        <div class="form__block">
                             <div class="form-item full-width" *ngFor="let terminal of data.storeTerminals;">
                                 <ta-key-value [data]="terminal"></ta-key-value>
                             </div>
@@ -46,7 +46,7 @@
 </form>
 
 <ng-template #editForm>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
         <h1 class="form-header">
             Информация о магазине
         </h1>

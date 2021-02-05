@@ -1,4 +1,4 @@
-<form (keydown)="onEnterSubmit($event)" autocomplete="off">
+<form class="form" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div style="width: 100%;">
         <div>
             <div class="form__main-options">
@@ -6,7 +6,7 @@
                     Информация о лицензии
                 </h1>
 
-                <div class="form__input-block" *ngIf="!!data">
+                <div class="form__block" *ngIf="!!data">
                     <div class="form-item full-width">
                         <ta-key-value [data]="data.name"></ta-key-value>
                     </div>
@@ -32,7 +32,7 @@
                     Интеграция
                 </h1>
 
-                <div class="form__input-block" *ngIf="!!data">
+                <div class="form__block" *ngIf="!!data">
                     <div class="form-item full-width">
                         <ta-key-value [data]="data.integration"></ta-key-value>
                     </div>
@@ -56,7 +56,7 @@
                     </div>
                 </ng-container>
                 <ng-template #terminalInfo>
-                    <div class="form__input-block" *ngIf="!!data">
+                    <div class="form__block" *ngIf="!!data">
                         <div class="form-item full-width">
                             <ta-key-value [data]="data.terminalName"></ta-key-value>
                         </div>

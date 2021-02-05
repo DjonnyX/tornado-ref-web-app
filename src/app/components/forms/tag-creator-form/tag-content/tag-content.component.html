@@ -1,7 +1,7 @@
 <div [ngClass]="{'tag-content': true, 'main-options-wrapper': isEditMode}">
   <div class="resources" *ngIf="isEditMode">
     <div class="resources-wrapper double">
-      <div class="resources-s">
+      <div class="resources-n">
         <p class="form-header">
           Изображения
         </p>
@@ -9,7 +9,7 @@
         <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="isEqualWithDefault('main')"
           (reset)="onResetResourceToDefault('main')"
           [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined" [assets]="assets"
-          class="transparent" size="m" (upload)="onMainResourceUpload($event, 'main')">
+          class="transparent" (upload)="onMainResourceUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
 
@@ -21,7 +21,7 @@
         <ta-asset-picker-uploader [resetButtonDisabled]="isEqualWithDefault('icon')"
           (reset)="onResetResourceToDefault('icon')"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
-          [color]="color" size="m" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
+          [color]="color" class="transparent" (upload)="onIconResourceUpload($event, 'icon')">
         </ta-asset-picker-uploader>
       </div>
     </div>
