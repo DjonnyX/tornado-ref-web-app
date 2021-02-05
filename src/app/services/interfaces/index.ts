@@ -1,7 +1,5 @@
 export { IBaseResponse } from './base-response.interface';
 export { IErrorResponse } from './error-response.interface';
-export { IRequestFilter } from './request-filter.interface';
-export { IRequestOptions } from './request-options.interface';
 export { IUserSigninRequest } from './user-signin-request.interface';
 export { IUserSigninResponse } from './user-signin-response.interface';
 export { IUserSignupRequest, IUserSignupParamsRequest } from './user-signup-request.interface';

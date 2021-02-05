@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
-import { IMetaRefsResponse, IRequestOptions } from '@services';
-import { ITerminal } from '@djonnyx/tornado-types';
+import { IMetaRefsResponse } from '@services';
+import { ITerminal, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum TerminalsActionTypes {
     GET_ALL_REQUEST = "TORNADO/terminals/get-all:request",
