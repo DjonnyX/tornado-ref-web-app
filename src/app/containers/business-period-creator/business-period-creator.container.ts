@@ -131,7 +131,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
       this._store.dispatch(BusinessPeriodActions.getRequest({ id: this._businessPeriodId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
 
     const prepareMainRequests$ = combineLatest([
       this.languages$,

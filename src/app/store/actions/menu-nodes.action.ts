@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { INode } from '@djonnyx/tornado-types';
+import { INode, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum MenuNodesActionTypes {
     GET_ROOT_NODE_REQUEST = "TORNADO/menu-nodes/get-root-node-id:request",
@@ -34,6 +34,7 @@ export namespace MenuNodesActions {
     // getRootNodeId
     export const getRootNodeIdRequest = createAction(
         MenuNodesActionTypes.GET_ROOT_NODE_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getRootNodeIdSuccess = createAction(
         MenuNodesActionTypes.GET_ROOT_NODE_SUCCESS,

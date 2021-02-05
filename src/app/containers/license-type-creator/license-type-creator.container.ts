@@ -79,7 +79,7 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
       this._store.dispatch(LicenseTypeActions.getRequest({ id: this._licenseTypeId }));
     }
 
-    this._store.dispatch(IntegrationsActions.getAllRequest());
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

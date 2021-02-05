@@ -55,7 +55,7 @@ export class TerminalsEditorContainer implements OnInit, OnDestroy {
     );
 
     this._store.dispatch(TerminalsActions.getAllRequest({}));
-    this._store.dispatch(StoresActions.getAllRequest());
+    this._store.dispatch(StoresActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

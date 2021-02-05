@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IOrderType } from '@djonnyx/tornado-types';
+import { IOrderType, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum OrderTypesActionTypes {
     GET_ALL_REQUEST = "TORNADO/order-types/get-all:request",
@@ -30,6 +30,7 @@ export namespace OrderTypesActions {
     // getAll
     export const getAllRequest = createAction(
         OrderTypesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         OrderTypesActionTypes.GET_ALL_SUCCESS,

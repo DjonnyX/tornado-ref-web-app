@@ -18,8 +18,8 @@ export default class CurrenciesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(CurrenciesActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getCurrencies().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getCurrencies(options).pipe(
                     mergeMap(res => {
                         return [CurrenciesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

@@ -134,9 +134,9 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(LicenseActions.getRequest({ id: this._licenseId }));
     }
 
-    this._store.dispatch(LicenseTypesActions.getAllRequest());
-    this._store.dispatch(IntegrationsActions.getAllRequest());
-    this._store.dispatch(AccountsActions.getAllRequest());
+    this._store.dispatch(LicenseTypesActions.getAllRequest({}));
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
+    this._store.dispatch(AccountsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

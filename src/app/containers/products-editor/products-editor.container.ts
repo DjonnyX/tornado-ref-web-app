@@ -98,10 +98,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
         !!collection && !!assets && !!languages && !!tags),
     );
 
-    this._store.dispatch(ProductsActions.getAllRequest());
-    this._store.dispatch(TagsActions.getAllRequest());
+    this._store.dispatch(ProductsActions.getAllRequest({}));
+    this._store.dispatch(TagsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

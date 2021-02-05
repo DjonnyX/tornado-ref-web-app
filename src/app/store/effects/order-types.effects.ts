@@ -18,8 +18,8 @@ export default class OrderTypesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypesActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getOrderTypes().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getOrderTypes(options).pipe(
                     mergeMap(res => {
                         return [OrderTypesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

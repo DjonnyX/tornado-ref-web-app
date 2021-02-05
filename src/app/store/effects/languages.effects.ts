@@ -18,8 +18,8 @@ export default class LanguagesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguagesActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getLanguages().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getLanguages(options).pipe(
                     mergeMap(res => {
                         return [LanguagesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

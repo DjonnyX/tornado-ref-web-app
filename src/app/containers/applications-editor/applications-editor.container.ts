@@ -25,7 +25,7 @@ export class ApplicationsEditorContainer implements OnInit, OnDestroy {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(ApplicationsActions.getAllRequest());
+    this._store.dispatch(ApplicationsActions.getAllRequest({}));
 
     this.isProcess$ = this._store.pipe(
       select(ApplicationsSelectors.selectLoading),

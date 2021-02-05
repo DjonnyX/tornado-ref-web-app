@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IBusinessPeriod } from '@djonnyx/tornado-types';
+import { IBusinessPeriod, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum BusinessPeriodsActionTypes {
     GET_ALL_REQUEST = "TORNADO/business-periods/get-all:request",
@@ -30,6 +30,7 @@ export namespace BusinessPeriodsActions {
     // getAll
     export const getAllRequest = createAction(
         BusinessPeriodsActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         BusinessPeriodsActionTypes.GET_ALL_SUCCESS,

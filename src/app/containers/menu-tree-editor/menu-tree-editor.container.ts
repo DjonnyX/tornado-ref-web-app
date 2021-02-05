@@ -62,12 +62,12 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
     ).subscribe(id => {
       this._store.dispatch(MenuNodesActions.getAllRequest({ id }));
       this._store.dispatch(SelectorsActions.getAllRequest({}));
-      this._store.dispatch(ProductsActions.getAllRequest());
-      this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+      this._store.dispatch(ProductsActions.getAllRequest({}));
+      this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
       this._store.dispatch(AssetsActions.getAllRequest());
-      this._store.dispatch(CurrenciesActions.getAllRequest());
-      this._store.dispatch(LanguagesActions.getAllRequest());
-      this._store.dispatch(OrderTypesActions.getAllRequest());
+      this._store.dispatch(CurrenciesActions.getAllRequest({}));
+      this._store.dispatch(LanguagesActions.getAllRequest({}));
+      this._store.dispatch(OrderTypesActions.getAllRequest({}));
     });
 
     this.nodes$ = this._store.pipe(
@@ -144,7 +144,7 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
         assetsLoading || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess)),
     );
 
-    this._store.dispatch(MenuNodesActions.getRootNodeIdRequest());
+    this._store.dispatch(MenuNodesActions.getRootNodeIdRequest({}));
   }
 
   ngOnDestroy(): void {

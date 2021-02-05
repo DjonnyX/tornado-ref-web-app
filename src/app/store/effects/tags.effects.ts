@@ -18,8 +18,8 @@ export default class TagsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(TagsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getTags().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getTags(options).pipe(
                     mergeMap(res => {
                         return [TagsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

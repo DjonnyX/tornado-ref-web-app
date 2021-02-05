@@ -224,7 +224,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(SelectorActions.getRequest({ id: this._selectorId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(SelectorsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
     // this._store.dispatch(TagsActions.getAllRequest());

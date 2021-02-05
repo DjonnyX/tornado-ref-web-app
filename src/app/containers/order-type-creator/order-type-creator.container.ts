@@ -175,7 +175,7 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       this._store.dispatch(OrderTypeActions.getRequest({ id: this._orderTypeId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest([

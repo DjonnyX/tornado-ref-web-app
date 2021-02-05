@@ -40,9 +40,15 @@ export class AdsEditorContainer implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._adsType = this._activatedRoute.snapshot.data.type;
 
-    this._store.dispatch(AdsActions.getAllRequest({ adType: this._adsType }));
+    this._store.dispatch(AdsActions.getAllRequest({
+      options: {
+        filter: [{
+          id: 'type', operation: 'equals', value: this._adsType,
+        }],
+      }
+    }));
     this._store.dispatch(AssetsActions.getAllRequest());
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
 
     this.isProcess$ = combineLatest([
       this._store.pipe(

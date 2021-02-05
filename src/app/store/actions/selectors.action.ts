@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ISelector, SelectorTypes } from '@djonnyx/tornado-types';
+import { IRequestOptions, ISelector } from '@djonnyx/tornado-types';
 
 export enum SelectorsActionTypes {
     GET_ALL_REQUEST = "TORNADO/selectors/get-all:request",
@@ -30,7 +30,7 @@ export namespace SelectorsActions {
     // getAll
     export const getAllRequest = createAction(
         SelectorsActionTypes.GET_ALL_REQUEST,
-        props<{ selectorType?: SelectorTypes }>(),
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         SelectorsActionTypes.GET_ALL_SUCCESS,

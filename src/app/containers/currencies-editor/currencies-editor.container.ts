@@ -25,7 +25,7 @@ export class CurrenciesEditorContainer implements OnInit, OnDestroy {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(CurrenciesActions.getAllRequest());
+    this._store.dispatch(CurrenciesActions.getAllRequest({}));
 
     this.isProcess$ = this._store.pipe(
       select(CurrenciesSelectors.selectLoading),

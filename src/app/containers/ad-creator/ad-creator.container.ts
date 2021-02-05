@@ -209,7 +209,7 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
       this._store.dispatch(AdActions.getRequest({ id: this._adId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest([

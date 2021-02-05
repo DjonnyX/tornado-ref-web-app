@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ILanguage } from '@djonnyx/tornado-types';
+import { ILanguage, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum LanguagesActionTypes {
     GET_ALL_REQUEST = "TORNADO/languages/get-all:request",
@@ -30,6 +30,7 @@ export namespace LanguagesActions {
     // getAll
     export const getAllRequest = createAction(
         LanguagesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         LanguagesActionTypes.GET_ALL_SUCCESS,

@@ -30,7 +30,7 @@ export class LanguagesEditorContainer implements OnInit, OnDestroy {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
 
     this._store.dispatch(AssetsActions.getAllRequest());
 

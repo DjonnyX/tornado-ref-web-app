@@ -113,8 +113,8 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
       this._store.dispatch(LicenseAccountActions.getRequest({ id: this._licenseId }));
     }
 
-    this._store.dispatch(LicenseTypesActions.getAllRequest());
-    this._store.dispatch(IntegrationsActions.getAllRequest());
+    this._store.dispatch(LicenseTypesActions.getAllRequest({}));
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

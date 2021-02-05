@@ -101,7 +101,7 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(TerminalActions.getRequest({ id: this._terminalId }));
     }
 
-    this._store.dispatch(StoresActions.getAllRequest());
+    this._store.dispatch(StoresActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

@@ -70,8 +70,8 @@ export class BusinessPeriodsEditorContainer implements OnInit, OnDestroy {
       map(([collection, languages]) => !!collection && !!languages),
     );
 
-    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

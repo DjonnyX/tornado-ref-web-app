@@ -64,9 +64,9 @@ export class LicensesEditorContainer implements OnInit, OnDestroy {
       select(LicensesSelectors.selectRefInfo),
     );
 
-    this._store.dispatch(LicensesActions.getAllRequest());
-    this._store.dispatch(AccountsActions.getAllRequest());
-    this._store.dispatch(IntegrationsActions.getAllRequest());
+    this._store.dispatch(LicensesActions.getAllRequest({}));
+    this._store.dispatch(AccountsActions.getAllRequest({}));
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

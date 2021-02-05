@@ -301,13 +301,13 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
-    this._store.dispatch(ProductsActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
+    this._store.dispatch(ProductsActions.getAllRequest({}));
     this._store.dispatch(SelectorsActions.getAllRequest({}));
-    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+    this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
-    this._store.dispatch(TagsActions.getAllRequest());
-    this._store.dispatch(CurrenciesActions.getAllRequest());
+    this._store.dispatch(TagsActions.getAllRequest({}));
+    this._store.dispatch(CurrenciesActions.getAllRequest({}));
 
     const prepareMainRequests$ = combineLatest([
       this.tags$,

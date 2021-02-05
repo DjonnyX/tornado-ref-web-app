@@ -44,13 +44,19 @@ export class SelectorsEditorContainer implements OnInit, OnDestroy {
   ngOnInit(): void {
     this._selectorsType = this._activatedRoute.snapshot.data.type;
 
-    this._store.dispatch(SelectorsActions.getAllRequest({ selectorType: this._selectorsType }));
+    this._store.dispatch(SelectorsActions.getAllRequest({
+      options: {
+        filter: [{
+          id: 'type', operation: 'equals', value: this._selectorsType,
+        }],
+      }
+    }));
 
-    this._store.dispatch(TagsActions.getAllRequest());
+    this._store.dispatch(TagsActions.getAllRequest({}));
 
     this._store.dispatch(AssetsActions.getAllRequest());
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),

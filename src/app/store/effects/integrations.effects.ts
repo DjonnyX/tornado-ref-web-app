@@ -18,8 +18,8 @@ export default class IntegrationsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getIntegrations().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getIntegrations(options).pipe(
                     mergeMap(res => {
                         return [IntegrationsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

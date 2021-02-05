@@ -37,7 +37,7 @@ export class StoresEditorContainer implements OnInit, OnDestroy {
       select(StoresSelectors.selectRefInfo),
     );
 
-    this._store.dispatch(StoresActions.getAllRequest());
+    this._store.dispatch(StoresActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

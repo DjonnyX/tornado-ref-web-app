@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ILicenseType } from '@djonnyx/tornado-types';
+import { ILicenseType, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum LicenseTypesActionTypes {
     GET_ALL_REQUEST = "TORNADO/license-types/get-all:request",
@@ -30,6 +30,7 @@ export namespace LicenseTypesActions {
     // getAll
     export const getAllRequest = createAction(
         LicenseTypesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         LicenseTypesActionTypes.GET_ALL_SUCCESS,

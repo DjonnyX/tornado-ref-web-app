@@ -173,7 +173,7 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
       this._store.dispatch(TagActions.getRequest({ id: this._tagId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest([

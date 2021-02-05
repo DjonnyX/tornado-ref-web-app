@@ -83,9 +83,9 @@ export class TagsEditorContainer implements OnInit, OnDestroy {
         !!collection && !!assets && !!languages),
     );
 
-    this._store.dispatch(TagsActions.getAllRequest());
+    this._store.dispatch(TagsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
