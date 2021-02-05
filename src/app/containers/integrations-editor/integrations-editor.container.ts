@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -14,7 +14,7 @@ import { IIntegration, IRef } from '@djonnyx/tornado-types';
   styleUrls: ['./integrations-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IntegrationsEditorContainer implements OnInit {
+export class IntegrationsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -38,6 +38,10 @@ export class IntegrationsEditorContainer implements OnInit {
     this.refInfo$ = this._store.pipe(
       select(IntegrationsSelectors.selectRefInfo),
     );
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onEdit(integration: IIntegration): void {

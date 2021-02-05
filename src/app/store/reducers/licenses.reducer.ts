@@ -15,6 +15,11 @@ export const initialState: ILicensesState = {
 
 const licensesReducer = createReducer(
     initialState,
+    on(LicensesActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(LicensesActions.getAllRequest, state => {
         return {
             ...state,

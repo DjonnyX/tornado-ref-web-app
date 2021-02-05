@@ -14,6 +14,8 @@ export enum AccountsActionTypes {
     UPDATE_REQUEST = "TORNADO/accounts/update:request",
     UPDATE_SUCCESS = "TORNADO/accounts/update:success",
     UPDATE_ERROR = "TORNADO/accounts/update:error",
+
+    CLEAR = "TORNADO/accounts/clear",
 }
 
 export namespace AccountsActions {
@@ -56,5 +58,10 @@ export namespace AccountsActions {
     export const updateError = createAction(
         AccountsActionTypes.UPDATE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        AccountsActionTypes.CLEAR,
     );
 }

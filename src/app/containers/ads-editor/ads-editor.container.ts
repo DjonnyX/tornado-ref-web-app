@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -17,7 +17,7 @@ import { LanguagesActions } from '@store/actions/languages.action';
   styleUrls: ['./ads-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdsEditorContainer implements OnInit {
+export class AdsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -41,9 +41,7 @@ export class AdsEditorContainer implements OnInit {
     this._adsType = this._activatedRoute.snapshot.data.type;
 
     this._store.dispatch(AdsActions.getAllRequest({ adType: this._adsType }));
-
     this._store.dispatch(AssetsActions.getAllRequest());
-
     this._store.dispatch(LanguagesActions.getAllRequest());
 
     this.isProcess$ = combineLatest([
@@ -90,6 +88,12 @@ export class AdsEditorContainer implements OnInit {
     ]).pipe(
       map(([collection, assets, languages]) => !!collection && !!assets && !!languages),
     );
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(AdsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
   }
 
   onCreate(): void {

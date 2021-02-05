@@ -104,6 +104,15 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(LanguagesActions.getAllRequest());
   }
 
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+
+    this._store.dispatch(ProductsActions.clear());
+    this._store.dispatch(TagsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+  }
+
   onCreate(): void {
     this._store.dispatch(ProductActions.clear());
 

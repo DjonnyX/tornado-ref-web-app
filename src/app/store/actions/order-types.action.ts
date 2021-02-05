@@ -22,6 +22,8 @@ export enum OrderTypesActionTypes {
     DELETE_REQUEST = "TORNADO/order-types/delete:request",
     DELETE_SUCCESS = "TORNADO/order-types/delete:success",
     DELETE_ERROR = "TORNADO/order-types/delete:error",
+
+    CLEAR = "TORNADO/order-types/clear",
 }
 
 export namespace OrderTypesActions {
@@ -92,5 +94,10 @@ export namespace OrderTypesActions {
     export const deleteError = createAction(
         OrderTypesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        OrderTypesActionTypes.CLEAR,
     );
 }

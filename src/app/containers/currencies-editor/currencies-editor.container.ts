@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -14,7 +14,7 @@ import { ICurrency, IRef } from '@djonnyx/tornado-types';
   styleUrls: ['./currencies-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CurrenciesEditorContainer implements OnInit {
+export class CurrenciesEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -38,6 +38,10 @@ export class CurrenciesEditorContainer implements OnInit {
     this.refInfo$ = this._store.pipe(
       select(CurrenciesSelectors.selectRefInfo),
     );
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(CurrenciesActions.clear());
   }
 
   onCreate(): void {

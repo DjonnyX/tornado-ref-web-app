@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
-import { TagsSelectors, TagAssetsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
+import { TagAssetsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -10,10 +10,9 @@ import { IAsset, IFileUploadEvent } from '@models';
 import { TagAssetsActions } from '@store/actions/tag-assets.action';
 import { TagSelectors } from '@store/selectors/tag.selectors';
 import { TagActions } from '@store/actions/tag.action';
-import { ITag, TagResourceTypes, ILanguage, ITagContents } from '@djonnyx/tornado-types';
+import { ITag, TagResourceTypes, ILanguage } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects } from '@app/utils/object.util';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 
 @Component({
@@ -33,8 +32,6 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
   rootNodeId$: Observable<string>;
 
   tag$: Observable<ITag>;
-
-  tags$: Observable<Array<ITag>>;
 
   tagAssets$: Observable<Array<IAsset>>;
 
@@ -70,17 +67,14 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
         select(TagSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(TagsSelectors.selectIsGetProcess),
-      ),
-      this._store.pipe(
         select(AssetsSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
     ]).pipe(
-      map(([isGetTagProcess, isTagsProcess, isAssetsProcess, isLanguagesProcess]) =>
-        isGetTagProcess || isTagsProcess || isAssetsProcess || isLanguagesProcess),
+      map(([isGetTagProcess, isAssetsProcess, isLanguagesProcess]) =>
+        isGetTagProcess || isAssetsProcess || isLanguagesProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest([
@@ -108,10 +102,6 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     ]).pipe(
       map(([isGetProcess, isUpdateProcess, isDeleteProcess]) =>
         isGetProcess || isUpdateProcess || isDeleteProcess),
-    );
-
-    this.tags$ = this._store.pipe(
-      select(TagsSelectors.selectCollection),
     );
 
     this.languages$ = this._store.pipe(
@@ -187,13 +177,12 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
     this._store.dispatch(AssetsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest([
-      this.tags$,
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
     ]).pipe(
-      map(([tags, languages, defaultLanguage, assets]) =>
-        !!tags && !!languages && !!defaultLanguage && !!assets),
+      map(([languages, defaultLanguage, assets]) =>
+        !!languages && !!defaultLanguage && !!assets),
     );
 
     this.isPrepareToConfigure$ = this.tagId$.pipe(
@@ -215,6 +204,8 @@ export class TagCreatorContainer extends BaseComponent implements OnInit, OnDest
 
     this._store.dispatch(TagActions.clear());
     this._store.dispatch(TagAssetsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {

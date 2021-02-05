@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -18,7 +18,7 @@ import { LanguagesActions } from '@store/actions/languages.action';
   styleUrls: ['./tags-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagsEditorContainer implements OnInit {
+export class TagsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -86,6 +86,12 @@ export class TagsEditorContainer implements OnInit {
     this._store.dispatch(TagsActions.getAllRequest());
     this._store.dispatch(AssetsActions.getAllRequest());
     this._store.dispatch(LanguagesActions.getAllRequest());
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(TagsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onCreate(): void {

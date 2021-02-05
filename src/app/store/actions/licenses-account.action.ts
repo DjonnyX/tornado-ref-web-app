@@ -6,6 +6,8 @@ export enum LicensesAccountActionTypes {
     GET_ALL_REQUEST = "TORNADO/licenses-accountget-all:request",
     GET_ALL_SUCCESS = "TORNADO/licenses-accountget-all:success",
     GET_ALL_ERROR = "TORNADO/licenses-accountget-all:error",
+
+    CLEAR = "TORNADO/licenses-account/clear",
 }
 
 export namespace LicensesAccountActions {
@@ -20,5 +22,10 @@ export namespace LicensesAccountActions {
     export const getAllError = createAction(
         LicensesAccountActionTypes.GET_ALL_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        LicensesAccountActionTypes.CLEAR,
     );
 }

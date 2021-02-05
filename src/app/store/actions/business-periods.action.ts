@@ -22,6 +22,8 @@ export enum BusinessPeriodsActionTypes {
     DELETE_REQUEST = "TORNADO/business-periods/delete:request",
     DELETE_SUCCESS = "TORNADO/business-periods/delete:success",
     DELETE_ERROR = "TORNADO/business-periods/delete:error",
+
+    CLEAR = "TORNADO/business-periods/clear",
 }
 
 export namespace BusinessPeriodsActions {
@@ -92,5 +94,10 @@ export namespace BusinessPeriodsActions {
     export const deleteError = createAction(
         BusinessPeriodsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        BusinessPeriodsActionTypes.CLEAR,
     );
 }

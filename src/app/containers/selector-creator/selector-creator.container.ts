@@ -194,7 +194,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this.languages$,
       this.defaultLanguage$,
     ]).pipe(
-      filter(([selector, assets, langs, defaultLang]) => !!selector && !!assets && !!langs && !!defaultLang),
+      filter(([selector, assets, langs, defaultLang]) =>
+        !!selector && !!assets && !!langs && !!defaultLang),
       map(([selector, assets, langs, defaultLang]) => {
         const result: { [lang: string]: Array<IAsset> } = {};
         for (const lang in assets) {
@@ -256,7 +257,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     super.ngOnDestroy();
 
     this._store.dispatch(SelectorActions.clear());
+    this._store.dispatch(SelectorsActions.clear());
     this._store.dispatch(SelectorAssetsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {

@@ -22,6 +22,8 @@ export enum LicensesActionTypes {
     DELETE_REQUEST = "TORNADO/licenses/delete:request",
     DELETE_SUCCESS = "TORNADO/licenses/delete:success",
     DELETE_ERROR = "TORNADO/licenses/delete:error",
+
+    CLEAR = "TORNADO/licenses/clear",
 }
 
 export namespace LicensesActions {
@@ -78,5 +80,10 @@ export namespace LicensesActions {
     export const deleteError = createAction(
         LicensesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        LicensesActionTypes.CLEAR,
     );
 }

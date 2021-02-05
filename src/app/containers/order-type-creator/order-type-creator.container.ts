@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { OrderTypesActions } from '@store/actions/order-types.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import { OrderTypesSelectors, OrderTypeAssetsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,12 +10,10 @@ import { IAsset, IFileUploadEvent } from '@models';
 import { OrderTypeAssetsActions } from '@store/actions/order-type-assets.action';
 import { OrderTypeSelectors } from '@store/selectors/order-type.selectors';
 import { OrderTypeActions } from '@store/actions/order-type.action';
-import { IOrderType, OrderTypeResourceTypes, ILanguage, IOrderTypeContents } from '@djonnyx/tornado-types';
+import { IOrderType, OrderTypeResourceTypes, ILanguage } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects } from '@app/utils/object.util';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
-import { SelectorsActions } from '@store/actions/selectors.action';
 
 @Component({
   selector: 'ta-order-type-creator',
@@ -35,8 +32,6 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
   rootNodeId$: Observable<string>;
 
   orderType$: Observable<IOrderType>;
-
-  orderTypes$: Observable<Array<IOrderType>>;
 
   orderTypeAssets$: Observable<Array<IAsset>>;
 
@@ -111,10 +106,6 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
         isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
-    this.orderTypes$ = this._store.pipe(
-      select(OrderTypesSelectors.selectCollection),
-    );
-
     this.languages$ = this._store.pipe(
       select(LanguagesSelectors.selectCollection),
     );
@@ -185,17 +176,15 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     }
 
     this._store.dispatch(LanguagesActions.getAllRequest());
-    this._store.dispatch(OrderTypesActions.getAllRequest());
     this._store.dispatch(AssetsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest([
-      this.orderTypes$,
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
     ]).pipe(
-      map(([orderTypes, languages, defaultLanguage, assets]) =>
-        !!orderTypes && !!languages && !!defaultLanguage && !!assets),
+      map(([languages, defaultLanguage, assets]) =>
+        !!languages && !!defaultLanguage && !!assets),
     );
 
     this.isPrepareToConfigure$ = this.orderTypeId$.pipe(
@@ -217,7 +206,8 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
     this._store.dispatch(OrderTypeActions.clear());
     this._store.dispatch(OrderTypeAssetsActions.clear());
-    this._store.dispatch(SelectorsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {

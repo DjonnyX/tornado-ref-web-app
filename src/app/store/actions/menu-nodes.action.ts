@@ -26,6 +26,8 @@ export enum MenuNodesActionTypes {
     DELETE_REQUEST = "TORNADO/menu-nodes/delete:request",
     DELETE_SUCCESS = "TORNADO/menu-nodes/delete:success",
     DELETE_ERROR = "TORNADO/menu-nodes/delete:error",
+
+    CLEAR = "TORNADO/menu-nodes/clear",
 }
 
 export namespace MenuNodesActions {
@@ -110,5 +112,10 @@ export namespace MenuNodesActions {
     export const deleteError = createAction(
         MenuNodesActionTypes.DELETE_ERROR,
         props<{ error: string }>()
+    );
+
+    // clear
+    export const clear = createAction(
+        MenuNodesActionTypes.CLEAR,
     );
 }

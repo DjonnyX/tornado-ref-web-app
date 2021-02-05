@@ -158,6 +158,7 @@ export class BusinessPeriodCreatorContainer extends BaseComponent implements OnI
     super.ngOnDestroy();
 
     this._store.dispatch(BusinessPeriodActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onMainOptionsSave(businessPeriod: IBusinessPeriod): void {

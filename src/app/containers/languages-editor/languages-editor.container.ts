@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -17,7 +17,7 @@ import { AssetsActions } from '@store/actions/assets.action';
   styleUrls: ['./languages-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LanguagesEditorContainer implements OnInit {
+export class LanguagesEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -57,6 +57,11 @@ export class LanguagesEditorContainer implements OnInit {
     this.refInfo$ = this._store.pipe(
       select(LanguagesSelectors.selectRefInfo),
     );
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
   }
 
   onCreate(): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -14,7 +14,7 @@ import { IApplication, IRef } from '@djonnyx/tornado-types';
   styleUrls: ['./applications-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ApplicationsEditorContainer implements OnInit {
+export class ApplicationsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -38,6 +38,10 @@ export class ApplicationsEditorContainer implements OnInit {
     this.refInfo$ = this._store.pipe(
       select(ApplicationsSelectors.selectRefInfo),
     );
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(ApplicationsActions.clear());
   }
 
   onCreate(): void {

@@ -16,6 +16,11 @@ export const initialState: IAssetsState = {
 
 const assetsReducer = createReducer(
     initialState,
+    on(AssetsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(AssetsActions.getAllRequest, state => {
         return {
             ...state,

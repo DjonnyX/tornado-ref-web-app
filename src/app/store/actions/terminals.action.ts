@@ -22,6 +22,8 @@ export enum TerminalsActionTypes {
     DELETE_REQUEST = "TORNADO/terminals/delete:request",
     DELETE_SUCCESS = "TORNADO/terminals/delete:success",
     DELETE_ERROR = "TORNADO/terminals/delete:error",
+
+    CLEAR = "TORNADO/terminals/clear",
 }
 
 export namespace TerminalsActions {
@@ -79,5 +81,10 @@ export namespace TerminalsActions {
     export const deleteError = createAction(
         TerminalsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        TerminalsActionTypes.CLEAR,
     );
 }

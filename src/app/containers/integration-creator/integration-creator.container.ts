@@ -9,6 +9,7 @@ import { IntegrationActions } from '@store/actions/integration.action';
 import { IntegrationSelectors } from '@store/selectors/integration.selectors';
 import { IIntegration, IStore } from '@djonnyx/tornado-types';
 import { StoresSelectors } from '@store/selectors';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-integration-creator',
@@ -73,6 +74,7 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
     super.ngOnDestroy();
 
     this._store.dispatch(IntegrationActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onSubmit(integration: IIntegration): void {

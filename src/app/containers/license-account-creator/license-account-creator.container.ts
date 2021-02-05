@@ -13,6 +13,7 @@ import { LicenseTypesActions } from '@store/actions/license-types.action';
 import { IntegrationsActions } from '@store/actions/integrations.action';
 import { StoreActions } from '@store/actions/store.action';
 import { TerminalActions } from '@store/actions/terminal.action';
+import { LicenseTypeActions } from '@store/actions/license-type.action';
 
 @Component({
   selector: 'ta-license-account-creator',
@@ -120,6 +121,10 @@ export class LicenseAccountCreatorContainer extends BaseComponent implements OnI
     super.ngOnDestroy();
 
     this._store.dispatch(LicenseAccountActions.clear());
+    this._store.dispatch(LicenseTypeActions.clear());
+    this._store.dispatch(TerminalActions.clear());
+    this._store.dispatch(StoreActions.clear());
+    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onCancel(): void {

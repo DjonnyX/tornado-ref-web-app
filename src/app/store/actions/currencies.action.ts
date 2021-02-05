@@ -22,6 +22,8 @@ export enum CurrenciesActionTypes {
     DELETE_REQUEST = "TORNADO/currencies/delete:request",
     DELETE_SUCCESS = "TORNADO/currencies/delete:success",
     DELETE_ERROR = "TORNADO/currencies/delete:error",
+
+    CLEAR = "TORNADO/currencies/clear",
 }
 
 export namespace CurrenciesActions {
@@ -92,5 +94,10 @@ export namespace CurrenciesActions {
     export const deleteError = createAction(
         CurrenciesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        CurrenciesActionTypes.CLEAR,
     );
 }

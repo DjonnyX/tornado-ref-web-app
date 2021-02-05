@@ -14,6 +14,8 @@ export enum IntegrationsActionTypes {
     UPDATE_REQUEST = "TORNADO/integrations/update:request",
     UPDATE_SUCCESS = "TORNADO/integrations/update:success",
     UPDATE_ERROR = "TORNADO/integrations/update:error",
+
+    CLEAR = "TORNADO/integrations/clear",
 }
 
 export namespace IntegrationsActions {
@@ -56,5 +58,10 @@ export namespace IntegrationsActions {
     export const updateError = createAction(
         IntegrationsActionTypes.UPDATE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        IntegrationsActionTypes.CLEAR,
     );
 }

@@ -22,6 +22,8 @@ export enum TagsActionTypes {
     DELETE_REQUEST = "TORNADO/tags/delete:request",
     DELETE_SUCCESS = "TORNADO/tags/delete:success",
     DELETE_ERROR = "TORNADO/tags/delete:error",
+
+    CLEAR = "TORNADO/tags/clear",
 }
 
 export namespace TagsActions {
@@ -92,5 +94,10 @@ export namespace TagsActions {
     export const deleteError = createAction(
         TagsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        TagsActionTypes.CLEAR,
     );
 }

@@ -14,6 +14,11 @@ export const initialState: IAccountsState = {
 
 const accountsReducer = createReducer(
     initialState,
+    on(AccountsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(AccountsActions.getAllRequest, state => {
         return {
             ...state,

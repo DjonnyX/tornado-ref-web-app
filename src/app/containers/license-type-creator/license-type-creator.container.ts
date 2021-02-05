@@ -51,22 +51,15 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
         select(LicenseTypeSelectors.selectIsUpdateProcess),
       ),
       this._store.pipe(
-        select(StoresSelectors.selectIsGetProcess),
-      ),
-      this._store.pipe(
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
     ]).pipe(
-      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isStoresGetProcess, isIntegrationsProcess]) =>
-        isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess || isIntegrationsProcess),
+      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isIntegrationsProcess]) =>
+        isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isIntegrationsProcess),
     );
 
     this.licenseType$ = this._store.pipe(
       select(LicenseTypeSelectors.selectEntity),
-    );
-
-    this.stores$ = this._store.pipe(
-      select(StoresSelectors.selectCollection),
     );
 
     this.integrations$ = this._store.pipe(
@@ -93,6 +86,7 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
     super.ngOnDestroy();
 
     this._store.dispatch(LicenseTypeActions.clear());
+    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onSubmit(licenseType: ILicenseType): void {

@@ -22,6 +22,8 @@ export enum LanguagesActionTypes {
     DELETE_REQUEST = "TORNADO/languages/delete:request",
     DELETE_SUCCESS = "TORNADO/languages/delete:success",
     DELETE_ERROR = "TORNADO/languages/delete:error",
+
+    CLEAR = "TORNADO/languages/clear",
 }
 
 export namespace LanguagesActions {
@@ -92,5 +94,10 @@ export namespace LanguagesActions {
     export const deleteError = createAction(
         LanguagesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        LanguagesActionTypes.CLEAR,
     );
 }

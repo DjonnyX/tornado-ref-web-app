@@ -151,6 +151,13 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
 
     this._store.dispatch(SelectorsActions.clear());
+    this._store.dispatch(ProductsActions.clear());
+    this._store.dispatch(MenuNodesActions.clear());
+    this._store.dispatch(BusinessPeriodsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(CurrenciesActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(OrderTypesActions.clear());
   }
 
   onSearch(pattern: string): void {

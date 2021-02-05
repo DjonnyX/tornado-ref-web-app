@@ -9,6 +9,7 @@ import { ApplicationActions } from '@store/actions/application.action';
 import { ApplicationSelectors } from '@store/selectors/application.selectors';
 import { IApplication, IStore } from '@djonnyx/tornado-types';
 import { StoresSelectors } from '@store/selectors';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-application-creator',
@@ -81,6 +82,7 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
     super.ngOnDestroy();
 
     this._store.dispatch(ApplicationActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onSubmit(application: IApplication): void {

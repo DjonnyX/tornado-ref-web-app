@@ -42,7 +42,8 @@ export class CurrencyCreatorContainer extends BaseComponent implements OnInit, O
         select(CurrencySelectors.selectIsUpdateProcess),
       ),
     ]).pipe(
-      map(([isCurrencyGetProcess, selectIsUpdateProcess]) => isCurrencyGetProcess || selectIsUpdateProcess),
+      map(([isCurrencyGetProcess, selectIsUpdateProcess]) =>
+        isCurrencyGetProcess || selectIsUpdateProcess),
     );
 
     this.currency$ = this._store.pipe(

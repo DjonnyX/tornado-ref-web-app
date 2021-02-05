@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -16,7 +16,7 @@ import { LanguagesActions } from '@store/actions/languages.action';
   styleUrls: ['./business-periods-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BusinessPeriodsEditorContainer implements OnInit {
+export class BusinessPeriodsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -33,9 +33,6 @@ export class BusinessPeriodsEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
-    this._store.dispatch(LanguagesActions.getAllRequest());
-
     this.isProcess$ = combineLatest([
       this._store.pipe(
         select(BusinessPeriodsSelectors.selectLoading),
@@ -72,6 +69,14 @@ export class BusinessPeriodsEditorContainer implements OnInit {
     ]).pipe(
       map(([collection, languages]) => !!collection && !!languages),
     );
+
+    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest());
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(BusinessPeriodsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onCreate(): void {

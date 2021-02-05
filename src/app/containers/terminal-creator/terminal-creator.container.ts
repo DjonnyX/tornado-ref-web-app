@@ -12,7 +12,6 @@ import { LicenseAccountSelectors, StoreSelectors, StoresSelectors } from '@store
 import { StoresActions } from '@store/actions/stores.action';
 import { StoreActions } from '@store/actions/store.action';
 import { LicenseAccountActions } from '@store/actions/license-account.action';
-import { LicenseActions } from '@store/actions/license.action';
 
 @Component({
   selector: 'ta-terminal-creator',
@@ -109,7 +108,9 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
     super.ngOnDestroy();
 
     this._store.dispatch(TerminalActions.clear());
-    this._store.dispatch(LicenseActions.clear());
+    this._store.dispatch(StoresActions.clear());
+    this._store.dispatch(StoreActions.clear());
+    this._store.dispatch(LicenseAccountActions.clear());
   }
 
   onSubmit(terminal: ITerminal): void {

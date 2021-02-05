@@ -342,7 +342,13 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
 
     this._store.dispatch(ProductActions.clear());
+    this._store.dispatch(ProductsActions.clear());
     this._store.dispatch(ProductAssetsActions.clear());
+    this._store.dispatch(SelectorsActions.clear());
+    this._store.dispatch(BusinessPeriodsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(TagsActions.clear());
+    this._store.dispatch(CurrenciesActions.clear());
   }
 
   onAssetUpload(data: IFileUploadEvent): void {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -17,7 +17,7 @@ import { StoresActions } from '@store/actions/stores.action';
   styleUrls: ['./terminals-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TerminalsEditorContainer implements OnInit {
+export class TerminalsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -56,6 +56,11 @@ export class TerminalsEditorContainer implements OnInit {
 
     this._store.dispatch(TerminalsActions.getAllRequest({}));
     this._store.dispatch(StoresActions.getAllRequest());
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(TerminalsActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onCreate(): void {

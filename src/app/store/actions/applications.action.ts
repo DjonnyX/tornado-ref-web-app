@@ -22,6 +22,8 @@ export enum ApplicationsActionTypes {
     DELETE_REQUEST = "TORNADO/applications/delete:request",
     DELETE_SUCCESS = "TORNADO/applications/delete:success",
     DELETE_ERROR = "TORNADO/applications/delete:error",
+
+    CLEAR = "TORNADO/applications/clear",
 }
 
 export namespace ApplicationsActions {
@@ -78,5 +80,10 @@ export namespace ApplicationsActions {
     export const deleteError = createAction(
         ApplicationsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        ApplicationsActionTypes.CLEAR,
     );
 }

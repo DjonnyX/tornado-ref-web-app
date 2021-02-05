@@ -143,7 +143,11 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
 
     this._store.dispatch(LicenseActions.clear());
+    this._store.dispatch(TerminalActions.clear());
     this._store.dispatch(StoreActions.clear());
+    this._store.dispatch(LicenseTypesActions.clear());
+    this._store.dispatch(IntegrationsActions.clear());
+    this._store.dispatch(AccountsActions.clear());
   }
 
   onSubmit(license: ILicenseAccount): void {

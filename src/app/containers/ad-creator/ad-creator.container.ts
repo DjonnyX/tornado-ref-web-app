@@ -7,14 +7,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset, IFileUploadEvent } from '@models';
-import { AdsActions } from '@store/actions/ads.action';
 import { AdAssetsActions } from '@store/actions/ad-assets.action';
 import { AdActions } from '@store/actions/ad.action';
 import { IAd, AdResourceTypes, ILanguage, IAdContents, AdTypes } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects } from '@app/utils/object.util';
-import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 
 @Component({
@@ -53,8 +50,6 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
   readonly adId$ = this._adId$.asObservable();
 
   private _adType: AdTypes;
-
-  private _ad: IAd;
 
   private _defaultLanguage: ILanguage;
 
@@ -96,7 +91,8 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
         select(AdSelectors.selectIsUpdateProcess),
       ),
     ]).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
     this.isProcessAssets$ = combineLatest([
@@ -164,7 +160,6 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
     this.ad$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(ad => {
-      this._ad = ad;
       this._adId = ad.id;
       this._adId$.next(this._adId);
       this.isEditMode = true;
@@ -215,9 +210,7 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
     }
 
     this._store.dispatch(LanguagesActions.getAllRequest());
-    this._store.dispatch(AdsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
-    // this._store.dispatch(TagsActions.getAllRequest());
 
     const prepareMainRequests$ = combineLatest([
       this.languages$,
@@ -247,6 +240,8 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
 
     this._store.dispatch(AdActions.clear());
     this._store.dispatch(AdAssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {
