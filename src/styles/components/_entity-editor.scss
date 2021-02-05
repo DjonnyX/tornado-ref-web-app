@@ -29,6 +29,7 @@ $ctrl-panel-height: px2em(40);
     }
     .entity {
         position: relative;
+        color: $primary-700;
 
         &.disabled {
             opacity: 0.5;

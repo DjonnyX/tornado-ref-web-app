@@ -2,16 +2,16 @@
 @import "../utils/px2em";
 
 .saturn-page-logo__wrapper {
-    position: fixed;
+    position: absolute;
     display: flex;
     align-items: center;
     justify-content: center;
 
     &.workflow {
-        left: 320px;
-        top: 64px;
+        left: 0;
+        top: 0;
         bottom: 0;
-        right: 20px; // чтобы не блокировался скроллбар (костыль)
+        right: 0;
         opacity: 0.05;
     }
 
