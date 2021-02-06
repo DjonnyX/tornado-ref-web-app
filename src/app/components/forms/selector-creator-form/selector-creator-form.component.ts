@@ -61,6 +61,8 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Input() isEditMode: boolean;
 
+  isEdit: boolean = false;
+
   @Output() save = new EventEmitter<ISelector>();
 
   @Output() cancel = new EventEmitter<void>();
@@ -109,6 +111,8 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
         active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true,
         extra: !!this._selector ? this._selector.extra : {},
       });
+
+      this.isEdit = false;
     }
   }
 
@@ -118,6 +122,14 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {

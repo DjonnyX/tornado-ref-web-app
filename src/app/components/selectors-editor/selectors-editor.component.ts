@@ -69,13 +69,13 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   }
 
   getTagColor(id: string): string {
-    const tag = this.tagList.find(t => t.id === id);
+    const tag = this.tagList?.find(t => t.id === id);
     const tagContent = this.getTagContent(tag);
     return tagContent?.color || "";
   }
 
   getTagName(id: string): string {
-    const tag = this.tagList.find(t => t.id === id);
+    const tag = this.tagList?.find(t => t.id === id);
     const tagContent = this.getTagContent(tag);
     return tagContent?.name || "";
   }
