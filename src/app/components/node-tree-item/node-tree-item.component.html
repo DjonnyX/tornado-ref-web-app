@@ -41,7 +41,8 @@
                             <mat-icon>
                                 {{!!nodeInstance ? nodeInstance.active : node.active ? 'visibility_off' : 'visibility'}}
                             </mat-icon>
-                            <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Деактивировать' : 'Активировать'}}</span>
+                            <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Деактивировать' :
+                                'Активировать'}}</span>
                         </button>
                         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
                             <mat-icon>arrow_upward</mat-icon>
@@ -71,11 +72,11 @@
             <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
                 <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
                     [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
-                    [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages"
-                    [defaultLanguage]="defaultLanguage" (deleteAll)="onDeleteScenarios()"
-                    (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
-                    (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
-                    (downward)="onDownwardScenario($event)" [lock]="lock"
+                    [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages" [stores]="stores"
+                    [storesDictionary]="storesDictionary" [defaultLanguage]="defaultLanguage"
+                    (deleteAll)="onDeleteScenarios()" (delete)="onDeleteScenario($event)" (add)="onAddScenario()"
+                    (edit)="onEditScenario($event)" (update)="onUpdateScenario($event)"
+                    (upward)="onUpwardScenario($event)" (downward)="onDownwardScenario($event)" [lock]="lock"
                     [disabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)">
                 </ta-scenario-list>
             </div>
@@ -85,11 +86,11 @@
                 *ngIf="!!nodeInstance?.scenarios && nodeInstance?.scenarios?.length > 0">
                 <ta-scenario-list [scenarios]="nodeInstance.scenarios" [businessPeriods]="businessPeriods"
                     [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
-                    [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages"
-                    [defaultLanguage]="defaultLanguage" (deleteAll)="onDeleteScenarios()"
-                    (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
-                    (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
-                    (downward)="onDownwardScenario($event)" [lock]="true">
+                    [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages" [stores]="stores"
+                    [storesDictionary]="storesDictionary" [defaultLanguage]="defaultLanguage"
+                    (deleteAll)="onDeleteScenarios()" (delete)="onDeleteScenario($event)" (add)="onAddScenario()"
+                    (edit)="onEditScenario($event)" (update)="onUpdateScenario($event)"
+                    (upward)="onUpwardScenario($event)" (downward)="onDownwardScenario($event)" [lock]="true">
                 </ta-scenario-list>
             </div>
         </ng-template>
@@ -105,7 +106,8 @@
                     [selectorsDictionary]="selectorsDictionary" [assetsDictionary]="assetsDictionary"
                     [searchPattern]="searchPattern" [mode]="mode" [defaultLanguage]="defaultLanguage"
                     [languages]="languages" [languagesDictionary]="languagesDictionary" [orderTypes]="orderTypes"
-                    [orderTypesDictionary]="orderTypesDictionary" (create)="createNodeForChild($event)"
+                    [orderTypesDictionary]="orderTypesDictionary" [stores]="stores"
+                    [storesDictionary]="storesDictionary" (create)="createNodeForChild($event)"
                     (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
                     (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
             </ng-container>
@@ -123,7 +125,8 @@
                         [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
                         [defaultLanguage]="defaultLanguage" [languages]="languages"
                         [languagesDictionary]="languagesDictionary" [orderTypes]="orderTypes"
-                        [orderTypesDictionary]="orderTypesDictionary" (create)="createNodeForChild($event)"
+                        [orderTypesDictionary]="orderTypesDictionary" [stores]="stores"
+                        [storesDictionary]="storesDictionary" (create)="createNodeForChild($event)"
                         (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
                         (searchExpand)="onSearchExpand($event)">
                     </ta-node-tree-item>

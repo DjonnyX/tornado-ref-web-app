@@ -2,18 +2,25 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable, combineLatest } from 'rxjs';
 import { IAppState } from '@store/state';
-import { MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors, AssetsSelectors, CurrenciesSelectors, LanguagesSelectors, OrderTypesSelectors } from '@store/selectors';
+import {
+  MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors,
+  AssetsSelectors, CurrenciesSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors
+} from '@store/selectors';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductsActions } from '@store/actions/products.action';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage, IOrderType } from '@djonnyx/tornado-types';
+import {
+  INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage,
+  IOrderType, IStore
+} from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { OrderTypesActions } from '@store/actions/order-types.action';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-menu-tree-editor',
@@ -31,6 +38,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
   products$: Observable<Array<IProduct>>;
 
   businessPeriods$: Observable<Array<IBusinessPeriod>>;
+
+  stores$: Observable<Array<IStore>>;
 
   orderTypes$: Observable<Array<IOrderType>>;
 
@@ -68,6 +77,7 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(CurrenciesActions.getAllRequest({}));
       this._store.dispatch(LanguagesActions.getAllRequest({}));
       this._store.dispatch(OrderTypesActions.getAllRequest({}));
+      this._store.dispatch(StoresActions.getAllRequest({}));
     });
 
     this.nodes$ = this._store.pipe(
@@ -84,6 +94,10 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
     this.businessPeriods$ = this._store.pipe(
       select(BusinessPeriodsSelectors.selectCollection)
+    );
+
+    this.stores$ = this._store.pipe(
+      select(StoresSelectors.selectCollection)
     );
 
     this.assets$ = this._store.pipe(
@@ -137,11 +151,16 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(OrderTypesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(StoresSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
       map(([menuNodesLoading, selectorsLoading, productsLoading, businessPeriodsLoading,
-        assetsLoading, isCurrenciesProcess, isLanguagesProcess, isOrderTypesProcess]) =>
+        assetsLoading, isCurrenciesProcess, isLanguagesProcess, isOrderTypesProcess,
+        isStoresGetProcess]) =>
       (menuNodesLoading || selectorsLoading || productsLoading || businessPeriodsLoading ||
-        assetsLoading || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess)),
+        assetsLoading || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess ||
+        isStoresGetProcess)),
     );
 
     this._store.dispatch(MenuNodesActions.getRootNodeIdRequest({}));
@@ -158,6 +177,7 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(CurrenciesActions.clear());
     this._store.dispatch(LanguagesActions.clear());
     this._store.dispatch(OrderTypesActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onSearch(pattern: string): void {

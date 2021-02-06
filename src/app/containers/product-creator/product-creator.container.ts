@@ -3,7 +3,10 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors, OrderTypesSelectors } from '@store/selectors';
+import {
+  ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors,
+  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors
+} from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -15,15 +18,18 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage, IProductContents, IOrderType } from '@djonnyx/tornado-types';
+import {
+  IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage,
+  IStore, IOrderType
+} from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects, deepClone } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -46,6 +52,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   product$: Observable<IProduct>;
 
   businessPeriods$: Observable<Array<IBusinessPeriod>>;
+
+  stores$: Observable<Array<IStore>>;
 
   nodes$: Observable<Array<INode>>;
 
@@ -121,13 +129,16 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(OrderTypesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(StoresSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
       map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess,
         isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess,
-        isLanguagesProcess, isOrderTypesProcess]) =>
+        isLanguagesProcess, isOrderTypesProcess, isStoresGetProcess]) =>
         isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess
         || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess
-        || isLanguagesProcess || isOrderTypesProcess),
+        || isLanguagesProcess || isOrderTypesProcess || isStoresGetProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest([
@@ -183,6 +194,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.businessPeriods$ = this._store.pipe(
       select(BusinessPeriodsSelectors.selectCollection),
+    );
+
+    this.stores$ = this._store.pipe(
+      select(StoresSelectors.selectCollection),
     );
 
     this.orderTypes$ = this._store.pipe(
@@ -308,6 +323,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(AssetsActions.getAllRequest());
     this._store.dispatch(TagsActions.getAllRequest({}));
     this._store.dispatch(CurrenciesActions.getAllRequest({}));
+    this._store.dispatch(StoresActions.getAllRequest({}));
 
     const prepareMainRequests$ = combineLatest([
       this.tags$,
@@ -318,9 +334,11 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
+      this.stores$,
     ]).pipe(
-      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets]) =>
-        !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages && !!defaultLanguage && !!assets),
+      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets, stores]) =>
+        !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages &&
+        !!defaultLanguage && !!assets && !!stores),
     );
 
     this.isPrepareToConfigure$ = this.productId$.pipe(
@@ -349,6 +367,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(AssetsActions.clear());
     this._store.dispatch(TagsActions.clear());
     this._store.dispatch(CurrenciesActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onAssetUpload(data: IFileUploadEvent): void {

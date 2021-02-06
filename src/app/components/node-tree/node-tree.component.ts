@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
-import { INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage, IOrderType } from '@djonnyx/tornado-types';
+import { INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage, IOrderType, IStore } from '@djonnyx/tornado-types';
 import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
 
 @Component({
@@ -29,6 +29,16 @@ export class NodeTreeComponent implements OnInit {
     if (this.currenciesCollection !== v) {
       this.currenciesCollection = v;
       this.currenciesDictionary = !!v ? getMapOfCollection(v, "id") : {};
+    }
+  }
+
+  storesCollection: Array<IStore>;
+  storesDictionary: ICollectionDictionary<IStore>;
+
+  @Input() set stores(v: Array<IStore>) {
+    if (this.storesCollection !== v) {
+      this.storesCollection = v;
+      this.storesDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
 
