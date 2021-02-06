@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
-import { INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage, IOrderType, IStore } from '@djonnyx/tornado-types';
+import {
+  INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage,
+  IOrderType, IStore
+} from '@djonnyx/tornado-types';
 import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
 
 @Component({

@@ -12,6 +12,7 @@ interface IDialogData {
   title: string;
   message: string;
   scenario: IScenario;
+  scenarios: Array<IScenario>;
   businessPeriods: Array<IBusinessPeriod>;
   businessPeriodsDictionary: ICollectionDictionary<IBusinessPeriod>;
   currencies: Array<ICurrency>;

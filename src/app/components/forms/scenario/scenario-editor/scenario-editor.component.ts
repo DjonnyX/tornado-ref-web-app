@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
-import { ICollectionDictionary } from '@app/utils/collection.util';
+import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
 
 @Component({
   selector: 'ta-scenario-editor',
@@ -23,6 +23,22 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   @Input() languages: Array<ILanguage>;
 
   @Input() defaultLanguage: ILanguage;
+
+  private _scenarios: Array<IScenario>;
+  private scenariosDictionary: ICollectionDictionary<IScenario>;
+
+  @Input() set scenarios(v: Array<IScenario>) {
+    if (v) {
+      this._scenarios = v;
+      this.scenariosDictionary = !!v ? getMapOfCollection(v, "action") : {};
+    }
+  }
+
+  get actualTypes(): Array<string> {
+    return !!this.scenariosDictionary && !!this.types
+      ? this.types.filter(t => t === this._scenario?.action || !this.scenariosDictionary[t])
+      : [];
+  }
 
   private _scenario: IScenario;
 
