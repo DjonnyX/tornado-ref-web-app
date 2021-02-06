@@ -3,6 +3,12 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { ILanguage, ILanguageResources, IAsset } from '@djonnyx/tornado-types';
+import { IKeyValue } from '@components/key-value/key-value.component';
+
+interface IData {
+  code: IKeyValue;
+  name: IKeyValue;
+}
 
 @Component({
   selector: 'ta-language-creator-form',
@@ -26,6 +32,8 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
     if (language) {
       this._language = language;
 
+      this.generateData();
+
       this.ctrlCode.setValue(language.code);
       this.ctrlName.setValue(language.name);
     }
@@ -41,6 +49,14 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() uploadMainResource = new EventEmitter<File>();
 
+  isEdit: boolean = false;
+
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   constructor(private _fb: FormBuilder) {
     super();
 
@@ -48,6 +64,23 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
       name: this.ctrlName,
       code: this.ctrlCode,
     })
+  }
+
+  private generateData(): void {
+    if (!this._language) {
+      return;
+    }
+
+    this._data = {
+      code: {
+        key: "Код",
+        value: this._language?.code || ' ---',
+      },
+      name: {
+        key: "Название",
+        value: this._language?.name || ' ---',
+      },
+    }
   }
 
   ngOnInit(): void {
@@ -73,7 +106,7 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
   onSave(): void {
     if (this.form.valid) {
-      const resources: ILanguageResources = {...this.resources};
+      const resources: ILanguageResources = { ...this.resources };
       if (!(resources as any).hasOwnProperty("main")) {
         resources.main = null;
       }
@@ -85,11 +118,21 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
         active: !!this._language && this._language.active !== undefined ? this._language.active : true,
         extra: !!this._language ? this._language.extra : {},
       });
+
+      this.isEdit = false;
     }
   }
 
   onMainResourceUpload(file: File): void {
     this.uploadMainResource.emit(file);
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {
