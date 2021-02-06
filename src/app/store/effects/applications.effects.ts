@@ -18,8 +18,8 @@ export default class ApplicationsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ApplicationsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getApplications().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getApplications(options).pipe(
                     mergeMap(res => {
                         return [ApplicationsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

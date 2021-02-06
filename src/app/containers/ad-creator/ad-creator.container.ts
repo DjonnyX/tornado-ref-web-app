@@ -7,14 +7,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset, IFileUploadEvent } from '@models';
-import { AdsActions } from '@store/actions/ads.action';
 import { AdAssetsActions } from '@store/actions/ad-assets.action';
 import { AdActions } from '@store/actions/ad.action';
 import { IAd, AdResourceTypes, ILanguage, IAdContents, AdTypes } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects } from '@app/utils/object.util';
-import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 
 @Component({
@@ -47,8 +44,6 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
 
   isEditMode = false;
 
-  private _returnUrl: string;
-
   private _adId: string;
 
   private _adId$ = new BehaviorSubject<string>(undefined);
@@ -56,25 +51,24 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
 
   private _adType: AdTypes;
 
-  private _ad: IAd;
-
   private _defaultLanguage: ILanguage;
+
+  private _pagePath: string;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._adId = this._activatedRoute.snapshot.queryParams["id"];
     this._adId$.next(this._adId);
 
     this._adType = this._activatedRoute.snapshot.queryParams["type"];
+    this._pagePath = this._activatedRoute.snapshot.data["path"];
 
     this.isEditMode = !!this._adId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(AdSelectors.selectIsGetProcess),
       ),
@@ -84,23 +78,24 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isGetAdProcess, isAssetsProcess, isLanguagesProcess]) =>
         isGetAdProcess || isAssetsProcess || isLanguagesProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
+    this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
         select(AdSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(AdSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    ]).pipe(
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
-    this.isProcessAssets$ = combineLatest(
+    this.isProcessAssets$ = combineLatest([
       this._store.pipe(
         select(AdAssetsSelectors.selectIsGetProcess),
       ),
@@ -110,8 +105,9 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
       this._store.pipe(
         select(AdAssetsSelectors.selectIsDeleteProcess),
       ),
-    ).pipe(
-      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+    ]).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) =>
+        isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
     this.languages$ = this._store.pipe(
@@ -134,10 +130,10 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
       this._defaultLanguage = lang;
     });
 
-    this.adAssets$ = combineLatest(
+    this.adAssets$ = combineLatest([
       this._store.select(AdAssetsSelectors.selectCollection),
       this.languages$,
-    ).pipe(
+    ]).pipe(
       filter(([assets, langs]) => !!assets && !!langs),
       switchMap(([assets, langs]) => {
         const result = new Array<IAsset>();
@@ -150,11 +146,11 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
       }),
     );
 
-    this.ad$ = combineLatest(
+    this.ad$ = combineLatest([
       this._store.select(AdSelectors.selectEntity),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       filter(([ad, langs, defaultLang]) => !!ad && !!defaultLang && !!langs),
       map(([ad, langs, defaultLang]) => {
         return { ...ad, contents: getCompiledContents(ad.contents, langs, defaultLang) };
@@ -164,7 +160,6 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
     this.ad$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(ad => {
-      this._ad = ad;
       this._adId = ad.id;
       this._adId$.next(this._adId);
       this.isEditMode = true;
@@ -176,17 +171,16 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
         relativeTo: this._activatedRoute,
         queryParams: {
           id: this._adId,
-          returnUrl: this._returnUrl,
         }
       });
     });
 
-    this.galleryAdAssets$ = combineLatest(
+    this.galleryAdAssets$ = combineLatest([
       this.ad$,
       this._store.select(AdAssetsSelectors.selectCollection),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       filter(([ad, assets, langs, defaultLang]) => !!ad && !!assets && !!langs && !!defaultLang),
       map(([ad, assets, langs, defaultLang]) => {
         const result: { [lang: string]: Array<IAsset> } = {};
@@ -215,27 +209,25 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
       this._store.dispatch(AdActions.getRequest({ id: this._adId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
-    this._store.dispatch(AdsActions.getAllRequest({}));
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
-    // this._store.dispatch(TagsActions.getAllRequest());
 
-    const prepareMainRequests$ = combineLatest(
+    const prepareMainRequests$ = combineLatest([
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
-    ).pipe(
+    ]).pipe(
       map(([languages, defaultLanguage, assets]) =>
         !!languages && !!defaultLanguage && !!assets),
     );
 
     this.isPrepareToConfigure$ = this.adId$.pipe(
       switchMap(id => {
-        return !!id ? combineLatest(
+        return !!id ? combineLatest([
           prepareMainRequests$,
           this.ad$,
           this.adAssets$,
-        ).pipe(
+        ]).pipe(
           map(([prepareMainRequests, ad, adAssets]) =>
             !!prepareMainRequests && !!ad && !!adAssets),
         ) : prepareMainRequests$;
@@ -248,6 +240,8 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
 
     this._store.dispatch(AdActions.clear());
     this._store.dispatch(AdAssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {
@@ -268,10 +262,10 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
   }
 
   onMainOptionsCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate([`/admin/${this._pagePath}`]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate([`/admin/${this._pagePath}`]);
   }
 }

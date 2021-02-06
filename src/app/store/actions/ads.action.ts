@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IAd, AdTypes } from '@djonnyx/tornado-types';
+import { IAd, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum AdsActionTypes {
     GET_ALL_REQUEST = "TORNADO/ads/get-all:request",
@@ -30,7 +30,7 @@ export namespace AdsActions {
     // getAll
     export const getAllRequest = createAction(
         AdsActionTypes.GET_ALL_REQUEST,
-        props<{ adType?: AdTypes }>(),
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         AdsActionTypes.GET_ALL_SUCCESS,

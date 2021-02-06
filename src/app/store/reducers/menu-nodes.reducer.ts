@@ -18,6 +18,11 @@ export const initialState: IMenuNodesState = {
 
 const menuNodesReducer = createReducer(
     initialState,
+    on(MenuNodesActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(MenuNodesActions.getRootNodeIdRequest, state => {
         return {
             ...state,

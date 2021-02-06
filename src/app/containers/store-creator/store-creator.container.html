@@ -4,14 +4,8 @@
             Назад
         </div>
         <div class="form">
-            <div class="form-header">
-                <p>
-                    Описание
-                </p>
-            </div>
-
-            <ta-store-creator-form [isEditMode]="isEditMode" [store]="store$ | async" (submitForm)="onSubmit($event)"
-                (cancel)="onCancel()"></ta-store-creator-form>
+            <ta-store-creator-form [isEditMode]="isEditMode" [store]="store$ | async" [terminals]="terminals$ | async"
+                (submitForm)="onSubmit($event)" (cancel)="onCancel()"></ta-store-creator-form>
         </div>
     </div>
 </ta-query-progress>

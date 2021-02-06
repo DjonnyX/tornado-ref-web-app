@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { combineLatest, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -18,7 +18,7 @@ import { AccountsActions } from '@store/actions/accounts.action';
   styleUrls: ['./licenses-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LicensesEditorContainer implements OnInit {
+export class LicensesEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -64,9 +64,15 @@ export class LicensesEditorContainer implements OnInit {
       select(LicensesSelectors.selectRefInfo),
     );
 
-    this._store.dispatch(LicensesActions.getAllRequest());
-    this._store.dispatch(AccountsActions.getAllRequest());
-    this._store.dispatch(IntegrationsActions.getAllRequest());
+    this._store.dispatch(LicensesActions.getAllRequest({}));
+    this._store.dispatch(AccountsActions.getAllRequest({}));
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(LicensesActions.clear());
+    this._store.dispatch(AccountsActions.clear());
+    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onCreate(): void {
@@ -75,27 +81,24 @@ export class LicensesEditorContainer implements OnInit {
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
   onEdit(license: ILicense): void {
-
     this._store.dispatch(LicenseActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: license.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: license.id, },
     });
   }
 
   onView(license: ILicense): void {
-
     this._store.dispatch(LicenseActions.clear());
 
     this._router.navigate(["view"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: license.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: license.id, },
     });
   }
 

@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ITag } from '@djonnyx/tornado-types';
+import { IRequestOptions, ITag } from '@djonnyx/tornado-types';
 
 export enum TagsActionTypes {
     GET_ALL_REQUEST = "TORNADO/tags/get-all:request",
@@ -22,12 +22,15 @@ export enum TagsActionTypes {
     DELETE_REQUEST = "TORNADO/tags/delete:request",
     DELETE_SUCCESS = "TORNADO/tags/delete:success",
     DELETE_ERROR = "TORNADO/tags/delete:error",
+
+    CLEAR = "TORNADO/tags/clear",
 }
 
 export namespace TagsActions {
     // getAll
     export const getAllRequest = createAction(
         TagsActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         TagsActionTypes.GET_ALL_SUCCESS,
@@ -92,5 +95,10 @@ export namespace TagsActions {
     export const deleteError = createAction(
         TagsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        TagsActionTypes.CLEAR,
     );
 }

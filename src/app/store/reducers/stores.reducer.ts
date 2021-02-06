@@ -16,6 +16,11 @@ export const initialState: IStoresState = {
 
 const storesReducer = createReducer(
     initialState,
+    on(StoresActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(StoresActions.getAllRequest, state => {
         return {
             ...state,

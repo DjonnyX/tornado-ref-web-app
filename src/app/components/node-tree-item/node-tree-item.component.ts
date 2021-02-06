@@ -1,4 +1,7 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ViewChild, ViewEncapsulation } from '@angular/core';
+import {
+  Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { interval } from 'rxjs';
 import { take, takeUntil, map, filter } from 'rxjs/operators';
@@ -8,7 +11,10 @@ import { MatCheckbox } from '@angular/material/checkbox';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
-import { INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage, IOrderType } from '@djonnyx/tornado-types';
+import {
+  INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency,
+  ILanguage, IOrderType, IStore
+} from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 import { ICollectionDictionary } from '@app/utils/collection.util';
@@ -115,6 +121,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
   }
 
+  @Input() stores: Array<IStore>;
+
+  @Input() storesDictionary: ICollectionDictionary<IStore>;
+
   @Input() businessPeriods: Array<IBusinessPeriod>;
 
   @Input() businessPeriodsDictionary: ICollectionDictionary<IBusinessPeriod>;
@@ -215,7 +225,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   hasAllowSubCreation(): boolean {
-    if (this.mode === NodeTreeModes.MENU && this.node.type === NodeTypes.PRODUCT) {
+    if ((this.mode === NodeTreeModes.MENU || this.mode === NodeTreeModes.PRODUCT) && this.node.type === NodeTypes.PRODUCT) {
       return false;
     }
 
@@ -511,6 +521,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           type: this.getNodeScenarioType(),
           title: "Настроить сценарий",
           scenario: undefined,
+          scenarios: this.node.scenarios,
           businessPeriods: this.businessPeriods,
           businessPeriodsDictionary: this.businessPeriodsDictionary,
           orderTypes: this.orderTypes,
@@ -523,6 +534,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           productsDictionary: this.productsDictionary,
           selectors: this.selectors,
           selectorsDictionary: this.selectorsDictionary,
+          stores: this.stores,
           defaultLanguage: this.defaultLanguage,
         },
       });
@@ -572,6 +584,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           type: this.getNodeScenarioType(),
           title: "Редактировать сценарий",
           scenario: scenario,
+          scenarios: this.node.scenarios,
+          stores: this.stores,
           businessPeriods: this.businessPeriods,
           currencies: this.currencies,
           languages: this.languages,

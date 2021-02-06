@@ -18,8 +18,8 @@ export default class TerminalsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(TerminalsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getTerminals().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getTerminals(options).pipe(
                     mergeMap(res => {
                         return [TerminalsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

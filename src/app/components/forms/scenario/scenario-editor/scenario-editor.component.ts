@@ -1,11 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage, IScenarioPriceValue, IOrderType, ISelector, IProduct } from '@djonnyx/tornado-types';
+import {
+  IScenario, IStore, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes,
+  ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage,
+  IScenarioPriceValue, IOrderType, ISelector, IProduct
+} from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
-import { ICollectionDictionary } from '@app/utils/collection.util';
+import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
 
 @Component({
   selector: 'ta-scenario-editor',
@@ -19,6 +23,22 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   @Input() languages: Array<ILanguage>;
 
   @Input() defaultLanguage: ILanguage;
+
+  private _scenarios: Array<IScenario>;
+  private scenariosDictionary: ICollectionDictionary<IScenario>;
+
+  @Input() set scenarios(v: Array<IScenario>) {
+    if (v) {
+      this._scenarios = v;
+      this.scenariosDictionary = !!v ? getMapOfCollection(v, "action") : {};
+    }
+  }
+
+  get actualTypes(): Array<string> {
+    return !!this.scenariosDictionary && !!this.types
+      ? this.types.filter(t => t === this._scenario?.action || !this.scenariosDictionary[t])
+      : [];
+  }
 
   private _scenario: IScenario;
 
@@ -50,8 +70,9 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
-          ScenarioSelectorActionTypes.MAX_USAGE,
+          ScenarioCommonActionTypes.VISIBLE_BY_STORE,
+          // ScenarioSelectorActionTypes.MAX_USAGE,
+          // ScenarioSelectorActionTypes.MIN_USAGE,
           // ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
         break;
@@ -60,8 +81,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
-          ScenarioProductActionTypes.UP_LIMIT,
+          ScenarioCommonActionTypes.VISIBLE_BY_STORE,
+          // ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.ADDITIONAL_PRICE,
           ScenarioProductActionTypes.FIXED_PRICE,
         ];
@@ -71,7 +92,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
+          ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.DOWN_LIMIT,
           ScenarioProductActionTypes.ADDITIONAL_PRICE,
@@ -83,8 +104,9 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
-          // ScenarioCommonActionTypes.VISIBLE_BY_STORE,
+          ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioSelectorActionTypes.MAX_USAGE,
+          ScenarioSelectorActionTypes.MIN_USAGE,
           // ScenarioSelectorActionTypes.DEFAULT_PRODUCTS,
         ];
         break;
@@ -110,6 +132,10 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   @Input() products: Array<IProduct>;
 
   @Input() productsDictionary: ICollectionDictionary<IProduct>;
+
+  @Input() stores: Array<IStore>;
+
+  @Input() storesDictionary: ICollectionDictionary<IStore>;
 
   @Output() edit = new EventEmitter<IScenario>();
 
@@ -173,7 +199,6 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
             value: value.value * 100,
           };
           break;
-        case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
         case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
           scenario.value = null;
           break;
@@ -192,7 +217,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     });
   }
 
-  getTypeName(type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string {
+  getTypeName(type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes |
+    ScenarioProductActionTypes | ScenarioSelectorActionTypes): string {
     return getScenarioTypeName(type);
   }
 
@@ -200,27 +226,33 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     return bp.contents[this.defaultLanguage?.code]?.name;
   }
 
-  private resetValidators(action: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
+  getStoreName(store: IStore) {
+    return store.name;
+  }
+
+  private resetValidators(action: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes |
+    ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
     this.ctrlCurrency.clearValidators();
     this.ctrlValue.clearValidators();
 
     switch (action) {
       case ScenarioProgrammActionTypes.SWITCH:
 
-      break;
+        break;
       case ScenarioProgrammActionTypes.EXPRESSION:
 
-      break;
-      case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
+        break;
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
         this.ctrlValue.setValue("");
         this.ctrlCurrency.setValue("");
         break;
+      case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
       case ScenarioIntroActionTypes.DURATION:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioSelectorActionTypes.MAX_USAGE:
+      case ScenarioSelectorActionTypes.MIN_USAGE:
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
         this.ctrlValue.setValidators([Validators.required]);
         this.ctrlCurrency.setValue("");

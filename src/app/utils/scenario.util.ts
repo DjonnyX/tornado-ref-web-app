@@ -1,15 +1,19 @@
-import { ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, ScenarioProgrammActionTypes } from '@djonnyx/tornado-types';
+import {
+  ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes,
+  ScenarioSelectorActionTypes, ScenarioProgrammActionTypes
+} from '@djonnyx/tornado-types';
 
-export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string => {
+export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | ScenarioCommonActionTypes |
+  ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes): string => {
   switch (type) {
     case ScenarioProgrammActionTypes.SWITCH:
       return "Условие";
     case ScenarioProgrammActionTypes.EXPRESSION:
       return "Выражение";
     case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-      return "Бизнесс-период";
+      return "Доступность по бизнесс-периодам";
     case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
-      return "Магазин";
+      return "Доступность по магазинам";
     case ScenarioIntroActionTypes.DURATION:
       return "Продолжительность (мс)";
     case ScenarioProductActionTypes.DOWN_LIMIT:
@@ -24,5 +28,7 @@ export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | Scenario
       return "Продукты по-умолчанию";
     case ScenarioSelectorActionTypes.MAX_USAGE:
       return "Максимальное количество";
+    case ScenarioSelectorActionTypes.MIN_USAGE:
+      return "Минимальное количество";
   }
 }

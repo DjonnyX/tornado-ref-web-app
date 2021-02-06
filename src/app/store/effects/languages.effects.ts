@@ -18,8 +18,8 @@ export default class LanguagesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LanguagesActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getLanguages().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getLanguages(options).pipe(
                     mergeMap(res => {
                         return [LanguagesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
@@ -58,7 +58,7 @@ export default class LanguagesEffects {
                 return this._apiService.updateLanguage(id, formatLanguageModel(language)).pipe(
                     mergeMap(res => {
                         if (setDafault) {
-                            this._store.dispatch(LanguagesActions.getAllRequest());
+                            this._store.dispatch(LanguagesActions.getAllRequest({}));
                             return [LanguagesActions.updateSuccess({ language: res.data, meta: res.meta })];
                         }
                         return [LanguagesActions.updateSuccess({ language: res.data, meta: res.meta })];

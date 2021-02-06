@@ -40,6 +40,8 @@ import { IApplicationsState } from './applications.state';
 import { IIntegrationState } from './integration.state';
 import { IIntegrationsState } from './integrations.state';
 import { IAccountsState } from './accounts.state';
+import { ILicenseAccountState } from './license-account.state';
+import { ILicensesAccountState } from './licenses-account.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -77,6 +79,8 @@ export interface IAppState {
     taTerminals: ITerminalsState,
     taLicense: ILicenseState,
     taLicenses: ILicensesState,
+    taLicenseAccount: ILicenseAccountState,
+    taLicensesAccount: ILicensesAccountState,
     taLicenseType: ILicenseTypeState,
     taLicenseTypes: ILicenseTypesState,
     taApplication: IApplicationState,

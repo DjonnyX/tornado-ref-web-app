@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ILicense } from '@djonnyx/tornado-types';
+import { ILicense, ILicenseAccount, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum LicensesActionTypes {
     GET_ALL_REQUEST = "TORNADO/licenses/get-all:request",
@@ -22,16 +22,19 @@ export enum LicensesActionTypes {
     DELETE_REQUEST = "TORNADO/licenses/delete:request",
     DELETE_SUCCESS = "TORNADO/licenses/delete:success",
     DELETE_ERROR = "TORNADO/licenses/delete:error",
+
+    CLEAR = "TORNADO/licenses/clear",
 }
 
 export namespace LicensesActions {
     // getAll
     export const getAllRequest = createAction(
         LicensesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         LicensesActionTypes.GET_ALL_SUCCESS,
-        props<{ collection: Array<ILicense>, meta: IMetaRefsResponse }>(),
+        props<{ collection: Array<ILicenseAccount>, meta: IMetaRefsResponse }>(),
     );
     export const getAllError = createAction(
         LicensesActionTypes.GET_ALL_ERROR,
@@ -45,7 +48,7 @@ export namespace LicensesActions {
     );
     export const getSuccess = createAction(
         LicensesActionTypes.GET_SUCCESS,
-        props<{ license: ILicense, meta: IMetaRefsResponse }>(),
+        props<{ license: ILicenseAccount, meta: IMetaRefsResponse }>(),
     );
     export const getError = createAction(
         LicensesActionTypes.GET_ERROR,
@@ -55,11 +58,11 @@ export namespace LicensesActions {
     // update
     export const updateRequest = createAction(
         LicensesActionTypes.UPDATE_REQUEST,
-        props<{ id: string, license: ILicense }>(),
+        props<{ id: string, license: ILicenseAccount }>(),
     );
     export const updateSuccess = createAction(
         LicensesActionTypes.UPDATE_SUCCESS,
-        props<{ license: ILicense, meta: IMetaRefsResponse }>(),
+        props<{ license: ILicenseAccount, meta: IMetaRefsResponse }>(),
     );
     export const updateError = createAction(
         LicensesActionTypes.UPDATE_ERROR,
@@ -78,5 +81,10 @@ export namespace LicensesActions {
     export const deleteError = createAction(
         LicensesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        LicensesActionTypes.CLEAR,
     );
 }

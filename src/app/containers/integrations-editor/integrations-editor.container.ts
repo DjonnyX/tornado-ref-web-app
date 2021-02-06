@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -14,7 +14,7 @@ import { IIntegration, IRef } from '@djonnyx/tornado-types';
   styleUrls: ['./integrations-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class IntegrationsEditorContainer implements OnInit {
+export class IntegrationsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -25,7 +25,7 @@ export class IntegrationsEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(IntegrationsActions.getAllRequest());
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
 
     this.isProcess$ = this._store.pipe(
       select(IntegrationsSelectors.selectLoading),
@@ -40,13 +40,16 @@ export class IntegrationsEditorContainer implements OnInit {
     );
   }
 
-  onEdit(integration: IIntegration): void {
+  ngOnDestroy(): void {
+    this._store.dispatch(IntegrationsActions.clear());
+  }
 
+  onEdit(integration: IIntegration): void {
     this._store.dispatch(IntegrationActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: integration.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: integration.id, },
     });
   }
 

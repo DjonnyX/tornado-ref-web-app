@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { ILicense } from '@djonnyx/tornado-types';
+import { ILicenseAccount } from '@djonnyx/tornado-types';
 import { LicensesActions } from '@store/actions/licenses.action';
 import { ILicensesState } from '@store/state/licenses.state';
 
@@ -15,6 +15,11 @@ export const initialState: ILicensesState = {
 
 const licensesReducer = createReducer(
     initialState,
+    on(LicensesActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(LicensesActions.getAllRequest, state => {
         return {
             ...state,
@@ -88,7 +93,7 @@ const licensesReducer = createReducer(
     }),
     on(LicensesActions.deleteSuccess, (state, { id, meta }) => {
         const existsLicenseIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<ILicense> = [...state.collection];
+        let collection: Array<ILicenseAccount> = [...state.collection];
         if (existsLicenseIndex > -1) {
             collection.splice(existsLicenseIndex, 1);
         }

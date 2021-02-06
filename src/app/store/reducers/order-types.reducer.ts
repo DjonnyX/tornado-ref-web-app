@@ -16,6 +16,11 @@ export const initialState: IOrderTypesState = {
 
 const orderTypesReducer = createReducer(
     initialState,
+    on(OrderTypesActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(OrderTypesActions.getAllRequest, state => {
         return {
             ...state,

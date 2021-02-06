@@ -17,6 +17,11 @@ export const initialState: IProductNodesState = {
 
 const productNodesReducer = createReducer(
     initialState,
+    on(ProductNodesActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(ProductNodesActions.getAllRequest, state => {
         return {
             ...state,

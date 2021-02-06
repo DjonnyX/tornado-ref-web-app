@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -14,7 +14,7 @@ import { IStore, IRef } from '@djonnyx/tornado-types';
   styleUrls: ['./stores-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class StoresEditorContainer implements OnInit {
+export class StoresEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -25,8 +25,6 @@ export class StoresEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(StoresActions.getAllRequest());
-
     this.isProcess$ = this._store.pipe(
       select(StoresSelectors.selectLoading),
     );
@@ -38,15 +36,19 @@ export class StoresEditorContainer implements OnInit {
     this.refInfo$ = this._store.pipe(
       select(StoresSelectors.selectRefInfo),
     );
+
+    this._store.dispatch(StoresActions.getAllRequest({}));
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(StoresActions.clear());
   }
 
   onCreate(): void {
-
     this._store.dispatch(StoreActions.clear());
-    
+
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
@@ -56,12 +58,12 @@ export class StoresEditorContainer implements OnInit {
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: store.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: store.id, },
     });
   }
 
   onUpdate(store: IStore): void {
-    this._store.dispatch(StoresActions.updateRequest({id: store.id, store}));
+    this._store.dispatch(StoresActions.updateRequest({ id: store.id, store }));
   }
 
   onDelete(id: string): void {

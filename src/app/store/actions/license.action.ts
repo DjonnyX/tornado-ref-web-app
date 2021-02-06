@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { ILicense } from '@djonnyx/tornado-types';
+import { ILicenseAccount } from '@djonnyx/tornado-types';
 
 export enum LicenseActionTypes {
     GET_REQUEST = "TORNADO/license/get:request",
@@ -25,7 +25,7 @@ export namespace LicenseActions {
     );
     export const getSuccess = createAction(
         LicenseActionTypes.GET_SUCCESS,
-        props<{ license: ILicense }>(),
+        props<{ license: ILicenseAccount }>(),
     );
     export const getError = createAction(
         LicenseActionTypes.GET_ERROR,
@@ -35,11 +35,11 @@ export namespace LicenseActions {
     // create
     export const createRequest = createAction(
         LicenseActionTypes.CREATE_REQUEST,
-        props<{ license: ILicense }>()
+        props<{ license: ILicenseAccount }>()
     );
     export const createSuccess = createAction(
         LicenseActionTypes.CREATE_SUCCESS,
-        props<{ license: ILicense }>()
+        props<{ license: ILicenseAccount }>()
     );
     export const createError = createAction(
         LicenseActionTypes.CREATE_ERROR,
@@ -49,11 +49,11 @@ export namespace LicenseActions {
     // update
     export const updateRequest = createAction(
         LicenseActionTypes.UPDATE_REQUEST,
-        props<{ id: string, license: ILicense }>()
+        props<{ id: string, license: ILicenseAccount }>()
     );
     export const updateSuccess = createAction(
         LicenseActionTypes.UPDATE_SUCCESS,
-        props<{ license: ILicense }>()
+        props<{ license: ILicenseAccount }>()
     );
     export const updateError = createAction(
         LicenseActionTypes.UPDATE_ERROR,

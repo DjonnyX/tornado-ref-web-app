@@ -7,7 +7,9 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { StoreActions } from '@store/actions/store.action';
 import { StoreSelectors } from '@store/selectors/store.selectors';
-import { IStore } from '@djonnyx/tornado-types';
+import { IStore, ITerminal } from '@djonnyx/tornado-types';
+import { TerminalsActions } from '@store/actions/terminals.action';
+import { TerminalsSelectors } from '@store/selectors';
 
 @Component({
   selector: 'ta-store-creator',
@@ -19,11 +21,9 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _storeEntity: IStore;
-
   store$: Observable<IStore>;
+
+  terminals$: Observable<Array<ITerminal>>;
 
   isEditMode = false;
 
@@ -34,34 +34,45 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._storeEntityId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._storeEntityId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(StoreSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(StoreSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isStoreGetProcess, isStoreUpdateProcess]) => isStoreGetProcess || isStoreUpdateProcess),
+      this._store.pipe(
+        select(TerminalsSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isStoreGetProcess, isStoreUpdateProcess, isTerminalsGetProcess]) =>
+        isStoreGetProcess || isStoreUpdateProcess || isTerminalsGetProcess),
     );
 
     this.store$ = this._store.pipe(
       select(StoreSelectors.selectEntity),
     );
 
+    this.terminals$ = this._store.pipe(
+      select(TerminalsSelectors.selectCollection),
+    );
+
     this.store$.pipe(
       takeUntil(this.unsubscribe$),
       filter(store => !!store),
-      filter(store => this._storeEntityId !== store.id),
     ).subscribe(store => {
       this._storeEntityId = store.id;
       this.isEditMode = !!this._storeEntityId;
+
+      this._store.dispatch(TerminalsActions.getAllRequest({
+        options: {
+          filter: [{ id: 'storeId', operation: 'equals', value: store.id }]
+        },
+      }));
     });
 
     if (!!this._storeEntityId) {
@@ -73,6 +84,7 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
     super.ngOnDestroy();
 
     this._store.dispatch(StoreActions.clear());
+    this._store.dispatch(TerminalsActions.clear());
   }
 
   onSubmit(store: IStore): void {
@@ -81,15 +93,13 @@ export class StoreCreatorContainer extends BaseComponent implements OnInit, OnDe
     } else {
       this._store.dispatch(StoreActions.createRequest({ store }));
     }
-
-    this._router.navigate([this._returnUrl]);
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/stores"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/stores"]);
   }
 }

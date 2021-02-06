@@ -33,9 +33,10 @@
                         [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
                         [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
                         [assets]="assets$ | async" [currencies]="currencies$ | async" [languages]="languages$ | async"
-                        [orderTypes]="orderTypes$ | async" [defaultLanguage]="defaultLanguage$ | async"
-                        (create)="onCreateHierarchyNode($event)" (update)="onUpdateHierarchyNode($event)"
-                        (delete)="onDeleteHierarchyNode($event)" mode="product">
+                        [orderTypes]="orderTypes$ | async" [stores]="stores$ | async"
+                        [defaultLanguage]="defaultLanguage$ | async" (create)="onCreateHierarchyNode($event)"
+                        (update)="onUpdateHierarchyNode($event)" (delete)="onDeleteHierarchyNode($event)"
+                        mode="product">
                     </ta-node-tree>
                 </div>
             </ta-query-progress>

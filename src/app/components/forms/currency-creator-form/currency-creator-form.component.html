@@ -1,9 +1,9 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
     <div class="form__input-block">
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Код валюты</mat-label>
-                <input matInput type="text" [formControl]="ctrlCode" placeholder="Код валюты">
+                <input matInput type="text" [formControl]="ctrlCode" placeholder="Код валюты" required>
                 <mat-error *ngIf="ctrlCode.hasError('required')">
                     <strong>обязательное</strong>
                 </mat-error>
@@ -13,7 +13,7 @@
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Имя валюты</mat-label>
-                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя валюты">
+                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя валюты" required>
                 <mat-error *ngIf="ctrlName.hasError('required')">
                     <strong>обязательное</strong>
                 </mat-error>
@@ -23,7 +23,7 @@
         <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Символ валюты</mat-label>
-                <input matInput type="text" [formControl]="ctrlSymbol" placeholder="Символ валюты">
+                <input matInput type="text" [formControl]="ctrlSymbol" placeholder="Символ валюты" required>
                 <mat-error *ngIf="ctrlSymbol.hasError('required')">
                     <strong>обязательное</strong>
                 </mat-error>

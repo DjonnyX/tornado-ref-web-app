@@ -7,8 +7,11 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { TerminalActions } from '@store/actions/terminal.action';
 import { TerminalSelectors } from '@store/selectors/terminal.selectors';
-import { ITerminal, IStore } from '@djonnyx/tornado-types';
-import { StoresSelectors } from '@store/selectors';
+import { ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
+import { LicenseAccountSelectors, StoreSelectors, StoresSelectors } from '@store/selectors';
+import { StoresActions } from '@store/actions/stores.action';
+import { StoreActions } from '@store/actions/store.action';
+import { LicenseAccountActions } from '@store/actions/license-account.action';
 
 @Component({
   selector: 'ta-terminal-creator',
@@ -20,13 +23,13 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _terminal: ITerminal;
-
   terminal$: Observable<ITerminal>;
 
   stores$: Observable<Array<IStore>>;
+
+  store$: Observable<IStore>;
+
+  license$: Observable<ILicenseAccount>;
 
   isEditMode = false;
 
@@ -37,13 +40,11 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._terminalId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._terminalId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(TerminalSelectors.selectIsGetProcess),
       ),
@@ -53,8 +54,15 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isTerminalGetProcess, selectIsUpdateProcess, isStoresGetProcess]) => isTerminalGetProcess || selectIsUpdateProcess || isStoresGetProcess),
+      this._store.pipe(
+        select(StoreSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(LicenseAccountSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isTerminalGetProcess, selectIsUpdateProcess, isStoresGetProcess, isStoreGetProcess, isLicenseGetProcess]) =>
+      isTerminalGetProcess || selectIsUpdateProcess || isStoresGetProcess || isStoreGetProcess || isLicenseGetProcess),
     );
 
     this.terminal$ = this._store.pipe(
@@ -65,24 +73,44 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       select(StoresSelectors.selectCollection),
     );
 
+    this.store$ = this._store.pipe(
+      select(StoreSelectors.selectEntity),
+    );
+
+    this.license$ = this._store.pipe(
+      select(LicenseAccountSelectors.selectEntity),
+    );
+
     this.terminal$.pipe(
       takeUntil(this.unsubscribe$),
       filter(terminal => !!terminal),
-      filter(terminal => this._terminalId !== terminal.id),
     ).subscribe(terminal => {
       this._terminalId = terminal.id;
       this.isEditMode = !!this._terminalId;
+
+      if (!!terminal.storeId) {
+        this._store.dispatch(StoreActions.getRequest({ id: terminal.storeId }));
+      }
+
+      if (!!terminal.licenseId) {
+        this._store.dispatch(LicenseAccountActions.getRequest({ id: terminal.licenseId }));
+      }
     });
 
     if (!!this._terminalId) {
       this._store.dispatch(TerminalActions.getRequest({ id: this._terminalId }));
     }
+
+    this._store.dispatch(StoresActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
     this._store.dispatch(TerminalActions.clear());
+    this._store.dispatch(StoresActions.clear());
+    this._store.dispatch(StoreActions.clear());
+    this._store.dispatch(LicenseAccountActions.clear());
   }
 
   onSubmit(terminal: ITerminal): void {
@@ -92,10 +120,10 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/terminals"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/terminals"]);
   }
 }

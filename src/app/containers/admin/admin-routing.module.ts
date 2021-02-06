@@ -24,6 +24,7 @@ const routes: Routes = [
           ),
         data: {
           type: SelectorTypes.MENU_CATEGORY,
+          path: 'menu-categories',
         },
       },
       {
@@ -34,6 +35,7 @@ const routes: Routes = [
           ),
         data: {
           type: SelectorTypes.SCHEMA_CATEGORY,
+          path: 'schema-categories',
         },
       },
       {
@@ -44,6 +46,7 @@ const routes: Routes = [
           ),
         data: {
           type: AdTypes.INTRO,
+          path: 'intros',
         },
       },
       {
@@ -54,6 +57,7 @@ const routes: Routes = [
           ),
         data: {
           type: AdTypes.BANNER,
+          path: 'banners',
         },
       },
       {
@@ -118,6 +122,13 @@ const routes: Routes = [
           import('@containers/terminals-editor/terminals-editor.module').then(
             module => module.TerminalsEditorModule,
           )
+      },
+      {
+        path: 'licenses-account',
+        loadChildren: () =>
+          import('@containers/licenses-account-editor/licenses-account-editor.module').then(
+            module => module.LicensesAccountEditorModule,
+          ),
       },
       {
         path: 'licenses',

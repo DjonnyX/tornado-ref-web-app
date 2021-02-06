@@ -18,8 +18,8 @@ export default class ProductsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(ProductsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getProducts().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getProducts(options).pipe(
                     mergeMap(res => {
                         return [ProductsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

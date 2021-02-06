@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IOrderType } from '@djonnyx/tornado-types';
+import { IOrderType, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum OrderTypesActionTypes {
     GET_ALL_REQUEST = "TORNADO/order-types/get-all:request",
@@ -22,12 +22,15 @@ export enum OrderTypesActionTypes {
     DELETE_REQUEST = "TORNADO/order-types/delete:request",
     DELETE_SUCCESS = "TORNADO/order-types/delete:success",
     DELETE_ERROR = "TORNADO/order-types/delete:error",
+
+    CLEAR = "TORNADO/order-types/clear",
 }
 
 export namespace OrderTypesActions {
     // getAll
     export const getAllRequest = createAction(
         OrderTypesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         OrderTypesActionTypes.GET_ALL_SUCCESS,
@@ -92,5 +95,10 @@ export namespace OrderTypesActions {
     export const deleteError = createAction(
         OrderTypesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        OrderTypesActionTypes.CLEAR,
     );
 }

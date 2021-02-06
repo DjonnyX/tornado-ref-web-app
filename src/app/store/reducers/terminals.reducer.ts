@@ -15,6 +15,11 @@ export const initialState: ITerminalsState = {
 
 const terminalsReducer = createReducer(
     initialState,
+    on(TerminalsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(TerminalsActions.getAllRequest, state => {
         return {
             ...state,

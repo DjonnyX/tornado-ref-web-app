@@ -39,13 +39,6 @@ export class StoresEditorComponent extends BaseComponent implements OnInit, OnDe
     super.ngOnDestroy();
   }
 
-  onToggleActive(event: Event, store: IStore): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-
-    this.update.emit({ ...store, active: !store.active });
-  }
-
   onCreate(): void {
     this.create.emit();
   }
@@ -58,7 +51,7 @@ export class StoresEditorComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить валюту?",
+          title: "Удалить магазин?",
           message: `"${store.name}" будет безвозвратно удален.`,
         },
       });

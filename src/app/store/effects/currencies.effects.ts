@@ -18,8 +18,8 @@ export default class CurrenciesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(CurrenciesActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getCurrencies().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getCurrencies(options).pipe(
                     mergeMap(res => {
                         return [CurrenciesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
@@ -58,7 +58,7 @@ export default class CurrenciesEffects {
                 return this._apiService.updateCurrency(id, formatCurrencyModel(currency)).pipe(
                     mergeMap(res => {
                         if (setDafault) {
-                            this._store.dispatch(CurrenciesActions.getAllRequest());
+                            this._store.dispatch(CurrenciesActions.getAllRequest({}));
                             return [CurrenciesActions.updateSuccess({ currency: res.data, meta: res.meta })];
                         }
                         return [CurrenciesActions.updateSuccess({ currency: res.data, meta: res.meta })];

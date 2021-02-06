@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ICurrency } from '@djonnyx/tornado-types';
+import { ICurrency, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum CurrenciesActionTypes {
     GET_ALL_REQUEST = "TORNADO/currencies/get-all:request",
@@ -22,12 +22,15 @@ export enum CurrenciesActionTypes {
     DELETE_REQUEST = "TORNADO/currencies/delete:request",
     DELETE_SUCCESS = "TORNADO/currencies/delete:success",
     DELETE_ERROR = "TORNADO/currencies/delete:error",
+
+    CLEAR = "TORNADO/currencies/clear",
 }
 
 export namespace CurrenciesActions {
     // getAll
     export const getAllRequest = createAction(
         CurrenciesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         CurrenciesActionTypes.GET_ALL_SUCCESS,
@@ -92,5 +95,10 @@ export namespace CurrenciesActions {
     export const deleteError = createAction(
         CurrenciesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        CurrenciesActionTypes.CLEAR,
     );
 }

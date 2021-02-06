@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -14,7 +14,7 @@ import { ICurrency, IRef } from '@djonnyx/tornado-types';
   styleUrls: ['./currencies-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CurrenciesEditorContainer implements OnInit {
+export class CurrenciesEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -25,7 +25,7 @@ export class CurrenciesEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(CurrenciesActions.getAllRequest());
+    this._store.dispatch(CurrenciesActions.getAllRequest({}));
 
     this.isProcess$ = this._store.pipe(
       select(CurrenciesSelectors.selectLoading),
@@ -40,23 +40,24 @@ export class CurrenciesEditorContainer implements OnInit {
     );
   }
 
-  onCreate(): void {
+  ngOnDestroy(): void {
+    this._store.dispatch(CurrenciesActions.clear());
+  }
 
+  onCreate(): void {
     this._store.dispatch(CurrencyActions.clear());
     
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
   onEdit(currency: ICurrency): void {
-
     this._store.dispatch(CurrencyActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: currency.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: currency.id, },
     });
   }
 

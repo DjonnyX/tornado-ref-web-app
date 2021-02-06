@@ -21,10 +21,6 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
 
   public isProcess$: Observable<boolean>;
 
-  private _returnUrl: string;
-
-  private _licenseType: ILicenseType;
-
   licenseType$: Observable<ILicenseType>;
 
   public integrations$: Observable<Array<IIntegration>>;
@@ -40,13 +36,11 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._licenseTypeId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._licenseTypeId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(LicenseTypeSelectors.selectIsGetProcess),
       ),
@@ -57,22 +51,15 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
         select(LicenseTypeSelectors.selectIsUpdateProcess),
       ),
       this._store.pipe(
-        select(StoresSelectors.selectIsGetProcess),
-      ),
-      this._store.pipe(
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isStoresGetProcess, isIntegrationsProcess]) =>
-      isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isStoresGetProcess || isIntegrationsProcess),
+    ]).pipe(
+      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isIntegrationsProcess]) =>
+        isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isIntegrationsProcess),
     );
 
     this.licenseType$ = this._store.pipe(
       select(LicenseTypeSelectors.selectEntity),
-    );
-
-    this.stores$ = this._store.pipe(
-      select(StoresSelectors.selectCollection),
     );
 
     this.integrations$ = this._store.pipe(
@@ -91,14 +78,15 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
     if (!!this._licenseTypeId) {
       this._store.dispatch(LicenseTypeActions.getRequest({ id: this._licenseTypeId }));
     }
-    
-    this._store.dispatch(IntegrationsActions.getAllRequest());
+
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
     this._store.dispatch(LicenseTypeActions.clear());
+    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onSubmit(licenseType: ILicenseType): void {
@@ -110,10 +98,10 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/license-types"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/license-types"]);
   }
 }
