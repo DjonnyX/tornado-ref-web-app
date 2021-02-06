@@ -37,8 +37,8 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
   ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
   ctrlconfirmPassword = new FormControl('', [Validators.required, equalControlsValidator(this.ctrlPassword)]);
-  ctrlCaptcha = new FormControl('', Validators.required);
-  ctrlRememberMe = new FormControl('', Validators.required);
+  ctrlCaptcha = new FormControl('', [Validators.required]);
+  ctrlRememberMe = new FormControl('', [Validators.requiredTrue]);
 
   constructor(
     private _fb: FormBuilder,
