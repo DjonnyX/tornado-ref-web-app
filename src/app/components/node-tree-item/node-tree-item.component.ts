@@ -225,7 +225,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   hasAllowSubCreation(): boolean {
-    if (this.mode === NodeTreeModes.MENU || this.mode === NodeTreeModes.PRODUCT && this.node.type === NodeTypes.PRODUCT) {
+    if ((this.mode === NodeTreeModes.MENU || this.mode === NodeTreeModes.PRODUCT) && this.node.type === NodeTypes.PRODUCT) {
       return false;
     }
 
