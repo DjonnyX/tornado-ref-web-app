@@ -1,25 +1,37 @@
 <form class="form" [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-    <div *ngIf="!!tag; else mainLangContent">
-      <mat-tab-group>
-        <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
-          <ta-tag-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-            [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
-            (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
-            (uploadIconResource)="onIconResourceUpload($event, lang)" (save)="onSave()">
-          </ta-tag-content>
-        </mat-tab>
-      </mat-tab-group>
-    </div>
-    <ng-template #mainLangContent>
-      <ta-tag-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
-        [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
-      </ta-tag-content>
+  <div *ngIf="!!tag; else mainLangContent">
+    <mat-tab-group>
+      <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+        <ta-tag-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
+          [isDefault]="lang.code === defaultLanguage.code" [isEdit]="isEdit" [isEditMode]="isEditMode" [assets]="assets"
+          (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
+          (uploadIconResource)="onIconResourceUpload($event, lang)" (save)="onSave()">
+        </ta-tag-content>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #mainLangContent>
+    <ta-tag-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="isEdit"
+      [isEditMode]="isEditMode" [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
+    </ta-tag-content>
+  </ng-template>
+
+  <div class="form__submit" align="end">
+    <ng-container *ngIf="!!isEdit; else editButtons">
+      <button mat-button class="button button__text" (click)="onEditCancel()">
+        Отменить
+      </button>
+      <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
+        {{isEditMode ? 'Сохранить' : 'Создать'}}
+      </button>
+    </ng-container>
+    <ng-template #editButtons>
+      <button mat-button class="button button__text" (click)="onCancel()">
+        Отменить
+      </button>
+      <button mat-flat-button color="accent" (click)="onEdit()" class="button button__text">
+        Редактировать
+      </button>
     </ng-template>
-  
-    <div class="form__submit" align="end">
-      <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
-      <button mat-flat-button color="accent" type="submit" class="button button__text"
-        [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
-    </div>
-  </form>
-  
+  </div>
+</form>
