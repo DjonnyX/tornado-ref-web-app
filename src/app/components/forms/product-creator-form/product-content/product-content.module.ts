@@ -9,6 +9,7 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
 import { MatButtonModule } from '@angular/material/button';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ColorPickerModule } from '@components/color-picker/color-picker.module';
+import { KeyValueModule } from '@components/key-value/key-value.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ColorPickerModule } from '@components/color-picker/color-picker.module'
     AssetPickerUploaderModule,
     AssetsUploaderModule,
     ColorPickerModule,
+    KeyValueModule,
   ]
 })
 export class ProductContentModule { }

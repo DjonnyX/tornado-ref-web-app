@@ -3,10 +3,20 @@ import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
-import { IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem, ILanguage, ITagContentsItem } from '@djonnyx/tornado-types';
+import {
+  IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem,
+  ILanguage, ITagContentsItem
+} from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
+import { IKeyValue } from '@components/key-value/key-value.component';
+import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
+
+interface IData {
+  tags: IKeyValue;
+  prices: IKeyValue;
+}
 
 @Component({
   selector: 'ta-product-creator-form',
@@ -32,6 +42,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this._defaultLanguage = v;
 
       this.sortLanguages();
+
+      this.generateData();
     }
   }
 
@@ -57,9 +69,13 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
       this._state = { ...this._state, ...(this._product ? this._product.contents : undefined) };
 
+      this.generateData();
+
       this.ctrlTags.setValue(product.tags);
       this.ctrlPrices.setValue(product.prices);
       // this.ctrlReceipt.setValue(product.receipt);
+    } else {
+      this.isEdit = true;
     }
   }
 
@@ -67,13 +83,40 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     return this._product;
   }
 
+  isEdit: boolean = false;
+
   @Input() resourcesGallery: Array<{ [lang: string]: IAsset }>;
 
-  @Input() currencies: Array<ICurrency>;
+  private _currenciesDictionary: ICollectionDictionary<ICurrency>;
+
+  private _currencies: Array<ICurrency>;
+  @Input() set currencies(v: Array<ICurrency>) {
+    if (this._currencies !== v) {
+      this._currencies = v;
+
+      this._currenciesDictionary = !!v ? getMapOfCollection(v, "id") : {};
+
+      this.generateData();
+    }
+  }
+
+  get currencies() { return this._currencies; }
 
   @Input() isEditMode: boolean;
 
-  @Input() tagList: Array<ITag>;
+  private _tagsDictionary: ICollectionDictionary<ITag>;
+
+  private _tagList: Array<ITag>;
+  @Input() set tagList(v: Array<ITag>) {
+    if (this._tagList !== v) {
+      this._tagList = v;
+
+      this._tagsDictionary = !!v ? getMapOfCollection(v, "id") : {};
+
+      this.generateData();
+    }
+  }
+  get tagList() { return this._tagList; }
 
   @Output() save = new EventEmitter<IProduct>();
 
@@ -93,6 +136,12 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   private _state: IProductContents = {};
 
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   constructor(private _fb: FormBuilder) {
     super();
 
@@ -101,6 +150,32 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       prices: this.ctrlPrices,
       receipt: this.ctrlReceipt,
     })
+  }
+
+  private generateData(): void {
+    if (!this._product || !this._tagsDictionary || !this._currenciesDictionary || !this._defaultLanguage) {
+      return;
+    }
+
+    this._data = {
+      tags: {
+        key: "Тэги",
+        value: this._product?.tags?.length > 0
+          ? this._product?.tags.
+            filter(t => !!this._tagsDictionary[t]).
+            map(t => this.getTagName(this._tagsDictionary[t])).
+            join(", ")
+          : ' ---',
+      },
+      prices: {
+        key: "Цена",
+        value: this._product?.prices?.length > 0
+          ? this._product?.prices.
+            map(p => `${p.value * 0.01}${this._currenciesDictionary[p.currency]?.symbol}`).
+            join(", ")
+          : ' ---',
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -116,7 +191,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   getTagContent(tag: ITag): ITagContentsItem {
-    return tag?.contents[this.defaultLanguage.code];
+    return !!this._defaultLanguage ? tag?.contents[this._defaultLanguage.code] : undefined;
   }
 
   getTagColor(tag: ITag): string {
@@ -147,6 +222,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
         active: !!this._product && this._product.active !== undefined ? this._product.active : true,
         extra: !!this._product ? this._product.extra : {},
       });
+
+      this.isEdit = false;
     }
   }
 
@@ -172,6 +249,14 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   onChangePrices(prices: Array<IPrice>): void {
     this.ctrlPrices.setValue(prices);
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {
