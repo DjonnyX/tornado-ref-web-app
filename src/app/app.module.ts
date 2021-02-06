@@ -20,11 +20,12 @@ import {
 import { NotificationService } from './services/notification.service';
 import { AuthService } from './services/auth.service';
 import { CookieConsentModule } from '@components/cookie-consent/cookie-consent.module';
-import { PricePipe } from './pipes/price/price.pipe';
+import { EmptyPageComponent } from '@components/empty-page/empty-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    EmptyPageComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,42 @@
+<div class="editor">
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div class="entities-wrapper">
+        <div class="entity" *ngFor="let license of collection | search: searchPattern"
+            [class.disabled]="isLicenseDisabled(license)">
+            <div class="entity-ctrls">
+                <div class="entity-checkbox-active"></div>
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+                    <mat-icon class="icon">more_vert</mat-icon>
+                </button>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="onView(license)">
+                        <mat-icon>details</mat-icon>
+                        <span>Подробнее</span>
+                    </button>
+                </mat-menu>
+            </div>
+            <div matRipple class="entity-active-zone" (click)="onView(license)">
+                <div class="content">
+                    <div *ngIf="!!license.licType?.name" class="content__name">
+                        {{license.licType?.name}}
+                    </div>
+                    <div *ngIf="!!integrationsMap" class="content__description" style="text-transform: none;">
+                        Интеграция: {{integrationsMap[license.licType?.integrationId]?.name}}
+                    </div>
+                    <div *ngIf="!!accountsMap" class="content__description" style="text-transform: none;">
+                        <span>
+                            Клиент: {{accountsMap[license.clientId]?.email}}
+                        </span>
+                        <span>
+                            ({{accountsMap[license.clientId]?.lastName}} {{accountsMap[license.clientId]?.firstName}})
+                        </span>
+                    </div>
+                    <div class="content__description" style="text-transform: none;">
+                        Ключ: <b>{{license.key}}</b>
+                    </div>
+                </div>
+                <div class="color"></div>
+            </div>
+        </div>
+    </div>
+</div>

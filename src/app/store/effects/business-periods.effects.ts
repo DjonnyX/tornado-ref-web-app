@@ -18,8 +18,8 @@ export default class BusinessPeriodsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(BusinessPeriodsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getBusinessPeriods().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getBusinessPeriods(options).pipe(
                     mergeMap(res => {
                         return [BusinessPeriodsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

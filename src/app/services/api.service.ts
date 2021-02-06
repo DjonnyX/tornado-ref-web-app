@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpEventType } from "@angular/common/http";
+import { HttpClient, HttpEventType, HttpParams } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { IUserProfile, IAsset, IFileUploadEvent, ICaptcha } from '@models';
 import {
@@ -12,31 +12,81 @@ import {
   IAssetsDeleteResponse, IAssetsUpdateResponse, IAssetsGetResponse,
   IProductAssetCreateResponse, IProductAssetUpdateResponse, IProductAssetDeleteResponse, IProductAssetGetResponse, IProductGetResponse,
   ITagGetResponse, ISelectorGetResponse,
-  IBusinessPeriodsGetResponse, IBusinessPeriodGetResponse, IBusinessPeriodCreateResponse, IBusinessPeriodUpdateResponse,IBusinessPeriodDeleteResponse,
+  IBusinessPeriodsGetResponse, IBusinessPeriodGetResponse, IBusinessPeriodCreateResponse, IBusinessPeriodUpdateResponse,
+  IBusinessPeriodDeleteResponse,
   ISelectorAssetDeleteResponse, ISelectorAssetGetResponse, ISelectorAssetCreateResponse, ISelectorAssetUpdateResponse,
   ICurrenciesGetResponse, ICurrencyGetResponse, ICurrencyCreateResponse, ICurrencyUpdateResponse, ICurrencyDeleteResponse,
   IOrderTypesGetResponse, IOrderTypeGetResponse, IOrderTypeCreateResponse, IOrderTypeUpdateResponse, IOrderTypeDeleteResponse,
   IOrderTypeAssetGetResponse, IOrderTypeAssetCreateResponse, IOrderTypeAssetUpdateResponse, IOrderTypeAssetDeleteResponse,
   ILanguagesGetResponse, ILanguageGetResponse, ILanguageCreateResponse, ILanguageUpdateResponse, ILanguageDeleteResponse,
   ILanguageAssetGetResponse, ILanguageAssetCreateResponse, ILanguageAssetUpdateResponse, ILanguageAssetDeleteResponse,
-  ITranslationsGetResponse, ITranslationGetResponse, ITranslationUpdateResponse, IProductAssetGetByLangResponse, ISelectorAssetGetByLangResponse,
+  ITranslationsGetResponse, ITranslationGetResponse, ITranslationUpdateResponse, IProductAssetGetByLangResponse,
+  ISelectorAssetGetByLangResponse,
   ITagAssetGetResponse, ITagAssetCreateResponse, ITagAssetUpdateResponse, ITagAssetDeleteResponse,
   IAdsGetResponse, IAdGetResponse, IAdsCreateResponse, IAdsUpdateResponse, IAdsDeleteResponse,
   IAdAssetGetResponse, IAdAssetGetByLangResponse, IAdAssetCreateResponse, IAdAssetUpdateResponse, IAdAssetDeleteResponse,
   IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
   ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
   ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
-  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse, IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse, IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse, IAccountsGetResponse, IAccountUpdateResponse,
+  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
+  IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
+  IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { UserSelectors } from '@store/selectors';
-import { IProduct, ISelector, INode, ITag, SelectorTypes, IBusinessPeriod, ICurrency, IOrderType, ILanguage, LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation, TagResourceTypes, IAd, AdResourceTypes, AdTypes, IStore, ITerminal, IApplication, IIntegration, IAccount } from '@djonnyx/tornado-types';
+import {
+  IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
+  LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
+  TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount
+} from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
-import { ILicense, ILicenseType } from '@djonnyx/tornado-types';
+import { ILicense, ILicenseType, IRequestOptions } from '@djonnyx/tornado-types';
+import { HttpParameterCodec } from "@angular/common/http";
+
+export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
+  encodeKey(k: string): string { return standardEncoding(k); }
+  encodeValue(v: string): string { return standardEncoding(v); }
+  decodeKey(k: string): string { return decodeURIComponent(k); }
+  decodeValue(v: string) { return decodeURIComponent(v); }
+}
+function standardEncoding(v: string): string {
+  return encodeURIComponent(v);
+}
+
+const extractParams = (options?: IRequestOptions): HttpParams => {
+  let httpParams = new HttpParams({ encoder: new HttpCustomUrlEncodingCodec() });
+  /*if (!!options && !!options.pager) {
+      httpParams = httpParams.set('page', String(options.pager.pageNum - 1));
+      httpParams = httpParams.set('size', String(options.pager.pageSize));
+  }*/
+  // filter
+  if (!!options && !!options.filter && options.filter.length > 0) {
+    options.filter.forEach(f => {
+      httpParams = httpParams.append(`${f.id}.${f.operation}`, String(f.value));
+    });
+  }
+  // query
+  if (!!options && !!options.queryParams) {
+    const queryKeys = Object.keys(options.queryParams);
+    if (queryKeys.length > 0) {
+      queryKeys.forEach(key => {
+        httpParams = httpParams.append(key, options.queryParams[key]);
+      });
+    }
+  }
+  //sort
+  /*if(!!options && !!options.sort && options.sort.length > 0) {
+      options.sort.forEach((s, idx, arr) => {
+          httpParams = httpParams.append('sort', `${s.field},${s.dir}`);
+      });
+  }*/
+  return httpParams;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -122,12 +172,13 @@ export class ApiService {
   }
 
   // products
-  public getProducts(): Observable<IProductsGetResponse> {
+  public getProducts(options?: IRequestOptions): Observable<IProductsGetResponse> {
     return this._http
       .get<IProductsGetResponse>("api/v1/products", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -268,18 +319,13 @@ export class ApiService {
   }
 
   // selectors
-  public getSelectors(selectorType?: SelectorTypes): Observable<ISelectorsGetResponse> {
-    const params: any = {};
-    if (!!selectorType) {
-      params.type = selectorType;
-    }
-
+  public getSelectors(options?: IRequestOptions): Observable<ISelectorsGetResponse> {
     return this._http
       .get<ISelectorsGetResponse>("api/v1/selectors", {
         headers: {
           "authorization": this.getAuthToken(),
         },
-        params,
+        params: extractParams(options),
       });
   }
 
@@ -420,12 +466,13 @@ export class ApiService {
   }
 
   // businessPeriods
-  public getBusinessPeriods(): Observable<IBusinessPeriodsGetResponse> {
+  public getBusinessPeriods(options?: IRequestOptions): Observable<IBusinessPeriodsGetResponse> {
     return this._http
       .get<IBusinessPeriodsGetResponse>("api/v1/business-periods", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -523,12 +570,13 @@ export class ApiService {
   }
 
   // root-nodes
-  public getRootNodes(): Observable<IMenuNodesGetResponse> {
+  public getRootNodes(options?: IRequestOptions): Observable<IMenuNodesGetResponse> {
     return this._http
       .get<IMenuNodesGetResponse>("api/v1/root-nodes", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -570,12 +618,13 @@ export class ApiService {
   }
 
   // tags
-  public getTags(): Observable<ITagsGetResponse> {
+  public getTags(options?: IRequestOptions): Observable<ITagsGetResponse> {
     return this._http
       .get<ITagsGetResponse>("api/v1/tags", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -716,12 +765,13 @@ export class ApiService {
   }
 
   // currencies
-  public getCurrencies(): Observable<ICurrenciesGetResponse> {
+  public getCurrencies(options?: IRequestOptions): Observable<ICurrenciesGetResponse> {
     return this._http
       .get<ICurrenciesGetResponse>("api/v1/currencies", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -762,12 +812,13 @@ export class ApiService {
   }
 
   // order-types
-  public getOrderTypes(): Observable<IOrderTypesGetResponse> {
+  public getOrderTypes(options?: IRequestOptions): Observable<IOrderTypesGetResponse> {
     return this._http
       .get<IOrderTypesGetResponse>("api/v1/order-types", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -908,12 +959,13 @@ export class ApiService {
   }
 
   // languages
-  public getLanguages(): Observable<ILanguagesGetResponse> {
+  public getLanguages(options?: IRequestOptions): Observable<ILanguagesGetResponse> {
     return this._http
       .get<ILanguagesGetResponse>("api/v1/languages", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1045,12 +1097,13 @@ export class ApiService {
   }
 
   // translations
-  public getTranslations(): Observable<ITranslationsGetResponse> {
+  public getTranslations(options?: IRequestOptions): Observable<ITranslationsGetResponse> {
     return this._http
       .get<ITranslationsGetResponse>("api/v1/translations", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1073,18 +1126,13 @@ export class ApiService {
   }
 
   // ads
-  public getAds(type: AdTypes): Observable<IAdsGetResponse> {
-    const params: any = {};
-    if (!!type) {
-      params.type = type;
-    }
-
+  public getAds(options?: IRequestOptions): Observable<IAdsGetResponse> {
     return this._http
       .get<IAdsGetResponse>("api/v1/ads", {
         headers: {
           "authorization": this.getAuthToken(),
         },
-        params,
+        params: extractParams(options),
       });
   }
 
@@ -1225,12 +1273,13 @@ export class ApiService {
   }
 
   // stores
-  public getStores(): Observable<IStoresGetResponse> {
+  public getStores(options?: IRequestOptions): Observable<IStoresGetResponse> {
     return this._http
       .get<IStoresGetResponse>("api/v1/stores", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1271,12 +1320,13 @@ export class ApiService {
   }
 
   // terminals
-  public getTerminals(): Observable<ITerminalsGetResponse> {
+  public getTerminals(options?: IRequestOptions): Observable<ITerminalsGetResponse> {
     return this._http
       .get<ITerminalsGetResponse>("api/v1/terminals", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1307,13 +1357,34 @@ export class ApiService {
       });
   }
 
+  // licenses account
+  public getLicensesAccount(options?: IRequestOptions): Observable<ILicensesAccountGetResponse> {
+    return this._http
+      .get<ILicensesAccountGetResponse>("api/v1/licenses/forClient", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getLicenseAccount(id: string): Observable<ILicenseAccountGetResponse> {
+    return this._http
+      .get<ILicenseAccountGetResponse>(`api/v1/license/forClient/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   // licenses
-  public getLicenses(): Observable<ILicensesGetResponse> {
+  public getLicenses(options?: IRequestOptions): Observable<ILicensesGetResponse> {
     return this._http
       .get<ILicensesGetResponse>("api/v1/licenses", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1354,12 +1425,13 @@ export class ApiService {
   }
 
   // license types
-  public getLicenseTypes(): Observable<ILicenseTypesGetResponse> {
+  public getLicenseTypes(options?: IRequestOptions): Observable<ILicenseTypesGetResponse> {
     return this._http
       .get<ILicenseTypesGetResponse>("api/v1/license-types", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1400,12 +1472,13 @@ export class ApiService {
   }
 
   // applications
-  public getApplications(): Observable<IApplicationsGetResponse> {
+  public getApplications(options?: IRequestOptions): Observable<IApplicationsGetResponse> {
     return this._http
       .get<IApplicationsGetResponse>("api/v1/applications", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1446,12 +1519,13 @@ export class ApiService {
   }
 
   // integrations
-  public getIntegrations(): Observable<IIntegrationsGetResponse> {
+  public getIntegrations(options?: IRequestOptions): Observable<IIntegrationsGetResponse> {
     return this._http
       .get<IIntegrationsGetResponse>("api/v1/integrations", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1474,12 +1548,13 @@ export class ApiService {
   }
 
   // accounts
-  public getAccounts(): Observable<IAccountsGetResponse> {
+  public getAccounts(options?: IRequestOptions): Observable<IAccountsGetResponse> {
     return this._http
       .get<IAccountsGetResponse>("api/v1/accounts", {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 

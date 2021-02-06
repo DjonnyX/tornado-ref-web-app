@@ -19,8 +19,8 @@ export default class MenuNodesEffects {
     public readonly getRootNodeIdRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(MenuNodesActions.getRootNodeIdRequest),
-            switchMap(params => {
-                return this._apiService.getRootNodes().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getRootNodes(options).pipe(
                     map(res => res.data),
                     mergeMap(nodes => of(nodes.find(node => node.type === NodeTypes.KIOSK_ROOT))),
                     map(kioskRootNode => kioskRootNode.id),

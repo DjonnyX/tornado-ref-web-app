@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -18,7 +18,7 @@ import { LanguagesActions } from '@store/actions/languages.action';
   styleUrls: ['./tags-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TagsEditorContainer implements OnInit {
+export class TagsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -30,20 +30,14 @@ export class TagsEditorContainer implements OnInit {
 
   defaultLanguage$: Observable<ILanguage>;
 
-  isPrepareToShow$ : Observable<boolean>;
+  isPrepareToShow$: Observable<boolean>;
 
   public refInfo$: Observable<IRef>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(TagsActions.getAllRequest());
-
-    this._store.dispatch(AssetsActions.getAllRequest());
-
-    this._store.dispatch(LanguagesActions.getAllRequest());
-
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(TagsSelectors.selectLoading),
       ),
@@ -53,8 +47,9 @@ export class TagsEditorContainer implements OnInit {
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isProductsProgress, isAssetsProgress, isLanguageProgress]) => isProductsProgress || isAssetsProgress || isLanguageProgress),
+    ]).pipe(
+      map(([isProductsProgress, isAssetsProgress, isLanguageProgress]) =>
+        isProductsProgress || isAssetsProgress || isLanguageProgress),
     );
 
     this.collection$ = this._store.pipe(
@@ -79,32 +74,40 @@ export class TagsEditorContainer implements OnInit {
       filter(language => !!language),
     );
 
-    this.isPrepareToShow$ = combineLatest(
+    this.isPrepareToShow$ = combineLatest([
       this.collection$,
       this.assets$,
       this.languages$,
-    ).pipe(
-        map(([collection, assets, languages]) => !!collection && !!assets && !!languages),
+    ]).pipe(
+      map(([collection, assets, languages]) =>
+        !!collection && !!assets && !!languages),
     );
+
+    this._store.dispatch(TagsActions.getAllRequest({}));
+    this._store.dispatch(AssetsActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(TagsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onCreate(): void {
-
     this._store.dispatch(TagActions.clear());
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
   onEdit(tag: ITag): void {
-
     this._store.dispatch(TagActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: tag.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: tag.id, },
     });
   }
 

@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicense, ILicenseType, IAccount, LicenseStatuses, LicenseStates } from '@djonnyx/tornado-types';
+import { IIntegration, ILicense, ILicenseType, IAccount, LicenseStatuses, LicenseStates, ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
@@ -52,6 +52,9 @@ interface IData {
   integration: IKeyValue;
   integrationDescription: IKeyValue;
   integrationVersion: IKeyValue;
+  terminalName: IKeyValue;
+  terminalStoreName: IKeyValue;
+  terminalStoreAddress: IKeyValue;
 }
 
 @Component({
@@ -92,6 +95,24 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   @Input() accounts: Array<IAccount>;
 
+  private _terminal: ITerminal;
+  @Input() set terminal(v: ITerminal) {
+    if (this._terminal !== v) {
+      this._terminal = v;
+
+      this.generateData();
+    }
+  }
+
+  private _store: IStore;
+  @Input() set store(v: IStore) {
+    if (this._store !== v) {
+      this._store = v;
+
+      this.generateData();
+    }
+  }
+
   private _integrationsMap: { [id: string]: IIntegration };
 
   get integrationsMap() {
@@ -115,8 +136,8 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     }
   }
 
-  private _license: ILicense;
-  @Input() set license(license: ILicense) {
+  private _license: ILicenseAccount;
+  @Input() set license(license: ILicenseAccount) {
     if (license !== this._license) {
       this._license = license;
 
@@ -163,46 +184,62 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   private generateData(): void {
+    if (!this._integrationsMap) {
+      return;
+    }
+
     this._data = {
       name: {
         key: "Название",
-        value: this._license?.licType?.name,
+        value: this._license?.licType?.name || ' ---',
       },
       price: {
         key: "Цена",
-        value: (this._license?.licType?.price * 0.01).toFixed(2),
+        value: (this._license?.licType?.price * 0.01).toFixed(2) || ' ---',
       },
       dateStart: {
         key: "Время начала лицензионного периода",
-        value: moment(this._license?.dateStart).format("DD-MM-YYYY"),
+        value: this._license ? moment(this._license?.dateStart).format("DD-MM-YYYY") : ' ---',
       },
       dateEnd: {
         key: "Время завершения лицензионного периода",
-        value: moment(this._license?.dateEnd).format("DD-MM-YYYY"),
+        value: this._license ? moment(this._license?.dateEnd).format("DD-MM-YYYY") : ' ---',
       },
       key: {
         key: "Лицензионный ключ",
-        value: this._license?.key,
+        value: this._license?.key || ' ---',
       },
       state: {
         key: "Статус",
-        value: String(this._license?.state),
+        value: String(this._license?.state) || ' ---',
       },
       status: {
         key: "Состояние",
-        value: this._license?.status,
+        value: this._license?.status || ' ---',
       },
       integration: {
         key: "Название",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : '',
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : ' ---',
       },
       integrationDescription: {
         key: "Описание интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : '',
+        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
         value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.version.version : '',
+      },
+      terminalName: {
+        key: "Название терминала",
+        value: this._terminal?.name || ' ---',
+      },
+      terminalStoreName: {
+        key: "Название магазина",
+        value: this._store?.name || ' ---',
+      },
+      terminalStoreAddress: {
+        key: "Адрес магазина",
+        value: this._store?.address || ' ---',
       },
     }
   }
@@ -218,7 +255,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       event.stopImmediatePropagation();
       event.preventDefault();
 
-      this.onSave();
+      this.onSubmit();
     }
   }
 
@@ -226,7 +263,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     this.isEdit = true;
   }
 
-  onSave(): void {
+  onSubmit(): void {
     if (this.form.valid) {
 
       this.save.emit({
@@ -244,5 +281,9 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   onCancel(): void {
     this.cancel.emit();
+  }
+
+  isBindToTerminal(): boolean {
+    return !!this._terminal;
   }
 }

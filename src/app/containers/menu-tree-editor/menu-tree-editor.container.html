@@ -3,7 +3,7 @@
         [hasShowRefInfo]="true" [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async"
         [selectors]="selectors$ | async" [products]="products$ | async" [orderTypes]="orderTypes$ | async"
         [businessPeriods]="businessPeriods$ | async" [assets]="assets$ | async" [currencies]="currencies$ | async"
-        [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async" (create)="onCreate($event)"
-        (update)="onUpdate($event)" (delete)="onDelete($event)">
+        [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async" [stores]="stores$ | async"
+        (create)="onCreate($event)" (update)="onUpdate($event)" (delete)="onDelete($event)">
     </ta-node-tree>
 </ta-query-progress>

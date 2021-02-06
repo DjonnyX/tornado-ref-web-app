@@ -9,6 +9,7 @@ import { ApplicationActions } from '@store/actions/application.action';
 import { ApplicationSelectors } from '@store/selectors/application.selectors';
 import { IApplication, IStore } from '@djonnyx/tornado-types';
 import { StoresSelectors } from '@store/selectors';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-application-creator',
@@ -19,10 +20,6 @@ import { StoresSelectors } from '@store/selectors';
 export class ApplicationCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
-
-  private _returnUrl: string;
-
-  private _application: IApplication;
 
   application$: Observable<IApplication>;
 
@@ -37,13 +34,11 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._applicationId = this._activatedRoute.snapshot.queryParams["id"];
 
     this.isEditMode = !!this._applicationId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(ApplicationSelectors.selectIsGetProcess),
       ),
@@ -56,8 +51,9 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isApplicationGetProcess, isApplicationCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) => isApplicationGetProcess || isApplicationCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
+    ]).pipe(
+      map(([isApplicationGetProcess, isApplicationCreateProcess, selectIsUpdateProcess, isStoresGetProcess]) =>
+        isApplicationGetProcess || isApplicationCreateProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
     this.application$ = this._store.pipe(
@@ -86,6 +82,7 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
     super.ngOnDestroy();
 
     this._store.dispatch(ApplicationActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onSubmit(application: IApplication): void {
@@ -97,10 +94,10 @@ export class ApplicationCreatorContainer extends BaseComponent implements OnInit
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/applications"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/applications"]);
   }
 }

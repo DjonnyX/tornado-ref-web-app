@@ -2,60 +2,74 @@
 @import "../utils/px2em";
 
 .entity-options-editor {
-    color: #000000;
+  color: $primary-700;
 
-    .entity-options-editor__back-button {
-        cursor: pointer;
-        color: $accent;
-        margin-bottom: px2em(20);
-        text-decoration: underline;
+  .entity-options-editor__back-button {
+    cursor: pointer;
+    color: $accent;
+    margin-bottom: px2em(20);
+    text-decoration: underline;
+  }
+
+  .form {
+    .form-header {
+      color: $primary-800;
     }
+
+    .form__block {
+      margin-bottom: px2em(24);
+    }
+
+    .form__link {
+      color: $accent-800;
+    }
+  }
 }
 
 @media screen and (min-width: 600px) {
-    .entity-options-editor {
-        padding: px2em(40);
+  .entity-options-editor {
+    padding: px2em(40);
 
-        .main-options-wrapper {
-            display: grid;
-            grid-template-columns: px2em(298) auto;
-            gap: px2em(32);
-        }
-
-        .form {
-            padding: px2em(36) px2em(40) px2em(40);
-            background: #ffffff;
-            border-radius: 3px;
-        }
-
-        .form + .form {
-            margin-top: px2em(20);
-        }
+    .main-options-wrapper {
+      display: grid;
+      grid-template-columns: px2em(298) auto;
+      gap: px2em(32);
     }
+
+    .form {
+      padding: px2em(36) px2em(40) px2em(40);
+      background: #ffffff;
+      border-radius: 3px;
+    }
+
+    .form+.form {
+      margin-top: px2em(20);
+    }
+  }
 }
 
 @media screen and (max-width: 599px) {
-    .entity-options-editor {
-        background: #ffffff;
-        min-height: 100%;
+  .entity-options-editor {
+    background: #ffffff;
+    min-height: 100%;
 
-        .main-options-wrapper {
-            display: grid;
-            grid-template-columns: px2em(192) auto;
-            gap: px2em(20);
-        }
-
-        .form {
-            padding: px2em(20);
-        }
-
-        .form + .form {
-            margin-top: px2em(20);
-        }
-
-        &__back-button {
-            padding-left: px2em(20);
-            padding-top: px2em(20);
-        }
+    .main-options-wrapper {
+      display: grid;
+      grid-template-columns: px2em(192) auto;
+      gap: px2em(20);
     }
+
+    .form {
+      padding: px2em(20);
+    }
+
+    .form+.form {
+      margin-top: px2em(20);
+    }
+
+    &__back-button {
+      padding-left: px2em(20);
+      padding-top: px2em(20);
+    }
+  }
 }

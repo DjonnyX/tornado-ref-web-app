@@ -15,6 +15,11 @@ export const initialState: IIntegrationsState = {
 
 const integrationsReducer = createReducer(
     initialState,
+    on(IntegrationsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(IntegrationsActions.getAllRequest, state => {
         return {
             ...state,

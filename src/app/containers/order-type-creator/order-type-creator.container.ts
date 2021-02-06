@@ -1,7 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { OrderTypesActions } from '@store/actions/order-types.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import { OrderTypesSelectors, OrderTypeAssetsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -11,12 +10,10 @@ import { IAsset, IFileUploadEvent } from '@models';
 import { OrderTypeAssetsActions } from '@store/actions/order-type-assets.action';
 import { OrderTypeSelectors } from '@store/selectors/order-type.selectors';
 import { OrderTypeActions } from '@store/actions/order-type.action';
-import { IOrderType, OrderTypeResourceTypes, ILanguage, IOrderTypeContents } from '@djonnyx/tornado-types';
+import { IOrderType, OrderTypeResourceTypes, ILanguage } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects } from '@app/utils/object.util';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
-import { SelectorsActions } from '@store/actions/selectors.action';
 
 @Component({
   selector: 'ta-order-type-creator',
@@ -28,15 +25,13 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
   isProcess$: Observable<boolean>;
 
-  isProcessMainOptions$: Observable<boolean>;x
+  isProcessMainOptions$: Observable<boolean>; x
 
   isProcessAssets$: Observable<boolean>;
 
   rootNodeId$: Observable<string>;
 
   orderType$: Observable<IOrderType>;
-
-  orderTypes$: Observable<Array<IOrderType>>;
 
   orderTypeAssets$: Observable<Array<IAsset>>;
 
@@ -50,14 +45,10 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
   isEditMode = false;
 
-  private _returnUrl: string;
-
   private _orderTypeId: string;
 
   private _orderTypeId$ = new BehaviorSubject<string>(undefined);
   readonly orderTypeId$ = this._orderTypeId$.asObservable();
-
-  private _orderType: IOrderType;
 
   private _defaultLanguage: ILanguage;
 
@@ -66,14 +57,12 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._orderTypeId = this._activatedRoute.snapshot.queryParams["id"];
     this._orderTypeId$.next(this._orderTypeId);
 
     this.isEditMode = !!this._orderTypeId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(OrderTypeSelectors.selectIsGetProcess),
       ),
@@ -86,23 +75,23 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isGetOrderTypeProcess, isOrderTypesProcess, isAssetsProcess, isLanguagesProcess]) =>
         isGetOrderTypeProcess || isOrderTypesProcess || isAssetsProcess || isLanguagesProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
+    this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
         select(OrderTypeSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(OrderTypeSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
     );
 
-    this.isProcessAssets$ = combineLatest(
+    this.isProcessAssets$ = combineLatest([
       this._store.pipe(
         select(OrderTypeAssetsSelectors.selectIsGetProcess),
       ),
@@ -112,12 +101,9 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       this._store.pipe(
         select(OrderTypeAssetsSelectors.selectIsDeleteProcess),
       ),
-    ).pipe(
-      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
-    );
-
-    this.orderTypes$ = this._store.pipe(
-      select(OrderTypesSelectors.selectCollection),
+    ]).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) =>
+        isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
     this.languages$ = this._store.pipe(
@@ -140,10 +126,10 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       this._defaultLanguage = lang;
     });
 
-    this.orderTypeAssets$ = combineLatest(
+    this.orderTypeAssets$ = combineLatest([
       this._store.select(OrderTypeAssetsSelectors.selectCollection),
       this.languages$,
-    ).pipe(
+    ]).pipe(
       filter(([assets, langs]) => !!assets && !!langs),
       switchMap(([assets, langs]) => {
         const result = new Array<IAsset>();
@@ -156,11 +142,11 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       }),
     );
 
-    this.orderType$ = combineLatest(
+    this.orderType$ = combineLatest([
       this._store.select(OrderTypeSelectors.selectEntity),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       filter(([orderType, langs, defaultLang]) => !!orderType && !!defaultLang && !!langs),
       map(([orderType, langs, defaultLang]) => {
         return { ...orderType, contents: getCompiledContents(orderType.contents, langs, defaultLang) };
@@ -170,7 +156,6 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     this.orderType$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(orderType => {
-      this._orderType = orderType;
       this._orderTypeId = orderType.id;
       this._orderTypeId$.next(this._orderTypeId);
       this.isEditMode = true;
@@ -182,7 +167,6 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
         relativeTo: this._activatedRoute,
         queryParams: {
           id: this._orderTypeId,
-          returnUrl: this._returnUrl,
         }
       });
     });
@@ -191,27 +175,25 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
       this._store.dispatch(OrderTypeActions.getRequest({ id: this._orderTypeId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
-    this._store.dispatch(OrderTypesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
 
-    const prepareMainRequests$ = combineLatest(
-      this.orderTypes$,
+    const prepareMainRequests$ = combineLatest([
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
-    ).pipe(
-      map(([orderTypes, languages, defaultLanguage, assets]) =>
-        !!orderTypes && !!languages && !!defaultLanguage && !!assets),
+    ]).pipe(
+      map(([languages, defaultLanguage, assets]) =>
+        !!languages && !!defaultLanguage && !!assets),
     );
 
     this.isPrepareToConfigure$ = this.orderTypeId$.pipe(
       switchMap(id => {
-        return !!id ? combineLatest(
+        return !!id ? combineLatest([
           prepareMainRequests$,
           this.orderType$,
           this.orderTypeAssets$,
-        ).pipe(
+        ]).pipe(
           map(([prepareMainRequests, orderType, orderTypeAssets]) =>
             !!prepareMainRequests && !!orderType && !!orderTypeAssets),
         ) : prepareMainRequests$;
@@ -224,7 +206,8 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
     this._store.dispatch(OrderTypeActions.clear());
     this._store.dispatch(OrderTypeAssetsActions.clear());
-    this._store.dispatch(SelectorsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {
@@ -237,7 +220,7 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
 
   onMainOptionsSave(orderType: IOrderType): void {
     if (this.isEditMode) {
-      const normalizedOrderType: IOrderType = {...orderType};
+      const normalizedOrderType: IOrderType = { ...orderType };
 
       // нормализация контена
       normalizeEntityContents(normalizedOrderType.contents, this._defaultLanguage.code);
@@ -246,15 +229,13 @@ export class OrderTypeCreatorContainer extends BaseComponent implements OnInit, 
     } else {
       this._store.dispatch(OrderTypeActions.createRequest({ orderType }));
     }
-
-    // this._router.navigate([this._returnUrl]);
   }
 
   onMainOptionsCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/order-types"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/order-types"]);
   }
 }

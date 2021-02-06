@@ -1,0 +1,22 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+.p404 {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: $primary-700;
+
+  .p404__wrapper {
+    h1 {
+      font-size: px2em(172);
+      color: white;
+      margin-bottom: px2em(4);
+    }
+
+    p {
+      color: white;
+    }
+  }
+}

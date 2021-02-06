@@ -16,6 +16,11 @@ export const initialState: ILanguagesState = {
 
 const languagesReducer = createReducer(
     initialState,
+    on(LanguagesActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(LanguagesActions.getAllRequest, state => {
         return {
             ...state,

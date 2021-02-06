@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { INode } from '@djonnyx/tornado-types';
+import { INode, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum MenuNodesActionTypes {
     GET_ROOT_NODE_REQUEST = "TORNADO/menu-nodes/get-root-node-id:request",
@@ -26,12 +26,15 @@ export enum MenuNodesActionTypes {
     DELETE_REQUEST = "TORNADO/menu-nodes/delete:request",
     DELETE_SUCCESS = "TORNADO/menu-nodes/delete:success",
     DELETE_ERROR = "TORNADO/menu-nodes/delete:error",
+
+    CLEAR = "TORNADO/menu-nodes/clear",
 }
 
 export namespace MenuNodesActions {
     // getRootNodeId
     export const getRootNodeIdRequest = createAction(
         MenuNodesActionTypes.GET_ROOT_NODE_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getRootNodeIdSuccess = createAction(
         MenuNodesActionTypes.GET_ROOT_NODE_SUCCESS,
@@ -110,5 +113,10 @@ export namespace MenuNodesActions {
     export const deleteError = createAction(
         MenuNodesActionTypes.DELETE_ERROR,
         props<{ error: string }>()
+    );
+
+    // clear
+    export const clear = createAction(
+        MenuNodesActionTypes.CLEAR,
     );
 }

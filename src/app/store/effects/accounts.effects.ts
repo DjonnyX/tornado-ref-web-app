@@ -18,8 +18,8 @@ export default class AccountsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AccountsActions.getAllRequest),
-            switchMap(params => {
-                return this._apiService.getAccounts().pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getAccounts(options).pipe(
                     mergeMap(res => {
                         return [AccountsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

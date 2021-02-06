@@ -143,7 +143,7 @@ $border-primary: $way-border-weight dotted $primary;
 
             .node-tree-item__content {
                 .content {
-                    color: #000000;
+                    color: $primary-700;
                     background: #ffffff;
                     border: 1px solid rgba($primary, 0.3);
 
@@ -239,7 +239,7 @@ $border-primary: $way-border-weight dotted $primary;
 
             .node-tree-item__content {
                 .content {
-                    color: #000000;
+                    color: $primary-700;
                     background: #ffffff;
                     border: 1px solid rgba($primary, 0.75);
 

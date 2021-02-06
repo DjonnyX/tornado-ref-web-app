@@ -1,0 +1,80 @@
+<form class="form" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div style="width: 100%;">
+        <div>
+            <div class="form__main-options">
+                <h1 class="form-header">
+                    Информация о лицензии
+                </h1>
+
+                <div class="form__block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.name"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.dateStart"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.dateEnd"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.key"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.price"></ta-key-value>
+                    </div>
+                </div>
+
+                <h1 class="form-header">
+                    Интеграция
+                </h1>
+
+                <div class="form__block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.integration"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.integrationDescription"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.integrationVersion"></ta-key-value>
+                    </div>
+                </div>
+
+                <h1 class="form-header">
+                    Устройство
+                </h1>
+
+                <ng-container *ngIf="!!data && !!license && !isBindToTerminal(); else terminalInfo">
+                    <div>
+                        Лицензия не привязана к терминалу.
+                    </div>
+                </ng-container>
+                <ng-template #terminalInfo>
+                    <div class="form__block" *ngIf="!!data">
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.terminalName"></ta-key-value>
+                        </div>
+
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.terminalStoreName"></ta-key-value>
+                        </div>
+
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.terminalStoreAddress"></ta-key-value>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Закрыть</button>
+    </div>
+</form>

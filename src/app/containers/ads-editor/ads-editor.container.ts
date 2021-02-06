@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -17,7 +17,7 @@ import { LanguagesActions } from '@store/actions/languages.action';
   styleUrls: ['./ads-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AdsEditorContainer implements OnInit {
+export class AdsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -40,13 +40,17 @@ export class AdsEditorContainer implements OnInit {
   ngOnInit(): void {
     this._adsType = this._activatedRoute.snapshot.data.type;
 
-    this._store.dispatch(AdsActions.getAllRequest({ adType: this._adsType }));
-
+    this._store.dispatch(AdsActions.getAllRequest({
+      options: {
+        filter: [{
+          id: 'type', operation: 'equals', value: this._adsType,
+        }],
+      }
+    }));
     this._store.dispatch(AssetsActions.getAllRequest());
-    
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(AdsSelectors.selectLoading),
       ),
@@ -56,8 +60,9 @@ export class AdsEditorContainer implements OnInit {
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isProductsProgress, isAssetsProgress, isLanguagesProcess]) => isProductsProgress || isAssetsProgress || isLanguagesProcess),
+    ]).pipe(
+      map(([isProductsProgress, isAssetsProgress, isLanguagesProcess]) =>
+        isProductsProgress || isAssetsProgress || isLanguagesProcess),
     );
 
     this.collection$ = this._store.pipe(
@@ -82,32 +87,36 @@ export class AdsEditorContainer implements OnInit {
       filter(language => !!language),
     );
 
-    this.isPrepareToShow$ = combineLatest(
+    this.isPrepareToShow$ = combineLatest([
       this.collection$,
       this.assets$,
       this.languages$,
-    ).pipe(
-        map(([collection, assets, languages]) => !!collection && !!assets && !!languages),
+    ]).pipe(
+      map(([collection, assets, languages]) => !!collection && !!assets && !!languages),
     );
   }
 
-  onCreate(): void {
+  ngOnDestroy(): void {
+    this._store.dispatch(AdsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+  }
 
+  onCreate(): void {
     this._store.dispatch(AdActions.clear());
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url, type: this._adsType },
+      queryParams: { type: this._adsType },
     });
   }
 
   onEdit(ad: IAd): void {
-
     this._store.dispatch(AdActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: ad.id, returnUrl: this._router.routerState.snapshot.url, type: this._adsType },
+      queryParams: { id: ad.id, type: this._adsType },
     });
   }
 

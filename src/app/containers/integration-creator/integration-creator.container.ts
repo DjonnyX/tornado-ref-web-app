@@ -9,6 +9,7 @@ import { IntegrationActions } from '@store/actions/integration.action';
 import { IntegrationSelectors } from '@store/selectors/integration.selectors';
 import { IIntegration, IStore } from '@djonnyx/tornado-types';
 import { StoresSelectors } from '@store/selectors';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-integration-creator',
@@ -19,10 +20,6 @@ import { StoresSelectors } from '@store/selectors';
 export class IntegrationCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
-
-  private _returnUrl: string;
-
-  private _integration: IIntegration;
 
   integration$: Observable<IIntegration>;
 
@@ -35,11 +32,9 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._integrationId = this._activatedRoute.snapshot.queryParams["id"];
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(IntegrationSelectors.selectIsGetProcess),
       ),
@@ -49,8 +44,9 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isIntegrationGetProcess, selectIsUpdateProcess, isStoresGetProcess]) => isIntegrationGetProcess || selectIsUpdateProcess || isStoresGetProcess),
+    ]).pipe(
+      map(([isIntegrationGetProcess, selectIsUpdateProcess, isStoresGetProcess]) =>
+        isIntegrationGetProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
     this.integration$ = this._store.pipe(
@@ -78,6 +74,7 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
     super.ngOnDestroy();
 
     this._store.dispatch(IntegrationActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onSubmit(integration: IIntegration): void {
@@ -85,10 +82,10 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
   }
 
   onCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/integrations"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/integrations"]);
   }
 }

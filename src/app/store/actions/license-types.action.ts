@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ILicenseType } from '@djonnyx/tornado-types';
+import { ILicenseType, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum LicenseTypesActionTypes {
     GET_ALL_REQUEST = "TORNADO/license-types/get-all:request",
@@ -22,12 +22,15 @@ export enum LicenseTypesActionTypes {
     DELETE_REQUEST = "TORNADO/license-types/delete:request",
     DELETE_SUCCESS = "TORNADO/license-types/delete:success",
     DELETE_ERROR = "TORNADO/license-types/delete:error",
+
+    CLEAR = "TORNADO/license-types/clear",
 }
 
 export namespace LicenseTypesActions {
     // getAll
     export const getAllRequest = createAction(
         LicenseTypesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         LicenseTypesActionTypes.GET_ALL_SUCCESS,
@@ -78,5 +81,10 @@ export namespace LicenseTypesActions {
     export const deleteError = createAction(
         LicenseTypesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        LicenseTypesActionTypes.CLEAR,
     );
 }

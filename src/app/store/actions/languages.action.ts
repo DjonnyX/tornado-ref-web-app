@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ILanguage } from '@djonnyx/tornado-types';
+import { ILanguage, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum LanguagesActionTypes {
     GET_ALL_REQUEST = "TORNADO/languages/get-all:request",
@@ -22,12 +22,15 @@ export enum LanguagesActionTypes {
     DELETE_REQUEST = "TORNADO/languages/delete:request",
     DELETE_SUCCESS = "TORNADO/languages/delete:success",
     DELETE_ERROR = "TORNADO/languages/delete:error",
+
+    CLEAR = "TORNADO/languages/clear",
 }
 
 export namespace LanguagesActions {
     // getAll
     export const getAllRequest = createAction(
         LanguagesActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         LanguagesActionTypes.GET_ALL_SUCCESS,
@@ -92,5 +95,10 @@ export namespace LanguagesActions {
     export const deleteError = createAction(
         LanguagesActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        LanguagesActionTypes.CLEAR,
     );
 }

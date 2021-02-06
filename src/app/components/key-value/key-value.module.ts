@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { KeyValueComponent } from './key-value.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { KeyValueComponent } from './key-value.component';
     KeyValueComponent,
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule,
   ]
 })
 export class KeyValueModule { }

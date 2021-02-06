@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { ITerminal } from '@djonnyx/tornado-types';
+import { ITerminal, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum TerminalsActionTypes {
     GET_ALL_REQUEST = "TORNADO/terminals/get-all:request",
@@ -22,12 +22,15 @@ export enum TerminalsActionTypes {
     DELETE_REQUEST = "TORNADO/terminals/delete:request",
     DELETE_SUCCESS = "TORNADO/terminals/delete:success",
     DELETE_ERROR = "TORNADO/terminals/delete:error",
+
+    CLEAR = "TORNADO/terminals/clear",
 }
 
 export namespace TerminalsActions {
     // getAll
     export const getAllRequest = createAction(
         TerminalsActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         TerminalsActionTypes.GET_ALL_SUCCESS,
@@ -78,5 +81,10 @@ export namespace TerminalsActions {
     export const deleteError = createAction(
         TerminalsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        TerminalsActionTypes.CLEAR,
     );
 }

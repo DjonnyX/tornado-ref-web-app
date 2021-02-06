@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -16,7 +16,7 @@ import { LanguagesActions } from '@store/actions/languages.action';
   styleUrls: ['./business-periods-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class BusinessPeriodsEditorContainer implements OnInit {
+export class BusinessPeriodsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -28,23 +28,21 @@ export class BusinessPeriodsEditorContainer implements OnInit {
 
   defaultLanguage$: Observable<ILanguage>;
 
-  isPrepareToShow$ : Observable<boolean>;
+  isPrepareToShow$: Observable<boolean>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
-    this._store.dispatch(LanguagesActions.getAllRequest());
-
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(BusinessPeriodsSelectors.selectLoading),
       ),
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isProductsProgress, isLanguageProgress]) => isProductsProgress || isLanguageProgress),
+    ]).pipe(
+      map(([isProductsProgress, isLanguageProgress]) =>
+        isProductsProgress || isLanguageProgress),
     );
 
     this.collection$ = this._store.pipe(
@@ -65,21 +63,27 @@ export class BusinessPeriodsEditorContainer implements OnInit {
       filter(language => !!language),
     );
 
-    this.isPrepareToShow$ = combineLatest(
+    this.isPrepareToShow$ = combineLatest([
       this.collection$,
       this.languages$,
-    ).pipe(
-        map(([collection, languages]) => !!collection && !!languages),
+    ]).pipe(
+      map(([collection, languages]) => !!collection && !!languages),
     );
+
+    this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
+  }
+
+  ngOnDestroy(): void {
+    this._store.dispatch(BusinessPeriodsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onCreate(): void {
-
     this._store.dispatch(BusinessPeriodActions.clear());
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
@@ -88,12 +92,11 @@ export class BusinessPeriodsEditorContainer implements OnInit {
   }
 
   onEdit(businessPeriod: IBusinessPeriod): void {
-
     this._store.dispatch(BusinessPeriodActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: businessPeriod.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: businessPeriod.id, },
     });
   }
 

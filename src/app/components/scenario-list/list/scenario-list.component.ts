@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
-import { IBusinessPeriod, ICurrency, ILanguage } from '@djonnyx/tornado-types';
+import { IBusinessPeriod, ICurrency, ILanguage, IStore } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-scenario-list',
@@ -19,6 +19,10 @@ export class ScenarioListComponent implements OnInit {
   @Input() currencies: Array<ICurrency>;
 
   @Input() currenciesDictionary: { [id: string]: ICurrency };
+
+  @Input() stores: Array<IStore>;
+
+  @Input() storesDictionary: { [id: string]: IStore };
 
   @Input() businessPeriods: Array<IBusinessPeriod>;
   

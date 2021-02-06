@@ -44,15 +44,7 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
   }
 
   ngOnInit(): void {
-    this._store.dispatch(ProductsActions.getAllRequest());
-
-    this._store.dispatch(TagsActions.getAllRequest());
-
-    this._store.dispatch(AssetsActions.getAllRequest());
-    
-    this._store.dispatch(LanguagesActions.getAllRequest());
-
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(ProductsSelectors.selectLoading),
       ),
@@ -65,8 +57,9 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess]) => isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess),
+    ]).pipe(
+      map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess]) =>
+        isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess),
     );
 
     this.tags$ = this._store.pipe(
@@ -95,38 +88,50 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       filter(language => !!language),
     );
 
-    this.isPrepareToShow$ = combineLatest(
+    this.isPrepareToShow$ = combineLatest([
       this.collection$,
       this.assets$,
       this.languages$,
       this.tags$,
-    ).pipe(
-        map(([collection, assets, languages, tags]) => !!collection && !!assets && !!languages && !!tags),
+    ]).pipe(
+      map(([collection, assets, languages, tags]) =>
+        !!collection && !!assets && !!languages && !!tags),
     );
+
+    this._store.dispatch(ProductsActions.getAllRequest({}));
+    this._store.dispatch(TagsActions.getAllRequest({}));
+    this._store.dispatch(AssetsActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+
+    this._store.dispatch(ProductsActions.clear());
+    this._store.dispatch(TagsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onCreate(): void {
-
     this._store.dispatch(ProductActions.clear());
 
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url }
     });
   }
 
   onEdit(product: IProduct): void {
-
     this._store.dispatch(ProductActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: product.id, returnUrl: this._router.routerState.snapshot.url }
+      queryParams: { id: product.id, }
     });
   }
 
   onUpdate(product: IProduct): void {
-    this._store.dispatch(ProductsActions.updateRequest({id: product.id, product}));
+    this._store.dispatch(ProductsActions.updateRequest({ id: product.id, product }));
   }
 
   onDelete(id: string): void {

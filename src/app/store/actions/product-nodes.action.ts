@@ -22,6 +22,8 @@ export enum ProductNodesActionTypes {
     DELETE_REQUEST = "TORNADO/product-nodes/delete:request",
     DELETE_SUCCESS = "TORNADO/product-nodes/delete:success",
     DELETE_ERROR = "TORNADO/product-nodes/delete:error",
+
+    CLEAR = "TORNADO/product-nodes/clear",
 }
 
 export namespace ProductNodesActions {
@@ -93,5 +95,10 @@ export namespace ProductNodesActions {
     export const deleteError = createAction(
         ProductNodesActionTypes.DELETE_ERROR,
         props<{ error: string }>()
+    );
+
+    // clear
+    export const clear = createAction(
+        ProductNodesActionTypes.CLEAR,
     );
 }

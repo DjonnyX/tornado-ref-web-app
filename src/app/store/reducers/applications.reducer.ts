@@ -15,6 +15,11 @@ export const initialState: IApplicationsState = {
 
 const applicationsReducer = createReducer(
     initialState,
+    on(ApplicationsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(ApplicationsActions.getAllRequest, state => {
         return {
             ...state,

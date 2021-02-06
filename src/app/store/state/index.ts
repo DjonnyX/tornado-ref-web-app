@@ -31,6 +31,8 @@ export { ITerminalState } from './terminal.state';
 export { ITerminalsState } from './terminals.state';
 export { ILicenseState } from './license.state';
 export { ILicensesState } from './licenses.state';
+export { ILicenseAccountState } from './license-account.state';
+export { ILicensesAccountState } from './licenses-account.state';
 export { ILicenseTypeState } from './license-type.state';
 export { ILicenseTypesState } from './license-types.state';
 export { IApplicationState } from './application.state';

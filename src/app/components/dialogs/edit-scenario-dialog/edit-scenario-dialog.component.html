@@ -1,13 +1,14 @@
 <h2 mat-dialog-title><strong>{{data.title}}</strong></h2>
 <mat-dialog-content class="mat-typography" style="min-width: 320px;">
     <p *ngIf="!!data.message">{{data.message}}</p>
-    <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [businessPeriods]="data.businessPeriods"
+    <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [scenarios]="data.scenarios" [businessPeriods]="data.businessPeriods"
         [businessPeriodsDictionary]="data.businessPeriodsDictionary" [currencies]="data.currencies"
         [currenciesDictionary]="data.currenciesDictionary" [products]="data.products"
-        [productsDictionary]="data.productsDictionary" [selectors]="data.selectors" [selectorsDictionary]="data.selectorsDictionary"
-        [languages]="data.languages" [languagesDictionary]="data.languagesDictionary" [orderTypes]="data.orderTypes"
-        [orderTypesDictionary]="data.orderTypesDictionary" [defaultLanguage]="data.defaultLanguage"
-        (status)="onChangeStatus($event)" (edit)="onChangeScenario($event)">
+        [productsDictionary]="data.productsDictionary" [selectors]="data.selectors"
+        [selectorsDictionary]="data.selectorsDictionary" [languages]="data.languages"
+        [languagesDictionary]="data.languagesDictionary" [orderTypes]="data.orderTypes" [stores]="data.stores"
+        [storesDictionary]="data.storesDictionary" [orderTypesDictionary]="data.orderTypesDictionary"
+        [defaultLanguage]="data.defaultLanguage" (status)="onChangeStatus($event)" (edit)="onChangeScenario($event)">
     </ta-scenario-editor>
 </mat-dialog-content>
 <mat-dialog-actions align="end">

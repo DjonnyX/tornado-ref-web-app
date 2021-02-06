@@ -16,6 +16,11 @@ export const initialState: IBusinessPeriodsState = {
 
 const businessPeriodsReducer = createReducer(
     initialState,
+    on(BusinessPeriodsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(BusinessPeriodsActions.getAllRequest, state => {
         return {
             ...state,

@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IBusinessPeriod } from '@djonnyx/tornado-types';
+import { IBusinessPeriod, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum BusinessPeriodsActionTypes {
     GET_ALL_REQUEST = "TORNADO/business-periods/get-all:request",
@@ -22,12 +22,15 @@ export enum BusinessPeriodsActionTypes {
     DELETE_REQUEST = "TORNADO/business-periods/delete:request",
     DELETE_SUCCESS = "TORNADO/business-periods/delete:success",
     DELETE_ERROR = "TORNADO/business-periods/delete:error",
+
+    CLEAR = "TORNADO/business-periods/clear",
 }
 
 export namespace BusinessPeriodsActions {
     // getAll
     export const getAllRequest = createAction(
         BusinessPeriodsActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         BusinessPeriodsActionTypes.GET_ALL_SUCCESS,
@@ -92,5 +95,10 @@ export namespace BusinessPeriodsActions {
     export const deleteError = createAction(
         BusinessPeriodsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        BusinessPeriodsActionTypes.CLEAR,
     );
 }

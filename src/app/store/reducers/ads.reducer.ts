@@ -16,6 +16,11 @@ export const initialState: IAdsState = {
 
 const adsReducer = createReducer(
     initialState,
+    on(AdsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(AdsActions.getAllRequest, state => {
         return {
             ...state,

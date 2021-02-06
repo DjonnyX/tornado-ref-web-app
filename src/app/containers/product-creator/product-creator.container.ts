@@ -3,7 +3,10 @@ import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
-import { ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors, OrderTypesSelectors } from '@store/selectors';
+import {
+  ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors,
+  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors
+} from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -15,15 +18,18 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
-import { IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage, IProductContents, IOrderType } from '@djonnyx/tornado-types';
+import {
+  IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage,
+  IStore, IOrderType
+} from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects, deepClone } from '@app/utils/object.util';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
+import { StoresActions } from '@store/actions/stores.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -46,6 +52,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   product$: Observable<IProduct>;
 
   businessPeriods$: Observable<Array<IBusinessPeriod>>;
+
+  stores$: Observable<Array<IStore>>;
 
   nodes$: Observable<Array<INode>>;
 
@@ -73,14 +81,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   isEditMode = false;
 
-  private _returnUrl: string;
-
   private _productId: string;
 
   private _productId$ = new BehaviorSubject<string>(undefined);
   readonly productId$ = this._productId$.asObservable();
-
-  private _product: IProduct;
 
   private _defaultLanguage: ILanguage;
 
@@ -89,14 +93,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._productId = this._activatedRoute.snapshot.queryParams["id"];
     this._productId$.next(this._productId);
 
     this.isEditMode = !!this._productId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(ProductSelectors.selectIsGetProcess),
       ),
@@ -127,27 +129,35 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(OrderTypesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess, isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess, isLanguagesProcess, isOrderTypesProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess || isLanguagesProcess || isOrderTypesProcess),
+      this._store.pipe(
+        select(StoresSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess,
+        isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess,
+        isLanguagesProcess, isOrderTypesProcess, isStoresGetProcess]) =>
+        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess
+        || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess
+        || isLanguagesProcess || isOrderTypesProcess || isStoresGetProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
+    this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
         select(ProductSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(ProductSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    ]).pipe(
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
     this.isProcessHierarchy$ = this._store.pipe(
       select(ProductNodesSelectors.selectLoading),
     );
 
-    this.isProcessAssets$ = combineLatest(
+    this.isProcessAssets$ = combineLatest([
       this._store.pipe(
         select(ProductAssetsSelectors.selectIsGetProcess),
       ),
@@ -157,8 +167,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(ProductAssetsSelectors.selectIsDeleteProcess),
       ),
-    ).pipe(
-      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
+    ]).pipe(
+      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) =>
+        isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
     this.tags$ = this._store.pipe(
@@ -185,6 +196,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       select(BusinessPeriodsSelectors.selectCollection),
     );
 
+    this.stores$ = this._store.pipe(
+      select(StoresSelectors.selectCollection),
+    );
+
     this.orderTypes$ = this._store.pipe(
       select(OrderTypesSelectors.selectCollection),
     );
@@ -209,10 +224,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._defaultLanguage = lang;
     });
 
-    this.productAssets$ = combineLatest(
+    this.productAssets$ = combineLatest([
       this._store.select(ProductAssetsSelectors.selectCollection),
       this.languages$,
-    ).pipe(
+    ]).pipe(
       filter(([assets, langs]) => !!assets && !!langs),
       switchMap(([assets, langs]) => {
         const result = new Array<IAsset>();
@@ -225,11 +240,11 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       }),
     );
 
-    this.product$ = combineLatest(
+    this.product$ = combineLatest([
       this._store.select(ProductSelectors.selectEntity),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       filter(([product, langs, defaultLang]) => !!product && !!defaultLang && !!langs),
       map(([product, langs, defaultLang]) => {
         return { ...product, contents: getCompiledContents(product.contents, langs, defaultLang) };
@@ -239,18 +254,17 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this.product$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(product => {
-      this._product = product;
       this._productId = product.id;
       this._productId$.next(this._productId);
       this.isEditMode = true;
     });
 
-    this.galleryProductAssets$ = combineLatest(
+    this.galleryProductAssets$ = combineLatest([
       this.product$,
       this._store.select(ProductAssetsSelectors.selectCollection),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
+    ]).pipe(
       filter(([product, assets, langs, defaultLang]) => !!product && !!assets && !!langs && !!defaultLang),
       map(([product, assets, langs, defaultLang]) => {
         const result: { [lang: string]: Array<IAsset> } = {};
@@ -258,9 +272,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
           result[lang] = assets[lang].filter(asset =>
             !product.contents[lang] ||
             (
-              !product.contents[lang].resources || (asset.id !== 
-              product.contents[lang].resources.main && asset.id !==
-              product.contents[lang].resources.icon)
+              !product.contents[lang].resources || (asset.id !==
+                product.contents[lang].resources.main && asset.id !==
+                product.contents[lang].resources.icon)
             ))
         }
 
@@ -294,7 +308,6 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         relativeTo: this._activatedRoute,
         queryParams: {
           id: this._productId,
-          returnUrl: this._returnUrl,
         }
       });
     });
@@ -303,15 +316,16 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
-    this._store.dispatch(ProductsActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
+    this._store.dispatch(ProductsActions.getAllRequest({}));
     this._store.dispatch(SelectorsActions.getAllRequest({}));
-    this._store.dispatch(BusinessPeriodsActions.getAllRequest());
+    this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
-    this._store.dispatch(TagsActions.getAllRequest());
-    this._store.dispatch(CurrenciesActions.getAllRequest());
+    this._store.dispatch(TagsActions.getAllRequest({}));
+    this._store.dispatch(CurrenciesActions.getAllRequest({}));
+    this._store.dispatch(StoresActions.getAllRequest({}));
 
-    const prepareMainRequests$ = combineLatest(
+    const prepareMainRequests$ = combineLatest([
       this.tags$,
       this.currencies$,
       this.selectors$,
@@ -320,19 +334,21 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
-    ).pipe(
-      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets]) =>
-        !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages && !!defaultLanguage && !!assets),
+      this.stores$,
+    ]).pipe(
+      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets, stores]) =>
+        !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages &&
+        !!defaultLanguage && !!assets && !!stores),
     );
 
     this.isPrepareToConfigure$ = this.productId$.pipe(
       switchMap(id => {
-        return !!id ? combineLatest(
+        return !!id ? combineLatest([
           prepareMainRequests$,
           this.nodes$,
           this.product$,
           this.productAssets$,
-        ).pipe(
+        ]).pipe(
           map(([prepareMainRequests, nodes, product, productAssets]) =>
             !!prepareMainRequests && !!nodes && !!product && !!productAssets),
         ) : prepareMainRequests$;
@@ -344,11 +360,18 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
 
     this._store.dispatch(ProductActions.clear());
+    this._store.dispatch(ProductsActions.clear());
     this._store.dispatch(ProductAssetsActions.clear());
+    this._store.dispatch(SelectorsActions.clear());
+    this._store.dispatch(BusinessPeriodsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(TagsActions.clear());
+    this._store.dispatch(CurrenciesActions.clear());
+    this._store.dispatch(StoresActions.clear());
   }
 
   onAssetUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, data}));
+    this._store.dispatch(ProductAssetsActions.createRequest({ productId: this._productId, data }));
   }
 
   onAssetUpdate(data: IAssetUploadEvent): void {
@@ -381,7 +404,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   onMainOptionsSave(product: IProduct): void {
     if (this.isEditMode) {
-      const normalizedProduct: IProduct = {...product};
+      const normalizedProduct: IProduct = { ...product };
 
       // нормализация контена
       normalizeEntityContents(normalizedProduct.contents, this._defaultLanguage.code);
@@ -390,15 +413,13 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     } else {
       this._store.dispatch(ProductActions.createRequest({ product }));
     }
-
-    // this._router.navigate([this._returnUrl]);
   }
 
   onMainOptionsCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/products"]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate(["/admin/products"]);
   }
 }

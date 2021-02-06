@@ -9,9 +9,9 @@
             </span>
             <span>
                 <a [routerLink]="['/signup']" [queryParams]="registerQueryParams" class="form__link">
-                    &nbsp;Create Account
+                    &nbsp;Зарегистрироваться
                 </a>
-                <span class="form__text">instead?</span>
+                <span class="form__text">взамен?</span>
             </span>
         </div>
         <mat-divider></mat-divider>
@@ -21,7 +21,7 @@
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Email</mat-label>
-                            <input matInput type="text" [formControl]="ctrlEmail" name="username" placeholder="Email">
+                            <input matInput type="text" [formControl]="ctrlEmail" name="username" placeholder="Email" required>
                             <mat-error *ngIf="!ctrlEmail.hasError('required')">
                                 Пожалуйста введите корректный email адрес
                             </mat-error>
@@ -33,11 +33,11 @@
 
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Password</mat-label>
+                            <mat-label>Пароль</mat-label>
                             <input matInput type="password" [formControl]="ctrlPassword" name="password"
-                                placeholder="Password">
+                                placeholder="Пароль" required>
                             <mat-error *ngIf="!ctrlPassword.hasError('required')">
-                                Password must contain latin letters, numbers and capital letters
+                                Пароль должен содержать латинские буквы, цифры и заглавные буквы.
                             </mat-error>
                         </mat-form-field>
                     </div>

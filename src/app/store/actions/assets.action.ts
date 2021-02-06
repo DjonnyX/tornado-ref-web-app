@@ -22,6 +22,8 @@ export enum AssetsActionTypes {
     DELETE_REQUEST = "TORNADO/assets/delete:request",
     DELETE_SUCCESS = "TORNADO/assets/delete:success",
     DELETE_ERROR = "TORNADO/assets/delete:error",
+    
+    CLEAR = "TORNADO/assets/clear",
 }
 
 export namespace AssetsActions {
@@ -92,5 +94,10 @@ export namespace AssetsActions {
     export const deleteError = createAction(
         AssetsActionTypes.DELETE_ERROR,
         props<{ error: string }>()
+    );
+
+    // clear
+    export const clear = createAction(
+        AssetsActionTypes.CLEAR,
     );
 }

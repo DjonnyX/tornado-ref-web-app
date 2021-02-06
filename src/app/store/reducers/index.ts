@@ -36,6 +36,8 @@ import terminalReducer from './terminal.reducer';
 import terminalsReducer from './terminals.reducer';
 import licenseReducer from './license.reducer';
 import licensesReducer from './licenses.reducer';
+import licenseAccountReducer from './license-account.reducer';
+import licensesAccountReducer from './licenses-account.reducer';
 import licenseTypeReducer from './license-type.reducer';
 import licenseTypesReducer from './license-types.reducer';
 import applicationReducer from './application.reducer';
@@ -80,6 +82,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taTerminals: terminalsReducer,
   taLicense: licenseReducer,
   taLicenses: licensesReducer,
+  taLicenseAccount: licenseAccountReducer,
+  taLicensesAccount: licensesAccountReducer,
   taLicenseType: licenseTypeReducer,
   taLicenseTypes: licenseTypesReducer,
   taApplication: applicationReducer,

@@ -4,9 +4,10 @@ import { IAppState } from '@store/state';
 import { CapabilitiesSelectors, UserSelectors } from '@store/selectors';
 import { combineLatest } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
-import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
+import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
+import { RoleTypes } from '@enums/role-types';
 
 @Component({
   selector: 'app-root',
@@ -18,36 +19,39 @@ export class AppComponent implements OnInit {
   private _url: string;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
-
     this._router.events.pipe(
-      filter(event => event instanceof NavigationStart)
-    ).subscribe((event: NavigationStart) => {
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
       this._url = event.url;
       if (this.isReturnedRoute(this._url)) {
         this._store.dispatch(CapabilitiesActions.setReturnUrl({ returnUrl: event.url }));
       }
     });
 
-    combineLatest(
+    combineLatest([
       this._store.pipe(
-        select(UserSelectors.selectToken),
+        select(UserSelectors.selectUserProfile),
       ),
-    ).subscribe(([token]) => {
+    ]).subscribe(([profile]) => {
       this._store.pipe(
         take(1),
         select(CapabilitiesSelectors.selectReturnUrl),
       ).subscribe(returnUrl => {
-        
+
         // signin
-        if (!!token) {
+        if (!!profile?.token) {
           const url = extractURL(decodeURIComponent(returnUrl));
-          
+
           if (!!returnUrl) {
             this._router.navigate([url.path], {
               queryParams: url.query,
             });
-          } else {
-            this._router.navigate(["/admin/menu-tree"]);
+          } else if (returnUrl === undefined || returnUrl === "") {
+            if (profile.role === RoleTypes.CLIENT) {
+              this._router.navigate(["/admin/licenses-account"]);
+            } else if (profile.role === RoleTypes.ADMIN) {
+              this._router.navigate(["/admin/licenses"]);
+            }
           }
         }
         // signout

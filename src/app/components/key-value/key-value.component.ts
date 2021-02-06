@@ -3,6 +3,7 @@ import { Component, Input, OnInit } from '@angular/core';
 export interface IKeyValue {
   key: string;
   value: string;
+  link?: Array<any>;
 }
 
 @Component({

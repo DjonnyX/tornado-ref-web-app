@@ -50,8 +50,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   isEditMode = false;
 
-  private _returnUrl: string;
-
   private _selectorId: string;
 
   private _selectorId$ = new BehaviorSubject<string>(undefined);
@@ -59,25 +57,24 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   private _selectorType: string;
 
-  private _selector: ISelector;
-
   private _defaultLanguage: ILanguage;
+
+  private _pagePath: string;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
 
   ngOnInit(): void {
-    this._returnUrl = this._activatedRoute.snapshot.queryParams["returnUrl"] || "/";
-
     this._selectorId = this._activatedRoute.snapshot.queryParams["id"];
     this._selectorId$.next(this._selectorId);
 
     this._selectorType = this._activatedRoute.snapshot.queryParams["type"];
+    this._pagePath = this._activatedRoute.snapshot.data["path"];
 
     this.isEditMode = !!this._selectorId;
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(SelectorSelectors.selectIsGetProcess),
       ),
@@ -90,23 +87,24 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isGetSelectorProcess, isSelectorsProcess, isAssetsProcess, isLanguagesProcess]) =>
         isGetSelectorProcess || isSelectorsProcess || isAssetsProcess || isLanguagesProcess),
     );
 
-    this.isProcessMainOptions$ = combineLatest(
+    this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
         select(SelectorSelectors.selectIsCreateProcess),
       ),
       this._store.pipe(
         select(SelectorSelectors.selectIsUpdateProcess),
       ),
-    ).pipe(
-      map(([isCreateProcess, isUpdateProcess]) => isCreateProcess || isUpdateProcess),
+    ]).pipe(
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
-    this.isProcessAssets$ = combineLatest(
+    this.isProcessAssets$ = combineLatest([
       this._store.pipe(
         select(SelectorAssetsSelectors.selectIsGetProcess),
       ),
@@ -116,7 +114,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(SelectorAssetsSelectors.selectIsDeleteProcess),
       ),
-    ).pipe(
+    ]).pipe(
       map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
@@ -144,10 +142,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._defaultLanguage = lang;
     });
 
-    this.selectorAssets$ = combineLatest(
+    this.selectorAssets$ = combineLatest([
       this._store.select(SelectorAssetsSelectors.selectCollection),
       this.languages$,
-    ).pipe(
+    ]).pipe(
       filter(([assets, langs]) => !!assets && !!langs),
       switchMap(([assets, langs]) => {
         const result = new Array<IAsset>();
@@ -160,12 +158,13 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       }),
     );
 
-    this.selector$ = combineLatest(
+    this.selector$ = combineLatest([
       this._store.select(SelectorSelectors.selectEntity),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
-      filter(([selector, langs, defaultLang]) => !!selector && !!defaultLang && !!langs),
+    ]).pipe(
+      filter(([selector, langs, defaultLang]) =>
+        !!selector && !!defaultLang && !!langs),
       map(([selector, langs, defaultLang]) => {
         return { ...selector, contents: getCompiledContents(selector.contents, langs, defaultLang) };
       })
@@ -174,30 +173,29 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this.selector$.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(selector => {
-      this._selector = selector;
       this._selectorId = selector.id;
       this._selectorId$.next(this._selectorId);
       this.isEditMode = true;
 
       this._store.dispatch(SelectorAssetsActions.getAllRequest({ selectorId: this._selectorId }));
-      
+
       // для изменения параметров маршрута
       this._router.navigate([], {
         relativeTo: this._activatedRoute,
         queryParams: {
           id: this._selectorId,
-          returnUrl: this._returnUrl,
         }
       });
     });
 
-    this.gallerySelectorAssets$ = combineLatest(
+    this.gallerySelectorAssets$ = combineLatest([
       this.selector$,
       this._store.select(SelectorAssetsSelectors.selectCollection),
       this.languages$,
       this.defaultLanguage$,
-    ).pipe(
-      filter(([selector, assets, langs, defaultLang]) => !!selector && !!assets && !!langs && !!defaultLang),
+    ]).pipe(
+      filter(([selector, assets, langs, defaultLang]) =>
+        !!selector && !!assets && !!langs && !!defaultLang),
       map(([selector, assets, langs, defaultLang]) => {
         const result: { [lang: string]: Array<IAsset> } = {};
         for (const lang in assets) {
@@ -226,28 +224,28 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(SelectorActions.getRequest({ id: this._selectorId }));
     }
 
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(SelectorsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
     // this._store.dispatch(TagsActions.getAllRequest());
 
-    const prepareMainRequests$ = combineLatest(
+    const prepareMainRequests$ = combineLatest([
       this.selectors$,
       this.languages$,
       this.defaultLanguage$,
       this.assets$,
-    ).pipe(
+    ]).pipe(
       map(([selectors, languages, defaultLanguage, assets]) =>
         !!selectors && !!languages && !!defaultLanguage && !!assets),
     );
 
     this.isPrepareToConfigure$ = this.selectorId$.pipe(
       switchMap(id => {
-        return !!id ? combineLatest(
+        return !!id ? combineLatest([
           prepareMainRequests$,
           this.selector$,
           this.selectorAssets$,
-        ).pipe(
+        ]).pipe(
           map(([prepareMainRequests, selector, selectorAssets]) =>
             !!prepareMainRequests && !!selector && !!selectorAssets),
         ) : prepareMainRequests$;
@@ -259,7 +257,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     super.ngOnDestroy();
 
     this._store.dispatch(SelectorActions.clear());
+    this._store.dispatch(SelectorsActions.clear());
     this._store.dispatch(SelectorAssetsActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+    this._store.dispatch(LanguagesActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {
@@ -281,15 +282,13 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     } else {
       this._store.dispatch(SelectorActions.createRequest({ selector: { ...selector, type: this._selectorType as any } }));
     }
-
-    // this._router.navigate([this._returnUrl]);
   }
 
   onMainOptionsCancel(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate([`/admin/${this._pagePath}`]);
   }
 
   onToBack(): void {
-    this._router.navigate([this._returnUrl]);
+    this._router.navigate([`/admin/${this._pagePath}`]);
   }
 }

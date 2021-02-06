@@ -1,5 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
-import { IScenario, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes, ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage, IScenarioPriceValue } from '@djonnyx/tornado-types';
+import {
+  IScenario, IStore, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes,
+  ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage, IScenarioPriceValue
+} from '@djonnyx/tornado-types';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 
 @Component({
@@ -24,6 +27,10 @@ export class ScenarioListItemComponent implements OnInit {
 
   @Input() currenciesDictionary: { [id: string]: ICurrency };
 
+  @Input() stores: Array<IStore>;
+
+  @Input() storesDictionary: { [id: string]: IStore };
+
   @Input() isFirstInCollection: boolean;
 
   @Input() isLastInCollection: boolean;
@@ -40,7 +47,7 @@ export class ScenarioListItemComponent implements OnInit {
 
   @Output() delete = new EventEmitter<void>();
 
-  constructor() { } 
+  constructor() { }
 
   ngOnInit(): void { }
 
@@ -52,9 +59,12 @@ export class ScenarioListItemComponent implements OnInit {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
         value = `: ${(this.scenario.value as Array<string>).map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")}`;
         break;
+      case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
+        value = `: ${(this.scenario.value as Array<string>).map(v => this.storesDictionary[v] ? this.storesDictionary[v]?.name : "недоступен").join(", ")}`;
+        break;
       case ScenarioProductActionTypes.ADDITIONAL_PRICE:
       case ScenarioProductActionTypes.FIXED_PRICE:
-        value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol  : ""}`;
+        value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
         break;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:

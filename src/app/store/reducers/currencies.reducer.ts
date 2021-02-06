@@ -16,6 +16,11 @@ export const initialState: ICurrenciesState = {
 
 const currenciesReducer = createReducer(
     initialState,
+    on(CurrenciesActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(CurrenciesActions.getAllRequest, state => {
         return {
             ...state,

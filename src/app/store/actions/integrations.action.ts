@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IIntegration } from '@djonnyx/tornado-types';
+import { IIntegration, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum IntegrationsActionTypes {
     GET_ALL_REQUEST = "TORNADO/integrations/get-all:request",
@@ -14,12 +14,15 @@ export enum IntegrationsActionTypes {
     UPDATE_REQUEST = "TORNADO/integrations/update:request",
     UPDATE_SUCCESS = "TORNADO/integrations/update:success",
     UPDATE_ERROR = "TORNADO/integrations/update:error",
+
+    CLEAR = "TORNADO/integrations/clear",
 }
 
 export namespace IntegrationsActions {
     // getAll
     export const getAllRequest = createAction(
         IntegrationsActionTypes.GET_ALL_REQUEST,
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         IntegrationsActionTypes.GET_ALL_SUCCESS,
@@ -56,5 +59,10 @@ export namespace IntegrationsActions {
     export const updateError = createAction(
         IntegrationsActionTypes.UPDATE_ERROR,
         props<{ error: string }>(),
+    );
+
+    // clear
+    export const clear = createAction(
+        IntegrationsActionTypes.CLEAR,
     );
 }

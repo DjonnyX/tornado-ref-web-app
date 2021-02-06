@@ -16,6 +16,11 @@ export const initialState: ITagsState = {
 
 const tagsReducer = createReducer(
     initialState,
+    on(TagsActions.clear, state => {
+        return {
+            ...initialState,
+        };
+    }),
     on(TagsActions.getAllRequest, state => {
         return {
             ...state,

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -17,7 +17,7 @@ import { AssetsActions } from '@store/actions/assets.action';
   styleUrls: ['./languages-editor.container.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LanguagesEditorContainer implements OnInit {
+export class LanguagesEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
@@ -30,19 +30,20 @@ export class LanguagesEditorContainer implements OnInit {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this._store.dispatch(LanguagesActions.getAllRequest());
+    this._store.dispatch(LanguagesActions.getAllRequest({}));
 
     this._store.dispatch(AssetsActions.getAllRequest());
 
-    this.isProcess$ = combineLatest(
+    this.isProcess$ = combineLatest([
       this._store.pipe(
         select(LanguagesSelectors.selectLoading),
       ),
       this._store.pipe(
         select(AssetsSelectors.selectLoading),
       ),
-    ).pipe(
-      map(([isProductsProgress, isAssetsProgress]) => isProductsProgress || isAssetsProgress),
+    ]).pipe(
+      map(([isProductsProgress, isAssetsProgress]) =>
+      isProductsProgress || isAssetsProgress),
     );
 
     this.collection$ = this._store.pipe(
@@ -58,13 +59,17 @@ export class LanguagesEditorContainer implements OnInit {
     );
   }
 
+  ngOnDestroy(): void {
+    this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(AssetsActions.clear());
+  }
+
   onCreate(): void {
 
     this._store.dispatch(LanguageActions.clear());
-    
+
     this._router.navigate(["create"], {
       relativeTo: this._activatedRoute,
-      queryParams: { returnUrl: this._router.routerState.snapshot.url },
     });
   }
 
@@ -74,16 +79,16 @@ export class LanguagesEditorContainer implements OnInit {
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
-      queryParams: { id: language.id, returnUrl: this._router.routerState.snapshot.url, },
+      queryParams: { id: language.id, },
     });
   }
 
   onUpdate(language: ILanguage): void {
-    this._store.dispatch(LanguagesActions.updateRequest({id: language.id, language}));
+    this._store.dispatch(LanguagesActions.updateRequest({ id: language.id, language }));
   }
 
   onUpdateAll(language: ILanguage): void {
-    this._store.dispatch(LanguagesActions.updateRequest({id: language.id, language, setDafault: true}));
+    this._store.dispatch(LanguagesActions.updateRequest({ id: language.id, language, setDafault: true }));
   }
 
   onDelete(id: string): void {
