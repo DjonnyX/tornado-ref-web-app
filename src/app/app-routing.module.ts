@@ -67,6 +67,13 @@ const routes: Routes = [
       )
   },
   {
+    path: 'cookie-term-of-use',
+    loadChildren: () =>
+      import('@components/cookie-term-of-use/cookie-term-of-use.module').then(
+        module => module.CookieTermOfUseModule,
+      ),
+  },
+  {
     path: 'admin',
     loadChildren: () =>
       import('@containers/admin/admin.module').then(

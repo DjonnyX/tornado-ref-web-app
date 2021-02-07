@@ -82,6 +82,7 @@ export class AppComponent implements OnInit {
       case "/reset-password-result":
       case "/term-of-use":
       case "/auth-error":
+      case "/cookie-term-of-use":
         return false;
       default:
         return true;
