@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ISchedule } from '@djonnyx/tornado-types';
 import { IScheduleTimeRange } from '@djonnyx/tornado-types';
 import { scheduled } from 'rxjs';
@@ -15,6 +15,8 @@ export class ScheduleComponent implements OnInit {
   get value() {
     return this._value;
   }
+
+  @Input() isEdit: boolean = true;
 
   constructor() { }
 
