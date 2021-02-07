@@ -49,8 +49,6 @@ export class AdCreatorFormComponent extends BaseComponent implements OnInit, OnD
       this._ad = ad;
 
       this._state = { ...this._state, ...(this._ad ? this._ad.contents : undefined) };
-    } else {
-      this.isEdit = true;
     }
   }
 
