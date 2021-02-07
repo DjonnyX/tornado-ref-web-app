@@ -74,8 +74,6 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.ctrlTags.setValue(product.tags);
       this.ctrlPrices.setValue(product.prices);
       // this.ctrlReceipt.setValue(product.receipt);
-    } else {
-      this.isEdit = true;
     }
   }
 
