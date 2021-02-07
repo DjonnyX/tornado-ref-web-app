@@ -6,6 +6,13 @@ import { BaseComponent } from '@components/base/base-component';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { isEqualWithDefault } from '@app/utils/entity.util';
+import { IKeyValue } from '@components/key-value/key-value.component';
+
+interface IData {
+  name: IKeyValue;
+  description: IKeyValue;
+  color: IKeyValue;
+}
 
 @Component({
   selector: 'ta-product-content',
@@ -33,6 +40,8 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   @Input() isEditMode: boolean;
 
+  @Input() isEdit: boolean;
+
   @Input() isDefault: boolean;
 
   @Input() defaultContent: IProductContentsItem;
@@ -50,6 +59,8 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     this._content = content;
 
     this._state = { ...content };
+
+    this.generateData();
 
     this.ctrlName.setValue(content.name);
     this.ctrlDescription.setValue(content.description);
@@ -76,8 +87,35 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   @Output() save = new EventEmitter<void>();
 
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   constructor() {
     super();
+  }
+
+  private generateData(): void {
+    if (!this._state) {
+      return;
+    }
+
+    this._data = {
+      name: {
+        key: "Название",
+        value: this._state?.name || ' ---',
+      },
+      description: {
+        key: "Описание",
+        value: this._state?.description || ' ---',
+      },
+      color: {
+        key: "Цвет",
+        value: this._state?.color || ' ---',
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -154,6 +192,7 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
     if (options) {
       this._state = deepMergeObjects(this._state, options, true);
     }
+    this.generateData();
     this.update.emit(this._state);
   }
 }

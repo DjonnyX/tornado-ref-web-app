@@ -6,6 +6,13 @@ import { BaseComponent } from '@components/base/base-component';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
 import { isEqualWithDefault } from '@app/utils/entity.util';
+import { IKeyValue } from '@components/key-value/key-value.component';
+
+interface IData {
+  name: IKeyValue;
+  description: IKeyValue;
+  color: IKeyValue;
+}
 
 @Component({
   selector: 'ta-order-type-content',
@@ -23,7 +30,7 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
     this.ctrlColor.setValue(v);
   }
 
-  ctrlColor = new FormControl("#000000");
+  ctrlColor = new FormControl("#ffffff");
 
   ctrlName = new FormControl('', [Validators.required]);
 
@@ -32,6 +39,8 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
   private _state: IOrderTypeContentsItem;
 
   @Input() isEditMode: boolean;
+
+  @Input() isEdit: boolean;
 
   @Input() isDefault: boolean;
 
@@ -51,11 +60,11 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
 
     this._state = { ...content };
 
+    this.generateData();
+
     this.ctrlName.setValue(content.name);
     this.ctrlDescription.setValue(content.description);
     this.ctrlColor.setValue(content.color);
-
-    // this.ctrlReceipt.setValue(ordertype.receipt);
   }
 
   get content() {
@@ -76,8 +85,35 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
 
   @Output() save = new EventEmitter<void>();
 
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   constructor() {
     super();
+  }
+
+  private generateData(): void {
+    if (!this._state) {
+      return;
+    }
+
+    this._data = {
+      name: {
+        key: "Название",
+        value: this._state?.name || ' ---',
+      },
+      description: {
+        key: "Описание",
+        value: this._state?.description || ' ---',
+      },
+      color: {
+        key: "Цвет",
+        value: this._state?.color || ' ---',
+      },
+    };
   }
 
   ngOnInit(): void {

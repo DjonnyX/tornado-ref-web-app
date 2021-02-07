@@ -1,18 +1,29 @@
 <div class="time-range">
-    <div class="time-range__start">
-        <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Старт</mat-label>
-            <input matInput placeholder="Start" [ngxTimepicker]="start" [format]="24" #startTime readonly>
-            <mat-icon matSuffix>access_time</mat-icon>
-            <ngx-material-timepicker #start [theme]="darkTheme" [format]="24"></ngx-material-timepicker>
-        </mat-form-field>
-    </div>
-    <div class="time-range__end">
-        <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Финиш</mat-label>
-            <input matInput placeholder="End" [ngxTimepicker]="end" [format]="24" #endTime readonly>
-            <mat-icon matSuffix>access_time</mat-icon>
-            <ngx-material-timepicker #end [theme]="darkTheme"></ngx-material-timepicker>
-        </mat-form-field>
-    </div>
+    <ng-container *ngIf="isEdit; else info">
+        <div class="time-range__start">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>
+                    С
+                </mat-label>
+                <input matInput placeholder="Start" [ngxTimepicker]="start" [format]="24" #startTime readonly>
+                <mat-icon matSuffix>access_time</mat-icon>
+                <ngx-material-timepicker #start [theme]="darkTheme" [format]="24"></ngx-material-timepicker>
+            </mat-form-field>
+        </div>
+        <div class="time-range__end">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>
+                    по
+                </mat-label>
+                <input matInput placeholder="End" [ngxTimepicker]="end" [format]="24" #endTime readonly>
+                <mat-icon matSuffix>access_time</mat-icon>
+                <ngx-material-timepicker #end [theme]="darkTheme"></ngx-material-timepicker>
+            </mat-form-field>
+        </div>
+    </ng-container>
+    <ng-template #info>
+        <span>
+            С {{state.start}} по {{state.end}}
+        </span>
+    </ng-template>
 </div>
