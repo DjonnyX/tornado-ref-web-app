@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { PricesModule } from '@components/prices/pricesmodule';
 import { ProductContentModule } from './product-content/product-content.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { KeyValueModule } from '@components/key-value/key-value.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatTabsModule,
     PricesModule,
     ProductContentModule,
+    KeyValueModule,
   ]
 })
 export class ProductCreatorFormModule { }

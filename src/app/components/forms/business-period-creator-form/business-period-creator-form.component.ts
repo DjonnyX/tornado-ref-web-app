@@ -40,7 +40,7 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
   get languages() { return this._languages; }
 
   sortedLanguages: Array<ILanguage>;
-  
+
   private _businessPeriod: IBusinessPeriod;
   @Input() set businessPeriod(businessPeriod: IBusinessPeriod) {
     if (businessPeriod) {
@@ -55,6 +55,8 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
   }
 
   @Input() isEditMode: boolean;
+
+  isEdit: boolean = false;
 
   @Output() save = new EventEmitter<IBusinessPeriod>();
 
@@ -100,7 +102,21 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
         active: !!this._businessPeriod && this._businessPeriod.active !== undefined ? this._businessPeriod.active : true,
         extra: !!this._businessPeriod ? this._businessPeriod.extra : {},
       });
+
+      this.isEdit = false;
     }
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
+  }
+
+  onCancel(): void {
+    this.cancel.emit();
   }
 
   getContent(lang: ILanguage): IBusinessPeriodContentsItem {
@@ -131,9 +147,5 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
 
   private updateState(state: IBusinessPeriodContents): void {
     this._state = deepMergeObjects(this._state, state, true);
-  }
-
-  onCancel(): void {
-    this.cancel.emit();
   }
 }

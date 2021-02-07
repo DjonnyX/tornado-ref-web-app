@@ -3,6 +3,13 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { ICurrency } from '@djonnyx/tornado-types';
+import { IKeyValue } from '@components/key-value/key-value.component';
+
+interface IData {
+  code: IKeyValue;
+  name: IKeyValue;
+  symbol: IKeyValue;
+}
 
 @Component({
   selector: 'ta-currency-creator-form',
@@ -24,9 +31,13 @@ export class CurrencyCreatorFormComponent extends BaseComponent implements OnIni
     if (currency) {
       this._currency = currency;
 
+      this.generateData();
+
       this.ctrlCode.setValue(currency.code);
       this.ctrlName.setValue(currency.name);
       this.ctrlSymbol.setValue(currency.symbol);
+    } else {
+      this.isEdit = true;
     }
   }
 
@@ -38,6 +49,14 @@ export class CurrencyCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ICurrency>();
 
+  isEdit: boolean = false;
+
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   constructor(private _fb: FormBuilder) {
     super();
 
@@ -46,6 +65,27 @@ export class CurrencyCreatorFormComponent extends BaseComponent implements OnIni
       name: this.ctrlName,
       symbol: this.ctrlSymbol,
     })
+  }
+
+  private generateData(): void {
+    if (!this._currency) {
+      return;
+    }
+
+    this._data = {
+      code: {
+        key: "Код",
+        value: this._currency?.code || ' ---',
+      },
+      name: {
+        key: "Название",
+        value: this._currency?.name || ' ---',
+      },
+      symbol: {
+        key: "Символ",
+        value: this._currency?.symbol || ' ---',
+      },
+    }
   }
 
   ngOnInit(): void {
@@ -60,14 +100,33 @@ export class CurrencyCreatorFormComponent extends BaseComponent implements OnIni
     super.ngOnDestroy();
   }
 
-  onSubmit(): void {
+  onEnterSubmit(event: KeyboardEvent): void {
+    if (event.keyCode === 13) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
+      this.onSave();
+    }
+  }
+
+  onSave(): void {
     if (this.form.valid) {
       this.submitForm.emit({
         ...this._currency,
         ...this.form.value,
         extra: !!this._currency ? this._currency.extra : {},
       });
+
+      this.isEdit = false;
     }
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {

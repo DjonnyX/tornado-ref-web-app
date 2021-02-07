@@ -5,7 +5,7 @@ import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import { IOrderType, IAsset, ICurrency, IOrderTypeContents, IOrderTypeContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
-import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
+import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepMergeObjects } from '@app/utils/object.util';
 
 @Component({
@@ -50,6 +50,8 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
       this._orderType = orderType;
 
       this._state = { ...this._state, ...(this._orderType ? this._orderType.contents : undefined) };
+    } else {
+      this.isEdit = true;
     }
   }
 
@@ -60,6 +62,8 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
   @Input() currencies: Array<ICurrency>;
 
   @Input() isEditMode: boolean;
+
+  isEdit: boolean = false;
 
   @Output() save = new EventEmitter<IOrderType>();
 
@@ -111,6 +115,8 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
         active: !!this._orderType && this._orderType.active !== undefined ? this._orderType.active : true,
         extra: !!this._orderType ? this._orderType.extra : {},
       });
+
+      this.isEdit = false;
     }
   }
 
@@ -120,6 +126,14 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
 
   onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {

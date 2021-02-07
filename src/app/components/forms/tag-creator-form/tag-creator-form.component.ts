@@ -50,6 +50,8 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
       this._tag = tag;
 
       this._state = { ...this._state, ...(this._tag ? this._tag.contents : undefined) };
+    } else {
+      this.isEdit = true;
     }
   }
 
@@ -58,6 +60,8 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
   }
 
   @Input() isEditMode: boolean;
+
+  isEdit: boolean = false;
 
   @Output() save = new EventEmitter<ITag>();
 
@@ -109,6 +113,8 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
         active: !!this._tag && this._tag.active !== undefined ? this._tag.active : true,
         extra: !!this._tag ? this._tag.extra : {},
       });
+
+      this.isEdit = false;
     }
   }
 
@@ -122,6 +128,14 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
 
   onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {

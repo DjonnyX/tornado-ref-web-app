@@ -58,6 +58,8 @@ export class WeekDaysPickerComponent implements OnInit {
     });
   }
 
+  @Input() isEdit: boolean = false;
+
   @Output() change = new EventEmitter<Array<number>>();
 
   constructor() { }

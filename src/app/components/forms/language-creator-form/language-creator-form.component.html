@@ -3,8 +3,8 @@
         <div class="resources" *ngIf="isEditMode">
             <div class="resources-wrapper single">
                 <div class="resources-n">
-                    <ta-asset-picker-uploader [defaultValue]="!!resources ? resources.main : undefined" [assets]="assets"
-                        class="transparent" (upload)="onMainResourceUpload($event)">
+                    <ta-asset-picker-uploader [defaultValue]="!!resources ? resources.main : undefined"
+                        [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event)">
                     </ta-asset-picker-uploader>
                 </div>
             </div>
@@ -16,34 +16,60 @@
             </p>
 
             <div class="form__main-options">
-                <div class="form__input-block">
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Код</mat-label>
-                            <input matInput type="text" [formControl]="ctrlCode" placeholder="Код">
-                            <mat-error *ngIf="ctrlCode.hasError('required')">
-                                <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
+                <ng-container *ngIf="!isEditMode || isEdit; else info">
+                    <div class="form__input-block">
+                        <div class="form-item">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Код</mat-label>
+                                <input matInput type="text" [formControl]="ctrlCode" placeholder="Код">
+                                <mat-error *ngIf="ctrlCode.hasError('required')">
+                                    <strong>обязательное</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
 
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Имя</mat-label>
-                            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
-                            <mat-error *ngIf="ctrlName.hasError('required')">
-                                <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
+                        <div class="form-item">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Имя</mat-label>
+                                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
+                                <mat-error *ngIf="ctrlName.hasError('required')">
+                                    <strong>обязательное</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
                     </div>
-                </div>
+                </ng-container>
+                <ng-template #info>
+                    <div class="form__block" *ngIf="!!data">
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.code"></ta-key-value>
+                        </div>
+
+                        <div class="form-item full-width">
+                            <ta-key-value [data]="data.name"></ta-key-value>
+                        </div>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
 
     <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
-        <button mat-flat-button color="accent" type="submit" class="button button__text"
-            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+            <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
+                Отменить
+            </button>
+            <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
+                {{isEditMode ? 'Сохранить' : 'Создать'}}
+            </button>
+        </ng-container>
+        <ng-template #editButtons>
+            <button mat-button class="button button__text" (click)="onCancel()">
+                Отменить
+            </button>
+            <button mat-flat-button color="accent" (click)="onEdit()" class="button button__text">
+                Редактировать
+            </button>
+        </ng-template>
     </div>
 </form>

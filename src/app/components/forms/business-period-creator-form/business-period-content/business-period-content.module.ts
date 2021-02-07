@@ -5,6 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { BusinessPeriodContentComponent } from './business-period-content.component';
+import { KeyValueModule } from '@components/key-value/key-value.module';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { BusinessPeriodContentComponent } from './business-period-content.compon
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    KeyValueModule,
   ]
 })
 export class BusinessPeriodContentModule { }

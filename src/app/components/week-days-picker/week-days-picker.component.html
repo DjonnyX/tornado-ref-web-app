@@ -1,5 +1,16 @@
 <div class="week-days-picker">
-    <button mat-stroked-button color="primary" [ngClass]="{'week-days-picker__day-button': true, 'selected': day.selected}" *ngFor="let day of weekDays" type="button" [value]="day.selected" (click)="onToggle(day)">
-        {{day.shortName}}
-    </button>
+    <ng-container *ngIf="isEdit; else info">
+        <button mat-stroked-button color="primary"
+            [ngClass]="{'week-days-picker__day-button': true, 'selected': day.selected}" *ngFor="let day of weekDays"
+            type="button" (click)="onToggle(day)">
+            {{day.shortName}}
+        </button>
+    </ng-container>
+    <ng-template #info>
+        <span
+            [ngClass]="{'week-days-picker__day-button': true, 'week-days-picker__day-item': true, 'selected': day.selected}"
+            *ngFor="let day of weekDays">
+            {{day.shortName}}
+        </span>
+    </ng-template>
 </div>

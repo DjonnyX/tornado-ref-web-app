@@ -14,11 +14,11 @@
       </div>
     </div>
 
-    <div class="resources-wrapper single">
+    <div class="resources-wrapper single" *ngIf="isEdit">
       <div class="full-width">
         <div class="form-item">
           <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
-          (reset)="onResetColorToDefault()"  [control]="ctrlColor" cpPosition="top-right"></ta-color-picker>
+            (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="top-right"></ta-color-picker>
         </div>
       </div>
     </div>
@@ -29,26 +29,43 @@
       Описание
     </p>
 
-    <div class="form__main-options">
-      <div class="form__input-block">
-        <div class="form-item">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Имя</mat-label>
-            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
-            <mat-error *ngIf="ctrlName.hasError('required')">
-              Имя - <strong>обязательное</strong>
-            </mat-error>
-          </mat-form-field>
+    <ng-container *ngIf="!isEdit; else editFields">
+      <div class="form__block" *ngIf="!!data">
+        <div class="form-item full-width">
+          <ta-key-value [data]="data.name"></ta-key-value>
         </div>
 
-        <div class="form-item">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Продолжительность воспроизведения (сек)</mat-label>
-            <input matInput type="number" [formControl]="ctrlDuration"
-              placeholder="Продолжительность воспроизведения (сек)">
-          </mat-form-field>
+        <div class="form-item full-width">
+          <ta-key-value [data]="data.duration"></ta-key-value>
+        </div>
+
+        <div class="form-item full-width">
+          <ta-key-value [data]="data.color"></ta-key-value>
         </div>
       </div>
-    </div>
+    </ng-container>
+    <ng-template #editFields>
+      <div class="form__main-options">
+        <div class="form__input-block">
+          <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Имя</mat-label>
+              <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
+              <mat-error *ngIf="ctrlName.hasError('required')">
+                Имя - <strong>обязательное</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-item">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Продолжительность воспроизведения (сек)</mat-label>
+              <input matInput type="number" [formControl]="ctrlDuration"
+                placeholder="Продолжительность воспроизведения (сек)">
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </ng-template>
   </div>
 </div>

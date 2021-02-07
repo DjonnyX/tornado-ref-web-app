@@ -1,26 +1,32 @@
 <div class="schedule">
     <div *ngFor="let schedule of value" class="schedule__item">
         <div class="item__controls" [class.disabled]="!schedule.active">
-            <ta-time-range [default]="schedule.time" (change)="onTimeRangeChange(schedule, $event)"></ta-time-range>
-            <ta-week-days-picker [default]="schedule.weekDays" (change)="onWeekDaysChange(schedule, $event)"></ta-week-days-picker>
+            <ta-time-range [isEdit]="isEdit" [default]="schedule.time" (change)="onTimeRangeChange(schedule, $event)">
+            </ta-time-range>
+            <ta-week-days-picker [isEdit]="isEdit" [default]="schedule.weekDays"
+                (change)="onWeekDaysChange(schedule, $event)">
+            </ta-week-days-picker>
         </div>
         <div class="item__more">
-            <button mat-icon-button type="button" [matMenuTriggerFor]="menu" aria-label="Menu">
-                <mat-icon class="icon">more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-                <button mat-menu-item type="button" (click)="onToggleActive(schedule)">
-                    <mat-icon>{{schedule.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                    <span>{{schedule.active ? 'Деактивировать' : 'Активировать'}}</span>
+            <ng-container *ngIf="isEdit">
+                <button mat-icon-button type="button" [matMenuTriggerFor]="menu" aria-label="Menu">
+                    <mat-icon class="icon">more_vert</mat-icon>
                 </button>
-                <button mat-menu-item type="button" (click)="onDelete(schedule)">
-                    <mat-icon>delete_forever</mat-icon>
-                    <span>Удалить</span>
-                </button>
-            </mat-menu>
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleActive(schedule)">
+                        <mat-icon>{{schedule.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        <span>{{schedule.active ? 'Деактивировать' : 'Активировать'}}</span>
+                    </button>
+                    <button mat-menu-item type="button" (click)="onDelete(schedule)">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Удалить</span>
+                    </button>
+                </mat-menu>
+            </ng-container>
         </div>
     </div>
-    <button type="button" class="schedule__button-create" mat-flat-button color="accent" (click)="onCreate()">
+    <button type="button" class="schedule__button-create" *ngIf="isEdit" mat-flat-button color="accent"
+        (click)="onCreate()">
         <mat-icon>add</mat-icon>
     </button>
 </div>
