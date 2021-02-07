@@ -3,8 +3,8 @@
         <mat-tab-group>
             <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
                 <ta-order-type-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-                    [isDefault]="lang.code === defaultLanguage.code" [isEdit]="isEdit" [isEditMode]="isEditMode"
-                    [assets]="assets" (update)="updateStateFor($event, lang)"
+                    [isDefault]="lang.code === defaultLanguage.code" [isEdit]="!isEditMode || isEdit"
+                    [isEditMode]="isEditMode" [assets]="assets" (update)="updateStateFor($event, lang)"
                     (uploadMainResource)="onMainResourceUpload($event, lang)"
                     (uploadIconResource)="onIconResourceUpload($event, lang)" (save)="onSave()">
                 </ta-order-type-content>
@@ -12,14 +12,15 @@
         </mat-tab-group>
     </div>
     <ng-template #mainLangContent>
-        <ta-order-type-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="isEdit"
-            [isEditMode]="isEditMode" [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
+        <ta-order-type-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null"
+            [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode" [assets]="assets"
+            (update)="updateStateFor($event, defaultLanguage)">
         </ta-order-type-content>
     </ng-template>
 
     <div class="form__submit" align="end">
-        <ng-container *ngIf="!!isEdit; else editButtons">
-            <button mat-button class="button button__text" (click)="onEditCancel()">
+        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+            <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
                 Отменить
             </button>
             <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">

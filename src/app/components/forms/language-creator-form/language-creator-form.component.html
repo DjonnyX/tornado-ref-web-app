@@ -16,7 +16,7 @@
             </p>
 
             <div class="form__main-options">
-                <ng-container *ngIf="isEdit; else info">
+                <ng-container *ngIf="!isEditMode || isEdit; else info">
                     <div class="form__input-block">
                         <div class="form-item">
                             <mat-form-field class="full-width" appearance="outline">
@@ -55,8 +55,8 @@
     </div>
 
     <div class="form__submit" align="end">
-        <ng-container *ngIf="!!isEdit; else editButtons">
-            <button mat-button class="button button__text" (click)="onEditCancel()">
+        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+            <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
                 Отменить
             </button>
             <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">

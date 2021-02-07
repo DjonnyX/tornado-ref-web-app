@@ -3,8 +3,8 @@
         <mat-tab-group>
             <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
                 <ta-product-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-                    [isDefault]="lang.code === defaultLanguage.code" [isEdit]="isEdit" [isEditMode]="isEditMode"
-                    [assets]="assets" [resourcesGallery]="getResourcesGallery(lang)"
+                    [isDefault]="lang.code === defaultLanguage.code" [isEdit]="!isEditMode || isEdit"
+                    [isEditMode]="isEditMode" [assets]="assets" [resourcesGallery]="getResourcesGallery(lang)"
                     (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
                     (uploadIconResource)="onIconResourceUpload($event, lang)"
                     (uploadAsset)="onAssetUpload($event, lang)" (updateAsset)="onAssetUpdate($event, lang)"
@@ -14,13 +14,13 @@
         </mat-tab-group>
     </div>
     <ng-template #mainLangContent>
-        <ta-product-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="isEdit"
+        <ta-product-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="!isEditMode || isEdit"
             [isEditMode]="isEditMode" [assets]="assets" [resourcesGallery]="getResourcesGallery(defaultLanguage)"
             (update)="updateStateFor($event, defaultLanguage)">
         </ta-product-content>
     </ng-template>
 
-    <ng-container *ngIf="isEdit; else commonInfo">
+    <ng-container *ngIf="!isEditMode || isEdit; else commonInfo">
         <div class="form__main-options">
             <p class="form-header">
                 Тэги
@@ -51,18 +51,18 @@
     <ng-template #commonInfo>
         <div class="form__block" *ngIf="!!data">
             <div class="form-item full-width">
-              <ta-key-value [data]="data.tags"></ta-key-value>
+                <ta-key-value [data]="data.tags"></ta-key-value>
             </div>
-    
+
             <div class="form-item full-width">
-              <ta-key-value [data]="data.prices"></ta-key-value>
+                <ta-key-value [data]="data.prices"></ta-key-value>
             </div>
-          </div>
+        </div>
     </ng-template>
 
     <div class="form__submit" align="end">
-        <ng-container *ngIf="!!isEdit; else editButtons">
-            <button mat-button class="button button__text" (click)="onEditCancel()">
+        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+            <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
                 Отменить
             </button>
             <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
