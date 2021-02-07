@@ -4,6 +4,12 @@ import { FormControl, Validators } from '@angular/forms';
 import { IBusinessPeriodContentsItem } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { deepMergeObjects } from '@app/utils/object.util';
+import { IKeyValue } from '@components/key-value/key-value.component';
+
+interface IData {
+  name: IKeyValue;
+  description: IKeyValue;
+}
 
 @Component({
   selector: 'ta-business-period-content',
@@ -21,6 +27,8 @@ export class BusinessPeriodContentComponent extends BaseComponent implements OnI
 
   @Input() isEditMode: boolean;
 
+  @Input() isEdit: boolean;
+
   @Input() isDefault: boolean;
 
   @Input() defaultContent: IBusinessPeriodContentsItem;
@@ -35,6 +43,8 @@ export class BusinessPeriodContentComponent extends BaseComponent implements OnI
 
     this._state = { ...content };
 
+    this.generateData();
+
     this.ctrlName.setValue(content.name);
     this.ctrlDescription.setValue(content.description);
   }
@@ -47,8 +57,31 @@ export class BusinessPeriodContentComponent extends BaseComponent implements OnI
 
   @Output() save = new EventEmitter<void>();
 
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   constructor() {
     super();
+  }
+
+  private generateData(): void {
+    if (!this._state) {
+      return;
+    }
+
+    this._data = {
+      name: {
+        key: "Название",
+        value: this._state?.name || ' ---',
+      },
+      description: {
+        key: "Описание",
+        value: this._state?.description || ' ---',
+      },
+    };
   }
 
   ngOnInit(): void {

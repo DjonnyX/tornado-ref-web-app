@@ -1,9 +1,21 @@
 <div [ngClass]="{'business-period-content': true}">
-    <div>
-      <p class="form-header">
-        Описание
-      </p>
-  
+  <div>
+    <p class="form-header">
+      Описание
+    </p>
+
+    <ng-container *ngIf="!isEdit; else editFields">
+      <div class="form__block" *ngIf="!!data">
+        <div class="form-item full-width">
+          <ta-key-value [data]="data.name"></ta-key-value>
+        </div>
+
+        <div class="form-item full-width">
+          <ta-key-value [data]="data.description"></ta-key-value>
+        </div>
+      </div>
+    </ng-container>
+    <ng-template #editFields>
       <div class="form__main-options">
         <div class="form__input-block">
           <div class="form-item">
@@ -15,7 +27,7 @@
               </mat-error>
             </mat-form-field>
           </div>
-  
+
           <div class="form-item">
             <mat-form-field class="full-width" appearance="outline">
               <mat-label>Описание</mat-label>
@@ -25,6 +37,6 @@
           </div>
         </div>
       </div>
-    </div>
+    </ng-template>
   </div>
-  
+</div>
