@@ -36,6 +36,8 @@ export class LanguageCreatorFormComponent extends BaseComponent implements OnIni
 
       this.ctrlCode.setValue(language.code);
       this.ctrlName.setValue(language.name);
+    } else {
+      this.isEdit = true;
     }
   }
 

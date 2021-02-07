@@ -50,6 +50,8 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this._selector = selector;
 
       this._state = { ...this._state, ...(this._selector ? this._selector.contents : undefined) };
+    } else {
+      this.isEdit = true;
     }
   }
 

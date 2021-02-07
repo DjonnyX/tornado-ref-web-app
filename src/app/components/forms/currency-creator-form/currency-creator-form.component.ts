@@ -36,6 +36,8 @@ export class CurrencyCreatorFormComponent extends BaseComponent implements OnIni
       this.ctrlCode.setValue(currency.code);
       this.ctrlName.setValue(currency.name);
       this.ctrlSymbol.setValue(currency.symbol);
+    } else {
+      this.isEdit = true;
     }
   }
 
