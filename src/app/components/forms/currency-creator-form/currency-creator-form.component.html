@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" autocomplete="off">
+<form class="form" [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <ng-container *ngIf="!isEditMode || isEdit; else info">
         <div class="form__input-block">
             <div class="form-item">

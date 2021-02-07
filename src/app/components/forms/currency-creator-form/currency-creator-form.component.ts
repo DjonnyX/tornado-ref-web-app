@@ -100,7 +100,16 @@ export class CurrencyCreatorFormComponent extends BaseComponent implements OnIni
     super.ngOnDestroy();
   }
 
-  onSubmit(): void {
+  onEnterSubmit(event: KeyboardEvent): void {
+    if (event.keyCode === 13) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
+      this.onSave();
+    }
+  }
+
+  onSave(): void {
     if (this.form.valid) {
       this.submitForm.emit({
         ...this._currency,
