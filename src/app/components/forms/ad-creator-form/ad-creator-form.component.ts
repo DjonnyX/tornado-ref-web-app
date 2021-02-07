@@ -114,6 +114,8 @@ export class AdCreatorFormComponent extends BaseComponent implements OnInit, OnD
         active: !!this._ad && this._ad.active !== undefined ? this._ad.active : true,
         extra: !!this._ad ? this._ad.extra : {},
       });
+
+      this.isEdit = false;
     }
   }
 
