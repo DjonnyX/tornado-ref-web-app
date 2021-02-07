@@ -3,7 +3,7 @@
     <mat-tab-group>
       <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
         <ta-ad-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-          [isDefault]="lang.code === defaultLanguage.code" [isEditMode]="isEditMode" [assets]="assets"
+          [isDefault]="lang.code === defaultLanguage.code" [isEdit]="isEdit" [isEditMode]="isEditMode" [assets]="assets"
           (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
           (uploadIconResource)="onIconResourceUpload($event, lang)"
           (uploadThumbnailResource)="onThumbnailResourceUpload($event, lang)" (save)="onSave()">
@@ -12,14 +12,27 @@
     </mat-tab-group>
   </div>
   <ng-template #mainLangContent>
-    <ta-ad-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEditMode]="isEditMode"
-      [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
+    <ta-ad-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="isEdit"
+      [isEditMode]="isEditMode" [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
     </ta-ad-content>
   </ng-template>
 
   <div class="form__submit" align="end">
-    <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
-    <button mat-flat-button color="accent" type="submit" class="button button__text"
-      [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+    <ng-container *ngIf="!!isEdit; else editButtons">
+      <button mat-button class="button button__text" (click)="onEditCancel()">
+        Отменить
+      </button>
+      <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
+        {{isEditMode ? 'Сохранить' : 'Создать'}}
+      </button>
+    </ng-container>
+    <ng-template #editButtons>
+      <button mat-button class="button button__text" (click)="onCancel()">
+        Отменить
+      </button>
+      <button mat-flat-button color="accent" (click)="onEdit()" class="button button__text">
+        Редактировать
+      </button>
+    </ng-template>
   </div>
 </form>

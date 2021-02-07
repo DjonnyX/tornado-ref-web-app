@@ -49,6 +49,8 @@ export class AdCreatorFormComponent extends BaseComponent implements OnInit, OnD
       this._ad = ad;
 
       this._state = { ...this._state, ...(this._ad ? this._ad.contents : undefined) };
+    } else {
+      this.isEdit = true;
     }
   }
 
@@ -59,6 +61,8 @@ export class AdCreatorFormComponent extends BaseComponent implements OnInit, OnD
   @Input() resourcesGallery: Array<{ [lang: string]: IAsset }>;
 
   @Input() isEditMode: boolean;
+
+  isEdit: boolean = false;
 
   @Output() save = new EventEmitter<IAd>();
 
@@ -123,6 +127,14 @@ export class AdCreatorFormComponent extends BaseComponent implements OnInit, OnD
 
   onIconResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
     this.uploadIconResource.emit({ file: e.file, dataField: e.dataField, langCode: lang.code });
+  }
+
+  onEdit(): void {
+    this.isEdit = true;
+  }
+
+  onEditCancel(): void {
+    this.isEdit = false;
   }
 
   onCancel(): void {
