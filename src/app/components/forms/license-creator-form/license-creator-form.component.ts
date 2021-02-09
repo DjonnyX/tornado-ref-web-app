@@ -149,6 +149,9 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       this.ctrlDateEnd.setValue(license.dateEnd);
       this.ctrlStatus.setValue(license.status);
       this.ctrlState.setValue(license.state);
+
+      this.range.get("start").setValue(license.dateStart);
+      this.range.get("end").setValue(license.dateEnd);
     }
   }
 

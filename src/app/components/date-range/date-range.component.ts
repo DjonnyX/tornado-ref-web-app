@@ -64,7 +64,7 @@ const INIT_STATE: IRange = {
     }]
 })
 export class DateRangeComponent implements OnInit, ControlValueAccessor, Validator {
-  range = new FormGroup({
+  @Input() formGroup = new FormGroup({
     start: new FormControl(moment(new Date())),
     end: new FormControl(moment(new Date(Date.now() + 8640000))),
   });
@@ -79,8 +79,8 @@ export class DateRangeComponent implements OnInit, ControlValueAccessor, Validat
   set value(val: IRange) {
     this._value = val || { ...INIT_STATE };
 
-    this.range.get("start").setValue(this._value.start);
-    this.range.get("end").setValue(this._value.end);
+    this.formGroup.get("start").setValue(this._value.start);
+    this.formGroup.get("end").setValue(this._value.end);
 
     this.onChangeModel();
   }
@@ -99,8 +99,8 @@ export class DateRangeComponent implements OnInit, ControlValueAccessor, Validat
 
   onChangeModel() {
     this._value = {
-      start: this.range.get("start").value,
-      end: this.range.get("end").value,
+      start: this.formGroup.get("start").value,
+      end: this.formGroup.get("end").value,
     };
 
     this.onChange(this._value);
