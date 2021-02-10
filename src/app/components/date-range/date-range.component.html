@@ -1,16 +1,16 @@
 <mat-form-field class="full-width" appearance="outline">
     <mat-label>Период действия лицензии</mat-label>
     <mat-date-range-input [rangePicker]="picker" (dateChange)="onChangeModel()">
-        <input matStartDate formControlName="start" placeholder="Start date">
-        <input matEndDate formControlName="end" placeholder="End date">
+        <input matStartDate [formControl]="formGroup.get('start')" placeholder="с">
+        <input matEndDate [formControl]="formGroup.get('end')" placeholder="по">
     </mat-date-range-input>
     <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
 
-    <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">
+    <mat-error *ngIf="formGroup.get('start').hasError('matStartDateInvalid')">
         Недействительная дата начала
     </mat-error>
-    <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">
+    <mat-error *ngIf="formGroup.get('end').hasError('matEndDateInvalid')">
         Недействительная дата окончания
     </mat-error>
 </mat-form-field>
