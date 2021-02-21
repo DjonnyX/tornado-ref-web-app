@@ -15,6 +15,10 @@ export class WeekDaysPickerComponent implements OnInit {
 
   readonly weekDays: Array<IWeekDay> = [
     {
+      name: "Sunday",
+      shortName: "SUN",
+    },
+    {
       name: "Monday",
       shortName: "MON",
     },
@@ -38,10 +42,6 @@ export class WeekDaysPickerComponent implements OnInit {
       name: "Saturday",
       shortName: "SAT",
     },
-    {
-      name: "Sunday",
-      shortName: "SUN",
-    }
   ];
 
   private _valueDictionary: { [key: string]: number } = {};
