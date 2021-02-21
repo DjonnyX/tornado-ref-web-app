@@ -1,0 +1,13 @@
+.time-picker {
+    display: flex;
+    align-items: center;
+
+    &__label-from {
+        margin-right: 10px;
+    }
+
+    &__label-to {
+        margin-left: 18px;
+        margin-right: 10px;
+    }
+}

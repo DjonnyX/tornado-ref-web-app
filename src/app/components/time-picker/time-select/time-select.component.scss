@@ -1,0 +1,17 @@
+.time-select {
+  &__button-group {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+  }
+
+  &__button {
+    width: 32px;
+    height: 32px;
+  }
+
+  &__label {
+    text-align: center;
+    margin: 6px 0;
+  }
+}
