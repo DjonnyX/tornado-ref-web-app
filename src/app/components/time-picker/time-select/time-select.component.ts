@@ -39,7 +39,7 @@ export class TimeSelectComponent implements OnInit {
 
   @Input() isEdit: boolean = true;
 
-  private _value: number = 0;
+  private _value: number;
   @Input() set value(v: number) {
     if (this._value !== v) {
       this._value = v;
@@ -54,12 +54,20 @@ export class TimeSelectComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    if (!this._value) {
+      this.value = 0;
+    }
+  }
 
   incH(): void {
     let v = this._value + H_MS;
     if (v > DAY_MS) {
       v = DAY_MS - v;
+    }
+
+    if (v < 0) {
+      v = 0;
     }
 
     this.value = v;
@@ -73,6 +81,10 @@ export class TimeSelectComponent implements OnInit {
       v = DAY_MS - v;
     }
 
+    if (v < 0) {
+      v = 0;
+    }
+
     this.value = v;
 
     this.change.emit(this._value);
@@ -84,6 +96,10 @@ export class TimeSelectComponent implements OnInit {
       v = DAY_MS + v;
     }
 
+    if (v > DAY_MS) {
+      v = 0;
+    }
+
     this.value = v;
 
     this.change.emit(this._value);
@@ -93,6 +109,10 @@ export class TimeSelectComponent implements OnInit {
     let v = this._value - M_MS;
     if (v < 0) {
       v = DAY_MS + v;
+    }
+
+    if (v > DAY_MS) {
+      v = 0;
     }
 
     this.value = v;
