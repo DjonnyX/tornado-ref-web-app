@@ -35,14 +35,15 @@ export class ScheduleComponent implements OnInit {
   }
 
   onCreate(): void {
+    this._value = this._value.map(v => ({...v}));
     this._value.push({
       active: true,
       time: {
-        start: undefined,
-        end: undefined,
+        start: 0,
+        end: 86400000,
       },
       weekDays: [],
-    })
+    });
   }
 
   onDelete(schedule: ISchedule): void {
