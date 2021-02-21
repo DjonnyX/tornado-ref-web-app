@@ -1,8 +1,7 @@
 <div class="schedule">
     <div *ngFor="let schedule of value" class="schedule__item">
         <div class="item__controls" [class.disabled]="!schedule.active">
-            <ta-time-range [isEdit]="isEdit" [default]="schedule.time" (change)="onTimeRangeChange(schedule, $event)">
-            </ta-time-range>
+            <ta-time-picker [isEdit]="isEdit" [value]="schedule.time" (change)="onTimeRangeChange(schedule, $event)"></ta-time-picker>
             <ta-week-days-picker [isEdit]="isEdit" [default]="schedule.weekDays"
                 (change)="onWeekDaysChange(schedule, $event)">
             </ta-week-days-picker>

@@ -1,0 +1,21 @@
+<div class="time-select">
+    <div *ngIf="isEdit" class="time-select__button-group">
+        <button mat-icon-button type="button" class="time-select__button" aria-label="Up" (click)="incH()">
+            <mat-icon class="icon">expand_less</mat-icon>
+        </button>
+        <button mat-icon-button type="button" class="time-select__button" aria-label="Up" (click)="incM()">
+            <mat-icon class="icon">expand_less</mat-icon>
+        </button>
+    </div>
+    <div class="time-select__label">
+        {{hours}} : {{minutes}}
+    </div>
+    <div *ngIf="isEdit" class="time-select__button-group">
+        <button mat-icon-button type="button" class="time-select__button" aria-label="Down" (click)="decH()">
+            <mat-icon class="icon">expand_more</mat-icon>
+        </button>
+        <button mat-icon-button type="button" class="time-select__button" aria-label="Down" (click)="decM()">
+            <mat-icon class="icon">expand_more</mat-icon>
+        </button>
+    </div>
+</div>
