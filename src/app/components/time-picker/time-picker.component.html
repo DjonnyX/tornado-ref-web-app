@@ -1,0 +1,10 @@
+<div class="time-picker">
+    <span class="time-picker__label-from">С </span>
+    <span>
+        <ta-time-select [isEdit]="isEdit" [value]="value.start" (change)="onChangeStart($event)"></ta-time-select>
+    </span>
+    <span class="time-picker__label-to">По </span>
+    <span>
+        <ta-time-select [isEdit]="isEdit" [value]="value.end" (change)="onChangeEnd($event)"></ta-time-select>
+    </span>
+</div>
