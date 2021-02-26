@@ -39,4 +39,6 @@ export { IApplicationState } from './application.state';
 export { IApplicationsState } from './applications.state';
 export { IIntegrationState } from './integration.state';
 export { IIntegrationsState } from './integrations.state';
+export { ICheckuesState } from './checkues.state';
+export { ICheckueState } from './checkue.state';
 export { IAccountsState } from './accounts.state';

@@ -45,6 +45,8 @@ import applicationsReducer from './applications.reducer';
 import integrationReducer from "./integration.reducer";
 import integrationsReducer from "./integrations.reducer";
 import accountsReducer from "./accounts.reducer";
+import checkuesReducer from "./checkues.reducer";
+import checkueReducer from "./checkue.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -90,6 +92,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taApplications: applicationsReducer,
   taIntegration: integrationReducer,
   taIntegrations: integrationsReducer,
+  taCheckues: checkuesReducer,
+  taCheckue: checkueReducer,
   taAccounts: accountsReducer,
 };
 

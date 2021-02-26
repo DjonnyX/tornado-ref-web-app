@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -40,7 +40,7 @@ import { UserSelectors } from '@store/selectors';
 import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
-  TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount
+  TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -1570,6 +1570,53 @@ export class ApiService {
   public updateAccount(id: string, account: IAccount): Observable<IAccountUpdateResponse> {
     return this._http
       .put<IAccountUpdateResponse>(`api/v1/account/${id}`, account, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // checkues
+  public getCheckues(options?: IRequestOptions): Observable<ICheckuesGetResponse> {
+    return this._http
+      .get<ICheckuesGetResponse>("api/v1/checkues", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getCheckue(id: string): Observable<ICheckueGetResponse> {
+    return this._http
+      .get<ICheckueGetResponse>(`api/v1/checkue/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createCheckue(checkue: ICheckue): Observable<ICheckueCreateResponse> {
+    return this._http
+      .post<ICheckueCreateResponse>("api/v1/checkue", checkue, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateCheckue(id: string, checkue: ICheckue): Observable<ICheckueUpdateResponse> {
+    return this._http
+      .put<ICheckueUpdateResponse>(`api/v1/checkue/${id}`, checkue, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteCheckue(id: string): Observable<ICheckueDeleteResponse> {
+    return this._http
+      .delete<ICheckueDeleteResponse>(`api/v1/checkue/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
