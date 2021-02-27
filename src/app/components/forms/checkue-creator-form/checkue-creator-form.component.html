@@ -1,0 +1,41 @@
+<form class="form" [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <ng-container *ngIf="!isEditMode || isEdit; else info">
+        <div class="form__input-block">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Название чека</mat-label>
+                    <input matInput type="text" [formControl]="ctrlName" placeholder="Название чека" required>
+                    <mat-error *ngIf="ctrlName.hasError('required')">
+                        <strong>обязательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #info>
+        <div class="form__block" *ngIf="!!data">
+            <div class="form-item full-width">
+                <ta-key-value [data]="data.name"></ta-key-value>
+            </div>
+        </div>
+    </ng-template>
+
+    <div class="form__submit" align="end">
+        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+            <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
+                Отменить
+            </button>
+            <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
+                {{isEditMode ? 'Сохранить' : 'Создать'}}
+            </button>
+        </ng-container>
+        <ng-template #editButtons>
+            <button mat-button class="button button__text" (click)="onCancel()">
+                Отменить
+            </button>
+            <button mat-flat-button color="accent" (click)="onEdit()" class="button button__text">
+                Редактировать
+            </button>
+        </ng-template>
+    </div>
+</form>

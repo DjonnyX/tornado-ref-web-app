@@ -42,6 +42,8 @@ import { IIntegrationsState } from './integrations.state';
 import { IAccountsState } from './accounts.state';
 import { ILicenseAccountState } from './license-account.state';
 import { ILicensesAccountState } from './licenses-account.state';
+import { ICheckueState } from './checkue.state';
+import { ICheckuesState } from './checkues.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -88,4 +90,6 @@ export interface IAppState {
     taIntegration: IIntegrationState,
     taIntegrations: IIntegrationsState,
     taAccounts: IAccountsState,
+    taCheckue: ICheckueState,
+    taCheckues: ICheckuesState,
 }
