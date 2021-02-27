@@ -1,0 +1,165 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+$offset-x: px2em(64);
+$way-border-weight: 2px;
+
+.scenario-entity-editor {
+    position: relative;
+
+    .scenario-entity-editor-wrapper {
+        .scenario-entity-editor__content {
+            margin: px2em(8) 0 0 px2em(42);
+            box-sizing: border-box;
+
+            .content {
+                user-select: none;
+                cursor: pointer;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: baseline;
+                overflow: hidden;
+                padding: px2em(4);
+                align-items: center;
+                border-radius: 3px;
+
+                &.has-scenario {
+                    border-radius: 3px 3px 0 0;
+                }
+
+                .content__ctrls {
+                    display: flex;
+                    align-items: center;
+                }
+
+                .content__checkbox-active {
+                    padding-left: px2em(12);
+                    padding-right: px2em(20);
+                }
+
+                .content__name {
+                    padding: px2em(12);
+                    border-radius: 3px;
+                    margin: auto 0;
+                    display: flex;
+                    align-items: center;
+                }
+
+                .content__thumbnail {
+                    image-rendering: pixelated;
+                    width: px2em(32);
+                    height: px2em(32);
+                    margin-top: -px2em(12);
+                    margin-left: -px2em(12);
+                    margin-bottom: -px2em(12);
+                    margin-right: px2em(12);
+                }
+
+                .content__text {
+                    text-overflow: ellipsis;
+                    word-break: keep-all;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+            }
+
+            .entity-menu-button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .button-create {
+            margin-left: -(px2em(20));
+            margin-top: px2em(18);
+            margin-bottom: px2em(18);
+            padding: 0;
+            min-width: px2em(38);
+            width: 2.375em;
+            height: 2.375em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            mat-icon {
+                height: 1em;
+                font-size: 1.5em;
+            }
+        }
+    }
+}
+
+$border-primary: $way-border-weight dotted $primary;
+
+.primary {
+    .scenario-entity-editor {
+        .scenario-entity-editor-wrapper {
+
+            .scenario-entity-editor__content {
+                .content {
+                    color: $primary-700;
+                    background: #ffffff;
+                    border: 1px solid rgba($primary, 0.3);
+
+                    .content__name {
+                        background: rgba($primary, 0.1);
+
+                        &.active {
+                            background: rgb(66, 176, 240);
+                        }
+
+                        &:hover {
+                            background: $accent;
+                            color: white;
+                        }
+                    }
+
+                    &.disabled {
+                        opacity: 0.5;
+                    }
+                }
+
+                .entity-menu-button {
+                    color: $primary-700;
+                }
+            }
+        }
+    }
+}
+
+$border-primary: $way-border-weight dotted $primary;
+
+.secondary {
+    .scenario-entity-editor {
+        .scenario-entity-editor-wrapper {
+            .scenario-entity-editor__content {
+                .content {
+                    color: $primary-700;
+                    background: #ffffff;
+                    border: 1px solid rgba($primary, 0.75);
+
+                    .content__name {
+                        background: rgba($primary, 0.1);
+
+                        &.active {
+                            background: rgb(66, 176, 240);
+                        }
+
+                        &:hover {
+                            background: $accent;
+                        }
+                    }
+
+                    &.disabled {
+                        opacity: 0.5;
+                    }
+                }
+
+                .entity-menu-button {
+                    color: $primary-700;
+                }
+            }
+        }
+    }
+}

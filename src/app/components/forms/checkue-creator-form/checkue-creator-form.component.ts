@@ -7,7 +7,6 @@ import { IKeyValue } from '@components/key-value/key-value.component';
 
 interface IData {
   name: IKeyValue;
-  scenarios: IKeyValue;
 }
 
 @Component({
@@ -21,8 +20,6 @@ export class CheckueCreatorFormComponent extends BaseComponent implements OnInit
 
   ctrlName = new FormControl('', [Validators.required]);
 
-  ctrlScenarios = new FormControl('', [Validators.required]);
-
   private _checkue: ICheckue;
   @Input() set checkue(checkue: ICheckue) {
     if (checkue) {
@@ -31,7 +28,6 @@ export class CheckueCreatorFormComponent extends BaseComponent implements OnInit
       this.generateData();
 
       this.ctrlName.setValue(checkue.name);
-      this.ctrlScenarios.setValue(checkue.scenarios);
     }
   }
 
@@ -56,8 +52,7 @@ export class CheckueCreatorFormComponent extends BaseComponent implements OnInit
 
     this.form = this._fb.group({
       name: this.ctrlName,
-      scenarios: this.ctrlScenarios,
-    })
+    });
   }
 
   private generateData(): void {
@@ -69,10 +64,6 @@ export class CheckueCreatorFormComponent extends BaseComponent implements OnInit
       name: {
         key: "Название",
         value: this._checkue?.name || ' ---',
-      },
-      scenarios: {
-        key: "Сценарии",
-        value: "", //this._checkue?.scenarios || ' ---',
       },
     }
   }

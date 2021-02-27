@@ -3,29 +3,9 @@
         <div class="form__input-block">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Код валюты</mat-label>
-                    <input matInput type="text" [formControl]="ctrlCode" placeholder="Код валюты" required>
-                    <mat-error *ngIf="ctrlCode.hasError('required')">
-                        <strong>обязательное</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            
-            <div class="form-item">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Имя валюты</mat-label>
-                    <input matInput type="text" [formControl]="ctrlName" placeholder="Имя валюты" required>
+                    <mat-label>Название чека</mat-label>
+                    <input matInput type="text" [formControl]="ctrlName" placeholder="Название чека" required>
                     <mat-error *ngIf="ctrlName.hasError('required')">
-                        <strong>обязательное</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
-            
-            <div class="form-item">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Символ валюты</mat-label>
-                    <input matInput type="text" [formControl]="ctrlSymbol" placeholder="Символ валюты" required>
-                    <mat-error *ngIf="ctrlSymbol.hasError('required')">
                         <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
@@ -35,15 +15,7 @@
     <ng-template #info>
         <div class="form__block" *ngIf="!!data">
             <div class="form-item full-width">
-                <ta-key-value [data]="data.code"></ta-key-value>
-            </div>
-
-            <div class="form-item full-width">
                 <ta-key-value [data]="data.name"></ta-key-value>
-            </div>
-
-            <div class="form-item full-width">
-                <ta-key-value [data]="data.symbol"></ta-key-value>
             </div>
         </div>
     </ng-template>

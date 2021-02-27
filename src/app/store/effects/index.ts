@@ -41,6 +41,8 @@ import IntegrationsEffects from './integrations.effects';
 import AccountsEffects from './accounts.effects';
 import LicenseAccountEffects from './license-account.effects';
 import LicensesAccountEffects from './licenses-account.effects';
+import CheckueEffects from './checkue.effects';
+import CheckuesEffects from './checkues.effects';
 
 const rootEffects = [
   UserEffects,
@@ -86,5 +88,7 @@ const rootEffects = [
   AccountsEffects,
   LicenseAccountEffects,
   LicensesAccountEffects,
+  CheckueEffects,
+  CheckuesEffects,
 ];
 export default rootEffects;
