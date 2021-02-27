@@ -1,8 +1,8 @@
 <div [ngClass]="{'business-period-content': true}">
   <div>
-    <p class="form-header">
-      Описание
-    </p>
+    <h1 class="form-header">
+      Бизнес-период
+    </h1>
 
     <ng-container *ngIf="!isEdit; else editFields">
       <div class="form__block" *ngIf="!!data">

@@ -11,7 +11,7 @@ export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | Scenario
     case ScenarioProgrammActionTypes.EXPRESSION:
       return "Выражение";
     case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-      return "Доступность по бизнесс-периодам";
+      return "Доступность по Бизнес-периодам";
     case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
       return "Доступность по магазинам";
     case ScenarioCommonActionTypes.VISIBLE_BY_TERMINAL:
@@ -27,7 +27,7 @@ export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | Scenario
     case ScenarioPriceActionTypes.PRICE:
       return "Наценка / скидка";
     case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
-      return "Наценка / скидка по бизнесс-периоду";
+      return "Наценка / скидка по Бизнес-периоду";
     case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
       return "Наценка / скидка по типу заказа";
     case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:

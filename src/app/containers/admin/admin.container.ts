@@ -89,28 +89,28 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         },
         {
           icon: "checkue",
-          name: "Чек",
+          name: "Чеки",
           route: "checkues",
         },
         {
           icon: "categories",
-          name: "Категории",
+          name: "Группы",
           children: [
             {
               icon: "categories-menu",
-              name: "Категории меню",
+              name: "Группы меню",
               route: "menu-categories",
             },
             {
               icon: "categories-constructor",
-              name: "Категории конструктора продуктов",
+              name: "Группы модификаторов",
               route: "schema-categories",
             },
           ]
         },
         {
           icon: "products",
-          name: "Продукты",
+          name: "Товары",
           route: "products",
         },
         {
@@ -130,7 +130,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         },
         {
           icon: "business-periods",
-          name: "Бизнесс-периоды",
+          name: "Бизнес-периоды",
           route: "business-periods",
         },
         {

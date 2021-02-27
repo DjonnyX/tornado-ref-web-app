@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="form" autocomplete="off">
+<form [formGroup]="form" autocomplete="off">
     <div class="form__input-block">
         <ng-container *ngIf="actualTypes.length > 0; else noScriptsAvailable">
             <div class="form-item">
@@ -20,7 +20,7 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Бизнесс-периоды</mat-label>
+                    <mat-label>Бизнес-периоды</mat-label>
                     <mat-select [formControl]="ctrlValue" multiple required>
                         <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}
                         </mat-option>
