@@ -75,6 +75,13 @@ const routes: Routes = [
           )
       },
       {
+        path: 'checkues',
+        loadChildren: () =>
+          import('@containers/checkues-editor/checkues-editor.module').then(
+            module => module.CheckuesEditorModule,
+          )
+      },
+      {
         path: 'tags',
         loadChildren: () =>
           import('@containers/tags-editor/tags-editor.module').then(

@@ -117,3 +117,8 @@ export { IIntegrationUpdateResponse } from './integration-update-response.interf
 export { IAccountsGetResponse } from './accounts-get-response.interface';
 export { IAccountGetResponse } from './account-get-response.interface';
 export { IAccountUpdateResponse } from './account-update-response.interface';
+export { ICheckuesGetResponse } from './checkues-get-response.interface';
+export { ICheckueGetResponse } from './checkue-get-response.interface';
+export { ICheckueCreateResponse } from './checkue-create-response.interface';
+export { ICheckueUpdateResponse } from './checkue-update-response.interface';
+export { ICheckueDeleteResponse } from './checkue-delete-response.interface';
