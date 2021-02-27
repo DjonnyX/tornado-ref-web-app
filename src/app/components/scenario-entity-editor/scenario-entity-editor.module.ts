@@ -8,14 +8,14 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ScenarioListModule } from '@components/scenario-list/list/scenario-list.module';
 import { EditScenarioDialogModule } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.module';
-import { ScenarioEditorComponent } from '@components/forms/scenario/scenario-editor/scenario-editor.component';
+import { ScenarioEntityEditorComponent } from './scenario-entity-editor.component';
 
 @NgModule({
   declarations: [
-    ScenarioEditorComponent,
+    ScenarioEntityEditorComponent,
   ],
   exports: [
-    ScenarioEditorComponent,
+    ScenarioEntityEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -29,4 +29,4 @@ import { ScenarioEditorComponent } from '@components/forms/scenario/scenario-edi
     EditScenarioDialogModule,
   ]
 })
-export class ScenarioEditorModule { }
+export class ScenarioEntityEditorModule { }

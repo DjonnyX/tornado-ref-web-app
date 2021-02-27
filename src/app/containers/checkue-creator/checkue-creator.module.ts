@@ -4,6 +4,7 @@ import { CheckueCreatorContainer } from './checkue-creator.container';
 import { CheckueCreatorFormModule } from '@components/forms/checkue-creator-form/checkue-creator-form.module';
 import { CheckueCreatorRoutingModule } from './checkue-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { ScenarioEntityEditorModule } from '@components/scenario-entity-editor/scenario-entity-editor.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     CheckueCreatorRoutingModule,
     CheckueCreatorFormModule,
     QueryProgressessModule,
+    ScenarioEntityEditorModule,
   ]
 })
 export class CheckueCreatorModule { }

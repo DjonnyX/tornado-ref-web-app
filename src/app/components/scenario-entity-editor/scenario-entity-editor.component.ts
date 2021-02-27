@@ -16,13 +16,13 @@ import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection
 import { IScenarioEntity } from './interfaces';
 
 @Component({
-  selector: 'ta-scenario-editor',
-  templateUrl: './scenario-editor.component.html',
-  styleUrls: ['./scenario-editor.component.scss'],
+  selector: 'ta-scenario-entity-editor',
+  templateUrl: './scenario-entity-editor.component.html',
+  styleUrls: ['./scenario-entity-editor.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ScenarioEditorComponent extends BaseComponent implements OnInit, OnDestroy {
+export class ScenarioEntityEditorComponent extends BaseComponent implements OnInit, OnDestroy {
   @ViewChild("checkboxActive", { read: MatCheckbox }) private _checkboxActive: MatCheckbox;
 
   private _currencies: Array<ICurrency>;
@@ -142,17 +142,9 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
   }
 
-  updateNodeForChild(node: INode): void {
-    this.update.emit(node);
-  }
-
   onShowMenu(event: Event): void {
     event.stopImmediatePropagation();
     event.preventDefault();
-  }
-
-  onEdit(): void {
-
   }
 
   onToggleActive(event?: Event): void {
@@ -161,7 +153,11 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit, On
       event.preventDefault();
     }
 
-    this.update.emit({ ...this.entity, active: !this.entity.active });
+    this.update.emit({
+      ...this._entity,
+      scenarios: [...this._entity.scenarios],
+      active: !this._entity.active
+    });
   }
 
   onAddScenario(): void {
@@ -202,28 +198,28 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit, On
           value: content.value,
           extra: content.extra,
         };
-        this.update.emit({ ...this.entity, scenarios: [...this.entity.scenarios, scenario] });
+        this.update.emit({ ...this._entity, scenarios: [...this.entity.scenarios, scenario] });
       }
     });
   }
 
   onDeleteScenarios(): void {
-    this.update.emit({ ...this.entity, scenarios: [] });
+    this.update.emit({ ...this._entity, scenarios: [] });
   }
 
   onDeleteScenario(scenario: IScenario): void {
-    const scenarios = [...this.entity.scenarios];
+    const scenarios = [...this._entity.scenarios];
     const index = scenarios.indexOf(scenario);
 
     if (index > -1) {
       scenarios.splice(index, 1);
     }
 
-    this.update.emit({ ...this.entity, scenarios });
+    this.update.emit({ ...this._entity, scenarios });
   }
 
   onUpdateScenario(scenarios: Array<IScenario>): void {
-    this.update.emit({ ...this.entity, scenarios });
+    this.update.emit({ ...this._entity, scenarios });
   }
 
   onEditScenario(scenario: IScenario): void {
@@ -234,7 +230,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit, On
           type: this.type,
           title: "Редактировать сценарий",
           scenario: scenario,
-          scenarios: this.entity.scenarios,
+          scenarios: this._entity.scenarios,
           stores: this.stores,
           businessPeriods: this.businessPeriods,
           currencies: this.currencies,
@@ -250,20 +246,20 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit, On
       map(v => v as { content: IScenario, replacedScenario: IScenario }),
     ).subscribe(({ content, replacedScenario }) => {
       if (!!content) {
-        const scenarios = [...this.entity.scenarios];
+        const scenarios = [...this._entity.scenarios];
         const index = scenarios.indexOf(replacedScenario);
 
         if (index > -1) {
           scenarios[index] = content;
         }
 
-        this.update.emit({ ...this.entity, scenarios });
+        this.update.emit({ ...this._entity, scenarios });
       }
     });
   }
 
   onUpwardScenario(scenario: IScenario): void {
-    const scenarios = [...this.entity.scenarios];
+    const scenarios = [...this._entity.scenarios];
     const index = scenarios.indexOf(scenario);
 
     if (index > -1 && index > 0) {
@@ -271,11 +267,11 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit, On
       scenarios.splice(index - 1, 0, scenario);
     }
 
-    this.update.emit({ ...this.entity, scenarios });
+    this.update.emit({ ...this._entity, scenarios });
   }
 
   onDownwardScenario(scenario: IScenario): void {
-    const scenarios = [...this.entity.scenarios];
+    const scenarios = [...this._entity.scenarios];
     const index = scenarios.indexOf(scenario);
 
     if (index > -1 && index < scenarios.length - 1) {
@@ -283,6 +279,6 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit, On
       scenarios.splice(index + 1, 0, scenario);
     }
 
-    this.update.emit({ ...this.entity, scenarios });
+    this.update.emit({ ...this._entity, scenarios });
   }
 }

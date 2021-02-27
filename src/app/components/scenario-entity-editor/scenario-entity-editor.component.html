@@ -1,11 +1,11 @@
-<div class="scenario-entity-editor" *ngIf="!!node">
+<div class="scenario-entity-editor" *ngIf="!!entity">
     <span [ngClass]="{'scenario-entity-editor-wrapper': true, 'disabled': (!!entity && !entity.active) || (!entity.active)}">
         <div class="scenario-entity-editor__content">
             <div matRipple class="content" [ngClass]="{
                 'has-scenario': (!!entity.scenarios && entity.scenarios.length > 0)}"
                 [class.disabled]="!entity.active">
                 <span class="content__ctrls">
-                    <div *ngIf="!isRoot" class="content__checkbox-active">
+                    <div class="content__checkbox-active">
                         <mat-checkbox color="accent" #checkboxActive [checked]="entity.active"
                             (click)="onToggleActive($event)"></mat-checkbox>
                     </div>
@@ -34,7 +34,7 @@
                 </span>
             </div>
         </div>
-        <div class="scenario-entity-editor__editor" *ngIf="!!entity.scenarios && entity.scenarios.length > 0">
+        <ng-container *ngIf="!!entity.scenarios && entity.scenarios.length > 0">
             <ta-scenario-list [scenarios]="entity.scenarios" [businessPeriods]="businessPeriods" [currencies]="currencies"
                 [currenciesDictionary]="currenciesDictionary" [businessPeriodsDictionary]="businessPeriodsDictionary"
                 [languages]="languages" [stores]="stores" [storesDictionary]="storesDictionary"
@@ -44,6 +44,6 @@
                 (downward)="onDownwardScenario($event)" [lock]="false"
                 [disabled]="(!entity.active)">
             </ta-scenario-list>
-        </div>
+        </ng-container>
     </span>
 </div>
