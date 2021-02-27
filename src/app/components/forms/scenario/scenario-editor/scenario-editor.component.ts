@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   IScenario, IStore, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes,
   ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage,
-  IScenarioPriceValue, IOrderType, ISelector, IProduct
+  IScenarioPriceValue, IOrderType, ISelector, IProduct, ScenarioPriceActionTypes
 } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
@@ -49,10 +49,18 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       this.ctrlExtra.setValue(v.extra);
 
       switch (v.action) {
-        case ScenarioProductActionTypes.ADDITIONAL_PRICE:
-        case ScenarioProductActionTypes.FIXED_PRICE:
-          this.ctrlValue.setValue(!!v.value ? (v.value as IScenarioPriceValue).value * 0.01 : 0);
+        case ScenarioPriceActionTypes.PRICE:
+        case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
+        case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
+          const priceValue = v.value as IScenarioPriceValue;
+          if (priceValue.isPersentage) {
+            this.ctrlValue.setValue(!!v.value ? (v.value as IScenarioPriceValue).value : 0);
+          } else {
+            this.ctrlValue.setValue(!!v.value ? (v.value as IScenarioPriceValue).value * 0.01 : 0);
+          }
           this.ctrlCurrency.setValue(!!v.value ? (v.value as IScenarioPriceValue).currency : undefined);
+          this.ctrlIsPercentage.setValue(!!v.value ? (v.value as IScenarioPriceValue).isPersentage : false);
+          this.ctrlIsStatic.setValue(!!v.value ? (v.value as IScenarioPriceValue).isStatic : false);
           break;
         default:
           this.ctrlValue.setValue(v.value);
@@ -70,6 +78,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE,
           ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           // ScenarioSelectorActionTypes.MAX_USAGE,
           // ScenarioSelectorActionTypes.MIN_USAGE,
@@ -81,10 +90,12 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE,
           ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           // ScenarioProductActionTypes.UP_LIMIT,
-          ScenarioProductActionTypes.ADDITIONAL_PRICE,
-          ScenarioProductActionTypes.FIXED_PRICE,
+          ScenarioPriceActionTypes.PRICE,
+          ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE,
+          ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD,
         ];
         break;
       case NodeScenarioTypes.PRODUCT_IN_SCHEMA:
@@ -92,11 +103,20 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE,
           ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.DOWN_LIMIT,
-          ScenarioProductActionTypes.ADDITIONAL_PRICE,
-          ScenarioProductActionTypes.FIXED_PRICE,
+          ScenarioPriceActionTypes.PRICE,
+          ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE,
+          ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD,
+        ];
+        break;
+      case NodeScenarioTypes.CHECKUE:
+        this.types = [
+          ScenarioPriceActionTypes.PRICE,
+          ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE,
+          ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD,
         ];
         break;
       case NodeScenarioTypes.CATEGORY_IN_SCHEMA:
@@ -104,6 +124,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           // ScenarioProgrammActionTypes.SWITCH,
           // ScenarioProgrammActionTypes.EXPRESSION,
           ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD,
+          ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE,
+          // ScenarioCommonActionTypes.VISIBLE_BY_TERMINAL,
           ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           ScenarioSelectorActionTypes.MAX_USAGE,
           ScenarioSelectorActionTypes.MIN_USAGE,
@@ -147,11 +169,16 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   ctrlValue = new FormControl(undefined);
 
+  ctrlIsStatic = new FormControl(undefined);
+
+  ctrlIsPercentage = new FormControl(undefined);
+
   ctrlExtra = new FormControl(undefined);
 
   ctrlCurrency = new FormControl(undefined, [Validators.required]);
 
-  types: Array<ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes>;
+  types: Array<ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes | ScenarioProductActionTypes
+    | ScenarioSelectorActionTypes | ScenarioPriceActionTypes>;
 
   readonly ScenarioCommonActionTypes = ScenarioCommonActionTypes;
 
@@ -163,6 +190,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   readonly ScenarioProgrammActionTypes = ScenarioProgrammActionTypes;
 
+  readonly ScenarioPriceActionTypes = ScenarioPriceActionTypes;
+
   constructor() {
     super();
   }
@@ -172,6 +201,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       action: this.ctrlAction,
       value: this.ctrlValue,
       currency: this.ctrlCurrency,
+      isStatic: this.ctrlIsStatic,
+      isPersentage: this.ctrlIsPercentage,
       extra: this.ctrlExtra,
     });
 
@@ -192,12 +223,25 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       };
 
       switch (value.action) {
-        case ScenarioProductActionTypes.ADDITIONAL_PRICE:
-        case ScenarioProductActionTypes.FIXED_PRICE:
-          (scenario.value as IScenarioPriceValue) = {
-            currency: value.currency,
-            value: value.value * 100,
-          };
+        case ScenarioPriceActionTypes.PRICE:
+        case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
+        case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
+          const priceValue = value as IScenarioPriceValue;
+          if (priceValue.isPersentage) {
+            (scenario.value as IScenarioPriceValue) = {
+              currency: value.currency,
+              value: value.value,
+              isStatic: Boolean(value.isStatic),
+              isPersentage: Boolean(value.isPersentage),
+            };
+          } else {
+            (scenario.value as IScenarioPriceValue) = {
+              currency: value.currency,
+              value: value.value * 100,
+              isStatic: Boolean(value.isStatic),
+              isPersentage: Boolean(value.isPersentage),
+            };
+          }
           break;
         case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
           scenario.value = null;
@@ -231,9 +275,11 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   }
 
   private resetValidators(action: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes |
-    ScenarioProductActionTypes | ScenarioSelectorActionTypes): void {
+    ScenarioProductActionTypes | ScenarioSelectorActionTypes | ScenarioPriceActionTypes): void {
     this.ctrlCurrency.clearValidators();
     this.ctrlValue.clearValidators();
+    this.ctrlIsStatic.clearValidators();
+    this.ctrlIsPercentage.clearValidators();
 
     switch (action) {
       case ScenarioProgrammActionTypes.SWITCH:
@@ -248,6 +294,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
+      case ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE:
       case ScenarioIntroActionTypes.DURATION:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioProductActionTypes.UP_LIMIT:
@@ -257,10 +304,12 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         this.ctrlValue.setValidators([Validators.required]);
         this.ctrlCurrency.setValue("");
         break;
-      case ScenarioProductActionTypes.ADDITIONAL_PRICE:
-      case ScenarioProductActionTypes.FIXED_PRICE:
+      case ScenarioPriceActionTypes.PRICE:
+      case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
+      case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
         this.ctrlValue.setValidators([Validators.required]);
-        this.ctrlCurrency.setValidators([Validators.required]);
+        this.ctrlCurrency.setValue(this.currencies.find(c => c.isDefault).id);
+        // this.ctrlCurrency.setValidators([Validators.required]);
         break;
     }
   }

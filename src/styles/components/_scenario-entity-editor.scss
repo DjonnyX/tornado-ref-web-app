@@ -1,15 +1,18 @@
 @import "../themes/theme";
 @import "../utils/px2em";
 
-$offset-x: px2em(64);
 $way-border-weight: 2px;
 
 .scenario-entity-editor {
     position: relative;
 
+    .scenario-editor {
+        margin: 0 !important;
+    }
+
     .scenario-entity-editor-wrapper {
         .scenario-entity-editor__content {
-            margin: px2em(8) 0 0 px2em(42);
+            margin: px2em(8) 0 0 0;
             box-sizing: border-box;
 
             .content {

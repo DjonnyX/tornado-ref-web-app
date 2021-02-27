@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import {
   IScenario, IStore, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes,
-  ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage, IScenarioPriceValue
+  ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage, IScenarioPriceValue, ScenarioPriceActionTypes, IOrderType
 } from '@djonnyx/tornado-types';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 
@@ -30,6 +30,10 @@ export class ScenarioListItemComponent implements OnInit {
   @Input() stores: Array<IStore>;
 
   @Input() storesDictionary: { [id: string]: IStore };
+
+  @Input() orderTypes: Array<IOrderType>;
+
+  @Input() orderTypesDictionary: { [id: string]: IOrderType };
 
   @Input() isFirstInCollection: boolean;
 
@@ -62,9 +66,23 @@ export class ScenarioListItemComponent implements OnInit {
       case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
         value = `: ${(this.scenario.value as Array<string>).map(v => this.storesDictionary[v] ? this.storesDictionary[v]?.name : "недоступен").join(", ")}`;
         break;
-      case ScenarioProductActionTypes.ADDITIONAL_PRICE:
-      case ScenarioProductActionTypes.FIXED_PRICE:
-        value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+      case ScenarioCommonActionTypes.VISIBLE_BY_TERMINAL:
+        // value = `: ${(this.scenario.value as Array<string>).map(v => this.storesDictionary[v] ? this.storesDictionary[v]?.name : "недоступен").join(", ")}`;
+        break;
+      case ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE:
+        // value = `: ${(this.scenario.value as Array<string>).map(v => this.storesDictionary[v] ? this.storesDictionary[v]?.name : "недоступен").join(", ")}`;
+        break;
+      case ScenarioPriceActionTypes.PRICE:
+      case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
+      case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
+        const priceValue = this.scenario.value as IScenarioPriceValue;
+        if (priceValue.isPersentage) {
+          value = `: ${(this.scenario.value as IScenarioPriceValue).value}%`;
+        } else if (priceValue.isStatic) {
+          value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+        } else {
+          value = `: ${(this.scenario.value as IScenarioPriceValue).value >= 0 ? '+' : '-'}${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+        }
         break;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
