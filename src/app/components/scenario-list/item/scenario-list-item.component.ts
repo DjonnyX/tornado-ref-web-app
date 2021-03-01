@@ -78,15 +78,34 @@ export class ScenarioListItemComponent implements OnInit {
         const priceValue = this.scenario.value as IScenarioPriceValue;
         if (priceValue.isPersentage) {
           value = `: ${(this.scenario.value as IScenarioPriceValue).value}%`;
+          if ((this.scenario.value as IScenarioPriceValue).value > 0) {
+            return `Наценка${value}`;
+          } else if ((this.scenario.value as IScenarioPriceValue).value < 0) {
+            return `Скидка${value}`;
+          } else {
+            return `Без скидки`;
+          }
         } else if (priceValue.isStatic) {
           value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+          if ((this.scenario.value as IScenarioPriceValue).value <= 0) {
+            return `Бесплатно`;
+          }
+          return `Цена${value}`;
         } else {
-          value = `: ${(this.scenario.value as IScenarioPriceValue).value >= 0 ? '+' : '-'}${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+          value = `: ${(this.scenario.value as IScenarioPriceValue).value >= 0 ? '+' : ''}${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+          if ((this.scenario.value as IScenarioPriceValue).value > 0) {
+            return `Наценка${value}`;
+          } else if ((this.scenario.value as IScenarioPriceValue).value < 0) {
+            return `Скидка${value}`;
+          } else {
+            return `Без скидки`;
+          }
         }
         break;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioSelectorActionTypes.MAX_USAGE:
+      case ScenarioSelectorActionTypes.MIN_USAGE:
         value = `: ${this.scenario.value} шт`;
         break;
       case ScenarioIntroActionTypes.DURATION:
