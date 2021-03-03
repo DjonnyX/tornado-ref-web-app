@@ -586,6 +586,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           scenario: scenario,
           scenarios: this.node.scenarios,
           stores: this.stores,
+          orderTypes: this.orderTypes,
           businessPeriods: this.businessPeriods,
           currencies: this.currencies,
           languages: this.languages,

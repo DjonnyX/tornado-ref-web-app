@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
-import { IBusinessPeriod, ICurrency, ILanguage, IStore } from '@djonnyx/tornado-types';
+import { IBusinessPeriod, ICurrency, ILanguage, IOrderType, IStore } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-scenario-list',
@@ -27,6 +27,10 @@ export class ScenarioListComponent implements OnInit {
   @Input() businessPeriods: Array<IBusinessPeriod>;
   
   @Input() businessPeriodsDictionary: {[id: string]: IBusinessPeriod};
+
+  @Input() orderTypes: Array<IOrderType>;
+
+  @Input() orderTypesDictionary: { [id: string]: IOrderType };
   
   @Input() lock: boolean;
   
@@ -46,7 +50,7 @@ export class ScenarioListComponent implements OnInit {
 
   @Output() add = new EventEmitter<void>();
 
-  isExpanded = false;
+  isExpanded = true;
 
   constructor() { }
 

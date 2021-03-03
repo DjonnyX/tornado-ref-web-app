@@ -1,4 +1,4 @@
-<form class="form" [formGroup]="form" autocomplete="off">
+<form [formGroup]="form" autocomplete="off">
     <div class="form__input-block">
         <ng-container *ngIf="actualTypes.length > 0; else noScriptsAvailable">
             <div class="form-item">
@@ -17,12 +17,41 @@
             Нет доступных сценариев.
         </ng-template>
 
+        <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_STORE">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Доступно в магазинах</mat-label>
+                    <mat-select [formControl]="ctrlValue" multiple required>
+                        <mat-option *ngFor="let store of stores" [value]="store.id">{{getStoreName(store)}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ctrlValue.hasError('required')">
+                        <strong>обязательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </ng-container>
+
         <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Бизнесс-периоды</mat-label>
+                    <mat-label>Бизнес-периоды</mat-label>
                     <mat-select [formControl]="ctrlValue" multiple required>
                         <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ctrlValue.hasError('required')">
+                        <strong>обзательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Тип заказа</mat-label>
+                    <mat-select [formControl]="ctrlValue" multiple required>
+                        <mat-option *ngFor="let ot of orderTypes" [value]="ot.id">{{getOrderTypeName(ot)}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
@@ -83,24 +112,23 @@
             </div>
         </ng-container>
 
-        <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.ADDITIONAL_PRICE">
-            <div class="form-item">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Валюта</mat-label>
-                    <mat-select [formControl]="ctrlCurrency" required>
-                        <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}
-                        </mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="ctrlCurrency.hasError('required')">
-                        <strong>обязательное</strong>
-                    </mat-error>
-                </mat-form-field>
+        <ng-container *ngIf="ctrlAction.value === ScenarioPriceActionTypes.PRICE">
+            <div class="form-item" *ngIf="!ctrlIsPercentage.value" style="margin-bottom: 12px;">
+                <mat-checkbox color="primary" [formControl]="ctrlIsStatic">
+                    Фиксированная цена
+                </mat-checkbox>
+            </div>
+
+            <div class="form-item" style="margin-bottom: 12px;">
+                <mat-checkbox *ngIf="!ctrlIsStatic.value" color="primary" [formControl]="ctrlIsPercentage">
+                    Процентная наценка / скидка
+                </mat-checkbox>
             </div>
 
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Добавочная стоимость</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Добавочная стоимость" required>
+                    <mat-label>Наценка / скидка</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Наценка / скидка" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
                         <strong>обязательное</strong>
                     </mat-error>
@@ -108,24 +136,73 @@
             </div>
         </ng-container>
 
-        <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.FIXED_PRICE">
+        <ng-container *ngIf="ctrlAction.value === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Валюта</mat-label>
-                    <mat-select [formControl]="ctrlCurrency" required>
-                        <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}
+                    <mat-label>Бизнес-периоды</mat-label>
+                    <mat-select [formControl]="ctrlEntities" multiple required>
+                        <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}
                         </mat-option>
                     </mat-select>
-                    <mat-error *ngIf="ctrlCurrency.hasError('required')">
+                    <mat-error *ngIf="ctrlEntities.hasError('required')">
                         <strong>обязательное</strong>
                     </mat-error>
                 </mat-form-field>
             </div>
 
+            <div class="form-item" *ngIf="!ctrlIsPercentage.value" style="margin-bottom: 12px;">
+                <mat-checkbox color="primary" [formControl]="ctrlIsStatic">
+                    Фиксированная цена
+                </mat-checkbox>
+            </div>
+
+            <div class="form-item" style="margin-bottom: 12px;">
+                <mat-checkbox *ngIf="!ctrlIsStatic.value" color="primary" [formControl]="ctrlIsPercentage">
+                    Процентная наценка / скидка
+                </mat-checkbox>
+            </div>
+
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Фиксированная цена</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Фиксированная цена" required>
+                    <mat-label>Наценка / скидка</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Наценка / скидка" required>
+                    <mat-error *ngIf="ctrlValue.hasError('required')">
+                        <strong>обязательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </ng-container>
+
+        <ng-container *ngIf="ctrlAction.value === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Типы заказов</mat-label>
+                    <mat-select [formControl]="ctrlEntities" multiple required>
+                        <mat-option *ngFor="let ot of orderTypes" [value]="ot.id">{{getOrderTypeName(ot)}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ctrlEntities.hasError('required')">
+                        <strong>обязательное</strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-item" *ngIf="!ctrlIsPercentage.value" style="margin-bottom: 12px;">
+                <mat-checkbox color="primary" [formControl]="ctrlIsStatic">
+                    Фиксированная цена
+                </mat-checkbox>
+            </div>
+
+            <div class="form-item" style="margin-bottom: 12px;">
+                <mat-checkbox *ngIf="!ctrlIsStatic.value" color="primary" [formControl]="ctrlIsPercentage">
+                    Процентная наценка / скидка
+                </mat-checkbox>
+            </div>
+
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Наценка / скидка</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Наценка / скидка" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
                         <strong>обязательное</strong>
                     </mat-error>
@@ -155,20 +232,6 @@
                     </mat-error>
                 </mat-form-field>
             </div>-->
-        </ng-container>
-
-        <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_STORE">
-            <div class="form-item">
-                <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Доступно в магазинах</mat-label>
-                    <mat-select [formControl]="ctrlValue" multiple required>
-                        <mat-option *ngFor="let store of stores" [value]="store.id">{{getStoreName(store)}}</mat-option>
-                    </mat-select>
-                    <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
-                    </mat-error>
-                </mat-form-field>
-            </div>
         </ng-container>
 
         <ng-container *ngIf="ctrlAction.value === ScenarioSelectorActionTypes.MAX_USAGE">

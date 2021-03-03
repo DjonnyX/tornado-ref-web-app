@@ -23,6 +23,7 @@ import {
   BusinessPeriodsSelectors, CurrenciesSelectors, LanguagesSelectors, OrderTypesSelectors, ProductsSelectors,
   SelectorsSelectors, StoresSelectors
 } from '@store/selectors';
+import { NodeScenarioTypes } from '@enums/node-scenario-types';
 
 @Component({
   selector: 'ta-checkue-creator',
@@ -31,6 +32,8 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CheckueCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
+
+  readonly type = NodeScenarioTypes.CHECKUE;
 
   public isProcess$: Observable<boolean>;
 
