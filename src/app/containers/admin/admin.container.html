@@ -5,12 +5,6 @@
                 <mat-icon>menu</mat-icon>
             </button>
         </span>
-        <!--<span fxHide.sm="true" class="saturn-menu-logo">
-            <div class="saturn-menu-logo__wrapper">
-                <span class="icon-saturn-logo"></span>
-                <span class="icon-saturn-text-logo"></span>
-            </div>
-        </span>-->
         <span class="page-title">{{(currentRoute$ | async)?.name}}</span>
         <span class="spacer"></span>
         <button mat-icon-button (click)="signout()">

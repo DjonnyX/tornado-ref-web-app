@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import {
   IScenario, IStore, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes,
-  ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage, IScenarioPriceValue
+  ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage, IScenarioPriceValue, ScenarioPriceActionTypes, IOrderType
 } from '@djonnyx/tornado-types';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 
@@ -30,6 +30,10 @@ export class ScenarioListItemComponent implements OnInit {
   @Input() stores: Array<IStore>;
 
   @Input() storesDictionary: { [id: string]: IStore };
+
+  @Input() orderTypes: Array<IOrderType>;
+
+  @Input() orderTypesDictionary: { [id: string]: IOrderType };
 
   @Input() isFirstInCollection: boolean;
 
@@ -62,13 +66,26 @@ export class ScenarioListItemComponent implements OnInit {
       case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
         value = `: ${(this.scenario.value as Array<string>).map(v => this.storesDictionary[v] ? this.storesDictionary[v]?.name : "недоступен").join(", ")}`;
         break;
-      case ScenarioProductActionTypes.ADDITIONAL_PRICE:
-      case ScenarioProductActionTypes.FIXED_PRICE:
-        value = `: ${((this.scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(this.scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+      case ScenarioCommonActionTypes.VISIBLE_BY_TERMINAL:
+        // value = `: ${(this.scenario.value as Array<string>).map(v => this.storesDictionary[v] ? this.storesDictionary[v]?.name : "недоступен").join(", ")}`;
         break;
+      case ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE:
+        value = `: ${(this.scenario.value as Array<string>).map(v => this.orderTypesDictionary[v] ? this.orderTypesDictionary[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")}`;
+        break;
+      case ScenarioPriceActionTypes.PRICE:
+        return this.getScenarioPriceName(this.scenario);
+      case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
+        return `${this.getScenarioPriceName(this.scenario)} (${
+          ((this.scenario.value as IScenarioPriceValue).entities).map(v => this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")
+        })`;
+      case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
+        return `${this.getScenarioPriceName(this.scenario)} (${
+          ((this.scenario.value as IScenarioPriceValue).entities).map(v => this.orderTypesDictionary[v] ? this.orderTypesDictionary[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")
+        })`;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioSelectorActionTypes.MAX_USAGE:
+      case ScenarioSelectorActionTypes.MIN_USAGE:
         value = `: ${this.scenario.value} шт`;
         break;
       case ScenarioIntroActionTypes.DURATION:
@@ -77,6 +94,36 @@ export class ScenarioListItemComponent implements OnInit {
     }
 
     return `${actionName}${value}`;
+  }
+
+  private getScenarioPriceName(scenario: IScenario): string {
+    let value: string;
+    const priceValue = scenario.value as IScenarioPriceValue;
+    if (priceValue.isPersentage) {
+      value = `: ${(scenario.value as IScenarioPriceValue).value}%`;
+      if ((scenario.value as IScenarioPriceValue).value > 0) {
+        return `Наценка${value}`;
+      } else if ((scenario.value as IScenarioPriceValue).value < 0) {
+        return `Скидка${value}`;
+      } else {
+        return `Без скидки`;
+      }
+    } else if (priceValue.isStatic) {
+      value = `: ${((scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+      if ((scenario.value as IScenarioPriceValue).value <= 0) {
+        return `Бесплатно`;
+      }
+      return `Цена${value}`;
+    } else {
+      value = `: ${(scenario.value as IScenarioPriceValue).value >= 0 ? '+' : ''}${((scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
+      if ((scenario.value as IScenarioPriceValue).value > 0) {
+        return `Наценка${value}`;
+      } else if ((scenario.value as IScenarioPriceValue).value < 0) {
+        return `Скидка${value}`;
+      } else {
+        return `Без скидки`;
+      }
+    }
   }
 
   onToggleActive(event: Event): void {

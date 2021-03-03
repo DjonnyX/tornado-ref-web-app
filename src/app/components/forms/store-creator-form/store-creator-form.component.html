@@ -1,4 +1,4 @@
-<form class="form" *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
+<form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div style="width: 100%;">
         <div>
             <h1 class="form-header">
