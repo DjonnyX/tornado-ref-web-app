@@ -61,6 +61,13 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           this.ctrlCurrency.setValue(!!v.value ? (v.value as IScenarioPriceValue).currency : undefined);
           this.ctrlIsPercentage.setValue(!!v.value ? (v.value as IScenarioPriceValue).isPersentage : false);
           this.ctrlIsStatic.setValue(!!v.value ? (v.value as IScenarioPriceValue).isStatic : false);
+          if (v.action === ScenarioPriceActionTypes.PRICE) {
+            this.ctrlEntities.setValue(undefined);
+          } else
+            if (v.action === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD
+              || v.action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE) {
+              this.ctrlEntities.setValue((v.value as IScenarioPriceValue).entities);
+            }
           break;
         default:
           this.ctrlValue.setValue(v.value);
@@ -173,6 +180,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   ctrlIsPercentage = new FormControl(undefined);
 
+  ctrlEntities = new FormControl([]);
+
   ctrlExtra = new FormControl(undefined);
 
   ctrlCurrency = new FormControl(undefined, [Validators.required]);
@@ -203,6 +212,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       currency: this.ctrlCurrency,
       isStatic: this.ctrlIsStatic,
       isPersentage: this.ctrlIsPercentage,
+      entities: this.ctrlEntities,
       extra: this.ctrlExtra,
     });
 
@@ -224,8 +234,6 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
       switch (value.action) {
         case ScenarioPriceActionTypes.PRICE:
-        case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
-        case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
           const priceValue = value as IScenarioPriceValue;
           if (priceValue.isPersentage) {
             (scenario.value as IScenarioPriceValue) = {
@@ -240,6 +248,27 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
               value: value.value * 100,
               isStatic: Boolean(value.isStatic),
               isPersentage: Boolean(value.isPersentage),
+            };
+          }
+          break;
+        case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
+        case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
+          const priceValue1 = value as IScenarioPriceValue;
+          if (priceValue1.isPersentage) {
+            (scenario.value as IScenarioPriceValue) = {
+              currency: value.currency,
+              value: value.value,
+              isStatic: Boolean(value.isStatic),
+              isPersentage: Boolean(value.isPersentage),
+              entities: value.entities,
+            };
+          } else {
+            (scenario.value as IScenarioPriceValue) = {
+              currency: value.currency,
+              value: value.value * 100,
+              isStatic: Boolean(value.isStatic),
+              isPersentage: Boolean(value.isPersentage),
+              entities: value.entities,
             };
           }
           break;
@@ -270,6 +299,10 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     return bp.contents[this.defaultLanguage?.code]?.name;
   }
 
+  getOrderTypeName(ot: IOrderType) {
+    return ot.contents[this.defaultLanguage?.code]?.name;
+  }
+
   getStoreName(store: IStore) {
     return store.name;
   }
@@ -280,6 +313,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.ctrlValue.clearValidators();
     this.ctrlIsStatic.clearValidators();
     this.ctrlIsPercentage.clearValidators();
+    this.ctrlEntities.clearValidators();
 
     switch (action) {
       case ScenarioProgrammActionTypes.SWITCH:
@@ -309,7 +343,14 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
         this.ctrlValue.setValidators([Validators.required]);
         this.ctrlCurrency.setValue(this.currencies.find(c => c.isDefault).id);
-        // this.ctrlCurrency.setValidators([Validators.required]);
+        this.ctrlEntities.setValidators([Validators.required]);
+        if (action === ScenarioPriceActionTypes.PRICE) {
+          this.ctrlEntities.setValue(undefined);
+        } else
+          if (action === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD
+            || action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE) {
+            this.ctrlEntities.setValue([]);
+          }
         break;
     }
   }
