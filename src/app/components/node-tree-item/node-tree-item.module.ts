@@ -11,6 +11,7 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
 import { ScenarioListModule } from '@components/scenario-list/list/scenario-list.module';
 import { EditScenarioDialogModule } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ],
   imports: [
     CommonModule,
+    RouterModule,
     MatButtonModule,
     MatIconModule,
     MatRippleModule,
