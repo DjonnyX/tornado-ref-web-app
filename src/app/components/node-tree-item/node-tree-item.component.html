@@ -44,6 +44,10 @@
                             <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Деактивировать' :
                                 'Активировать'}}</span>
                         </button>
+                        <button mat-menu-item (click)="onNavigateToContent()">
+                            <mat-icon>arrow_forward</mat-icon>
+                            <span>Перейти к "{{getContentName()}}"</span>
+                        </button>
                         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
                             <mat-icon>arrow_upward</mat-icon>
                             <span>Вверх</span>
