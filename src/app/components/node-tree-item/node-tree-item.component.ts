@@ -13,11 +13,12 @@ import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum'
 import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 import {
   INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency,
-  ILanguage, IOrderType, IStore
+  ILanguage, IOrderType, IStore, ScenarioCommonActionTypes
 } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 import { ICollectionDictionary } from '@app/utils/collection.util';
+import { NodeTreeStores } from '@components/node-tree/enums/node-tree-stores.enum';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -203,7 +204,27 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     return this._searchPattern;
   }
 
+  get isStoreContain(): boolean {
+    if (this.currentStoreId !== NodeTreeStores.ALL) {
+      if (!!this.node && !!this.node.scenarios && this.node.scenarios.length > 0) {
+        for (let i = 0, l = this.node.scenarios.length; i < l; i++) {
+          const scenario = this.node.scenarios[i];
+
+          if (scenario.action === ScenarioCommonActionTypes.VISIBLE_BY_STORE) {
+            const availableStores = scenario.value as Array<string>;
+
+            return availableStores.indexOf(this.currentStoreId) > -1;
+          }
+        }
+      }
+    }
+
+    return true;
+  }
+
   @Input() mode: NodeTreeModes;
+
+  @Input() currentStoreId: string;
 
   isSearchMatch: boolean;
 

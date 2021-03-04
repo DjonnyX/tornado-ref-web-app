@@ -5,6 +5,8 @@ import {
   IOrderType, IStore
 } from '@djonnyx/tornado-types';
 import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
+import { ITabListItem } from '@components/tab-list/tab-list.component';
+import { NodeTreeStores } from './enums/node-tree-stores.enum';
 
 @Component({
   selector: 'ta-node-tree',
@@ -42,6 +44,23 @@ export class NodeTreeComponent implements OnInit {
     if (this.storesCollection !== v) {
       this.storesCollection = v;
       this.storesDictionary = !!v ? getMapOfCollection(v, "id") : {};
+
+      const byAll = {
+        name: "По всем магазинам", data: {
+          id: NodeTreeStores.ALL,
+        }
+      };
+
+      const tabs: Array<ITabListItem> = v.map(s => ({
+        name: s.name,
+        data: {
+          id: s.id,
+        },
+      }));
+
+      tabs.unshift(byAll);
+
+      this._tabs = tabs;
     }
   }
 
@@ -141,6 +160,11 @@ export class NodeTreeComponent implements OnInit {
 
   assetsDictionary: ICollectionDictionary<IAsset>;
 
+  private _tabs: Array<ITabListItem>;
+  get tabs() { return this._tabs; }
+
+  currentStoreId: string;
+
   @Output() create = new EventEmitter<INode>();
 
   @Output() update = new EventEmitter<INode>();
@@ -174,6 +198,10 @@ export class NodeTreeComponent implements OnInit {
 
   onDelete(node: INode): void {
     this.delete.emit(node);
+  }
+
+  onTabSelect(tab: ITabListItem): void {
+    this.currentStoreId = tab.data.id;
   }
 
   private resetRootNode(): void {
