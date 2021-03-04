@@ -54,9 +54,13 @@ export default class OrderTypesEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(OrderTypesActions.updateRequest),
-            switchMap(({ id, orderType }) => {
+            switchMap(({ id, orderType, setDafault }) => {
                 return this._apiService.updateOrderType(id, formatOrderTypeModel(orderType)).pipe(
                     mergeMap(res => {
+                        if (setDafault) {
+                            this._store.dispatch(OrderTypesActions.getAllRequest({}));
+                            return [OrderTypesActions.updateSuccess({ orderType: res.data, meta: res.meta })];
+                        }
                         return [OrderTypesActions.updateSuccess({ orderType: res.data, meta: res.meta })];
                     }),
                     map(v => v),

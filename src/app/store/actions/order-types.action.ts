@@ -72,7 +72,7 @@ export namespace OrderTypesActions {
     // update
     export const updateRequest = createAction(
         OrderTypesActionTypes.UPDATE_REQUEST,
-        props<{ id: string, orderType: IOrderType }>(),
+        props<{ id: string, orderType: IOrderType, setDafault?: boolean }>(),
     );
     export const updateSuccess = createAction(
         OrderTypesActionTypes.UPDATE_SUCCESS,

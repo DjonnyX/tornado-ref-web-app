@@ -2,7 +2,7 @@
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" *ngFor="let orderType of collection | search:searchPattern:defaultLanguage?.code"
-            [class.disabled]="!orderType.active">
+            [ngClass]="{'is-default': orderType.isDefault, 'disabled': !orderType.active}">
             <div class="entity-ctrls">
                 <div class="entity-checkbox-active">
                     <mat-checkbox color="accent" #checkboxActive [checked]="orderType.active"
@@ -12,6 +12,10 @@
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
+                    <button mat-menu-item type="button" (click)="onToggleDefault($event, orderType)">
+                        <mat-icon>{{orderType.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}</mat-icon>
+                        <span>{{orderType.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
+                    </button>
                     <button mat-menu-item type="button" (click)="onToggleActive($event, orderType)">
                         <mat-icon>{{orderType.active ? 'visibility_off' : 'visibility'}}</mat-icon>
                         <span>{{orderType.active ? 'Деактивировать' : 'Активировать'}}</span>
