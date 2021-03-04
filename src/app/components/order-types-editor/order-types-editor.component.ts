@@ -44,6 +44,8 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
 
   @Output() update = new EventEmitter<IOrderType>();
 
+  @Output() updateAll = new EventEmitter<IOrderType>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -95,6 +97,13 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
     event.preventDefault();
 
     this.update.emit({ ...orderType, active: !orderType.active });
+  }
+
+  onToggleDefault(event: Event, orderType: IOrderType): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.updateAll.emit({ ...orderType, isDefault: !orderType.isDefault });
   }
 
   onCreate(): void {
