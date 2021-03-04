@@ -117,6 +117,10 @@ export class OrderTypesEditorContainer implements OnInit, OnDestroy {
     this._store.dispatch(OrderTypesActions.updateRequest({ id: orderType.id, orderType }));
   }
 
+  onUpdateAll(orderType: IOrderType): void {
+    this._store.dispatch(OrderTypesActions.updateRequest({id: orderType.id, orderType, setDafault: true}));
+  }
+
   onDelete(id: string): void {
     this._store.dispatch(OrderTypesActions.deleteRequest({ id }));
   }

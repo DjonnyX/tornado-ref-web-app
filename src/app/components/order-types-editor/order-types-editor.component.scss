@@ -5,9 +5,13 @@ $entity-height-m: px2em(100);
 $entity-height-d: px2em(120);
 $entity-width-m: px2em(140);
 $entity-width-d: px2em(190);
+$border-transpanent: 4px solid transparent;
+$border-active: 2px solid $accent;
 
 .editor {
     .entity {
+        border: $border-transpanent;
+
         .content {
             display: grid;
             grid-template-columns: auto 1fr;
@@ -18,6 +22,12 @@ $entity-width-d: px2em(190);
                 margin-top: auto;
                 margin-bottom: auto;
             }
+        }
+
+        &.is-default {
+            border: $border-active;
+            border-radius: 4px;
+            padding: 3px;
         }
 
         .color {
