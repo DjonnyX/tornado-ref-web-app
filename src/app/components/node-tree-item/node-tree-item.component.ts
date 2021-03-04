@@ -19,6 +19,7 @@ import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-d
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 import { ICollectionDictionary } from '@app/utils/collection.util';
 import { NodeTreeStores } from '@components/node-tree/enums/node-tree-stores.enum';
+import { Router } from '@angular/router';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -235,7 +236,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
    */
   isSearchExpanded = false;
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private _router: Router) {
     super();
   }
 
@@ -299,6 +300,29 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   deleteNodeForChild(node: INode): void {
     this.delete.emit(node);
+  }
+
+  onNavigateToContent(): void {
+    if (this.node.type === NodeTypes.PRODUCT) {
+      this._router.navigate(["/admin/products/edit"], {
+        queryParams: { id: this.node.contentId },
+      });
+    } else
+      if (this.node.type === NodeTypes.SELECTOR) {
+        const selector = this.selectorsDictionary[this.node.contentId];
+        if (!!selector) {
+          if (selector.type === SelectorTypes.MENU_CATEGORY) {
+            this._router.navigate(["/admin/menu-categories/edit"], {
+              queryParams: { id: this.node.contentId },
+            });
+          } else
+            if (selector.type === SelectorTypes.SCHEMA_CATEGORY) {
+              this._router.navigate(["/admin/schema-categories/edit"], {
+                queryParams: { id: this.node.contentId },
+              });
+            }
+        }
+      }
   }
 
   private getNodeInstance(): INode {
