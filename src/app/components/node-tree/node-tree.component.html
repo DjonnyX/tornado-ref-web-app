@@ -1,6 +1,9 @@
 <ta-state-panel [searchFieldClass]="searchFieldClass" [refInfo]="refInfo" [hasShowRefInfo]="hasShowRefInfo"
     (search)="onSearch($event)"></ta-state-panel>
-<div class="editor">
+<div class="node-tree__stores">
+    <ta-tab-list [items]="tabs" (select)="onTabSelect($event)"></ta-tab-list>
+</div>
+<div class="node-tree__editor">
     <ng-container *ngIf="!!nodesCollection && !!productsCollection && !!selectorsCollection && !!defaultLanguage">
         <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id"
             [nodes]="nodesCollection" [nodesDictionary]="nodesDictionary" [products]="productsCollection"
@@ -8,8 +11,9 @@
             [currenciesDictionary]="currenciesDictionary" [businessPeriodsDictionary]="businessPeriodsDictionary"
             [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
             [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
-            [defaultLanguage]="defaultLanguage" [languages]="languages" [languagesDictionary]="languagesDictionary"
-            [orderTypes]="orderTypes" [orderTypesDictionary]="orderTypesDictionary" [stores]="storesCollection"
+            [currentStoreId]="currentStoreId" [defaultLanguage]="defaultLanguage" [languages]="languages"
+            [languagesDictionary]="languagesDictionary" [orderTypes]="orderTypes"
+            [orderTypesDictionary]="orderTypesDictionary" [stores]="storesCollection"
             [storesDictionary]="storesDictionary" (create)="onCreate($event)" (update)="onUpdate($event)"
             (delete)="onDelete($event)"></ta-node-tree-item>
     </ng-container>

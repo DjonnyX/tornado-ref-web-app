@@ -1,0 +1,32 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+.tab-list {
+  display: flex;
+  flex-wrap: wrap;
+
+  &__item {
+    cursor: pointer;
+    border-radius: 3px;
+    border: 1px solid lighten($primary, 5);
+    padding: px2em(8) px2em(12);
+    font-size: $text-size;
+    font-weight: 600;
+    color: white;
+    background-color: $primary;
+
+    &.selected {
+        background: $accent;
+        border: 1px solid lighten($accent, 5);
+        color: white;
+    }
+
+    &:not(.selected):hover {
+        background: darken($primary, 15);
+    }
+  }
+
+  &__item {
+    margin: px2em(4);
+  }
+}

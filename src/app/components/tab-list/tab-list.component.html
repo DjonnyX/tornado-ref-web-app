@@ -1,0 +1,5 @@
+<div class="tab-list">
+    <div class="tab-list__item" [class.selected]="item === selected" *ngFor="let item of items" (click)="onSelect(item)">
+        {{item.name}}
+    </div>
+</div>

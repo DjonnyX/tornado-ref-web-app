@@ -1,4 +1,4 @@
-<div class="node-tree-item" *ngIf="!!node">
+<div class="node-tree-item" *ngIf="!!node && isStoreContain">
     <div class="node-item-way-hider" *ngIf="isInstanceChain && isLastChild"></div>
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span
@@ -108,7 +108,7 @@
                     [selectorsDictionary]="selectorsDictionary" [assetsDictionary]="assetsDictionary"
                     [searchPattern]="searchPattern" [mode]="mode" [defaultLanguage]="defaultLanguage"
                     [languages]="languages" [languagesDictionary]="languagesDictionary" [orderTypes]="orderTypes"
-                    [orderTypesDictionary]="orderTypesDictionary" [stores]="stores"
+                    [orderTypesDictionary]="orderTypesDictionary" [stores]="stores" [currentStoreId]="currentStoreId"
                     [storesDictionary]="storesDictionary" (create)="createNodeForChild($event)"
                     (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
                     (searchExpand)="onSearchExpand($event)"></ta-node-tree-item>
@@ -127,7 +127,7 @@
                         [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
                         [defaultLanguage]="defaultLanguage" [languages]="languages"
                         [languagesDictionary]="languagesDictionary" [orderTypes]="orderTypes"
-                        [orderTypesDictionary]="orderTypesDictionary" [stores]="stores"
+                        [orderTypesDictionary]="orderTypesDictionary" [stores]="stores" [currentStoreId]="currentStoreId"
                         [storesDictionary]="storesDictionary" (create)="createNodeForChild($event)"
                         (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
                         (searchExpand)="onSearchExpand($event)">
