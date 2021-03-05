@@ -30,6 +30,7 @@ import { LanguagesActions } from '@store/actions/languages.action';
 import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 import { StoresActions } from '@store/actions/stores.action';
+import { OrderTypesActions } from '@store/actions/order-types.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -324,6 +325,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(TagsActions.getAllRequest({}));
     this._store.dispatch(CurrenciesActions.getAllRequest({}));
     this._store.dispatch(StoresActions.getAllRequest({}));
+    this._store.dispatch(OrderTypesActions.getAllRequest({}));
 
     const prepareMainRequests$ = combineLatest([
       this.tags$,
