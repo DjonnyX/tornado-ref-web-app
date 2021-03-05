@@ -343,13 +343,13 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
         this.ctrlValue.setValidators([Validators.required]);
         this.ctrlCurrency.setValue(this.currencies.find(c => c.isDefault).id);
-        this.ctrlEntities.setValidators([Validators.required]);
         if (action === ScenarioPriceActionTypes.PRICE) {
           this.ctrlEntities.setValue(undefined);
         } else
           if (action === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD
             || action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE) {
             this.ctrlEntities.setValue([]);
+            this.ctrlEntities.setValidators([Validators.required]);
           }
         break;
     }
