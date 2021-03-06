@@ -1,6 +1,18 @@
-export enum SelectContentFormRights {
-    SCHEMA_CATEGORY,
-    CATEGORIES,
-    PRODUCTS,
-    NODES,
+/**
+ * Алиас для NodeTreeModes
+ */
+
+export enum SelectContentFormModes {
+    /**
+     * NodeTypes.PRODUCT
+     */
+    SCHEMA_MODIFIERS = "product",
+    /**
+     * NodeTypes.SELECTOR && Selector.type === SelectorTypes.SCHEMA_CATEGORY
+     */
+    GROUP_MODIFIERS = "selector",
+    /**
+     * MenuTree
+     */
+    MENU = "menu",
 }

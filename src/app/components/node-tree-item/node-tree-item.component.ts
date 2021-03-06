@@ -7,10 +7,8 @@ import { interval } from 'rxjs';
 import { take, takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { MatDialog } from '@angular/material/dialog';
-import { MatCheckbox } from '@angular/material/checkbox';
 import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-content-dialog/setup-node-content-dialog.component';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
-import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 import {
   INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency,
   ILanguage, IOrderType, IStore, ScenarioCommonActionTypes
@@ -51,15 +49,23 @@ const arrayItemToDownward = (array: Array<string>, item: string): Array<string> 
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDestroy {
-  @ViewChild("checkboxActive", { read: MatCheckbox }) private _checkboxActive: MatCheckbox;
+  readonly NodeTypes = NodeTypes;
 
   @Input() type: NodeTypes | string;
 
   @Input() nodes: Array<INode>;
 
+  @Input() groupModifiersNodes: Array<INode>;
+
+  @Input() groupMenuNodes: Array<INode>;
+
   @Input() products: Array<IProduct>;
 
   @Input() selectors: Array<ISelector>;
+
+  @Input() menuGroupsSelectors: Array<ISelector>;
+
+  @Input() modifiersGroupsSelectors: Array<ISelector>;
 
   @Input() currencies: Array<ICurrency>;
 
@@ -159,6 +165,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       this.isRoot = this._depth === 0;
     }
   }
+  get depth() { return this._depth; }
 
   @Input() productsDictionary: ICollectionDictionary<IProduct>;
 
@@ -247,7 +254,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   hasAllowSubCreation(): boolean {
-    if ((this.mode === NodeTreeModes.MENU || this.mode === NodeTreeModes.PRODUCT) && this.node.type === NodeTypes.PRODUCT) {
+    if ((this.mode === NodeTreeModes.MENU || this.mode === NodeTreeModes.PRODUCT || this.mode === NodeTreeModes.SELECTOR)
+      && this.node.type === NodeTypes.PRODUCT) {
       return false;
     }
 
@@ -255,7 +263,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   hasInstance(): boolean {
-    const instanceNode = !!this._nodesDictionary ? this.nodesDictionary[this.node.contentId] : null;
+    const instanceNode = !!this._nodesDictionary ? this._nodesDictionary[this.node.contentId] : null;
 
     if (!!instanceNode) {
       return true;
@@ -269,7 +277,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   resetNode(): void {
-    this.node = !!this._nodesDictionary && !!this._id ? this.nodesDictionary[this._id] : null;
+    this.node = !!this._nodesDictionary && !!this._id ? this._nodesDictionary[this._id] : null;
 
     if (!!this.node) {
       const parent = this._nodesDictionary[this.node.parentId];
@@ -307,22 +315,34 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       this._router.navigate(["/admin/products/edit"], {
         queryParams: { id: this.node.contentId },
       });
-    } else
-      if (this.node.type === NodeTypes.SELECTOR) {
-        const selector = this.selectorsDictionary[this.node.contentId];
-        if (!!selector) {
-          if (selector.type === SelectorTypes.MENU_CATEGORY) {
-            this._router.navigate(["/admin/menu-categories/edit"], {
-              queryParams: { id: this.node.contentId },
-            });
-          } else
-            if (selector.type === SelectorTypes.SCHEMA_CATEGORY) {
-              this._router.navigate(["/admin/schema-categories/edit"], {
-                queryParams: { id: this.node.contentId },
-              });
-            }
+    } else if (this.node.type === NodeTypes.SELECTOR) {
+      const selector = this.selectorsDictionary[this.node.contentId];
+      if (!!selector) {
+        if (selector.type === SelectorTypes.MENU_CATEGORY) {
+          this._router.navigate(["/admin/menu-categories/edit"], {
+            queryParams: { id: this.node.contentId },
+          });
+        } else if (selector.type === SelectorTypes.SCHEMA_CATEGORY) {
+          this._router.navigate(["/admin/schema-categories/edit"], {
+            queryParams: { id: this.node.contentId },
+          });
         }
       }
+    } else if (this.node.type === NodeTypes.SELECTOR_NODE) {
+      const node = this._nodesDictionary[this.node.contentId];
+      if (!!node) {
+        const selector = this.selectorsDictionary[node.contentId];
+        if (!!selector) {
+          if (selector.type === SelectorTypes.MENU_CATEGORY) {
+            this._router.navigate(["/admin/menu-tree"]);
+          } else if (selector.type === SelectorTypes.SCHEMA_CATEGORY) {
+            this._router.navigate(["/admin/schema-categories/edit"], {
+              queryParams: { id: selector.id },
+            });
+          }
+        }
+      }
+    }
   }
 
   private getNodeInstance(): INode {
@@ -351,7 +371,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             }
           }
           if (this.node.type === NodeTypes.SELECTOR_NODE) {
-            const node = this.nodesDictionary[this.node.contentId];
+            const node = this._nodesDictionary[this.node.contentId];
             if (!!node) {
               const content = this.selectorsDictionary[node.contentId];
 
@@ -387,6 +407,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
         }
 
     return null;
+  }
+
+  getRootName(): string {
+    if (this.node.type === NodeTypes.SELECTOR_JOINT) {
+      return "Группа";
+    } else if (this.node.type === NodeTypes.PRODUCT_JOINT) {
+      return "Товар";
+    } else if (this.node.type === NodeTypes.KIOSK_ROOT) {
+      return "Меню";
+    }
+
+    return "Корень";
   }
 
   onSearchExpand(isExpanded: boolean): void {
@@ -425,7 +457,9 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       event.preventDefault();
     }
 
-    const rights = this.getRights();
+    if (this.lock) {
+      return;
+    }
 
     const content = this.getContent();
 
@@ -435,15 +469,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           title: "Выберите контент для узла",
           assetsDictionary: this.assetsDictionary,
           products: this.products,
-          selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
+          groupModifiersNodes: this.groupModifiersNodes,
+          groupMenuNodes: this.groupMenuNodes,
+          selectors: this.menuGroupsSelectors,
           selectorsDictionary: this.selectorsDictionary,
-          schemaSelectors: this.selectors.filter(selector => selector.type === SelectorTypes.SCHEMA_CATEGORY),
+          schemaSelectors: this.modifiersGroupsSelectors,
           selectedDefaultEntityId: this.node.contentId,
           defaultCollection: this.node.type === NodeTypes.SELECTOR && !!content ? (content as ISelector).type : this.node.type,
           languages: this.languages,
           defaultLanguage: this.defaultLanguage,
           nodes: this.nodes,
-          rights,
+          mode: this.mode,
+          depth: this._depth - 1,
         },
       });
 
@@ -490,21 +527,22 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   onCreate(): void {
-    const rights = this.getRights();
-
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
           title: "Выберите контент для узла",
           assetsDictionary: this.assetsDictionary,
           products: this.products,
-          selectors: this.selectors.filter(selector => selector.type === SelectorTypes.MENU_CATEGORY),
+          selectors: this.menuGroupsSelectors,
           selectorsDictionary: this.selectorsDictionary,
-          schemaSelectors: this.selectors.filter(selector => selector.type === SelectorTypes.SCHEMA_CATEGORY),
+          schemaSelectors: this.modifiersGroupsSelectors,
           languages: this.languages,
           defaultLanguage: this.defaultLanguage,
           nodes: this.nodes,
-          rights,
+          groupModifiersNodes: this.groupModifiersNodes,
+          groupMenuNodes: this.groupMenuNodes,
+          mode: this.mode,
+          depth: this._depth,
         },
       });
 
@@ -682,26 +720,6 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     this.update.emit({ ...this.node, scenarios });
   }
 
-  private getRights(): Array<SelectContentFormRights> {
-    const rights = new Array<SelectContentFormRights>();
-
-    if (this.mode === NodeTreeModes.PRODUCT) {
-      rights.push(SelectContentFormRights.SCHEMA_CATEGORY);
-    }
-
-    rights.push(SelectContentFormRights.CATEGORIES);
-
-    if (this.mode === NodeTreeModes.MENU) {
-      rights.push(SelectContentFormRights.PRODUCTS);
-    } else {
-      rights.push(SelectContentFormRights.PRODUCTS);
-    }
-
-    rights.push(SelectContentFormRights.NODES);
-
-    return rights;
-  }
-
   private getNodeScenarioType(): NodeScenarioTypes {
     if (this.mode === NodeTreeModes.MENU) {
       switch (this.node.type) {
@@ -718,9 +736,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             return NodeScenarioTypes.PRODUCT_IN_SCHEMA;
           case NodeTypes.SELECTOR:
           case NodeTypes.SELECTOR_NODE:
-          case NodeTypes.PRODUCT_JOINT:
             return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
+          case NodeTypes.PRODUCT_JOINT:
+            return NodeScenarioTypes.PRODUCT;
         }
-      }
+      } else
+        if (this.mode === NodeTreeModes.SELECTOR) {
+          switch (this.node.type) {
+            case NodeTypes.PRODUCT:
+              return NodeScenarioTypes.PRODUCT_IN_SCHEMA;
+            case NodeTypes.SELECTOR_JOINT:
+              return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
+          }
+        }
   }
 }

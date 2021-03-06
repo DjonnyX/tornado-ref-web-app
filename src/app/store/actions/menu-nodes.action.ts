@@ -48,7 +48,7 @@ export namespace MenuNodesActions {
     // getAll
     export const getAllRequest = createAction(
         MenuNodesActionTypes.GET_ALL_REQUEST,
-        props<{id: string}>()
+        props<{id?: string}>()
     );
     export const getAllSuccess = createAction(
         MenuNodesActionTypes.GET_ALL_SUCCESS,

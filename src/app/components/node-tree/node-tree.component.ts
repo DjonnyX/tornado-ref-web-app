@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, View
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
 import {
   INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage,
-  IOrderType, IStore
+  IOrderType, IStore, SelectorTypes, NodeTypes
 } from '@djonnyx/tornado-types';
 import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
 import { ITabListItem } from '@components/tab-list/tab-list.component';
@@ -18,24 +18,22 @@ export class NodeTreeComponent implements OnInit {
 
   rootNode: INode;
 
-  nodesCollection: Array<INode>;
   nodesDictionary: ICollectionDictionary<INode>;
 
-  productsCollection: Array<IProduct>;
   productsDictionary: ICollectionDictionary<IProduct>;
 
-  selectorsCollection: Array<ISelector>;
   selectorsDictionary: ICollectionDictionary<ISelector>;
 
-  currenciesCollection: Array<ICurrency>;
   currenciesDictionary: ICollectionDictionary<ICurrency>;
 
+  _currencies: Array<ICurrency>;
   @Input() set currencies(v: Array<ICurrency>) {
-    if (this.currenciesCollection !== v) {
-      this.currenciesCollection = v;
+    if (this._currencies !== v) {
+      this._currencies = v;
       this.currenciesDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
+  get currencies() { return this._currencies; }
 
   storesCollection: Array<IStore>;
   storesDictionary: ICollectionDictionary<IStore>;
@@ -74,42 +72,90 @@ export class NodeTreeComponent implements OnInit {
       this.resetRootNode();
     }
   }
+  get rootNodeId() { return this._rootNodeId; }
 
+  private _menuRootNode: INode;
+
+  private _nodes: Array<INode>;
   @Input() set nodes(v: Array<INode>) {
-    if (this.nodesCollection !== v) {
-      this.nodesCollection = v;
+    if (this._nodes !== v) {
+      this._nodes = v;
       this.nodesDictionary = !!v ? getMapOfCollection(v, "id") : {};
-
+      this._menuRootNode = v.find(n => n.type === NodeTypes.KIOSK_ROOT);
+      this._groupMenuNodes = this.buildMenuNodes(this._menuRootNode);
       this.resetRootNode();
     }
   }
+  get nodes() { return this._nodes; }
 
+  private buildMenuNodes(node: INode): Array<INode> {
+    let result = [];
+    if (!!node) {
+      if (node.type === NodeTypes.SELECTOR) {
+        result.push(node);
+      }
+
+      if (!!node.children) {
+        node.children.forEach(c => {
+          const n = this.nodesDictionary[c];
+          if (!!n) {
+            result.push(...this.buildMenuNodes(n));
+          }
+        })
+      }
+    }
+    return result;
+  }
+
+  private _selectors: Array<ISelector>;
   @Input() set selectors(v: Array<ISelector>) {
-    if (this.selectorsCollection !== v) {
-      this.selectorsCollection = v;
+    if (this._selectors !== v) {
+      this._selectors = v;
+      this._menuGroupsSelectors = v.filter(s => s.type === SelectorTypes.MENU_CATEGORY);
+      this._modifiersGroupsSelectors = v.filter(s => s.type === SelectorTypes.SCHEMA_CATEGORY);
+
+      this.resetNodes();
+
       this.selectorsDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
+  get selectors() { return this._selectors; }
 
-  @Input() set products(v: Array<IProduct>) {
-    if (this.productsCollection !== v) {
-      this.productsCollection = v;
-      this.productsDictionary = !!v ? getMapOfCollection(v, "id") : {};
+  private _groupModifiersNodes: Array<INode>;
+  get groupModifiersNodes() { return this._groupModifiersNodes; }
+
+  private _groupMenuNodes: Array<INode>;
+  get groupMenuNodes() { return this._groupMenuNodes; }
+
+  private _menuGroupsSelectors: Array<ISelector>;
+  get menuGroupsSelectors() { return this._menuGroupsSelectors; }
+
+  private _modifiersGroupsSelectors: Array<ISelector>;
+  get modifiersGroupsSelectors() { return this._modifiersGroupsSelectors; }
+
+  private resetNodes() {
+    if (!!this.nodesDictionary && !!this._menuGroupsSelectors && !!this._modifiersGroupsSelectors) {
+      this._groupModifiersNodes = this._modifiersGroupsSelectors.map(s => this.nodesDictionary[s.joint]);
     }
   }
 
-  private _businessPeriods: Array<IBusinessPeriod>;
+  private _products: Array<IProduct>;
+  @Input() set products(v: Array<IProduct>) {
+    if (this._products !== v) {
+      this._products = v;
+      this.productsDictionary = !!v ? getMapOfCollection(v, "id") : {};
+    }
+  }
+  get products() { return this._products; }
 
+  private _businessPeriods: Array<IBusinessPeriod>;
   @Input() set businessPeriods(v: Array<IBusinessPeriod>) {
     if (this._businessPeriods !== v) {
       this._businessPeriods = v;
       this.businessPeriodsDictionary = !!v ? getMapOfCollection(v, "id") : {};
     }
   }
-
-  get businessPeriods() {
-    return this._businessPeriods;
-  }
+  get businessPeriods() { return this._businessPeriods; }
 
   businessPeriodsDictionary: ICollectionDictionary<IBusinessPeriod>;
 
@@ -205,10 +251,10 @@ export class NodeTreeComponent implements OnInit {
   }
 
   private resetRootNode(): void {
-    if (!this._rootNodeId || !this.nodesCollection) {
+    if (!this._rootNodeId || !this._nodes) {
       return;
     }
 
-    this.rootNode = this.nodesCollection.find(item => item.id === this._rootNodeId);
+    this.rootNode = this._nodes.find(item => item.id === this._rootNodeId);
   }
 }

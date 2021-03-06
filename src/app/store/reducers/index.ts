@@ -6,7 +6,6 @@ import adminReducer from './admin.reducer';
 import capabilitiesReducer from './capabilities.reducer';
 import productsReducer from './products.reducer';
 import productReducer from './product.reducer';
-import productNodesReducer from './product-nodes.reducer';
 import productAssetsReducer from './product-assets.reducer';
 import tagsReducer from './tags.reducer';
 import selectorsReducer from './selectors.reducer';
@@ -54,7 +53,6 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taCapabilities: capabilitiesReducer,
   taProducts: productsReducer,
   taProduct: productReducer,
-  taProductNodes: productNodesReducer,
   taProductAssets: productAssetsReducer,
   taTags: tagsReducer,
   taTag: tagReducer,

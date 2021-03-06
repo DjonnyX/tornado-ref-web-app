@@ -86,7 +86,7 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   }): IEntityContentsItem {
     return entity.contents[this.defaultLanguage.code];
   }
-  
+
   getName(entity: {
     contents: IEntityContents;
   }): string | undefined {
@@ -127,7 +127,8 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   }
 
   getNodeContent(node: INode): ISelector | null {
-    if (!!this.selectorsDictionary && node.type === NodeTypes.SELECTOR) {
+    if (!!this.selectorsDictionary && !!node.contentId
+      && (node.type === NodeTypes.SELECTOR || node.type === NodeTypes.SELECTOR_JOINT)) {
       return this.selectorsDictionary[node.contentId];
     }
 

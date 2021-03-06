@@ -1,11 +1,15 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
+import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
+import { SelectContentFormRights } from '@components/forms/select-content-form/enums/select-content-form-rights.enum';
+import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { ISelector, IProduct, INode, IEntity, NodeTypes, IAsset, ILanguage } from '@djonnyx/tornado-types';
 
 interface IDialogData {
   title: string;
   nodes: Array<INode>;
+  groupModifiersNodes: Array<INode>;
+  groupMenuNodes: Array<INode>;
   products: Array<IProduct>;
   selectors: Array<ISelector>;
   selectorsDictionary: { [id: string]: ISelector };
@@ -15,7 +19,8 @@ interface IDialogData {
   defaultCollection: NodeTypes;
   languages: Array<ILanguage>,
   defaultLanguage: ILanguage,
-  rights: Array<SelectContentFormRights>;
+  depth: number;
+  mode: NodeTreeModes | SelectContentFormModes;
 }
 
 @Component({
