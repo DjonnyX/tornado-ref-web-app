@@ -40,12 +40,12 @@ import { UserSelectors } from '@store/selectors';
 import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
-  TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue
+  TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
+  ILicense, ILicenseType, IRequestOptions
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
-import { ILicense, ILicenseType, IRequestOptions } from '@djonnyx/tornado-types';
 import { HttpParameterCodec } from "@angular/common/http";
 
 export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
@@ -581,7 +581,7 @@ export class ApiService {
   }
 
   // menu-nodes
-  public getNodes(id: string): Observable<IMenuNodesGetResponse> {
+  public getNodes(id?: string): Observable<IMenuNodesGetResponse> {
     return this._http
       .get<IMenuNodesGetResponse>(!!id ? `api/v1/nodes/${id}` : "api/v1/nodes", {
         headers: {

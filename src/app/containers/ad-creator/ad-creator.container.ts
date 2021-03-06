@@ -63,7 +63,7 @@ export class AdCreatorContainer extends BaseComponent implements OnInit, OnDestr
     this._adId = this._activatedRoute.snapshot.queryParams["id"];
     this._adId$.next(this._adId);
 
-    this._adType = this._activatedRoute.snapshot.queryParams["type"];
+    this._adType = this._activatedRoute.snapshot.data["type"];
     this._pagePath = this._activatedRoute.snapshot.data["path"];
 
     this.isEditMode = !!this._adId;

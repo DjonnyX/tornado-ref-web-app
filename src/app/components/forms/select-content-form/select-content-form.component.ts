@@ -1,28 +1,50 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, ViewChild } from '@angular/core';
-import { SelectContentFormRights } from './enums/select-content-form-modes.enum';
+import { SelectContentFormRights } from './enums/select-content-form-rights.enum';
 import { MatTabGroup } from '@angular/material/tabs';
 import { Subject } from 'rxjs';
-import { ISelector, IProduct, INode, IEntity, NodeTypes, SelectorTypes, IAsset, ILanguage } from '@djonnyx/tornado-types';
+import {
+  ISelector, IProduct, INode, IEntity, NodeTypes, SelectorTypes, IAsset,
+  ILanguage
+} from '@djonnyx/tornado-types';
+import { SelectContentFormModes } from './enums/select-content-form-modes.enum';
 
-export const getTabsCollectionByRights = (rights: Array<SelectContentFormRights>): Array<NodeTypes | SelectorTypes> => {
+const getRightsByMode = (mode: SelectContentFormModes, depth: number): Array<SelectContentFormRights> => {
+  const result = new Array<SelectContentFormRights>();
+  if (mode === SelectContentFormModes.MENU) {
+    result.push(SelectContentFormRights.CATEGORIES);
+    result.push(SelectContentFormRights.PRODUCTS);
+    result.push(SelectContentFormRights.NODES);
+  } else if (mode === SelectContentFormModes.GROUP_MODIFIERS) {
+    result.push(SelectContentFormRights.PRODUCTS);
+  } else if (mode === SelectContentFormModes.SCHEMA_MODIFIERS) {
+    if (depth === 0) {
+      result.push(SelectContentFormRights.SCHEMA_CATEGORY);
+      result.push(SelectContentFormRights.NODES);
+    } else if (depth === 1) {
+      result.push(SelectContentFormRights.PRODUCTS);
+    }
+  }
+
+  return result;
+}
+
+const getTabsCollectionByMode = (mode: SelectContentFormModes, depth: number): Array<NodeTypes | SelectorTypes> => {
   const result = new Array<NodeTypes | SelectorTypes>();
 
-  rights.filter(right => {
-    switch (right) {
-      case SelectContentFormRights.CATEGORIES:
-        result.push(SelectorTypes.MENU_CATEGORY);
-        break;
-      case SelectContentFormRights.SCHEMA_CATEGORY:
-        result.push(SelectorTypes.SCHEMA_CATEGORY);
-        break;
-      case SelectContentFormRights.NODES:
-        result.push(NodeTypes.SELECTOR_NODE);
-        break;
-      case SelectContentFormRights.PRODUCTS:
-        result.push(NodeTypes.PRODUCT);
-        break;
+  if (mode === SelectContentFormModes.MENU) {
+    result.push(SelectorTypes.MENU_CATEGORY);
+    result.push(NodeTypes.SELECTOR_NODE);
+    result.push(NodeTypes.PRODUCT);
+  } else if (mode === SelectContentFormModes.GROUP_MODIFIERS) {
+    result.push(NodeTypes.PRODUCT);
+  } else if (mode === SelectContentFormModes.SCHEMA_MODIFIERS) {
+    if (depth === 0) {
+      result.push(SelectorTypes.SCHEMA_CATEGORY);
+      result.push(NodeTypes.SELECTOR_NODE);
+    } else if (depth === 1) {
+      result.push(NodeTypes.PRODUCT);
     }
-  });
+  }
 
   return result;
 }
@@ -51,25 +73,55 @@ export class SelectContentFormComponent implements OnInit {
   private _contentNodesBinder$ = new Subject<void>();
   contentNodesBinder$ = this._contentNodesBinder$.asObservable();
 
+  private _contentModifierNodesBinder$ = new Subject<void>();
+  contentModifierNodesBinder$ = this._contentModifierNodesBinder$.asObservable();
+
   private _tabsCollection: Array<NodeTypes | SelectorTypes>;
 
   private _rights: Array<SelectContentFormRights>;
-
-  @Input() set rights(v: Array<SelectContentFormRights>) {
-    if (this._rights !== v) {
-      this._rights = v;
-
-      this._tabsCollection = getTabsCollectionByRights(this._rights);
-  
-      this.updateSelectedIndex();
-    }
-  }
-
   get rights() {
     return this._rights;
   }
 
+  private _depth: number;
+  @Input() set depth(v: number) {
+    if (this._depth !== v) {
+      this._depth = v;
+
+      if (this._mode !== undefined) {
+        this._tabsCollection = getTabsCollectionByMode(this._mode, this._depth);
+        this._rights = getRightsByMode(this._mode, this._depth);
+
+        this.updateSelectedIndex();
+      }
+    }
+  }
+  get depth() {
+    return this._depth;
+  }
+
+  private _mode: SelectContentFormModes;
+  @Input() set mode(v: SelectContentFormModes) {
+    if (this._mode !== v) {
+      this._mode = v;
+
+      if (this._depth !== undefined) {
+        this._tabsCollection = getTabsCollectionByMode(this._mode, this._depth);
+        this._rights = getRightsByMode(this._mode, this._depth);
+
+        this.updateSelectedIndex();
+      }
+    }
+  }
+  get mode() {
+    return this._mode;
+  }
+
   @Input() nodes: Array<INode>;
+
+  @Input() groupModifiersNodes: Array<INode>;
+
+  @Input() groupMenuNodes: Array<INode>;
 
   @Input() products: Array<IProduct>;
 
@@ -106,6 +158,7 @@ export class SelectContentFormComponent implements OnInit {
     this._contentSchemaSelectorsBinder$.next();
     this._contentProductsBinder$.next();
     this._contentNodesBinder$.next();
+    this._contentModifierNodesBinder$.next();
   }
 
   onChange(content: IEntity): void {
@@ -117,7 +170,7 @@ export class SelectContentFormComponent implements OnInit {
   }
 
   private updateSelectedIndex(): void {
-    if (this._tabGroup) {
+    if (!!this._tabGroup && !!this._tabsCollection) {
       this._tabGroup.selectedIndex = this._tabsCollection.indexOf(this._defaultCollection);
     }
   }

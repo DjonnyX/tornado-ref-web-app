@@ -2,7 +2,10 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
-import { SelectorsSelectors, SelectorAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
+import {
+  SelectorsSelectors, SelectorAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors, TagsSelectors,
+  MenuNodesSelectors, ProductsSelectors, CurrenciesSelectors, OrderTypesSelectors, StoresSelectors
+} from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -11,12 +14,21 @@ import { SelectorsActions } from '@store/actions/selectors.action';
 import { SelectorAssetsActions } from '@store/actions/selector-assets.action';
 import { SelectorSelectors } from '@store/selectors/selector.selectors';
 import { SelectorActions } from '@store/actions/selector.action';
-import { ISelector, SelectorResourceTypes, ILanguage, ISelectorContents, SelectorTypes } from '@djonnyx/tornado-types';
+import {
+  ISelector, SelectorResourceTypes, ILanguage, IBusinessPeriod, IStore, INode, IProduct, IOrderType, ITag,
+  ICurrency,
+  SelectorTypes
+} from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
-import { deepMergeObjects } from '@app/utils/object.util';
-import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
+import { MenuNodesActions } from '@store/actions/menu-nodes.action';
+import { ProductsActions } from '@store/actions/products.action';
+import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
+import { TagsActions } from '@store/actions/tags.action';
+import { CurrenciesActions } from '@store/actions/currencies.action';
+import { StoresActions } from '@store/actions/stores.action';
+import { OrderTypesActions } from '@store/actions/order-types.action';
 
 @Component({
   selector: 'ta-selector-creator',
@@ -26,21 +38,41 @@ import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.
 })
 export class SelectorCreatorContainer extends BaseComponent implements OnInit, OnDestroy {
 
+  readonly SelectorTypes = SelectorTypes;
+
+  readonly selectors = new Array<ISelector>();
+
   isProcess$: Observable<boolean>;
 
   isProcessMainOptions$: Observable<boolean>;
 
+  isProcessHierarchy$: Observable<boolean>;
+
   isProcessAssets$: Observable<boolean>;
 
-  selector$: Observable<ISelector>;
+  rootNodeId$: Observable<string>;
 
-  selectors$: Observable<Array<ISelector>>;
+  selector$: Observable<ISelector>;
 
   selectorAssets$: Observable<Array<IAsset>>;
 
   gallerySelectorAssets$: Observable<{ [lang: string]: Array<IAsset> }>;
 
   assets$: Observable<Array<IAsset>>;
+
+  businessPeriods$: Observable<Array<IBusinessPeriod>>;
+
+  stores$: Observable<Array<IStore>>;
+
+  nodes$: Observable<Array<INode>>;
+
+  products$: Observable<Array<IProduct>>;
+
+  orderTypes$: Observable<Array<IOrderType>>;
+
+  tags$: Observable<Array<ITag>>;
+
+  currencies$: Observable<Array<ICurrency>>;
 
   languages$: Observable<Array<ILanguage>>;
 
@@ -56,6 +88,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   readonly selectorId$ = this._selectorId$.asObservable();
 
   private _selectorType: string;
+  get selectorType() { return this._selectorType; }
 
   private _defaultLanguage: ILanguage;
 
@@ -69,7 +102,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._selectorId = this._activatedRoute.snapshot.queryParams["id"];
     this._selectorId$.next(this._selectorId);
 
-    this._selectorType = this._activatedRoute.snapshot.queryParams["type"];
+    this._selectorType = this._activatedRoute.snapshot.data["type"];
     this._pagePath = this._activatedRoute.snapshot.data["path"];
 
     this.isEditMode = !!this._selectorId;
@@ -87,9 +120,36 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(TagsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(MenuNodesSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(ProductsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(BusinessPeriodsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(CurrenciesSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(OrderTypesSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(StoresSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isGetSelectorProcess, isSelectorsProcess, isAssetsProcess, isLanguagesProcess]) =>
-        isGetSelectorProcess || isSelectorsProcess || isAssetsProcess || isLanguagesProcess),
+      map(([isGetSelectorProcess, isSelectorsProcess, isAssetsProcess, isLanguagesProcess,
+        isTagsProcess, isMenuNodesProcess, isProductsProcess,
+        isBusinessPeriodsProcess, isCurrenciesProcess, isOrderTypesProcess,
+        isStoresProcess]) =>
+        isGetSelectorProcess || isSelectorsProcess || isAssetsProcess || isLanguagesProcess ||
+        isTagsProcess || isMenuNodesProcess || isProductsProcess ||
+        isBusinessPeriodsProcess || isCurrenciesProcess || isOrderTypesProcess ||
+        isStoresProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest([
@@ -102,6 +162,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     ]).pipe(
       map(([isCreateProcess, isUpdateProcess]) =>
         isCreateProcess || isUpdateProcess),
+    );
+
+    this.isProcessHierarchy$ = this._store.pipe(
+      select(MenuNodesSelectors.selectLoading),
     );
 
     this.isProcessAssets$ = combineLatest([
@@ -118,8 +182,32 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       map(([isGetProcess, isUpdateProcess, isDeleteProcess]) => isGetProcess || isUpdateProcess || isDeleteProcess),
     );
 
-    this.selectors$ = this._store.pipe(
-      select(SelectorsSelectors.selectCollection),
+    this.tags$ = this._store.pipe(
+      select(TagsSelectors.selectCollection),
+    );
+
+    this.currencies$ = this._store.pipe(
+      select(CurrenciesSelectors.selectCollection),
+    );
+
+    this.nodes$ = this._store.pipe(
+      select(MenuNodesSelectors.selectCollection),
+    );
+
+    this.products$ = this._store.pipe(
+      select(ProductsSelectors.selectCollection),
+    );
+
+    this.businessPeriods$ = this._store.pipe(
+      select(BusinessPeriodsSelectors.selectCollection),
+    );
+
+    this.stores$ = this._store.pipe(
+      select(StoresSelectors.selectCollection),
+    );
+
+    this.orderTypes$ = this._store.pipe(
+      select(OrderTypesSelectors.selectCollection),
     );
 
     this.languages$ = this._store.pipe(
@@ -220,37 +308,109 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       }),
     );
 
+    this.rootNodeId$ = this.selector$.pipe(
+      filter(selector => !!selector.joint),
+      map(selector => selector.joint),
+    );
+
+    this.rootNodeId$.pipe(
+      takeUntil(this.unsubscribe$),
+      filter(rootNodeId => !!rootNodeId),
+    ).subscribe(rootNodeId => {
+      // запрос дерева нодов по привязочному ноду
+      this._store.dispatch(MenuNodesActions.getAllRequest({ id: rootNodeId }));
+      this._store.dispatch(SelectorAssetsActions.getAllRequest({ selectorId: this._selectorId }));
+
+      // для изменения параметров маршрута
+      this._router.navigate([], {
+        relativeTo: this._activatedRoute,
+        queryParams: {
+          id: this._selectorId,
+        }
+      });
+    });
+
     if (!!this._selectorId) {
       this._store.dispatch(SelectorActions.getRequest({ id: this._selectorId }));
     }
 
     this._store.dispatch(LanguagesActions.getAllRequest({}));
-    this._store.dispatch(SelectorsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
-    // this._store.dispatch(TagsActions.getAllRequest());
 
-    const prepareMainRequests$ = combineLatest([
-      this.selectors$,
-      this.languages$,
-      this.defaultLanguage$,
-      this.assets$,
-    ]).pipe(
-      map(([selectors, languages, defaultLanguage, assets]) =>
-        !!selectors && !!languages && !!defaultLanguage && !!assets),
-    );
+    if (this._selectorType === SelectorTypes.SCHEMA_CATEGORY) {
+      this._store.dispatch(SelectorsActions.getAllRequest({}));
+      this._store.dispatch(ProductsActions.getAllRequest({}));
+      this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
+      this._store.dispatch(TagsActions.getAllRequest({}));
+      this._store.dispatch(CurrenciesActions.getAllRequest({}));
+      this._store.dispatch(StoresActions.getAllRequest({}));
+      this._store.dispatch(OrderTypesActions.getAllRequest({}));
 
-    this.isPrepareToConfigure$ = this.selectorId$.pipe(
-      switchMap(id => {
-        return !!id ? combineLatest([
-          prepareMainRequests$,
-          this.selector$,
-          this.selectorAssets$,
+      this.isPrepareToConfigure$ = this.selectorId$.pipe(
+        switchMap(id => {
+          return !!id ? combineLatest([
+            prepareMainRequests$,
+            this.selector$,
+            this.selectorAssets$,
+          ]).pipe(
+            map(([prepareMainRequests, selector, selectorAssets]) =>
+              !!prepareMainRequests && !!selector && !!selectorAssets),
+          ) : prepareMainRequests$;
+        })
+      );
+      const prepareMainRequests$ = combineLatest([
+        this.tags$,
+        this.currencies$,
+        this.products$,
+        this.businessPeriods$,
+        this.languages$,
+        this.defaultLanguage$,
+        this.orderTypes$,
+        this.assets$,
+        this.stores$,
+        this.nodes$,
+      ]).pipe(
+        map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, nodes,]) =>
+          !!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
+          !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes),
+      );
+
+      this.isPrepareToConfigure$ = this.selectorId$.pipe(
+        switchMap(id => {
+          return !!id ? combineLatest([
+            prepareMainRequests$,
+            this.selector$,
+            this.selectorAssets$,
+          ]).pipe(
+            map(([prepareMainRequests, selector, selectorAssets]) =>
+              !!prepareMainRequests && !!selector && !!selectorAssets),
+          ) : prepareMainRequests$;
+        })
+      );
+    } else
+      if (this._selectorType === SelectorTypes.MENU_CATEGORY) {
+        const prepareMainRequests$ = combineLatest([
+          this.languages$,
+          this.defaultLanguage$,
+          this.assets$,
         ]).pipe(
-          map(([prepareMainRequests, selector, selectorAssets]) =>
-            !!prepareMainRequests && !!selector && !!selectorAssets),
-        ) : prepareMainRequests$;
-      })
-    );
+          map(([languages, defaultLanguage, assets]) =>
+            !!languages && !!defaultLanguage && !!assets),
+        );
+
+        this.isPrepareToConfigure$ = this.selectorId$.pipe(
+          switchMap(id => {
+            return !!id ? combineLatest([
+              prepareMainRequests$,
+              this.selector$,
+              this.selectorAssets$,
+            ]).pipe(
+              map(([prepareMainRequests, selector, selectorAssets]) =>
+                !!prepareMainRequests && !!selector && !!selectorAssets),
+            ) : prepareMainRequests$;
+          })
+        );
+      }
   }
 
   ngOnDestroy(): void {
@@ -261,6 +421,16 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SelectorAssetsActions.clear());
     this._store.dispatch(AssetsActions.clear());
     this._store.dispatch(LanguagesActions.clear());
+
+    if (this._selectorType === SelectorTypes.SCHEMA_CATEGORY) {
+      this._store.dispatch(ProductsActions.clear());
+      this._store.dispatch(BusinessPeriodsActions.clear());
+      this._store.dispatch(TagsActions.clear());
+      this._store.dispatch(CurrenciesActions.clear());
+      this._store.dispatch(StoresActions.clear());
+      this._store.dispatch(OrderTypesActions.clear());
+      this._store.dispatch(MenuNodesActions.clear());
+    }
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {
@@ -269,6 +439,18 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   onIconResourceUpload(data: IFileUploadEvent): void {
     this._store.dispatch(SelectorAssetsActions.uploadResourceRequest({ selectorId: this._selectorId, resourcesType: SelectorResourceTypes.ICON, data }));
+  }
+
+  onCreateHierarchyNode(node: INode): void {
+    this._store.dispatch(MenuNodesActions.createRequest({ node }));
+  }
+
+  onUpdateHierarchyNode(node: INode): void {
+    this._store.dispatch(MenuNodesActions.updateRequest({ id: node.id, node }));
+  }
+
+  onDeleteHierarchyNode(node: INode): void {
+    this._store.dispatch(MenuNodesActions.deleteRequest({ id: node.id }));
   }
 
   onMainOptionsSave(selector: ISelector): void {
