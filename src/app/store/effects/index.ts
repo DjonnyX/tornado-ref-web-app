@@ -1,7 +1,6 @@
 import UserEffects from './user.effects';
 import AdminEffects from './admin.effects';
 import ProductsEffects from './products.effects';
-import ProductNodesEffects from './product-nodes.effects';
 import ProductAssetsEffects from './product-assets.effects';
 import SelectorsEffects from './selectors.effects';
 import SelectorEffects from './selector.effects';
@@ -50,7 +49,6 @@ const rootEffects = [
   MenuNodesEffects,
   ProductsEffects,
   ProductEffects,
-  ProductNodesEffects,
   ProductAssetsEffects,
   SelectorsEffects,
   SelectorEffects,

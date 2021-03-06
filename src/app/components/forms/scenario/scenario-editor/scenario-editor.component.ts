@@ -28,7 +28,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   private scenariosDictionary: ICollectionDictionary<IScenario>;
 
   @Input() set scenarios(v: Array<IScenario>) {
-    if (v) {
+    if (this._scenarios !== v) {
       this._scenarios = v;
       this.scenariosDictionary = !!v ? getMapOfCollection(v, "action") : {};
     }

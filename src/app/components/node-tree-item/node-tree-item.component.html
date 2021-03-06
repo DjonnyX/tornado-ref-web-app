@@ -13,14 +13,13 @@
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
-                    <div *ngIf="!isRoot" class="content__checkbox-active">
+                    <div *ngIf="!isRoot && !lock" class="content__checkbox-active">
                         <mat-checkbox color="accent" #checkboxActive [checked]="node.active"
                             (click)="onToggleActive($event)"></mat-checkbox>
                     </div>
                 </span>
                 <ng-container *ngIf="!isRoot; else root">
-                    <span class="content__name" [class.active]="isSearchMatch"
-                        (click)="!lock ? onSetContent($event) : undefined">
+                    <span class="content__name" [class.active]="isSearchMatch" (click)="onSetContent($event)">
                         <img class="content__thumbnail" *ngIf="!!getThumbnail()" [src]="getThumbnail()">
                         <div class="content__text">
                             {{getContentName() || "Контент недоступен"}}
@@ -29,50 +28,56 @@
                 </ng-container>
                 <ng-template #root>
                     <span>
-                        Корень
+                        {{getRootName()}}
                     </span>
                 </ng-template>
-                <span *ngIf="!isRoot && !lock">
+                <span *ngIf="!lock">
                     <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
                         <mat-icon class="icon">more_vert</mat-icon>
                     </button>
                     <mat-menu #menu="matMenu">
-                        <button mat-menu-item type="button" (click)="onToggleActive()">
-                            <mat-icon>
-                                {{!!nodeInstance ? nodeInstance.active : node.active ? 'visibility_off' : 'visibility'}}
-                            </mat-icon>
-                            <span>{{!!nodeInstance ? nodeInstance.active : node.active ? 'Деактивировать' :
-                                'Активировать'}}</span>
-                        </button>
-                        <button mat-menu-item (click)="onNavigateToContent()">
-                            <mat-icon>arrow_forward</mat-icon>
-                            <span>Перейти к "{{getContentName()}}"</span>
-                        </button>
-                        <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
-                            <mat-icon>arrow_upward</mat-icon>
-                            <span>Вверх</span>
-                        </button>
-                        <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
-                            <mat-icon>arrow_downward</mat-icon>
-                            <span>Вниз</span>
-                        </button>
-                        <button mat-menu-item (click)="onSetContent()">
-                            <mat-icon>edit</mat-icon>
-                            <span>Редактировать</span>
-                        </button>
-                        <button mat-menu-item (click)="onAddScenario()">
+                        <ng-container *ngIf="!isRoot">
+                            <button *ngIf="node.type !== NodeTypes.SELECTOR_NODE" mat-menu-item type="button"
+                                (click)="onToggleActive()">
+                                <mat-icon>
+                                    {{(!!nodeInstance && nodeInstance.active) || node.active ? 'visibility_off' :
+                                    'visibility'}}
+                                </mat-icon>
+                                <span>{{(!!nodeInstance && nodeInstance.active) || node.active ? 'Деактивировать' :
+                                    'Активировать'}}</span>
+                            </button>
+                            <button mat-menu-item (click)="onNavigateToContent()">
+                                <mat-icon>arrow_forward</mat-icon>
+                                <span>Перейти к "{{getContentName()}}"</span>
+                            </button>
+                            <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
+                                <mat-icon>arrow_upward</mat-icon>
+                                <span>Вверх</span>
+                            </button>
+                            <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
+                                <mat-icon>arrow_downward</mat-icon>
+                                <span>Вниз</span>
+                            </button>
+                            <button mat-menu-item (click)="onSetContent()">
+                                <mat-icon>edit</mat-icon>
+                                <span>Редактировать</span>
+                            </button>
+                        </ng-container>
+                        <button *ngIf="node.type !== NodeTypes.SELECTOR_NODE" mat-menu-item (click)="onAddScenario()">
                             <mat-icon>linear_scale</mat-icon>
                             <span>Добавить сценарий</span>
                         </button>
-                        <button mat-menu-item (click)="onDelete()">
-                            <mat-icon>delete_forever</mat-icon>
-                            <span>Удалить</span>
-                        </button>
+                        <ng-container *ngIf="!isRoot">
+                            <button mat-menu-item (click)="onDelete()">
+                                <mat-icon>delete_forever</mat-icon>
+                                <span>Удалить</span>
+                            </button>
+                        </ng-container>
                     </mat-menu>
                 </span>
             </div>
         </div>
-        <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceScenarios">
+        <ng-container *ngIf="node.type !== NodeTypes.SELECTOR_NODE; else renderInstanceScenarios">
             <div class="node-tree-scenario-editor" *ngIf="!!node.scenarios && node.scenarios.length > 0">
                 <ta-scenario-list [scenarios]="node.scenarios" [businessPeriods]="businessPeriods"
                     [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
@@ -101,13 +106,15 @@
             </div>
         </ng-template>
         <div class="node-tree-item-way" [style]="{'display': isExpanded || isSearchExpanded ? 'block' : 'none'}">
-            <ng-container *ngIf="node.type !== 'selector-node'; else renderInstanceNode">
-                <ta-node-tree-item *ngFor="let childId of node.children; let index = index" [depth]="depth + 1"
+            <ng-container *ngIf="node.type !== NodeTypes.SELECTOR_NODE; else renderInstanceNode">
+                <ta-node-tree-item *ngFor="let childId of node.children; let index = index" [depth]="(depth + 1)"
                     [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)" [currentIndex]="index"
                     [parentChildrenLength]="node.children.length" [isInstanceChain]="isInstanceChain" [lock]="lock"
-                    [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary" [products]="products"
-                    [selectors]="selectors" [businessPeriods]="businessPeriods" [currencies]="currencies"
-                    [currenciesDictionary]="currenciesDictionary"
+                    [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary"
+                    [groupModifiersNodes]="groupModifiersNodes" [groupMenuNodes]="groupMenuNodes" [products]="products"
+                    [selectors]="selectors" [menuGroupsSelectors]="menuGroupsSelectors"
+                    [modifiersGroupsSelectors]="modifiersGroupsSelectors" [businessPeriods]="businessPeriods"
+                    [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
                     [businessPeriodsDictionary]="businessPeriodsDictionary" [productsDictionary]="productsDictionary"
                     [selectorsDictionary]="selectorsDictionary" [assetsDictionary]="assetsDictionary"
                     [searchPattern]="searchPattern" [mode]="mode" [defaultLanguage]="defaultLanguage"
@@ -122,19 +129,21 @@
                     <ta-node-tree-item *ngFor="let childId of nodeInstance.children; let index = index"
                         [isInstanceChain]="true" [currentIndex]="index"
                         [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)"
-                        [parentChildrenLength]="nodeInstance.children.length" [depth]="depth + 1" [lock]="true"
-                        [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary" [products]="products"
-                        [selectors]="selectors" [businessPeriods]="businessPeriods" [currencies]="currencies"
-                        [currenciesDictionary]="currenciesDictionary"
+                        [parentChildrenLength]="nodeInstance.children.length" [depth]="(depth + 1)" [lock]="true"
+                        [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary"
+                        [groupModifiersNodes]="groupModifiersNodes" [groupMenuNodes]="groupMenuNodes"
+                        [products]="products" [selectors]="selectors" [menuGroupsSelectors]="menuGroupsSelectors"
+                        [modifiersGroupsSelectors]="modifiersGroupsSelectors" [businessPeriods]="businessPeriods"
+                        [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
                         [businessPeriodsDictionary]="businessPeriodsDictionary"
                         [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
                         [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
                         [defaultLanguage]="defaultLanguage" [languages]="languages"
                         [languagesDictionary]="languagesDictionary" [orderTypes]="orderTypes"
-                        [orderTypesDictionary]="orderTypesDictionary" [stores]="stores" [currentStoreId]="currentStoreId"
-                        [storesDictionary]="storesDictionary" (create)="createNodeForChild($event)"
-                        (update)="updateNodeForChild($event)" (delete)="deleteNodeForChild($event)"
-                        (searchExpand)="onSearchExpand($event)">
+                        [orderTypesDictionary]="orderTypesDictionary" [stores]="stores"
+                        [currentStoreId]="currentStoreId" [storesDictionary]="storesDictionary"
+                        (create)="createNodeForChild($event)" (update)="updateNodeForChild($event)"
+                        (delete)="deleteNodeForChild($event)" (searchExpand)="onSearchExpand($event)">
                     </ta-node-tree-item>
                 </ng-container>
             </ng-template>

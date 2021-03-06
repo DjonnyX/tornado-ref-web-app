@@ -4,7 +4,6 @@ import { ICapabilitiesState } from './capabilities.state';
 import { IProductsState } from './products.state';
 import { IProductState } from './product.state';
 import { IProductAssetsState } from './product-assets.state';
-import { IProductNodesState } from './product-nodes.state';
 import { ITagsState } from './tags.state';
 import { ISelectorsState } from './selectors.state';
 import { IMenuNodesState } from './menu-nodes.state';
@@ -51,7 +50,6 @@ export interface IAppState {
     taCapabilities: ICapabilitiesState;
     taProducts: IProductsState;
     taProduct: IProductState;
-    taProductNodes: IProductNodesState,
     taProductAssets: IProductAssetsState,
     taTags: ITagsState;
     taTag: ITagState;

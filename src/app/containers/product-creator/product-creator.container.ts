@@ -4,8 +4,8 @@ import { IAppState } from '@store/state';
 import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import {
-  ProductsSelectors, ProductNodesSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors,
-  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors
+  ProductsSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors,
+  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors, MenuNodesSelectors
 } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
@@ -13,7 +13,6 @@ import { BaseComponent } from '@components/base/base-component';
 import { IAsset, IFileUploadEvent } from '@models';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagsActions } from '@store/actions/tags.action';
-import { ProductNodesActions } from '@store/actions/product-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { ProductAssetsActions } from '@store/actions/product-assets.action';
 import { ProductSelectors } from '@store/selectors/product.selectors';
@@ -31,6 +30,7 @@ import { IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.util';
 import { StoresActions } from '@store/actions/stores.action';
 import { OrderTypesActions } from '@store/actions/order-types.action';
+import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -107,7 +107,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(TagsSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(ProductNodesSelectors.selectIsGetProcess),
+        select(MenuNodesSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
         select(SelectorsSelectors.selectIsGetProcess),
@@ -134,10 +134,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(StoresSelectors.selectIsGetProcess),
       ),
     ]).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetProductNodesProcess, isSelectorsProcess,
+      map(([isGetProductProcess, isGetTagsProcess, isGetNodesProcess, isSelectorsProcess,
         isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess,
         isLanguagesProcess, isOrderTypesProcess, isStoresGetProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetProductNodesProcess || isSelectorsProcess
+        isGetProductProcess || isGetTagsProcess || isGetNodesProcess || isSelectorsProcess
         || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess
         || isLanguagesProcess || isOrderTypesProcess || isStoresGetProcess),
     );
@@ -155,7 +155,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     );
 
     this.isProcessHierarchy$ = this._store.pipe(
-      select(ProductNodesSelectors.selectLoading),
+      select(MenuNodesSelectors.selectLoading),
     );
 
     this.isProcessAssets$ = combineLatest([
@@ -182,7 +182,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     );
 
     this.nodes$ = this._store.pipe(
-      select(ProductNodesSelectors.selectCollection),
+      select(MenuNodesSelectors.selectCollection),
     );
 
     this.selectors$ = this._store.pipe(
@@ -301,7 +301,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       filter(rootNodeId => !!rootNodeId),
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
-      this._store.dispatch(ProductNodesActions.getAllRequest({ id: rootNodeId }));
+      this._store.dispatch(MenuNodesActions.getAllRequest({}));
       this._store.dispatch(ProductAssetsActions.getAllRequest({ productId: this._productId }));
 
       // для изменения параметров маршрута
@@ -364,6 +364,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductActions.clear());
     this._store.dispatch(ProductsActions.clear());
     this._store.dispatch(ProductAssetsActions.clear());
+    this._store.dispatch(MenuNodesActions.clear());
     this._store.dispatch(SelectorsActions.clear());
     this._store.dispatch(BusinessPeriodsActions.clear());
     this._store.dispatch(AssetsActions.clear());
@@ -393,15 +394,15 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   }
 
   onCreateHierarchyNode(node: INode): void {
-    this._store.dispatch(ProductNodesActions.createRequest({ node }));
+    this._store.dispatch(MenuNodesActions.createRequest({ node }));
   }
 
   onUpdateHierarchyNode(node: INode): void {
-    this._store.dispatch(ProductNodesActions.updateRequest({ id: node.id, node }));
+    this._store.dispatch(MenuNodesActions.updateRequest({ id: node.id, node }));
   }
 
   onDeleteHierarchyNode(node: INode): void {
-    this._store.dispatch(ProductNodesActions.deleteRequest({ id: node.id }));
+    this._store.dispatch(MenuNodesActions.deleteRequest({ id: node.id }));
   }
 
   onMainOptionsSave(product: IProduct): void {
