@@ -641,18 +641,48 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   onDeleteScenarios(): void {
-    this.update.emit({ ...this.node, scenarios: [] });
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Удалить все сценарии?",
+          message: "Сценарии будут безвозвратно удалены.",
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        this.update.emit({ ...this.node, scenarios: [] });
+      }
+    });
   }
 
   onDeleteScenario(scenario: IScenario): void {
-    const scenarios = [...this.node.scenarios];
-    const index = scenarios.indexOf(scenario);
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Удалить сценарий?",
+          message: "Сценарий будет безвозвратно удален.",
+        },
+      });
 
-    if (index > -1) {
-      scenarios.splice(index, 1);
-    }
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        const scenarios = [...this.node.scenarios];
+        const index = scenarios.indexOf(scenario);
 
-    this.update.emit({ ...this.node, scenarios });
+        if (index > -1) {
+          scenarios.splice(index, 1);
+        }
+
+        this.update.emit({ ...this.node, scenarios });
+      }
+    });
   }
 
   onUpdateScenario(scenarios: Array<IScenario>): void {
