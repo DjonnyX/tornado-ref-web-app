@@ -3,4 +3,5 @@ export enum SelectContentFormRights {
     CATEGORIES,
     PRODUCTS,
     NODES,
+    MODIFIERS_NODES,
 }

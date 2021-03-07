@@ -18,8 +18,9 @@ const getRightsByMode = (mode: SelectContentFormModes, depth: number): Array<Sel
     result.push(SelectContentFormRights.PRODUCTS);
   } else if (mode === SelectContentFormModes.SCHEMA_MODIFIERS) {
     if (depth === 0) {
-      result.push(SelectContentFormRights.SCHEMA_CATEGORY);
+      result.push(SelectContentFormRights.MODIFIERS_NODES);
       result.push(SelectContentFormRights.NODES);
+      result.push(SelectContentFormRights.SCHEMA_CATEGORY);
     } else if (depth === 1) {
       result.push(SelectContentFormRights.PRODUCTS);
     }
@@ -33,14 +34,15 @@ const getTabsCollectionByMode = (mode: SelectContentFormModes, depth: number): A
 
   if (mode === SelectContentFormModes.MENU) {
     result.push(SelectorTypes.MENU_CATEGORY);
-    result.push(NodeTypes.SELECTOR_NODE);
     result.push(NodeTypes.PRODUCT);
+    result.push(NodeTypes.SELECTOR_NODE);
   } else if (mode === SelectContentFormModes.GROUP_MODIFIERS) {
     result.push(NodeTypes.PRODUCT);
   } else if (mode === SelectContentFormModes.SCHEMA_MODIFIERS) {
     if (depth === 0) {
-      result.push(SelectorTypes.SCHEMA_CATEGORY);
+      result.push(NodeTypes.SELECTOR_JOINT);
       result.push(NodeTypes.SELECTOR_NODE);
+      result.push(SelectorTypes.SCHEMA_CATEGORY);
     } else if (depth === 1) {
       result.push(NodeTypes.PRODUCT);
     }
@@ -171,7 +173,12 @@ export class SelectContentFormComponent implements OnInit {
 
   private updateSelectedIndex(): void {
     if (!!this._tabGroup && !!this._tabsCollection) {
-      this._tabGroup.selectedIndex = this._tabsCollection.indexOf(this._defaultCollection);
+      const index = this._tabsCollection.indexOf(this._defaultCollection);
+
+      if (index > -1) {
+        // показывается только таб текущего контента
+        this._rights = [this._rights[index]];
+      }
     }
   }
 }

@@ -1,33 +1,47 @@
 <mat-tab-group (selectedIndexChange)="onChangeTab($event)" #tabGroup>
-  <mat-tab label="Группы модификаторов (экземпляры)" *ngIf="hasAllow(SelectContentFormRights.NODES)">
-    <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentModifierNodesBinder$"
-      [collection]="groupModifiersNodes" [assetsDictionary]="assetsDictionary" [selectors]="selectors"
-      [selectorsDictionary]="selectorsDictionary" [languages]="languages" [defaultLanguage]="defaultLanguage"
-      type="selector-node" (change)="onChange($event)">
-    </ta-node-list>
-  </mat-tab>
-  <mat-tab label="Группы меню (экземпляры)" *ngIf="hasAllow(SelectContentFormRights.NODES)">
-    <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentNodesBinder$"
-      [collection]="groupMenuNodes" [assetsDictionary]="assetsDictionary" [selectors]="selectors"
-      [selectorsDictionary]="selectorsDictionary" [languages]="languages" [defaultLanguage]="defaultLanguage"
-      type="selector-node" (change)="onChange($event)">
-    </ta-node-list>
-  </mat-tab>
-  <mat-tab label="Группы модификаторов" *ngIf="hasAllow(SelectContentFormRights.SCHEMA_CATEGORY)">
-    <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentSchemaSelectorsBinder$"
-      [collection]="schemaSelectors" [assetsDictionary]="assetsDictionary" [languages]="languages"
-      [defaultLanguage]="defaultLanguage" type="selector" (change)="onChange($event)"></ta-entity-list>
-  </mat-tab>
-  <mat-tab label="Группы меню" *ngIf="hasAllow(SelectContentFormRights.CATEGORIES)">
-    <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentMenuSelectorsBinder$"
-      [collection]="selectors" [assetsDictionary]="assetsDictionary" [languages]="languages"
-      [defaultLanguage]="defaultLanguage" type="selector" (change)="onChange($event)">
-    </ta-entity-list>
-  </mat-tab>
-  <mat-tab label="Товары" *ngIf="hasAllow(SelectContentFormRights.PRODUCTS)">
-    <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentProductsBinder$"
-      [collection]="products" [assetsDictionary]="assetsDictionary" [languages]="languages"
-      [defaultLanguage]="defaultLanguage" type="product" (change)="onChange($event)">
-    </ta-entity-list>
-  </mat-tab>
+  <ng-container *ngFor="let right of rights">
+    <ng-container [ngSwitch]="right">
+      <ng-container *ngSwitchCase="SelectContentFormRights.MODIFIERS_NODES">
+        <mat-tab label="Существующая группа модификаторов">
+          <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentModifierNodesBinder$"
+            [collection]="groupModifiersNodes" [assetsDictionary]="assetsDictionary" [selectors]="selectors"
+            [selectorsDictionary]="selectorsDictionary" [languages]="languages" [defaultLanguage]="defaultLanguage"
+            type="selector-node" (change)="onChange($event)">
+          </ta-node-list>
+        </mat-tab>
+      </ng-container>
+      <ng-container *ngSwitchCase="SelectContentFormRights.NODES">
+        <mat-tab label="Существующая группа меню">
+          <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentNodesBinder$"
+            [collection]="groupMenuNodes" [assetsDictionary]="assetsDictionary" [selectors]="selectors"
+            [selectorsDictionary]="selectorsDictionary" [languages]="languages" [defaultLanguage]="defaultLanguage"
+            type="selector-node" (change)="onChange($event)">
+          </ta-node-list>
+        </mat-tab>
+      </ng-container>
+      <ng-container *ngSwitchCase="SelectContentFormRights.SCHEMA_CATEGORY">
+        <mat-tab label="Новая группа модификаторов">
+          <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentSchemaSelectorsBinder$"
+            [collection]="schemaSelectors" [assetsDictionary]="assetsDictionary" [languages]="languages"
+            [defaultLanguage]="defaultLanguage" type="selector" (change)="onChange($event)"></ta-entity-list>
+        </mat-tab>
+      </ng-container>
+      <ng-container *ngSwitchCase="SelectContentFormRights.CATEGORIES">
+        <mat-tab label="Новая группа меню">
+          <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentMenuSelectorsBinder$"
+            [collection]="selectors" [assetsDictionary]="assetsDictionary" [languages]="languages"
+            [defaultLanguage]="defaultLanguage" type="selector" (change)="onChange($event)">
+          </ta-entity-list>
+        </mat-tab>
+      </ng-container>
+      <ng-container *ngSwitchCase="SelectContentFormRights.PRODUCTS">
+        <mat-tab label="Товар">
+          <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentProductsBinder$"
+            [collection]="products" [assetsDictionary]="assetsDictionary" [languages]="languages"
+            [defaultLanguage]="defaultLanguage" type="product" (change)="onChange($event)">
+          </ta-entity-list>
+        </mat-tab>
+      </ng-container>
+    </ng-container>
+  </ng-container>
 </mat-tab-group>
