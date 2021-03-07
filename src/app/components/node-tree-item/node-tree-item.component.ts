@@ -463,6 +463,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
     const content = this.getContent();
 
+    const nodeInstance = this._nodesDictionary[this.node?.contentId];
+
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
@@ -475,7 +477,11 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           selectorsDictionary: this.selectorsDictionary,
           schemaSelectors: this.modifiersGroupsSelectors,
           selectedDefaultEntityId: this.node.contentId,
-          defaultCollection: this.node.type === NodeTypes.SELECTOR && !!content ? (content as ISelector).type : this.node.type,
+          defaultCollection: this.node.type === NodeTypes.SELECTOR && !!content ?
+            (content as ISelector).type :
+            !!nodeInstance && nodeInstance.type === NodeTypes.SELECTOR_JOINT ?
+              NodeTypes.SELECTOR_JOINT :
+              this.node.type,
           languages: this.languages,
           defaultLanguage: this.defaultLanguage,
           nodes: this.nodes,
