@@ -314,11 +314,6 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.ctrlIsStatic.clearValidators();
     this.ctrlIsPercentage.clearValidators();
     this.ctrlEntities.clearValidators();
-    
-    this.ctrlCurrency.setValue("");
-    this.ctrlIsStatic.setValue(false);
-    this.ctrlIsPercentage.setValue(false);
-    this.ctrlEntities.setValue([]);
 
     switch (action) {
       case ScenarioProgrammActionTypes.SWITCH:
@@ -326,10 +321,6 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         break;
       case ScenarioProgrammActionTypes.EXPRESSION:
 
-        break;
-      case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
-        this.ctrlValue.setValue("");
-        this.ctrlCurrency.setValue("");
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
@@ -340,6 +331,10 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioSelectorActionTypes.MAX_USAGE:
       case ScenarioSelectorActionTypes.MIN_USAGE:
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
+        this.ctrlCurrency.setValue("");
+        this.ctrlIsStatic.setValue(false);
+        this.ctrlIsPercentage.setValue(false);
+        this.ctrlEntities.setValue([]);
         this.ctrlValue.setValidators([Validators.required]);
         break;
       case ScenarioPriceActionTypes.PRICE:
@@ -348,6 +343,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         this.ctrlValue.setValidators([Validators.required]);
         this.ctrlCurrency.setValue(this.currencies.find(c => c.isDefault).id);
         if (action === ScenarioPriceActionTypes.PRICE) {
+          this.ctrlIsStatic.setValue(false);
+          this.ctrlIsPercentage.setValue(false);
           this.ctrlEntities.setValue(undefined);
         } else
           if (action === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD
