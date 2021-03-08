@@ -314,6 +314,11 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.ctrlIsStatic.clearValidators();
     this.ctrlIsPercentage.clearValidators();
     this.ctrlEntities.clearValidators();
+    
+    this.ctrlCurrency.setValue("");
+    this.ctrlIsStatic.setValue(false);
+    this.ctrlIsPercentage.setValue(false);
+    this.ctrlEntities.setValue([]);
 
     switch (action) {
       case ScenarioProgrammActionTypes.SWITCH:
@@ -336,7 +341,6 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioSelectorActionTypes.MIN_USAGE:
       case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
         this.ctrlValue.setValidators([Validators.required]);
-        this.ctrlCurrency.setValue("");
         break;
       case ScenarioPriceActionTypes.PRICE:
       case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
