@@ -1,10 +1,11 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { ITerminal, IStore, LicenseStatuses, LicenseStates, ILicenseAccount } from '@djonnyx/tornado-types';
+import { ITerminal, IStore, ILicenseAccount, TerminalTypes } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
+import { getTerminalTypeName } from '@app/utils/terminal.util';
 
 interface IData {
   terminalName: IKeyValue;
@@ -103,7 +104,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       },
       terminalType: {
         key: "Тип устройства",
-        value: this._terminal?.type || ' ---',
+        value: getTerminalTypeName(this._terminal?.type) || ' ---',
       },
       terminalImei: {
         key: "imei",

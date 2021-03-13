@@ -2,7 +2,27 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IIntegration, ILicenseType } from '@djonnyx/tornado-types';
+import { IIntegration, ILicenseType, TerminalTypes } from '@djonnyx/tornado-types';
+import { getTerminalTypeName } from '@app/utils/terminal.util';
+
+const AppTypesList = [
+  {
+    value: TerminalTypes.KIOSK,
+    name: getTerminalTypeName(TerminalTypes.KIOSK),
+  },
+  {
+    value: TerminalTypes.ORDER_PICKER,
+    name: getTerminalTypeName(TerminalTypes.ORDER_PICKER),
+  },
+  {
+    value: TerminalTypes.EQUEUE,
+    name: getTerminalTypeName(TerminalTypes.EQUEUE),
+  },
+  {
+    value: TerminalTypes.EQUEUE_CONTROLLER,
+    name: getTerminalTypeName(TerminalTypes.EQUEUE_CONTROLLER),
+  },
+];
 
 @Component({
   selector: 'ta-license-type-creator-form',
@@ -11,7 +31,11 @@ import { IIntegration, ILicenseType } from '@djonnyx/tornado-types';
 })
 export class LicenseTypeCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  readonly appTypes = AppTypesList;
+
   form: FormGroup;
+
+  ctrlAppType = new FormControl(undefined, [Validators.required]);
 
   ctrlName = new FormControl('', [Validators.required]);
 
@@ -30,6 +54,7 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
     if (licenseType) {
       this._licenseType = licenseType;
 
+      this.ctrlAppType.setValue(licenseType.appType);
       this.ctrlName.setValue(licenseType.name);
       this.ctrlDescription.setValue(licenseType.description);
       this.ctrlPrice.setValue(Number(licenseType.price) * 0.01);
@@ -51,6 +76,7 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
     super();
 
     this.form = this._fb.group({
+      appType: this.ctrlAppType,
       name: this.ctrlName,
       description: this.ctrlDescription,
       price: this.ctrlPrice,
