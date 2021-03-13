@@ -4,6 +4,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { IStore, ITerminal } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
+import { getTerminalTypeName } from '@app/utils/terminal.util';
 
 interface IData {
   storeName: IKeyValue;
@@ -88,7 +89,7 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
 
     if (!!this._terminals && this._terminals.length > 0) {
       this._data.storeTerminals = this._terminals.map(v => ({
-        key: v.type,
+        key: getTerminalTypeName(v.type),
         value: v.name,
         link: ["/admin/terminals/edit", { id: v.id }],
       }));

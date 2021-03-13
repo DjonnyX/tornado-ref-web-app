@@ -1,6 +1,20 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div class="form__main-options">
         <div class="form__input-block">
+
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>Тип устройства</mat-label>
+                    <mat-select [formControl]="ctrlAppType" required>
+                        <mat-option *ngFor="let type of appTypes" [value]="type.value">
+                            <span>
+                                {{type.name}}
+                            </span>
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Имя</mat-label>
