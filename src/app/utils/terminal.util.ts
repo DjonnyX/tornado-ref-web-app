@@ -9,7 +9,7 @@ export const formatTerminalModel = (model: ITerminal) => {
 }
 
 export const getTerminalTypeName = (type: TerminalTypes): string => {
-    switch (type) {
+    switch (Number(type)) {
       case TerminalTypes.KIOSK:
         return "Киоск";
       case TerminalTypes.ORDER_PICKER:
