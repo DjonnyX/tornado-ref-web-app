@@ -4,6 +4,7 @@ export const formatTerminalModel = (model: ITerminal) => {
     return {
         name: model.name,
         storeId: model.storeId,
+        config: model.config,
         extra: model.extra,
     } as ITerminal
 }
