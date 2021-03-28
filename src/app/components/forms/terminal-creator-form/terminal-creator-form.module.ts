@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { KeyValueModule } from '@components/key-value/key-value.module';
+import { TerminalKioskConfigModule } from '@components/terminal/config/terminal-kiosk-config/terminal-kiosk-config.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { KeyValueModule } from '@components/key-value/key-value.module';
     MatSelectModule,
     MatFormFieldModule,
     KeyValueModule,
+    TerminalKioskConfigModule,
   ]
 })
 export class TerminalCreatorFormModule { }

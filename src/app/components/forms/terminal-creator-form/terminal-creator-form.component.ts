@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { ITerminal, IStore, ILicenseAccount, TerminalTypes } from '@djonnyx/tornado-types';
+import { ITerminal, IStore, ILicenseAccount, TerminalTypes, ITerminalKioskConfig } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
@@ -18,6 +18,9 @@ interface IData {
   terminalLicenseType: IKeyValue;
   terminalLicenseDateStart: IKeyValue;
   terminalLicenseDateEnd: IKeyValue;
+  // config
+  terminalConfigTheme: IKeyValue;
+  terminalKioskConfigSuffix: IKeyValue;
 }
 
 @Component({
@@ -27,11 +30,15 @@ interface IData {
 })
 export class TerminalCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  public readonly TerminalTypes = TerminalTypes;
+
   form: FormGroup;
 
   ctrlStore = new FormControl('', [Validators.required]);
 
   ctrlName = new FormControl('', [Validators.required]);
+
+  ctrlConfig = new FormControl(undefined, [Validators.required]);
 
   private _data: IData;
 
@@ -50,8 +57,11 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
 
       this.ctrlName.setValue(v.name);
       this.ctrlStore.setValue(v.storeId);
+      this.ctrlConfig.setValue(v.config);
     }
   }
+
+  get terminal() { return this._terminal; }
 
   private _store: IStore;
   @Input() set store(v: IStore) {
@@ -89,6 +99,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
     this.form = this._fb.group({
       name: this.ctrlName,
       storeId: this.ctrlStore,
+      config: this.ctrlConfig,
     })
   }
 
@@ -140,6 +151,15 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
         key: "Время завершения лицензионного периода",
         value: this._license ? moment(this._license?.dateEnd).format("DD-MM-YYYY") : ' ---',
       },
+      // config
+      terminalConfigTheme: {
+        key: "Тема оформления",
+        value: this._terminal?.config?.theme || ' ---',
+      },
+      terminalKioskConfigSuffix: {
+        key: "Суффикс киоска",
+        value: (this._terminal?.config as ITerminalKioskConfig)?.suffix || ' ---',
+      }
     }
   }
 
