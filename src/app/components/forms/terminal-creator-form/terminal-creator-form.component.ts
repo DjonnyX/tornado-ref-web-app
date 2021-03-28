@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { ITerminal, IStore, ILicenseAccount, TerminalTypes, ITerminalKioskConfig } from '@djonnyx/tornado-types';
+import { ITerminal, IStore, ILicenseAccount, TerminalTypes, ITerminalKioskConfig, ITerminalEQConfig } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
@@ -20,7 +20,13 @@ interface IData {
   terminalLicenseDateEnd: IKeyValue;
   // config
   terminalConfigTheme: IKeyValue;
+  // kiosk
   terminalKioskConfigSuffix: IKeyValue;
+  // eq
+  terminalEQConfigLayoutNewColumns: IKeyValue;
+  terminalEQConfigLayoutNewRows: IKeyValue;
+  terminalEQConfigLayoutCompleteColumns: IKeyValue;
+  terminalEQConfigLayoutCompleteRows: IKeyValue;
 }
 
 @Component({
@@ -156,10 +162,28 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
         key: "Тема оформления",
         value: this._terminal?.config?.theme || ' ---',
       },
+      // kiosk
       terminalKioskConfigSuffix: {
         key: "Суффикс киоска",
         value: (this._terminal?.config as ITerminalKioskConfig)?.suffix || ' ---',
-      }
+      },
+      // eq
+      terminalEQConfigLayoutNewColumns: {
+        key: "Количество колонок в категории \"Новые\"",
+        value: String((this._terminal?.config as ITerminalEQConfig)?.layout?.new?.columns) || ' ---',
+      },
+      terminalEQConfigLayoutNewRows: {
+        key: "Количество строк в категории \"Новые\"",
+        value: String((this._terminal?.config as ITerminalEQConfig)?.layout?.new?.rows) || ' ---',
+      },
+      terminalEQConfigLayoutCompleteColumns: {
+        key: "Количество колонок в категории \"Готовые\"",
+        value: String((this._terminal?.config as ITerminalEQConfig)?.layout?.complete?.columns) || ' ---',
+      },
+      terminalEQConfigLayoutCompleteRows: {
+        key: "Количество строк в категории \"Готовые\"",
+        value: String((this._terminal?.config as ITerminalEQConfig)?.layout?.complete?.rows) || ' ---',
+      },
     }
   }
 

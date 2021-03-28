@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { KeyValueModule } from '@components/key-value/key-value.module';
 import { TerminalKioskConfigModule } from '@components/terminal/config/terminal-kiosk-config/terminal-kiosk-config.module';
 import { TerminalOrderPickerConfigModule } from '@components/terminal/config/terminal-order-picker-config/terminal-order-picker-config.module';
+import { TerminalEQConfigModule } from '@components/terminal/config/terminal-eq-config/terminal-eq-config.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { TerminalOrderPickerConfigModule } from '@components/terminal/config/ter
     KeyValueModule,
     TerminalKioskConfigModule,
     TerminalOrderPickerConfigModule,
+    TerminalEQConfigModule,
   ]
 })
 export class TerminalCreatorFormModule { }

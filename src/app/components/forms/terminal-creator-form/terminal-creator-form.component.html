@@ -92,6 +92,29 @@
                                 <ta-key-value [data]="data.terminalConfigTheme"></ta-key-value>
                             </div>
                         </ng-container>
+
+                        <!-- EQUEUE -->
+                        <ng-container *ngIf="terminal.type === TerminalTypes.EQUEUE">
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.terminalConfigTheme"></ta-key-value>
+                            </div>
+
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.terminalEQConfigLayoutNewColumns"></ta-key-value>
+                            </div>
+
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.terminalEQConfigLayoutNewRows"></ta-key-value>
+                            </div>
+
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.terminalEQConfigLayoutCompleteColumns"></ta-key-value>
+                            </div>
+
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.terminalEQConfigLayoutCompleteRows"></ta-key-value>
+                            </div>
+                        </ng-container>
                     </div>
                 </ng-template>
             </div>
@@ -147,6 +170,11 @@
         <!-- ORDER PICKER -->
         <ng-container *ngIf="terminal.type === TerminalTypes.ORDER_PICKER">
             <ta-terminal-order-picker-config formControlName="config"></ta-terminal-order-picker-config>
+        </ng-container>
+
+        <!-- EQUEUE -->
+        <ng-container *ngIf="terminal.type === TerminalTypes.EQUEUE">
+            <ta-terminal-eq-config formControlName="config"></ta-terminal-eq-config>
         </ng-container>
 
         <div class="form__submit" align="end">
