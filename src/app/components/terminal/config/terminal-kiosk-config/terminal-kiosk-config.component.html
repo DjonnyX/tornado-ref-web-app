@@ -1,0 +1,22 @@
+<div class="form-item">
+    <div class="form-item">
+        <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Тема оформления</mat-label>
+            <mat-select [(ngModel)]="mTheme" (ngModelChange)="onChangeModel()" required>
+                <mat-option *ngFor="let t of themes" [value]="t">{{t}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="mTheme === undefined">
+                <strong>обзательное</strong>
+            </mat-error>
+        </mat-form-field>
+    </div>
+</div>
+<div class="form-item">
+    <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Суффикс киоска</mat-label>
+        <input matInput [(ngModel)]="mSuffix" (ngModelChange)="onChangeModel()" placeholder="Суффикс киоска" required>
+        <mat-error *ngIf="mSuffix === undefined">
+            <strong>обязательное</strong>
+        </mat-error>
+    </mat-form-field>
+</div>
