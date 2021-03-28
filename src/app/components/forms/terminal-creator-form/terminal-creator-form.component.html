@@ -75,6 +75,7 @@
 
                 <ng-template #configuration>
                     <div class="form__block" *ngIf="!!data">
+                        <!-- KIOSK -->
                         <ng-container *ngIf="terminal.type === TerminalTypes.KIOSK">
                             <div class="form-item full-width">
                                 <ta-key-value [data]="data.terminalConfigTheme"></ta-key-value>
@@ -82,6 +83,13 @@
 
                             <div class="form-item full-width">
                                 <ta-key-value [data]="data.terminalKioskConfigSuffix"></ta-key-value>
+                            </div>
+                        </ng-container>
+
+                        <!-- ORDER PICKER -->
+                        <ng-container *ngIf="terminal.type === TerminalTypes.ORDER_PICKER">
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.terminalConfigTheme"></ta-key-value>
                             </div>
                         </ng-container>
                     </div>
@@ -131,8 +139,14 @@
             Конфигурация
         </h1>
 
+        <!-- KIOSK -->
         <ng-container *ngIf="terminal.type === TerminalTypes.KIOSK">
             <ta-terminal-kiosk-config formControlName="config"></ta-terminal-kiosk-config>
+        </ng-container>
+
+        <!-- ORDER PICKER -->
+        <ng-container *ngIf="terminal.type === TerminalTypes.ORDER_PICKER">
+            <ta-terminal-order-picker-config formControlName="config"></ta-terminal-order-picker-config>
         </ng-container>
 
         <div class="form__submit" align="end">
