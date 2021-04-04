@@ -61,6 +61,17 @@ const routes: Routes = [
         },
       },
       {
+        path: 'service-unavailable-intros',
+        loadChildren: () =>
+          import('@containers/ads-editor/ads-editor.module').then(
+            module => module.AdsEditorModule,
+          ),
+        data: {
+          type: AdTypes.SERVICE_UNAVAILABLE,
+          path: 'service-unavailable-intros',
+        },
+      },
+      {
         path: 'products',
         loadChildren: () =>
           import('@containers/products-editor/products-editor.module').then(
