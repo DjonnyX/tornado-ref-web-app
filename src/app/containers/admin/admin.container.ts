@@ -152,6 +152,11 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
               name: "Банеры",
               route: "banners",
             },
+            {
+              icon: "intros",
+              name: "Заставка (терминал не работает)",
+              route: "service-unavailable-intros",
+            },
           ],
         },
       ]
