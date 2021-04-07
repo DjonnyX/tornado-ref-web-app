@@ -8,6 +8,7 @@ import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular
 import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
 import { RoleTypes } from '@enums/role-types';
+import { UserActions } from '@store/actions/user.action';
 
 @Component({
   selector: 'app-root',
@@ -19,6 +20,9 @@ export class AppComponent implements OnInit {
   private _url: string;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
+
+    this._store.dispatch(UserActions.resetLoading());
+
     this._router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {

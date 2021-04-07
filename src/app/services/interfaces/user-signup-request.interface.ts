@@ -1,4 +1,5 @@
 export interface IUserSignupRequest {
+    integrationId: string;
     captchaId: string;
     captchaValue: string;
     firstName: string;
