@@ -1,5 +1,5 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-currencies-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
+    <ta-currencies-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async" [rights]="rights$ | async"
         (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)" (updateAll)="onUpdateAll($event)"
         (delete)="onDelete($event)"></ta-currencies-editor-component>
 </ta-query-progress>

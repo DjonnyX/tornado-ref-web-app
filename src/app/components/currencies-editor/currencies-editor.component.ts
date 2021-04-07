@@ -3,7 +3,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ICurrency, IRef } from '@djonnyx/tornado-types';
+import { ICurrency, IRef, UserRights } from '@djonnyx/tornado-types';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'ta-currencies-editor-component',
@@ -18,6 +19,8 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
+
+  @Input() rights: Array<UserRights>;
 
   @Output() create = new EventEmitter<void>();
 
@@ -84,5 +87,13 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  hasCreate() {
+    return this.rights.indexOf(UserRights.CREATE_CURRENCY) > -1;
+  }
+
+  hasDelete() {
+    return this.rights.indexOf(UserRights.DELETE_CURRENCY) > -1;
   }
 }

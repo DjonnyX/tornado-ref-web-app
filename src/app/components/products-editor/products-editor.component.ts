@@ -4,7 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
-import { IProduct, IRef, ITag, ILanguage, IProductContentsItem } from '@djonnyx/tornado-types';
+import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 
 @Component({
@@ -24,6 +24,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
+
+  @Input() rights: Array<UserRights>;
 
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -147,5 +149,13 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  hasCreate() {
+    return this.rights.indexOf(UserRights.CREATE_PRODUCT) > -1;
+  }
+
+  hasDelete() {
+    return this.rights.indexOf(UserRights.DELETE_PRODUCT) > -1;
   }
 }

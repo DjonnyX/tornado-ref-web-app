@@ -1,3 +1,5 @@
+import { UserRights } from "@djonnyx/tornado-types"; 
+
 export interface IUserProfile {
     account: {
         id: string;
@@ -5,6 +7,7 @@ export interface IUserProfile {
         lastName: string;
         email: string;
         integrationId: string;
+        rights: Array<UserRights>;
     },
     role: string;
     token: string;
