@@ -14,12 +14,25 @@ import { ICaptcha } from '@models';
 import { BaseComponent } from '@components/base/base-component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
+interface IIntegration {
+  id: string;
+  name: string;
+}
+
+const INTEGRATIONS: Array<IIntegration> = [
+  {
+    id: "5fd6285a23af2d4f88c4b3ab",
+    name: "ЭВОТОР",
+  }
+]
+
 @Component({
   selector: 'ta-signup',
   templateUrl: './signup.container.html',
   styleUrls: ['./signup.container.scss']
 })
 export class SignupContainer extends BaseComponent implements OnInit, OnDestroy {
+  public readonly integrations = INTEGRATIONS;
 
   public isProcess$: Observable<boolean>;
 
@@ -32,6 +45,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
 
   public registerQueryParams: any;
 
+  ctrlIntegration = new FormControl('', [Validators.required]);
   ctrlFirstName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
   ctrlLastName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
@@ -50,6 +64,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
     super();
 
     this.form = this._fb.group({
+      integration: this.ctrlIntegration,
       firstName: this.ctrlFirstName,
       lastName: this.ctrlLastName,
       email: this.ctrlEmail,
@@ -94,6 +109,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
   public onSubmit() {
     if (this.form.valid) {
       const userCredentials: IUserSignupRequest = {
+        integrationId: this.form.get('integration').value,
         firstName: this.form.get('firstName').value,
         lastName: this.form.get('lastName').value,
         email: this.form.get('email').value,

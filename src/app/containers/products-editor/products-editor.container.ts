@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { ProductsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
+import { ProductsSelectors, AssetsSelectors, LanguagesSelectors, UserSelectors } from '@store/selectors';
 import { ProductsActions } from '@store/actions/products.action';
 import { IAsset } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { ProductActions } from '@store/actions/product.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { BaseComponent } from '@components/base/base-component';
 import { map, filter } from 'rxjs/operators';
-import { IProduct, ITag, IRef, ILanguage } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IRef, ILanguage, UserRights } from '@djonnyx/tornado-types';
 import { LanguagesActions } from '@store/actions/languages.action';
 
 @Component({
@@ -39,11 +39,18 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   public refInfo$: Observable<IRef>;
 
+  rights$: Observable<Array<UserRights>>;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
 
   ngOnInit(): void {
+    this.rights$ = this._store.pipe(
+      select(UserSelectors.selectUserProfile),
+      map(p => p?.account?.rights || []),
+    );
+
     this.isProcess$ = combineLatest([
       this._store.pipe(
         select(ProductsSelectors.selectLoading),

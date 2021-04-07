@@ -11,6 +11,7 @@ import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
 import { UserActions } from '@store/actions/user.action';
 import { RoleTypes } from '@enums/role-types';
+import { UserRights } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-admin',
@@ -80,7 +81,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "refs",
       name: "Справочники",
-      roles: ["client"],
+      roles: [RoleTypes.CLIENT],
       children: [
         {
           icon: "menu",
@@ -112,6 +113,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
           icon: "checkue",
           name: "Чеки",
           route: "checkues",
+          right: UserRights.ENABLE_CHECKUES,
         },
         {
           icon: "currencies",

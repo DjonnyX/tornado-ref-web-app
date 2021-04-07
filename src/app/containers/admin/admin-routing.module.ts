@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminContainer } from './admin.container';
 import { SelectorTypes, AdTypes } from '@djonnyx/tornado-types';
-import { AllowAdminGuard } from '@guards';
+import { AllowAdminGuard, AllowCheckuesGuard } from '@guards';
 
 const routes: Routes = [
   {
@@ -90,7 +90,8 @@ const routes: Routes = [
         loadChildren: () =>
           import('@containers/checkues-editor/checkues-editor.module').then(
             module => module.CheckuesEditorModule,
-          )
+          ),
+          canActivate: [AllowCheckuesGuard],
       },
       {
         path: 'tags',
