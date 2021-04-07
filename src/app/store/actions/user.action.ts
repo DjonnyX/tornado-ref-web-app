@@ -31,6 +31,8 @@ export enum UserActionTypes {
   SIGNOUT_ERROR = "TORNADO/user/signout:error",
 
   CLEAR_PROFILE = "TORNADO/user/signout:error",
+
+  RESET_LOADING = "TORNADO/user/reset-loading",
 }
 
 export namespace UserActions {
@@ -116,5 +118,9 @@ export namespace UserActions {
   // clear profile
   export const clearProfile = createAction(
     UserActionTypes.CLEAR_PROFILE,
+  );
+
+  export const resetLoading = createAction(
+    UserActionTypes.RESET_LOADING,
   );
 }

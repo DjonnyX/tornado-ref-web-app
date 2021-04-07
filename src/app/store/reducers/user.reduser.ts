@@ -17,6 +17,18 @@ export const initialState: IUserState = {
 
 const userReducer = createReducer(
   initialState,
+  on(UserActions.resetLoading, state => {
+    return {
+      ...state,
+      loading: false,
+      isSigninProgress: false,
+      isSignupParamsProgress: false,
+      isSignupProgress: false,
+      isSignoutProgress: false,
+      isForgotPasswordProgress: false,
+      isResetPasswordProgress: false,
+    };
+  }),
   on(UserActions.clearProfile, state => {
     return {
       ...state,

@@ -11,6 +11,7 @@ import { SignupRoutingModule } from './signup-routing.module';
 import { RouterModule } from '@angular/router';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [SignupContainer],
@@ -24,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
     MatCheckboxModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
     MatDividerModule,
     SignupRoutingModule,
     QueryProgressessModule,

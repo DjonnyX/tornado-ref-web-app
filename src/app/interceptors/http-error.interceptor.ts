@@ -45,8 +45,12 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                 let errorMessage = "";
 
                 if (error.status === 401) {
+                    let err: string;
+                    if (!!error.error && error.error.error instanceof Array) {
+                        err = extractError(error.error.error);
+                    }
                     this._store.dispatch(UserActions.clearProfile());
-                    errorMessage = "Время сессии истекло.";
+                    errorMessage = err || "Время сессии истекло.";
                 } else
                 if (!!error.error && error.error.error instanceof Array) {
                     errorMessage = extractError(error.error.error);

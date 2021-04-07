@@ -6,7 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { CurrenciesSelectors } from '@store/selectors/currencies.selectors';
 import { CurrencyActions } from '@store/actions/currency.action';
-import { ICurrency, IRef } from '@djonnyx/tornado-types';
+import { ICurrency, IRef, UserRights } from '@djonnyx/tornado-types';
+import { UserSelectors } from '@store/selectors';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-currencies-editor',
@@ -22,10 +24,17 @@ export class CurrenciesEditorContainer implements OnInit, OnDestroy {
 
   public refInfo$: Observable<IRef>;
 
+  public rights$: Observable<Array<UserRights>>;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._store.dispatch(CurrenciesActions.getAllRequest({}));
+
+    this.rights$ = this._store.pipe(
+      select(UserSelectors.selectUserProfile),
+      map(p => p?.account?.rights || []),
+    );
 
     this.isProcess$ = this._store.pipe(
       select(CurrenciesSelectors.selectLoading),

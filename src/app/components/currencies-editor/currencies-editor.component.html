@@ -4,30 +4,39 @@
         <div class="entity" *ngFor="let currency of collection | search: searchPattern"
             [ngClass]="{'is-default': currency.isDefault, 'disabled': !currency.active}">
             <div class="entity-ctrls">
-                <div class="entity-checkbox-active">
-                    <mat-checkbox color="accent" #checkboxActive [checked]="currency.active"
-                        (click)="onToggleActive($event, currency)"></mat-checkbox>
-                </div>
+                <ng-container *ngIf="hasCreate()">
+                    <div class="entity-checkbox-active">
+                        <mat-checkbox color="accent" #checkboxActive [checked]="currency.active"
+                            (click)="onToggleActive($event, currency)"></mat-checkbox>
+                    </div>
+                </ng-container>
                 <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
-                    <button mat-menu-item type="button" (click)="onToggleDefault($event, currency)">
-                        <mat-icon>{{currency.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}</mat-icon>
-                        <span>{{currency.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
-                    </button>
-                    <button mat-menu-item type="button" (click)="onToggleActive($event, currency)">
-                        <mat-icon>{{currency.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{currency.active ? 'Деактивировать' : 'Активировать'}}</span>
-                    </button>
+
+                    <ng-container *ngIf="hasCreate()">
+                        <button mat-menu-item type="button" (click)="onToggleDefault($event, currency)">
+                            <mat-icon>{{currency.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}
+                            </mat-icon>
+                            <span>{{currency.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
+                        </button>
+                        <button mat-menu-item type="button" (click)="onToggleActive($event, currency)">
+                            <mat-icon>{{currency.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            <span>{{currency.active ? 'Деактивировать' : 'Активировать'}}</span>
+                        </button>
+                    </ng-container>
+
                     <button mat-menu-item (click)="onEdit(currency)">
                         <mat-icon>edit</mat-icon>
                         <span>Редактировать</span>
                     </button>
-                    <button mat-menu-item (click)="onDelete(currency)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
-                    </button>
+                    <ng-container *ngIf="hasDelete()">
+                        <button mat-menu-item (click)="onDelete(currency)">
+                            <mat-icon>delete_forever</mat-icon>
+                            <span>Удалить</span>
+                        </button>
+                    </ng-container>
                 </mat-menu>
             </div>
             <div matRipple class="entity-active-zone" (click)="onEdit(currency)">
@@ -42,8 +51,10 @@
                 <div class="color" [style.background]="currency.color"></div>
             </div>
         </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-            <mat-icon>add</mat-icon>
-        </button>
+        <ng-container *ngIf="hasCreate()">
+            <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </ng-container>
     </div>
 </div>

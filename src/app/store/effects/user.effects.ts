@@ -58,6 +58,7 @@ export default class UserEffects {
       ofType(UserActions.userSignupRequest),
       switchMap((params: IUserSignupRequest) => {
         return this._apiService.signup({
+          integrationId: params.integrationId,
           firstName: params.firstName,
           lastName: params.lastName,
           email: params.email,
