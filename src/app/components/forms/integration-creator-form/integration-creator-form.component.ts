@@ -2,7 +2,49 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IIntegration } from '@djonnyx/tornado-types';
+import { IIntegration, UserRights } from '@djonnyx/tornado-types';
+
+interface IRight {
+  name: string;
+  value: number;
+}
+
+const RIGHTS = [
+  {
+    name: "CREATE_PRODUCT",
+    value: UserRights.CREATE_PRODUCT,
+  }, {
+    name: "DELETE_PRODUCT",
+    value: UserRights.DELETE_PRODUCT,
+  }, {
+    name: "CREATE_SELECTOR",
+    value: UserRights.CREATE_SELECTOR,
+  }, {
+    name: "DELETE_SELECTOR",
+    value: UserRights.DELETE_SELECTOR,
+  }, {
+    name: "CREATE_CURRENCY",
+    value: UserRights.CREATE_CURRENCY,
+  }, {
+    name: "DELETE_CURRENCY",
+    value: UserRights.DELETE_CURRENCY,
+  }, {
+    name: "CREATE_STORE",
+    value: UserRights.CREATE_STORE,
+  }, {
+    name: "CREATE_TERMINAL",
+    value: UserRights.CREATE_TERMINAL,
+  }, {
+    name: "DELETE_TERMINAL",
+    value: UserRights.DELETE_TERMINAL,
+  }, {
+    name: "ENABLE_ORDER_TYPES",
+    value: UserRights.ENABLE_ORDER_TYPES,
+  }, {
+    name: "ENABLE_CHECKUES",
+    value: UserRights.ENABLE_CHECKUES,
+  },
+];
 
 @Component({
   selector: 'ta-integration-creator-form',
@@ -11,12 +53,16 @@ import { IIntegration } from '@djonnyx/tornado-types';
 })
 export class IntegrationCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  public readonly rights = RIGHTS;
+
   form: FormGroup;
 
   ctrlName = new FormControl('', [Validators.required]);
 
   ctrlDescription = new FormControl('');
-  
+
+  ctrlRights = new FormControl(RIGHTS.map(v => v.value), [Validators.required]);
+
   ctrlVersion = new FormControl(null);
 
   private _integration: IIntegration;
@@ -26,6 +72,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
       this.ctrlName.setValue(integration.name);
       this.ctrlDescription.setValue(integration.description);
+      this.ctrlRights.setValue(integration.rights);
       this.ctrlVersion.setValue(integration.version);
     }
   }
@@ -42,6 +89,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
     this.form = this._fb.group({
       name: this.ctrlName,
       description: this.ctrlDescription,
+      rights: this.ctrlRights,
       version: this.ctrlVersion,
     })
   }
@@ -69,7 +117,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   onSave(): void {
     if (this.form.valid) {
-      
+
       this.save.emit({
         ...this._integration,
         ...this.form.value,

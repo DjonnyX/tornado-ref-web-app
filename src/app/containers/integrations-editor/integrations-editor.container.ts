@@ -44,6 +44,15 @@ export class IntegrationsEditorContainer implements OnInit, OnDestroy {
     this._store.dispatch(IntegrationsActions.clear());
   }
 
+  onCreate(): void {
+
+    this._store.dispatch(IntegrationsActions.clear());
+
+    this._router.navigate(["create"], {
+      relativeTo: this._activatedRoute,
+    });
+  }
+
   onEdit(integration: IIntegration): void {
     this._store.dispatch(IntegrationActions.clear());
 
