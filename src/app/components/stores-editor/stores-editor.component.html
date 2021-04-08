@@ -11,10 +11,13 @@
                         <mat-icon>edit</mat-icon>
                         <span>Редактировать</span>
                     </button>
-                    <button mat-menu-item (click)="onDelete(store)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
-                    </button>
+
+                    <ng-container *ngIf="hasDelete()">
+                        <button mat-menu-item (click)="onDelete(store)">
+                            <mat-icon>delete_forever</mat-icon>
+                            <span>Удалить</span>
+                        </button>
+                    </ng-container>
                 </mat-menu>
             </div>
             <div matRipple class="entity-active-zone" (click)="onEdit(store)">
@@ -29,8 +32,10 @@
                 <div class="color" [style.background]="store.color"></div>
             </div>
         </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-            <mat-icon>add</mat-icon>
-        </button>
+        <ng-container *ngIf="hasCreate()">
+            <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </ng-container>
     </div>
 </div>
