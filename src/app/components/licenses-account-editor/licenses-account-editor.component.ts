@@ -61,6 +61,8 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
 
   @Output() view = new EventEmitter<ILicenseAccount>();
 
+  @Output() unbind = new EventEmitter<string>();
+
   searchPattern = "";
 
   constructor(public dialog: MatDialog) {
@@ -75,6 +77,10 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
 
   onView(license: ILicenseAccount): void {
     this.view.emit(license);
+  }
+
+  onUnbind(license: ILicenseAccount): void {
+    this.unbind.emit(license.id);
   }
 
   onSearch(pattern: string): void {

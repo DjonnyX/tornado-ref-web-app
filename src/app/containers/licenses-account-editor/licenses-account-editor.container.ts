@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LicensesAccountActions } from '@store/actions/licenses-account.action';
 import { LicensesAccountSelectors } from '@store/selectors/licenses-account.selectors';
 import { LicenseActions } from '@store/actions/license.action';
-import { IAccount, IIntegration, ILicense, IRef } from '@djonnyx/tornado-types';
+import { IAccount, IIntegration, ILicense, ILicenseAccount, IRef } from '@djonnyx/tornado-types';
 import { AccountsSelectors, IntegrationsSelectors } from '@store/selectors';
 import { map } from 'rxjs/operators';
 import { IntegrationsActions } from '@store/actions/integrations.action';
@@ -75,12 +75,16 @@ export class LicensesAccountEditorContainer implements OnInit, OnDestroy {
     this._store.dispatch(IntegrationsActions.clear());
   }
 
-  onView(license: ILicense): void {
+  onView(license: ILicenseAccount): void {
     this._store.dispatch(LicenseActions.clear());
 
     this._router.navigate(["view"], {
       relativeTo: this._activatedRoute,
       queryParams: { id: license.id, },
     });
+  }
+
+  onUnbind(id: string): void {
+    this._store.dispatch(LicensesAccountActions.unbindRequest({ id }));
   }
 }
