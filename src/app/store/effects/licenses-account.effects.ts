@@ -31,4 +31,22 @@ export default class LicensesAccountEffects {
             })
         )
     );
+
+    public readonly unbindRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(LicensesAccountActions.unbindRequest),
+            switchMap(({ id }) => {
+                return this._apiService.unbindLicense(id).pipe(
+                    mergeMap(res => {
+                        return [LicensesAccountActions.unbindSuccess({ license: res.data, meta: res.meta })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(LicensesAccountActions.unbindError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
 }

@@ -1415,6 +1415,15 @@ export class ApiService {
       });
   }
 
+  public unbindLicense(id: string): Observable<ILicenseUpdateResponse> {
+    return this._http
+      .put<ILicenseUpdateResponse>(`api/v1/license/unbind/${id}`, {}, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   public deleteLicense(id: string): Observable<ILicenseDeleteResponse> {
     return this._http
       .delete<ILicenseDeleteResponse>(`api/v1/license/${id}`, {
