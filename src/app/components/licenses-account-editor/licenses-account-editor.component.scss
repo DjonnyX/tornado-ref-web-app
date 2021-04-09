@@ -1,8 +1,8 @@
 @import "../../../styles/components/entity-editor";
 @import "../../../styles/utils/px2em";
 
-$entity-height-m: px2em(140);
-$entity-height-d: px2em(150);
+$entity-height-m: px2em(150);
+$entity-height-d: px2em(160);
 $entity-width-m: px2em(140);
 $entity-width-d: px2em(190);
 
@@ -12,6 +12,24 @@ $entity-width-d: px2em(190);
             width: 100%;
             height: px2em(10);
             min-height: px2em(10);
+        }
+
+        .license-status {
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+
+            &:not(.active) {
+                background-color: rgba(0, 0, 0, 0.25);
+            }
+            &.active {
+                background-color: green;
+            }
+        }
+
+        .license-status-text {
+            margin-left: 4px;
+            font-size: px2em(12);
         }
     }
 }
