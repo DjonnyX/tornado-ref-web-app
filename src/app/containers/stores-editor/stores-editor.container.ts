@@ -6,7 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { StoresActions } from '@store/actions/stores.action';
 import { StoresSelectors } from '@store/selectors/stores.selectors';
 import { StoreActions } from '@store/actions/store.action';
-import { IStore, IRef } from '@djonnyx/tornado-types';
+import { IStore, IRef, UserRights } from '@djonnyx/tornado-types';
+import { UserSelectors } from '@store/selectors';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-stores-editor',
@@ -22,9 +24,16 @@ export class StoresEditorContainer implements OnInit, OnDestroy {
 
   public refInfo$: Observable<IRef>;
 
+  rights$: Observable<Array<UserRights>>;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.rights$ = this._store.pipe(
+      select(UserSelectors.selectUserProfile),
+      map(p => p?.account?.rights || []),
+    );
+
     this.isProcess$ = this._store.pipe(
       select(StoresSelectors.selectLoading),
     );

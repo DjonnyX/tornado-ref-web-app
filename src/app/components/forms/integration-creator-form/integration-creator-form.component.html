@@ -7,6 +7,21 @@
 
             <div class="form__main-options">
                 <div class="form__input-block">
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Интеграция</mat-label>
+                            <mat-select formControlName="rights" multiple required>
+                                <mat-option *ngFor="let right of rights"
+                                    [value]="right.value">
+                                    <span>
+                                        {{right.name}}
+                                    </span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Имя</mat-label>

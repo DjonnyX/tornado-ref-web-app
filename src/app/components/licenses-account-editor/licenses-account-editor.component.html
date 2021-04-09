@@ -40,3 +40,10 @@
         </div>
     </div>
 </div>
+<ng-container *ngIf="!collection || collection.length === 0">
+    <div class="licenses-none__wrapper">
+        <div class="licenses-none__text">
+            Лицензии отсутствуют
+        </div>
+    </div>
+</ng-container>

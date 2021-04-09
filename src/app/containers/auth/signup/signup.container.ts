@@ -13,18 +13,9 @@ import { map, takeUntil } from 'rxjs/operators';
 import { ICaptcha } from '@models';
 import { BaseComponent } from '@components/base/base-component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
-interface IIntegration {
-  id: string;
-  name: string;
-}
-
-const INTEGRATIONS: Array<IIntegration> = [
-  {
-    id: "5fd6285a23af2d4f88c4b3ab",
-    name: "ЭВОТОР",
-  }
-]
+import { IIntegration } from '@djonnyx/tornado-types';
+import { IntegrationSelectors, IntegrationsSelectors } from '@store/selectors';
+import { IntegrationsActions } from '@store/actions/integrations.action';
 
 @Component({
   selector: 'ta-signup',
@@ -32,7 +23,7 @@ const INTEGRATIONS: Array<IIntegration> = [
   styleUrls: ['./signup.container.scss']
 })
 export class SignupContainer extends BaseComponent implements OnInit, OnDestroy {
-  public readonly integrations = INTEGRATIONS;
+  public integrations$: Observable<Array<IIntegration>>;
 
   public isProcess$: Observable<boolean>;
 
@@ -85,8 +76,15 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
         .pipe(select(UserSelectors.selectIsSignupParamsProcess)),
       this._store
         .pipe(select(UserSelectors.selectIsSignupProcess)),
+      this._store
+        .pipe(select(IntegrationSelectors.selectIsGetProcess)),
     ]).pipe(
-      map(([isSignupParamsProcess, isSignupProcess]) => isSignupParamsProcess && isSignupProcess),
+      map(([isSignupParamsProcess, isSignupProcess, isIntegrationsProcess]) =>
+        isSignupParamsProcess && isSignupProcess && isIntegrationsProcess),
+    );
+
+    this.integrations$ = this._store.pipe(
+      select(IntegrationsSelectors.selectCollection),
     );
 
     this.captcha$ = this._store
@@ -100,6 +98,8 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
     });
 
     this.onResetCatcha();
+
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy() {

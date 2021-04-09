@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IStore, IRef } from '@djonnyx/tornado-types';
+import { IStore, IRef, UserRights } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-stores-editor-component',
@@ -18,6 +18,8 @@ export class StoresEditorComponent extends BaseComponent implements OnInit, OnDe
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
+
+  @Input() rights: Array<UserRights>;
 
   @Output() create = new EventEmitter<void>();
 
@@ -68,5 +70,13 @@ export class StoresEditorComponent extends BaseComponent implements OnInit, OnDe
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  hasCreate() {
+    return this.rights.indexOf(UserRights.CREATE_STORE) > -1;
+  }
+
+  hasDelete() {
+    return this.rights.indexOf(UserRights.DELETE_STORE) > -1;
   }
 }

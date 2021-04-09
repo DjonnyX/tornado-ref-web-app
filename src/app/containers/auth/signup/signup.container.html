@@ -20,7 +20,7 @@
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Интеграция</mat-label>
                             <mat-select [formControl]="ctrlIntegration" required>
-                                <mat-option *ngFor="let integration of integrations" [value]="integration.id">
+                                <mat-option *ngFor="let integration of (integrations$ | async)" [value]="integration.id">
                                     <span>
                                         {{integration.name}}
                                     </span>
