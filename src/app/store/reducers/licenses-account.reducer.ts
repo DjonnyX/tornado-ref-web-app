@@ -6,6 +6,7 @@ export const initialState: ILicensesAccountState = {
     meta: undefined,
     loading: false,
     isGetProcess: false,
+    isUnbindProcess: false,
     error: undefined,
     collection: undefined,
 };
@@ -24,11 +25,26 @@ const licensesAccountReducer = createReducer(
             loading: true,
         };
     }),
+    on(LicensesAccountActions.unbindRequest, state => {
+        return {
+            ...state,
+            isUnbindProcess: true,
+            loading: true,
+        };
+    }),
     on(LicensesAccountActions.getAllError, (state, { error }) => {
         return {
             ...state,
             error,
             isGetProcess: false,
+            loading: false,
+        };
+    }),
+    on(LicensesAccountActions.getAllError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isUnbindProcess: false,
             loading: false,
         };
     }),
@@ -39,6 +55,22 @@ const licensesAccountReducer = createReducer(
             meta,
             error: undefined,
             isGetProcess: false,
+            loading: false,
+        };
+    }),
+    on(LicensesAccountActions.unbindSuccess, (state, { license, meta }) => {
+        const existsLicenseIndex = state.collection.findIndex(p => p.id === license.id);
+        let collection = [...state.collection];
+        if (existsLicenseIndex > -1) {
+            collection.splice(existsLicenseIndex, 1);
+            collection.splice(existsLicenseIndex, 0, license);
+        }
+        return {
+            ...state,
+            collection,
+            meta,
+            error: undefined,
+            isUnbindProcess: false,
             loading: false,
         };
     }),

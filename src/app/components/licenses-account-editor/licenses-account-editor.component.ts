@@ -1,7 +1,9 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { BaseComponent } from '@components/base/base-component';
+import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { IAccount, IIntegration, ILicenseAccount, IRef, LicenseStates } from '@djonnyx/tornado-types';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-licenses-account-editor-component',
@@ -61,6 +63,8 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
 
   @Output() view = new EventEmitter<ILicenseAccount>();
 
+  @Output() unbind = new EventEmitter<string>();
+
   searchPattern = "";
 
   constructor(public dialog: MatDialog) {
@@ -75,6 +79,25 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
 
   onView(license: ILicenseAccount): void {
     this.view.emit(license);
+  }
+
+  onUnbind(license: ILicenseAccount): void {
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Внимание",
+          message: "Вы уверены, что хотите удалить лицензию у устройства?",
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        this.unbind.emit(license.id);
+      }
+    });
   }
 
   onSearch(pattern: string): void {
