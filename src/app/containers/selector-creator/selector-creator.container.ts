@@ -364,8 +364,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       ]).pipe(
         debounceTime(100),
         map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, nodes,]) => {
-          console.log(!!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
-            !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes)
           return !!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
             !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes
         }
