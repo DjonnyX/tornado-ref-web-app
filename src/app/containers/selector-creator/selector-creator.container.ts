@@ -7,7 +7,7 @@ import {
   MenuNodesSelectors, ProductsSelectors, CurrenciesSelectors, OrderTypesSelectors, StoresSelectors
 } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
-import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
+import { takeUntil, map, filter, switchMap, debounceTime } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset, IFileUploadEvent } from '@models';
 import { SelectorsActions } from '@store/actions/selectors.action';
@@ -338,6 +338,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(AssetsActions.getAllRequest());
 
     if (this._selectorType === SelectorTypes.SCHEMA_CATEGORY) {
+      if (!this.isEditMode) {
+        this._store.dispatch(MenuNodesActions.getAllRequest({}));
+      }
+
       this._store.dispatch(SelectorsActions.getAllRequest({}));
       this._store.dispatch(ProductsActions.getAllRequest({}));
       this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
@@ -346,18 +350,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(StoresActions.getAllRequest({}));
       this._store.dispatch(OrderTypesActions.getAllRequest({}));
 
-      this.isPrepareToConfigure$ = this.selectorId$.pipe(
-        switchMap(id => {
-          return !!id ? combineLatest([
-            prepareMainRequests$,
-            this.selector$,
-            this.selectorAssets$,
-          ]).pipe(
-            map(([prepareMainRequests, selector, selectorAssets]) =>
-              !!prepareMainRequests && !!selector && !!selectorAssets),
-          ) : prepareMainRequests$;
-        })
-      );
       const prepareMainRequests$ = combineLatest([
         this.tags$,
         this.currencies$,
@@ -370,9 +362,14 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
         this.stores$,
         this.nodes$,
       ]).pipe(
-        map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, nodes,]) =>
-          !!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
-          !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes),
+        debounceTime(100),
+        map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, nodes,]) => {
+          console.log(!!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
+            !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes)
+          return !!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
+            !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes
+        }
+        ),
       );
 
       this.isPrepareToConfigure$ = this.selectorId$.pipe(
