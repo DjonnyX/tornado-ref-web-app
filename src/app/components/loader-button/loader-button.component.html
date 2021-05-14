@@ -1,0 +1,13 @@
+<div matRipple mat-elevation-z2 class="loader-button">
+    <div class="loader-button__wrapper">
+        <div class="loader-button__indicator" [style.height]="percents + '%'"></div>
+        <div class="loader-button__content">
+            <div class="loader-button__content-wrapper">
+                <div *ngIf="iconContent" [ngClass]="{'loader-button_icon-content': true, iconContent: true}"></div>
+                <div *ngIf="textContent" class="loader-button__text-content">
+                    {{textContent}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
