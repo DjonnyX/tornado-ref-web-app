@@ -47,6 +47,7 @@ import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
 import { HttpParameterCodec } from "@angular/common/http";
+import { IBackupClientCreateResponse } from './interfaces/backup-create-response.interface';
 
 export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
   encodeKey(k: string): string { return standardEncoding(k); }
@@ -169,6 +170,16 @@ export class ApiService {
       .pipe(
         map(res => res.data),
       );
+  }
+
+  // backups
+  public createClientBackups(): Observable<IBackupClientCreateResponse> {
+    return this._http
+      .post<IBackupClientCreateResponse>("api/v1/backup/client/create", {}, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
   }
 
   // products

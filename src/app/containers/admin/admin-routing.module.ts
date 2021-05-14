@@ -143,6 +143,13 @@ const routes: Routes = [
           )
       },
       {
+        path: 'backups',
+        loadChildren: () =>
+          import('@containers/backups/backups.module').then(
+            module => module.BackupsModule,
+          ),
+      },
+      {
         path: 'licenses-account',
         loadChildren: () =>
           import('@containers/licenses-account-editor/licenses-account-editor.module').then(

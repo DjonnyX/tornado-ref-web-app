@@ -1,0 +1,15 @@
+@import "../../../styles/utils/px2em";
+
+.backups-editor {
+    display: flex;
+    justify-content: center;
+    margin: px2em(32);
+
+    &__wrapper {
+        width: px2em(600);
+        height: px2em(200);
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: px2em(12);
+    }
+}
