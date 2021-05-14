@@ -62,6 +62,22 @@
     flex-direction: column;
 }
 
+.main-wrapper {
+    height: 100vh;
+
+    .form__wrapper {
+        position: relative;
+        overflow: auto;
+        margin: auto;
+
+        .form__container {
+            position: relative;
+            margin: auto;
+            height: auto;
+        }
+    }
+}
+
 @media screen and (min-width: 600px) {
     .main-wrapper {
         /*background-image: url('~/embeded-assets/img/backgrounds/auth.jpg');*/
@@ -70,16 +86,11 @@
         background-size: cover;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        height: 100vh;
         background-color: $primary;
 
         .form__wrapper {
-            overflow: auto;
             max-width: 25%;
             min-width: 480px;
-            margin: 0 auto;
-            position: relative;
         }
 
         .form {
@@ -98,8 +109,7 @@
 
         .form__wrapper {
             width: 100%;
-            margin: 0 auto;
-            position: relative;
+            height: 100%;
         }
 
         .form {
