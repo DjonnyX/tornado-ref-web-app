@@ -23,9 +23,6 @@ import { IntegrationsActions } from '@store/actions/integrations.action';
   styleUrls: ['./signup.container.scss']
 })
 export class SignupContainer extends BaseComponent implements OnInit, OnDestroy {
-  @ViewChild("queryProgress", { static: true }) queryProgressRef: ElementRef;
-
-  public queryProgressHeight: number;
 
   public integrations$: Observable<Array<IIntegration>>;
 
@@ -104,10 +101,6 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
     this.onResetCatcha();
 
     this._store.dispatch(IntegrationsActions.getAllRequest({}));
-  }
-
-  ngAfterViewInit() {
-    this.queryProgressHeight = (this.queryProgressRef.nativeElement as HTMLElement).offsetHeight;
   }
 
   ngOnDestroy() {

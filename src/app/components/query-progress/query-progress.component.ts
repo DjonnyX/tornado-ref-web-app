@@ -10,6 +10,8 @@ export class QueryProgressComponent implements OnInit {
 
   @Input() process: boolean;
 
+  @Input() customClass: string = 'custom-query-progress';
+
   constructor() { }
 
   ngOnInit(): void {
