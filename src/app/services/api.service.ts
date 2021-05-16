@@ -48,6 +48,7 @@ import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-
 import { IUserSignupParamsResponse } from './interfaces/user-signup-response.interface';
 import { HttpParameterCodec } from "@angular/common/http";
 import { IBackupClientCreateResponse } from './interfaces/backup-create-response.interface';
+import { IBackupClientUploadResponse } from './interfaces/backup-upload-response.interface';
 
 export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
   encodeKey(k: string): string { return standardEncoding(k); }
@@ -180,6 +181,38 @@ export class ApiService {
           "authorization": this.getAuthToken(),
         },
       });
+  }
+
+  public uploadBackup(file: File): Observable<IBackupClientUploadResponse> {
+    const formData = new FormData();
+    formData.append("file", file, file.name);
+
+    return this._http
+      .post<IBackupClientUploadResponse>("api/v1/backup/client/upload", formData, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
   }
 
   // products
