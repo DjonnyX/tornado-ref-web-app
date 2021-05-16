@@ -6,9 +6,42 @@
     flex: 1 1 auto;
 }
 
-.form__link {
-    color: $accent;
+//Button
+
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+    color: white;
+    border-radius: $button-corner-radius;
 }
+
+.mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
+    border-radius: $button-corner-radius;
+}
+
+//My Form
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(0,0,0,0.1);
+    // background-color: rgba(0,0,0,0.03);
+    border-radius: $form-field-radius;
+}
+
+// .mat-form-field.mat-focused {
+//     color: rgba(0,0,0,1);
+// }
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border-radius: $form-field-radius 0px 0px $form-field-radius;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 0 $form-field-radius $form-field-radius 0;
+}
+
+// .form {
+//     .mat-form-field-appearance-outline .mat-form-field-outline-start, .mat-form-field-appearance-outline .mat-form-field-outline-end {
+//     border: 2px solid currentColor;
+//     }
+// }
 
 .form {
     background-color: white;
@@ -25,31 +58,19 @@
     }
 
     .form__link {
-        color: $accent-800;
+        // color: $accent-800;
+        color: #3278d2;
+        font-weight: 500;
     }
+
+    // button {
+    //     border-radius: 8px;
+    //     // background-color: rgb(87 114 127 / 24%);
+    // }
 }
 
 .full-width {
     width: 100%;
-}
-
-.form__heading {
-    padding: $padding * 2;
-    background-color: $primary-700;
-    color: white;
-    display: flex;
-    justify-content: space-between;
-
-    .heading__title {
-        text-transform: uppercase;
-        &.m0 {
-            margin: 0;
-        }
-    }
-
-    p {
-        margin: 0;
-    }
 }
 
 .form__input-block {
@@ -62,6 +83,135 @@
     flex-direction: column;
 }
 
+// .mat-form-field-empty.mat-form-field-label, .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+//     color: #b9b9b9;
+//     font-size: 13px;
+// }
+
+.main-wrapper {
+    height: 100vh;
+
+    .form__wrapper {
+        position: relative;
+        margin: auto;
+
+        .form__container {
+            position: relative;
+            display: grid;
+            grid-template-rows: auto 1fr;
+            margin: auto;
+            height: 100%;
+
+            .form__header {
+                padding: $padding * 1.75 $padding * 2;
+                background-color: $primary-700;
+                color: white;
+                display: flex;
+                justify-content: space-between;
+                letter-spacing: 0.2px;
+
+                .form__header__content {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: baseline;
+                    width: 100%;
+
+                    .form__link {
+                        color: $accent;
+                        font-size: 14px;
+                        font-weight: 400;
+                    }
+
+                    p {
+                        line-height: 1.4;
+                        margin: 0;
+                    }
+
+                    .form__header__title {
+                        // text-transform: uppercase;
+                        font-size: 20px;
+                        font-weight: 500;
+                        &.m0 {
+                            margin: 0;
+                        }
+                    }
+
+                    .form__header__description {
+                        font-size: 12px;
+                        margin-right: 6px;
+                        color: rgba(255,255,255,0.40);
+                    }
+                }
+            }
+
+            .form__body {
+                overflow: auto;
+
+                // .form__field {
+
+                //     mat-label {
+                //         // color: #000;
+
+                //         .mat-form-field-label {
+                //             color: #000;
+                //         }
+                //     }
+                // }
+
+                .form__checkbox {
+                    color: #939b9e;
+                }
+
+                .form__params {
+                    padding-top: 5px;
+
+                    .form__params-block {
+                        padding-top: 25px;
+                        padding-bottom: 15px;
+                    //.form__divider {
+
+                    //}
+
+                    }
+                }
+
+                .form__link {
+                    font-weight: 400;
+                }
+
+                .form__submit {
+                    margin-bottom: 5px;
+                }
+                
+                // Padding between form fields
+                .mat-form-field-wrapper {
+                    margin: .15em 0;
+                }
+
+                // .form-item {
+
+                //     .form__field {
+
+                //         label {
+                //             color: #b9b9b9;
+                //             font-size: 13px;
+                //         }
+                //     }
+                // }
+
+                // .mat-form-field-label-wrapper {
+                //     label.mat-form-field-label {
+                //         color: #b9b9b9;
+                //         font-size: 13px;
+                //     }
+                // }
+
+            }
+
+        }
+    }
+}
+
 @media screen and (min-width: 600px) {
     .main-wrapper {
         /*background-image: url('~/embeded-assets/img/backgrounds/auth.jpg');*/
@@ -70,16 +220,25 @@
         background-size: cover;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        height: 100vh;
         background-color: $primary;
+        // background-color: #f4f7f8;
 
         .form__wrapper {
-            overflow: hidden;
             max-width: 25%;
-            min-width: 480px;
-            margin: 0 auto;
-            position: relative;
+            min-width: 420px;
+            max-height: 90%;
+            box-shadow: 0px 0px 36px rgba(0,0,0,0.15);
+            border-radius: 16px;
+            overflow: hidden;
+
+            // .form__header {
+
+            // }
+
+            // .form__body {
+
+            // }
+
         }
 
         .form {
@@ -98,8 +257,7 @@
 
         .form__wrapper {
             width: 100%;
-            margin: 0 auto;
-            position: relative;
+            height: 100%;
         }
 
         .form {

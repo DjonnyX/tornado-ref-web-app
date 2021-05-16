@@ -12,7 +12,8 @@ body {
 }
 
 .query-progress-container {
-    min-height: 100%;
+    //min-height: 100%;
+    height: auto;
     width: 100%;
     position: absolute;
     display: block;

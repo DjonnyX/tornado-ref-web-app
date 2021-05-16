@@ -1,134 +1,143 @@
 <div class="main-wrapper">
     <div class="form__wrapper">
-        <div class="form__heading">
-            <span>
-                <h4 class="heading__title m0">Регистрация</h4>
-            </span>
-            <span>
-                <a [routerLink]="['/signin']" [queryParams]="registerQueryParams" class="form__link">
-                    &nbsp;Войти
-                </a>
-                <span class="form__text">взамен?</span>
-            </span>
-        </div>
-        <mat-divider></mat-divider>
-        <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
-                <div class="form__input-block">
+        <div class="form__container">
+            <div class="form__header">
+                <div class="form__header__content">
+                    <span>
+                        <h4 class="form__header__title m0">Регистрация</h4>
+                    </span>
+                    <span>
+                        <span class="form__header__description">Уже зарегистрированы?</span>
+                        <a [routerLink]="['/signin']" [queryParams]="registerQueryParams" class="form__link">Войти</a>
+                    </span>
+                </div>
+                <!--<mat-divider></mat-divider>-->
+            </div>
+            <div class="form__body" [style.maxHeight]="queryProgressHeight + 'px'">
+                <ta-query-progress class="query-progress-container" [process]="isProcess$ | async" #queryProgress>
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+                        <div class="form__input-block">
 
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Интеграция</mat-label>
-                            <mat-select [formControl]="ctrlIntegration" required>
-                                <mat-option *ngFor="let integration of (integrations$ | async)" [value]="integration.id">
-                                    <span>
-                                        {{integration.name}}
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>Интеграция</mat-label>
+                                    <mat-select [formControl]="ctrlIntegration" required>
+                                        <mat-option *ngFor="let integration of (integrations$ | async)"
+                                            [value]="integration.id">
+                                            <span>
+                                                {{integration.name}}
+                                            </span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>Имя</mat-label>
+                                    <input matInput [formControl]="ctrlFirstName" required>
+                                    <mat-error *ngIf="!ctrlFirstName.hasError('required')">
+                                        Имя должно состоять более чем из 1 буквы
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlFirstName.hasError('required')">
+                                        Имя - <strong>обязательное</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>Фамилия</mat-label>
+                                    <input matInput [formControl]="ctrlLastName" required>
+                                    <mat-error *ngIf="!ctrlLastName.hasError('required')">
+                                        Фамилия должна состоять более чем из 1 буквы
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlLastName.hasError('required')">
+                                        Фамилия - <strong>обязательное</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>Email</mat-label>
+                                    <input matInput [formControl]="ctrlEmail" placeholder="Email" required>
+                                    <mat-error *ngIf="!ctrlEmail.hasError('required')">
+                                        Пожалуйста, введите действительный адрес электронной почты
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlEmail.hasError('required')">
+                                        Email - <strong>обязательное</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>Пароль</mat-label>
+                                    <input matInput type="password" [formControl]="ctrlPassword" required>
+                                    <mat-error *ngIf="!ctrlPassword.hasError('required')">
+                                        Пароль должен содержать латинские буквы, цифры и заглавные буквы.
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlPassword.hasError('required')">
+                                        Пароль - <strong>обязательное</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>Подтвердить пароль</mat-label>
+                                    <input matInput type="password" [formControl]="ctrlconfirmPassword" required>
+                                    <mat-error *ngIf="ctrlconfirmPassword.value !== ctrlPassword.value">
+                                        Пароли не совпадают
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlconfirmPassword.hasError('required')">
+                                        Пароль - <strong>обязательное</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <div class="captcha">
+                                    <span [innerHtml]="safeCaptchaSvg" class="captcha__img"></span>
+                                    <span class="captcha__reset-button">
+                                        <button mat-icon-button type="button" (click)="onResetCatcha()">
+                                            <!--<mat-icon>settings_backup_restore</mat-icon>-->
+                                            <mat-icon>settings_backup_restore</mat-icon>
+                                        </button>
                                     </span>
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Имя</mat-label>
-                            <input matInput [formControl]="ctrlFirstName" required>
-                            <mat-error *ngIf="!ctrlFirstName.hasError('required')">
-                                Имя должно состоять более чем из 1 буквы
-                            </mat-error>
-                            <mat-error *ngIf="ctrlFirstName.hasError('required')">
-                                Имя - <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Фамилия</mat-label>
-                            <input matInput [formControl]="ctrlLastName" required>
-                            <mat-error *ngIf="!ctrlLastName.hasError('required')">
-                                Фамилия должна состоять более чем из 1 буквы
-                            </mat-error>
-                            <mat-error *ngIf="ctrlLastName.hasError('required')">
-                                Фамилия - <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Email</mat-label>
-                            <input matInput [formControl]="ctrlEmail" placeholder="Email" required>
-                            <mat-error *ngIf="!ctrlEmail.hasError('required')">
-                                Пожалуйста, введите действительный адрес электронной почты
-                            </mat-error>
-                            <mat-error *ngIf="ctrlEmail.hasError('required')">
-                                Email - <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Пароль</mat-label>
-                            <input matInput type="password" [formControl]="ctrlPassword" required>
-                            <mat-error *ngIf="!ctrlPassword.hasError('required')">
-                                Пароль должен содержать латинские буквы, цифры и заглавные буквы.
-                            </mat-error>
-                            <mat-error *ngIf="ctrlPassword.hasError('required')">
-                                Пароль - <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Подтвердить пароль</mat-label>
-                            <input matInput type="password" [formControl]="ctrlconfirmPassword" required>
-                            <mat-error *ngIf="ctrlconfirmPassword.value !== ctrlPassword.value">
-                                Пароли не совпадают
-                            </mat-error>
-                            <mat-error *ngIf="ctrlconfirmPassword.hasError('required')">
-                                Пароль - <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <div class="captcha">
-                            <span [innerHtml]="safeCaptchaSvg" class="captcha__img"></span>
-                            <span class="captcha__reset-button">
-                                <button mat-icon-button type="button" (click)="onResetCatcha()">
-                                    <mat-icon>settings_backup_restore</mat-icon>
-                                </button>
-                            </span>
+                                </div>
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>Введите текст с картинки</mat-label>
+                                    <input matInput type="text" [formControl]="ctrlCaptcha" required>
+                                    <mat-error *ngIf="ctrlCaptcha.hasError('required')">
+                                        Текст с картинки - <strong>обязателен</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
                         </div>
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Введите текст с картинки</mat-label>
-                            <input matInput type="text" [formControl]="ctrlCaptcha" required>
-                            <mat-error *ngIf="ctrlCaptcha.hasError('required')">
-                                Текст с картинки - <strong>обязателен</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="form__params-block">
-                    <div class="form-item">
-                        <mat-checkbox color="accent" [formControl]="ctrlRememberMe">
-                            Я согласен с <a [routerLink]="['/term-of-use']" class="form__link">
-                                Условиями использования
-                            </a>
-                        </mat-checkbox>
-                    </div>
-                    <div class="form-item">
-                    </div>
-                </div>
+                        <div class="form__params">
+                            <mat-divider class="form__divider"></mat-divider>
+                            <div class="form__params-block">
+                                <div class="form-item">
+                                    <mat-checkbox color="accent" class="form__checkbox" [formControl]="ctrlRememberMe">
+                                        Я согласен с
+                                        <a [routerLink]="['/term-of-use']" class="form__link">Условиями
+                                            использования</a>
+                                    </mat-checkbox>
+                                </div>
+                                <div class="form-item">
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="form__submit">
-                    <button mat-flat-button color="accent" type="submit" class="button button__text"
-                        [disabled]="!form.valid">Зарегистрироваться</button>
-                </div>
-            </form>
-        </ta-query-progress>
+                        <div class="form__submit">
+                            <button mat-flat-button color="accent" type="submit" class="button button__text"
+                                [disabled]="!form.valid">Зарегистрироваться</button>
+                        </div>
+                    </form>
+                </ta-query-progress>
+            </div>
+        </div>
     </div>
 </div>
