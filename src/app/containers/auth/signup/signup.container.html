@@ -19,7 +19,7 @@
                         <div class="form__input-block">
 
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Интеграция</mat-label>
                                     <mat-select [formControl]="ctrlIntegration" required>
                                         <mat-option *ngFor="let integration of (integrations$ | async)"
@@ -33,7 +33,7 @@
                             </div>
 
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Имя</mat-label>
                                     <input matInput [formControl]="ctrlFirstName" required>
                                     <mat-error *ngIf="!ctrlFirstName.hasError('required')">
@@ -46,7 +46,7 @@
                             </div>
 
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Фамилия</mat-label>
                                     <input matInput [formControl]="ctrlLastName" required>
                                     <mat-error *ngIf="!ctrlLastName.hasError('required')">
@@ -59,7 +59,7 @@
                             </div>
 
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Email</mat-label>
                                     <input matInput [formControl]="ctrlEmail" placeholder="Email" required>
                                     <mat-error *ngIf="!ctrlEmail.hasError('required')">
@@ -72,7 +72,7 @@
                             </div>
 
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Пароль</mat-label>
                                     <input matInput type="password" [formControl]="ctrlPassword" required>
                                     <mat-error *ngIf="!ctrlPassword.hasError('required')">
@@ -85,7 +85,7 @@
                             </div>
 
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Подтвердить пароль</mat-label>
                                     <input matInput type="password" [formControl]="ctrlconfirmPassword" required>
                                     <mat-error *ngIf="ctrlconfirmPassword.value !== ctrlPassword.value">
@@ -103,11 +103,11 @@
                                     <span class="captcha__reset-button">
                                         <button mat-icon-button type="button" (click)="onResetCatcha()">
                                             <!--<mat-icon>settings_backup_restore</mat-icon>-->
-                                            <p>icon</p>
+                                            <mat-icon>settings_backup_restore</mat-icon>
                                         </button>
                                     </span>
                                 </div>
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Введите текст с картинки</mat-label>
                                     <input matInput type="text" [formControl]="ctrlCaptcha" required>
                                     <mat-error *ngIf="ctrlCaptcha.hasError('required')">
@@ -116,14 +116,18 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="form__params-block">
-                            <div class="form-item">
-                                <mat-checkbox color="accent" [formControl]="ctrlRememberMe">
-                                    Я согласен с
-                                    <a [routerLink]="['/term-of-use']" class="form__link">Условиями использования</a>
-                                </mat-checkbox>
-                            </div>
-                            <div class="form-item">
+                        <div class="form__params">
+                            <mat-divider class="form__divider"></mat-divider>
+                            <div class="form__params-block">
+                                <div class="form-item">
+                                    <mat-checkbox color="accent" class="form__checkbox" [formControl]="ctrlRememberMe">
+                                        Я согласен с
+                                        <a [routerLink]="['/term-of-use']" class="form__link">Условиями
+                                            использования</a>
+                                    </mat-checkbox>
+                                </div>
+                                <div class="form-item">
+                                </div>
                             </div>
                         </div>
 

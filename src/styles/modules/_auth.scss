@@ -6,11 +6,6 @@
     flex: 1 1 auto;
 }
 
-.form__link {
-    color: $accent;
-    // margin-right: 6px;
-}
-
 .form {
     background-color: white;
     padding: ($padding * 2);
@@ -26,13 +21,14 @@
     }
 
     .form__link {
-        color: $accent-800;
+        // color: $accent-800;
+        color: #3278d2;
     }
 
-    button {
-        border-radius: 8px;
-        // background-color: rgb(87 114 127 / 24%);
-    }
+    // button {
+    //     border-radius: 8px;
+    //     // background-color: rgb(87 114 127 / 24%);
+    // }
 }
 
 .full-width {
@@ -45,6 +41,17 @@
     color: white;
     display: flex;
     justify-content: space-between;
+    letter-spacing: 0.2px;
+
+    .form__link {
+        color: $accent;
+        font-size: 14px;
+        font-weight: 500;
+    }
+
+    p {
+        line-height: 1.4;
+    }
 
     .form__header__title {
         // text-transform: uppercase;
@@ -101,6 +108,31 @@
 
             .form__body {
                 overflow: auto;
+
+                // .form__field {
+                    
+                // }
+
+                .form__checkbox {
+                    color: #939b9e;
+                }
+
+                .form__params {
+                    padding-top: 5px;
+
+                    .form__params-block {
+                        padding-top: 25px;
+                        padding-bottom: 15px;
+                    //.form__divider {
+
+                    //}
+
+                    }
+                }
+
+                .form__submit {
+                    margin-bottom: 5px;
+                }
                 
                 // Padding between form fields
                 .mat-form-field-wrapper {
@@ -121,6 +153,7 @@
         display: flex;
         flex-direction: column;
         background-color: $primary;
+        // background-color: #f4f7f8;
 
         .form__wrapper {
             max-width: 25%;
@@ -130,13 +163,13 @@
             border-radius: 16px;
             overflow: hidden;
 
-            .form__header {
+            // .form__header {
 
-            }
+            // }
 
-            .form__body {
+            // .form__body {
 
-            }
+            // }
 
         }
 

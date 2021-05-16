@@ -46,6 +46,11 @@ $warn-800: darken(mat-color($ta-warn), 20);
 $instance-node-color: #e7e7e7;
 $block-color: lighten($primary, 10);
 
+// My
+$corner-radius: 8px;
+$button-corner-radius: $corner-radius;
+$form-field-radius: $corner-radius;
+
 .mat-checkbox-layout {
     .mat-checkbox-label {
         line-height: 14px;
@@ -112,9 +117,35 @@ $block-color: lighten($primary, 10);
 
 .mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
     color: white;
-    border-radius: 3px;
+    border-radius: $button-corner-radius;
 }
 
 .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
-    border-radius: 3px;
+    border-radius: $button-corner-radius;
 }
+
+//My Form
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+    color: rgba(0,0,0,0.1);
+    // background-color: rgba(0,0,0,0.03);
+    border-radius: $form-field-radius;
+}
+
+.mat-form-field.mat-focused {
+    color: rgba(0,0,0,1);
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-start {
+    border-radius: $form-field-radius 0px 0px $form-field-radius;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline-end {
+    border-radius: 0 $form-field-radius $form-field-radius 0;
+}
+
+// .form {
+//     .mat-form-field-appearance-outline .mat-form-field-outline-start, .mat-form-field-appearance-outline .mat-form-field-outline-end {
+//     border: 2px solid currentColor;
+//     }
+// }

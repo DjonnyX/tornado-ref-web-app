@@ -22,7 +22,7 @@
                     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
                         <div class="form__input-block">
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Email</mat-label>
                                     <input matInput type="text" [formControl]="ctrlEmail" name="username"
                                         placeholder="Email" required>
@@ -36,7 +36,7 @@
                             </div>
 
                             <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
+                                <mat-form-field class="form__field full-width" appearance="outline">
                                     <mat-label>Пароль</mat-label>
                                     <input matInput type="password" [formControl]="ctrlPassword" name="password"
                                         placeholder="Пароль" required>
