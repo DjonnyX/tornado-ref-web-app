@@ -4,3 +4,9 @@ $padding: px2em(18);
 $base-radius: px2em(8);
 $toolbar-height: 64px;
 $toolbar-height-m: 56px;
+
+$corner-radius: 8px;
+
+// Forms
+$button-corner-radius: $corner-radius;
+$form-field-radius: $corner-radius;
