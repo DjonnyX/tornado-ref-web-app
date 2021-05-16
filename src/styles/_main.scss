@@ -12,9 +12,12 @@ body {
 }
 
 .query-progress-container {
-    //min-height: 100%;
-    height: auto;
+    height: 100%;
     width: 100%;
     position: absolute;
     display: block;
+}
+
+.auth__query-progress-container {
+    height: auto;
 }

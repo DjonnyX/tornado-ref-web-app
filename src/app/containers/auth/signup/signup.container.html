@@ -13,8 +13,8 @@
                 </div>
                 <!--<mat-divider></mat-divider>-->
             </div>
-            <div class="form__body" [style.maxHeight]="queryProgressHeight + 'px'">
-                <ta-query-progress class="query-progress-container" [process]="isProcess$ | async" #queryProgress>
+            <div class="form__body">
+                <ta-query-progress class="query-progress-container" customClass="auth__query-progress-container" [process]="isProcess$ | async">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
                         <div class="form__input-block">
 
