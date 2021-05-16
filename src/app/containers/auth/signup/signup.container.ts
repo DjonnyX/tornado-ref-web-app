@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
@@ -23,6 +23,10 @@ import { IntegrationsActions } from '@store/actions/integrations.action';
   styleUrls: ['./signup.container.scss']
 })
 export class SignupContainer extends BaseComponent implements OnInit, OnDestroy {
+  @ViewChild("queryProgress", { static: true }) queryProgressRef: ElementRef;
+
+  public queryProgressHeight: number;
+
   public integrations$: Observable<Array<IIntegration>>;
 
   public isProcess$: Observable<boolean>;
@@ -100,6 +104,10 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
     this.onResetCatcha();
 
     this._store.dispatch(IntegrationsActions.getAllRequest({}));
+  }
+
+  ngAfterViewInit() {
+    this.queryProgressHeight = (this.queryProgressRef.nativeElement as HTMLElement).offsetHeight;
   }
 
   ngOnDestroy() {
