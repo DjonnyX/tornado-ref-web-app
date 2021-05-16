@@ -3,8 +3,8 @@ import { NotificationService } from '@app/services/notification.service';
 import { BaseComponent } from '@components/base/base-component';
 import { FileDownloaderComponent } from '@components/file-downloader/file-downloader.component';
 import { ApiService } from '@services';
-import { interval, Observable, of, Subject } from 'rxjs';
-import { catchError, delay, finalize, map, takeUntil, tap } from 'rxjs/operators';
+import { BehaviorSubject, interval, Observable, of, Subject } from 'rxjs';
+import { catchError, delay, finalize, map, mergeMap, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-backups-editor',
@@ -22,6 +22,11 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
   private _backupCreatingTime = 0;
   backupCreatingTime$: Observable<number>;
+
+  isBackupUploading = false;
+
+  private _isBackupUploadingProgress$ = new BehaviorSubject<number>(0)
+  get isBackupUploadingProgress$() { return this._isBackupUploadingProgress$; }
 
   constructor(private _apiService: ApiService, private _notificationService: NotificationService) {
     super();
@@ -71,11 +76,44 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
         return;
       }
 
+      this._notificationService.success("Бэкап сгенерирован");
       this.downloader.download(data);
     });
   }
 
   onUploadFile(file: File): void {
+    this.isBackupUploading = true;
+    this._apiService.uploadBackup(file).pipe(
+      map(res => {
+        if (!res) {
+          return 0;
+        }
 
+        if (!!res.data.progress) {
+          return res.data.progress;
+        }
+
+        return -1;
+      }),
+      catchError((error: Error) => {
+        this._notificationService.error(error.message);
+        return of(null);
+      }),
+    ).subscribe(progress => {
+      // err
+      if (progress === null) {
+        this.isBackupUploading = false;
+        return;
+      }
+
+      // ok
+      if (progress === -1) {
+        this._isBackupUploadingProgress$.next(0);
+        this.isBackupUploading = false;
+        this._notificationService.success("База данных восстановлена");
+      } else {
+        this._isBackupUploadingProgress$.next(progress);
+      }
+    });
   }
 }
