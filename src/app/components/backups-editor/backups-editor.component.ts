@@ -4,7 +4,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { FileDownloaderComponent } from '@components/file-downloader/file-downloader.component';
 import { ApiService } from '@services';
 import { BehaviorSubject, interval, Observable, of, Subject } from 'rxjs';
-import { catchError, delay, finalize, map, mergeMap, takeUntil, tap } from 'rxjs/operators';
+import { catchError, finalize, map, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-backups-editor',
@@ -43,10 +43,10 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
     this.backupCreatingTime$ = interval(10).pipe(
       takeUntil(finish$),
-      tap(v => {
-        this._backupCreatingTime += 1;
-
-        if (this._backupCreatingTime > 100) {
+      map(v => {
+        if (this._backupCreatingTime < 100) {
+          this._backupCreatingTime += 1;
+        } else {
           this._backupCreatingTime = 0;
         }
         return this._backupCreatingTime;
@@ -55,11 +55,10 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
         this._backupCreatingTime = 0;
         this.backupCreatingTime$ = of(this._backupCreatingTime);
       }),
-    )
+    );
 
     this._apiService.createClientBackups().pipe(
       takeUntil(this.unsubscribe$),
-      delay(500),
       map(res => res.data),
       finalize(() => {
         this.isBackupCreating = false;
