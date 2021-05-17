@@ -1,0 +1,52 @@
+@import "../themes/theme";
+@import "../utils/px2em";
+
+.loader-button {
+    user-select: none;
+    cursor: pointer;
+    overflow: hidden;
+    border-radius: 6px;
+    color: $primary-700;
+    height: 100%;
+
+    &.disabled {
+        pointer-events: none;
+
+        .loader-button__wrapper {
+            background-color: #c0c0c0;
+        }
+
+        .loader-button__content {
+            color: #b3b3b3;
+        }
+    }
+
+    &__wrapper {
+        height: 100%;
+        position: relative;
+        background-color: #ffffff;
+    }
+
+    &__indicator {
+        position: absolute;
+        width: 100%;
+        background-color: rgba(0, 0, 0, 0.15);
+    }
+
+    &__content {
+        display: flex;
+        height: 100%;
+        align-items: center;
+        justify-content: center;
+        color: $primary-700;
+
+        &-wrapper {
+            padding: px2em(12);
+        }
+    }
+
+    &__text-content {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+}
