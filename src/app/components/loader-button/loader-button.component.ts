@@ -13,6 +13,8 @@ export class LoaderButtonComponent implements OnInit {
 
   @Input() percents: number = 0;
 
+  @Input() disabled: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {

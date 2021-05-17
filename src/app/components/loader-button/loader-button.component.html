@@ -1,4 +1,4 @@
-<div matRipple mat-elevation-z2 class="loader-button">
+<div matRipple mat-elevation-z2 [ngClass]="{'loader-button': true, 'disabled': disabled}">
     <div class="loader-button__wrapper">
         <div class="loader-button__indicator" [style.height]="percents + '%'"></div>
         <div class="loader-button__content">

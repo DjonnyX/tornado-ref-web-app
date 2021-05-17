@@ -1,8 +1,10 @@
 <div class="backups-editor">
     <div class="backups-editor__wrapper">
-        <ta-loader-button textContent="Выгрузить" [percents]="backupCreatingTime$ | async" (click)="onDownloadFile()">
+        <ta-loader-button textContent="Выгрузить" [percents]="backupCreatingTime$ | async" [disabled]="isBackupCreating"
+            (click)="onDownloadFile()">
         </ta-loader-button>
-        <ta-loader-button textContent="Загрузить" [percents]="isBackupUploadingProgress$ | async" (click)="fileSelector.open()"></ta-loader-button>
+        <ta-loader-button textContent="Загрузить" [percents]="isBackupUploadingProgress$ | async"
+            [disabled]="isBackupUploading" (click)="fileSelector.open()"></ta-loader-button>
     </div>
     <ta-file-selector [allowedExtensions]="extensions" #fileSelector="fileSelector" (select)="onUploadFile($event)">
     </ta-file-selector>
