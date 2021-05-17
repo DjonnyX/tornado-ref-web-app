@@ -1,0 +1,85 @@
+@import "../utils/px2em";
+@import "../abstracts/vars";
+
+// Common Style
+
+.tags {
+    display: flex;
+    position: relative;
+    width: auto;
+    height: auto;
+    gap: 5px;
+
+    .tag {
+        display: block;
+        position: relative;
+        // width: $tag-size;
+        // height: $tag-size;
+        width: auto;
+        height: auto;
+        // border: 1px solid rgb(222 226 229);
+        padding: px2em(6) px2em(10) px2em(4) px2em(10);
+        color: #fff;
+        font-size: 10px;
+        // text-transform: uppercase;
+        line-height: 1.0;
+        letter-spacing: 0.5px;
+    }
+}
+
+// Breakepoints:
+//xl
+@media screen and (min-width: $xl) {
+    .tags {
+
+        .tag {
+            width: $tag-size-xl;
+            height: $tag-size-xl;
+            border-radius: $tag-roundness-xl;
+        }
+    }
+}
+//lg
+@media screen and (min-width: $lg) and (max-width: $xl) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-lg;
+            height: $tag-size-lg;
+            border-radius: $tag-roundness-lg;
+        }
+    }
+}
+//md
+@media screen and (min-width: $md) and (max-width: $lg) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-md;
+            height: $tag-size-md;
+            border-radius: $tag-roundness-md;
+        }
+    }
+}
+//sm
+@media screen and (min-width: $sm) and (max-width: $md) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-sm;
+            height: $tag-size-sm;
+            border-radius: $tag-roundness-sm;
+        }
+    }
+}
+//xs
+@media screen and (max-width: $sm) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-xs;
+            height: $tag-size-xs;
+            border-radius: $tag-roundness-xs;
+        }
+    }
+}

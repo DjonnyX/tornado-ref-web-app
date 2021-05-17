@@ -1,13 +1,15 @@
-@import "../themes/theme";
 @import "../utils/px2em";
+@import "../abstracts/vars";
+@import "../themes/theme";
 
-$gap-m: px2em(10);
-$gap-d: px2em(10);
-$entity-size-m: px2em(140);
-$entity-size-d: px2em(190);
-$entity-button-menu-size-m: px2em(32);
-$entity-button-menu-size-d: px2em(38);
-$ctrl-panel-height: px2em(40);
+// $gap-m: px2em(10);
+// $gap-d: px2em(10);
+// $entity-size-m: px2em(140);
+// $entity-size-d: px2em(190);
+// $entity-button-menu-size-m: px2em(32);
+// $entity-button-menu-size-d: px2em(38);
+
+$entity-bottom-panel-background-color: #ebecee;
 
 @mixin button() {
     user-select: none;
@@ -18,8 +20,10 @@ $ctrl-panel-height: px2em(40);
     width: 100%;
 }
 
+//Common Styles:
+
 .editor {
-    color: #ffffff;
+    // color: #ffffff;
 
     .entities-wrapper {
         display: grid;
@@ -30,6 +34,9 @@ $ctrl-panel-height: px2em(40);
     .entity {
         position: relative;
         color: $primary-700;
+        box-shadow: 0px 0px 36px rgba(0,0,0,0.15);
+        border-radius: $entity-border-radius;
+        overflow: hidden;
 
         &.disabled {
             opacity: 0.5;
@@ -40,33 +47,54 @@ $ctrl-panel-height: px2em(40);
             color: $primary-700;
             background: $background-color;
             box-sizing: border-box;
-            border-radius: 0 0 3px 3px;
+            // border-radius: 0 0 $entity-border-radius $entity-border-radius;
+        }
+
+        .content__gradient {
+            display: block;
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            background: linear-gradient(0deg, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%);
         }
 
         .content {
-            line-height: 1.075;
+            position: relative;
+            // line-height: 1.075;
             overflow: hidden;
             height: 100%;
 
+            .content__container {
+                
+            }
+
             .content__name {
-                text-transform: uppercase;
-                margin-bottom: px2em(4);
+                // text-transform: uppercase;
+                font-weight: 400;
+                margin-bottom: px2em(6);
+                // line-height: 1.4;
             }
 
             .content__description {
                 font-size: 0.74em;
-                text-transform: lowercase;
+                // text-transform: lowercase;
+                word-wrap: break-word;
+                color: rgb(67 88 98 / 65%);
             }
         }
 
         .bottom-panel {
             display: flex;
-            align-items: baseline;
+            align-items: center;//baseline;
             justify-content: space-between;
-            margin: px2em(4) px2em(8) px2em(8);
+            padding: px2em(8) px2em(12);
+            border-top: 1px solid rgba(96, 125, 139, 0.1);
+            background-color: $entity-bottom-panel-background-color;
 
             img {
                 image-rendering: pixelated;
+                border-top: 1px solid rgba(96, 125, 139, 0.25);
+                background-color: #ffffff;
             }
         }
 
@@ -81,16 +109,14 @@ $ctrl-panel-height: px2em(40);
             display: flex;
             justify-content: space-between;
             background: #ffffff;
-            height: $ctrl-panel-height;
             border-bottom: 1px solid rgba($primary, 0.1);
-            border-radius: 3px 3px 0 0;
         }
 
         .entity-checkbox-active {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-left: px2em(8);
+            margin-left: $entity-checkbox-active-margin-left;
         }
 
         .entity-menu-button {
@@ -99,81 +125,330 @@ $ctrl-panel-height: px2em(40);
             justify-content: center;
             align-items: center;
             color: $primary-700;
+            height: 100%;
         }
     }
 
     .button-add {
         width: 100%;
-        border-radius: 3px;
-    }
-}
+        border-radius: $entity-border-radius;
+        box-shadow: 0px 0px 36px rgba(0,0,0,0.15);
 
-@media screen and (min-width: 600px) {
-    .editor {
-        .entities-wrapper {
-            gap: $gap-d;
-            grid-template-columns: repeat(auto-fill, minmax($entity-size-d, 1fr));
-            padding: 0 px2em(36) px2em(36);
-        }
-
-        .entity {
-            .entity-active-zone {
-                height: $entity-size-d - $ctrl-panel-height;
-            }
-
-            .content {
-                font-size: 0.9rem;
-                line-height: 1.2;
-                margin: 0.5em;
-            }
-
-            .entity-menu-button {
-                width: $entity-button-menu-size-d;
-                height: $entity-button-menu-size-d;
-
-                .icon {
-                    font-size: 1.2rem;
-                }
-            }
-        }
-
-        .button-add {
-            height: $entity-size-d;
+        .button-add-icon {
+            color: #ffffff;
         }
     }
 }
 
-@media screen and (max-width: 599px) {
+// Breakepoints:
+// xl
+
+@media screen and (min-width: $xl) {
     .editor {
+
         .entities-wrapper {
-            gap: $gap-m;
-            grid-template-columns: repeat(auto-fill, minmax($entity-size-m, 1fr));
-            padding: 0 px2em(20) px2em(20);
+            gap: $gap-xl;
+            grid-template-columns: repeat(auto-fill, minmax($entity-height-xl, 1fr));
+            padding: 0 $entities-wrapper-padding-xl $entities-wrapper-padding-xl;
         }
 
         .entity {
-            .entity-active-zone {
-                height: $entity-size-m - $ctrl-panel-height;
-            }
 
-            .content {
-                font-size: 0.73rem;
-                line-height: 1.2;
-                margin: 0.5em;
-            }
+            .entity-ctrls {
+                height: $entity-ctrl-panel-height-xl;
+                border-radius: $entity-border-radius-xl $entity-border-radius-xl 0 0;
 
-            .entity-menu-button {
-                width: $entity-button-menu-size-m;
-                height: $entity-button-menu-size-m;
+                .entity-menu-button {
+                    // width: $entity-button-menu-width-xl;
+                    // height: $entity-button-menu-height-xl;
 
-                .icon {
-                    font-size: 0.8rem;
+                    .icon {
+                        font-size: $entity-menu-button-size-xl;
+                    }
                 }
             }
+
+            .entity-active-zone {
+                height: $entity-active-zone-height-xl;
+                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+
+                .content__gradient {
+                    height: $entity-active-zone-content-gradient-height-xl;
+                }
+
+                .content {
+                    line-height: $entity-active-zone-content-line-height-xl;
+                    
+                    .content__container{
+                        margin: $entity-active-zone-content-margin-xl;
+                    }
+
+                    .content__name {
+                        font-size: $entity-active-zone-content-name-font-size-xl;
+                    }
+
+                    .content__description {
+                        font-size: $entity-active-zone-content-description-font-size-xl;
+                    }
+                }
+            }
+
         }
 
         .button-add {
-            height: $entity-size-m;
+            height: $entity-button-add-height-xl;
+
+            .button-add-icon {
+                font-size: $button-add-icon-size-xl;
+            }
+        }
+    }
+}
+// lg
+@media screen and (min-width: $lg) and (max-width: $xl) {
+    .editor {
+
+        .entities-wrapper {
+            gap: $gap-lg;
+            grid-template-columns: repeat(auto-fill, minmax($entity-height-lg, 1fr));
+            padding: 0 $entities-wrapper-padding-lg $entities-wrapper-padding-lg;
+        }
+
+        .entity {
+
+            .entity-ctrls {
+                height: $entity-ctrl-panel-height-lg;
+                border-radius: $entity-border-radius-lg $entity-border-radius-lg 0 0;
+
+                .entity-menu-button {
+                    // width: $entity-button-menu-width-lg;
+                    // height: $entity-button-menu-height-lg;
+
+                    .icon {
+                        font-size: $entity-menu-button-size-lg;
+                    }
+                }
+            }
+
+            .entity-active-zone {
+                height: $entity-active-zone-height-lg;
+                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+
+                .content {
+                    line-height: $entity-active-zone-content-line-height-lg;
+
+                    .content__gradient {
+                        height: $entity-active-zone-content-gradient-height-lg;
+                    }
+                    
+                    .content__container{
+                        margin: $entity-active-zone-content-margin-lg;
+                    }
+
+                    .content__name {
+                        font-size: $entity-active-zone-content-name-font-size-lg;
+                    }
+
+                    .content__description {
+                        font-size: $entity-active-zone-content-description-font-size-lg;
+                    }
+                }
+            }
+
+        }
+
+        .button-add {
+            height: $entity-button-add-height-lg;
+
+            .button-add-icon {
+                font-size: $button-add-icon-size-lg;
+            }
+        }
+    }
+}
+// md
+@media screen and (min-width: $md) and (max-width: $lg) {
+    .editor {
+
+        .entities-wrapper {
+            gap: $gap-md;
+            grid-template-columns: repeat(auto-fill, minmax($entity-height-md, 1fr));
+            padding: 0 $entities-wrapper-padding-md $entities-wrapper-padding-md;
+        }
+
+        .entity {
+
+            .entity-ctrls {
+                height: $entity-ctrl-panel-height-md;
+                border-radius: $entity-border-radius-md $entity-border-radius-md 0 0;
+
+                .entity-menu-button {
+                    // width: $entity-button-menu-width-md;
+                    // height: $entity-button-menu-height-md;
+
+                    .icon {
+                        font-size: $entity-menu-button-size-md;
+                    }
+                }
+            }
+
+            .entity-active-zone {
+                height: $entity-active-zone-height-md;
+                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+
+                .content {
+                    line-height: $entity-active-zone-content-line-height-md;
+
+                    .content__gradient {
+                        height: $entity-active-zone-content-gradient-height-md;
+                    }
+                    
+                    .content__container{
+                        margin: $entity-active-zone-content-margin-md;
+                    }
+
+                    .content__name {
+                        font-size: $entity-active-zone-content-name-font-size-md;
+                    }
+
+                    .content__description {
+                        font-size: $entity-active-zone-content-description-font-size-md;
+                    }
+                }
+            }
+
+        }
+
+        .button-add {
+            height: $entity-button-add-height-md;
+
+            .button-add-icon {
+                font-size: $button-add-icon-size-md;
+            }
+        }
+    }
+}
+// sm
+@media screen and (min-width: $sm) and (max-width: $md) {
+    .editor {
+
+        .entities-wrapper {
+            gap: $gap-sm;
+            grid-template-columns: repeat(auto-fill, minmax($entity-height-sm, 1fr));
+            padding: 0 $entities-wrapper-padding-sm $entities-wrapper-padding-sm;
+        }
+
+        .entity {
+
+            .entity-ctrls {
+                height: $entity-ctrl-panel-height-sm;
+                border-radius: $entity-border-radius-sm $entity-border-radius-sm 0 0;
+
+                .entity-menu-button {
+                    // width: $entity-button-menu-width-sm;
+                    // height: $entity-button-menu-height-sm;
+
+                    .icon {
+                        font-size: $entity-menu-button-size-sm;
+                    }
+                }
+            }
+
+            .entity-active-zone {
+                height: $entity-active-zone-height-sm;
+                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+
+                .content {
+                    line-height: $entity-active-zone-content-line-height-sm;
+
+                    .content__gradient {
+                        height: $entity-active-zone-content-gradient-height-sm;
+                    }
+                    
+                    .content__container{
+                        margin: $entity-active-zone-content-margin-sm;
+                    }
+
+                    .content__name {
+                        font-size: $entity-active-zone-content-name-font-size-sm;
+                    }
+
+                    .content__description {
+                        font-size: $entity-active-zone-content-description-font-size-sm;
+                    }
+                }
+            }
+
+        }
+
+        .button-add {
+            height: $entity-button-add-height-sm;
+
+            .button-add-icon {
+                font-size: $button-add-icon-size-sm;
+            }
+        }
+    }
+}
+// xs
+@media screen and (max-width: $sm) {
+    .editor {
+
+        .entities-wrapper {
+            gap: $gap-xs;
+            grid-template-columns: repeat(auto-fill, minmax($entity-height-xs, 1fr));
+            padding: 0 $entities-wrapper-padding-xs $entities-wrapper-padding-xs;
+        }
+
+        .entity {
+
+            .entity-ctrls {
+                height: $entity-ctrl-panel-height-xs;
+                border-radius: $entity-border-radius-xs $entity-border-radius-xs 0 0;
+
+                .entity-menu-button {
+                    // width: $entity-button-menu-width-xs;
+                    // height: $entity-button-menu-height-xs;
+
+                    .icon {
+                        font-size: $entity-menu-button-size-xs;
+                    }
+                }
+            }
+
+            .entity-active-zone {
+                height: $entity-active-zone-height-xs;
+                border-radius: 0 0 $entity-border-radius-xs $entity-border-radius-xs;
+
+                .content {
+                    line-height: $entity-active-zone-content-line-height-xs;
+
+                    .content__gradient {
+                        height: $entity-active-zone-content-gradient-height-xs;
+                    }
+
+                    .content__container{
+                        margin: $entity-active-zone-content-margin-xs;
+                    }
+
+                    .content__name {
+                        font-size: $entity-active-zone-content-name-font-size-xs;
+                    }
+
+                    .content__description {
+                        font-size: $entity-active-zone-content-description-font-size-xs;
+                    }
+                }
+            }
+
+        }
+
+        .button-add {
+            height: $entity-button-add-height-xs;
+
+            .button-add-icon {
+                font-size: $button-add-icon-size-xs;
+            }
         }
     }
 }
