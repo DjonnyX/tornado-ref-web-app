@@ -10,6 +10,11 @@ $color: #5c707c;
     min-width: 340px;
     color: $primary-600;
 
+    &__item,
+    &__expantion-item {
+        cursor: pointer;
+    }
+
     &__expantion-item {
         user-select: none;
         // border-top: $border;
