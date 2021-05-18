@@ -9,7 +9,7 @@
 // $entity-button-menu-size-m: px2em(32);
 // $entity-button-menu-size-d: px2em(38);
 
-$entity-bottom-panel-background-color: #ebecee;
+$entity-bottom-panel-background-color: #ffffff;
 
 @mixin button() {
     user-select: none;
@@ -73,13 +73,14 @@ $entity-bottom-panel-background-color: #ebecee;
                 font-weight: 400;
                 margin-bottom: px2em(6);
                 // line-height: 1.4;
+                color: $primary-800;
             }
 
             .content__description {
                 font-size: 0.74em;
                 // text-transform: lowercase;
                 word-wrap: break-word;
-                color: rgb(67 88 98 / 65%);
+                color: rgba($primary-800, 0.65);
             }
         }
 
@@ -88,12 +89,12 @@ $entity-bottom-panel-background-color: #ebecee;
             align-items: center;//baseline;
             justify-content: space-between;
             padding: px2em(8) px2em(12);
-            border-top: 1px solid rgba(96, 125, 139, 0.1);
+            border-top: 1px solid rgba($primary-800, 0.1);
             background-color: $entity-bottom-panel-background-color;
 
             img {
                 image-rendering: pixelated;
-                border-top: 1px solid rgba(96, 125, 139, 0.25);
+                border: 1px solid rgba($primary-800, 0.15);
                 background-color: #ffffff;
             }
         }
@@ -132,7 +133,7 @@ $entity-bottom-panel-background-color: #ebecee;
     .button-add {
         width: 100%;
         border-radius: $entity-border-radius;
-        box-shadow: 0px 0px 36px rgba(0,0,0,0.15);
+        box-shadow: 0px 0px 36px rgba(0,0,0,0.0);
 
         .button-add-icon {
             color: #ffffff;
@@ -148,7 +149,8 @@ $entity-bottom-panel-background-color: #ebecee;
 
         .entities-wrapper {
             gap: $gap-xl;
-            grid-template-columns: repeat(auto-fill, minmax($entity-height-xl, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax($entity-width-xl, 1fr));
+            // grid-template-columns: repeat($entity-columns-xl, 1fr);
             padding: 0 $entities-wrapper-padding-xl $entities-wrapper-padding-xl;
         }
 
@@ -210,7 +212,8 @@ $entity-bottom-panel-background-color: #ebecee;
 
         .entities-wrapper {
             gap: $gap-lg;
-            grid-template-columns: repeat(auto-fill, minmax($entity-height-lg, 1fr));
+            // grid-template-columns: repeat(auto-fill, minmax($entity-width-lg, 1fr));
+            grid-template-columns: repeat($entity-columns-lg, 1fr);
             padding: 0 $entities-wrapper-padding-lg $entities-wrapper-padding-lg;
         }
 
@@ -272,7 +275,8 @@ $entity-bottom-panel-background-color: #ebecee;
 
         .entities-wrapper {
             gap: $gap-md;
-            grid-template-columns: repeat(auto-fill, minmax($entity-height-md, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax($entity-width-md, 1fr));
+            // grid-template-columns: repeat($entity-columns-md, 1fr);
             padding: 0 $entities-wrapper-padding-md $entities-wrapper-padding-md;
         }
 
@@ -334,7 +338,8 @@ $entity-bottom-panel-background-color: #ebecee;
 
         .entities-wrapper {
             gap: $gap-sm;
-            grid-template-columns: repeat(auto-fill, minmax($entity-height-sm, 1fr));
+            // grid-template-columns: repeat(auto-fill, minmax($entity-width-sm, 1fr));
+            grid-template-columns: repeat($entity-columns-sm, 1fr);
             padding: 0 $entities-wrapper-padding-sm $entities-wrapper-padding-sm;
         }
 
@@ -396,7 +401,8 @@ $entity-bottom-panel-background-color: #ebecee;
 
         .entities-wrapper {
             gap: $gap-xs;
-            grid-template-columns: repeat(auto-fill, minmax($entity-height-xs, 1fr));
+            // grid-template-columns: repeat(auto-fill, minmax($entity-width-xs, 1fr));
+            grid-template-columns: repeat($entity-columns-xs, 1fr);
             padding: 0 $entities-wrapper-padding-xs $entities-wrapper-padding-xs;
         }
 

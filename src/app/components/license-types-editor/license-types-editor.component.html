@@ -19,11 +19,13 @@
             </div>
             <div matRipple class="entity-active-zone" (click)="onEdit(licenseType)">
                 <div class="content">
-                    <div class="content__name">
-                        {{licenseType.name}}
-                    </div>
-                    <div class="content__description">
-                        {{getIntegrationName(licenseType)}}
+                    <div class="content__container">
+                        <div class="content__name">
+                            {{licenseType.name}}
+                        </div>
+                        <div class="content__description">
+                            {{getIntegrationName(licenseType)}}
+                        </div>
                     </div>
                 </div>
             </div>

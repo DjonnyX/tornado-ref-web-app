@@ -1,5 +1,5 @@
-<div class="wrapper" ngClass.xs="wrapper--xs">
-    <mat-toolbar class="main-toolbar">
+<div class="wrapper admin__wrapper" ngClass.xs="wrapper--xs">
+    <mat-toolbar class="main-toolbar admin__toolbar">
         <span *ngIf="isMobile$ | async">
             <button mat-icon-button (click)="toggleSidenav()">
                 <mat-icon>menu</mat-icon>
@@ -11,15 +11,16 @@
             <mat-icon>exit_to_app</mat-icon>
         </button>
     </mat-toolbar>
-    <mat-sidenav-container (backdropClick)="closeSidenav()" [hasBackdrop]="isMobile$ | async" class="drawer-container">
-        <mat-sidenav class="mat-elevation-z2" role="navigation" ngClass.xs="sidenav--xs"
+    <mat-sidenav-container (backdropClick)="closeSidenav()" [hasBackdrop]="isMobile$ | async"
+        class="drawer-container admin__view__wrapper">
+        <mat-sidenav class="mat-elevation-z2 admin__view__navigation" role="navigation" ngClass.xs="sidenav--xs"
             [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
             <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
                 (select)="selectRoute($event)">
             </ta-navigation-menu>
         </mat-sidenav>
-        <mat-sidenav-content class="content">
+        <mat-sidenav-content class="content admin__view__content">
             <div class="saturn-page-logo__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
                 <img class="saturn-page-logo" src="embeded-assets/icons/saturn-page-logo.svg">
             </div>

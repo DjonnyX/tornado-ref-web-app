@@ -7,19 +7,31 @@ $entities-wrapper-padding-xl: px2em(36);
 
 $entity-height: px2em(280);
 
-$entity-height-xs: $entity-height;
-$entity-height-sm: $entity-height;
-$entity-height-md: $entity-height;
-$entity-height-lg: $entity-height;
-$entity-height-xl: $entity-height;
+$entity-height-xs: px2em(200);
+$entity-height-sm: px2em(230);
+$entity-height-md: px2em(260);
+$entity-height-lg: px2em(280);
+$entity-height-xl: px2em(250);
+
+$entity-width-xs: px2em(200);
+$entity-width-sm: px2em(230);
+$entity-width-md: px2em(280);
+$entity-width-lg: px2em(280);
+$entity-width-xl: px2em(250);
+
+$entity-columns-xs: 1;
+$entity-columns-sm: 2;
+$entity-columns-md: 3;
+$entity-columns-lg: 3;
+$entity-columns-xl: 4;
 
 $entity-button-add-height: $entity-height;
 
 $entity-button-add-height-xs: px2em(80);
-$entity-button-add-height-sm: $entity-height;
-$entity-button-add-height-md: $entity-height;
-$entity-button-add-height-lg: $entity-height;
-$entity-button-add-height-xl: $entity-height;
+$entity-button-add-height-sm: $entity-height-sm;
+$entity-button-add-height-md: $entity-height-md;
+$entity-button-add-height-lg: $entity-height-lg;
+$entity-button-add-height-xl: $entity-height-xl;
 
 $button-add-icon-size: px2em(36);
 $button-add-icon-size-xs: px2em(24);
@@ -28,20 +40,8 @@ $button-add-icon-size-md: $button-add-icon-size;
 $button-add-icon-size-lg: $button-add-icon-size;
 $button-add-icon-size-xl: $button-add-icon-size;
 
-// $entity-button-menu-height-xs: px2em(32);
-// $entity-button-menu-height-sm: px2em(32);
-// $entity-button-menu-height-md: px2em(38);
-// $entity-button-menu-height-lg: px2em(38);
-// $entity-button-menu-height-xl: px2em(38);
-
-// $entity-button-menu-width-xs: $entity-button-menu-height-xs;
-// $entity-button-menu-width-sm: $entity-button-menu-height-sm;
-// $entity-button-menu-width-md: $entity-button-menu-height-md;
-// $entity-button-menu-width-lg: $entity-button-menu-height-lg;
-// $entity-button-menu-width-xl: $entity-button-menu-height-xl;
-
-$entity-menu-button-size-xs: 0.8rem;
-$entity-menu-button-size-sm: 0.8rem;
+$entity-menu-button-size-xs: 1.2rem;
+$entity-menu-button-size-sm: 1.2rem;
 $entity-menu-button-size-md: 1.2rem;
 $entity-menu-button-size-lg: 1.2rem;
 $entity-menu-button-size-xl: 1.2rem;
@@ -52,7 +52,7 @@ $entity-ctrl-panel-height-md: px2em(50);
 $entity-ctrl-panel-height-xl: px2em(50);
 $entity-ctrl-panel-height-lg: px2em(50);
 
-$entity-active-zone-height-xs: auto;
+$entity-active-zone-height-xs: $entity-height-xs - $entity-ctrl-panel-height-xs;//auto
 $entity-active-zone-height-sm: $entity-height-sm - $entity-ctrl-panel-height-sm;
 $entity-active-zone-height-md: $entity-height-md - $entity-ctrl-panel-height-md;
 $entity-active-zone-height-lg: $entity-height-lg - $entity-ctrl-panel-height-lg;
@@ -66,7 +66,7 @@ $entity-active-zone-content-margin-md: $entity-active-zone-content-margin;
 $entity-active-zone-content-margin-lg: $entity-active-zone-content-margin;
 $entity-active-zone-content-margin-xl: $entity-active-zone-content-margin;
 
-$entity-checkbox-active-margin-left: 0.75em;
+$entity-checkbox-active-margin-left: 0.8em;
 
 $entity-active-zone-content-name-font-size: 1.0rem;
 
@@ -95,7 +95,7 @@ $entity-active-zone-content-line-height-xl: $entity-active-zone-content-line-hei
 
 $entity-active-zone-content-gradient-height: px2em(120);
 
-$entity-active-zone-content-gradient-height-xs: $entity-active-zone-content-gradient-height;
+$entity-active-zone-content-gradient-height-xs: px2em(80);
 $entity-active-zone-content-gradient-height-sm: $entity-active-zone-content-gradient-height;
 $entity-active-zone-content-gradient-height-md: $entity-active-zone-content-gradient-height;
 $entity-active-zone-content-gradient-height-lg: $entity-active-zone-content-gradient-height;

@@ -22,11 +22,13 @@
             </div>
             <div matRipple class="entity-active-zone" (click)="onEdit(store)">
                 <div class="content">
-                    <div class="content__name">
-                        {{store.name}}
-                    </div>
-                    <div class="content__description" style="text-transform: none;">
-                        {{store.address}}
+                    <div class="content__container">
+                        <div class="content__name">
+                            {{store.name}}
+                        </div>
+                        <div class="content__description" style="text-transform: none;">
+                            {{store.address}}
+                        </div>
                     </div>
                 </div>
                 <div class="color" [style.background]="store.color"></div>

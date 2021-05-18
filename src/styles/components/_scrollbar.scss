@@ -8,14 +8,14 @@
 /* Scrollbar for Chrome/Edge/Safari */
 *::-webkit-scrollbar {
     position: absolute;
-    height: 4px;
-    width: 4px;
+    height: 3px;
+    width: 3px;
 }
 *::-webkit-scrollbar-track {
-    background: #d8dcdf;//rgba(204,204,204,0.05);
+    background: rgba(172, 172, 172, 0.35);//#d8dcdf;//rgba(204,204,204,0.05);
 }
 *::-webkit-scrollbar-thumb {
-    background-color: #97a1a5;//#c9d0d3;//#ffa000;
+    background-color: rgba($primary-800, 1.0);//#97a1a5;//#c9d0d3;//#ffa000;
     border-radius: 0px;
     border: 0px;
 }

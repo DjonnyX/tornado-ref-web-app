@@ -1,0 +1,19 @@
+@import "../utils/px2em";
+@import "../abstracts/vars";
+
+
+// .mat-checkbox {
+
+// }
+
+.entity-checkbox-active {
+
+    .mat-checkbox-frame {
+        border-radius: $checkbox-border-radius;
+    }
+
+    .mat-checkbox-background {
+        border-radius: $checkbox-border-radius;
+        overflow: hidden;
+    }
+}
