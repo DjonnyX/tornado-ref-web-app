@@ -1,0 +1,138 @@
+@import "../utils/px2em";
+@import "../abstracts/vars";
+
+$search-text-field-color: $white;
+$search-text-field-background-color: $primary-color;
+//Closed
+$search-width-closed: 200px;
+$search-text-field-color-closed: rgba($white, 0.4);
+//Opened
+$search-width-opened: 400px;
+$search-text-field-color-opened: rgba($white, 1.0);
+
+.search {
+    display: block;
+    position: relative;
+    animation-duration: 75ms;
+    animation-timing-function: ease;
+    animation-name: search-move-animation-out;
+    width: $search-width-closed;
+    background-color: $search-text-field-background-color;
+    padding: 10px;
+    border-radius: 8px;
+
+    &__form {
+        display: block;
+        position: relative;
+        width: 100%;
+
+        &__label {
+            display: none;
+        }
+
+        &__text-field {
+            display: block;
+            position: relative;
+            color: $search-text-field-color;
+            // background-color: $search-text-field-background-color;
+            width: 100%;
+            
+            &::placeholder {
+                color: $search-text-field-color-closed;
+            }
+        }
+    }
+
+    &.opened {
+        width: $search-width-opened;
+    }
+
+    &.closed {
+        width: $search-width-closed;
+    }
+    &:hover {
+        animation-duration: 125ms;
+        animation-timing-function: ease;
+        animation-name: search-move-animation-in;
+        width: $search-width-opened;
+
+        input::placeholder, input::-webkit-input-placeholder {
+            color: $search-text-field-color-opened;
+        }
+    }
+}
+
+//Animation
+
+//Placeholder Color
+@keyframes search-placeholder-animation {
+    from {
+        color: $search-text-field-color-closed;
+    }
+
+    to {
+        color: $search-text-field-color-opened;
+    }
+}
+
+//Move
+@keyframes search-move-animation-in {
+    from {
+        width: $search-width-closed;
+    }
+
+    to {
+        width: $search-width-opened;
+    }
+}
+
+@keyframes search-move-animation-out {
+    from {
+        width: $search-width-opened;
+    }
+
+    to {
+        width: $search-width-closed;
+    }
+}
+
+// .search {
+//     width: 320px;
+
+//     .search-form {
+//         width: 100%;
+//         // background-color: #33454d;
+//         // border-radius: 8px;
+
+//         &__field {
+//             width: 100%;
+
+//             &__label {
+//                 text-transform: unset;
+//                 color: rgba($white, 0.6);
+//                 font-weight: 400;
+//             }
+
+//             .mat-form-field-wrapper {
+//                 padding-bottom: 0;
+//                 width: 100%;
+
+//                 .mat-form-field-flex {
+
+//                     .mat-form-field-infix {
+
+//                         input {
+
+//                         }
+//                     }
+//                 }
+
+//                 .mat-form-field-underline {
+//                         // display: none;
+//                         bottom: 0;
+//                         background-color: rgba($white, 0.6);
+//                     }
+//             }
+//         }
+//     }
+// }

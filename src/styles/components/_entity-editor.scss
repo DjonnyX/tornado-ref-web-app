@@ -64,9 +64,9 @@ $entity-bottom-panel-background-color: #ffffff;
             overflow: hidden;
             height: 100%;
 
-            .content__container {
+            // .content__container {
                 
-            }
+            // }
 
             .content__name {
                 // text-transform: uppercase;
@@ -130,6 +130,10 @@ $entity-bottom-panel-background-color: #ffffff;
         }
     }
 
+    .button-add.mat-raised-button {
+        box-shadow: none;
+    }
+
     .button-add {
         width: 100%;
         border-radius: $entity-border-radius;
@@ -161,7 +165,7 @@ $entity-bottom-panel-background-color: #ffffff;
                 border-radius: $entity-border-radius-xl $entity-border-radius-xl 0 0;
 
                 .entity-menu-button {
-                    // width: $entity-button-menu-width-xl;
+                    width: $entity-button-menu-width-xl;
                     // height: $entity-button-menu-height-xl;
 
                     .icon {
@@ -224,7 +228,7 @@ $entity-bottom-panel-background-color: #ffffff;
                 border-radius: $entity-border-radius-lg $entity-border-radius-lg 0 0;
 
                 .entity-menu-button {
-                    // width: $entity-button-menu-width-lg;
+                    width: $entity-button-menu-width-lg;
                     // height: $entity-button-menu-height-lg;
 
                     .icon {
@@ -287,7 +291,7 @@ $entity-bottom-panel-background-color: #ffffff;
                 border-radius: $entity-border-radius-md $entity-border-radius-md 0 0;
 
                 .entity-menu-button {
-                    // width: $entity-button-menu-width-md;
+                    width: $entity-button-menu-width-md;
                     // height: $entity-button-menu-height-md;
 
                     .icon {
@@ -350,7 +354,7 @@ $entity-bottom-panel-background-color: #ffffff;
                 border-radius: $entity-border-radius-sm $entity-border-radius-sm 0 0;
 
                 .entity-menu-button {
-                    // width: $entity-button-menu-width-sm;
+                    width: $entity-button-menu-width-sm;
                     // height: $entity-button-menu-height-sm;
 
                     .icon {
@@ -385,7 +389,9 @@ $entity-bottom-panel-background-color: #ffffff;
             }
 
         }
-
+        .button-add + .mat-raised-button {
+            box-shadow: none;
+        }
         .button-add {
             height: $entity-button-add-height-sm;
 
@@ -413,7 +419,7 @@ $entity-bottom-panel-background-color: #ffffff;
                 border-radius: $entity-border-radius-xs $entity-border-radius-xs 0 0;
 
                 .entity-menu-button {
-                    // width: $entity-button-menu-width-xs;
+                    width: $entity-button-menu-width-xs;
                     // height: $entity-button-menu-height-xs;
 
                     .icon {

@@ -1,0 +1,17 @@
+@import "./palette";
+
+$state-panel-background-color: $primary-color-100;
+
+$state-panel-height-desktop: auto;
+$state-panel-height-xs: px2em(50);
+
+$state-panel-container-padding-desktop: px2em(12) px2em(40);
+$state-panel-container-padding-xs: px2em(6) px2em(12);
+
+$state-panel-margin-bottom-desktop: px2em(20);
+$state-panel-margin-bottom-xs: px2em(10);
+
+$state-panel-info-version-color: rgba($white, 0.35);
+$state-panel-info-font-size: 0.65rem;
+
+$state-panel-info-date-color: $accent-color;

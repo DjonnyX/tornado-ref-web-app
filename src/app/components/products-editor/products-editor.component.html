@@ -11,19 +11,22 @@
                 <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
-                        <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{product.active ? 'Деактивировать' : 'Активировать'}}</span>
+                <mat-menu #menu="matMenu" class="action-menu">
+                    <button mat-menu-item type="button" (click)="onToggleActive($event, product)"
+                        class="action-menu__item">
+                        <mat-icon class="action-menu__item__icon">{{product.active ? 'visibility_off' : 'visibility'}}
+                        </mat-icon>
+                        <span class="action-menu__item__name">{{product.active ? 'Деактивировать' :
+                            'Активировать'}}</span>
                     </button>
-                    <button mat-menu-item (click)="onEditProduct(product)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
+                    <button mat-menu-item (click)="onEditProduct(product)" class="action-menu__item">
+                        <mat-icon class="action-menu__item__icon">edit</mat-icon>
+                        <span class="action-menu__item__name">Редактировать</span>
                     </button>
                     <ng-container *ngIf="hasDelete()">
-                        <button mat-menu-item (click)="onDeleteProduct(product)">
-                            <mat-icon>delete_forever</mat-icon>
-                            <span>Удалить</span>
+                        <button mat-menu-item (click)="onDeleteProduct(product)" class="action-menu__item">
+                            <mat-icon class="action-menu__item__icon">delete_forever</mat-icon>
+                            <span class="action-menu__item__name">Удалить</span>
                         </button>
                     </ng-container>
                 </mat-menu>

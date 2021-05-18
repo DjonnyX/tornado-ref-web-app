@@ -40,17 +40,23 @@ $button-add-icon-size-md: $button-add-icon-size;
 $button-add-icon-size-lg: $button-add-icon-size;
 $button-add-icon-size-xl: $button-add-icon-size;
 
-$entity-menu-button-size-xs: 1.2rem;
-$entity-menu-button-size-sm: 1.2rem;
-$entity-menu-button-size-md: 1.2rem;
-$entity-menu-button-size-lg: 1.2rem;
-$entity-menu-button-size-xl: 1.2rem;
-
 $entity-ctrl-panel-height-xs: px2em(50);
 $entity-ctrl-panel-height-sm: px2em(50);
 $entity-ctrl-panel-height-md: px2em(50);
 $entity-ctrl-panel-height-xl: px2em(50);
 $entity-ctrl-panel-height-lg: px2em(50);
+
+$entity-button-menu-width-xs: $entity-ctrl-panel-height-xs;
+$entity-button-menu-width-sm: $entity-ctrl-panel-height-sm;
+$entity-button-menu-width-md: $entity-ctrl-panel-height-md;
+$entity-button-menu-width-lg: $entity-ctrl-panel-height-lg;
+$entity-button-menu-width-xl: $entity-ctrl-panel-height-xl;
+
+$entity-menu-button-size-xs: 1.2rem;
+$entity-menu-button-size-sm: 1.2rem;
+$entity-menu-button-size-md: 1.2rem;
+$entity-menu-button-size-lg: 1.2rem;
+$entity-menu-button-size-xl: 1.2rem;
 
 $entity-active-zone-height-xs: $entity-height-xs - $entity-ctrl-panel-height-xs;//auto
 $entity-active-zone-height-sm: $entity-height-sm - $entity-ctrl-panel-height-sm;
