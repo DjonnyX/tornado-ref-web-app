@@ -10,6 +10,11 @@ $search-text-field-color-closed: rgba($white, 0.4);
 $search-width-opened: 400px;
 $search-text-field-color-opened: rgba($white, 1.0);
 
+$search-button-clear-size: 14px;
+$search-button-clear-border-radius: $search-button-clear-size/2;
+$search-button-clear-color: rgba($white, 0.55);
+$search-button-clear-background-color: rgba($white, 0.15);
+
 .search {
     display: block;
     position: relative;
@@ -18,6 +23,7 @@ $search-text-field-color-opened: rgba($white, 1.0);
     animation-name: search-move-animation-out;
     width: $search-width-closed;
     background-color: $search-text-field-background-color;
+    box-shadow: inset 0px 2px 6px rgba($black, 0.05);
     padding: 10px;
     border-radius: 8px;
 
@@ -25,6 +31,39 @@ $search-text-field-color-opened: rgba($white, 1.0);
         display: block;
         position: relative;
         width: 100%;
+
+        &__container {
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        &__button-clear {
+            display: block;
+            position: absolute;
+            right: 0;
+            width: $search-button-clear-size;
+            height: $search-button-clear-size;
+            background-color: $search-button-clear-background-color;
+            color: $search-button-clear-color;
+            border-radius: $search-button-clear-border-radius;
+            z-index: 2;
+
+            &.active {
+                opacity: 0.25;
+            }
+        }
+
+        //Remove default styles
+        button {
+            padding: 0;
+            border: none;
+            font: inherit;
+            // color: inherit;
+            // background-color: transparent;
+            outline: inherit;  
+        }
 
         &__label {
             display: none;
