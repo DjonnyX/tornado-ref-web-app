@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SearchComponent } from './search.component';
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [SearchComponent],
+  declarations: [
+    SearchComponent,
+  ],
+  exports: [
+    SearchComponent,
+  ],
   imports: [
     CommonModule,
-    SearchModule,
+    FormsModule,
+    ReactiveFormsModule,
   ]
 })
 export class SearchModule { }

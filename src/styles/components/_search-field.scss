@@ -1,5 +1,6 @@
 @import "../utils/px2em";
 @import "../abstracts/vars";
+@import "../base/reset-input";
 
 $search-text-field-color: $white;
 $search-text-field-background-color: $primary-color;
@@ -81,6 +82,7 @@ $search-button-clear-icon-size: px2em(13);
         }
 
         &__text-field {
+            @include reset-input();
             display: block;
             position: relative;
             color: $search-text-field-color;
