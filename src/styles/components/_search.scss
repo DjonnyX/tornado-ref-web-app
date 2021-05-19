@@ -1,6 +1,7 @@
 @import "../utils/px2em";
 @import "../abstracts/vars";
 @import "../base/reset-input";
+@import "../mixins";
 
 .search {
     display: block;
@@ -32,9 +33,7 @@
             color: $search-button-clear-color;
             border-radius: $search-button-clear-border-radius;
             z-index: 2;
-            transition-duration: 75ms;
-            transition-timing-function: ease;
-            transition-property: opacity;
+            @include transition(width border, 75ms 75ms, ease, 0s);
 
             &:active {
                 opacity: 0.5;
@@ -79,17 +78,13 @@
     }
     //Search opened
     &.focused {
-        transition-duration: 125ms;
-        transition-timing-function: ease;
-        transition-property: width, border;
+        @include transition(width border, 125ms 125ms, ease, 0s);
         border: $search-border-opened;
         width: $search-width-opened;
     }
     //Search closed
     & {
-        transition-duration: 75ms;
-        transition-timing-function: ease;
-        transition-property: width, border;
+        @include transition(width border, 75ms 75ms, ease, 0s);
         border: $search-border-closed;
         width: $search-width-closed;
     }
