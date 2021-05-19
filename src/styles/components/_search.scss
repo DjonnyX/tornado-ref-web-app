@@ -2,32 +2,12 @@
 @import "../abstracts/vars";
 @import "../base/reset-input";
 
-$search-text-field-color: $white;
-$search-text-field-background-color: $primary-color;
-//Closed
-$search-width-closed: 200px;
-$search-text-field-color-closed: rgba($white, 0.4);
-//Opened
-$search-width-opened: 400px;
-$search-text-field-color-opened: rgba($white, 1.0);
-
-$search-button-clear-size: 14px;
-$search-button-clear-border-radius: $search-button-clear-size/2;
-$search-button-clear-color: rgba($white, 0.55);
-$search-button-clear-background-color: rgba($white, 0.15);
-
-$search-button-clear-icon-size: px2em(13);
-
 .search {
     display: block;
     position: relative;
-    animation-duration: 75ms;
-    animation-timing-function: ease;
-    animation-name: search-move-animation-out;
-    width: $search-width-closed;
     background-color: $search-text-field-background-color;
     box-shadow: inset 0px 2px 6px rgba($black, 0.05);
-    padding: 10px;
+    padding: $search-padding;
     border-radius: 8px;
 
     &__form {
@@ -52,6 +32,9 @@ $search-button-clear-icon-size: px2em(13);
             color: $search-button-clear-color;
             border-radius: $search-button-clear-border-radius;
             z-index: 2;
+            transition-duration: 75ms;
+            transition-timing-function: ease;
+            transition-property: opacity;
 
             &:active {
                 opacity: 0.5;
@@ -67,16 +50,15 @@ $search-button-clear-icon-size: px2em(13);
             }
         }
 
-        //Remove default styles
+        //Remove default button styles
         button {
             padding: 0;
             border: none;
             font: inherit;
-            // color: inherit;
-            // background-color: transparent;
             outline: inherit;  
         }
 
+        //Label don't used now
         &__label {
             display: none;
         }
@@ -86,22 +68,32 @@ $search-button-clear-icon-size: px2em(13);
             display: block;
             position: relative;
             color: $search-text-field-color;
-            // background-color: $search-text-field-background-color;
-            width: 100%;
+            width: calc(100% - #{$search-button-clear-size});
             
             &::placeholder {
+                font-weight: 400;
+                font-size: $search-text-field-placeholder-size;
                 color: $search-text-field-color-closed;
             }
         }
     }
-
+    //Search opened
     &.focused {
+        transition-duration: 125ms;
+        transition-timing-function: ease;
+        transition-property: width, border;
+        border: $search-border-opened;
         width: $search-width-opened;
     }
-
+    //Search closed
     & {
+        transition-duration: 75ms;
+        transition-timing-function: ease;
+        transition-property: width, border;
+        border: $search-border-closed;
         width: $search-width-closed;
     }
+
     // &:hover {
     //     animation-duration: 125ms;
     //     animation-timing-function: ease;
@@ -113,12 +105,14 @@ $search-button-clear-icon-size: px2em(13);
     //     }
     // }
 
+    //Search isFill
     &.typed {
 
         .search__form__button-clear {
             opacity: 1.0;
         }
     }
+    //Search isEmpty
     &.empty {
 
         .search__form__button-clear {
@@ -126,78 +120,3 @@ $search-button-clear-icon-size: px2em(13);
         }
     }
 }
-
-//Animation
-
-//Placeholder Color
-@keyframes search-placeholder-animation {
-    from {
-        color: $search-text-field-color-closed;
-    }
-
-    to {
-        color: $search-text-field-color-opened;
-    }
-}
-
-//Move
-@keyframes search-move-animation-in {
-    from {
-        width: $search-width-closed;
-    }
-
-    to {
-        width: $search-width-opened;
-    }
-}
-
-@keyframes search-move-animation-out {
-    from {
-        width: $search-width-opened;
-    }
-
-    to {
-        width: $search-width-closed;
-    }
-}
-
-// .search {
-//     width: 320px;
-
-//     .search-form {
-//         width: 100%;
-//         // background-color: #33454d;
-//         // border-radius: 8px;
-
-//         &__field {
-//             width: 100%;
-
-//             &__label {
-//                 text-transform: unset;
-//                 color: rgba($white, 0.6);
-//                 font-weight: 400;
-//             }
-
-//             .mat-form-field-wrapper {
-//                 padding-bottom: 0;
-//                 width: 100%;
-
-//                 .mat-form-field-flex {
-
-//                     .mat-form-field-infix {
-
-//                         input {
-
-//                         }
-//                     }
-//                 }
-
-//                 .mat-form-field-underline {
-//                         // display: none;
-//                         bottom: 0;
-//                         background-color: rgba($white, 0.6);
-//                     }
-//             }
-//         }
-//     }
-// }
