@@ -21,6 +21,8 @@ export class SearchComponent implements OnInit {
 
   isHover = false;
 
+  isFill = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -30,6 +32,8 @@ export class SearchComponent implements OnInit {
 
     this.form.valueChanges.subscribe(
       v => {
+        this.isFill = v && v.length > 0;
+
         if (this.liveSearch) {
           this.search.emit(this.ctrlSearch.value);
         }
