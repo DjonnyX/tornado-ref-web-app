@@ -27,8 +27,7 @@
             display: flex;
             position: absolute;
             right: 0;
-            width: $search-button-clear-size;
-            height: $search-button-clear-size;
+            @include box($search-button-clear-size);
             background-color: $search-button-clear-background-color;
             color: $search-button-clear-color;
             border-radius: $search-button-clear-border-radius;
