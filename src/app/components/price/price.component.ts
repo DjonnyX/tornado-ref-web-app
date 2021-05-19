@@ -11,6 +11,8 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class PriceComponent extends BaseComponent implements OnInit {
 
+  @Input() disabled: boolean = false;
+
   @Input() currenciesDictionary: { [id: string]: ICurrency } = {};
 
   private _currency: ICurrency;
