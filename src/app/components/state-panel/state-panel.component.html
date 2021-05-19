@@ -10,15 +10,19 @@
         <div class="spacer"></div>
         <!--<ta-search-field [fieldClass]="searchFieldClass" (search)="onSearch($event)"></ta-search-field>-->
         <!--<ta-search-field (search)="onSearch($event)"></ta-search-field>-->
-
+        <ta-search></ta-search>
         <div class="search closed">
             <form action="" method="post" class="search__form">
                 <div class="search__form__container">
                     <!--<label for="state-panel-search" class="search__form__label">Поиск</label>-->
-                    <button class="search__form__button-clear" type="button"></button>
-                    <input type="search" name="" placeholder="Поиск по имени" class="search__form__text-field" />
+                    <button class="search__form__button-clear" type="button" (click)="name.value=''">
+                        <span class="search__form__button-clear__icon">x</span>
+                    </button>
+                    <input type="search" name="" placeholder="Поиск по имени" class="search__form__text-field" #name
+                        required />
                 </div>
             </form>
         </div>
+
     </div>
 </div>
