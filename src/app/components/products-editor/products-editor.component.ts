@@ -6,6 +6,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
 import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -14,6 +15,8 @@ import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITa
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  public readonly LayoutTypes = LayoutTypes;
 
   @Input() collection: Array<IProduct>;
 
@@ -26,6 +29,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   @Input() languages: Array<ILanguage>;
 
   @Input() rights: Array<UserRights>;
+
+  layoutType: LayoutTypes;
 
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -62,6 +67,10 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     super.ngOnDestroy();
   }
 
+  onSwitchLayout(layoutType: LayoutTypes) {
+    this.layoutType = layoutType;
+  }
+
   getProductContent(product: IProduct): IProductContentsItem {
     return product.contents[this.defaultLanguage.code];
   }
@@ -70,7 +79,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     if (!tag) {
       return undefined;
     }
-    
+
     return tag?.contents[this.defaultLanguage.code];
   }
 

@@ -1,66 +1,77 @@
 <div class="editor" *ngIf="!!defaultLanguage">
-    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let product of collection | search:searchPattern:defaultLanguage?.code"
-            [class.disabled]="!product.active">
-            <div class="entity-ctrls">
-                <div class="entity-checkbox-active">
-                    <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                        (click)="onToggleActive($event, product)"></mat-checkbox>
-                </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu" class="action-menu">
-                    <button mat-menu-item type="button" (click)="onToggleActive($event, product)"
-                        class="action-menu__item">
-                        <mat-icon class="action-menu__item__icon">{{product.active ? 'visibility_off' : 'visibility'}}
-                        </mat-icon>
-                        <span class="action-menu__item__name">{{product.active ? 'Деактивировать' :
-                            'Активировать'}}</span>
-                    </button>
-                    <button mat-menu-item (click)="onEditProduct(product)" class="action-menu__item">
-                        <mat-icon class="action-menu__item__icon">edit</mat-icon>
-                        <span class="action-menu__item__name">Редактировать</span>
-                    </button>
-                    <ng-container *ngIf="hasDelete()">
-                        <button mat-menu-item (click)="onDeleteProduct(product)" class="action-menu__item">
-                            <mat-icon class="action-menu__item__icon">delete_forever</mat-icon>
-                            <span class="action-menu__item__name">Удалить</span>
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"
+        (layout)="onSwitchLayout($event)"></ta-state-panel>
+    <ng-container [ngSwitch]="layoutType">
+        <!-- LIST -->
+        <ng-container *ngSwitchCase="LayoutTypes.LIST">
+            <div class="entities-wrapper">
+                <div class="entity" *ngFor="let product of collection | search:searchPattern:defaultLanguage?.code"
+                    [class.disabled]="!product.active">
+                    <div class="entity-ctrls">
+                        <div class="entity-checkbox-active">
+                            <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
+                                (click)="onToggleActive($event, product)"></mat-checkbox>
+                        </div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+                            <mat-icon class="icon">more_vert</mat-icon>
                         </button>
-                    </ng-container>
-                </mat-menu>
-            </div>
-            <div matRipple class="entity-active-zone" (click)="onEditProduct(product)">
-                <div class="content">
-                    <div class="content__gradient"></div>
-                    <div class="content__container">
-                        <div class="content__name">
-                            {{getProductName(product)}}
+                        <mat-menu #menu="matMenu" class="action-menu">
+                            <button mat-menu-item type="button" (click)="onToggleActive($event, product)"
+                                class="action-menu__item">
+                                <mat-icon class="action-menu__item__icon">{{product.active ? 'visibility_off' :
+                                    'visibility'}}
+                                </mat-icon>
+                                <span class="action-menu__item__name">{{product.active ? 'Деактивировать' :
+                                    'Активировать'}}</span>
+                            </button>
+                            <button mat-menu-item (click)="onEditProduct(product)" class="action-menu__item">
+                                <mat-icon class="action-menu__item__icon">edit</mat-icon>
+                                <span class="action-menu__item__name">Редактировать</span>
+                            </button>
+                            <ng-container *ngIf="hasDelete()">
+                                <button mat-menu-item (click)="onDeleteProduct(product)" class="action-menu__item">
+                                    <mat-icon class="action-menu__item__icon">delete_forever</mat-icon>
+                                    <span class="action-menu__item__name">Удалить</span>
+                                </button>
+                            </ng-container>
+                        </mat-menu>
+                    </div>
+                    <div matRipple class="entity-active-zone" (click)="onEditProduct(product)">
+                        <div class="content">
+                            <div class="content__gradient"></div>
+                            <div class="content__container">
+                                <div class="content__name">
+                                    {{getProductName(product)}}
+                                </div>
+                                <div class="content__description">
+                                    {{getProductDescription(product)}}
+                                </div>
+                            </div>
                         </div>
-                        <div class="content__description">
-                            {{getProductDescription(product)}}
+                        <div class="bottom-panel">
+                            <img align="center" *ngIf="hasThumbnail(product)" class="entity-thumbnail"
+                                [src]="getThumbnail(product)">
+                            <div class="tags">
+                                <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
+                                    [matTooltip]="getTagName(tag)">
+                                    {{getTagName(tag)}}
+                                </span>
+                            </div>
                         </div>
+                        <div class="color" [style.background]="getProductColor(product)"></div>
                     </div>
                 </div>
-                <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(product)" class="entity-thumbnail"
-                        [src]="getThumbnail(product)">
-                    <div class="tags">
-                        <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
-                            [matTooltip]="getTagName(tag)">
-                            {{getTagName(tag)}}
-                        </span>
-                    </div>
-                </div>
-                <div class="color" [style.background]="getProductColor(product)"></div>
-            </div>
-        </div>
 
-        <ng-container *ngIf="hasCreate()">
-            <button color="accent" mat-raised-button class="button-add" (click)="onCreateProduct()">
-                <mat-icon class="button-add-icon">add</mat-icon>
-            </button>
+                <ng-container *ngIf="hasCreate()">
+                    <button color="accent" mat-raised-button class="button-add" (click)="onCreateProduct()">
+                        <mat-icon class="button-add-icon">add</mat-icon>
+                    </button>
+                </ng-container>
+            </div>
         </ng-container>
-    </div>
+        <!-- CARD -->
+        <ng-container *ngSwitchCase="LayoutTypes.CARD">
+            
+        </ng-container>
+    </ng-container>
 </div>

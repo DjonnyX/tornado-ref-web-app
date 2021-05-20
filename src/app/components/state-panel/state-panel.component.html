@@ -15,18 +15,20 @@
         <div class="filter">
             <div class="filter__container">
                 <div class="tab-button__group">
-
-                    <div class="tab-button filter-button-layout" id="filter-button-layout-list">
+                    <button
+                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': layoutType === LayoutTypes.LIST}"
+                        (click)="onSwitchToList()">
                         <div class="tab-button__container">
                             <div class="tab-button__icon icon-filter-list"></div>
                         </div>
-                    </div>
-
-                    <div class="tab-button filter-button-layout active" id="filter-button-layout-card">
+                    </button>
+                    <button
+                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': layoutType === LayoutTypes.CARD}"
+                        (click)="onSwitchToCard()">
                         <div class="tab-button__container">
                             <div class="tab-button__icon icon-filter-card"></div>
                         </div>
-                    </div>
+                    </button>
 
                 </div>
             </div>
