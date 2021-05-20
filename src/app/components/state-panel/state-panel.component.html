@@ -11,5 +11,26 @@
         <!--<ta-search-field [fieldClass]="searchFieldClass" (search)="onSearch($event)"></ta-search-field>-->
         <!--<ta-search-field (search)="onSearch($event)"></ta-search-field>-->
         <ta-search placeholder="Поиск по имени" [liveSearch]="true" (search)="onSearch($event)"></ta-search>
+        <!-- Filter -->
+        <div class="filter">
+            <div class="filter__container">
+                <div class="tab-button__group">
+
+                    <div class="tab-button filter-button-layout" id="filter-button-layout-list">
+                        <div class="tab-button__container">
+                            <div class="tab-button__icon icon-filter-list"></div>
+                        </div>
+                    </div>
+
+                    <div class="tab-button filter-button-layout active" id="filter-button-layout-card">
+                        <div class="tab-button__container">
+                            <div class="tab-button__icon icon-filter-card"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
