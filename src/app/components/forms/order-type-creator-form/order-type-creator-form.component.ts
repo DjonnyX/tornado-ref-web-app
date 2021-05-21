@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import { IOrderType, IAsset, ICurrency, IOrderTypeContents, IOrderTypeContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
-import { deepMergeObjects } from '@app/utils/object.util';
+import { deepEqual, deepMergeObjects } from '@app/utils/object.util';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 
 @Component({
   selector: 'ta-order-type-creator-form',
@@ -77,7 +79,12 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
 
   private _state: IOrderTypeContents = {};
 
-  constructor(private _fb: FormBuilder) {
+  private _initState: any;
+
+  private _isDirty = false;
+  get isDirty() { return this._isDirty; }
+
+  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
     super();
 
     this.form = this._fb.group({});
@@ -87,12 +94,50 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
+      this.checkDirty();
       this.update.emit(value);
     });
+
+    this.resetInitState();
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Сохранить изменения?",
+          message: "Описание содержит несохраненные изменения. Сохранить?",
+          buttons: {
+            confirm: {
+              label: "Да",
+            }
+          }
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        this.onSave();
+      }
+      handler();
+    });
+  }
+
+  resetInitState() {
+    this._initState = {
+      ...this._orderType,
+      ...this.form.value,
+      contents: { ...(!!this._orderType ? this._orderType.contents : undefined), ...this._state },
+      active: !!this._orderType && this._orderType.active !== undefined ? this._orderType.active : true,
+      extra: !!this._orderType ? this._orderType.extra : {},
+    };
   }
 
   onEnterSubmit(event: KeyboardEvent): void {
@@ -115,7 +160,21 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
       });
 
       this.isEdit = false;
+      this.resetInitState();
+      this.checkDirty();
     }
+  }
+
+  checkDirty() {
+    const newState = {
+      ...this._orderType,
+      ...this.form.value,
+      contents: { ...(!!this._orderType ? this._orderType.contents : undefined), ...this._state },
+      active: !!this._orderType && this._orderType.active !== undefined ? this._orderType.active : true,
+      extra: !!this._orderType ? this._orderType.extra : {},
+    };
+
+    this._isDirty = !deepEqual(this._initState, newState);
   }
 
   onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
@@ -145,6 +204,7 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
   updateStateFor(state: IOrderTypeContents, lang: ILanguage): void {
     const mergedState: IOrderTypeContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
     this.updateState(mergedState);
+    this.checkDirty();
   }
 
   private sortLanguages(): void {
