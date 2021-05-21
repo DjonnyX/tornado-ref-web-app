@@ -35,3 +35,15 @@ export const deepMergeObjects = (object1: any, object2: any, overrideToNull = fa
 export const deepClone = (object: any) => {
     return deepMergeObjects(object, object);
 }
+
+export const deepEqual = (object1: any, object2: any) => {
+    /*if (object1 === object2) {
+        return true;
+    }
+
+    if (object1 !== object2 && (!object1 || !object2)) {
+        return false;
+    }*/
+
+    return JSON.stringify(object1) === JSON.stringify(object2);
+}

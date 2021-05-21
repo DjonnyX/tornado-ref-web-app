@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import {
@@ -9,9 +9,11 @@ import {
 } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
-import { deepMergeObjects } from '@app/utils/object.util';
+import { deepEqual, deepMergeObjects } from '@app/utils/object.util';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 
 interface IData {
   tags: IKeyValue;
@@ -140,14 +142,19 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     return this._data;
   }
 
-  constructor(private _fb: FormBuilder) {
+  private _initState: any;
+
+  private _isDirty = false;
+  get isDirty() { return this._isDirty; }
+
+  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
     super();
 
     this.form = this._fb.group({
       tags: this.ctrlTags,
       prices: this.ctrlPrices,
       receipt: this.ctrlReceipt,
-    })
+    });
   }
 
   private generateData(): void {
@@ -180,12 +187,50 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
+      this.checkDirty();
       this.update.emit(value);
     });
+
+    this.resetInitState();
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Сохранить изменения?",
+          message: "Описание содержит несохраненные изменения. Сохранить?",
+          buttons: {
+            confirm: {
+              label: "Да",
+            }
+          }
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        this.onSave();
+      }
+      handler();
+    });
+  }
+
+  resetInitState() {
+    this._initState = {
+      ...this._product,
+      ...this.form.value,
+      contents: { ...(!!this._product ? this._product.contents : undefined), ...this._state },
+      active: !!this._product && this._product.active !== undefined ? this._product.active : true,
+      extra: !!this._product ? this._product.extra : {},
+    };
   }
 
   getTagContent(tag: ITag): ITagContentsItem {
@@ -222,7 +267,21 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       });
 
       this.isEdit = false;
+      this.resetInitState();
+      this.checkDirty();
     }
+  }
+
+  checkDirty() {
+    const newState = {
+      ...this._product,
+      ...this.form.value,
+      contents: { ...(!!this._product ? this._product.contents : undefined), ...this._state },
+      active: !!this._product && this._product.active !== undefined ? this._product.active : true,
+      extra: !!this._product ? this._product.extra : {},
+    };
+
+    this._isDirty = !deepEqual(this._initState, newState);
   }
 
   onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
@@ -247,6 +306,11 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   onChangePrices(prices: Array<IPrice>): void {
     this.ctrlPrices.setValue(prices);
+    this.checkDirty();
+  }
+
+  onChangeTags(): void {
+    this._isDirty = true;
   }
 
   onEdit(): void {
@@ -272,6 +336,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   updateStateFor(state: IProductContents, lang: ILanguage): void {
     const mergedState: IProductContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
     this.updateState(mergedState);
+    this.checkDirty();
   }
 
   private sortLanguages(): void {
