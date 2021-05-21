@@ -1,27 +1,14 @@
-import { Component, OnInit, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { AbstractControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors } from '@angular/forms';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { IPrice, ICurrency } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'ta-prices',
   templateUrl: './prices.component.html',
-  styleUrls: ['./prices.component.scss'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => PricesComponent),
-    multi: true,
-  },
-  {
-    provide: NG_VALIDATORS,
-    useExisting: forwardRef(() => PricesComponent),
-    multi: true,
-  }]
+  styleUrls: ['./prices.component.scss']
 })
 export class PricesComponent implements OnInit {
 
   currenciesDictionary: { [id: string]: ICurrency };
-
-  @Input() disabled: boolean = false;
 
   private _currencies: Array<ICurrency>;
 
@@ -42,86 +29,41 @@ export class PricesComponent implements OnInit {
     return this._currencies;
   }
 
-  private _value: Array<IPrice>;
+  private _prices: Array<IPrice>;
 
-  @Input() set value(v: Array<IPrice>) {
+  @Input() set prices(v: Array<IPrice>) {
     if (!!v) {
-      this._value = v.map(item => ({ ...item }));
+      this._prices = v.map(item => ({ ...item }));
 
-      // this.normalizePrices();
+      this.normalizePrices();
     }
   }
 
-  get value() {
-    return this._value;
+  get prices() {
+    return this._prices;
   }
 
-  // @Output() update = new EventEmitter<Array<IPrice>>();
-
-  public onTouched = () => {
-    // etc
-  }
-
-  public onChange = (value: Array<IPrice>) => {
-    // etc
-  }
-
-  public onValidatorChange = () => {
-    // etc
-  }
+  @Output() update = new EventEmitter<Array<IPrice>>();
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.onChangeModel();
-  }
+  ngOnInit(): void { }
 
-  onChangeModel() {
-    this.onChange(this.value);
-  }
-
-  writeValue(value: Array<IPrice>) {
-    this._value = value;
-    this.onChange(this.value);
-  }
-
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  registerOnChange(fn: any) {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(fn: any) {
-    this.onTouched = fn;
-  }
-
-  validate(control: AbstractControl): ValidationErrors | null {
-    const isValid = true;
-
-    return isValid ? null : {
-      invalid: true,
-    };
-  }
-
-  onPriceChange(original: IPrice, next: IPrice): void {
-    const index = this._value.indexOf(original);
+  onPriceChange(original: IPrice, price: IPrice): void {
+    const index = this._prices.indexOf(original);
 
     if (index > -1) {
-      this._value[index].currency = next.currency;
-      this._value[index].value = next.value;
+      this._prices[index] = price;
     }
 
-    // this.update.emit([...this._value]);
-    this.onChange(this._value);
+    this.update.emit([...this._prices]);
   }
 
   private normalizePrices(): void {
-    if (this._value && this._currencies) {
+    if (this._prices && this._currencies) {
       this._currencies.forEach((currency, index) => {
-        if (this._value.length <= index) {
-          this._value.push({
+        if (this._prices.length <= index) {
+          this._prices.push({
             currency: currency.id,
             value: 0,
           });

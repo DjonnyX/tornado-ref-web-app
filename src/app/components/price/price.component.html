@@ -1,7 +1,7 @@
 <div class="price">
     <mat-form-field class="full-width" appearance="outline">
         <mat-label>{{getCurrencyName()}}</mat-label>
-        <input matInput [formControl]="ctrlPrice" type="number" [disabled]="disabled">
+        <input matInput [formControl]="ctrlPrice" type="number">
         <mat-error *ngIf="ctrlPrice.hasError('required')">
             <strong>обязательное</strong>
         </mat-error>

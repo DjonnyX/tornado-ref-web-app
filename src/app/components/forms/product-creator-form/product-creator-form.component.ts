@@ -221,8 +221,6 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
         extra: !!this._product ? this._product.extra : {},
       });
 
-      this.form.reset();
-
       this.isEdit = false;
     }
   }

@@ -43,7 +43,7 @@
             </p>
 
             <div class="prices__wrapper">
-                <ta-prices formControlName="prices" [currencies]="currencies" (update)="onChangePrices($event)">
+                <ta-prices [prices]="product.prices" [currencies]="currencies" (update)="onChangePrices($event)">
                 </ta-prices>
             </div>
         </ng-container>
@@ -63,15 +63,15 @@
     <div class="form__submit" align="end">
         <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
             <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
-                Закрыть
+                Отменить
             </button>
-            <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid || !form.dirty">
+            <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
                 {{isEditMode ? 'Сохранить' : 'Создать'}}
             </button>
         </ng-container>
         <ng-template #editButtons>
             <button mat-button class="button button__text" (click)="onCancel()">
-                Закрыть
+                Отменить
             </button>
             <button mat-flat-button color="accent" (click)="onEdit()" class="button button__text">
                 Редактировать
