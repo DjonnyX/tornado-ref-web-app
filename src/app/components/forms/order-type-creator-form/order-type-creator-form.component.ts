@@ -94,8 +94,8 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
-      this.checkDirty();
       this.update.emit(value);
+      this.checkDirty();
     });
 
     this.resetInitState();

@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TagContentModule } from './tag-content/tag-content.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { TagContentModule } from './tag-content/tag-content.module';
     MatButtonModule,
     MatFormFieldModule,
     MatTabsModule,
+    MatDialogModule,
+    DeleteEntityDialogModule,
     TagContentModule,
   ]
 })

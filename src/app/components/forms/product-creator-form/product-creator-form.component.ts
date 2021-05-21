@@ -187,8 +187,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
-      this.checkDirty();
       this.update.emit(value);
+      this.checkDirty();
     });
 
     this.resetInitState();

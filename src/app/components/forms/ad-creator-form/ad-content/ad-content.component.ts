@@ -42,6 +42,8 @@ export class AdContentComponent extends BaseComponent implements OnInit, OnDestr
 
   @Input() isEdit: boolean;
 
+  @Input() isDirty: boolean;
+
   @Input() isDefault: boolean;
 
   @Input() defaultContent: IAdContentsItem;
@@ -79,6 +81,8 @@ export class AdContentComponent extends BaseComponent implements OnInit, OnDestr
   @Output() uploadIconResource = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() save = new EventEmitter<void>();
+
+  @Output() confirm = new EventEmitter<Function>();
 
   private _data: IData;
 
@@ -133,6 +137,10 @@ export class AdContentComponent extends BaseComponent implements OnInit, OnDestr
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    this.confirm.emit(handler);
   }
 
   onMainResourceUpload(file: File, dataField: string): void {
