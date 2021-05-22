@@ -70,16 +70,16 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
     return adContent?.color;
   }
 
-  hasThumbnail(ad: IAd): boolean {
+  hasThumbnail(ad: IAd, size: "x32" | "x128" = "x32"): boolean {
     const adContent = this.getAdContent(ad);
     const asset = !!adContent?.resources?.main ? this._assetsDictionary[adContent.resources.main] : undefined;
-    return !!asset?.mipmap?.x128;
+    return !!asset?.mipmap?.[size];
   }
 
-  getThumbnail(ad: IAd): string {
+  getThumbnail(ad: IAd, size: "x32" | "x128" = "x32"): string {
     const adContent = this.getAdContent(ad);
     const asset = !!adContent?.resources?.main ? this._assetsDictionary[adContent.resources.main] : undefined;
-    return asset?.mipmap?.x128?.replace("\\", "/") || "";
+    return asset?.mipmap?.[size]?.replace("\\", "/") || "";
   }
 
   onToggleActive(event: Event, ad: IAd): void {

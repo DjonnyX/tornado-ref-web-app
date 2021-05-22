@@ -57,14 +57,14 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
     super.ngOnDestroy();
   }
   
-  hasThumbnail(assetId: string): boolean {
+  hasThumbnail(assetId: string, size: "x32" | "x128" = "x32"): boolean {
     const asset = this._assetsDictionary[assetId];
-    return !!asset?.mipmap?.x128;
+    return !!asset?.mipmap?.[size];
   }
 
-  getThumbnail(assetId: string): string {
+  getThumbnail(assetId: string, size: "x32" | "x128" = "x32"): string {
     const asset = this._assetsDictionary[assetId];
-    return !!asset?.mipmap?.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+    return !!asset?.mipmap?.[size] ? asset.mipmap[size].replace("\\", "/") : "";
   }
 
   onToggleActive(event: Event, language: ILanguage): void {

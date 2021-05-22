@@ -33,8 +33,8 @@
             <div matRipple class="entity-active-zone" (click)="onEdit(orderType)">
                 <div class="content">
                     <div class="content-resources">
-                        <img align="center" *ngIf="hasThumbnail(orderType)" class="entity-thumbnail"
-                            [src]="getThumbnail(orderType)">
+                        <img align="center" *ngIf="hasThumbnail(orderType, 'x32')" class="entity-thumbnail"
+                            [src]="getThumbnail(orderType, 'x32')">
                     </div>
                     <div class="content__text">
                         <div class="content__name">

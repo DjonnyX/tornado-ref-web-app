@@ -80,16 +80,16 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
     return !!orderTypeContent ? orderTypeContent.color : undefined;
   }
 
-  hasThumbnail(orderType: IOrderType): boolean {
+  hasThumbnail(orderType: IOrderType, size: "x32" | "x128" = "x32"): boolean {
     const orderTypeContent = this.getContent(orderType);
     const asset = !!orderTypeContent && !!orderTypeContent.resources && !!orderTypeContent.resources.main ? this._assetsDictionary[orderTypeContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
+    return !!asset?.mipmap?.[size];
   }
 
-  getThumbnail(orderType: IOrderType): string {
+  getThumbnail(orderType: IOrderType, size: "x32" | "x128" = "x32"): string {
     const orderTypeContent = this.getContent(orderType);
     const asset = !!orderTypeContent && !!orderTypeContent.resources && !!orderTypeContent.resources.main ? this._assetsDictionary[orderTypeContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+    return asset?.mipmap?.[size]?.replace("\\", "/");
   }
 
   onToggleActive(event: Event, orderType: IOrderType): void {
