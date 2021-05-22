@@ -3,6 +3,7 @@
     <p>{{data.message}}</p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Отменить</button>
-    <button color="accent" mat-flat-button [mat-dialog-close]="true">Удалить</button><!-- cdkFocusInitial-->
+    <button mat-button mat-dialog-close>{{data?.buttons?.cancel?.label || 'Отменить'}}</button>
+    <button color="accent" mat-flat-button [mat-dialog-close]="true">{{data?.buttons?.confirm?.label ||
+        'Удалить'}}</button><!-- cdkFocusInitial-->
 </mat-dialog-actions>

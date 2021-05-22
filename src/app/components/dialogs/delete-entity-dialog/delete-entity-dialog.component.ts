@@ -4,6 +4,14 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 interface IDialogData {
   title: string;
   message: string;
+  buttons?: {
+    cancel?: {
+      label: string;
+    },
+    confirm?: {
+      label: string;
+    },
+  }
 }
 
 @Component({
@@ -16,7 +24,7 @@ export class DeleteEntityDialogComponent implements OnInit {
   constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 
   ngOnInit(): void {
-    
+
   }
 
 }

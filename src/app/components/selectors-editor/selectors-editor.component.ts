@@ -95,16 +95,16 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     return selectorContent?.color;
   }
 
-  hasThumbnail(selector: ISelector): boolean {
+  hasThumbnail(selector: ISelector, size: "x32" | "x128" = "x32"): boolean {
     const selectorContent = this.getSelectorContent(selector);
     const asset = !!selectorContent?.resources?.main ? this._assetsDictionary[selectorContent.resources.main] : undefined;
-    return !!asset?.mipmap?.x128;
+    return !!asset?.mipmap?.[size];
   }
 
-  getThumbnail(selector: ISelector): string {
+  getThumbnail(selector: ISelector, size: "x32" | "x128" = "x32"): string {
     const selectorContent = this.getSelectorContent(selector);
     const asset = !!selectorContent && !!selectorContent.resources && !!selectorContent.resources.main ? this._assetsDictionary[selectorContent.resources.main] : undefined;
-    return !!asset?.mipmap?.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+    return asset?.mipmap?.[size]?.replace("\\", "/");
   }
 
   onToggleActive(event: Event, selector: ISelector): void {

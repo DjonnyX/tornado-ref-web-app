@@ -1,6 +1,7 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy, ViewChild } from '@angular/core';
 import { IAsset } from '@models';
 import { BaseComponent } from '@components/base/base-component';
+import { FileSelectorComponent } from '../file-selector/file-selector.component';
 
 @Component({
   selector: 'ta-asset-picker-uploader',
@@ -8,6 +9,8 @@ import { BaseComponent } from '@components/base/base-component';
   styleUrls: ['./asset-picker-uploader.component.scss']
 })
 export class AssetPickerUploaderComponent extends BaseComponent implements OnInit, OnDestroy {
+
+  @ViewChild("fileSelector", { static: true }) fileSelector: FileSelectorComponent;
 
   @Input() extensions: Array<string> = ['.png', '.jpg'];
 
@@ -19,11 +22,13 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Input() resetButtonDisabled: boolean;
 
+  @Input() needConfirmation: boolean = false;
+
   private _defaultValue: string;
   @Input() set defaultValue(v: string) {
     if (!!v && this._defaultValue !== v) {
       this._defaultValue = v;
-      
+
       this.isLoading = true;
 
       this.updateAsset();
@@ -45,6 +50,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Output() reset = new EventEmitter<void>();
 
+  @Output() confirm = new EventEmitter<Function>();
+
   asset: IAsset;
 
   isLoading: boolean = false;
@@ -59,6 +66,16 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirm() {
+    const handler = () => { this.fileSelector.open(); };
+    if (this.needConfirmation) {
+      this.confirm.emit(handler);
+      return;
+    }
+
+    handler();
   }
 
   onUploadFile(file: File): void {

@@ -42,6 +42,8 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
 
   @Input() isEdit: boolean;
 
+  @Input() isDirty: boolean;
+
   @Input() isDefault: boolean;
 
   @Input() defaultContent: ISelectorContentsItem;
@@ -80,6 +82,8 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
   @Output() uploadIconResource = new EventEmitter<IFileUploadEntityEvent>();
 
   @Output() save = new EventEmitter<void>();
+
+  @Output() confirm = new EventEmitter<Function>();
 
   private _data: IData;
 
@@ -134,6 +138,10 @@ export class SelectorContentComponent extends BaseComponent implements OnInit, O
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    this.confirm.emit(handler);
   }
 
   onMainResourceUpload(file: File, dataField: string): void {

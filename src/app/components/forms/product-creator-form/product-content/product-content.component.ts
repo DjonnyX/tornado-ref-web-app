@@ -38,6 +38,8 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   private _state: IProductContentsItem;
 
+  @Input() isDirty: boolean;
+
   @Input() isEditMode: boolean;
 
   @Input() isEdit: boolean;
@@ -86,6 +88,8 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
   @Output() deleteAsset = new EventEmitter<IAsset>();
 
   @Output() save = new EventEmitter<void>();
+
+  @Output() confirm = new EventEmitter<Function>();
 
   private _data: IData;
 
@@ -140,6 +144,10 @@ export class ProductContentComponent extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    this.confirm.emit(handler);
   }
 
   onMainResourceUpload(file: File, dataField: string): void {

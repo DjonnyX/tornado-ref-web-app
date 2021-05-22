@@ -101,16 +101,16 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return !!productContent ? productContent.color : undefined;
   }
 
-  hasThumbnail(product: IProduct): boolean {
+  hasThumbnail(product: IProduct, size: "x32" | "x128" = "x32"): boolean {
     const productContent = this.getProductContent(product);
     const asset = !!productContent && !!productContent.resources && !!productContent.resources.main ? this._assetsDictionary[productContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
+    return !!asset?.mipmap?.[size];
   }
 
-  getThumbnail(product: IProduct): string {
+  getThumbnail(product: IProduct, size: "x32" | "x128" = "x32"): string {
     const productContent = this.getProductContent(product);
     const asset = !!productContent && !!productContent.resources && !!productContent.resources.main ? this._assetsDictionary[productContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+    return asset?.mipmap?.[size]?.replace("\\", "/");
   }
 
   onToggleActive(event: Event, product: IProduct): void {

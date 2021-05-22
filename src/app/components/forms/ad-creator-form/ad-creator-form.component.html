@@ -2,12 +2,13 @@
   <div *ngIf="!!ad; else mainLangContent">
     <mat-tab-group>
       <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
-        <ta-ad-content [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
+        <ta-ad-content [isDirty]="isDirty" [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
           [isDefault]="lang.code === defaultLanguage.code" [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode"
           [assets]="assets" (update)="updateStateFor($event, lang)"
           (uploadMainResource)="onMainResourceUpload($event, lang)"
           (uploadIconResource)="onIconResourceUpload($event, lang)"
-          (uploadThumbnailResource)="onThumbnailResourceUpload($event, lang)" (save)="onSave()">
+          (uploadThumbnailResource)="onThumbnailResourceUpload($event, lang)" (confirm)="onConfirmSave($event)"
+          (save)="onSave()">
         </ta-ad-content>
       </mat-tab>
     </mat-tab-group>
@@ -23,9 +24,17 @@
       <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
         Отменить
       </button>
-      <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
-        {{isEditMode ? 'Сохранить' : 'Создать'}}
-      </button>
+      <ng-container *ngIf="isEditMode; else createBtn">
+        <button mat-flat-button color="accent" type="submit" class="button button__text"
+          [disabled]="!form.valid || !isDirty">
+          Сохранить
+        </button>
+      </ng-container>
+      <ng-template #createBtn>
+        <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
+          Создать
+        </button>
+      </ng-template>
     </ng-container>
     <ng-template #editButtons>
       <button mat-button class="button button__text" (click)="onCancel()">

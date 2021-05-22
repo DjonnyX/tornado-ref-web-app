@@ -8,6 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { SelectorContentModule } from './selector-content/selector-content.module';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatSelectModule,
     MatFormFieldModule,
     MatTabsModule,
+    MatDialogModule,
+    DeleteEntityDialogModule,
     SelectorContentModule,
   ]
 })

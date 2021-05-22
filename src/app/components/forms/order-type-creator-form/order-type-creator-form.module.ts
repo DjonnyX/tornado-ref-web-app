@@ -7,6 +7,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTabsModule } from '@angular/material/tabs';
 import { OrderTypeContentModule } from './order-type-content/order-type-content.module';
+import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -23,6 +25,8 @@ import { OrderTypeContentModule } from './order-type-content/order-type-content.
     MatButtonModule,
     MatFormFieldModule,
     MatTabsModule,
+    MatDialogModule,
+    DeleteEntityDialogModule,
     OrderTypeContentModule,
   ]
 })

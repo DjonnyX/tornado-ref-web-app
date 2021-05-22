@@ -10,6 +10,8 @@ import { PricesModule } from '@components/prices/pricesmodule';
 import { ProductContentModule } from './product-content/product-content.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { KeyValueModule } from '@components/key-value/key-value.module';
+import { MatDialogModule } from '@angular/material/dialog';
+import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 
 @NgModule({
   declarations: [
@@ -27,8 +29,10 @@ import { KeyValueModule } from '@components/key-value/key-value.module';
     MatSelectModule,
     MatFormFieldModule,
     MatTabsModule,
+    MatDialogModule,
     PricesModule,
     ProductContentModule,
+    DeleteEntityDialogModule,
     KeyValueModule,
   ]
 })
