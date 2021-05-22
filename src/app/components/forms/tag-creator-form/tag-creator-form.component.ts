@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import { ITag, IAsset, ITagContents, ITagContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
-import { deepMergeObjects } from '@app/utils/object.util';
+import { deepEqual, deepMergeObjects } from '@app/utils/object.util';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 
 @Component({
   selector: 'ta-tag-creator-form',
@@ -75,7 +77,12 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
 
   private _state: ITagContents = {};
 
-  constructor(private _fb: FormBuilder) {
+  private _initState: any;
+
+  private _isDirty = false;
+  get isDirty() { return this._isDirty; }
+
+  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
     super();
 
     this.form = this._fb.group({});
@@ -86,11 +93,49 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       this.update.emit(value);
+      this.checkDirty();
     });
+
+    this.resetInitState();
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Сохранить изменения?",
+          message: "Описание содержит несохраненные изменения. Сохранить?",
+          buttons: {
+            confirm: {
+              label: "Да",
+            }
+          }
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        this.onSave();
+      }
+      handler();
+    });
+  }
+
+  resetInitState() {
+    this._initState = {
+      ...this._tag,
+      ...this.form.value,
+      contents: { ...(!!this._tag ? this._tag.contents : undefined), ...this._state },
+      active: !!this._tag && this._tag.active !== undefined ? this._tag.active : true,
+      extra: !!this._tag ? this._tag.extra : {},
+    };
   }
 
   onEnterSubmit(event: KeyboardEvent): void {
@@ -113,7 +158,21 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
       });
 
       this.isEdit = false;
+      this.resetInitState();
+      this.checkDirty();
     }
+  }
+
+  checkDirty() {
+    const newState = {
+      ...this._tag,
+      ...this.form.value,
+      contents: { ...(!!this._tag ? this._tag.contents : undefined), ...this._state },
+      active: !!this._tag && this._tag.active !== undefined ? this._tag.active : true,
+      extra: !!this._tag ? this._tag.extra : {},
+    };
+
+    this._isDirty = !deepEqual(this._initState, newState);
   }
 
   onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
@@ -147,6 +206,7 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
   updateStateFor(state: ITagContents, lang: ILanguage): void {
     const mergedState: ITagContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
     this.updateState(mergedState);
+    this.checkDirty();
   }
 
   private sortLanguages(): void {

@@ -1,12 +1,14 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { takeUntil } from 'rxjs/operators';
+import { take, takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import { ISelector, ITag, IAsset, ICurrency, IPrice, ISelectorContents, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
-import { deepMergeObjects } from '@app/utils/object.util';
+import { deepEqual, deepMergeObjects } from '@app/utils/object.util';
+import { MatDialog } from '@angular/material/dialog';
+import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 
 @Component({
   selector: 'ta-selector-creator-form',
@@ -75,7 +77,12 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   private _state: ISelectorContents = {};
 
-  constructor(private _fb: FormBuilder) {
+  private _initState: any;
+
+  private _isDirty = false;
+  get isDirty() { return this._isDirty; }
+
+  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
     super();
 
     this.form = this._fb.group({})
@@ -86,11 +93,49 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       this.update.emit(value);
+      this.checkDirty();
     });
+
+    this.resetInitState();
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
+      {
+        data: {
+          title: "Сохранить изменения?",
+          message: "Описание содержит несохраненные изменения. Сохранить?",
+          buttons: {
+            confirm: {
+              label: "Да",
+            }
+          }
+        },
+      });
+
+    dialogRef.afterClosed().pipe(
+      take(1),
+      takeUntil(this.unsubscribe$),
+    ).subscribe(result => {
+      if (result) {
+        this.onSave();
+      }
+      handler();
+    });
+  }
+
+  resetInitState() {
+    this._initState = {
+      ...this._selector,
+      ...this.form.value,
+      contents: { ...(!!this._selector ? this._selector.contents : undefined), ...this._state },
+      active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true,
+      extra: !!this._selector ? this._selector.extra : {},
+    };
   }
 
   onEnterSubmit(event: KeyboardEvent): void {
@@ -113,7 +158,21 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       });
 
       this.isEdit = false;
+      this.resetInitState();
+      this.checkDirty();
     }
+  }
+
+  checkDirty() {
+    const newState = {
+      ...this._selector,
+      ...this.form.value,
+      contents: { ...(!!this._selector ? this._selector.contents : undefined), ...this._state },
+      active: !!this._selector && this._selector.active !== undefined ? this._selector.active : true,
+      extra: !!this._selector ? this._selector.extra : {},
+    };
+
+    this._isDirty = !deepEqual(this._initState, newState);
   }
 
   onMainResourceUpload(e: IFileUploadEntityEvent, lang: ILanguage): void {
@@ -143,6 +202,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
   updateStateFor(state: ISelectorContents, lang: ILanguage): void {
     const mergedState: ISelectorContents = { [lang.code]: deepMergeObjects(this._state[lang.code], state, true) };
     this.updateState(mergedState);
+    this.checkDirty();
   }
 
   private sortLanguages(): void {

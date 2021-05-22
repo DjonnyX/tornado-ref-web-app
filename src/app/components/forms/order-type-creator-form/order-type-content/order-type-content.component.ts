@@ -42,6 +42,8 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
 
   @Input() isEdit: boolean;
 
+  @Input() isDirty: boolean;
+
   @Input() isDefault: boolean;
 
   @Input() defaultContent: IOrderTypeContentsItem;
@@ -84,6 +86,8 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
   @Output() deleteAsset = new EventEmitter<IAsset>();
 
   @Output() save = new EventEmitter<void>();
+
+  @Output() confirm = new EventEmitter<Function>();
 
   private _data: IData;
 
@@ -138,6 +142,10 @@ export class OrderTypeContentComponent extends BaseComponent implements OnInit, 
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    this.confirm.emit(handler);
   }
 
   onMainResourceUpload(file: File, dataField: string): void {

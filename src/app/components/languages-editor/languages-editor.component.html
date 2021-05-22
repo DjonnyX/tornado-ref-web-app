@@ -33,8 +33,8 @@
             <div matRipple class="entity-active-zone" (click)="onEdit(language)">
                 <div class="content">
                     <div class="bottom-panel">
-                        <img align="center" *ngIf="hasThumbnail(language.resources?.main)" class="entity-thumbnail"
-                            [src]="getThumbnail(language.resources?.main)">
+                        <img align="center" *ngIf="hasThumbnail(language.resources?.main, 'x32')" class="entity-thumbnail"
+                            [src]="getThumbnail(language.resources?.main, 'x32')">
                     </div>
                     <div class="content__name">
                         {{language.name}}

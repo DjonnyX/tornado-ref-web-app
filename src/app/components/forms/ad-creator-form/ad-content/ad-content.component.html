@@ -6,10 +6,10 @@
           Ресурсы
         </p>
 
-        <ta-asset-picker-uploader [resetButtonShow]="!isDefault" [resetButtonDisabled]="isEqualWithDefault('main')"
-          (reset)="onResetResourceToDefault('main')" [extensions]="['.png', '.jpg', '.mp4']"
-          [defaultValue]="content?.resources?.main" [assets]="assets" class="transparent"
-          (upload)="onMainResourceUpload($event, 'main')">
+        <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
+          [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
+          [extensions]="['.png', '.jpg', '.mp4']" [defaultValue]="content?.resources?.main" [assets]="assets"
+          class="transparent" (confirm)="onConfirmSave($event)" (upload)="onMainResourceUpload($event, 'main')">
         </ta-asset-picker-uploader>
       </div>
     </div>

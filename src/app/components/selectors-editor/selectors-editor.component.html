@@ -36,8 +36,8 @@
                     </div>
                 </div>
                 <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(selector)" class="entity-thumbnail"
-                        [src]="getThumbnail(selector)">
+                    <img align="center" *ngIf="hasThumbnail(selector, 'x32')" class="entity-thumbnail"
+                        [src]="getThumbnail(selector, 'x32')">
                 </div>
                 <div class="color" [style.background]="getSelectorColor(selector)"></div>
                 <!--<div class="tags">

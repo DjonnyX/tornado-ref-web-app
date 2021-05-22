@@ -35,7 +35,8 @@
                     </div>
                 </div>
                 <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(ad)" class="entity-thumbnail" style="image-rendering: auto;" [src]="getThumbnail(ad)">
+                    <img align="center" *ngIf="hasThumbnail(ad, 'x128')" class="entity-thumbnail"
+                        style="image-rendering: auto;" [src]="getThumbnail(ad, 'x128')">
                 </div>
                 <div class="color"></div>
             </div>
