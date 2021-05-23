@@ -1,0 +1,24 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+@include respond-above (md) {
+
+    .entities-container {
+        padding: 10px 30px;
+    }
+}
+
+@include respond-between (sm, md) {
+
+    .entities-container {
+        padding: 10px 30px;
+    }
+}
+
+@include respond-below (sm) {
+
+    .entities-container {
+        padding: 10px 20px;
+    }
+}

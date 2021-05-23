@@ -8,21 +8,21 @@
             min-height: px2em(10);
         }
 
-        .entity-active-zone {
+        .entity__body {
             align-items: initial;
             display: grid;
             grid-template-rows: auto 1fr;
             justify-content: stretch;
         }
 
-        .bottom-panel {
+        .entity__footer {
             justify-content: space-between;
             overflow: hidden;
             height: 100%;
             margin: 0 px2em(8) px2em(8);
         }
 
-        .entity-thumbnail {
+        .entity__thumbnail {
             height: 100%;
             width: 100%;
             object-fit: cover;

@@ -1,0 +1,38 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+/*
+ * Respons
+ */
+
+@include respond-above(sm) {
+    .editor {
+
+        .entities-wrapper {
+
+            //Card template
+            &.entities-card-layout {
+                gap: $gap-xl;
+                grid-template-columns: repeat(auto-fill, minmax($entity-width-xl, 1fr));
+            }
+        }
+    }
+}
+
+@include respond-below(sm) {
+    .editor {
+
+        .entities-wrapper {
+
+            //List template
+            &.entities-list-layout {
+                width: 100%;
+                
+                .entity {
+
+                }
+            }
+        }
+    }
+}

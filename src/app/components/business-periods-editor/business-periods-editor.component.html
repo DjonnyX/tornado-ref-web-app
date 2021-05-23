@@ -3,12 +3,13 @@
     <div class="entities-wrapper">
         <div class="entity" *ngFor="let businessPeriod of collection | search: searchPattern"
             [class.disabled]="!businessPeriod.active">
-            <div class="entity-ctrls">
-                <div class="entity-checkbox-active">
+            <div class="entity__control">
+                <div class="entity__control__checkbox">
                     <mat-checkbox color="accent" #checkboxActive [checked]="businessPeriod.active"
                         (click)="onToggleActive($event, businessPeriod)"></mat-checkbox>
                 </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                    aria-label="Menu">
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
@@ -26,7 +27,7 @@
                     </button>
                 </mat-menu>
             </div>
-            <div matRipple class="entity-active-zone" (click)="onEditBusinessPeriod(businessPeriod)">
+            <div matRipple class="entity__body" (click)="onEditBusinessPeriod(businessPeriod)">
                 <div class="content">
                     <div class="content__name">
                         {{getName(businessPeriod)}}

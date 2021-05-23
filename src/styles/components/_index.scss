@@ -1,15 +1,21 @@
-@import "./elements/elements";
+@import "./elements/index"; //+
+
 @import "./assets-uploader";
 @import "./asset-picker";
 @import "./key-value";
+@import "./extends";
 @import "./list";
 @import "./node-tree";
 @import "./scenario-editor";
 @import "./scenario-entity-editor";
 @import "./action-menu";
-@import "./entity-checkbox";
+// @import "./elements/button-add/button-add";
+// @import "./entity-checkbox";
 // @import "./entity-popup-menu-panel";
-@import "./entity-editor";
+// @import "./entity-editor";
+
+@import "./entity-editor/index"; //+
+
 @import "./entity-options-editor";
 @import "./schedule";
 @import "./bread-crumbs";
@@ -18,7 +24,9 @@
 @import "./expansion-panel";
 @import "./resources-editor";
 @import "./navigation-menu";
+
 @import "./search";
+
 @import "./state-panel";
 @import "./loader-button";
 @import "./logo";
@@ -28,6 +36,5 @@
 @import "./captcha";
 @import "./version";
 @import "./404";
-@import "./scrollbar";
-@import "./tag";
+
 @import "./admin-container";

@@ -1,0 +1,65 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+// .app-container {
+    
+// }
+
+/*
+ * Themes
+ */
+
+.editor {
+
+    .entity {
+        @include themify($themes) {
+            color: themed('textColor');  
+            background-color: themed('backgroundColor');  
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// .entity {
+//     @include themify($themes) {
+//         color: themed('textColor');  
+//         background-color: themed('backgroundColor');  
+//     }
+// }
+
+    // .editor {
+    //     //
+    // }
+
+    //     //#Card template
+    //     &.entities-card-layout {
+
+    //         .entity {
+    //         }
+    //     }
+
+    //     //#List template
+    //     &.entities-list-layout {
+
+    //         .entity {
+
+    //         }
+    //     }
+    // }

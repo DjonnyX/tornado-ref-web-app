@@ -66,7 +66,7 @@ $way-border-weight: 2px;
                 }
             }
 
-            .entity-menu-button {
+            .entity__action-menu__button {
                 display: flex;
                 justify-content: center;
                 align-items: center;
@@ -123,7 +123,7 @@ $border-primary: $way-border-weight dotted $primary;
                     }
                 }
 
-                .entity-menu-button {
+                .entity__action-menu__button {
                     color: $primary-700;
                 }
             }
@@ -159,7 +159,7 @@ $border-primary: $way-border-weight dotted $primary;
                     }
                 }
 
-                .entity-menu-button {
+                .entity__action-menu__button {
                     color: $primary-700;
                 }
             }

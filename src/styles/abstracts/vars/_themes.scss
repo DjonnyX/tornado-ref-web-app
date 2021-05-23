@@ -1,0 +1,24 @@
+/*
+ * Theme definitions
+ */
+
+ @import "./palette";
+
+$themes: (
+  light: (
+    //Common
+    backgroundColor: $white,
+    textColor: $primary-color,
+    //Base button
+    buttonBaseColor: $white,
+    buttonBasebackgroundColor: $accent-color,
+  ),
+  dark: (
+    //Common
+    backgroundColor: $primary-color-100,
+    textColor: $white,
+    //Base button
+    buttonBaseColor: $white,
+    buttonBasebackgroundColor: $accent-color,
+  ),
+);

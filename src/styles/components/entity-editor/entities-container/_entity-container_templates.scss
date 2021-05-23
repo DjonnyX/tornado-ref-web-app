@@ -1,0 +1,54 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.editor {
+
+    .entities-container {
+
+        //Card template
+        &.entities-card-layout {
+            display: grid;
+            grid-auto-flow: dense;
+            grid-auto-rows: auto;
+            align-items: center;
+        }
+
+        //List template
+        &.entities-list-layout {
+            display: grid;
+            gap: 20px;
+        }
+    }
+}
+
+@include respond-above(sm) {
+    .editor {
+
+        .entities-container {
+
+            //Card template
+            &.entities-card-layout {
+                gap: $enities-gap;
+                grid-template-columns: repeat(auto-fill, minmax($entity-width, 1fr));
+            }
+        }
+    }
+}
+
+@include respond-below(sm) {
+    .editor {
+
+        .entities-container {
+
+            //List template
+            &.entities-list-layout {
+                width: 100%;
+                
+                .entity {
+
+                }
+            }
+        }
+    }
+}

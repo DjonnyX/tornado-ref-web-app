@@ -1,12 +1,8 @@
-@import "../utils/px2em";
-@import "../abstracts/vars";
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
 
-
-// .mat-checkbox {
-
-// }
-
-.entity-checkbox-active {
+.entity__control__checkbox {
 
     .mat-checkbox-frame {
         border-radius: $checkbox-border-radius;

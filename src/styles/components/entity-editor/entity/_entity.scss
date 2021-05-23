@@ -1,0 +1,18 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.editor {
+
+    .entity {
+        display: block;
+        position: relative;
+        height: 100%;
+        border-radius: $border-radius;
+        overflow: hidden;
+
+        &__body {
+            @extend .entity-container;
+        }
+    }
+}
