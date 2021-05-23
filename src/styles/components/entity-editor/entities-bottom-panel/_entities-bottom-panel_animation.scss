@@ -1,0 +1,22 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.entities-bottom-panel {
+
+    .button-add {
+
+        & {
+            @include transition(opacity, 50ms 50ms, ease-out, 0s);
+            opacity: 1.0;
+        }
+        &:hover {
+            @include transition(opacity, 125ms 125ms, ease, 0s);
+            opacity: 0.85;
+        }
+        &:focus {
+            @include transition(opacity transform, 125ms 125ms, ease, 0s);
+            opacity: 0.85;
+            transform: scale(0.95);
+        }
+    }
+}
