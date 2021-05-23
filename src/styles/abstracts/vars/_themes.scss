@@ -9,6 +9,11 @@ $themes: (
     //Common
     backgroundColor: $white,
     textColor: $primary-color,
+    //Entity
+    entityBackgroundColor: $white,
+    entityTitleColor: $primary-color,
+    entityDescriptionColor: $primary-color-300,
+    entityActionMenuButtonColor: $primary-color,
     //Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
@@ -17,6 +22,11 @@ $themes: (
     //Common
     backgroundColor: $primary-color-100,
     textColor: $white,
+    //Entity
+    entityBackgroundColor: $primary-color-100,
+    entityTitleColor: lighten($primary-color, 95),
+    entityDescriptionColor: lighten($primary-color, 50),
+    entityActionMenuButtonColor: $white,
     //Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,

@@ -14,52 +14,25 @@
 
     .entity {
         @include themify($themes) {
-            color: themed('textColor');  
-            background-color: themed('backgroundColor');  
+            // color: themed('textColor');
+            background-color: themed('entityBackgroundColor');  
+        }
+        &__name {
+            @include themify($themes) {
+                color: themed('entityTitleColor');
+            }
+        }
+
+        &__description {
+            @include themify($themes) {
+                color: themed('entityDescriptionColor');
+            }
+        }
+
+        &__action-menu__button {
+            @include themify($themes) {
+                color: themed('entityActionMenuButtonColor');
+            }
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// .entity {
-//     @include themify($themes) {
-//         color: themed('textColor');  
-//         background-color: themed('backgroundColor');  
-//     }
-// }
-
-    // .editor {
-    //     //
-    // }
-
-    //     //#Card template
-    //     &.entities-card-layout {
-
-    //         .entity {
-    //         }
-    //     }
-
-    //     //#List template
-    //     &.entities-list-layout {
-
-    //         .entity {
-
-    //         }
-    //     }
-    // }

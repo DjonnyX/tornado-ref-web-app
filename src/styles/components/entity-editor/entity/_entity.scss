@@ -14,5 +14,153 @@
         &__body {
             @extend .entity-container;
         }
+        
+        &__name {
+            font-size: 20px;
+            font-weight: 400;
+            margin-bottom: px2em(6);
+            line-height: $entity-title-line-height;
+        }
+
+        &__description {
+            font-size: 14px;
+            word-wrap: break-word;
+            line-height: $entity-description-line-height;
+        }
+
+        &__footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: px2em(8) px2em(12);
+            border-top: 1px solid rgba($primary-color, 0.1);
+            // background-color: $entity-footer-background-color;
+
+            img {
+                image-rendering: pixelated;
+                border: 1px solid rgba($primary-color, 0.15);
+                background-color: #ffffff;
+            }
+        }
+
+        &__thumbnail {
+            height: px2em(32);
+            overflow: hidden;
+            image-rendering: pixelated;
+            border-radius: 3px;
+        }
+
+        &__control {
+            display: flex;
+            justify-content: space-between;
+            // background: #ffffff;
+            border-bottom: 1px solid rgba($primary-color, 0.1);
+
+            &__checkbox {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-left: 20px;
+            }
+        }
+
+        &__action-menu__button {
+            margin-left: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            // color: $primary-color;
+            height: 100%;
+        }
+
     }
 }
+
+        //
+
+        // &.disabled {
+//             opacity: 0.5;
+//         }
+
+//         &__body {
+//             @include button();
+//             color: $primary-color;
+//             background: $white;
+//             box-sizing: border-box;
+//         }
+
+//         &__content {
+//             position: relative;
+//             overflow: hidden;
+//             height: 100%;
+
+//             &__gradient {
+//                 display: block;
+//                 position: absolute;
+//                 width: 100%;
+//                 bottom: 0px;
+//                 background: linear-gradient(0deg, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%);
+//             }
+//         }
+
+//          &__name {
+//                 font-weight: 400;
+//                 margin-bottom: px2em(6);
+//                 color: $primary-color;
+//             }
+
+//         &__description {
+//             font-size: 0.74em;
+//             word-wrap: break-word;
+//             color: rgba($primary-color, 0.65);
+//         }
+
+//         &__footer {
+//             display: flex;
+//             align-items: center;
+//             justify-content: space-between;
+//             padding: px2em(8) px2em(12);
+//             border-top: 1px solid rgba($primary-color, 0.1);
+//             background-color: $entity-footer-background-color;
+
+//             img {
+//                 image-rendering: pixelated;
+//                 border: 1px solid rgba($primary-color, 0.15);
+//                 background-color: #ffffff;
+//             }
+//         }
+
+//         &__thumbnail {
+//             height: px2em(32);
+//             overflow: hidden;
+//             image-rendering: pixelated;
+//             border-radius: 3px;
+//         }
+
+//         &__control {
+//             display: flex;
+//             justify-content: space-between;
+//             background: #ffffff;
+//             border-bottom: 1px solid rgba($primary-color, 0.1);
+
+//             &__checkbox {
+//                 display: flex;
+//                 justify-content: center;
+//                 align-items: center;
+//                 margin-left: $entity-control-checkbox-margin-left;
+//             }
+//         }
+
+//         &__action-menu__button {
+//             margin-left: auto;
+//             display: flex;
+//             justify-content: center;
+//             align-items: center;
+//             color: $primary-color;
+//             height: 100%;
+//         }
+//     }
+
+//     .button-add.mat-raised-button {
+//         box-shadow: none;
+//     }
