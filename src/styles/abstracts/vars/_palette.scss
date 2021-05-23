@@ -12,11 +12,15 @@ $black: #000;
 
 $background-color: #ffffff;
 
-$primary-color-100: lighten($primary-color, 5%);
-$primary-color-200: lighten($primary-color, 10%);
-$primary-color-300: lighten($primary-color, 15%);
-$primary-color-400: lighten($primary-color, 20%);
-$primary-color-500: lighten($primary-color, 25%);
+$primary-color-50: lighten($primary-color, 5%);
+$primary-color-100: lighten($primary-color, 10%);
+$primary-color-150: lighten($primary-color, 15%);
+$primary-color-200: lighten($primary-color, 20%);
+$primary-color-250: lighten($primary-color, 25%);
+$primary-color-300: lighten($primary-color, 30%);
+$primary-color-500: lighten($primary-color, 50%);
 $primary-color-600: lighten($primary-color, 60%);
 $primary-color-700: lighten($primary-color, 70%);
 $primary-color-800: lighten($primary-color, 80%);
+$primary-color-900: lighten($primary-color, 90%);
+$primary-color-950: lighten($primary-color, 95%);

@@ -34,5 +34,29 @@
                 color: themed('entityActionMenuButtonColor');
             }
         }
+
+        &__footer {
+            @include themify($themes) {
+                border-color: themed('entityDividerBorderColor');
+            }
+
+            img {
+                @include themify($themes) {
+                    border-color: themed('entityDividerBorderColor');
+                }
+            }
+        }
+
+        &__thumbnail {
+            @include themify($themes) {
+                border-color: themed('entityDividerBorderColor');
+            }
+        }
+
+        &__control {
+            @include themify($themes) {
+                border-color: themed('entityDividerBorderColor');
+            }
+        }
     }
 }

@@ -5,7 +5,9 @@
 .editor {
 
     .entity {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         position: relative;
         height: 100%;
         border-radius: $border-radius;
@@ -13,6 +15,12 @@
 
         &__body {
             @extend .entity-container;
+        }
+
+        &__top-container {
+            display: block;
+            position: relative;
+            height: 100%;
         }
         
         &__name {
@@ -33,12 +41,16 @@
             align-items: center;
             justify-content: space-between;
             padding: px2em(8) px2em(12);
-            border-top: 1px solid rgba($primary-color, 0.1);
+            border-top-width: 1px;
+            border-top-style: solid;
+            // border-top: 1px solid rgba($primary-color, 0.1);
             // background-color: $entity-footer-background-color;
 
             img {
                 image-rendering: pixelated;
-                border: 1px solid rgba($primary-color, 0.15);
+                border-width: 1px;
+                border-style: solid;
+                // border: 1px solid rgba($primary-color, 0.15);
                 background-color: #ffffff;
             }
         }
@@ -54,7 +66,9 @@
             display: flex;
             justify-content: space-between;
             // background: #ffffff;
-            border-bottom: 1px solid rgba($primary-color, 0.1);
+            // border-bottom: 1px solid rgba($primary-color, 0.1);
+            border-bottom-width: 1px;
+            border-bottom-style: solid;
 
             &__checkbox {
                 display: flex;

@@ -35,42 +35,44 @@
                 <div class="entities-container entities-list-layout">
                     <div class="entity" *ngFor="let product of collection | search:searchPattern:defaultLanguage?.code"
                         [class.disabled]="!product.active">
+                        <div class="entity__top-container">
+                            <!-- Controls -->
+                            <div class="entity__control">
+                                <div class="entity__control__checkbox">
+                                    <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
+                                        (click)="onToggleActive($event, product)"></mat-checkbox>
+                                </div>
+                                <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}"></ng-container>
+                            </div>
+                            <!-- Controls -->
+                            <!-- Entity Active-Zone -->
+                            <div matRipple class="entity__body" (click)="onEditProduct(product)">
+                                <div class="entity__content">
+                                    <div class="entity__content__gradient"></div>
+                                    <div class="entity__content__container">
+                                        <div class="entity__name">
+                                            {{getProductName(product)}}
+                                        </div>
+                                        <div class="entity__description">
+                                            {{getProductDescription(product) | slice:0:120
+                                            }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-                        <!-- Controls -->
-                        <div class="entity__control">
-                            <div class="entity__control__checkbox">
-                                <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                                    (click)="onToggleActive($event, product)"></mat-checkbox>
+                        <div class="entity__footer">
+                            <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
+                                [src]="getThumbnail(product)">
+                            <div class="tags">
+                                <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
+                                    [matTooltip]="getTagName(tag)">
+                                    {{getTagName(tag)}}
+                                </span>
                             </div>
-                            <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}"></ng-container>
                         </div>
-                        <!-- Controls -->
-                        <!-- Entity Active-Zone -->
-                        <div matRipple class="entity__body" (click)="onEditProduct(product)">
-                            <div class="entity__content">
-                                <div class="entity__content__gradient"></div>
-                                <div class="entity__content__container">
-                                    <div class="entity__name">
-                                        {{getProductName(product)}}
-                                    </div>
-                                    <div class="entity__description">
-                                        {{getProductDescription(product) | slice:0:120
-                                        }}{{getProductDescription(product).length > 20 ? "..." : ""}}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="entity__footer">
-                                <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
-                                    [src]="getThumbnail(product)">
-                                <div class="tags">
-                                    <span class="tag" *ngFor="let tag of product.tags"
-                                        [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
-                                        {{getTagName(tag)}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="color" [style.background]="getProductColor(product)"></div>
-                        </div>
+                        <div class="color" [style.background]="getProductColor(product)"></div>
                         <!-- Entity Active-Zone -->
 
                     </div>
@@ -113,38 +115,40 @@
                 <div class="entities-container entities-card-layout">
                     <div class="entity" *ngFor="let product of collection | search:searchPattern:defaultLanguage?.code"
                         [class.disabled]="!product.active">
-                        <div class="entity__control">
-                            <div class="entity__control__checkbox">
-                                <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                                    (click)="onToggleActive($event, product)"></mat-checkbox>
+                        <div class="entity__top-container">
+                            <div class="entity__control">
+                                <div class="entity__control__checkbox">
+                                    <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
+                                        (click)="onToggleActive($event, product)"></mat-checkbox>
+                                </div>
+                                <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}"></ng-container>
                             </div>
-                            <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}"></ng-container>
-                        </div>
-                        <div matRipple class="entity__body" (click)="onEditProduct(product)">
-                            <div class="entity__content">
-                                <div class="entity__content__gradient"></div>
-                                <div class="entity__content__container">
-                                    <div class="entity__name">
-                                        {{getProductName(product)}}
-                                    </div>
-                                    <div class="entity__description">
-                                        {{getProductDescription(product) | slice:0:120
-                                        }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                            <div matRipple class="entity__body" (click)="onEditProduct(product)">
+                                <div class="entity__content">
+                                    <div class="entity__content__gradient"></div>
+                                    <div class="entity__content__container">
+                                        <div class="entity__name">
+                                            {{getProductName(product)}}
+                                        </div>
+                                        <div class="entity__description">
+                                            {{getProductDescription(product) | slice:0:120
+                                            }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="entity__footer">
-                                <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
-                                    [src]="getThumbnail(product)">
-                                <div class="tags">
-                                    <span class="tag" *ngFor="let tag of product.tags"
-                                        [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
-                                        {{getTagName(tag)}}
-                                    </span>
-                                </div>
-                            </div>
-                            <div class="color" [style.background]="getProductColor(product)"></div>
                         </div>
+                        <div class="entity__footer">
+                            <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
+                                [src]="getThumbnail(product)">
+                            <div class="tags">
+                                <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
+                                    [matTooltip]="getTagName(tag)">
+                                    {{getTagName(tag)}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="color" [style.background]="getProductColor(product)"></div>
                     </div>
 
                     <!-- <ng-container *ngIf="hasCreate()">
