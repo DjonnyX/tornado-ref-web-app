@@ -78,16 +78,16 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     return !!tagContent ? tagContent.color : undefined;
   }
 
-  hasThumbnail(tag: ITag): boolean {
+  hasThumbnail(tag: ITag, size: "x32" | "x128" = "x32"): boolean {
     const tagContent = this.getContent(tag);
     const asset = !!tagContent && !!tagContent.resources && !!tagContent.resources.main ? this._assetsDictionary[tagContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x128;
+    return !!asset?.mipmap?.[size];
   }
 
-  getThumbnail(tag: ITag): string {
+  getThumbnail(tag: ITag, size: "x32" | "x128" = "x32"): string {
     const tagContent = this.getContent(tag);
     const asset = !!tagContent && !!tagContent.resources && !!tagContent.resources.main ? this._assetsDictionary[tagContent.resources.main] : undefined;
-    return !!asset && !!asset.mipmap && !!asset.mipmap.x32 ? asset.mipmap.x32.replace("\\", "/") : "";
+    return asset?.mipmap?.[size]?.replace("\\", "/");
   }
 
   onToggleActive(event: Event, tag: ITag): void {

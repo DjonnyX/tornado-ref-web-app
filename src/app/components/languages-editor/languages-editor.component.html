@@ -33,9 +33,9 @@
             </div>
             <div matRipple class="entity__body" (click)="onEdit(language)">
                 <div class="content">
-                    <div class="entity__footer">
-                        <img align="center" *ngIf="hasThumbnail(language.resources?.main)" class="entity__thumbnail"
-                            [src]="getThumbnail(language.resources?.main)">
+                    <div class="bottom-panel">
+                        <img align="center" *ngIf="hasThumbnail(language.resources?.main, 'x32')" class="entity-thumbnail"
+                            [src]="getThumbnail(language.resources?.main, 'x32')">
                     </div>
                     <div class="content__name">
                         {{language.name}}

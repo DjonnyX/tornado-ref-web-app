@@ -140,8 +140,8 @@
                             </div>
                         </div>
                         <div class="entity__footer">
-                            <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
-                                [src]="getThumbnail(product)">
+                            <img align="center" *ngIf="hasThumbnail(product, 'x32')" class="entity__thumbnail"
+                                [src]="getThumbnail(product, 'x32')">
                             <div class="tags">
                                 <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
                                     [matTooltip]="getTagName(tag)">

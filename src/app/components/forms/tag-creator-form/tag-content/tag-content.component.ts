@@ -42,6 +42,8 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
 
   @Input() isEdit: boolean;
 
+  @Input() isDirty: boolean;
+
   @Input() isDefault: boolean;
 
   @Input() defaultContent: ITagContentsItem;
@@ -86,6 +88,8 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
   @Output() deleteAsset = new EventEmitter<IAsset>();
 
   @Output() save = new EventEmitter<void>();
+
+  @Output() confirm = new EventEmitter<Function>();
 
   private _data: IData;
 
@@ -140,6 +144,10 @@ export class TagContentComponent extends BaseComponent implements OnInit, OnDest
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  onConfirmSave(handler: Function): void {
+    this.confirm.emit(handler);
   }
 
   onMainResourceUpload(file: File, dataField: string): void {

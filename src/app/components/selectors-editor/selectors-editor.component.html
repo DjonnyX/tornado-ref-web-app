@@ -36,9 +36,9 @@
                         {{getSelectorDescription(selector)}}
                     </div>
                 </div>
-                <div class="entity__footer">
-                    <img align="center" *ngIf="hasThumbnail(selector)" class="entity__thumbnail"
-                        [src]="getThumbnail(selector)">
+                <div class="bottom-panel">
+                    <img align="center" *ngIf="hasThumbnail(selector, 'x32')" class="entity-thumbnail"
+                        [src]="getThumbnail(selector, 'x32')">
                 </div>
                 <div class="color" [style.background]="getSelectorColor(selector)"></div>
                 <!--<div class="tags">

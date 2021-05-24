@@ -1,6 +1,7 @@
 <div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
     <div class="asset-viewer">
-        <button *ngIf="resetButtonShow" [disabled]="resetButtonDisabled" class="reset-content-button" type="button" (click)="onReset()">
+        <button *ngIf="resetButtonShow" [disabled]="resetButtonDisabled" class="reset-content-button" type="button"
+            (click)="onReset()">
             <mat-icon>settings_backup_restore</mat-icon>
         </button>
         <mat-progress-bar *ngIf="!!asset?.progress" mode="determinate" [value]="asset.progress.progress"
@@ -15,10 +16,12 @@
         </div>
     </div>
     <div class="form-item">
-        <button mat-flat-button type="button" color="primary" class="upload-button full-width" (click)="fileSelector.open()">
+        <button mat-flat-button type="button" color="primary" class="upload-button full-width"
+            (click)="onConfirm()">
             Загрузить
         </button>
     </div>
-    <ta-file-selector [allowedExtensions]="extensions" #fileSelector="fileSelector" (select)="onUploadFile($event)">
+    <ta-file-selector [allowedExtensions]="extensions"
+        #fileSelector (select)="onUploadFile($event)">
     </ta-file-selector>
 </div>

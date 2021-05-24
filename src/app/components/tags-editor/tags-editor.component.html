@@ -29,7 +29,7 @@
       <div matRipple class="entity__body" (click)="onEdit(tag)">
         <div class="content">
           <div class="content-resources">
-            <img align="center" *ngIf="hasThumbnail(tag)" class="entity__thumbnail" [src]="getThumbnail(tag)">
+            <img align="center" *ngIf="hasThumbnail(tag, 'x32')" class="entity-thumbnail" [src]="getThumbnail(tag, 'x32')">
           </div>
           <div class="content-text">
             <div class="content__name">
