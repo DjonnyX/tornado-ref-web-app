@@ -59,7 +59,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   ctrlName = new FormControl('', [Validators.required]);
 
-  ctrlHost = new FormControl('', [Validators.required, Validators.pattern("/^(http|https)(://).*\/$/")]);
+  ctrlHost = new FormControl('', [Validators.required, Validators.pattern("/^((http|https):\/\/).*\/$/")]);
 
   ctrlDescription = new FormControl('');
 
