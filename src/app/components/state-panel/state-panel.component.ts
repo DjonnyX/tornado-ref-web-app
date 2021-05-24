@@ -31,7 +31,7 @@ export class StatePanelComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.onSwitchToList();
+    this.onSwitchToCard();
   }
 
   formatlastUpdate(): string {
