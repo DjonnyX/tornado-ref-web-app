@@ -59,6 +59,8 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   ctrlName = new FormControl('', [Validators.required]);
 
+  ctrlHost = new FormControl('', [Validators.required, Validators.pattern("^((http|https):\/\/).*\/$")]);
+
   ctrlDescription = new FormControl('');
 
   ctrlRights = new FormControl(RIGHTS.map(v => v.value), [Validators.required]);
@@ -71,6 +73,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
       this._integration = integration;
 
       this.ctrlName.setValue(integration.name);
+      this.ctrlHost.setValue(integration.host);
       this.ctrlDescription.setValue(integration.description);
       this.ctrlRights.setValue(integration.rights);
       this.ctrlVersion.setValue(integration.version);
@@ -87,6 +90,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
     super();
 
     this.form = this._fb.group({
+      host: this.ctrlHost,
       name: this.ctrlName,
       description: this.ctrlDescription,
       rights: this.ctrlRights,
