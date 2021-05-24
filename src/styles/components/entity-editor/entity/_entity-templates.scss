@@ -1,0 +1,30 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.editor {
+
+    .entities-container {
+
+        //Card template
+        &.entities-card-layout {
+            
+            .entity {
+
+                &__body {
+                    height: $entity-body-height;
+                }
+            }
+        }
+
+        //List template
+        &.entities-list-layout {
+            
+            .entity {
+
+                &__body {
+                }
+            }
+        }
+    }
+}
