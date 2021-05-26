@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -41,7 +41,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions
+  ILicense, ILicenseType, IRequestOptions, IAppTheme
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -1670,6 +1670,53 @@ export class ApiService {
   public deleteCheckue(id: string): Observable<ICheckueDeleteResponse> {
     return this._http
       .delete<ICheckueDeleteResponse>(`api/v1/checkue/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // themes
+  public getAppThemes<T = any>(options?: IRequestOptions): Observable<IAppThemesGetResponse<T>> {
+    return this._http
+      .get<IAppThemesGetResponse<T>>("api/v1/app-themes", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getAppTheme<T = any>(id: string): Observable<IAppThemeGetResponse<T>> {
+    return this._http
+      .get<IAppThemeGetResponse<T>>(`api/v1/app-theme/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createAppTheme<T = any>(theme: IAppTheme): Observable<IAppThemeCreateResponse<T>> {
+    return this._http
+      .post<IAppThemeCreateResponse<T>>("api/v1/app-theme", theme, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateAppTheme<T = any>(id: string, theme: IAppTheme): Observable<IAppThemeUpdateResponse<T>> {
+    return this._http
+      .put<IAppThemeUpdateResponse<T>>(`api/v1/app-theme/${id}`, theme, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteAppTheme(id: string): Observable<IAppThemeDeleteResponse> {
+    return this._http
+      .delete<IAppThemeDeleteResponse>(`api/v1/app-theme/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

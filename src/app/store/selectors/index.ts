@@ -16,6 +16,8 @@ export { OrderTypeSelectors } from "./order-type.selectors";
 export { OrderTypeAssetsSelectors } from "./order-type-assets.selectors";
 export { TagsSelectors } from "./tags.selectors";
 export { TagSelectors } from "./tag.selectors";
+export { AppThemesSelectors } from "./app-themes.selectors";
+export { AppThemeSelectors } from "./app-theme.selectors";
 export { TagAssetsSelectors } from "./tag-assets.selectors";
 export { LanguagesSelectors } from "./languages.selectors";
 export { LanguageSelectors } from "./language.selectors";

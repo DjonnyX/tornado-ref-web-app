@@ -122,3 +122,8 @@ export { ICheckueGetResponse } from './checkue-get-response.interface';
 export { ICheckueCreateResponse } from './checkue-create-response.interface';
 export { ICheckueUpdateResponse } from './checkue-update-response.interface';
 export { ICheckueDeleteResponse } from './checkue-delete-response.interface';
+export { IAppThemesGetResponse } from './app-themes-get-response.interface';
+export { IAppThemeGetResponse } from './app-theme-get-response.interface';
+export { IAppThemeCreateResponse } from './app-theme-create-response.interface';
+export { IAppThemeUpdateResponse } from './app-theme-update-response.interface';
+export { IAppThemeDeleteResponse } from './app-theme-delete-response.interface';
