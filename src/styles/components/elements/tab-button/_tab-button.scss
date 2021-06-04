@@ -18,6 +18,7 @@ $tab-button-icon-color-active: rgba($accent-color, 1.0);
 
     &__container {
         height: 100%;
+        display: flex;
     }
 }
 

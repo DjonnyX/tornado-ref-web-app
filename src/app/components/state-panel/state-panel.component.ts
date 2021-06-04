@@ -26,7 +26,11 @@ export class StatePanelComponent implements OnInit {
 
   @Output() layout = new EventEmitter<LayoutTypes>();
 
+  @Output() showHiddenEntities = new EventEmitter<boolean>();
+
   layoutType: LayoutTypes;
+
+  isShowHiddenEntities: boolean = true;
 
   constructor() { }
 
@@ -50,5 +54,10 @@ export class StatePanelComponent implements OnInit {
   onSwitchToCard() {
     this.layoutType = LayoutTypes.CARD;
     this.layout.emit(this.layoutType);
+  }
+
+  onToggleVisibleHiddenEntities() {
+    this.isShowHiddenEntities = !this.isShowHiddenEntities;
+    this.showHiddenEntities.emit(this.isShowHiddenEntities);
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
@@ -18,7 +18,18 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   public readonly LayoutTypes = LayoutTypes;
 
-  @Input() collection: Array<IProduct>;
+  isShowHiddenEntities: boolean = true;
+
+  private _collection: Array<IProduct>;
+  @Input() set collection(value: Array<IProduct>) {
+    if (this._collection != value) {
+      this._collection = value || [];
+
+      this.resetFilteredCollection();
+    }
+  }
+
+  public filteredCollection: Array<IProduct>;
 
   @Input() refInfo: IRef;
 
@@ -57,7 +68,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private _cdr: ChangeDetectorRef) {
     super();
   }
 
@@ -65,6 +76,11 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  resetFilteredCollection() {
+    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this.isShowHiddenEntities));
+    this._cdr.markForCheck();
   }
 
   onSwitchLayout(layoutType: LayoutTypes) {
@@ -166,5 +182,10 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   hasDelete() {
     return this.rights.indexOf(UserRights.DELETE_PRODUCT) > -1;
+  }
+
+  onShowHiddenEntities(isShowHiddenEntities: boolean) {
+    this.isShowHiddenEntities = isShowHiddenEntities;
+    this.resetFilteredCollection();
   }
 }

@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 @Component({
   selector: 'ta-selectors-editor-component',
@@ -14,7 +15,22 @@ import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITa
 })
 export class SelectorsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<ISelector>;
+  public readonly LayoutTypes = LayoutTypes;
+
+  layoutType: LayoutTypes;
+
+  isShowHiddenEntities: boolean = true;
+
+  private _collection: Array<ISelector>;
+  @Input() set collection(value: Array<ISelector>) {
+    if (this._collection != value) {
+      this._collection = value || [];
+
+      this.resetFilteredCollection();
+    }
+  }
+
+  public filteredCollection: Array<ISelector>;
 
   @Input() refInfo: IRef;
 
@@ -49,11 +65,24 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(public dialog: MatDialog, private _cdr: ChangeDetectorRef) {
     super();
   }
 
   ngOnInit(): void {
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+  }
+
+  resetFilteredCollection() {
+    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this.isShowHiddenEntities));
+    this._cdr.markForCheck();
+  }
+
+  onSwitchLayout(layoutType: LayoutTypes) {
+    this.layoutType = layoutType;
   }
 
   getSelectorContent(selector: ISelector): ISelectorContentsItem {
@@ -62,10 +91,6 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   getTagContent(tag: ITag): ITagContentsItem {
     return tag.contents[this.defaultLanguage?.code];
-  }
-
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
   }
 
   getTagColor(id: string): string {
@@ -143,5 +168,10 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  onShowHiddenEntities(isShowHiddenEntities: boolean) {
+    this.isShowHiddenEntities = isShowHiddenEntities;
+    this.resetFilteredCollection();
   }
 }

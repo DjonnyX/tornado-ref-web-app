@@ -14,7 +14,17 @@
         <!-- Filter -->
         <div class="filter">
             <div class="filter__container">
-                <div class="tab-button__group">
+                <!-- Hide or show hidden entities -->
+                <span class="tab-button__group">
+                    <button
+                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': isShowHiddenEntities}"
+                        (click)="onToggleVisibleHiddenEntities()">
+                        <div class="tab-button__container">
+                            <div class="tab-button__icon" [ngClass]="{'icon-filter-list': isShowHiddenEntities, 'icon-filter-card': !isShowHiddenEntities}"></div>
+                        </div>
+                    </button>
+                </span>
+                <span class="tab-button__group">
                     <button
                         [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': layoutType === LayoutTypes.LIST}"
                         (click)="onSwitchToList()">
@@ -30,9 +40,8 @@
                         </div>
                     </button>
 
-                </div>
+                </span>
             </div>
         </div>
-
     </div>
 </div>

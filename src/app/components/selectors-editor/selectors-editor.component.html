@@ -1,53 +1,64 @@
 <div class="editor">
-    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let selector of collection | search:searchPattern:defaultLanguage?.code"
-            [class.disabled]="!selector.active">
-            <div class="entity__control">
-                <div class="entity__control__checkbox">
-                    <mat-checkbox color="accent" #checkboxActive [checked]="selector.active"
-                        (click)="onToggleActive($event, selector)"></mat-checkbox>
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"
+        (layout)="onSwitchLayout($event)" (showHiddenEntities)="onShowHiddenEntities($event)"></ta-state-panel>
+    <ng-container [ngSwitch]="layoutType">
+        <!-- List-template -->
+        <ng-container *ngSwitchCase="LayoutTypes.LIST">
+
+        </ng-container>
+        <!-- Card-template -->
+        <ng-container *ngSwitchCase="LayoutTypes.CARD">
+            <div class="entities-wrapper">
+                <div class="entity"
+                    *ngFor="let selector of filteredCollection | search:searchPattern:defaultLanguage?.code"
+                    [class.disabled]="!selector.active">
+                    <div class="entity__control">
+                        <div class="entity__control__checkbox">
+                            <mat-checkbox color="accent" #checkboxActive [checked]="selector.active"
+                                (click)="onToggleActive($event, selector)"></mat-checkbox>
+                        </div>
+                        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                            aria-label="Menu">
+                            <mat-icon class="icon">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item type="button" (click)="onToggleActive($event, selector)">
+                                <mat-icon>{{selector.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                <span>{{selector.active ? 'Деактивировать' : 'Активировать'}}</span>
+                            </button>
+                            <button mat-menu-item (click)="onEditSelector(selector)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Редактировать</span>
+                            </button>
+                            <button mat-menu-item (click)="onDeleteSelector(selector)">
+                                <mat-icon>delete_forever</mat-icon>
+                                <span>Удалить</span>
+                            </button>
+                        </mat-menu>
+                    </div>
+                    <div matRipple class="entity__body" (click)="onEditSelector(selector)">
+                        <div class="content">
+                            <div class="content__name">
+                                {{getSelectorName(selector)}}
+                            </div>
+                            <div class="content__description">
+                                {{getSelectorDescription(selector)}}
+                            </div>
+                        </div>
+                        <div class="bottom-panel">
+                            <img align="center" *ngIf="hasThumbnail(selector, 'x32')" class="entity-thumbnail"
+                                [src]="getThumbnail(selector, 'x32')">
+                        </div>
+                        <div class="color" [style.background]="getSelectorColor(selector)"></div>
+                        <!--<div class="tags">
+                                <span class="tag" *ngFor="let tag of selector.tags" [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)"></span>
+                            </div>-->
+                    </div>
                 </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
+                <button color="accent" mat-raised-button class="button-add" (click)="onCreateSelector()">
+                    <mat-icon>add</mat-icon>
                 </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item type="button" (click)="onToggleActive($event, selector)">
-                        <mat-icon>{{selector.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{selector.active ? 'Деактивировать' : 'Активировать'}}</span>
-                    </button>
-                    <button mat-menu-item (click)="onEditSelector(selector)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
-                    </button>
-                    <button mat-menu-item (click)="onDeleteSelector(selector)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
-                    </button>
-                </mat-menu>
             </div>
-            <div matRipple class="entity__body" (click)="onEditSelector(selector)">
-                <div class="content">
-                    <div class="content__name">
-                        {{getSelectorName(selector)}}
-                    </div>
-                    <div class="content__description">
-                        {{getSelectorDescription(selector)}}
-                    </div>
-                </div>
-                <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(selector, 'x32')" class="entity-thumbnail"
-                        [src]="getThumbnail(selector, 'x32')">
-                </div>
-                <div class="color" [style.background]="getSelectorColor(selector)"></div>
-                <!--<div class="tags">
-                    <span class="tag" *ngFor="let tag of selector.tags" [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)"></span>
-                </div>-->
-            </div>
-        </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreateSelector()">
-            <mat-icon>add</mat-icon>
-        </button>
-    </div>
+        </ng-container>
+    </ng-container>
 </div>

@@ -26,14 +26,14 @@
 <!-- Content -->
 <div class="editor" *ngIf="!!defaultLanguage">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"
-        (layout)="onSwitchLayout($event)"></ta-state-panel>
+        (layout)="onSwitchLayout($event)" (showHiddenEntities)="onShowHiddenEntities($event)"></ta-state-panel>
     <ng-container [ngSwitch]="layoutType">
         <!-- List-template -->
         <ng-container *ngSwitchCase="LayoutTypes.LIST">
             <div class="editor-container">
                 <!--Entity Wrapper-->
                 <div class="entities-container entities-list-layout">
-                    <div class="entity" *ngFor="let product of collection | search:searchPattern:defaultLanguage?.code"
+                    <div class="entity" *ngFor="let product of filteredCollection | search:searchPattern:defaultLanguage?.code"
                         [class.disabled]="!product.active">
                         <div class="entity__top-container">
                             <!-- Controls -->
@@ -115,7 +115,7 @@
         <ng-container *ngSwitchCase="LayoutTypes.CARD">
             <div class="editor-container">
                 <div class="entities-container entities-card-layout">
-                    <div class="entity" *ngFor="let product of collection | search:searchPattern:defaultLanguage?.code"
+                    <div class="entity" *ngFor="let product of filteredCollection | search:searchPattern:defaultLanguage?.code"
                         [class.disabled]="!product.active">
                         <div class="entity__top-container">
                             <div class="entity__control">
