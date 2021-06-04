@@ -13,6 +13,15 @@
 
                 &__body {
                     height: $entity-body-height;
+
+                    &__gradient {
+                        display: block;
+                    }
+                }
+
+                &__thumbnail {
+                    height: 128px;
+                    border-radius: 12px;
                 }
             }
         }
@@ -23,6 +32,16 @@
             .entity {
 
                 &__body {
+
+                    &__gradient {
+                        display: none;
+                    }
+                    
+                }
+
+                &__thumbnail {
+                    height: 128px;
+                    border-radius: 3px;
                 }
             }
         }

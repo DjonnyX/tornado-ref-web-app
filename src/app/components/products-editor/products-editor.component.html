@@ -47,9 +47,13 @@
                             <!-- Controls -->
                             <!-- Entity Active-Zone -->
                             <div matRipple class="entity__body" (click)="onEditProduct(product)">
-                                <div class="entity__content">
-                                    <div class="entity__content__gradient"></div>
-                                    <div class="entity__content__container">
+                                <div class="entity__body__content">
+                                    <div class="entity__body__gradient"></div>
+                                    <div class="entity__body__container">
+                                        <!-- <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
+                                            [src]="getThumbnail(product)"> -->
+                                        <img align="center" *ngIf="hasThumbnail(product, 'x128')"
+                                            class="entity__thumbnail" [src]="getThumbnail(product, 'x128')">
                                         <div class="entity__name">
                                             {{getProductName(product)}}
                                         </div>
@@ -63,8 +67,6 @@
                         </div>
 
                         <div class="entity__footer">
-                            <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
-                                [src]="getThumbnail(product)">
                             <div class="tags">
                                 <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
                                     [matTooltip]="getTagName(tag)">
@@ -124,9 +126,11 @@
                                 <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}"></ng-container>
                             </div>
                             <div matRipple class="entity__body" (click)="onEditProduct(product)">
-                                <div class="entity__content">
-                                    <div class="entity__content__gradient"></div>
-                                    <div class="entity__content__container">
+                                <div class="entity__body__content">
+                                    <div class="entity__body__gradient"></div>
+                                    <div class="entity__body__container">
+                                        <img align="center" *ngIf="hasThumbnail(product, 'x128')"
+                                            class="entity__thumbnail" [src]="getThumbnail(product, 'x128')">
                                         <div class="entity__name">
                                             {{getProductName(product)}}
                                         </div>
@@ -140,8 +144,8 @@
                             </div>
                         </div>
                         <div class="entity__footer">
-                            <img align="center" *ngIf="hasThumbnail(product, 'x32')" class="entity__thumbnail"
-                                [src]="getThumbnail(product, 'x32')">
+                            <!-- <img align="center" *ngIf="hasThumbnail(product, 'x128')" class="entity__thumbnail"
+                                [src]="getThumbnail(product, 'x128')"> -->
                             <div class="tags">
                                 <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
                                     [matTooltip]="getTagName(tag)">

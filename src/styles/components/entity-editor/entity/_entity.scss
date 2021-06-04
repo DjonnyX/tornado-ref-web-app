@@ -15,6 +15,23 @@
 
         &__body {
             @extend .entity-container;
+
+            &__content {
+                position: relative;
+                overflow: hidden;
+                height: 100%;
+            }
+
+            &__container {
+
+            }
+
+            &__gradient {
+                position: absolute;
+                width: 100%;
+                bottom: 0px;
+                background: linear-gradient(0deg, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%);
+            }
         }
 
         &__top-container {
@@ -43,30 +60,20 @@
             padding: px2em(8) px2em(12);
             border-top-width: 1px;
             border-top-style: solid;
-            // border-top: 1px solid rgba($primary-color, 0.1);
-            // background-color: $entity-footer-background-color;
-
-            img {
-                image-rendering: pixelated;
-                border-width: 1px;
-                border-style: solid;
-                // border: 1px solid rgba($primary-color, 0.15);
-                background-color: #ffffff;
-            }
         }
 
         &__thumbnail {
-            height: px2em(32);
+            // height: px2em(32);
             overflow: hidden;
             image-rendering: pixelated;
-            border-radius: 3px;
+            border-width: 1px;
+            border-style: solid;
+            background-color: #ffffff;
         }
 
         &__control {
             display: flex;
             justify-content: space-between;
-            // background: #ffffff;
-            // border-bottom: 1px solid rgba($primary-color, 0.1);
             border-bottom-width: 1px;
             border-bottom-style: solid;
 
@@ -83,7 +90,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            // color: $primary-color;
             height: 100%;
         }
 

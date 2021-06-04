@@ -10,11 +10,11 @@
             opacity: 1.0;
         }
         &:hover {
-            @include transition(opacity, 125ms 125ms, ease, 0s);
+            @include transition(opacity, 75ms 75ms, ease, 0s);
             opacity: 0.85;
         }
         &:focus {
-            @include transition(opacity transform, 125ms 125ms, ease, 0s);
+            @include transition(opacity transform, 75ms 75ms, ease, 0s);
             opacity: 0.85;
             transform: scale(0.95);
         }

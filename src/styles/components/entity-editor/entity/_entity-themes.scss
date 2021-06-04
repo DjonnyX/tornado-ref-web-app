@@ -14,9 +14,15 @@
 
     .entity {
         @include themify($themes) {
-            // color: themed('textColor');
             background-color: themed('entityBackgroundColor');  
         }
+
+        &__thumbnail {
+            @include themify($themes) {
+                border-color: themed('entityDividerBorderColor');
+            }
+        }
+
         &__name {
             @include themify($themes) {
                 color: themed('entityTitleColor');
@@ -36,18 +42,6 @@
         }
 
         &__footer {
-            @include themify($themes) {
-                border-color: themed('entityDividerBorderColor');
-            }
-
-            img {
-                @include themify($themes) {
-                    border-color: themed('entityDividerBorderColor');
-                }
-            }
-        }
-
-        &__thumbnail {
             @include themify($themes) {
                 border-color: themed('entityDividerBorderColor');
             }
