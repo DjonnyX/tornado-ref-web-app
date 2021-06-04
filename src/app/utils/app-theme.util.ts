@@ -1,7 +1,9 @@
 import { IAppTheme } from '@djonnyx/tornado-types';
+import Color from "color";
 
 export enum ThemeDescriptiorKeyTypes {
     PROP,
+    COLOR,
     ASSET,
 }
 
@@ -26,19 +28,38 @@ export interface ICompiledTheme {
 
 const ASSET_PATTERN = /(\.backgroundImage)$/;
 
+const COLOR_PATTERN = /(color|Color)/;
+
 const isAsset = (prop: string): boolean => {
     return ASSET_PATTERN.test(prop);
+}
+
+const isColor = (prop: string): boolean => {
+    return COLOR_PATTERN.test(prop);
 }
 
 type TOutputData = string | IThemeDescriptorOutputData | any;
 
 const compileThemeDescriptorProp = (data: any, lastProp?: string, result: IThemeDescriptior = {}): TOutputData | undefined => {
     if (typeof data === "string") {
+        let type: ThemeDescriptiorKeyTypes;
+        if (isColor(lastProp)) {
+            type = ThemeDescriptiorKeyTypes.COLOR;
+            if (data === "none") {
+                data = "transparent";
+            }
+
+            data = Color(data).string(8);
+        } else if (isAsset(lastProp)) {
+            type = ThemeDescriptiorKeyTypes.ASSET;
+        } else {
+            type = ThemeDescriptiorKeyTypes.PROP;
+        }
         return {
             prop: lastProp,
             value: {
                 value: data,
-                type: isAsset(data) ? ThemeDescriptiorKeyTypes.ASSET : ThemeDescriptiorKeyTypes.PROP,
+                type,
             },
         };
     }
@@ -47,7 +68,9 @@ const compileThemeDescriptorProp = (data: any, lastProp?: string, result: ITheme
         const subData = data[propName];
         const outputData = compileThemeDescriptorProp(subData, !!lastProp ? `${lastProp}.${propName}` : propName, result);
 
-        if (outputData?.value?.type === ThemeDescriptiorKeyTypes.ASSET || outputData?.value?.type === ThemeDescriptiorKeyTypes.PROP) {
+        if (outputData?.value?.type === ThemeDescriptiorKeyTypes.ASSET
+            || outputData?.value?.type === ThemeDescriptiorKeyTypes.COLOR
+            || outputData?.value?.type === ThemeDescriptiorKeyTypes.PROP) {
             result[outputData.prop] = outputData.value;
         }
     }

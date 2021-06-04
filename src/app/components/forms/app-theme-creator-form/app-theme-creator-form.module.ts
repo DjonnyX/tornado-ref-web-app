@@ -5,9 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { ColorPickerModule } from 'ngx-color-picker';
 import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
 import { KeyValueModule } from '@components/key-value/key-value.module';
+import { ColorPickerModule } from '@components/color-picker/color-picker.module';
 
 @NgModule({
   declarations: [
