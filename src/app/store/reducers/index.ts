@@ -48,6 +48,7 @@ import integrationsReducer from "./integrations.reducer";
 import accountsReducer from "./accounts.reducer";
 import checkuesReducer from "./checkues.reducer";
 import checkueReducer from "./checkue.reducer";
+import appThemeAssetsReducer from "./app-theme-assets.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -58,6 +59,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taProductAssets: productAssetsReducer,
   taTags: tagsReducer,
   taTag: tagReducer,
+  taThemeAssets: appThemeAssetsReducer,
   taTheme: appThemeReducer,
   taThemes: appThemesReducer,
   taTagAssets: tagAssetsReducer,

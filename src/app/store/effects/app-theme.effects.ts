@@ -36,8 +36,8 @@ export default class AppThemeEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AppThemeActions.createRequest),
-            switchMap(({theme}) => {
-                return this._apiService.createAppTheme(formatAppThemeModel(theme)).pipe(
+            switchMap(({theme, terminalType}) => {
+                return this._apiService.createAppTheme(formatAppThemeModel(theme), terminalType).pipe(
                     mergeMap(res => {
                         return [AppThemeActions.createSuccess({ theme: res.data })];
                     }),

@@ -45,6 +45,7 @@ import { ICheckueState } from './checkue.state';
 import { ICheckuesState } from './checkues.state';
 import { IAppThemeState } from './app-theme.state';
 import { IAppThemesState } from './app-themes.state';
+import { IAppThemeAssetsState } from './app-theme-assets.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -92,6 +93,7 @@ export interface IAppState {
     taAccounts: IAccountsState,
     taCheckue: ICheckueState,
     taCheckues: ICheckuesState,
+    taThemeAssets: IAppThemeAssetsState,
     taTheme: IAppThemeState,
     taThemes: IAppThemesState,
 }

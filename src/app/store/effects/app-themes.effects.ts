@@ -18,8 +18,8 @@ export default class AppThemesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AppThemesActions.getAllRequest),
-            switchMap(({ options }) => {
-                return this._apiService.getAppThemes(options).pipe(
+            switchMap(({ terminalType, options }) => {
+                return this._apiService.getAppThemes(terminalType, options).pipe(
                     mergeMap(res => {
                         return [AppThemesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
@@ -36,8 +36,8 @@ export default class AppThemesEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AppThemesActions.createRequest),
-            switchMap(({ theme }) => {
-                return this._apiService.createAppTheme(formatAppThemeModel(theme)).pipe(
+            switchMap(({ theme, terminalType }) => {
+                return this._apiService.createAppTheme(formatAppThemeModel(theme), terminalType).pipe(
                     mergeMap(res => {
                         return [AppThemesActions.createSuccess({ theme: res.data, meta: res.meta })];
                     }),

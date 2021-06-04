@@ -7,6 +7,7 @@ import SelectorEffects from './selector.effects';
 import SelectorAssetsEffects from './selector-assets.effects';
 import TagEffects from './tag.effects';
 import TagsEffects from './tags.effects';
+import AppThemeAssetsEffects from './app-theme-assets.effects';
 import AppThemeEffects from './app-theme.effects';
 import AppThemesEffects from './app-themes.effects';
 import TagAssetsEffects from './tag-assets.effects';
@@ -60,6 +61,7 @@ const rootEffects = [
   TagsEffects,
   TagEffects,
   TagAssetsEffects,
+  AppThemeAssetsEffects,
   AppThemesEffects,
   AppThemeEffects,
   AssetsEffects,

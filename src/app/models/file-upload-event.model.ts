@@ -7,11 +7,12 @@ export interface IFileUploadEntityEvent {
 
 export interface IFileUploadEvent {
     file: File;
-    langCode: string;
+    langCode?: string;
+    key?: string;
     dataField?: string;
 }
 
 export interface IAssetUploadEvent {
     asset: IAsset;
-    langCode: string;
+    langCode?: string;
 }

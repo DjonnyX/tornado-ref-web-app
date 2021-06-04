@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IAppTheme } from '@djonnyx/tornado-types';
+import { IAppTheme, TerminalTypes } from '@djonnyx/tornado-types';
 
 export enum AppThemeActionTypes {
     GET_REQUEST = "TORNADO/app-theme/get:request",
@@ -35,7 +35,7 @@ export namespace AppThemeActions {
     // create
     export const createRequest = createAction(
         AppThemeActionTypes.CREATE_REQUEST,
-        props<{ theme: IAppTheme }>()
+        props<{ theme: IAppTheme, terminalType: TerminalTypes }>()
     );
     export const createSuccess = createAction(
         AppThemeActionTypes.CREATE_SUCCESS,

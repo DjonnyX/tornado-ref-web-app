@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IRequestOptions, IAppTheme } from '@djonnyx/tornado-types';
+import { IRequestOptions, IAppTheme, TerminalTypes } from '@djonnyx/tornado-types';
 
 export enum AppThemesActionTypes {
     GET_ALL_REQUEST = "TORNADO/app-theme/get-all:request",
@@ -30,7 +30,7 @@ export namespace AppThemesActions {
     // getAll
     export const getAllRequest = createAction(
         AppThemesActionTypes.GET_ALL_REQUEST,
-        props<{ options?: IRequestOptions }>(),
+        props<{ terminalType: TerminalTypes, options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         AppThemesActionTypes.GET_ALL_SUCCESS,
@@ -58,7 +58,7 @@ export namespace AppThemesActions {
     // create
     export const createRequest = createAction(
         AppThemesActionTypes.CREATE_REQUEST,
-        props<{ theme: IAppTheme }>(),
+        props<{ theme: IAppTheme, terminalType: TerminalTypes }>(),
     );
     export const createSuccess = createAction(
         AppThemesActionTypes.CREATE_SUCCESS,
