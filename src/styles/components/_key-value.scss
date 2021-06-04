@@ -9,9 +9,18 @@
     }
     &__separator {
         border-bottom: 1px dotted;
+        margin: 0 4px;
     }
     &__value {
         text-align: right;
         word-break: break-all;
+    }
+    &__color {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        border: 1px solid $primary-400;
+        border-radius: 2px;
+        margin-right: 2px;
     }
 }
