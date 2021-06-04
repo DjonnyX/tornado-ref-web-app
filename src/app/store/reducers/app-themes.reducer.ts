@@ -92,9 +92,11 @@ const appThemesReducer = createReducer(
         };
     }),
     on(AppThemesActions.createSuccess, (state, { theme, meta }) => {
+        const newCollection = [...state.collection];
+        newCollection.push(theme);
         return {
             ...state,
-            collection: [...state.collection, theme],
+            collection: newCollection,
             meta,
             error: undefined,
             isCreateProcess: false,

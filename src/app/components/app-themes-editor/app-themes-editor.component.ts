@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAppTheme, IRef, IAsset } from '@djonnyx/tornado-types';
+import { ICompiledTheme } from '@app/utils/app-theme.util';
 
 @Component({
   selector: 'ta-app-themes-editor-component',
@@ -13,7 +14,7 @@ import { IAppTheme, IRef, IAsset } from '@djonnyx/tornado-types';
 })
 export class AppThemesEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<IAppTheme>;
+  @Input() collection: Array<ICompiledTheme>;
 
   @Input() refInfo: IRef;
 
@@ -55,15 +56,11 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
     super.ngOnDestroy();
   }
 
-  getName(theme: IAppTheme): string | undefined {
-    return theme.name;
-  }
-
-  hasThumbnail(theme: IAppTheme, size: "x32" | "x128" = "x32"): boolean {
+  hasThumbnail(compiledTheme: ICompiledTheme, size: "x32" | "x128" = "x32"): boolean {
     return false
   }
 
-  getThumbnail(theme: IAppTheme, size: "x32" | "x128" = "x32"): string {
+  getThumbnail(compiledTheme: ICompiledTheme, size: "x32" | "x128" = "x32"): string {
     return undefined;
   }
 
@@ -71,16 +68,16 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
     this.create.emit();
   }
 
-  onEdit(theme: IAppTheme): void {
-    this.edit.emit(theme);
+  onEdit(compiledTheme: ICompiledTheme): void {
+    this.edit.emit(compiledTheme.theme);
   }
 
-  onDelete(theme: IAppTheme): void {
+  onDelete(compiledTheme: ICompiledTheme): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
           title: "Удалить тему?",
-          message: `"${this.getName(theme)}" будет безвозвратно удалена.`,
+          message: `"${compiledTheme.theme.name}" будет безвозвратно удалена.`,
         },
       });
 
@@ -89,7 +86,7 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
       takeUntil(this.unsubscribe$),
     ).subscribe(result => {
       if (result) {
-        this.delete.emit(theme.id);
+        this.delete.emit(compiledTheme.theme.id);
       }
     });
   }

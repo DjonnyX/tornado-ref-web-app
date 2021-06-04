@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
-import { AppThemeAssetsSelectors, AssetsSelectors } from '@store/selectors';
+import { AppThemeAssetsSelectors } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
@@ -11,7 +11,6 @@ import { AppThemeAssetsActions } from '@store/actions/app-theme-assets.action';
 import { AppThemeSelectors } from '@store/selectors/app-theme.selectors';
 import { AppThemeActions } from '@store/actions/app-theme.action';
 import { IAppTheme, TerminalTypes } from '@djonnyx/tornado-types';
-import { AssetsActions } from '@store/actions/assets.action';
 import { getThemeDescriptor, ICompiledTheme } from '@app/utils/app-theme.util';
 
 @Component({
@@ -47,12 +46,16 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
 
   private _terminalType: TerminalTypes;
 
+  private _pagePath: string;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
 
   ngOnInit(): void {
     this._terminalType = this._activatedRoute.snapshot.queryParams["type"];
+
+    this._pagePath = this._activatedRoute.snapshot.data["path"];
 
     this._themeId = this._activatedRoute.snapshot.queryParams["id"];
     this._themeId$.next(this._themeId);
@@ -99,7 +102,7 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
     );
 
     this.assets$ = this._store.pipe(
-      select(AssetsSelectors.selectCollection),
+      select(AppThemeAssetsSelectors.selectCollection),
     );
 
     this.themeAssets$ = this._store.select(AppThemeAssetsSelectors.selectCollection).pipe(
@@ -154,12 +157,11 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
     this.isPrepareToConfigure$ = this.themeId$.pipe(
       switchMap(id => {
         return !!id ? combineLatest([
-          prepareMainRequests$,
           this.compiledTheme$,
           this.themeAssets$,
         ]).pipe(
-          map(([prepareMainRequests, compiledTheme, themeAssets]) =>
-            !!prepareMainRequests && !!compiledTheme && !!themeAssets),
+          map(([compiledTheme, themeAssets]) =>
+            !!compiledTheme && !!themeAssets),
         ) : prepareMainRequests$;
       })
     );
@@ -170,7 +172,6 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
 
     this._store.dispatch(AppThemeActions.clear());
     this._store.dispatch(AppThemeAssetsActions.clear());
-    this._store.dispatch(AssetsActions.clear());
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {
@@ -190,10 +191,10 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onMainOptionsCancel(): void {
-    this._router.navigate(["/admin/app-themes"]);
+    this._router.navigate([`/admin/${this._pagePath}`]);
   }
 
   onToBack(): void {
-    this._router.navigate(["/admin/app-themes"]);
+    this._router.navigate([`/admin/${this._pagePath}`]);
   }
 }
