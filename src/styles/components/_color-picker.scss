@@ -9,6 +9,13 @@
     &__input {
         @include reset-input();
 
+        &.light {
+            color: $primary-100;
+        }
+        &.dark {
+            color: $primary-800;
+        }
+
         cursor: pointer;
 
         position: relative;
