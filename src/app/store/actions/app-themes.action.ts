@@ -3,27 +3,27 @@ import { IMetaRefsResponse } from '@services';
 import { IRequestOptions, IAppTheme, TerminalTypes } from '@djonnyx/tornado-types';
 
 export enum AppThemesActionTypes {
-    GET_ALL_REQUEST = "TORNADO/app-theme/get-all:request",
-    GET_ALL_SUCCESS = "TORNADO/app-theme/get-all:success",
-    GET_ALL_ERROR = "TORNADO/app-theme/get-all:error",
+    GET_ALL_REQUEST = "TORNADO/app-themes/get-all:request",
+    GET_ALL_SUCCESS = "TORNADO/app-themes/get-all:success",
+    GET_ALL_ERROR = "TORNADO/app-themes/get-all:error",
 
-    GET_REQUEST = "TORNADO/app-theme/get:request",
-    GET_SUCCESS = "TORNADO/app-theme/get:success",
-    GET_ERROR = "TORNADO/app-theme/get:error",
+    GET_REQUEST = "TORNADO/app-themes/get:request",
+    GET_SUCCESS = "TORNADO/app-themes/get:success",
+    GET_ERROR = "TORNADO/app-themes/get:error",
 
-    CREATE_REQUEST = "TORNADO/app-theme/create:request",
-    CREATE_SUCCESS = "TORNADO/app-theme/create:success",
-    CREATE_ERROR = "TORNADO/app-theme/create:error",
+    CREATE_REQUEST = "TORNADO/app-themes/create:request",
+    CREATE_SUCCESS = "TORNADO/app-themes/create:success",
+    CREATE_ERROR = "TORNADO/app-themes/create:error",
 
-    UPDATE_REQUEST = "TORNADO/app-theme/update:request",
-    UPDATE_SUCCESS = "TORNADO/app-theme/update:success",
-    UPDATE_ERROR = "TORNADO/app-theme/update:error",
+    UPDATE_REQUEST = "TORNADO/app-themes/update:request",
+    UPDATE_SUCCESS = "TORNADO/app-themes/update:success",
+    UPDATE_ERROR = "TORNADO/app-themes/update:error",
 
-    DELETE_REQUEST = "TORNADO/app-theme/delete:request",
-    DELETE_SUCCESS = "TORNADO/app-theme/delete:success",
-    DELETE_ERROR = "TORNADO/app-theme/delete:error",
+    DELETE_REQUEST = "TORNADO/app-themes/delete:request",
+    DELETE_SUCCESS = "TORNADO/app-themes/delete:success",
+    DELETE_ERROR = "TORNADO/app-themes/delete:error",
 
-    CLEAR = "TORNADO/app-theme/clear",
+    CLEAR = "TORNADO/app-themes/clear",
 }
 
 export namespace AppThemesActions {

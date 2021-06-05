@@ -4,7 +4,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { IAppTheme, IAsset } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
-import { ICompiledTheme, IThemeDescriptior, IThemeDescriptorValue, ThemeDescriptiorKeyTypes } from '@app/utils/app-theme.util';
+import { ICompiledTheme, IThemeDescriptior, IThemeDescriptorValue, ThemeDescriptiorKeyTypes, themeDescriptorPropsToThemeData } from '@app/utils/app-theme.util';
 import Color from "color";
 import { IFileUploadEvent } from '@models';
 
@@ -65,7 +65,7 @@ const getColorPresetsFromControls = (controls: { [name: string]: AbstractControl
 
     const control = controls[controlName];
 
-    if (descriptor[controlName].type === ThemeDescriptiorKeyTypes.COLOR) {
+    if (descriptor[controlName]?.type === ThemeDescriptiorKeyTypes.COLOR) {
       const color = Color(control.value).string();
       if (result.indexOf(color) === -1) {
         result.push(color);
@@ -192,7 +192,9 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
 
       this.save.emit({
         ...this._compiledTheme?.theme,
-        ...this.form.value,
+        data: themeDescriptorPropsToThemeData(this.form.value, {
+          exclude: ["name"],
+        }),
         resources,
       });
 

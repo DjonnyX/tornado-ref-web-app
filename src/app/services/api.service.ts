@@ -1690,7 +1690,7 @@ export class ApiService {
 
   public createAppTheme<T = any>(theme: IAppTheme, type: TerminalTypes): Observable<IAppThemeCreateResponse<T>> {
     return this._http
-      .post<IAppThemeCreateResponse<T>>("api/v1/app-theme", theme, {
+      .post<IAppThemeCreateResponse<T>>("api/v1/app-theme", { name: theme.name, data: theme.data }, {
         headers: {
           "authorization": this.getAuthToken(),
         },
@@ -1702,7 +1702,7 @@ export class ApiService {
 
   public updateAppTheme<T = any>(id: string, theme: IAppTheme): Observable<IAppThemeUpdateResponse<T>> {
     return this._http
-      .put<IAppThemeUpdateResponse<T>>(`api/v1/app-theme/${id}`, theme, {
+      .put<IAppThemeUpdateResponse<T>>(`api/v1/app-theme/${id}`, { name: theme.name, data: theme.data }, {
         headers: {
           "authorization": this.getAuthToken(),
         },

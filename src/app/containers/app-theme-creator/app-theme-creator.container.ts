@@ -175,13 +175,12 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   onResourceUpload(data: IFileUploadEvent): void {
-    console.log(data)
     this._store.dispatch(AppThemeAssetsActions.uploadResourceRequest({ themeId: this._themeId, resourcesType: data.key, data }));
   }
 
   onMainOptionsSave(theme: IAppTheme): void {
     if (this.isEditMode) {
-      this._store.dispatch(AppThemeActions.updateRequest({ id: theme.id, theme: theme }));
+      this._store.dispatch(AppThemeActions.updateRequest({ id: theme.id, theme }));
     } else {
       this._store.dispatch(AppThemeActions.createRequest({ theme, terminalType: this._terminalType }));
     }

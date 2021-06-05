@@ -40,6 +40,33 @@ const isColor = (prop: string): boolean => {
 
 type TOutputData = string | IThemeDescriptorOutputData | any;
 
+const dottedPropsToObject = (propName: string, value: any, result: any): any => {
+    const props = propName.split(".");
+
+    let owner = result;
+
+    for (let p of props) {
+        if (!owner[p]) {
+            owner[p] = {};
+        }
+        owner = owner[p];
+    }
+
+    owner[props[props.length - 1]] = value;
+}
+
+export const themeDescriptorPropsToThemeData = (data: any, options?: { exclude?: Array<string> }): any => {
+    const result = {};
+    for (const propName in data) {
+        if (!!options?.exclude && options?.exclude?.indexOf(propName) !== -1) {
+          continue;
+        }
+        dottedPropsToObject(propName, data[propName], result);
+    }
+
+    return result;
+}
+
 const compileThemeDescriptorProp = (data: any, lastProp?: string, result: IThemeDescriptior = {}): TOutputData | undefined => {
     if (typeof data === "string") {
         let type: ThemeDescriptiorKeyTypes;

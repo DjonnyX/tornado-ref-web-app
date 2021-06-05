@@ -104,7 +104,7 @@ const appThemesReducer = createReducer(
         };
     }),
     on(AppThemesActions.updateSuccess, (state, { theme, meta }) => {
-        const existsAppThemeIndex = state.collection.findIndex(p => p.id === theme.id);
+        const existsAppThemeIndex = state.collection?.findIndex(p => p.id === theme.id);
         let collection = [...state.collection];
         if (existsAppThemeIndex > -1) {
             collection.splice(existsAppThemeIndex, 1);
