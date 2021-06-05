@@ -7,11 +7,15 @@
           <mat-icon class="icon">more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="onEdit(compiledTheme)">
+          <button *ngIf="compiledTheme.theme.isDefault" mat-menu-item (click)="onEdit(compiledTheme)">
+            <mat-icon>details</mat-icon>
+            <span>Подробнее</span>
+          </button>
+          <button *ngIf="!compiledTheme.theme.isDefault" mat-menu-item (click)="onEdit(compiledTheme)">
             <mat-icon>edit</mat-icon>
             <span>Редактировать</span>
           </button>
-          <button mat-menu-item (click)="onDelete(compiledTheme)">
+          <button *ngIf="!compiledTheme.theme.isDefault" mat-menu-item (click)="onDelete(compiledTheme)">
             <mat-icon>delete_forever</mat-icon>
             <span>Удалить</span>
           </button>

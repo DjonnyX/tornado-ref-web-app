@@ -15,7 +15,7 @@
                 (load)="loadingComplete()" (error)="loadingError()">
         </div>
     </div>
-    <div class="form-item">
+    <div class="form-item" *ngIf="showUploadButton">
         <button mat-flat-button type="button" color="primary" class="upload-button full-width"
             (click)="onConfirm()">
             Загрузить

@@ -4,6 +4,7 @@
             <div class="resources-wrapper single">
                 <div class="resources-n">
                     <ta-asset-picker-uploader [resetButtonShow]="false"
+                        [showUploadButton]="!!compiledTheme?.theme?.isDefault ? false : true"
                         [defaultValue]="!!compiledTheme.theme.resources ? compiledTheme.theme.resources['thumbnail'] : undefined"
                         [assets]="assets" class="transparent" (upload)="onResourceUpload($event)">
                     </ta-asset-picker-uploader>
@@ -84,17 +85,19 @@
     <div class="form__submit" align="end">
         <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
             <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
-                Отменить
+                {{!!compiledTheme?.theme?.isDefault ? "Закрыть" : "Отменить"}}
             </button>
-            <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
+            <button mat-flat-button *ngIf="!compiledTheme?.theme?.isDefault" color="accent" type="submit"
+                class="button button__text" [disabled]="!form.valid">
                 {{isEditMode ? 'Сохранить' : 'Создать'}}
             </button>
         </ng-container>
         <ng-template #editButtons>
             <button mat-button class="button button__text" (click)="onCancel()">
-                Отменить
+                {{!!compiledTheme?.theme?.isDefault ? "Закрыть" : "Отменить"}}
             </button>
-            <button mat-flat-button color="accent" (click)="onEdit()" class="button button__text">
+            <button mat-flat-button *ngIf="!compiledTheme?.theme?.isDefault" color="accent" (click)="onEdit()"
+                class="button button__text">
                 Редактировать
             </button>
         </ng-template>

@@ -111,6 +111,7 @@ export const getThemeDescriptor = (theme: IAppTheme) => {
 
 export const formatAppThemeModel = (model: IAppTheme) => {
     return {
+        isDefault: model.isDefault,
         client: model.client,
         type: model.type,
         name: model.name,
