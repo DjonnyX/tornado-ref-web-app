@@ -53,7 +53,7 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
   }
 
   ngOnInit(): void {
-    this._terminalType = this._activatedRoute.snapshot.queryParams["type"];
+    this._terminalType = this._activatedRoute.snapshot.data["type"];
 
     this._pagePath = this._activatedRoute.snapshot.data["path"];
 
@@ -148,11 +148,7 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(AppThemeActions.getRequest({ id: this._themeId }));
     }
 
-    const prepareMainRequests$ = combineLatest([
-      this.assets$,
-    ]).pipe(
-      map(([assets]) => !!assets),
-    );
+    const prepareMainRequests$ = of(true);
 
     this.isPrepareToConfigure$ = this.themeId$.pipe(
       switchMap(id => {

@@ -101,7 +101,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
 
   private _compiledTheme: ICompiledTheme;
   @Input() set compiledTheme(compiledTheme: ICompiledTheme) {
-    if (this._compiledTheme !== compiledTheme) {
+    if (!!compiledTheme && this._compiledTheme !== compiledTheme) {
       this._compiledTheme = compiledTheme;
       this._compiledThemeArray = descriptorToArray(compiledTheme.descriptor);
       this._colorPresets = getColorPresets(this._compiledThemeArray);
@@ -162,9 +162,11 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       // reset presets
-      this._colorPresets = getColorPresetsFromControls(this.form.controls, this._compiledTheme.descriptor, {
-        exclude: ["name"],
-      });
+      if (!!this._compiledTheme) {
+        this._colorPresets = getColorPresetsFromControls(this.form.controls, this._compiledTheme.descriptor, {
+          exclude: ["name"],
+        });
+      }
 
       this.update.emit(value);
     });
@@ -186,12 +188,9 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
   onSave(): void {
     if (this.form.valid) {
       const resources = { ...this.resources };
-      // if (!(resources as any).hasOwnProperty("main")) {
-      //   resources.main = null;
-      // }
-
       this.save.emit({
         ...this._compiledTheme?.theme,
+        name: this.form.value["name"],
         data: themeDescriptorPropsToThemeData(this.form.value, {
           exclude: ["name"],
         }),
