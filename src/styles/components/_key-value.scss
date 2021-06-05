@@ -1,11 +1,12 @@
 .key-value {
     display: grid;
-    grid-template-columns: auto minmax(100px, 1fr) auto;
+    grid-template-columns: auto minmax(30px, 1fr) auto;
     margin-bottom: 8px;
     align-items: baseline;
 
     &__key {
         text-align: left;
+        word-break: break-all;
     }
     &__separator {
         border-bottom: 1px dotted;
