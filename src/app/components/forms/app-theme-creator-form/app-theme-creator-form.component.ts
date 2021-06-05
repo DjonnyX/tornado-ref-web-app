@@ -55,7 +55,7 @@ const getColorPresets = (items: Array<ICompiledThemeValue>): Array<string> => {
   return result;
 }
 
-const getColorPresetsFromControls = (controls: { [name: string]: AbstractControl },
+const getColorPresetsFromControls = (controls: { [name: string]: AbstractControl }, descriptor: IThemeDescriptior,
   options?: { exclude?: Array<string> }): Array<string> => {
   const result: Array<string> = [];
   for (let controlName in controls) {
@@ -65,9 +65,11 @@ const getColorPresetsFromControls = (controls: { [name: string]: AbstractControl
 
     const control = controls[controlName];
 
-    const color = Color(control.value).string();
-    if (result.indexOf(color) === -1) {
-      result.push(color);
+    if (descriptor[controlName].type === ThemeDescriptiorKeyTypes.COLOR) {
+      const color = Color(control.value).string();
+      if (result.indexOf(color) === -1) {
+        result.push(color);
+      }
     }
   }
 
@@ -160,7 +162,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       // reset presets
-      this._colorPresets = getColorPresetsFromControls(this.form.controls, {
+      this._colorPresets = getColorPresetsFromControls(this.form.controls, this._compiledTheme.descriptor, {
         exclude: ["name"],
       });
 
