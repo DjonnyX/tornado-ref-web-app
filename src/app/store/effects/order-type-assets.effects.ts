@@ -41,6 +41,7 @@ export default class OrderTypeAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 this._store.dispatch(OrderTypeActions.updateResource({
                     langCode: data.langCode,
@@ -128,6 +129,7 @@ export default class OrderTypeAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 return this._apiService.createOrderTypeAsset(orderTypeId, data).pipe(
                     mergeMap((res: any) => {

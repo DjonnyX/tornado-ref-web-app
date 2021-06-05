@@ -41,6 +41,7 @@ export default class TagAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 this._store.dispatch(TagActions.updateResource({
                     langCode: data.langCode,
@@ -128,6 +129,7 @@ export default class TagAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 return this._apiService.createTagAsset(tagId, data).pipe(
                     mergeMap((res: any) => {

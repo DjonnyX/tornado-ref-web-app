@@ -130,7 +130,7 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(AppThemeAssetsActions.getAllRequest({
         options: {
           filter: [{
-            id: 'themeId', operation: 'equals', value: this._themeId,
+            id: '_id', operation: 'equals', value: this._themeId,
           }],
         },
       }));
@@ -174,11 +174,8 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(AppThemeAssetsActions.clear());
   }
 
-  onMainResourceUpload(data: IFileUploadEvent): void {
-    this._store.dispatch(AppThemeAssetsActions.uploadResourceRequest({ themeId: this._themeId, resourcesType: data.key, data }));
-  }
-
-  onIconResourceUpload(data: IFileUploadEvent): void {
+  onResourceUpload(data: IFileUploadEvent): void {
+    console.log(data)
     this._store.dispatch(AppThemeAssetsActions.uploadResourceRequest({ themeId: this._themeId, resourcesType: data.key, data }));
   }
 

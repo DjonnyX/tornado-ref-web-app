@@ -57,11 +57,11 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
   }
 
   hasThumbnail(compiledTheme: ICompiledTheme, size: "x32" | "x128" = "x32"): boolean {
-    return false
+    return !!this._assetsDictionary?.[compiledTheme?.theme?.resources?.["thumbnail"]];
   }
 
   getThumbnail(compiledTheme: ICompiledTheme, size: "x32" | "x128" = "x32"): string {
-    return undefined;
+    return this._assetsDictionary?.[compiledTheme?.theme?.resources?.["thumbnail"]]?.mipmap.x128;
   }
 
   onCreate(): void {

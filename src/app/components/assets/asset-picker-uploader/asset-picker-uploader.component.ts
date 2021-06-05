@@ -12,7 +12,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @ViewChild("fileSelector", { static: true }) fileSelector: FileSelectorComponent;
 
-  @Input() extensions: Array<string> = ['.png', '.jpg'];
+  @Input() extensions: Array<string> = ['.png', '.jpg', '.gif', '.webp'];
 
   @Input() size: string;
 

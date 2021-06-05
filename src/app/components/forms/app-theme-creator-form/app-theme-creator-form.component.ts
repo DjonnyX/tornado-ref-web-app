@@ -6,6 +6,7 @@ import { IAppTheme, IAsset } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import { ICompiledTheme, IThemeDescriptior, IThemeDescriptorValue, ThemeDescriptiorKeyTypes } from '@app/utils/app-theme.util';
 import Color from "color";
+import { IFileUploadEvent } from '@models';
 
 interface IData {
   name: IKeyValue;
@@ -121,7 +122,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<IAppTheme>();
 
-  @Output() uploadMainResource = new EventEmitter<File>();
+  @Output() uploadResource = new EventEmitter<IFileUploadEvent>();
 
   isEdit: boolean = false;
 
@@ -197,8 +198,8 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  onMainResourceUpload(file: File): void {
-    this.uploadMainResource.emit(file);
+  onResourceUpload(file: File): void {
+    this.uploadResource.emit({ file, key: "thumbnail" });
   }
 
   onEdit(): void {

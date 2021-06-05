@@ -14,6 +14,8 @@ export enum AppThemeActionTypes {
     UPDATE_SUCCESS = "TORNADO/app-theme/update:success",
     UPDATE_ERROR = "TORNADO/app-theme/update:error",
 
+    UPDATE_RESOURCE = "TORNADO/app-theme/update-resource",
+
     CLEAR = "TORNADO/app-theme/clear",
 }
 
@@ -58,6 +60,12 @@ export namespace AppThemeActions {
     export const updateError = createAction(
         AppThemeActionTypes.UPDATE_ERROR,
         props<{ error: string }>()
+    );
+
+    // updateResource
+    export const updateResource = createAction(
+        AppThemeActionTypes.UPDATE_RESOURCE,
+        props<{ themeId: string, resourcesType: string, assetId: string }>(),
     );
 
     // clear

@@ -41,11 +41,15 @@ export default class AppThemeAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {
+                        themeId,
+                    },
                 }
-                /*this._store.dispatch(AppThemeAssetsActions.updateResource({
+                this._store.dispatch(AppThemeActions.updateResource({
+                    themeId,
                     resourcesType,
                     assetId: id,
-                }));*/
+                }));
                 return this._apiService.uploadAppThemeResource(themeId, resourcesType, data).pipe(
                     mergeMap((res: any) => {
                         if (!res) {
@@ -111,6 +115,9 @@ export default class AppThemeAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {
+                        themeId,
+                    },
                 }
                 return this._apiService.createAppThemeAsset(themeId, data).pipe(
                     mergeMap((res: any) => {

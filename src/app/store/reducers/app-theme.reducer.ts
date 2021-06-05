@@ -1,7 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { AppThemeActions } from '@store/actions/app-theme.action';
 import { IAppThemeState } from '@store/state/app-theme.state';
-import { deepMergeObjects } from '@app/utils/object.util';
 
 export const initialState: IAppThemeState = {
     loading: false,
@@ -18,6 +17,19 @@ const appThemeReducer = createReducer(
     on(AppThemeActions.clear, state => {
         return {
             ...initialState,
+        };
+    }),
+    on(AppThemeActions.updateResource, (state, { themeId, resourcesType, assetId }) => {
+        return {
+            ...initialState,
+            ...state,
+            theme: {
+                ...state.theme,
+                resources: {
+                    ...state.theme.resources,
+                    [resourcesType]: assetId,
+                },
+            },
         };
     }),
     on(AppThemeActions.getRequest, state => {

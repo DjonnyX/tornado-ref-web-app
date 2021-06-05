@@ -41,6 +41,7 @@ export default class AdAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 this._store.dispatch(AdActions.updateResource({
                     langCode: data.langCode,
@@ -128,6 +129,7 @@ export default class AdAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 return this._apiService.createAdAsset(adId, data).pipe(
                     mergeMap((res: any) => {

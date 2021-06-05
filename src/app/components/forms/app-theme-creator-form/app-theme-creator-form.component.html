@@ -3,8 +3,9 @@
         <div class="resources" *ngIf="isEditMode">
             <div class="resources-wrapper single">
                 <div class="resources-n">
-                    <ta-asset-picker-uploader [defaultValue]="!!resources ? resources.main : undefined"
-                        [assets]="assets" class="transparent" (upload)="onMainResourceUpload($event)">
+                    <ta-asset-picker-uploader [resetButtonShow]="false"
+                        [defaultValue]="!!compiledTheme.theme.resources ? compiledTheme.theme.resources['thumbnail'] : undefined"
+                        [assets]="assets" class="transparent" (upload)="onResourceUpload($event)">
                     </ta-asset-picker-uploader>
                 </div>
             </div>
@@ -29,12 +30,13 @@
                         </div>
                     </div>
                     <ng-container *ngIf="!!compiledThemeArray">
-                        <ng-container *ngFor="let item of compiledThemeArray">
+                        <ng-container *ngFor="let item of compiledThemeArray; let index = index">
                             <ng-container [ngSwitch]="item.value.type">
                                 <div *ngSwitchCase="ThemeDescriptiorKeyTypes.PROP" class="form__input-block">
                                     <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
                                         <mat-form-field class="full-width" appearance="outline">
-                                            <mat-label>{{item.name}}</mat-label>
+                                            <!-- <mat-label>{{item.name}}</mat-label> -->
                                             <input matInput type="text" [formControlName]="item.name" placeholder="Имя"
                                                 required>
                                             <mat-error *ngIf="hasControlError(item.name, 'required')">
@@ -47,11 +49,13 @@
                                     <div class="form-item">
                                         <mat-label>{{item.name}}</mat-label>
                                         <ta-color-picker [control]="getControl(item.name)" [resetButtonShow]="false"
-                                            cpPosition="top-left" [colorPresets]="colorPresets"></ta-color-picker>
+                                            [cpPosition]="index < 5 ? 'bottom-left' : 'top-left'"
+                                            [colorPresets]="colorPresets"></ta-color-picker>
                                     </div>
                                 </div>
                                 <div *ngSwitchCase="ThemeDescriptiorKeyTypes.ASSET" class="form__input-block">
                                     <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
                                         <!-- Asset uploader -->
                                     </div>
                                 </div>

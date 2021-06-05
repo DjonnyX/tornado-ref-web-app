@@ -90,5 +90,7 @@ export const formatAppThemeModel = (model: IAppTheme) => {
         version: model.version,
         lastUpdate: model.lastUpdate,
         data: model.data,
+        assets: model.assets,
+        resources: model.resources,
     }
 }
