@@ -62,7 +62,7 @@
                                             <div class="resources-wrapper single">
                                                 <div class="resources-s">
                                                     <ta-asset-picker-uploader [resetButtonShow]="false"
-                                                        [deleteButtonShow]="true"
+                                                        [deleteButtonShow]="!!compiledTheme.theme.resources ? !!compiledTheme.theme.resources[item.name] : false"
                                                         [defaultValue]="!!compiledTheme.theme.resources ? compiledTheme.theme.resources[item.name] : undefined"
                                                         [assets]="assets" class="transparent"
                                                         (upload)="onResourceUpload($event, item.name)"
