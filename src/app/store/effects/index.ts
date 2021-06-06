@@ -5,12 +5,15 @@ import ProductAssetsEffects from './product-assets.effects';
 import SelectorsEffects from './selectors.effects';
 import SelectorEffects from './selector.effects';
 import SelectorAssetsEffects from './selector-assets.effects';
+import TagEffects from './tag.effects';
 import TagsEffects from './tags.effects';
+import AppThemeAssetsEffects from './app-theme-assets.effects';
+import AppThemeEffects from './app-theme.effects';
+import AppThemesEffects from './app-themes.effects';
 import TagAssetsEffects from './tag-assets.effects';
 import MenuNodesEffects from './menu-nodes.effects';
 import AssetsEffects from './assets.effects';
 import ProductEffects from './product.effects';
-import TagEffects from './tag.effects';
 import BusinessPeriodsEffects from './business-periods.effects';
 import BusinessPeriodEffects from './business-period.effects';
 import CurrenciesEffects from './currencies.effects';
@@ -58,6 +61,9 @@ const rootEffects = [
   TagsEffects,
   TagEffects,
   TagAssetsEffects,
+  AppThemeAssetsEffects,
+  AppThemesEffects,
+  AppThemeEffects,
   AssetsEffects,
   CurrenciesEffects,
   CurrencyEffects,

@@ -8,6 +8,7 @@ export const formatAssetModel = (model: IAsset) => {
         ext: model.ext,
         mipmap: model.mipmap,
         path: model.path,
+        extra: {},
     }
 }
 

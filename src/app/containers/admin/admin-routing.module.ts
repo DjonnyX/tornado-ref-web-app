@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AdminContainer } from './admin.container';
-import { SelectorTypes, AdTypes } from '@djonnyx/tornado-types';
+import { SelectorTypes, AdTypes, TerminalTypes } from '@djonnyx/tornado-types';
 import { AllowAdminGuard, AllowCheckuesGuard } from '@guards';
 
 const routes: Routes = [
@@ -36,6 +36,39 @@ const routes: Routes = [
         data: {
           type: SelectorTypes.SCHEMA_CATEGORY,
           path: 'schema-categories',
+        },
+      },
+      {
+        path: 'themes-kiosk',
+        loadChildren: () =>
+          import('@containers/app-themes-editor/app-themes-editor.module').then(
+            module => module.AppThemesEditorModule,
+          ),
+        data: {
+          type: TerminalTypes.KIOSK,
+          path: 'themes-kiosk',
+        },
+      },
+      {
+        path: 'themes-order-picker',
+        loadChildren: () =>
+          import('@containers/app-themes-editor/app-themes-editor.module').then(
+            module => module.AppThemesEditorModule,
+          ),
+        data: {
+          type: TerminalTypes.ORDER_PICKER,
+          path: 'themes-order-picker',
+        },
+      },
+      {
+        path: 'themes-eq',
+        loadChildren: () =>
+          import('@containers/app-themes-editor/app-themes-editor.module').then(
+            module => module.AppThemesEditorModule,
+          ),
+        data: {
+          type: TerminalTypes.EQUEUE,
+          path: 'themes-eq',
         },
       },
       {
@@ -91,7 +124,7 @@ const routes: Routes = [
           import('@containers/checkues-editor/checkues-editor.module').then(
             module => module.CheckuesEditorModule,
           ),
-          canActivate: [AllowCheckuesGuard],
+        canActivate: [AllowCheckuesGuard],
       },
       {
         path: 'tags',

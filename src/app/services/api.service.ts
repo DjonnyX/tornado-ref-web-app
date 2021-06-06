@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -41,7 +41,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions
+  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -49,6 +49,10 @@ import { IUserSignupParamsResponse } from './interfaces/user-signup-response.int
 import { HttpParameterCodec } from "@angular/common/http";
 import { IBackupClientCreateResponse } from './interfaces/backup-create-response.interface';
 import { IBackupClientUploadResponse } from './interfaces/backup-upload-response.interface';
+import { IAppThemeAssetGetResponse } from './interfaces/app-theme-assets-get-response.interface';
+import { IAppThemeAssetCreateResponse } from './interfaces/app-theme-asset-create-response.interface';
+import { IAppThemeAssetUpdateResponse } from './interfaces/app-theme-asset-update-response.interface';
+import { IAppThemeAssetDeleteResponse } from './interfaces/app-theme-asset-delete-response.interface';
 
 export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
   encodeKey(k: string): string { return standardEncoding(k); }
@@ -62,17 +66,11 @@ function standardEncoding(v: string): string {
 
 const extractParams = (options?: IRequestOptions): HttpParams => {
   let httpParams = new HttpParams({ encoder: new HttpCustomUrlEncodingCodec() });
-  /*if (!!options && !!options.pager) {
-      httpParams = httpParams.set('page', String(options.pager.pageNum - 1));
-      httpParams = httpParams.set('size', String(options.pager.pageSize));
-  }*/
-  // filter
   if (!!options && !!options.filter && options.filter.length > 0) {
     options.filter.forEach(f => {
       httpParams = httpParams.append(`${f.id}.${f.operation}`, String(f.value));
     });
   }
-  // query
   if (!!options && !!options.queryParams) {
     const queryKeys = Object.keys(options.queryParams);
     if (queryKeys.length > 0) {
@@ -81,12 +79,6 @@ const extractParams = (options?: IRequestOptions): HttpParams => {
       });
     }
   }
-  //sort
-  /*if(!!options && !!options.sort && options.sort.length > 0) {
-      options.sort.forEach((s, idx, arr) => {
-          httpParams = httpParams.append('sort', `${s.field},${s.dir}`);
-      });
-  }*/
   return httpParams;
 }
 
@@ -1670,6 +1662,157 @@ export class ApiService {
   public deleteCheckue(id: string): Observable<ICheckueDeleteResponse> {
     return this._http
       .delete<ICheckueDeleteResponse>(`api/v1/checkue/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // themes
+  public getAppThemes<T = any>(type: TerminalTypes, options?: IRequestOptions): Observable<IAppThemesGetResponse<T>> {
+    return this._http
+      .get<IAppThemesGetResponse<T>>("api/v1/app-themes", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options).append("type", String(type)),
+      });
+  }
+
+  public getAppTheme<T = any>(id: string): Observable<IAppThemeGetResponse<T>> {
+    return this._http
+      .get<IAppThemeGetResponse<T>>(`api/v1/app-theme/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createAppTheme<T = any>(theme: IAppTheme, type: TerminalTypes): Observable<IAppThemeCreateResponse<T>> {
+    return this._http
+      .post<IAppThemeCreateResponse<T>>("api/v1/app-theme", { name: theme.name }, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: {
+          type: String(type),
+        },
+      });
+  }
+
+  public updateAppTheme<T = any>(id: string, theme: IAppTheme): Observable<IAppThemeUpdateResponse<T>> {
+    return this._http
+      .put<IAppThemeUpdateResponse<T>>(`api/v1/app-theme/${id}`, { name: theme.name, data: theme.data }, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteAppTheme(id: string): Observable<IAppThemeDeleteResponse> {
+    return this._http
+      .delete<IAppThemeDeleteResponse>(`api/v1/app-theme/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public getAppThemeAllAssets(options?: IRequestOptions): Observable<IAppThemeAssetGetResponse> {
+    return this._http
+      .get<IAppThemeAssetGetResponse>(`api/v1/app-theme-assets`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public uploadAppThemeResource(themeId: string, type: string, data: IFileUploadEvent): Observable<IAppThemeAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<IAppThemeAssetCreateResponse>(`api/v1/app-theme-assets/${themeId}/resource/${type}`, formData, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public deleteAppThemeResource(themeId: string, type: string): Observable<IAppThemeAssetDeleteResponse> {
+    return this._http
+      .delete<IAppThemeAssetDeleteResponse>(`api/v1/app-theme-assets/${themeId}/resource/${type}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createAppThemeAsset(themeId: string, data: IFileUploadEvent): Observable<IAppThemeAssetCreateResponse> {
+    const formData = new FormData();
+    formData.append("file", data.file, data.file.name);
+
+    return this._http
+      .post<IAppThemeAssetCreateResponse>(`api/v1/app-theme-assets/${themeId}/asset`, formData, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        reportProgress: true,
+        observe: "events",
+      }).pipe(
+        map((event: any) => {
+          switch (event.type) {
+            case HttpEventType.UploadProgress:
+              const progress = Math.round(100 * event.loaded / event.total);
+              return {
+                data: {
+                  progress: {
+                    total: event.total,
+                    loaded: event.loaded,
+                    progress,
+                  },
+                }
+              }
+            case HttpEventType.Response:
+              return event.body;
+          }
+        }),
+      );
+  }
+
+  public updateAppThemeAsset(themeId: string, assetId: string, asset: { name?: string, active?: boolean }): Observable<IAppThemeAssetUpdateResponse> {
+    return this._http
+      .put<IAppThemeAssetUpdateResponse>(`api/v1/app-theme-assets/${themeId}/asset/${assetId}`, asset, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteAppThemeAsset(themeId: string, assetId: string): Observable<IAppThemeAssetDeleteResponse> {
+    return this._http
+      .delete<IAppThemeAssetDeleteResponse>(`api/v1/app-theme-assets/${themeId}/asset/${assetId}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

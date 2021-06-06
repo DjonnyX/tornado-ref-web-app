@@ -1,0 +1,118 @@
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
+        <div class="resources" *ngIf="isEditMode">
+            <div class="resources-wrapper single">
+                <div class="resources-n">
+                    <ta-asset-picker-uploader [resetButtonShow]="false"
+                        [showUploadButton]="!!compiledTheme?.theme?.isDefault ? false : true"
+                        [defaultValue]="!!compiledTheme.theme.resources ? compiledTheme.theme.resources['thumbnail'] : undefined"
+                        [assets]="assets" class="transparent" (upload)="onResourceUpload($event, 'thumbnail')">
+                    </ta-asset-picker-uploader>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <h1 class="form-header">
+                Тема
+            </h1>
+
+            <div class="form__main-options">
+                <ng-container *ngIf="!isEditMode || isEdit; else info">
+                    <div class="form__input-block">
+                        <div class="form-item">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Название</mat-label>
+                                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
+                                <mat-error *ngIf="ctrlName.hasError('required')">
+                                    <strong>обязательное</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="!!compiledThemeArray">
+                        <ng-container *ngFor="let item of compiledThemeArray; let index = index">
+                            <ng-container [ngSwitch]="item.value.type">
+                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.PROP" class="form__input-block">
+                                    <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <!-- <mat-label>{{item.name}}</mat-label> -->
+                                            <input matInput type="text" [formControlName]="item.name" placeholder="Имя"
+                                                required>
+                                            <mat-error *ngIf="hasControlError(item.name, 'required')">
+                                                <strong>обязательное</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.COLOR" class="form__input-block">
+                                    <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
+                                        <ta-color-picker [control]="getControl(item.name)" [resetButtonShow]="false"
+                                            [cpPosition]="index < 5 ? 'bottom-left' : 'top-left'"
+                                            [colorPresets]="colorPresets"></ta-color-picker>
+                                    </div>
+                                </div>
+                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.ASSET" class="form__input-block">
+                                    <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
+                                        <!-- Asset uploader -->
+                                        <div class="resources" *ngIf="isEditMode">
+                                            <div class="resources-wrapper single">
+                                                <div class="resources-s">
+                                                    <ta-asset-picker-uploader [resetButtonShow]="false"
+                                                        [deleteButtonShow]="true"
+                                                        [defaultValue]="!!compiledTheme.theme.resources ? compiledTheme.theme.resources[item.name] : undefined"
+                                                        [assets]="assets" class="transparent"
+                                                        (upload)="onResourceUpload($event, item.name)"
+                                                        (delete)="onResourceDelete(item.name)">
+                                                    </ta-asset-picker-uploader>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                    </ng-container>
+                </ng-container>
+                <ng-template #info>
+                    <ng-container *ngIf="!!data">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.name"></ta-key-value>
+                            </div>
+                        </div>
+                        <div class="form__block" *ngFor="let prop of data.props">
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="prop"></ta-key-value>
+                            </div>
+                        </div>
+                    </ng-container>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+            <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
+                {{!!compiledTheme?.theme?.isDefault ? "Закрыть" : "Отменить"}}
+            </button>
+            <button mat-flat-button *ngIf="!compiledTheme?.theme?.isDefault" color="accent" type="submit"
+                class="button button__text" [disabled]="!form.valid">
+                {{isEditMode ? 'Сохранить' : 'Создать'}}
+            </button>
+        </ng-container>
+        <ng-template #editButtons>
+            <button mat-button class="button button__text" (click)="onCancel()">
+                {{!!compiledTheme?.theme?.isDefault ? "Закрыть" : "Отменить"}}
+            </button>
+            <button mat-flat-button *ngIf="!compiledTheme?.theme?.isDefault" color="accent" (click)="onEdit()"
+                class="button button__text">
+                Редактировать
+            </button>
+        </ng-template>
+    </div>
+</form>

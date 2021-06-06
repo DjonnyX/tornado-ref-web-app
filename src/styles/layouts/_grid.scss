@@ -1,0 +1,36 @@
+@mixin fluid-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+$columns: 12;
+$gap: 4px;
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 #{-$gap} 14px #{-$gap};
+
+  &.flex-end {
+    align-items: flex-end;
+  }
+}
+
+@for $width from 1 through $columns {
+  .col-#{$width} {
+    flex-basis: calc(#{$width / $columns * 100%} - #{$gap * 2});
+    padding: 0 $gap;
+    display: inline-block;
+
+    &.flex-center {
+      justify-content: center;
+      display: flex;
+    }
+
+    &.flex-end {
+      justify-content: flex-end;
+      display: flex;
+    }
+  }
+}

@@ -12,7 +12,7 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @ViewChild("fileSelector", { static: true }) fileSelector: FileSelectorComponent;
 
-  @Input() extensions: Array<string> = ['.png', '.jpg'];
+  @Input() extensions: Array<string> = ['.png', '.jpg', '.gif', '.webp'];
 
   @Input() size: string;
 
@@ -22,7 +22,11 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Input() resetButtonDisabled: boolean;
 
+  @Input() showUploadButton: boolean = true;
+
   @Input() needConfirmation: boolean = false;
+
+  @Input() deleteButtonShow: boolean = false;
 
   private _defaultValue: string;
   @Input() set defaultValue(v: string) {
@@ -52,6 +56,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Output() confirm = new EventEmitter<Function>();
 
+  @Output() delete = new EventEmitter<void>();
+
   asset: IAsset;
 
   isLoading: boolean = false;
@@ -76,6 +82,10 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
     }
 
     handler();
+  }
+
+  onDelete() {
+    this.delete.emit();
   }
 
   onUploadFile(file: File): void {
