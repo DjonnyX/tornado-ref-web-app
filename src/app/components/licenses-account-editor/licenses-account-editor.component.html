@@ -18,7 +18,7 @@
                         <mat-icon>details</mat-icon>
                         <span>Подробнее</span>
                     </button>
-                    <button mat-menu-item (click)="onUnbind(license)">
+                    <button *ngIf="!!license.imei" mat-menu-item (click)="onUnbind(license)">
                         <mat-icon>cancel</mat-icon>
                         <span>Отвязать от устройства</span>
                     </button>
