@@ -4,6 +4,10 @@
             (click)="onReset()">
             <mat-icon>settings_backup_restore</mat-icon>
         </button>
+        <button *ngIf="deleteButtonShow" [disabled]="resetButtonDisabled" class="reset-content-button" type="button"
+            (click)="onDelete()">
+            <mat-icon>delete</mat-icon>
+        </button>
         <mat-progress-bar *ngIf="!!asset?.progress" mode="determinate" [value]="asset.progress.progress"
             style="z-index: 2;"></mat-progress-bar>
         <mat-progress-bar mode="indeterminate" color="accent" style="z-index: 2;"
@@ -19,12 +23,6 @@
         <button mat-flat-button type="button" color="primary" class="upload-button full-width"
             (click)="onConfirm()">
             Загрузить
-        </button>
-    </div>
-    <div class="form-item" *ngIf="deleteButtonShow">
-        <button mat-flat-button type="button" color="primary" class="upload-button full-width"
-            (click)="onDelete()">
-            Удалить
         </button>
     </div>
     <ta-file-selector [allowedExtensions]="extensions"
