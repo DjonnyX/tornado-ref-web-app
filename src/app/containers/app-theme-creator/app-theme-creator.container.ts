@@ -174,6 +174,10 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(AppThemeAssetsActions.uploadResourceRequest({ themeId: this._themeId, resourcesType: data.key, data }));
   }
 
+  onResourceDelete(key: string): void {
+    this._store.dispatch(AppThemeAssetsActions.deleteResourceRequest({ themeId: this._themeId, resourcesType: key }));
+  }
+
   onMainOptionsSave(theme: IAppTheme): void {
     if (this.isEditMode) {
       this._store.dispatch(AppThemeActions.updateRequest({ id: theme.id, theme }));

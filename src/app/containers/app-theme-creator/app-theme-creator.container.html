@@ -8,7 +8,7 @@
         [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
         <ta-app-theme-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
           [compiledTheme]="compiledTheme$ | async" [assets]="themeAssets$ | async" (save)="onMainOptionsSave($event)"
-          (cancel)="onMainOptionsCancel()" (uploadResource)="onResourceUpload($event)">
+          (cancel)="onMainOptionsCancel()" (uploadResource)="onResourceUpload($event)" (deleteResource)="onResourceDelete($event)">
         </ta-app-theme-creator-form>
       </ta-query-progress>
     </div>

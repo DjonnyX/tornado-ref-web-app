@@ -86,11 +86,25 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
 
   form: FormGroup = this._fb.group({});
 
-  ctrlName = new FormControl('', [Validators.required]);
+  ctrlName = new FormControl("", [Validators.required]);
 
-  @Input() resources: { [name: string]: string };
+  private _resources: { [name: string]: string };
+  @Input() set resources(v: { [name: string]: string }) {
+    if (this._resources !== v) {
+      this._resources = v;
+    }
+  }
+  get resources() { return this._resources; }
 
-  @Input() assets: Array<IAsset>;
+  private _assets: Array<IAsset>;
+  @Input() set assets(v: Array<IAsset>) {
+    if (this._assets !== v) {
+      this._assets = v;
+
+      this.generateInfoData();
+    }
+  }
+  get assets() { return this._assets; }
 
   private _compiledThemeArray: Array<ICompiledThemeValue>;
 
@@ -106,10 +120,10 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
       this._compiledThemeArray = descriptorToArray(compiledTheme.descriptor);
       this._colorPresets = getColorPresets(this._compiledThemeArray);
 
-      this.generateInfoData();
-
       this.ctrlName.setValue(compiledTheme.theme.name);
       descriptorToArrayControls(this.form, compiledTheme.descriptor);
+
+      this.generateInfoData();
     }
   }
   get compiledTheme(): ICompiledTheme {
@@ -126,6 +140,8 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() uploadResource = new EventEmitter<IFileUploadEvent>();
 
+  @Output() deleteResource = new EventEmitter<string>();
+
   isEdit: boolean = false;
 
   private _data: IData;
@@ -141,7 +157,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
   }
 
   private generateInfoData(): void {
-    if (!this._compiledTheme) {
+    if (!this._compiledTheme || !this._assets) {
       return;
     }
 
@@ -152,9 +168,18 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
       },
       props: this._compiledThemeArray.map(v => ({
         key: v.name,
-        value: v.value.value || '---',
+        value: v.value.value || this.getAsset(v.name)?.mipmap?.x32 || '---',
       })),
     };
+  }
+
+  getAsset(key: string): IAsset | null {
+    const res = this._compiledTheme.theme.resources[key];
+    if (!!res) {
+      return this._assets?.find(a => a.id === res);
+    }
+
+    return null;
   }
 
   ngOnInit(): void {
@@ -187,7 +212,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
 
   onSave(): void {
     if (this.form.valid) {
-      const resources = { ...this.resources };
+      const resources = { ...this._resources };
       this.save.emit({
         ...this._compiledTheme?.theme,
         name: this.form.value["name"],
@@ -201,8 +226,12 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
     }
   }
 
-  onResourceUpload(file: File): void {
-    this.uploadResource.emit({ file, key: "thumbnail" });
+  onResourceUpload(file: File, key: string): void {
+    this.uploadResource.emit({ file, key });
+  }
+
+  onResourceDelete(key: string): void {
+    this.deleteResource.emit(key);
   }
 
   onEdit(): void {

@@ -26,6 +26,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Input() needConfirmation: boolean = false;
 
+  @Input() deleteButtonShow: boolean = false;
+
   private _defaultValue: string;
   @Input() set defaultValue(v: string) {
     if (!!v && this._defaultValue !== v) {
@@ -54,6 +56,8 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
 
   @Output() confirm = new EventEmitter<Function>();
 
+  @Output() delete = new EventEmitter<void>();
+
   asset: IAsset;
 
   isLoading: boolean = false;
@@ -78,6 +82,10 @@ export class AssetPickerUploaderComponent extends BaseComponent implements OnIni
     }
 
     handler();
+  }
+
+  onDelete() {
+    this.delete.emit();
   }
 
   onUploadFile(file: File): void {

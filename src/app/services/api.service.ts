@@ -1760,6 +1760,15 @@ export class ApiService {
       );
   }
 
+  public deleteAppThemeResource(themeId: string, type: string): Observable<IAppThemeAssetDeleteResponse> {
+    return this._http
+      .delete<IAppThemeAssetDeleteResponse>(`api/v1/app-theme-assets/${themeId}/resource/${type}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   public createAppThemeAsset(themeId: string, data: IFileUploadEvent): Observable<IAppThemeAssetCreateResponse> {
     const formData = new FormData();
     formData.append("file", data.file, data.file.name);

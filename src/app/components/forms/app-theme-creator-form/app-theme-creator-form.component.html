@@ -6,7 +6,7 @@
                     <ta-asset-picker-uploader [resetButtonShow]="false"
                         [showUploadButton]="!!compiledTheme?.theme?.isDefault ? false : true"
                         [defaultValue]="!!compiledTheme.theme.resources ? compiledTheme.theme.resources['thumbnail'] : undefined"
-                        [assets]="assets" class="transparent" (upload)="onResourceUpload($event)">
+                        [assets]="assets" class="transparent" (upload)="onResourceUpload($event, 'thumbnail')">
                     </ta-asset-picker-uploader>
                 </div>
             </div>
@@ -58,6 +58,19 @@
                                     <div class="form-item">
                                         <mat-label>{{item.name}}</mat-label>
                                         <!-- Asset uploader -->
+                                        <div class="resources" *ngIf="isEditMode">
+                                            <div class="resources-wrapper single">
+                                                <div class="resources-s">
+                                                    <ta-asset-picker-uploader [resetButtonShow]="false"
+                                                        [deleteButtonShow]="true"
+                                                        [defaultValue]="!!compiledTheme.theme.resources ? compiledTheme.theme.resources[item.name] : undefined"
+                                                        [assets]="assets" class="transparent"
+                                                        (upload)="onResourceUpload($event, item.name)"
+                                                        (delete)="onResourceDelete(item.name)">
+                                                    </ta-asset-picker-uploader>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </ng-container>

@@ -45,8 +45,9 @@ const dottedPropsToObject = (propName: string, value: any, result: any): any => 
 
     let owner = result;
 
-    for (let p of props) {
-        if (!owner[p]) {
+    for (let i = 0, l = props.length; i < l; i ++) {
+        const p = props[i];
+        if (i < l -1 && !owner[p]) {
             owner[p] = {};
         }
         owner = owner[p];

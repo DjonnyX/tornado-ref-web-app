@@ -31,6 +31,10 @@ export enum AppThemeAssetsActionTypes {
     UPLOAD_RESOURCE_SUCCESS = "TORNADO/app-theme/assets/upload-resources:success",
     UPLOAD_RESOURCE_ERROR = "TORNADO/app-theme/assets/upload-resources:error",
 
+    DELETE_RESOURCE_REQUEST = "TORNADO/app-theme/assets/delete-resources:request",
+    DELETE_RESOURCE_SUCCESS = "TORNADO/app-theme/assets/delete-resources:success",
+    DELETE_RESOURCE_ERROR = "TORNADO/app-theme/assets/delete-resources:error",
+
     CLEAR = "TORNADO/app-theme/assets/clear",
 }
 
@@ -133,6 +137,21 @@ export namespace AppThemeAssetsActions {
         }>()
     );
 
+    // delete
+    export const deleteResourceRequest = createAction(
+        AppThemeAssetsActionTypes.DELETE_RESOURCE_REQUEST,
+        props<{ themeId: string, resourcesType: string }>()
+    );
+    export const deleteResourceSuccess = createAction(
+        AppThemeAssetsActionTypes.DELETE_RESOURCE_SUCCESS,
+        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+    );
+    export const deleteResourceError = createAction(
+        AppThemeAssetsActionTypes.DELETE_RESOURCE_ERROR,
+        props<{
+            error: string
+        }>()
+    );
 
     export const clear = createAction(
         AppThemeAssetsActionTypes.CLEAR,

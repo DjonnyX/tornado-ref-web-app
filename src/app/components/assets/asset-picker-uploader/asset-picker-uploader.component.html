@@ -21,6 +21,12 @@
             Загрузить
         </button>
     </div>
+    <div class="form-item" *ngIf="deleteButtonShow">
+        <button mat-flat-button type="button" color="primary" class="upload-button full-width"
+            (click)="onDelete()">
+            Удалить
+        </button>
+    </div>
     <ta-file-selector [allowedExtensions]="extensions"
         #fileSelector (select)="onUploadFile($event)">
     </ta-file-selector>
