@@ -7,12 +7,14 @@ import capabilitiesReducer from './capabilities.reducer';
 import productsReducer from './products.reducer';
 import productReducer from './product.reducer';
 import productAssetsReducer from './product-assets.reducer';
+import tagReducer from './tag.reducer';
 import tagsReducer from './tags.reducer';
+import appThemeReducer from './app-theme.reducer';
+import appThemesReducer from './app-themes.reducer';
 import selectorsReducer from './selectors.reducer';
 import menuNodesReducer from './menu-nodes.reducer';
 import assetsReducer from './assets.reducer';
 import selectorReducer from './selector.reducer';
-import tagReducer from './tag.reducer';
 import businessPeriodsReducer from './business-periods.reducer';
 import businessPeriodReducer from './business-period.reducer';
 import selectorAssetsReducer from './selector-assets.reducer';
@@ -46,6 +48,7 @@ import integrationsReducer from "./integrations.reducer";
 import accountsReducer from "./accounts.reducer";
 import checkuesReducer from "./checkues.reducer";
 import checkueReducer from "./checkue.reducer";
+import appThemeAssetsReducer from "./app-theme-assets.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -56,6 +59,9 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taProductAssets: productAssetsReducer,
   taTags: tagsReducer,
   taTag: tagReducer,
+  taThemeAssets: appThemeAssetsReducer,
+  taTheme: appThemeReducer,
+  taThemes: appThemesReducer,
   taTagAssets: tagAssetsReducer,
   taSelectors: selectorsReducer,
   taSelector: selectorReducer,

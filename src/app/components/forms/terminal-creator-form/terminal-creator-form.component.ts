@@ -128,7 +128,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
         value: this._terminal?.imei || ' ---',
       },
       terminalStatus: {
-        key: "Статут",
+        key: "Статус",
         value: this._terminal?.status || ' ---',
       },
       terminalLastwork: {

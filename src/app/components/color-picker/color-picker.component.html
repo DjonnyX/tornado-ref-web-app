@@ -1,7 +1,9 @@
 <div class="color-picker-component">
-    <input class="color-picker-component__input with-reset" [(colorPicker)]="color" [style.background]="control.value"
-        [cpPosition]="cpPosition" #input />
-    <button [disabled]="resetButtonDisabled" class="reset-content-button" type="button" (click)="onReset()">
+    <input class="color-picker-component__input with-reset" [(colorPicker)]="color" [style.background]="color"
+        [ngClass]="textColorClass" [cpPresetColors]="colorPresets" [cpPosition]="cpPosition" cpOutputFormat="rgba"
+        #input />
+    <button *ngIf="resetButtonShow" [disabled]="resetButtonDisabled" class="reset-content-button" type="button"
+        (click)="onReset()">
         <mat-icon>settings_backup_restore</mat-icon>
     </button>
 </div>

@@ -41,6 +41,7 @@ export default class LanguageAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 return this._apiService.uploadLanguageResource(languageId, resourcesType, file).pipe(
                     mergeMap((res: any) => {
@@ -104,6 +105,7 @@ export default class LanguageAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 return this._apiService.createLanguageAsset(languageId, file).pipe(
                     mergeMap((res: any) => {

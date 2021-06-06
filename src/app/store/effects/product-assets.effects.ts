@@ -41,6 +41,7 @@ export default class ProductAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 this._store.dispatch(ProductActions.updateResource({
                     langCode: data.langCode,
@@ -128,6 +129,7 @@ export default class ProductAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 return this._apiService.createProductAsset(productId, data).pipe(
                     mergeMap((res: any) => {
