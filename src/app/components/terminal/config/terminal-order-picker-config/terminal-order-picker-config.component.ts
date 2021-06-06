@@ -1,9 +1,9 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
-import { ITerminalOrderPickerConfig } from '@djonnyx/tornado-types';
+import { IAppTheme, ITerminalOrderPickerConfig } from '@djonnyx/tornado-types';
 
 const INIT_STATE: ITerminalOrderPickerConfig = {
-  theme: "light",
+  theme: undefined,
 };
 
 @Component({
@@ -23,12 +23,12 @@ const INIT_STATE: ITerminalOrderPickerConfig = {
 })
 export class TerminalOrderPickerConfigComponent implements OnInit, ControlValueAccessor, Validator {
 
-  private _themes: Array<string>;
-  @Input() set themes(v: Array<string>) {
+  private _themes: Array<IAppTheme>;
+  @Input() set themes(v: Array<IAppTheme>) {
     if (this._themes !== v) {
       this._themes = v;
 
-      INIT_STATE.theme = this.mTheme = this._themes?.length ? this._themes[0] : "none";
+      INIT_STATE.theme = this.mTheme = this._themes?.length ? this._themes[0].id : undefined;
     }
   }
   get themes() { return this._themes; }

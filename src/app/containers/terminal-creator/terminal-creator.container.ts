@@ -7,7 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { TerminalActions } from '@store/actions/terminal.action';
 import { TerminalSelectors } from '@store/selectors/terminal.selectors';
-import { ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
+import { ITerminal, IStore, ILicenseAccount, IAppTheme } from '@djonnyx/tornado-types';
 import { AppThemesSelectors, LicenseAccountSelectors, StoreSelectors, StoresSelectors } from '@store/selectors';
 import { StoresActions } from '@store/actions/stores.action';
 import { StoreActions } from '@store/actions/store.action';
@@ -32,7 +32,7 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
 
   license$: Observable<ILicenseAccount>;
 
-  themes$: Observable<Array<string>>;
+  themes$: Observable<Array<IAppTheme>>;
 
   isEditMode = false;
 
@@ -91,7 +91,7 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
 
     this.themes$ = this._store.pipe(
       select(AppThemesSelectors.selectCollection),
-      map(themes => (themes || []).map(t => t.name)),
+      map(themes => (themes || [])),
     );
 
     this.terminal$.pipe(

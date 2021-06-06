@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { ITerminal, IStore, ILicenseAccount, TerminalTypes, ITerminalKioskConfig, ITerminalEQConfig } from '@djonnyx/tornado-types';
+import { ITerminal, IStore, ILicenseAccount, TerminalTypes, ITerminalKioskConfig, ITerminalEQConfig, IAppTheme } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
@@ -52,7 +52,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
     return this._data;
   }
 
-  @Input() themes: Array<string>;
+  @Input() themes: Array<IAppTheme>;
 
   @Input() stores: IStore;
 
@@ -162,7 +162,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       // config
       terminalConfigTheme: {
         key: "Тема оформления",
-        value: this._terminal?.config?.theme || ' ---',
+        value: this.themes.find(t => t.id === this._terminal?.config?.theme)?.name || ' ---',
       },
       // kiosk
       terminalKioskConfigSuffix: {
