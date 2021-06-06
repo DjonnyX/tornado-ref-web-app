@@ -23,10 +23,15 @@ const INIT_STATE: ITerminalOrderPickerConfig = {
 })
 export class TerminalOrderPickerConfigComponent implements OnInit, ControlValueAccessor, Validator {
 
-  public readonly themes = [
-    "light",
-    "dark",
-  ]
+  private _themes: Array<string>;
+  @Input() set themes(v: Array<string>) {
+    if (this._themes !== v) {
+      this._themes = v;
+
+      INIT_STATE.theme = this.mTheme = this._themes?.length ? this._themes[0] : "none";
+    }
+  }
+  get themes() { return this._themes; }
 
   public mTheme: string = INIT_STATE.theme;
 

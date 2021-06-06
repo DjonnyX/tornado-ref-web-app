@@ -52,6 +52,8 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
     return this._data;
   }
 
+  @Input() themes: Array<string>;
+
   @Input() stores: IStore;
 
   private _terminal: ITerminal;

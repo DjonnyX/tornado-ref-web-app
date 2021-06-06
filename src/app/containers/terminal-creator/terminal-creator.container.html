@@ -5,8 +5,8 @@
         </div>
         <div class="form">
             <ta-terminal-creator-form [isEditMode]="isEditMode" [terminal]="terminal$ | async" [store]="store$ | async"
-                [license]="license$ | async" [stores]="stores$ | async" (submitForm)="onSubmit($event)"
-                (cancel)="onCancel()">
+                [license]="license$ | async" [stores]="stores$ | async" [themes]="themes$ | async"
+                (submitForm)="onSubmit($event)" (cancel)="onCancel()">
             </ta-terminal-creator-form>
         </div>
     </div>
