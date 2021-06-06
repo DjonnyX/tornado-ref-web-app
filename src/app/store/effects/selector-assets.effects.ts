@@ -41,6 +41,7 @@ export default class SelectorAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 this._store.dispatch(SelectorActions.updateResource({
                     langCode: data.langCode,
@@ -128,6 +129,7 @@ export default class SelectorAssetsEffects {
                         x32: undefined,
                     },
                     ext: ext,
+                    extra: {},
                 }
                 return this._apiService.createSelectorAsset(selectorId, data).pipe(
                     mergeMap((res: any) => {

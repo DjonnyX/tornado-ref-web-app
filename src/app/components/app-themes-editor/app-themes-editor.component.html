@@ -1,0 +1,44 @@
+<div class="editor">
+  <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+  <div class="entities-wrapper">
+    <div class="entity" *ngFor="let compiledTheme of collection">
+      <div class="entity-ctrls">
+        <div class="content">
+          <div class="content-text">
+            <div class="content__name">
+              {{compiledTheme.theme.name}}
+            </div>
+          </div>
+        </div>
+        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+          <mat-icon class="icon">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button *ngIf="compiledTheme.theme.isDefault" mat-menu-item (click)="onEdit(compiledTheme)">
+            <mat-icon>details</mat-icon>
+            <span>Подробнее</span>
+          </button>
+          <button *ngIf="!compiledTheme.theme.isDefault" mat-menu-item (click)="onEdit(compiledTheme)">
+            <mat-icon>edit</mat-icon>
+            <span>Редактировать</span>
+          </button>
+          <button *ngIf="!compiledTheme.theme.isDefault" mat-menu-item (click)="onDelete(compiledTheme)">
+            <mat-icon>delete_forever</mat-icon>
+            <span>Удалить</span>
+          </button>
+        </mat-menu>
+      </div>
+      <div matRipple class="entity-active-zone" (click)="onEdit(compiledTheme)">
+        <div class="content">
+          <div class="content-resources">
+            <img align="center" *ngIf="hasThumbnail(compiledTheme, 'x32')" class="entity-thumbnail"
+              [src]="getThumbnail(compiledTheme, 'x32')">
+          </div>
+        </div>
+      </div>
+    </div>
+    <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+</div>
