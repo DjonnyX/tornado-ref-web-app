@@ -52,7 +52,15 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
     return this._data;
   }
 
-  @Input() themes: Array<IAppTheme>;
+  private _themes: Array<IAppTheme>;
+  @Input() set themes(v: Array<IAppTheme>) {
+    if (this._themes !== v) {
+      this._themes = v;
+
+      this.generateData();
+    }
+  }
+  get themes() { return this._themes; }
 
   @Input() stores: IStore;
 
@@ -112,7 +120,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
   }
 
   private generateData(): void {
-    if (!this._terminal) {
+    if (!this._terminal || !this._themes) {
       return;
     }
 
@@ -162,7 +170,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       // config
       terminalConfigTheme: {
         key: "Тема оформления",
-        value: this.themes.find(t => t.id === this._terminal?.config?.theme)?.name || ' ---',
+        value: this._themes.find(t => t.id === this._terminal?.config?.theme)?.name || ' ---',
       },
       // kiosk
       terminalKioskConfigSuffix: {
