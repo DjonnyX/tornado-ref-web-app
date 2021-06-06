@@ -1,18 +1,15 @@
 @import "../../../styles/components/entity-editor";
 @import "../../../styles/utils/px2em";
 
-$entity-height-m: px2em(240);
-$entity-height-d: px2em(200);
-$entity-width-m: px2em(200);
-$entity-width-d: px2em(240);
+$entity-height-m: px2em(200);
+$entity-height-d: px2em(240);
+$entity-width-m: px2em(160);
+$entity-width-d: px2em(200);
 
 .editor {
     .entity {
         .content {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: px2em(20);
-            margin: 0.5em 0.5em 1em;
 
             .content__name {
                 margin-top: auto;
@@ -21,7 +18,8 @@ $entity-width-d: px2em(240);
         }
 
         &-thumbnail {
-            height: 100% !important;
+            width: 100% !important;
+            height: auto !important;
         }
 
         .color {
