@@ -213,7 +213,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
   }
 
   onSave(): void {
-    if (this.form.valid) {
+    // if (this.form.valid) {
       const resources = { ...this._resources };
       this.save.emit({
         ...this._compiledTheme?.theme,
@@ -225,7 +225,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
       });
 
       this.isEdit = false;
-    }
+    // }
   }
 
   onResourceUpload(file: File, key: string): void {

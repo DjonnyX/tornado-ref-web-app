@@ -175,8 +175,6 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
     } else {
       this._store.dispatch(AppThemeActions.createRequest({ theme, terminalType: this._terminalType }));
     }
-
-    this.onToBack();
   }
 
   onMainOptionsCancel(): void {
