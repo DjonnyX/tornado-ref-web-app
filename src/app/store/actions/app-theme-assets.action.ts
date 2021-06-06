@@ -144,7 +144,7 @@ export namespace AppThemeAssetsActions {
     );
     export const deleteResourceSuccess = createAction(
         AppThemeAssetsActionTypes.DELETE_RESOURCE_SUCCESS,
-        props<{ asset: IAsset, meta?: IMetaRefsResponse }>()
+        props<{ id: string, meta?: IMetaRefsResponse }>()
     );
     export const deleteResourceError = createAction(
         AppThemeAssetsActionTypes.DELETE_RESOURCE_ERROR,

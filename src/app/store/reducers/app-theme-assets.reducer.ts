@@ -42,7 +42,7 @@ const tagAssetsReducer = createReducer(
             loading: true,
         };
     }),
-    on(AppThemeAssetsActions.deleteRequest, state => {
+    on(AppThemeAssetsActions.deleteRequest, AppThemeAssetsActions.deleteResourceRequest, state => {
         return {
             ...state,
             isDeleteProcess: true,
@@ -73,7 +73,7 @@ const tagAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(AppThemeAssetsActions.deleteError, (state, { error }) => {
+    on(AppThemeAssetsActions.deleteError, AppThemeAssetsActions.deleteResourceError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -141,7 +141,7 @@ const tagAssetsReducer = createReducer(
             loading: false,
         };
     }),
-    on(AppThemeAssetsActions.deleteSuccess, (state, { id, meta }) => {
+    on(AppThemeAssetsActions.deleteSuccess, AppThemeAssetsActions.deleteResourceSuccess, (state, { id, meta }) => {
         const c = state.collection || [];
         const existsAssetIndex = c.findIndex(p => p.id === id);
         let collection: Array<IAsset> = [...c];

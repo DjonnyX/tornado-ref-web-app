@@ -43,24 +43,34 @@ type TOutputData = string | IThemeDescriptorOutputData | any;
 const dottedPropsToObject = (propName: string, value: any, result: any): any => {
     const props = propName.split(".");
 
+    const lastProp = props.length > 0 ? props[props.length - 1] : undefined;
+
+    if (!lastProp) {
+        return;
+    }
+
     let owner = result;
 
-    for (let i = 0, l = props.length; i < l; i ++) {
+    for (let i = 0, l = props.length; i < l; i++) {
+        if (i === l - 1) {
+            break;
+        }
         const p = props[i];
-        if (i < l -1 && !owner[p]) {
+        if (!owner[p]) {
             owner[p] = {};
         }
+
         owner = owner[p];
     }
 
-    owner[props[props.length - 1]] = value;
+    owner[lastProp] = value;
 }
 
 export const themeDescriptorPropsToThemeData = (data: any, options?: { exclude?: Array<string> }): any => {
     const result = {};
     for (const propName in data) {
         if (!!options?.exclude && options?.exclude?.indexOf(propName) !== -1) {
-          continue;
+            continue;
         }
         dottedPropsToObject(propName, data[propName], result);
     }

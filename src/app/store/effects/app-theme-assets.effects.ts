@@ -24,7 +24,7 @@ export default class AppThemeAssetsEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-        public readonly uploadResourceRequest = createEffect(() =>
+    public readonly uploadResourceRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AppThemeAssetsActions.uploadResourceRequest),
             switchMap(({ themeId, resourcesType, data }) => {
@@ -87,8 +87,8 @@ export default class AppThemeAssetsEffects {
                 return this._apiService.deleteAppThemeResource(themeId, resourcesType).pipe(
                     mergeMap((res: any) => {
                         return [
-                            AppThemeAssetsActions.deleteResourceSuccess({ asset: res.data.asset }),
-                            // AppThemeActions.getRequest({ id: themeId }),
+                            AppThemeAssetsActions.deleteResourceSuccess({ id: res.data.asset.id }),
+                            AppThemeActions.getRequest({ id: themeId }),
                         ];
                     }),
                     map(v => v),
@@ -193,7 +193,7 @@ export default class AppThemeAssetsEffects {
             switchMap(({ themeId, assetId }) => {
                 return this._apiService.deleteAppThemeAsset(themeId, assetId).pipe(
                     mergeMap(res => {
-                        return [AppThemeAssetsActions.deleteSuccess({ id: assetId })];
+                        return [AppThemeAssetsActions.deleteSuccess({ id: assetId }),];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
