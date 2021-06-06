@@ -35,6 +35,8 @@ const descriptorToArrayControls = (form: FormGroup, descriptor: IThemeDescriptio
     if (!form.contains(keyName)) {
       const control = new FormControl(descriptor[keyName].value);
       form.addControl(keyName, control);
+    } else {
+      form.get(keyName)?.setValue(descriptor[keyName].value);
     }
   }
 }

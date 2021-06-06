@@ -64,10 +64,10 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
 
     this.isProcess$ = combineLatest([
       this._store.pipe(
-        select(AppThemeSelectors.selectIsGetProcess),
+        select(AppThemeSelectors.selectLoading),
       ),
       this._store.pipe(
-        select(AppThemeAssetsSelectors.selectIsGetProcess),
+        select(AppThemeAssetsSelectors.selectLoading),
       ),
     ]).pipe(
       map(([isGetAppThemeProcess, isAssetsProcess]) =>
@@ -76,29 +76,20 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
 
     this.isProcessMainOptions$ = combineLatest([
       this._store.pipe(
-        select(AppThemeSelectors.selectIsCreateProcess),
-      ),
-      this._store.pipe(
-        select(AppThemeSelectors.selectIsUpdateProcess),
+        select(AppThemeSelectors.selectLoading),
       ),
     ]).pipe(
-      map(([isCreateProcess, isUpdateProcess]) =>
-        isCreateProcess || isUpdateProcess),
+      map(([isLoadingProcess]) =>
+        isLoadingProcess),
     );
 
     this.isProcessAssets$ = combineLatest([
       this._store.pipe(
-        select(AppThemeAssetsSelectors.selectIsGetProcess),
-      ),
-      this._store.pipe(
-        select(AppThemeAssetsSelectors.selectIsUpdateProcess),
-      ),
-      this._store.pipe(
-        select(AppThemeAssetsSelectors.selectIsDeleteProcess),
+        select(AppThemeAssetsSelectors.selectLoading),
       ),
     ]).pipe(
-      map(([isGetProcess, isUpdateProcess, isDeleteProcess]) =>
-        isGetProcess || isUpdateProcess || isDeleteProcess),
+      map(([isLoadingProcess]) =>
+        isLoadingProcess),
     );
 
     this.assets$ = this._store.pipe(
@@ -184,6 +175,8 @@ export class AppThemeCreatorContainer extends BaseComponent implements OnInit, O
     } else {
       this._store.dispatch(AppThemeActions.createRequest({ theme, terminalType: this._terminalType }));
     }
+
+    this.onToBack();
   }
 
   onMainOptionsCancel(): void {
