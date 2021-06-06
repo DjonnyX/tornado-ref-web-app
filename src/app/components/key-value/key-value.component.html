@@ -12,10 +12,17 @@
     <ng-template #value>
         <span class="key-value__value">
             <ng-container [ngSwitch]="compiledData?.type">
-                <span *ngSwitchCase="KeyValueCompiledValueTypes.COLOR" class="key-value__color"
-                    [style.backgroundColor]="compiledData.value"></span>
+                <ng-container *ngSwitchCase="KeyValueCompiledValueTypes.COLOR">
+                    <span class="key-value__color" [style.backgroundColor]="compiledData.value"></span>
+                    {{compiledData?.value}}
+                </ng-container>
+                <ng-container *ngSwitchCase="KeyValueCompiledValueTypes.ASSET">
+                    <img [src]="compiledData?.value" height="16" />
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{compiledData?.value}}
+                </ng-container>
             </ng-container>
-            {{compiledData?.value}}
         </span>
     </ng-template>
 </div>
