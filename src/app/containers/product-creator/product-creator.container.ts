@@ -5,7 +5,7 @@ import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import {
   ProductsSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors,
-  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors, MenuNodesSelectors
+  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors, MenuNodesSelectors, SystemTagsSelectors
 } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
 import {
   IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage,
-  IStore, IOrderType
+  IStore, IOrderType, ISystemTag
 } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
@@ -31,6 +31,7 @@ import { normalizeEntityContents, getCompiledContents } from '@app/utils/entity.
 import { StoresActions } from '@store/actions/stores.action';
 import { OrderTypesActions } from '@store/actions/order-types.action';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
+import { SystemTagsActions } from '@store/actions/system-tags.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -71,6 +72,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   assets$: Observable<Array<IAsset>>;
 
   tags$: Observable<Array<ITag>>;
+
+  systemTags$: Observable<Array<ISystemTag>>;
 
   currencies$: Observable<Array<ICurrency>>;
 
@@ -133,13 +136,16 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(SystemTagsSelectors.selectLoading),
+      ),
     ]).pipe(
       map(([isGetProductProcess, isGetTagsProcess, isGetNodesProcess, isSelectorsProcess,
         isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess,
-        isLanguagesProcess, isOrderTypesProcess, isStoresGetProcess]) =>
+        isLanguagesProcess, isOrderTypesProcess, isStoresGetProcess, isSystemTagsProcess]) =>
         isGetProductProcess || isGetTagsProcess || isGetNodesProcess || isSelectorsProcess
         || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess
-        || isLanguagesProcess || isOrderTypesProcess || isStoresGetProcess),
+        || isLanguagesProcess || isOrderTypesProcess || isStoresGetProcess || isSystemTagsProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest([
@@ -175,6 +181,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
+    );
+
+    this.systemTags$ = this._store.pipe(
+      select(SystemTagsSelectors.selectCollection),
     );
 
     this.currencies$ = this._store.pipe(
@@ -326,6 +336,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(CurrenciesActions.getAllRequest({}));
     this._store.dispatch(StoresActions.getAllRequest({}));
     this._store.dispatch(OrderTypesActions.getAllRequest({}));
+    this._store.dispatch(SystemTagsActions.getAllRequest({}));
 
     const prepareMainRequests$ = combineLatest([
       this.tags$,
@@ -337,10 +348,11 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this.defaultLanguage$,
       this.assets$,
       this.stores$,
+      this.systemTags$,
     ]).pipe(
-      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets, stores]) =>
+      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets, stores, systemTags]) =>
         !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages &&
-        !!defaultLanguage && !!assets && !!stores),
+        !!defaultLanguage && !!assets && !!stores && !!systemTags),
     );
 
     this.isPrepareToConfigure$ = this.productId$.pipe(
@@ -371,6 +383,15 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(TagsActions.clear());
     this._store.dispatch(CurrenciesActions.clear());
     this._store.dispatch(StoresActions.clear());
+    this._store.dispatch(SystemTagsActions.clear());
+  }
+
+  onCreateSystemTag(systemTag: ISystemTag): void {
+    this._store.dispatch(SystemTagsActions.createRequest({ systemTag }));
+  }
+
+  onDeleteSystemTag(id: string): void {
+    this._store.dispatch(SystemTagsActions.deleteRequest({ id }));
   }
 
   onAssetUpload(data: IFileUploadEvent): void {

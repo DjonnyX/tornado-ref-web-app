@@ -45,6 +45,8 @@ import LicenseAccountEffects from './license-account.effects';
 import LicensesAccountEffects from './licenses-account.effects';
 import CheckueEffects from './checkue.effects';
 import CheckuesEffects from './checkues.effects';
+import SystemTagEffects from './system-tag.effects';
+import SystemTagsEffects from './system-tags.effects';
 
 const rootEffects = [
   UserEffects,
@@ -94,5 +96,7 @@ const rootEffects = [
   LicensesAccountEffects,
   CheckueEffects,
   CheckuesEffects,
+  SystemTagEffects,
+  SystemTagsEffects,
 ];
 export default rootEffects;

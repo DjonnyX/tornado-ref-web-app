@@ -9,6 +9,8 @@ export const formatProductModel = (model: IProduct) => ({
     })),
     receipt: model.receipt,
     tags: model.tags,
+    weight: model.weight,
+    systemTag: model.systemTag,
     joint: model.joint,
     extra: model.extra,
 });

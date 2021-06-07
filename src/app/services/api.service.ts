@@ -41,7 +41,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes
+  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -54,6 +54,11 @@ import { IAppThemeAssetCreateResponse } from './interfaces/app-theme-asset-creat
 import { IAppThemeAssetUpdateResponse } from './interfaces/app-theme-asset-update-response.interface';
 import { IAppThemeAssetDeleteResponse } from './interfaces/app-theme-asset-delete-response.interface';
 import { IMenuNodesCreateMultiResponse } from './interfaces/menu-nodes-create-multi-response.interface';
+import { ISystemTagsGetResponse } from './interfaces/system-tags-get-response.interface';
+import { ISystemTagGetResponse } from './interfaces/system-tag-get-response.interface';
+import { ISystemTagCreateResponse } from './interfaces/system-tag-create-response.interface';
+import { ISystemTagUpdateResponse } from './interfaces/system-tag-update-response.interface';
+import { ISystemTagDeleteResponse } from './interfaces/system-tag-delete-response.interface';
 
 export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
   encodeKey(k: string): string { return standardEncoding(k); }
@@ -1823,6 +1828,53 @@ export class ApiService {
   public deleteAppThemeAsset(themeId: string, assetId: string): Observable<IAppThemeAssetDeleteResponse> {
     return this._http
       .delete<IAppThemeAssetDeleteResponse>(`api/v1/app-theme-assets/${themeId}/asset/${assetId}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // systemTags
+  public getSystemTags(options?: IRequestOptions): Observable<ISystemTagsGetResponse> {
+    return this._http
+      .get<ISystemTagsGetResponse>("api/v1/system-tags", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getSystemTag(id: string): Observable<ISystemTagGetResponse> {
+    return this._http
+      .get<ISystemTagGetResponse>(`api/v1/system-tag/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createSystemTag(systemTag: ISystemTag): Observable<ISystemTagCreateResponse> {
+    return this._http
+      .post<ISystemTagCreateResponse>("api/v1/system-tag", systemTag, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateSystemTag(id: string, systemTag: ISystemTag): Observable<ISystemTagUpdateResponse> {
+    return this._http
+      .put<ISystemTagUpdateResponse>(`api/v1/system-tag/${id}`, systemTag, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteSystemTag(id: string): Observable<ISystemTagDeleteResponse> {
+    return this._http
+      .delete<ISystemTagDeleteResponse>(`api/v1/system-tag/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
