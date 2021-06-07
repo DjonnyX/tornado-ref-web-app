@@ -1,0 +1,14 @@
+.autocomplete-option {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+
+    &__name {
+        margin: auto 1px;
+        display: inline-block;
+        text-overflow: ellipsis;
+        word-break: keep-all;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
