@@ -1,9 +1,9 @@
 import { Component, forwardRef, Input, OnInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
-import { ITerminalKioskConfig } from '@djonnyx/tornado-types';
+import { IAppTheme, ITerminalKioskConfig } from '@djonnyx/tornado-types';
 
 const INIT_STATE: ITerminalKioskConfig = {
-  theme: "light",
+  theme: undefined,
   suffix: "K",
 };
 
@@ -24,10 +24,15 @@ const INIT_STATE: ITerminalKioskConfig = {
 })
 export class TerminalKioskConfigComponent implements OnInit, ControlValueAccessor, Validator {
 
-  public readonly themes = [
-    "light",
-    "dark",
-  ]
+  private _themes: Array<IAppTheme>;
+  @Input() set themes(v: Array<IAppTheme>) {
+    if (this._themes !== v) {
+      this._themes = v;
+
+      INIT_STATE.theme = this.mTheme = this._themes?.length ? this._themes[0].id : undefined;
+    }
+  }
+  get themes() { return this._themes; }
 
   public mTheme: string = INIT_STATE.theme;
   public mSuffix: string = INIT_STATE.suffix;

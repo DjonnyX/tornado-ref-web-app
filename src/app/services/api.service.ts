@@ -53,6 +53,7 @@ import { IAppThemeAssetGetResponse } from './interfaces/app-theme-assets-get-res
 import { IAppThemeAssetCreateResponse } from './interfaces/app-theme-asset-create-response.interface';
 import { IAppThemeAssetUpdateResponse } from './interfaces/app-theme-asset-update-response.interface';
 import { IAppThemeAssetDeleteResponse } from './interfaces/app-theme-asset-delete-response.interface';
+import { IMenuNodesCreateMultiResponse } from './interfaces/menu-nodes-create-multi-response.interface';
 
 export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
   encodeKey(k: string): string { return standardEncoding(k); }
@@ -629,6 +630,15 @@ export class ApiService {
   public createNode(node: INode): Observable<IMenuNodesCreateResponse> {
     return this._http
       .post<IMenuNodesCreateResponse>("api/v1/node", node, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createNodes(nodes: Array<INode>): Observable<IMenuNodesCreateMultiResponse> {
+    return this._http
+      .post<IMenuNodesCreateMultiResponse>("api/v1/nodes", { nodes }, {
         headers: {
           "authorization": this.getAuthToken(),
         },

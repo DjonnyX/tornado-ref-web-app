@@ -393,8 +393,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductAssetsActions.uploadResourceRequest({ productId: this._productId, resourcesType: ProductResourceTypes.ICON, data }));
   }
 
-  onCreateHierarchyNode(node: INode): void {
-    this._store.dispatch(MenuNodesActions.createRequest({ node }));
+  onCreateHierarchyNodes(nodes: Array<INode>): void {
+    this._store.dispatch(MenuNodesActions.createMultiRequest({ nodes }));
   }
 
   onUpdateHierarchyNode(node: INode): void {

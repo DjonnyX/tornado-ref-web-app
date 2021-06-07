@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { DragDropModule } from "@angular/cdk/drag-drop";
 import { CommonModule } from '@angular/common';
 import { NodeTreeItemComponent } from './node-tree-item.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -22,6 +23,7 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
+    DragDropModule,
     RouterModule,
     MatButtonModule,
     MatIconModule,

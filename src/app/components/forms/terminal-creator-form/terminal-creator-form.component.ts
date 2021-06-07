@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
-import { ITerminal, IStore, ILicenseAccount, TerminalTypes, ITerminalKioskConfig, ITerminalEQConfig } from '@djonnyx/tornado-types';
+import { ITerminal, IStore, ILicenseAccount, TerminalTypes, ITerminalKioskConfig, ITerminalEQConfig, IAppTheme } from '@djonnyx/tornado-types';
 import { BaseComponent } from '@components/base/base-component';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
@@ -51,6 +51,16 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
   get data() {
     return this._data;
   }
+
+  private _themes: Array<IAppTheme>;
+  @Input() set themes(v: Array<IAppTheme>) {
+    if (this._themes !== v) {
+      this._themes = v;
+
+      this.generateData();
+    }
+  }
+  get themes() { return this._themes; }
 
   @Input() stores: IStore;
 
@@ -110,7 +120,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
   }
 
   private generateData(): void {
-    if (!this._terminal) {
+    if (!this._terminal || !this._themes) {
       return;
     }
 
@@ -160,7 +170,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       // config
       terminalConfigTheme: {
         key: "Тема оформления",
-        value: this._terminal?.config?.theme || ' ---',
+        value: this._themes.find(t => t.id === this._terminal?.config?.theme)?.name || ' ---',
       },
       // kiosk
       terminalKioskConfigSuffix: {

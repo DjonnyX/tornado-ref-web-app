@@ -1,0 +1,15 @@
+@import "../utils/em2px";
+
+.gradient-color-editor {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    &__component {
+        flex: 1;
+    }
+    &__preview {
+        flex: 1;
+        margin-bottom: px2em(24);
+    }
+}

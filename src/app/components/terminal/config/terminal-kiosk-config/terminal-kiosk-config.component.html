@@ -3,7 +3,7 @@
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Тема оформления</mat-label>
             <mat-select [(ngModel)]="mTheme" (ngModelChange)="onChangeModel()" required>
-                <mat-option *ngFor="let t of themes" [value]="t">{{t}}</mat-option>
+                <mat-option *ngFor="let t of themes" [value]="t.id">{{t.name}}</mat-option>
             </mat-select>
             <mat-error *ngIf="mTheme === undefined">
                 <strong>обзательное</strong>

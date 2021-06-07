@@ -73,6 +73,24 @@ export default class MenuNodesEffects {
         )
     );
 
+    public readonly createMultiRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(MenuNodesActions.createMultiRequest),
+            switchMap(({ nodes }) => {
+                return this._apiService.createNodes(nodes.map(n => formatNodeModel(n))).pipe(
+                    mergeMap(res => {
+                        return [MenuNodesActions.createMultiSuccess({ changed: res.data.changed, created: res.data.created, meta: res.meta })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(MenuNodesActions.createMultiError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(MenuNodesActions.updateRequest),
