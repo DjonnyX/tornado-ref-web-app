@@ -6,6 +6,7 @@ import { ISelector, IProduct, INode, IEntity, NodeTypes, IAsset, ILanguage } fro
 
 interface IDialogData {
   title: string;
+  multi?: boolean;
   nodes: Array<INode>;
   groupModifiersNodes: Array<INode>;
   groupMenuNodes: Array<INode>;
@@ -27,16 +28,16 @@ interface IDialogData {
   templateUrl: './setup-node-content-dialog.component.html',
   styleUrls: ['./setup-node-content-dialog.component.scss']
 })
-export class SetupNodeContentDialogComponent implements OnInit {
+export class SetupNodeContentDialogComponent<C = any> implements OnInit {
 
-  content: IEntity;
+  content: C;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
 
   ngOnInit(): void {
   }
 
-  onChange(content: IEntity): void {
+  onChange(content: C): void {
     this.content = content;
   }
 }
