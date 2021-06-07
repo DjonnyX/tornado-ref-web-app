@@ -54,6 +54,14 @@
                                             [colorPresets]="colorPresets"></ta-color-picker>
                                     </div>
                                 </div>
+                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.GRADIENT_COLOR" class="form__input-block">
+                                    <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
+                                        <ta-gradient-color-editor [cpPosition]="index < 5 ? 'bottom-left' : 'top-left'"
+                                            [formControl]="getControl(item.name)">
+                                        </ta-gradient-color-editor>
+                                    </div>
+                                </div>
                                 <div *ngSwitchCase="ThemeDescriptiorKeyTypes.ASSET" class="form__input-block">
                                     <div class="form-item">
                                         <mat-label>{{item.name}}</mat-label>

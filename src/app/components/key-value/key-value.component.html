@@ -16,6 +16,10 @@
                     <span class="key-value__color" [style.backgroundColor]="compiledData.value"></span>
                     {{compiledData?.value}}
                 </ng-container>
+                <ng-container *ngSwitchCase="KeyValueCompiledValueTypes.GRADIENT_COLOR">
+                    <span class="key-value__color" [style.background]="gradientStyle"></span>
+                    {{compiledData?.value}}
+                </ng-container>
                 <ng-container *ngSwitchCase="KeyValueCompiledValueTypes.ASSET">
                     <img [src]="compiledData?.value" height="16" />
                 </ng-container>
