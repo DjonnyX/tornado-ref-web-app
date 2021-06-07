@@ -46,6 +46,8 @@ import { ICheckuesState } from './checkues.state';
 import { IAppThemeState } from './app-theme.state';
 import { IAppThemesState } from './app-themes.state';
 import { IAppThemeAssetsState } from './app-theme-assets.state';
+import { ISystemTagState } from './system-tag.state';
+import { ISystemTagsState } from './system-tags.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -96,4 +98,6 @@ export interface IAppState {
     taThemeAssets: IAppThemeAssetsState,
     taTheme: IAppThemeState,
     taThemes: IAppThemesState,
+    taSystemTag: ISystemTagState,
+    taSystemTags: ISystemTagsState,
 }
