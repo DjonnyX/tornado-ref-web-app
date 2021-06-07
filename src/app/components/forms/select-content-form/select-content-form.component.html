@@ -6,7 +6,7 @@
           <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentModifierNodesBinder$"
             [collection]="groupModifiersNodes" [assetsDictionary]="assetsDictionary" [selectors]="selectors"
             [selectorsDictionary]="selectorsDictionary" [languages]="languages" [defaultLanguage]="defaultLanguage"
-            type="selector-node" (change)="onChange($event)">
+            type="selector-node" [multi]="multi" (change)="onChange($event)">
           </ta-node-list>
         </mat-tab>
       </ng-container>
@@ -15,7 +15,7 @@
           <ta-node-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentNodesBinder$"
             [collection]="groupMenuNodes" [assetsDictionary]="assetsDictionary" [selectors]="selectors"
             [selectorsDictionary]="selectorsDictionary" [languages]="languages" [defaultLanguage]="defaultLanguage"
-            type="selector-node" (change)="onChange($event)">
+            type="selector-node" [multi]="multi" (change)="onChange($event)">
           </ta-node-list>
         </mat-tab>
       </ng-container>
@@ -23,14 +23,14 @@
         <mat-tab label="Новая группа модификаторов">
           <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentSchemaSelectorsBinder$"
             [collection]="schemaSelectors" [assetsDictionary]="assetsDictionary" [languages]="languages"
-            [defaultLanguage]="defaultLanguage" type="selector" (change)="onChange($event)"></ta-entity-list>
+            [defaultLanguage]="defaultLanguage" [multi]="multi" type="selector" (change)="onChange($event)"></ta-entity-list>
         </mat-tab>
       </ng-container>
       <ng-container *ngSwitchCase="SelectContentFormRights.CATEGORIES">
         <mat-tab label="Новая группа меню">
           <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentMenuSelectorsBinder$"
             [collection]="selectors" [assetsDictionary]="assetsDictionary" [languages]="languages"
-            [defaultLanguage]="defaultLanguage" type="selector" (change)="onChange($event)">
+            [defaultLanguage]="defaultLanguage" [multi]="multi" type="selector" (change)="onChange($event)">
           </ta-entity-list>
         </mat-tab>
       </ng-container>
@@ -38,7 +38,7 @@
         <mat-tab label="Товар">
           <ta-entity-list [selectedDefaultEntityId]="selectedDefaultEntityId" [binder$]="contentProductsBinder$"
             [collection]="products" [assetsDictionary]="assetsDictionary" [languages]="languages"
-            [defaultLanguage]="defaultLanguage" type="product" (change)="onChange($event)">
+            [defaultLanguage]="defaultLanguage" [multi]="multi" type="product" (change)="onChange($event)">
           </ta-entity-list>
         </mat-tab>
       </ng-container>

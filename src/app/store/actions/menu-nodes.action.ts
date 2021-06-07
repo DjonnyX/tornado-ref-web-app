@@ -19,6 +19,10 @@ export enum MenuNodesActionTypes {
     CREATE_SUCCESS = "TORNADO/menu-nodes/create:success",
     CREATE_ERROR = "TORNADO/menu-nodes/create:error",
 
+    CREATE_MULTI_REQUEST = "TORNADO/menu-nodes/create-multi:request",
+    CREATE_MULTI_SUCCESS = "TORNADO/menu-nodes/create-multi:success",
+    CREATE_MULTI_ERROR = "TORNADO/menu-nodes/create-multi:error",
+
     UPDATE_REQUEST = "TORNADO/menu-nodes/update:request",
     UPDATE_SUCCESS = "TORNADO/menu-nodes/update:success",
     UPDATE_ERROR = "TORNADO/menu-nodes/update:error",
@@ -84,6 +88,20 @@ export namespace MenuNodesActions {
     );
     export const createError = createAction(
         MenuNodesActionTypes.CREATE_ERROR,
+        props<{ error: string }>()
+    );
+
+    // create
+    export const createMultiRequest = createAction(
+        MenuNodesActionTypes.CREATE_MULTI_REQUEST,
+        props<{nodes: Array<INode>}>()
+    );
+    export const createMultiSuccess = createAction(
+        MenuNodesActionTypes.CREATE_MULTI_SUCCESS,
+        props<{ changed: Array<INode>, created: Array<INode>, meta: IMetaRefsResponse }>()
+    );
+    export const createMultiError = createAction(
+        MenuNodesActionTypes.CREATE_MULTI_ERROR,
         props<{ error: string }>()
     );
 

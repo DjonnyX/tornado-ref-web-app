@@ -11,13 +11,14 @@ import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import {
   INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency,
-  ILanguage, IOrderType, IStore, ScenarioCommonActionTypes
+  ILanguage, IOrderType, IStore, ScenarioCommonActionTypes, IEntity
 } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 import { ICollectionDictionary } from '@app/utils/collection.util';
 import { NodeTreeStores } from '@components/node-tree/enums/node-tree-stores.enum';
 import { Router } from '@angular/router';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -181,7 +182,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   @Input() languagesDictionary: ICollectionDictionary<IAsset>;
 
-  @Output() create = new EventEmitter<INode>();
+  @Output() create = new EventEmitter<Array<INode>>();
 
   @Output() update = new EventEmitter<INode>();
 
@@ -298,8 +299,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     }
   }
 
-  createNodeForChild(node: INode): void {
-    this.create.emit(node);
+  createNodeForChild(nodes: Array<INode>): void {
+    this.create.emit(nodes);
   }
 
   updateNodeForChild(node: INode): void {
@@ -493,14 +494,14 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     dialogRef.afterClosed().pipe(
       take(1),
       takeUntil(this.unsubscribe$),
-    ).subscribe(content => {
-      if (!!content) {
+    ).subscribe(cnt => {
+      if (!!cnt) {
         const node = {
           id: this.node.id,
           active: this.node.active,
-          type: content.type,
+          type: cnt.type,
           parentId: this.node.parentId,
-          contentId: content.id,
+          contentId: cnt.id,
           children: this.node.children,
           scenarios: [],
           extra: this.node.extra,
@@ -537,6 +538,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           title: "Выберите контент для узла",
+          multi: true,
           assetsDictionary: this.assetsDictionary,
           products: this.products,
           selectors: this.menuGroupsSelectors,
@@ -555,18 +557,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     dialogRef.afterClosed().pipe(
       take(1),
       takeUntil(this.unsubscribe$),
-    ).subscribe(content => {
+    ).subscribe((content: Array<any>) => {
       if (!!content) {
-        const node = {
+        const nodes = content.map(i => ({
           active: true,
-          type: content.type,
+          type: i.type,
           parentId: this.node.id,
-          contentId: content.id,
+          contentId: i.id,
           children: [],
           scenarios: [],
           extra: {},
-        }
-        this.create.emit(node);
+        }));
+        this.create.emit(nodes);
       }
     });
   }
@@ -785,5 +787,16 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
               return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
           }
         }
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    const collection = [...this.node.children];
+    const node = collection[event.previousIndex];
+    collection.splice(event.previousIndex, 1);
+    collection.splice(event.currentIndex, 0, node);
+    this.update.emit({
+      ...this.node,
+      children: collection,
+    });
   }
 }

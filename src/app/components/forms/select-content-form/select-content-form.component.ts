@@ -85,6 +85,8 @@ export class SelectContentFormComponent implements OnInit {
     return this._rights;
   }
 
+  @Input() multi: boolean = false;
+
   private _depth: number;
   @Input() set depth(v: number) {
     if (this._depth !== v) {
@@ -149,7 +151,7 @@ export class SelectContentFormComponent implements OnInit {
     this.updateSelectedIndex();
   }
 
-  @Output() change = new EventEmitter<IEntity>();
+  @Output() change = new EventEmitter<Array<IEntity> | IEntity>();
 
   constructor() { }
 
@@ -163,7 +165,7 @@ export class SelectContentFormComponent implements OnInit {
     this._contentModifierNodesBinder$.next();
   }
 
-  onChange(content: IEntity): void {
+  onChange(content: Array<IEntity> | IEntity): void {
     this.change.emit(content);
   }
 

@@ -164,17 +164,17 @@
 
         <!-- KIOSK -->
         <ng-container *ngIf="terminal.type === TerminalTypes.KIOSK">
-            <ta-terminal-kiosk-config formControlName="config"></ta-terminal-kiosk-config>
+            <ta-terminal-kiosk-config [themes]="themes" formControlName="config"></ta-terminal-kiosk-config>
         </ng-container>
 
         <!-- ORDER PICKER -->
         <ng-container *ngIf="terminal.type === TerminalTypes.ORDER_PICKER">
-            <ta-terminal-order-picker-config formControlName="config"></ta-terminal-order-picker-config>
+            <ta-terminal-order-picker-config [themes]="themes" formControlName="config"></ta-terminal-order-picker-config>
         </ng-container>
 
         <!-- EQUEUE -->
         <ng-container *ngIf="terminal.type === TerminalTypes.EQUEUE">
-            <ta-terminal-eq-config formControlName="config"></ta-terminal-eq-config>
+            <ta-terminal-eq-config [themes]="themes" formControlName="config"></ta-terminal-eq-config>
         </ng-container>
 
         <div class="form__submit" align="end">

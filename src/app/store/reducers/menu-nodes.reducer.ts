@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { IMenuNodesState } from '@store/state';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
-import { updateCollection, deleteNodesByIds } from '@app/utils/node-collection';
+import { updateCollection, updateCollectionMulti, deleteNodesByIds } from '@app/utils/node-collection';
 
 export const initialState: IMenuNodesState = {
     meta: undefined,
@@ -37,7 +37,7 @@ const menuNodesReducer = createReducer(
             loading: true,
         };
     }),
-    on(MenuNodesActions.createRequest, state => {
+    on(MenuNodesActions.createRequest, MenuNodesActions.createMultiRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
@@ -74,7 +74,7 @@ const menuNodesReducer = createReducer(
             loading: false,
         };
     }),
-    on(MenuNodesActions.createError, (state, { error }) => {
+    on(MenuNodesActions.createError, MenuNodesActions.createMultiError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -120,6 +120,21 @@ const menuNodesReducer = createReducer(
     on(MenuNodesActions.createSuccess, (state, { changed, created, meta }) => {
         const collection = updateCollection(state.collection, changed);
         collection.push(created);
+
+        return {
+            ...state,
+            collection,
+            meta,
+            error: undefined,
+            isCreateProcess: false,
+            loading: false,
+        };
+    }),
+    on(MenuNodesActions.createMultiSuccess, (state, { changed, created, meta }) => {
+        const collection = updateCollectionMulti(state.collection, changed);
+        created.forEach(node => {
+            collection.push(node);
+        });
 
         return {
             ...state,

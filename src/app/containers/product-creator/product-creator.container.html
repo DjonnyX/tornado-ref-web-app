@@ -34,7 +34,7 @@
                         [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
                         [assets]="assets$ | async" [currencies]="currencies$ | async" [languages]="languages$ | async"
                         [orderTypes]="orderTypes$ | async" [stores]="stores$ | async"
-                        [defaultLanguage]="defaultLanguage$ | async" (create)="onCreateHierarchyNode($event)"
+                        [defaultLanguage]="defaultLanguage$ | async" (create)="onCreateHierarchyNodes($event)"
                         (update)="onUpdateHierarchyNode($event)" (delete)="onDeleteHierarchyNode($event)"
                         mode="product">
                     </ta-node-tree>

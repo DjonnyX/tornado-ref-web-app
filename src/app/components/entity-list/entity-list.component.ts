@@ -23,6 +23,8 @@ interface IProxyItem extends IEntity {
 })
 export class EntityListComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  @Input() multi: boolean = false;
+
   proxyCollection: Array<IProxyItem>;
 
   private _collection: Array<IEntity>;
@@ -65,7 +67,7 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
 
   @Input() assetsDictionary: { [id: string]: IAsset };
 
-  @Output() change = new EventEmitter<IEntity>();
+  @Output() change = new EventEmitter<Array<IEntity> | IEntity>();
 
   constructor(private _cdr: ChangeDetectorRef) {
     super();
@@ -115,7 +117,7 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
 
     return "";
   }
-  
+
   getName(entity: {
     contents: IEntityContents;
   }): string | undefined {
@@ -134,14 +136,19 @@ export class EntityListComponent extends BaseComponent implements OnInit, OnDest
   onToggleSelect(item: IProxyItem): void {
     item.selected = !item.selected;
 
-    if (item.selected) {
-      this.proxyCollection.forEach(element => {
-        if (element.id !== item.id) {
-          element.selected = false;
-        }
-      });
+    if (!this.multi) {
+      if (item.selected) {
+        this.proxyCollection.forEach(element => {
+          if (element.id !== item.id) {
+            element.selected = false;
+          }
+        });
+      }
+
+      this.change.emit(!!item.selected ? { ...item, type: this.type } : null);
+      return;
     }
 
-    this.change.emit(!!item.selected ? { ...item, type: this.type } : null);
+    this.change.emit(this.proxyCollection.filter(i => i.selected).map(i => ({ ...i, type: this.type })));
   }
 }

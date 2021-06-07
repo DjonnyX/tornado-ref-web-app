@@ -211,7 +211,7 @@ export class NodeTreeComponent implements OnInit {
 
   currentStoreId: string;
 
-  @Output() create = new EventEmitter<INode>();
+  @Output() create = new EventEmitter<Array<INode>>();
 
   @Output() update = new EventEmitter<INode>();
 
@@ -234,8 +234,8 @@ export class NodeTreeComponent implements OnInit {
     this._cdr.markForCheck();
   }
 
-  onCreate(node: INode): void {
-    this.create.emit(node);
+  onCreate(nodes: Array<INode>): void {
+    this.create.emit(nodes);
   }
 
   onUpdate(node: INode): void {
