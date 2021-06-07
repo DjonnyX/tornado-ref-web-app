@@ -18,6 +18,7 @@ import { NodeScenarioTypes } from '@enums/node-scenario-types';
 import { ICollectionDictionary } from '@app/utils/collection.util';
 import { NodeTreeStores } from '@components/node-tree/enums/node-tree-stores.enum';
 import { Router } from '@angular/router';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -786,5 +787,16 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
               return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
           }
         }
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    const collection = [...this.node.children];
+    const node = collection[event.previousIndex];
+    collection.splice(event.previousIndex, 1);
+    collection.splice(event.currentIndex, 0, node);
+    this.update.emit({
+      ...this.node,
+      children: collection,
+    });
   }
 }
