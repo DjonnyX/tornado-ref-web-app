@@ -65,9 +65,8 @@ const getColorPresetsFromControls = (controls: { [name: string]: AbstractControl
       continue;
     }
 
-    const control = controls[controlName];
-
     if (descriptor[controlName]?.type === ThemeDescriptiorKeyTypes.COLOR) {
+      const control = controls[controlName];
       const color = Color(control.value).string();
       if (result.indexOf(color) === -1) {
         result.push(color);

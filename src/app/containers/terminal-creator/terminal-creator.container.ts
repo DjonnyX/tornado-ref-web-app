@@ -7,11 +7,12 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { TerminalActions } from '@store/actions/terminal.action';
 import { TerminalSelectors } from '@store/selectors/terminal.selectors';
-import { ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
-import { LicenseAccountSelectors, StoreSelectors, StoresSelectors } from '@store/selectors';
+import { ITerminal, IStore, ILicenseAccount, IAppTheme } from '@djonnyx/tornado-types';
+import { AppThemesSelectors, LicenseAccountSelectors, StoreSelectors, StoresSelectors } from '@store/selectors';
 import { StoresActions } from '@store/actions/stores.action';
 import { StoreActions } from '@store/actions/store.action';
 import { LicenseAccountActions } from '@store/actions/license-account.action';
+import { AppThemesActions } from '@store/actions/app-themes.action';
 
 @Component({
   selector: 'ta-terminal-creator',
@@ -30,6 +31,8 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
   store$: Observable<IStore>;
 
   license$: Observable<ILicenseAccount>;
+
+  themes$: Observable<Array<IAppTheme>>;
 
   isEditMode = false;
 
@@ -60,9 +63,14 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(LicenseAccountSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(AppThemesSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isTerminalGetProcess, selectIsUpdateProcess, isStoresGetProcess, isStoreGetProcess, isLicenseGetProcess]) =>
-      isTerminalGetProcess || selectIsUpdateProcess || isStoresGetProcess || isStoreGetProcess || isLicenseGetProcess),
+      map(([isTerminalGetProcess, selectIsUpdateProcess, isStoresGetProcess, isStoreGetProcess,
+        isLicenseGetProcess, isAppthemesGetProcess]) =>
+        isTerminalGetProcess || selectIsUpdateProcess || isStoresGetProcess || isStoreGetProcess ||
+        isLicenseGetProcess || isAppthemesGetProcess),
     );
 
     this.terminal$ = this._store.pipe(
@@ -81,6 +89,11 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       select(LicenseAccountSelectors.selectEntity),
     );
 
+    this.themes$ = this._store.pipe(
+      select(AppThemesSelectors.selectCollection),
+      map(themes => (themes || [])),
+    );
+
     this.terminal$.pipe(
       takeUntil(this.unsubscribe$),
       filter(terminal => !!terminal),
@@ -95,6 +108,10 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       if (!!terminal.licenseId) {
         this._store.dispatch(LicenseAccountActions.getRequest({ id: terminal.licenseId }));
       }
+
+      this._store.dispatch(AppThemesActions.getAllRequest({
+        terminalType: terminal.type,
+      }));
     });
 
     if (!!this._terminalId) {
@@ -111,6 +128,7 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(StoresActions.clear());
     this._store.dispatch(StoreActions.clear());
     this._store.dispatch(LicenseAccountActions.clear());
+    this._store.dispatch(AppThemesActions.clear());
   }
 
   onSubmit(terminal: ITerminal): void {

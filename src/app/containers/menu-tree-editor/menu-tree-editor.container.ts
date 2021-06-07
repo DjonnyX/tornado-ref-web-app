@@ -184,8 +184,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
   }
 
-  onCreate(node: INode): void {
-    this._store.dispatch(MenuNodesActions.createRequest({ node }));
+  onCreate(nodes: Array<INode>): void {
+    this._store.dispatch(MenuNodesActions.createMultiRequest({ nodes }));
   }
 
   onUpdate(node: INode): void {

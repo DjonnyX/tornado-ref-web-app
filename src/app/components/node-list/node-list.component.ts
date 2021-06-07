@@ -16,6 +16,8 @@ interface IProxyItem extends INode {
 })
 export class NodeListComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  @Input() multi: boolean = false;
+
   @Input() selectors: Array<ISelector>;
 
   @Input() selectorsDictionary: { [id: string]: ISelector };
@@ -62,7 +64,7 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
 
   @Input() type: NodeTypes | string;
 
-  @Output() change = new EventEmitter<INode>();
+  @Output() change = new EventEmitter<Array<INode> | INode>();
 
   constructor(private _cdr: ChangeDetectorRef) {
     super();
@@ -143,14 +145,19 @@ export class NodeListComponent extends BaseComponent implements OnInit, OnDestro
   onToggleSelect(item: IProxyItem): void {
     item.selected = !item.selected;
 
-    if (item.selected) {
-      this.proxyCollection.forEach(element => {
-        if (element.id !== item.id) {
-          element.selected = false;
-        }
-      });
+    if (!this.multi) {
+      if (item.selected) {
+        this.proxyCollection.forEach(element => {
+          if (element.id !== item.id) {
+            element.selected = false;
+          }
+        });
+      }
+      this.change.emit(!!item.selected ? { ...item, type: this.type } : null);
+
+      return;
     }
 
-    this.change.emit(!!item.selected ? { ...item, type: this.type } : null);
+    this.change.emit(this.proxyCollection.filter(i => i.selected).map(i => ({ ...i, type: this.type })));
   }
 }

@@ -436,8 +436,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SelectorAssetsActions.uploadResourceRequest({ selectorId: this._selectorId, resourcesType: SelectorResourceTypes.ICON, data }));
   }
 
-  onCreateHierarchyNode(node: INode): void {
-    this._store.dispatch(MenuNodesActions.createRequest({ node }));
+  onCreateHierarchyNodes(nodes: Array<INode>): void {
+    this._store.dispatch(MenuNodesActions.createMultiRequest({ nodes }));
   }
 
   onUpdateHierarchyNode(node: INode): void {

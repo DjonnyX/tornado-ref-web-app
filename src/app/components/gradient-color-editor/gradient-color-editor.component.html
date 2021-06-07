@@ -1,0 +1,7 @@
+<div class="gradient-color-editor">
+    <span class="gradient-color-editor__component" *ngFor="let control of controls">
+        <ta-color-picker [cpPosition]="cpPosition" [resetButtonShow]="false" [control]="control"
+            cpPosition="top-right" (change)="onChangeModel()"></ta-color-picker>
+    </span>
+    <span class="gradient-color-editor__preview" [style.background]="preview"></span>
+</div>

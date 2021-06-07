@@ -3,7 +3,7 @@
 @import "../utils/px2em";
 
 .color-picker-component {
-    position: inherit;
+    position: relative;
     display: flex;
 
     &__input {

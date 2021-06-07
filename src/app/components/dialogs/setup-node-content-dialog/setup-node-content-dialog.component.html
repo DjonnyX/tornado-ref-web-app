@@ -1,6 +1,6 @@
 <h2 mat-dialog-title><strong>{{data.title}}</strong></h2>
 <mat-dialog-content class="mat-typography">
-  <ta-select-content-form [selectedDefaultEntityId]="data.selectedDefaultEntityId"
+  <ta-select-content-form [selectedDefaultEntityId]="data.selectedDefaultEntityId" [multi]="data.multi || false"
     [defaultCollection]="data.defaultCollection" [nodes]="data.nodes" [groupModifiersNodes]="data.groupModifiersNodes"
     [groupMenuNodes]="data.groupMenuNodes" [products]="data.products" [selectors]="data.selectors"
     [schemaSelectors]="data.schemaSelectors" [depth]="data.depth" [mode]="data.mode"

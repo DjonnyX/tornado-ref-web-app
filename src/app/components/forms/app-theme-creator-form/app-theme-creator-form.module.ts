@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploader/asset-picker-uploader.module';
 import { KeyValueModule } from '@components/key-value/key-value.module';
 import { ColorPickerModule } from '@components/color-picker/color-picker.module';
+import { GradientColorEditorModule } from '@components/gradient-color-editor/gradient-color-editor.module';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ColorPickerModule } from '@components/color-picker/color-picker.module'
     MatFormFieldModule,
     AssetPickerUploaderModule,
     ColorPickerModule,
+    GradientColorEditorModule,
     KeyValueModule,
   ]
 })

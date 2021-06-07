@@ -47,6 +47,8 @@ export class ColorPickerComponent implements OnInit {
 
   @Output() reset = new EventEmitter<void>();
 
+  @Output() change = new EventEmitter<void>();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -55,6 +57,10 @@ export class ColorPickerComponent implements OnInit {
 
   onReset(): void {
     this.reset.emit();
+  }
+
+  onChange(): void {
+    this.change.emit();
   }
 
   private resetInputValue(): void {
