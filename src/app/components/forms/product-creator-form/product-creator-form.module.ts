@@ -11,7 +11,9 @@ import { ProductContentModule } from './product-content/product-content.module';
 import { MatTabsModule } from '@angular/material/tabs';
 import { KeyValueModule } from '@components/key-value/key-value.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -26,10 +28,12 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     MatSelectModule,
     MatFormFieldModule,
     MatTabsModule,
     MatDialogModule,
+    MatAutocompleteModule,
     PricesModule,
     ProductContentModule,
     DeleteEntityDialogModule,
