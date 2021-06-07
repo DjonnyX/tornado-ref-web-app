@@ -44,3 +44,5 @@ export { IntegrationsSelectors } from "./integrations.selectors";
 export { AccountsSelectors } from "./accounts.selectors";
 export { CheckuesSelectors } from "./checkues.selectors";
 export { CheckueSelectors } from "./checkue.selectors";
+export { SystemTagSelectors } from "./system-tag.selectors";
+export { SystemTagsSelectors } from "./system-tags.selectors";
