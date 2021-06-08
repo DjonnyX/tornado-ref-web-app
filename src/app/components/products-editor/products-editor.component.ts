@@ -4,9 +4,22 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
-import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights } from '@djonnyx/tornado-types';
+import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'filterProducts'
+})
+export class FilterProductsPipe implements PipeTransform {
+  transform(items: Array<IProduct>, systemTag: ISystemTag | undefined): any[] {
+    if (!items) return [];
+    return items.filter(p => p.systemTag === systemTag?.id);
+  }
+
+}
 
 @Component({
   selector: 'ta-products-editor-component',
@@ -20,16 +33,30 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   isShowHiddenEntities: boolean = true;
 
+  public filteredCollection: Array<IProduct>;
   private _collection: Array<IProduct>;
-  @Input() set collection(value: Array<IProduct>) {
-    if (this._collection != value) {
-      this._collection = value || [];
+  @Input() set collection(v: Array<IProduct>) {
+    if (this._collection !== v) {
+      this._collection = v || [];
 
       this.resetFilteredCollection();
+
+      this.resetActualSystemTags();
     }
   }
+  get collection() { return this._collection; }
 
-  public filteredCollection: Array<IProduct>;
+  private _systemTags: Array<ISystemTag>;
+  @Input() set systemTags(v: Array<ISystemTag>) {
+    if (this._systemTags !== v) {
+      this._systemTags = v;
+
+      this.resetActualSystemTags();
+    }
+  }
+  get systemTags() { return this._systemTags; }
+
+  actualSystemTags: Array<ISystemTag>;
 
   @Input() refInfo: IRef;
 
@@ -85,6 +112,28 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   onSwitchLayout(layoutType: LayoutTypes) {
     this.layoutType = layoutType;
+  }
+
+  resetActualSystemTags() {
+    if (!this._collection || !this._systemTags) {
+      return;
+    }
+
+    const systemTags: Array<string> = [];
+    for (let product of this._collection) {
+      if (product.systemTag !== undefined && systemTags.indexOf(product.systemTag) === -1) {
+        systemTags.push(product.systemTag);
+      }
+    }
+
+    this.actualSystemTags = this._systemTags.filter(s => {
+      console.log(s.id, systemTags)
+      return systemTags.indexOf(s.id) > -1;
+    });
+
+    // не распределенная категория
+    this.actualSystemTags.push(undefined);
+    console.log(this.actualSystemTags);
   }
 
   getProductContent(product: IProduct): IProductContentsItem {
