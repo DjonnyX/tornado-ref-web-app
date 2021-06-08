@@ -1,16 +1,17 @@
 <div class="state-panel">
     <div class="state-panel__container">
-        <div class="state-panel__info">
+        <!-- <div class="state-panel__info">
             <ng-container *ngIf="!!hasShowRefInfo && !!refInfo">
-                <!--<span class="state-panel__info__version">v.{{refInfo.version}}</span>-->
+                <span class="state-panel__info__version">v.{{refInfo.version}}</span>
                 <span class="state-panel__info__version">Последнее изменение: </span>
                 <span fxHide.xs="true" class="state-panel__info__date">{{formatlastUpdate()}}</span>
             </ng-container>
-        </div>
+        </div> -->
+        <ta-search placeholder="Поиск по имени" [liveSearch]="true" (search)="onSearch($event)"></ta-search>
         <div class="spacer"></div>
         <!--<ta-search-field [fieldClass]="searchFieldClass" (search)="onSearch($event)"></ta-search-field>-->
         <!--<ta-search-field (search)="onSearch($event)"></ta-search-field>-->
-        <ta-search placeholder="Поиск по имени" [liveSearch]="true" (search)="onSearch($event)"></ta-search>
+
         <!-- Filter -->
         <div class="filter">
             <div class="filter__container">
@@ -20,7 +21,9 @@
                         [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': isShowHiddenEntities}"
                         (click)="onToggleVisibleHiddenEntities()">
                         <div class="tab-button__container">
-                            <div class="tab-button__icon" [ngClass]="{'icon-filter-list': isShowHiddenEntities, 'icon-filter-card': !isShowHiddenEntities}"></div>
+                            <div class="tab-button__icon"
+                                [ngClass]="{'icon-filter-list': isShowHiddenEntities, 'icon-filter-card': !isShowHiddenEntities}">
+                            </div>
                         </div>
                     </button>
                 </span>

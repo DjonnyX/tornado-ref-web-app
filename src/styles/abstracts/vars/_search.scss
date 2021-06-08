@@ -1,7 +1,7 @@
 @import "./palette";
 
-$search-text-field-color: $white;
-$search-text-field-background-color: $primary-color;
+$search-text-field-color: $primary-color;
+// $search-text-field-background-color: $primary-color;
 
 //Search
 $search-padding: 8px 10px;
@@ -10,13 +10,13 @@ $search-border-width: 1px;
 
 //Closed
 $search-width-closed: 160px;
-$search-text-field-color-closed: rgba($white, 0.4);
-$search-border-closed: $search-border-width solid rgba($primary-color-100, 1.0);
+$search-text-field-color-closed: rgba($primary-color, 0.4); //placeholder color
+$search-border-closed: $search-border-width solid rgba($primary-color-100, 0.0);
 
 //Opened
 $search-width-opened: 400px;
-$search-text-field-color-opened: rgba($white, 1.0);
-$search-border-opened: $search-border-width solid rgba($accent-color, 1.0);
+$search-text-field-color-opened: $primary-color; //text color
+$search-border-opened: $search-border-width solid rgba($primary-color-100, 0.1);
 
 //Search button-clear
 $search-button-clear-size: 16px;

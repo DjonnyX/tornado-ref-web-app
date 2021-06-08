@@ -1,0 +1,8 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.state-panel {
+    @include themify($themes) {
+        background-color: themed('statePanelBackgroundColor');
+    }
+}

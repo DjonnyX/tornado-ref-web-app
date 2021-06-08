@@ -30,3 +30,33 @@
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
+<!-- 
+<div class="wrapper admin__wrapper">
+    <div class="main-toolbar admin__toolbar">
+        <span *ngIf="isMobile$ | async">
+            <button mat-icon-button (click)="toggleSidenav()">
+                <mat-icon>menu</mat-icon>
+            </button>
+        </span>
+        <span class="page-title">{{(currentRoute$ | async)?.name}}</span>
+        <span class="spacer"></span>
+        <button mat-icon-button (click)="signout()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button>
+    </div>
+    <div id="admin__view__wrapper">
+        <div>
+            <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
+                (select)="selectRoute($event)">
+            </ta-navigation-menu>
+        </div>
+        <div class="content admin__view__content">
+            <div class="saturn-page-logo__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
+                <img class="saturn-page-logo" src="embeded-assets/icons/saturn-page-logo.svg">
+            </div>
+            <main>
+                <router-outlet></router-outlet>
+            </main>
+        </div>
+    </div>
+</div> -->

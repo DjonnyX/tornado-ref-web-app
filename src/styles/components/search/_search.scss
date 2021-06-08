@@ -1,15 +1,14 @@
-@import "../utils/px2em";
-@import "../abstracts/vars";
-@import "../base/reset-input";
-@import "../mixins";
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../base/reset-input";
+@import "../../mixins";
 
 .search {
     display: block;
     position: relative;
-    background-color: $search-text-field-background-color;
     box-shadow: inset 0px 2px 6px rgba($black, 0.05);
     padding: $search-padding;
-    border-radius: 8px;
+    border-radius: 32px;
 
     &__form {
         display: block;

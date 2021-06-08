@@ -5,11 +5,11 @@
 .entity__control__checkbox {
 
     .mat-checkbox-frame {
-        border-radius: $checkbox-border-radius;
+        border-radius: $entity-checkbox-border-radius;
     }
 
     .mat-checkbox-background {
-        border-radius: $checkbox-border-radius;
+        border-radius: $entity-checkbox-border-radius;
         overflow: hidden;
     }
 }

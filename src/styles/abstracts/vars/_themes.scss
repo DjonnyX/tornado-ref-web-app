@@ -7,7 +7,11 @@
 $themes: (
   light: (
     //Common
-    backgroundColor: $white,
+    backgroundColor: $background-color,
+    foregroundColor: $primary-color,
+    statePanelBackgroundColor: $white,
+    //Search
+    searchBackgroundColor: $background-color,
     textColor: $primary-color,
     //Entity
     entityBackgroundColor: $white,
@@ -21,7 +25,11 @@ $themes: (
   ),
   dark: (
     //Common
-    backgroundColor: $primary-color-100,
+    backgroundColor: $primary-color,
+    foregroundColor: $primary-color,
+    statePanelBackgroundColor: $secondary-color,
+    //Search
+    searchBackgroundColor: $background-color,
     textColor: $white,
     //Entity
     entityBackgroundColor: $primary-color-100,

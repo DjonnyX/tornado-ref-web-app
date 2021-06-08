@@ -30,10 +30,11 @@
     <ng-container [ngSwitch]="layoutType">
         <!-- List-template -->
         <ng-container *ngSwitchCase="LayoutTypes.LIST">
-            <div class="editor-container">
+            <div class="editor__container">
                 <!--Entity Wrapper-->
                 <div class="entities-container entities-list-layout">
-                    <div class="entity" *ngFor="let product of filteredCollection | search:searchPattern:defaultLanguage?.code"
+                    <div class="entity"
+                        *ngFor="let product of filteredCollection | search:searchPattern:defaultLanguage?.code"
                         [class.disabled]="!product.active">
                         <div class="entity__top-container">
                             <!-- Controls -->
@@ -60,6 +61,16 @@
                                         <div class="entity__description">
                                             {{getProductDescription(product) | slice:0:120
                                             }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                                        </div>
+                                        <div>
+                                            <p class="form-header">
+                                                Цена
+                                            </p>
+
+                                            <!-- <div class="prices__wrapper">
+                                                <ta-prices [prices]="product.prices" (update)="onChangePrices($event)">
+                                                </ta-prices>
+                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -113,9 +124,10 @@
 
         <!-- Card-template -->
         <ng-container *ngSwitchCase="LayoutTypes.CARD">
-            <div class="editor-container">
+            <div class="editor__container">
                 <div class="entities-container entities-card-layout">
-                    <div class="entity" *ngFor="let product of filteredCollection | search:searchPattern:defaultLanguage?.code"
+                    <div class="entity"
+                        *ngFor="let product of filteredCollection | search:searchPattern:defaultLanguage?.code"
                         [class.disabled]="!product.active">
                         <div class="entity__top-container">
                             <div class="entity__control">

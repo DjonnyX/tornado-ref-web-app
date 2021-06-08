@@ -13,6 +13,7 @@
 // @import "./entity-checkbox";
 // @import "./entity-popup-menu-panel";
 // @import "./entity-editor";
+@import "./app/index";
 
 @import "./entity-editor/index"; //+
 
@@ -25,9 +26,9 @@
 @import "./resources-editor";
 @import "./navigation-menu";
 
-@import "./search";
+@import "./search/index";
 
-@import "./state-panel";
+@import "./state-panel/index";
 @import "./loader-button";
 @import "./logo";
 @import "./reset-content-button";
@@ -37,7 +38,7 @@
 @import "./version";
 @import "./404";
 
-@import "./admin-container";
+// @import "./admin-container";
 //@import "./scrollbar";
 @import "./drag-drop-list";
 @import "./gradient-color-editor";

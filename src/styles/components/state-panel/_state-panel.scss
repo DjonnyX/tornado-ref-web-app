@@ -1,10 +1,10 @@
 // @import "../themes/theme";
-@import "../utils/px2em";
-@import "../abstracts/vars";
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
 
 .state-panel {
-    background-color: $state-panel-background-color;
-    border-top: 1px solid rgba(255,255,255,0.07);
+    width: 100%;
+    z-index: 2;
 
     &__container {
         display: flex;

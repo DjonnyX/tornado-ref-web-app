@@ -3,6 +3,13 @@
 @import "../../../mixins";
 
 .editor {
+    height: 100vh;
+
+    &__container {
+        width: 100%;
+        height: 100%;
+        // overflow: auto;
+    }
 
     .entity {
         display: flex;
@@ -10,8 +17,9 @@
         justify-content: space-between;
         position: relative;
         height: 100%;
-        border-radius: $border-radius;
         overflow: hidden;
+        border-radius: $entity-border-radius;
+        box-shadow: 0px 4px 16px rgba(0,0,0,0.02);
 
         &__body {
             @extend .entity-container;
@@ -41,14 +49,14 @@
         }
         
         &__name {
-            font-size: 20px;
+            font-size: $entity-title-font-size;
             font-weight: 400;
             margin-bottom: px2em(6);
             line-height: $entity-title-line-height;
         }
 
         &__description {
-            font-size: 14px;
+            font-size: $entity-description-font-size;
             word-wrap: break-word;
             line-height: $entity-description-line-height;
         }
