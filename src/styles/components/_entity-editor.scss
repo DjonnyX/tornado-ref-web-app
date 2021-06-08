@@ -21,6 +21,12 @@ $ctrl-panel-height: px2em(40);
 .editor {
     color: #ffffff;
 
+    &__list {
+        &__header {
+            padding: 0 px2em(36);
+        }
+    }
+
     .entities-wrapper {
         display: grid;
         grid-auto-flow: dense;
@@ -110,6 +116,12 @@ $ctrl-panel-height: px2em(40);
 
 @media screen and (min-width: 600px) {
     .editor {
+        &__list {
+            &__header {
+                padding: 0 px2em(36);
+            }
+        }
+
         .entities-wrapper {
             gap: $gap-d;
             grid-template-columns: repeat(auto-fill, minmax($entity-size-d, 1fr));
@@ -145,6 +157,12 @@ $ctrl-panel-height: px2em(40);
 
 @media screen and (max-width: 599px) {
     .editor {
+        &__list {
+            &__header {
+                padding: 0 px2em(20);
+            }
+        }
+
         .entities-wrapper {
             gap: $gap-m;
             grid-template-columns: repeat(auto-fill, minmax($entity-size-m, 1fr));
