@@ -50,7 +50,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     if (this._systemTags !== v) {
       this._systemTags = v;
 
-      this.ctrlSystemTag?.setValue(this.ctrlSystemTag?.value);
+      const selectedSystemTag = this._systemTags?.find(t => t.name.toLocaleLowerCase() === this.ctrlSystemTag?.value?.toLowerCase());
+      this.ctrlSystemTag?.setValue(!!selectedSystemTag ? this.ctrlSystemTag?.value : undefined);
 
       this.generateData();
     }
