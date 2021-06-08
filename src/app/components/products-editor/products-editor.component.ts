@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
@@ -6,7 +6,6 @@ import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
 import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
-import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 import { Pipe, PipeTransform } from '@angular/core';
 
@@ -29,17 +28,10 @@ export class FilterProductsPipe implements PipeTransform {
 })
 export class ProductsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public readonly LayoutTypes = LayoutTypes;
-
-  isShowHiddenEntities: boolean = true;
-
-  public filteredCollection: Array<IProduct>;
   private _collection: Array<IProduct>;
   @Input() set collection(v: Array<IProduct>) {
     if (this._collection !== v) {
-      this._collection = v || [];
-
-      this.resetFilteredCollection();
+      this._collection = v;
 
       this.resetActualSystemTags();
     }
@@ -68,8 +60,6 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() rights: Array<UserRights>;
 
-  layoutType: LayoutTypes;
-
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -95,7 +85,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog, private _cdr: ChangeDetectorRef) {
+  constructor(public dialog: MatDialog) {
     super();
   }
 
@@ -103,15 +93,6 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
-  }
-
-  resetFilteredCollection() {
-    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this.isShowHiddenEntities));
-    this._cdr.markForCheck();
-  }
-
-  onSwitchLayout(layoutType: LayoutTypes) {
-    this.layoutType = layoutType;
   }
 
   resetActualSystemTags() {
@@ -133,7 +114,6 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
     // не распределенная категория
     this.actualSystemTags.push(undefined);
-    console.log(this.actualSystemTags);
   }
 
   getProductContent(product: IProduct): IProductContentsItem {
@@ -231,10 +211,5 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   hasDelete() {
     return this.rights.indexOf(UserRights.DELETE_PRODUCT) > -1;
-  }
-
-  onShowHiddenEntities(isShowHiddenEntities: boolean) {
-    this.isShowHiddenEntities = isShowHiddenEntities;
-    this.resetFilteredCollection();
   }
 }
