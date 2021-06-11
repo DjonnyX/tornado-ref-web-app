@@ -3,6 +3,7 @@ import Color from "color";
 
 export enum ThemeDescriptiorKeyTypes {
     PROP,
+    BOOL,
     ARRAY_PROP,
     COLOR,
     GRADIENT_COLOR,
@@ -81,7 +82,15 @@ export const themeDescriptorPropsToThemeData = (data: any, options?: { exclude?:
 }
 
 const compileThemeDescriptorProp = (data: any, lastProp?: string, result: IThemeDescriptior = {}): TOutputData | undefined => {
-    if (typeof data === "string") {
+    if (typeof data === "boolean") {
+        return {
+            prop: lastProp,
+            value: {
+                value: data,
+                type: ThemeDescriptiorKeyTypes.BOOL,
+            },
+        };
+    } else if (typeof data === "string") {
         let type: ThemeDescriptiorKeyTypes;
         if (isColor(lastProp)) {
             type = ThemeDescriptiorKeyTypes.COLOR;
@@ -127,6 +136,7 @@ const compileThemeDescriptorProp = (data: any, lastProp?: string, result: ITheme
             || outputData?.value?.type === ThemeDescriptiorKeyTypes.GRADIENT_COLOR
             || outputData?.value?.type === ThemeDescriptiorKeyTypes.COLOR
             || outputData?.value?.type === ThemeDescriptiorKeyTypes.PROP
+            || outputData?.value?.type === ThemeDescriptiorKeyTypes.BOOL
             || outputData?.value?.type === ThemeDescriptiorKeyTypes.ARRAY_PROP) {
             result[outputData.prop] = outputData.value;
         }

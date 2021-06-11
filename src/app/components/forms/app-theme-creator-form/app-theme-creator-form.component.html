@@ -46,6 +46,13 @@
                                         </mat-form-field>
                                     </div>
                                 </div>
+                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.BOOL" class="form__input-block">
+                                    <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
+                                        <mat-checkbox [formControl]="getControl(item.name)">
+                                        </mat-checkbox>
+                                    </div>
+                                </div>
                                 <div *ngSwitchCase="ThemeDescriptiorKeyTypes.COLOR" class="form__input-block">
                                     <div class="form-item">
                                         <mat-label>{{item.name}}</mat-label>
