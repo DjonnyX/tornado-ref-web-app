@@ -52,13 +52,14 @@
                         <div class="color" [style.background]="getProductColor(product)"></div>
                     </div>
                 </div>
-
-                <ng-container *ngIf="hasCreate()">
-                    <button color="accent" mat-raised-button class="button-add" (click)="onCreateProduct()">
-                        <mat-icon>add</mat-icon>
-                    </button>
-                </ng-container>
             </div>
         </div>
     </ng-container>
+
+    <div class="create-entity-button-wrapper" *ngIf="hasCreate()">
+        <button color="accent" mat-raised-button class="button-add float" (click)="onCreateProduct()">
+            Добавить продукт
+            <!-- <mat-icon>add</mat-icon> -->
+        </button>
+    </div>
 </div>

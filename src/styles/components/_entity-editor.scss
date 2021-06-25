@@ -21,6 +21,20 @@ $ctrl-panel-height: px2em(40);
 .editor {
     color: #ffffff;
 
+    .editor__list__header {
+        font-size: px2em(12);
+        color: $primary-500;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: px2em(6);
+    }
+
+    .create-entity-button-wrapper {
+        position: fixed;
+        right: px2em(32);
+        bottom: px2em(32);
+    }
+
     &__list {
         &__header {
             padding: 0 px2em(36);
@@ -110,12 +124,27 @@ $ctrl-panel-height: px2em(40);
 
     .button-add {
         width: 100%;
+        color: #ffffff;
         border-radius: 3px;
+
+        .mat-button-wrapper {
+            text-shadow: 0 0 2px black;
+        }
     }
 }
 
 @media screen and (min-width: 600px) {
     .editor {
+        .editor__list__header {
+            padding: 0 px2em(44);
+        }
+
+        .create-entity-button-wrapper {
+            position: fixed;
+            right: px2em(36);
+            bottom: px2em(36);
+        }
+
         &__list {
             &__header {
                 padding: 0 px2em(36);
@@ -150,13 +179,29 @@ $ctrl-panel-height: px2em(40);
         }
 
         .button-add {
-            height: $entity-size-d;
+            &:not(.float) {
+                height: $entity-size-d;
+            }
+
+            &.float {
+                height: px2em(64);
+            }
         }
     }
 }
 
 @media screen and (max-width: 599px) {
     .editor {
+        .editor__list__header {
+            padding: 0 px2em(32);
+        }
+
+        .create-entity-button-wrapper {
+            position: fixed;
+            right: px2em(20);
+            bottom: px2em(20);
+        }
+
         &__list {
             &__header {
                 padding: 0 px2em(20);
@@ -191,7 +236,13 @@ $ctrl-panel-height: px2em(40);
         }
 
         .button-add {
-            height: $entity-size-m;
+            &:not(.float) {
+                height: $entity-size-m;
+            }
+
+            &.float {
+                height: px2em(48);
+            }
         }
     }
 }

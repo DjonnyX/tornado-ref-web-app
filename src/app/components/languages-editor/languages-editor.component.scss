@@ -53,7 +53,9 @@ $border-active: 2px solid $accent;
         }
 
         .button-add {
-            height: $entity-height-d;
+            &:not(.float) {
+                height: $entity-height-d;
+            }
         }
     }
 }
@@ -71,7 +73,9 @@ $border-active: 2px solid $accent;
         }
 
         .button-add {
-            height: $entity-height-m;
+            &:not(.float) {
+                height: $entity-height-m;
+            }
         }
     }
 }
