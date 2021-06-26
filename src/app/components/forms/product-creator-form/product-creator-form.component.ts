@@ -47,10 +47,15 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   private _systemTags: Array<ISystemTag>;
   @Input() set systemTags(v: Array<ISystemTag>) {
-    if (this._systemTags !== v) {
+    if (!!v && this._systemTags !== v) {
       this._systemTags = v;
 
-      this.ctrlSystemTag?.setValue(this.ctrlSystemTag?.value);
+      if (this.ctrlSystemTag?.value !== undefined) {
+        const ctrlSystemTagsValue = this.ctrlSystemTag.value?.toLowerCase();
+        const selectedSystemTag = this._systemTags?.find(t => t.name.toLocaleLowerCase() === ctrlSystemTagsValue ||
+          t.id.toLocaleLowerCase() === ctrlSystemTagsValue);
+        this.ctrlSystemTag.setValue(!!selectedSystemTag ? this.ctrlSystemTag?.value : undefined);
+      }
 
       this.generateData();
     }
@@ -85,7 +90,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   private _product: IProduct;
   @Input() set product(product: IProduct) {
-    if (product) {
+    if (!!product && this._product !== product) {
       this._product = product;
 
       this._state = { ...this._state, ...(this._product ? this._product.contents : undefined) };
@@ -235,7 +240,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
     this.systemTagsFilteredOptions = this.ctrlSystemTag.valueChanges.pipe(
       startWith(""),
-      map(name => name ? this._systemTagsFilter(name) : [...this.systemTags]),
+      map(name => name ? this._systemTagsFilter(name) : [...(this.systemTags || [])]),
     );
 
     this.resetInitState();

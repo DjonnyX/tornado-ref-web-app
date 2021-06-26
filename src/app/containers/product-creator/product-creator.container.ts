@@ -155,9 +155,12 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(ProductSelectors.selectIsUpdateProcess),
       ),
+      this._store.pipe(
+        select(SystemTagsSelectors.selectLoading),
+      ),
     ]).pipe(
-      map(([isCreateProcess, isUpdateProcess]) =>
-        isCreateProcess || isUpdateProcess),
+      map(([isCreateProcess, isUpdateProcess, isSystemTagsProcess]) =>
+        isCreateProcess || isUpdateProcess || isSystemTagsProcess),
     );
 
     this.isProcessHierarchy$ = this._store.pipe(

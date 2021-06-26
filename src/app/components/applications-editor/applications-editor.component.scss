@@ -17,7 +17,6 @@ $border-active: 2px solid $accent;
         border: $border-transpanent;
 
         .content {
-
             .content__name {
                 margin-top: auto;
                 margin-bottom: auto;
@@ -45,7 +44,9 @@ $border-active: 2px solid $accent;
         }
 
         .button-add {
-            height: $entity-height-d;
+            &:not(.float) {
+                height: $entity-height-d;
+            }
         }
     }
 }
@@ -63,7 +64,9 @@ $border-active: 2px solid $accent;
         }
 
         .button-add {
-            height: $entity-height-m;
+            &:not(.float) {
+                height: $entity-height-m;
+            }
         }
     }
 }

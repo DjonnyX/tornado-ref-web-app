@@ -41,7 +41,9 @@ $entity-width-d: px2em(190);
         }
 
         .button-add {
-            height: $entity-height-d;
+            &:not(.float) {
+                height: $entity-height-d;
+            }
         }
     }
 }
@@ -59,7 +61,9 @@ $entity-width-d: px2em(190);
         }
 
         .button-add {
-            height: $entity-height-m;
+            &:not(.float) {
+                height: $entity-height-m;
+            }
         }
     }
 }
