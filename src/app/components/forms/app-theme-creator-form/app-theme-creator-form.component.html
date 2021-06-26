@@ -33,12 +33,25 @@
                     <ng-container *ngIf="!!compiledThemeArray">
                         <ng-container *ngFor="let item of compiledThemeArray; let index = index">
                             <ng-container [ngSwitch]="item.value.type">
-                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.PROP" class="form__input-block">
+                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.STRING" class="form__input-block">
                                     <div class="form-item">
                                         <mat-label>{{item.name}}</mat-label>
                                         <mat-form-field class="full-width" appearance="outline">
                                             <!-- <mat-label>{{item.name}}</mat-label> -->
                                             <input matInput type="text" [formControlName]="item.name" placeholder="Имя"
+                                                required>
+                                            <mat-error *ngIf="hasControlError(item.name, 'required')">
+                                                <strong>обязательное</strong>
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div *ngSwitchCase="ThemeDescriptiorKeyTypes.NUMBER" class="form__input-block">
+                                    <div class="form-item">
+                                        <mat-label>{{item.name}}</mat-label>
+                                        <mat-form-field class="full-width" appearance="outline">
+                                            <!-- <mat-label>{{item.name}}</mat-label> -->
+                                            <input matInput type="number" [formControlName]="item.name" placeholder="Имя"
                                                 required>
                                             <mat-error *ngIf="hasControlError(item.name, 'required')">
                                                 <strong>обязательное</strong>
