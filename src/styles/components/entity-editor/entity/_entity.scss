@@ -23,6 +23,7 @@
 
         &__body {
             @extend .entity-container;
+            overflow: hidden;
 
             &__content {
                 position: relative;
@@ -66,10 +67,16 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            // padding: px2em(8) px2em(12);
             border-top-width: 1px;
             border-top-style: solid;
             min-height: $entity-footer-height;
+
+            &__container {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: $entity-footer-container_padding;
+            }
         }
 
         &__image {

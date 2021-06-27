@@ -67,7 +67,7 @@
                                                         {{getProductName(product)}}
                                                     </div>
                                                     <div class="entity__description">
-                                                        {{getProductDescription(product) | slice:0:120
+                                                        {{getProductDescription(product) | slice:0:60
                                                         }}{{getProductDescription(product).length > 20 ? "..." : ""}}
                                                     </div>
                                                 </div>
@@ -87,11 +87,13 @@
                                 </div>
 
                                 <div class="entity__footer">
-                                    <div class="tags">
-                                        <span class="tag" *ngFor="let tag of product.tags"
-                                            [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
-                                            {{getTagName(tag)}}
-                                        </span>
+                                    <div class="entity__footer__container">
+                                        <div class="tags">
+                                            <span class="tag" *ngFor="let tag of product.tags"
+                                                [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
+                                                {{getTagName(tag)}}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="color" [style.background]="getProductColor(product)"></div>
@@ -169,7 +171,7 @@
                                                     <div class="entity__description">
                                                         <!-- {{getProductDescription(product)}} -->
                                                         <!-- {{getProductDescription(product) | slice:0:120 -->
-                                                        {{getProductDescription(product) | slice:0:120
+                                                        {{getProductDescription(product) | slice:0:80
                                                         }}{{getProductDescription(product).length > 20 ? "..." : ""}}
                                                     </div>
                                                 </div>
@@ -178,17 +180,16 @@
                                     </div>
                                 </div>
                                 <div class="entity__footer">
-                                    <!-- <img align="center" *ngIf="hasThumbnail(product, 'x128')" class="entity__thumbnail"
-                                                                    [src]="getThumbnail(product, 'x128')"> -->
-                                    <div class="tags">
-                                        <span class="tag" *ngFor="let tag of product.tags"
-                                            [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
-                                            {{getTagName(tag)}}
-                                        </span>
+                                    <div class="entity__footer__container">
+                                        <div class="tags">
+                                            <span class="tag" *ngFor="let tag of product.tags"
+                                                [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
+                                                {{getTagName(tag)}}
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="color" [style.background]="getProductColor(product)"></div>
-
                             </div>
                         </div>
                     </div>

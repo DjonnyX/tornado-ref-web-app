@@ -2,16 +2,18 @@
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
-$tab-button-size: 32px;
+$tab-button-size: 40px;
 $tab-button-roundness: 4px;
 $tab-button-icon-size: 20px;
-$tab-button-background-color-normal: rgba($primary-color, 0.0);
-$tab-button-border-normal: 1px solid rgba($primary-color-300, 1.0);
-$tab-button-icon-color-normal: rgba($white, 0.35);
 
-$tab-button-background-color-active: rgba($primary-color, 1.0);
-$tab-button-border-active: 1px solid rgba($accent-color, 1.0);
-$tab-button-icon-color-active: rgba($accent-color, 1.0);
+$tab-button-opacity-normal: 0.2;
+$tab-button-background-color-normal: rgba($white, 1.0);
+$tab-button-border-normal: 1px solid rgba($background-color, 1.0);
+$tab-button-icon-color-normal: rgba($primary-color, $tab-button-opacity-normal);
+
+$tab-button-background-color-active: rgba($background-color, 1.0);
+$tab-button-border-active: 1px solid rgba($background-color, 1.0);
+$tab-button-icon-color-active: rgba($primary-color, 1.0);
 
 .filter {
     height: 100%;
@@ -35,9 +37,10 @@ $tab-button-icon-color-active: rgba($accent-color, 1.0);
     @include box($tab-button-size);
     display: block;
     position: relative;
-    // height: 100%;
     border-radius: $tab-button-roundness;
     overflow: hidden;
+    margin: 0;
+    padding: 0;
 
     &__container {
         display: flex;

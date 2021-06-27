@@ -1,4 +1,5 @@
 $entity-container_padding: 15px;
+$entity-footer-container_padding: 0px $entity-container_padding;
 $entity-width: 280px; //px2em(250);
 
 //Content Group
@@ -14,7 +15,7 @@ $entity-coast-font-size: 18px;
 $entity-control-height: 53px;
 $entity-footer-height: 52px;
 
-$entity-body-height: 168px;
+$entity-body-cards-height: 130px;//168px;
 
 $entity-border-radius: 8px;
 
