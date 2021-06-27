@@ -17,7 +17,7 @@
         //List template
         &.entities-list-layout {
             display: grid;
-            gap: 25px;
+            gap: $enities-cards-gap;
         }
     }
 }
@@ -29,7 +29,7 @@
 
             //Card template
             &.entities-card-layout {
-                gap: $enities-gap;
+                gap: $enities-list-gap;
                 grid-template-columns: repeat(auto-fill, minmax($entity-width, 1fr));
             }
         }

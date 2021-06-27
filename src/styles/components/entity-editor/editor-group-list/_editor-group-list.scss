@@ -7,6 +7,8 @@
     .editor__group-list__header {
         font-size: 11px;
         text-transform: uppercase;
-        @extend .entities-container
+        @extend .entities-container;
+        padding-top: 25px;
+        padding-bottom: 5px;
     }
 }

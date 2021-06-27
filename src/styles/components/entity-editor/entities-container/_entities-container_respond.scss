@@ -5,20 +5,20 @@
 @include respond-above (md) {
 
     .entities-container {
-        padding: 10px 30px;
+        padding: $entities-container-padding;
     }
 }
 
 @include respond-between (sm, md) {
 
     .entities-container {
-        padding: 10px 30px;
+        padding: $entities-container-padding;
     }
 }
 
 @include respond-below (sm) {
 
     .entities-container {
-        padding: 10px 20px;
+        padding: $entities-container-padding-sm;
     }
 }
