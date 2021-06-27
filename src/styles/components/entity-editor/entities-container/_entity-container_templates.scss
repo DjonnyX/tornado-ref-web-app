@@ -12,12 +12,13 @@
             grid-auto-flow: dense;
             grid-auto-rows: auto;
             align-items: center;
+            gap: $enities-cards-gap;
         }
 
         //List template
         &.entities-list-layout {
             display: grid;
-            gap: $enities-cards-gap;
+            gap: $enities-list-gap;
         }
     }
 }
@@ -29,7 +30,7 @@
 
             //Card template
             &.entities-card-layout {
-                gap: $enities-list-gap;
+                gap: $enities-cards-gap;
                 grid-template-columns: repeat(auto-fill, minmax($entity-width, 1fr));
             }
         }
