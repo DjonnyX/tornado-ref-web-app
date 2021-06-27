@@ -31,7 +31,8 @@
             }
 
             &__container {
-
+                display: flex;
+                gap: 20px;
             }
 
             &__gradient {
@@ -51,7 +52,7 @@
         &__name {
             font-size: $entity-title-font-size;
             font-weight: 400;
-            margin-bottom: px2em(6);
+            margin-bottom: 8px;
             line-height: $entity-title-line-height;
         }
 
@@ -65,18 +66,25 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: px2em(8) px2em(12);
+            // padding: px2em(8) px2em(12);
             border-top-width: 1px;
             border-top-style: solid;
+            min-height: $entity-footer-height;
         }
 
-        &__thumbnail {
-            // height: px2em(32);
-            overflow: hidden;
-            image-rendering: pixelated;
-            border-width: 1px;
-            border-style: solid;
-            background-color: #ffffff;
+        &__image {
+            display: block;
+            position: relative;
+            // overflow: hidden;
+
+            &__thumbnail {
+                overflow: hidden;
+                image-rendering: pixelated;
+                border-width: 1px;
+                border-style: solid;
+                background-color: #ffffff;
+                border-radius: $entity-image-radius;
+            }
         }
 
         &__control {
@@ -84,6 +92,8 @@
             justify-content: space-between;
             border-bottom-width: 1px;
             border-bottom-style: solid;
+            min-height: $entity-control-height;
+            align-items: center;
 
             &__checkbox {
                 display: flex;

@@ -57,14 +57,19 @@
                                             <div class="entity__body__container">
                                                 <!-- <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
                                             [src]="getThumbnail(product)"> -->
-                                                <img align="center" *ngIf="hasThumbnail(product, 'x128')"
-                                                    class="entity__thumbnail" [src]="getThumbnail(product, 'x128')">
-                                                <div class="entity__name">
-                                                    {{getProductName(product)}}
+                                                <div class="entity__image">
+                                                    <img align="center" *ngIf="hasThumbnail(product, 'x128')"
+                                                        class="entity__image__thumbnail"
+                                                        [src]="getThumbnail(product, 'x128')">
                                                 </div>
-                                                <div class="entity__description">
-                                                    {{getProductDescription(product) | slice:0:120
-                                                    }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                                                <div class="entity__text-group">
+                                                    <div class="entity__name">
+                                                        {{getProductName(product)}}
+                                                    </div>
+                                                    <div class="entity__description">
+                                                        {{getProductDescription(product) | slice:0:120
+                                                        }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <p class="form-header">
@@ -152,15 +157,21 @@
                                         <div class="entity__body__content">
                                             <div class="entity__body__gradient"></div>
                                             <div class="entity__body__container">
-                                                <img align="center" *ngIf="hasThumbnail(product, 'x128')"
-                                                    class="entity__thumbnail" [src]="getThumbnail(product, 'x128')">
-                                                <div class="entity__name">
-                                                    {{getProductName(product)}}
+                                                <div class="entity__image">
+                                                    <img align="center" *ngIf="hasThumbnail(product, 'x128')"
+                                                        class="entity__image__thumbnail"
+                                                        [src]="getThumbnail(product, 'x128')">
                                                 </div>
-                                                <div class="entity__description">
-                                                    {{getProductDescription(product)}}
-                                                    <!-- {{getProductDescription(product) | slice:0:120
-                                                                                }}{{getProductDescription(product).length > 20 ? "..." : ""}} -->
+                                                <div class="entity__text-group">
+                                                    <div class="entity__name">
+                                                        {{getProductName(product)}}
+                                                    </div>
+                                                    <div class="entity__description">
+                                                        <!-- {{getProductDescription(product)}} -->
+                                                        <!-- {{getProductDescription(product) | slice:0:120 -->
+                                                        {{getProductDescription(product) | slice:0:120
+                                                        }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -1,4 +1,4 @@
-$entity-container_padding: 10px 15px;
+$entity-container_padding: 15px;
 $entity-width: 280px; //px2em(250);
 
 //Content Group
@@ -11,10 +11,14 @@ $entity-description-line-height: 1.5;
 $entity-coast-font-size: 18px;
 
 //Containers
+$entity-control-height: 53px;
+$entity-footer-height: 52px;
+
 $entity-body-height: 168px;
 
 $entity-border-radius: 8px;
 
 //Templates
-$entities-thumbnail-list-size: 80px;
-$entities-thumbnail-card-size: 128px;
+$entity-image-cards-size: 128px;
+$entity-image-list-size: 80px;
+$entity-image-radius: 6px;

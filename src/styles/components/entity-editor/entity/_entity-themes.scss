@@ -17,9 +17,12 @@
             background-color: themed('entityBackgroundColor');  
         }
 
-        &__thumbnail {
-            @include themify($themes) {
-                border-color: themed('entityDividerBorderColor');
+        &__image {
+            
+            &__thumbnail {
+                @include themify($themes) {
+                    border-color: themed('entityDividerBorderColor');
+                }
             }
         }
 

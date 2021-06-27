@@ -5,6 +5,8 @@
 .editor__group-list {
 
     .editor__group-list__header {
+        font-size: 11px;
+        text-transform: uppercase;
         @extend .entities-container
     }
 }

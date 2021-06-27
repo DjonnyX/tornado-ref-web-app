@@ -19,9 +19,13 @@
                     }
                 }
 
-                &__thumbnail {
-                    height: $entities-thumbnail-card-size;
-                    border-radius: 12px;
+                &__image {
+                    @include box($entity-image-cards-size);
+
+                    &__thumbnail {
+                        @include box($entity-image-cards-size);
+                        // border-radius: 12px;
+                    }
                 }
             }
         }
@@ -39,9 +43,13 @@
                     
                 }
 
-                &__thumbnail {
-                    height: $entities-thumbnail-list-size;
-                    border-radius: 3px;
+                &__image {
+                    @include box($entity-image-list-size);
+
+                    &__thumbnail {
+                        @include box($entity-image-list-size);
+                        // border-radius: 3px;
+                    }
                 }
             }
         }
