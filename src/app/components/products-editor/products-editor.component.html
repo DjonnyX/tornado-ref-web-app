@@ -39,15 +39,15 @@
                             <div class="entity"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
-                                <div class="entity__top-container">
+                                <div class="entity__wrapper">
                                     <!-- Controls -->
                                     <div class="entity__control">
-                                        <div class="entity__control__checkbox">
-                                            <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                                                (click)="onToggleActive($event, product)"></mat-checkbox>
+                                        <div class="entity__control__container">
+                                            <div class="entity__control__checkbox">
+                                                <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
+                                                    (click)="onToggleActive($event, product)"></mat-checkbox>
+                                            </div>
                                         </div>
-                                        <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}">
-                                        </ng-container>
                                     </div>
                                     <!-- Controls -->
                                     <!-- Entity Active-Zone -->
@@ -70,6 +70,13 @@
                                                         {{getProductDescription(product) | slice:0:60
                                                         }}{{getProductDescription(product).length > 20 ? "..." : ""}}
                                                     </div>
+                                                    <div class="tags">
+                                                        <span class="tag" *ngFor="let tag of product.tags"
+                                                            [style.background]="getTagColor(tag)"
+                                                            [matTooltip]="getTagName(tag)">
+                                                            {{getTagName(tag)}}
+                                                        </span>
+                                                    </div>
                                                 </div>
                                                 <div>
                                                     <p class="form-header">
@@ -84,15 +91,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="entity__footer">
-                                    <div class="entity__footer__container">
-                                        <div class="tags">
-                                            <span class="tag" *ngFor="let tag of product.tags"
-                                                [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
-                                                {{getTagName(tag)}}
-                                            </span>
+                                    <div class="entity__footer">
+                                        <div class="entity__footer__container">
+                                            <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}">
+                                            </ng-container>
                                         </div>
                                     </div>
                                 </div>
@@ -146,14 +148,17 @@
                             <div class="entity"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
-                                <div class="entity__top-container">
+                                <div class="entity__wrapper">
                                     <div class="entity__control">
-                                        <div class="entity__control__checkbox">
-                                            <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                                                (click)="onToggleActive($event, product)"></mat-checkbox>
+                                        <div class="entity__control__container">
+                                            <div class="entity__control__checkbox">
+                                                <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
+                                                    (click)="onToggleActive($event, product)">
+                                                </mat-checkbox>
+                                            </div>
+                                            <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}">
+                                            </ng-container>
                                         </div>
-                                        <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}">
-                                        </ng-container>
                                     </div>
                                     <div matRipple class="entity__body" (click)="onEditProduct(product)">
                                         <div class="entity__body__content">

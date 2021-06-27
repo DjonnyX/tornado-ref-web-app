@@ -1,5 +1,12 @@
 $entity-container_padding: 15px;
-$entity-footer-container_padding: 0px $entity-container_padding;
+
+//Footer
+$entity-footer-container_cards_padding: 0px $entity-container_padding;
+$entity-footer-container_list_padding: 0px 5px;
+
+$entity-control-container_cards_padding: 0px $entity-container_padding;
+$entity-control-container_list_padding: 0px 15px;
+
 $entity-width: 280px; //px2em(250);
 
 //Content Group

@@ -11,11 +11,34 @@
             
             .entity {
 
+                &__wrapper {
+                    flex-direction: column;
+                }
+
                 &__body {
                     height: $entity-body-cards-height;
 
                     &__gradient {
                         display: block;
+                    }
+                }
+
+                &__control {
+                    border-bottom-width: 1px;
+                    border-bottom-style: solid;
+
+                    &__container {
+                        width: 100%;
+                        padding: $entity-control-container_cards_padding;
+                    }
+                }
+
+                &__footer {
+                    border-top-width: 1px;
+                    border-top-style: solid;
+
+                    &__container {
+                        padding: $entity-footer-container_cards_padding;
                     }
                 }
 
@@ -35,12 +58,35 @@
             
             .entity {
 
+                &__wrapper {
+                    flex-direction: row;
+                }
+
                 &__body {
+                    width: 100%;
 
                     &__gradient {
                         display: none;
                     }
                     
+                }
+
+                &__control { 
+                    border-right-width: 1px;
+                    border-right-style: solid; 
+
+                    &__container {
+                        padding: $entity-control-container_list_padding;
+                    }
+                }
+
+                &__footer {
+                    border-left-width: 1px;
+                    border-left-style: solid;
+
+                    &__container {
+                        padding: $entity-footer-container_list_padding;
+                    }
                 }
 
                 &__image {
@@ -50,6 +96,10 @@
                         @include box($entity-image-list-size);
                         // border-radius: 3px;
                     }
+                }
+
+                .tags {
+                    margin-top: 10px;
                 }
             }
         }
