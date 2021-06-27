@@ -14,6 +14,7 @@ $themes: (
     searchBackgroundColor: $background-color,
     textColor: $primary-color,
     //Entity
+    entityGroupListColor: rgba($secondary-color, 0.4),//lighten($primary-color, 40),
     entityBackgroundColor: $white,
     entityTitleColor: $primary-color,
     entityDescriptionColor: $primary-color-300,
@@ -32,6 +33,7 @@ $themes: (
     searchBackgroundColor: $background-color,
     textColor: $white,
     //Entity
+    entityGroupListColor: $white,
     entityBackgroundColor: $primary-color-100,
     entityTitleColor: lighten($primary-color, 95),
     entityDescriptionColor: lighten($primary-color, 50),

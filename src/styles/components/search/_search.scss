@@ -4,14 +4,16 @@
 @import "../../mixins";
 
 .search {
-    display: block;
+    display: flex;
     position: relative;
-    box-shadow: inset 0px 2px 6px rgba($black, 0.05);
+    vertical-align: middle;
+    // box-shadow: inset 0px 2px 6px rgba($black, 0.05);
     padding: $search-padding;
     border-radius: 32px;
+    height: 36px;
 
     &__form {
-        display: block;
+        display: flex;
         position: relative;
         width: 100%;
 
@@ -22,28 +24,70 @@
             width: 100%;
         }
 
+        &__button-search {
+            display: flex;
+            position: relative;
+            background: none;
+            // color: $secondary-color;
+            margin-right: 7px;
+            z-index: 2;
+            @include transition(width border, 75ms 75ms, ease, 0s);
+
+            //Icon
+            &__icon {
+                display: block;
+                position: relative;
+                font-size: $search-button-search-icon-size;
+                line-height: 1;
+                margin: auto;
+                color: rgba($secondary-color, 0.4);
+                // @extend .icon-search;
+                
+                &:before {
+                    content: "\e901";
+                }
+            }
+        }
+
         &__button-clear {
             display: flex;
             position: absolute;
             right: 0;
-            @include box($search-button-clear-size);
-            background-color: $search-button-clear-background-color;
-            color: $search-button-clear-color;
-            border-radius: $search-button-clear-border-radius;
+            width: 20px;
+            height: 100%;
+            margin: 0;
             z-index: 2;
             @include transition(width border, 75ms 75ms, ease, 0s);
 
-            &:active {
-                opacity: 0.5;
-                transform: scale(75%);
+            &__container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: auto;
+                background-color: $primary-color;//$search-button-clear-background-color;
+                color: $background-color;//$search-button-clear-color;
+                border-radius: $search-button-clear-border-radius;
+                @include box($search-button-clear-size);
             }
 
+            &:active {
+                opacity: 0.5;
+                transform: scale(90%);
+            }
+
+            //Icon
             &__icon {
                 display: block;
                 position: relative;
                 font-size: $search-button-clear-icon-size;
                 line-height: 1;
                 margin: auto;
+                color: $white;
+                // @extend .icon-search-cross;
+                
+                &:before {
+                    content: "\e900";
+                }
             }
         }
 
@@ -79,6 +123,17 @@
         @include transition(width border, 125ms 125ms, ease, 0s);
         border: $search-border-opened;
         width: $search-width-opened;
+
+        &__form {
+
+            &__button-search {
+                
+                &__icon {
+                    color: $secondary-color;
+                }
+            }
+
+        }
     }
     //Search closed
     & {

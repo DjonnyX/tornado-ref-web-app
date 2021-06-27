@@ -1,0 +1,17 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+
+/*
+ * Themes
+ */
+
+ .editor__group-list {
+
+    .editor__group-list__header {
+        @include themify($themes) {
+            color: themed('entityGroupListColor');  
+        }
+    }
+}

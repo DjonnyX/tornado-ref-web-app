@@ -32,10 +32,10 @@
         <ng-container *ngSwitchCase="LayoutTypes.LIST">
             <div class="editor__container">
                 <!--Entity Wrapper-->
-                <div class="entities-container entities-list-layout">
-                    <ng-container *ngFor="let systemTag of actualSystemTags">
-                        <div class="editor__list">
-                            <div class="editor__list__header">{{systemTag?.name || 'Не распределены'}}</div>
+                <ng-container *ngFor="let systemTag of actualSystemTags">
+                    <div class="editor__group-list">
+                        <div class="editor__group-list__header">{{systemTag?.name || 'Не распределены'}}</div>
+                        <div class="entities-container entities-list-layout">
                             <div class="entity"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
@@ -94,34 +94,35 @@
 
                             </div>
                         </div>
-                    </ng-container>
+                    </div>
+                </ng-container>
 
-                    <!-- Entity -->
+                <!-- Entity -->
 
-                    <!-- Entity -->
-                    <!--ButtonAdd-->
+                <!-- Entity -->
+                <!--ButtonAdd-->
 
-                    <!-- <ng-container *ngIf="hasCreate()">
+                <!-- <ng-container *ngIf="hasCreate()">
                     <button color="accent" mat-raised-button class="button-add" (click)="onCreateProduct()">
                         <mat-icon class="button-add-icon">add</mat-icon>
                     </button>
                 </ng-container> -->
 
-                    <!-- Panel Add Item -->
-                    <ng-container *ngIf="hasCreate()">
-                        <div class="entities-bottom-panel">
-                            <div class="entities-bottom-panel__container">
-                                <button color="accent" class="button-add" (click)="onCreateProduct()">
-                                    <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-                                    <div class="">Добавить элемент</div>
-                                </button>
-                            </div>
+                <!-- Panel Add Item -->
+                <ng-container *ngIf="hasCreate()">
+                    <div class="entities-bottom-panel">
+                        <div class="entities-bottom-panel__container">
+                            <button color="accent" class="button-add" (click)="onCreateProduct()">
+                                <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                                <div class="">Добавить элемент</div>
+                            </button>
                         </div>
-                    </ng-container>
-                    <!-- Panel Add Item -->
+                    </div>
+                </ng-container>
+                <!-- Panel Add Item -->
 
-                    <!--ButtonAdd-->
-                </div>
+                <!--ButtonAdd-->
+                <!-- </div> -->
             </div>
             <!--Entity Wrapper-->
         </ng-container>
@@ -131,10 +132,10 @@
         <!-- Card-template -->
         <ng-container *ngSwitchCase="LayoutTypes.CARD">
             <div class="editor__container">
-                <div class="entities-container entities-card-layout">
-                    <ng-container *ngFor="let systemTag of actualSystemTags">
-                        <div class="editor__list">
-                            <div class="editor__list__header">{{systemTag?.name || 'Не распределены'}}</div>
+                <ng-container *ngFor="let systemTag of actualSystemTags">
+                    <div class="editor__group-list">
+                        <div class="editor__group-list__header">{{systemTag?.name || 'Не распределены'}}</div>
+                        <div class="entities-container entities-card-layout">
                             <div class="entity"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
@@ -159,7 +160,7 @@
                                                 <div class="entity__description">
                                                     {{getProductDescription(product)}}
                                                     <!-- {{getProductDescription(product) | slice:0:120
-                                            }}{{getProductDescription(product).length > 20 ? "..." : ""}} -->
+                                                                                }}{{getProductDescription(product).length > 20 ? "..." : ""}} -->
                                                 </div>
                                             </div>
                                         </div>
@@ -167,7 +168,7 @@
                                 </div>
                                 <div class="entity__footer">
                                     <!-- <img align="center" *ngIf="hasThumbnail(product, 'x128')" class="entity__thumbnail"
-                                [src]="getThumbnail(product, 'x128')"> -->
+                                                                    [src]="getThumbnail(product, 'x128')"> -->
                                     <div class="tags">
                                         <span class="tag" *ngFor="let tag of product.tags"
                                             [style.background]="getTagColor(tag)" [matTooltip]="getTagName(tag)">
@@ -176,30 +177,32 @@
                                     </div>
                                 </div>
                                 <div class="color" [style.background]="getProductColor(product)"></div>
+
                             </div>
                         </div>
-                    </ng-container>
+                    </div>
+                </ng-container>
 
-                    <!-- <ng-container *ngIf="hasCreate()">
+                <!-- <ng-container *ngIf="hasCreate()">
                                         <button color="accent" mat-raised-button class="button-add" (click)="onCreateProduct()">
                                             <mat-icon class="button-add-icon">add</mat-icon>
                                         </button>
                                     </ng-container> -->
 
-                    <!-- Panel Add Item -->
-                    <ng-container *ngIf="hasCreate()">
-                        <div class="entities-bottom-panel">
-                            <div class="entities-bottom-panel__container">
-                                <button color="accent" class="button-add" (click)="onCreateProduct()">
-                                    <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-                                    <div class="">Добавить элемент</div>
-                                </button>
-                            </div>
+                <!-- Panel Add Item -->
+                <ng-container *ngIf="hasCreate()">
+                    <div class="entities-bottom-panel">
+                        <div class="entities-bottom-panel__container">
+                            <button color="accent" class="button-add" (click)="onCreateProduct()">
+                                <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                                <div class="">Добавить элемент</div>
+                            </button>
                         </div>
-                    </ng-container>
-                    <!-- Panel Add Item -->
-                </div>
+                    </div>
+                </ng-container>
+                <!-- Panel Add Item -->
             </div>
+            <!-- </div> -->
 
         </ng-container>
     </ng-container>

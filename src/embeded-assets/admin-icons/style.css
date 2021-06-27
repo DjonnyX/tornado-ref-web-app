@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'admin-icons';
-  src:  url('fonts/admin-icons.eot?fouhm9');
-  src:  url('fonts/admin-icons.eot?fouhm9#iefix') format('embedded-opentype'),
-    url('fonts/admin-icons.ttf?fouhm9') format('truetype'),
-    url('fonts/admin-icons.woff?fouhm9') format('woff'),
-    url('fonts/admin-icons.svg?fouhm9#admin-icons') format('svg');
+  font-family: 'icomoon';
+  src:  url('fonts/icomoon.eot?bbp9l');
+  src:  url('fonts/icomoon.eot?bbp9l#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?bbp9l') format('truetype'),
+    url('fonts/icomoon.woff?bbp9l') format('woff'),
+    url('fonts/icomoon.svg?bbp9l#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -12,7 +12,7 @@
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'admin-icons' !important;
+  font-family: 'icomoon' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -25,11 +25,21 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-filter-card:before {
+.icon-search-cross:before {
   content: "\e900";
-  color: #394a53;
+}
+.icon-search:before {
+  content: "\e901";
+}
+.icon-filter-hide:before {
+  content: "\e904";
+}
+.icon-filter-show:before {
+  content: "\e905";
+}
+.icon-filter-card:before {
+  content: "\e902";
 }
 .icon-filter-list:before {
-  content: "\e901";
-  color: #394a53;
+  content: "\e903";
 }

@@ -1,0 +1,10 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.editor__group-list {
+
+    .editor__group-list__header {
+        @extend .entities-container
+    }
+}
