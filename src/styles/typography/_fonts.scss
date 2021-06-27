@@ -18,12 +18,12 @@
   font-style: normal;
 }
 
-// @font-face {
-//   font-family: "Roboto";
-//   src: url("~embeded-assets/fonts/Roboto-Light.eot?#iefix") format("embedded-opentype"),
-//     url("~embeded-assets/fonts/Roboto-Light.woff") format("woff"),
-//     url("~embeded-assets/fonts/Roboto-Light.ttf") format("truetype"),
-//     url("~embeded-assets/fonts/Roboto-Light.svg#Roboto-Light") format("svg");
-//   font-weight: 300;
-//   font-style: normal;
-// }
+@font-face {
+  font-family: "Roboto";
+  src: url("~embeded-assets/fonts/Roboto-Light.eot?#iefix") format("embedded-opentype"),
+    url("~embeded-assets/fonts/Roboto-Light.woff") format("woff"),
+    url("~embeded-assets/fonts/Roboto-Light.ttf") format("truetype"),
+    url("~embeded-assets/fonts/Roboto-Light.svg#Roboto-Light") format("svg");
+  font-weight: 300;
+  font-style: normal;
+}
