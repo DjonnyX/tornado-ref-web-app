@@ -4,7 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
-import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag } from '@djonnyx/tornado-types';
+import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag, ICurrency } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
@@ -64,6 +64,19 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() tagList: Array<ITag>;
 
+  private _currenciesMap: { [code: string]: ICurrency } = {};
+  private _currencies: Array<ICurrency>;
+  @Input() set currencies(v: Array<ICurrency>) {
+    if (this._currencies !== v) {
+      this._currencies = v;
+
+      this._currenciesMap = {};
+      this._currencies?.forEach(c => {
+        this._currenciesMap[c.id] = c;
+      });
+    }
+  }
+
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
@@ -105,6 +118,20 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  getPrices(product: IProduct): string {
+    let result = "";
+
+    product?.prices?.forEach((p, i) => {
+      if (i > 0) {
+        result += "; ";
+      }
+
+      result += `${((p.value || 0) * 0.01).toFixed(2)}${this._currenciesMap[p.currency]?.symbol}`;
+    });
+
+    return result;
   }
 
   resetActualSystemTags() {

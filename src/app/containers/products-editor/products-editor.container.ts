@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { ProductsSelectors, AssetsSelectors, LanguagesSelectors, UserSelectors, SystemTagsSelectors } from '@store/selectors';
+import { ProductsSelectors, AssetsSelectors, LanguagesSelectors, UserSelectors, SystemTagsSelectors, CurrenciesSelectors } from '@store/selectors';
 import { ProductsActions } from '@store/actions/products.action';
 import { IAsset } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,9 +12,10 @@ import { ProductActions } from '@store/actions/product.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { BaseComponent } from '@components/base/base-component';
 import { map, filter } from 'rxjs/operators';
-import { IProduct, ITag, IRef, ILanguage, UserRights, ISystemTag } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IRef, ILanguage, UserRights, ISystemTag, ICurrency } from '@djonnyx/tornado-types';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { SystemTagsActions } from '@store/actions/system-tags.action';
+import { CurrenciesActions } from '@store/actions/currencies.action';
 
 @Component({
   selector: 'ta-products-editor',
@@ -31,6 +32,8 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
   public collection$: Observable<Array<IProduct>>;
 
   public tags$: Observable<Array<ITag>>;
+
+  public currencies$: Observable<Array<ICurrency>>;
 
   public systemTags$: Observable<Array<ISystemTag>>;
 
@@ -70,9 +73,12 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(CurrenciesSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess, isSystemTagsProcess]) =>
-        isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess || isSystemTagsProcess),
+      map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess, isSystemTagsProcess, isGetCyrrenciesProcess]) =>
+        isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess || isSystemTagsProcess || isGetCyrrenciesProcess),
     );
 
     this.tags$ = this._store.pipe(
@@ -99,6 +105,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       select(LanguagesSelectors.selectCollection),
     );
 
+    this.currencies$ = this._store.pipe(
+      select(CurrenciesSelectors.selectCollection),
+    );
+
     this.defaultLanguage$ = this.languages$.pipe(
       filter(languages => !!languages),
       map(languages => languages.find(v => !!v.isDefault)),
@@ -116,6 +126,7 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
         !!collection && !!assets && !!languages && !!tags && !!systemTags),
     );
 
+    this._store.dispatch(CurrenciesActions.getAllRequest({}));
     this._store.dispatch(ProductsActions.getAllRequest({}));
     this._store.dispatch(TagsActions.getAllRequest({}));
     this._store.dispatch(SystemTagsActions.getAllRequest({}));
@@ -126,6 +137,7 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
+    this._store.dispatch(CurrenciesActions.clear());
     this._store.dispatch(ProductsActions.clear());
     this._store.dispatch(TagsActions.clear());
     this._store.dispatch(SystemTagsActions.clear());
