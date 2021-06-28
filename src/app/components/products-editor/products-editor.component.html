@@ -70,18 +70,20 @@
                                                         {{getProductDescription(product) | slice:0:60
                                                         }}{{getProductDescription(product).length > 20 ? "..." : ""}}
                                                     </div>
-                                                    <div class="tags">
-                                                        <span class="tag" *ngFor="let tag of product.tags"
-                                                            [style.background]="getTagColor(tag)"
-                                                            [matTooltip]="getTagName(tag)">
-                                                            {{getTagName(tag)}}
-                                                        </span>
+                                                    <div class="entity__elements-group">
+                                                        <div class="tags">
+                                                            <span class="tag" *ngFor="let tag of product.tags"
+                                                                [style.background]="getTagColor(tag)"
+                                                                [matTooltip]="getTagName(tag)">
+                                                                {{getTagName(tag)}}
+                                                            </span>
+                                                        </div>
+                                                        <p class="entity__coast">
+                                                            435р.
+                                                        </p>
                                                     </div>
                                                 </div>
                                                 <div>
-                                                    <p class="form-header">
-                                                        Цена
-                                                    </p>
 
                                                     <!-- <div class="prices__wrapper">
                                                 <ta-prices [prices]="product.prices" (update)="onChangePrices($event)">
@@ -192,6 +194,9 @@
                                                 {{getTagName(tag)}}
                                             </span>
                                         </div>
+                                        <p class="entity__coast">
+                                            435р.
+                                        </p>
                                     </div>
                                 </div>
                                 <div class="color" [style.background]="getProductColor(product)"></div>

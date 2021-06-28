@@ -19,6 +19,7 @@ $themes: (
     entityBackgroundColor: $white,
     entityTitleColor: $primary-color,
     entityDescriptionColor: rgba($secondary-color, 0.4),
+    entityCoastColor: $primary-color,
     entityActionMenuButtonColor: $primary-color,
     entityDividerBorderColor: $divider-color-light,
     //Base button
@@ -37,8 +38,9 @@ $themes: (
     //Entity
     entityGroupListColor: $white,
     entityBackgroundColor: $primary-color-100,
-    entityTitleColor: lighten($primary-color, 95),
-    entityDescriptionColor: lighten($primary-color, 50),
+    entityTitleColor: $background-color,
+    entityDescriptionColor: rgba($background-color, 0.4),
+    entityCoastColor: $background-color,
     entityActionMenuButtonColor: $white,
     entityDividerBorderColor: $divider-color-dark,
     //Base button
