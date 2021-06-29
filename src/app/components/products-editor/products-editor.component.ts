@@ -128,7 +128,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
         result += "; ";
       }
 
-      result += `${((p.value || 0) * 0.01).toFixed(2)}${this._currenciesMap[p.currency]?.symbol}`;
+      result += `${((p.value || 0) * 0.01).toFixed(0)}${this._currenciesMap[p.currency]?.symbol}`;
     });
 
     return result;
