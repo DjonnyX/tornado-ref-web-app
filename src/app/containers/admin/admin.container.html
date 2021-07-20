@@ -15,7 +15,7 @@
         <mat-sidenav class="mat-elevation-z2" role="navigation" ngClass.xs="sidenav--xs"
             [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
-            <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
+            <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
                 (select)="selectRoute($event)">
             </ta-navigation-menu>
         </mat-sidenav>
