@@ -9,7 +9,8 @@ $color: #5c707c;
 .navigation-menu {
     min-width: 340px;
     width: 100%;
-    color: $primary-800; //Common items
+    color: $menu-item-color; //Common items
+    background-color: $primary-color;
 
     &__item,
     &__expantion-item {
@@ -27,6 +28,28 @@ $color: #5c707c;
 
         &-icon {
             font-size: $icon-size;
+            
+            &::before {
+                color: inherit;
+            }
+        }
+    }
+
+    &__item {
+        user-select: none;
+
+        &-label {
+            color: inherit;
+            font-size: $text-size;
+            font-weight: 400;
+        }
+
+        &-icon {
+            font-size: $icon-size;
+            
+            &::before {
+                color: inherit;
+            }
         }
     }
 
@@ -46,7 +69,7 @@ $color: #5c707c;
 
     &__item,
     .expantion-item__wrapper {
-        padding: px2em(20);
+        padding: px2em(25); //item gap
     }
 
     .expantion-item__wrapper {
@@ -64,7 +87,7 @@ $color: #5c707c;
         gap: px2em(24);
 
         &.selected {
-            background: rgba($accent, 0.35);
+            background: $primary-color-50;
         }
         // expanded item-label
         &-label {
@@ -92,7 +115,7 @@ $color: #5c707c;
 .navigation-menu {
     .expantion-item__wrapper {
         box-shadow: none;
-        color: rgba($primary-700, 0.35);
+        color: $menu-expantion-item-color;
     }
 
     &__expantion-item {
@@ -100,7 +123,7 @@ $color: #5c707c;
 
         &-label {
             color: inherit;
-            font-size: 12px;
+            // font-size: 12px;
             font-weight: 400;
             // opacity: 0.5;  //nested  group of items
         }

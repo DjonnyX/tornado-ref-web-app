@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?dcdff8');
-  src:  url('fonts/icomoon.eot?dcdff8#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?dcdff8') format('truetype'),
-    url('fonts/icomoon.woff?dcdff8') format('woff'),
-    url('fonts/icomoon.svg?dcdff8#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?88hsdp');
+  src:  url('fonts/icomoon.eot?88hsdp#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?88hsdp') format('truetype'),
+    url('fonts/icomoon.woff?88hsdp') format('woff'),
+    url('fonts/icomoon.svg?88hsdp#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -27,88 +27,106 @@
 
 .icon-backups:before {
   content: "\e900";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-banners:before {
   content: "\e901";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-business-periods:before {
   content: "\e902";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-currency:before {
   content: "\e903";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-devices:before {
   content: "\e904";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-folder:before {
   content: "\e905";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-folder-menu:before {
   content: "\e906";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-folder-themes:before {
   content: "\e907";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-languages:before {
   content: "\e908";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-license:before {
   content: "\e909";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-markets:before {
   content: "\e90a";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-menu-group:before {
   content: "\e90b";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-menu-theme:before {
   content: "\e90c";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-modifiers-group:before {
   content: "\e90e";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-order-admin:before {
   content: "\e90f";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-order-types:before {
   content: "\e910";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-products:before {
   content: "\e911";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-queue:before {
   content: "\e912";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-splash-screen:before {
   content: "\e913";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-splash-screen-disconnected:before {
   content: "\e914";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-tags:before {
   content: "\e915";
-  color: inherit;
+  color: #f0f0f0;
 }
 .icon-saturn-logo:before {
   content: "\e90d";
+}
+.icon-search-cross:before {
+  content: "\e916";
+}
+.icon-search:before {
+  content: "\e917";
+}
+.icon-filter-hide:before {
+  content: "\e918";
+}
+.icon-filter-show:before {
+  content: "\e919";
+}
+.icon-filter-card:before {
+  content: "\e91a";
+}
+.icon-filter-list:before {
+  content: "\e91b";
 }
