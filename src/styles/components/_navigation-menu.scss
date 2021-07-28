@@ -61,6 +61,7 @@ $color: #5c707c;
 
     .navigation-menu__expantion-item + .navigation-menu__expantion-item {
         border-top: none;
+        border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
     .navigation-menu:last-child .navigation-menu__expantion-item:last-child {
