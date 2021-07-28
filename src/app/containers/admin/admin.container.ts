@@ -89,7 +89,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
           children: [
             {
               icon: "menu-theme",
-              name: "Киоск",
+              name: "Меню",
               route: "themes-kiosk",
             },
             {
