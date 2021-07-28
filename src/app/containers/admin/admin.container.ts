@@ -22,6 +22,8 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   isMobile$: Observable<boolean>;
 
+  size$: Observable<string>;
+
   currentRouteIndex$: Observable<number>;
 
   currentRoute$: Observable<INavRoute>;
@@ -30,7 +32,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   roteCollection: Array<INavRoute> = [
     {
-      icon: "settings",
+      icon: "folder",
       name: "Настройки",
       roles: [RoleTypes.ADMIN],
       children: [
@@ -57,7 +59,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       ]
     },
     {
-      icon: "settings",
+      icon: "folder",
       name: "Настройки",
       roles: [RoleTypes.CLIENT],
       children: [
@@ -67,36 +69,36 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
           route: "licenses-account",
         },
         {
-          icon: "terminal",
+          icon: "devices",
           name: "Устройства",
           route: "terminals",
         },
         {
-          icon: "store",
+          icon: "markets",
           name: "Магазины",
           route: "stores",
         },
         {
-          icon: "backup",
+          icon: "backups",
           name: "Бэкапы",
           route: "backups",
         },
         {
-          icon: "themes",
+          icon: "folder-themes",
           name: "Темы",
           children: [
             {
-              icon: "kiosk",
+              icon: "menu-theme",
               name: "Киоск",
               route: "themes-kiosk",
             },
             {
-              icon: "eq",
+              icon: "queue",
               name: "Электронная очередь",
               route: "themes-eq",
             },
             {
-              icon: "order-picker",
+              icon: "order-admin",
               name: "Сборщик заказов",
               route: "themes-order-picker",
             },
@@ -105,87 +107,100 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       ]
     },
     {
-      icon: "refs",
-      name: "Справочники",
+      icon: "folder",
+      name: "Контент",
       roles: [RoleTypes.CLIENT],
       children: [
         {
-          icon: "menu",
-          name: "Меню",
-          route: "menu-tree",
-        },
-        {
-          icon: "products",
-          name: "Товары",
-          route: "products",
-        },
-        {
-          icon: "categories",
-          name: "Группы",
+          icon: "folder-menu",
+          name: "Формирование меню",
           children: [
             {
-              icon: "categories-menu",
-              name: "Группы меню",
-              route: "menu-categories",
+              icon: "menu-theme",
+              name: "Меню",
+              route: "menu-tree",
             },
             {
-              icon: "categories-constructor",
-              name: "Группы модификаторов",
-              route: "schema-categories",
+              icon: "products",
+              name: "Товары",
+              route: "products",
             },
-          ]
+            {
+              icon: "tags",
+              name: "Тэги",
+              route: "tags",
+            },
+            {
+              icon: "folder-menu",
+              name: "Группы",
+              children: [
+                {
+                  icon: "menu-group",
+                  name: "Группы меню",
+                  route: "menu-categories",
+                },
+                {
+                  icon: "modifiers-group",
+                  name: "Группы модификаторов",
+                  route: "schema-categories",
+                },
+              ]
+            },
+          ],
         },
         {
-          icon: "checkue",
-          name: "Чеки",
-          route: "checkues",
-          right: UserRights.ENABLE_CHECKUES,
-        },
-        {
-          icon: "currencies",
-          name: "Валюты",
-          route: "currencies",
-        },
-        {
-          icon: "tags",
-          name: "Тэги",
-          route: "tags",
-        },
-        {
-          icon: "order-types",
-          name: "Типы заказов",
-          route: "order-types",
-        },
-        {
-          icon: "business-periods",
-          name: "Бизнес-периоды",
-          route: "business-periods",
-        },
-        {
-          icon: "languages",
-          name: "Языки",
-          route: "languages",
-        },
-        {
-          icon: "ads",
+          icon: "folder",
           name: "Рекламы",
           children: [
             {
-              icon: "intros",
+              icon: "splash-screen",
               name: "Заставки",
               route: "intros",
+            },
+            {
+              icon: "splash-screen-disconnected",
+              name: "Заставка (терминал не работает)",
+              route: "service-unavailable-intros",
             },
             {
               icon: "banners",
               name: "Банеры",
               route: "banners",
             },
-            {
-              icon: "intros",
-              name: "Заставка (терминал не работает)",
-              route: "service-unavailable-intros",
-            },
           ],
+        },
+        {
+          icon: "folder",
+          name: "Дополнительно",
+          children: [
+            {
+              icon: "checkue",
+              name: "Чеки",
+              route: "checkues",
+              right: UserRights.ENABLE_CHECKUES,
+            },
+            {
+              icon: "currency",
+              name: "Валюты",
+              route: "currencies",
+            },
+
+            {
+              icon: "order-types",
+              name: "Типы заказов",
+              route: "order-types",
+            },
+            {
+              icon: "business-periods",
+              name: "Бизнес-периоды",
+              route: "business-periods",
+            },
+            {
+              icon: "languages",
+              name: "Языки",
+              route: "languages",
+            },
+          ]
         },
       ]
     },
@@ -283,13 +298,16 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       map(index => this.findRouteByIndex(index, this.roteCollection)),
     );
 
-    this.isMobile$ = this._media.media$.pipe(
-      map(v => v.suffix === 'Xs')
+    this.size$ = this._media.media$.pipe(
+      takeUntil(this.unsubscribe$),
+      map(v => v.suffix?.toLowerCase()),
     );
 
-    this.isMobile$.pipe(
-      takeUntil(this.unsubscribe$),
-    ).subscribe(v => {
+    this.isMobile$ = this.size$.pipe(
+      map(v => v === "xs"),
+    );
+
+    this.isMobile$.subscribe(v => {
       if (!v) this._store.dispatch(AdminActions.setSidenavOpen({ sidenavIsOpen: false }));
     });
   }
