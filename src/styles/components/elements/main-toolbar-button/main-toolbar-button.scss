@@ -1,0 +1,26 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.main-toolbar {
+
+    &__button {
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+        color: #7B7D83;
+        width: auto;
+        background: none;
+    }
+
+    &__icon {
+        display: inline-block;
+        font-family: icons;
+        margin: auto;
+        color: $background-color;
+
+        &::before {
+            font-size: $tab-button-icon-size;
+        }
+    }
+
+}

@@ -7,17 +7,21 @@
         </span>
         <span class="page-title">{{(currentRoute$ | async)?.name}}</span>
         <span class="spacer"></span>
-        <button mat-icon-button (click)="signout()">
-            <mat-icon>exit_to_app</mat-icon>
+        <button (click)="signout()" class="main-toolbar__button">
+            <p>Выйти</p>
+            <span class="main-toolbar__icon icon-signout"></span>
         </button>
+        <!-- <button mat-icon-button (click)="signout()">
+            <mat-icon>exit_to_app</mat-icon>
+        </button> -->
     </mat-toolbar>
     <mat-sidenav-container (backdropClick)="closeSidenav()" [hasBackdrop]="isMobile$ | async"
         class="drawer-container admin__view__wrapper">
         <mat-sidenav class="mat-elevation-z2 admin__view__navigation" role="navigation" ngClass.xs="sidenav--xs"
             [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
             [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
-            <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
-                (select)="selectRoute($event)">
+            <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection"
+                [selected]="currentRouteIndex$ | async" (select)="selectRoute($event)">
             </ta-navigation-menu>
         </mat-sidenav>
         <mat-sidenav-content class="content admin__view__content">
