@@ -1,4 +1,4 @@
-<div class="navigation-menu">
+<div [ngClass]="classes">
     <ng-content></ng-content>
     <ng-container *ngFor="let item of collection">
         <ng-container *ngIf="authService.hasAuthority(item.roles) && authService.hasRight(item.right)">
@@ -14,6 +14,7 @@
                         </mat-icon>
                     </span>
                     <ta-navigation-menu
+                        [size]="size"
                         [style.display]="item.expanded || hasExistsIndex(item.children, selected) ? '' : 'none'"
                         [collection]="item.children" (select)="selectRoute($event)" [selected]="selected">
                     </ta-navigation-menu>

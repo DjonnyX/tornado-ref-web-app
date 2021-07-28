@@ -2,7 +2,9 @@ import { IAppTheme } from '@djonnyx/tornado-types';
 import Color from "color";
 
 export enum ThemeDescriptiorKeyTypes {
-    PROP,
+    STRING,
+    BOOL,
+    NUMBER,
     ARRAY_PROP,
     COLOR,
     GRADIENT_COLOR,
@@ -32,12 +34,18 @@ const ASSET_PATTERN = /(\.backgroundImage)$/;
 
 const COLOR_PATTERN = /(color|Color)/;
 
+const NUMBER_PATTERN = /(fontSize|FontSize)/;
+
 const isAsset = (prop: string): boolean => {
     return ASSET_PATTERN.test(prop);
 }
 
 const isColor = (prop: string): boolean => {
     return COLOR_PATTERN.test(prop);
+}
+
+const isNumber = (prop: string): boolean => {
+    return NUMBER_PATTERN.test(prop);
 }
 
 type TOutputData = string | IThemeDescriptorOutputData | any;
@@ -81,7 +89,15 @@ export const themeDescriptorPropsToThemeData = (data: any, options?: { exclude?:
 }
 
 const compileThemeDescriptorProp = (data: any, lastProp?: string, result: IThemeDescriptior = {}): TOutputData | undefined => {
-    if (typeof data === "string") {
+    if (typeof data === "boolean") {
+        return {
+            prop: lastProp,
+            value: {
+                value: data,
+                type: ThemeDescriptiorKeyTypes.BOOL,
+            },
+        };
+    } else if (typeof data === "string") {
         let type: ThemeDescriptiorKeyTypes;
         if (isColor(lastProp)) {
             type = ThemeDescriptiorKeyTypes.COLOR;
@@ -92,14 +108,25 @@ const compileThemeDescriptorProp = (data: any, lastProp?: string, result: ITheme
             data = Color(data).string(8);
         } else if (isAsset(lastProp)) {
             type = ThemeDescriptiorKeyTypes.ASSET;
+        } else if (isNumber(lastProp)) {
+            type = ThemeDescriptiorKeyTypes.NUMBER;
+            data = Number(data);
         } else {
-            type = ThemeDescriptiorKeyTypes.PROP;
+            type = ThemeDescriptiorKeyTypes.STRING;
         }
         return {
             prop: lastProp,
             value: {
                 value: data,
                 type,
+            },
+        };
+    } else if (typeof data === "number") {
+        return {
+            prop: lastProp,
+            value: {
+                value: data,
+                type: ThemeDescriptiorKeyTypes.NUMBER,
             },
         };
     } else if (data instanceof Array) {
@@ -126,7 +153,9 @@ const compileThemeDescriptorProp = (data: any, lastProp?: string, result: ITheme
         if (outputData?.value?.type === ThemeDescriptiorKeyTypes.ASSET
             || outputData?.value?.type === ThemeDescriptiorKeyTypes.GRADIENT_COLOR
             || outputData?.value?.type === ThemeDescriptiorKeyTypes.COLOR
-            || outputData?.value?.type === ThemeDescriptiorKeyTypes.PROP
+            || outputData?.value?.type === ThemeDescriptiorKeyTypes.NUMBER
+            || outputData?.value?.type === ThemeDescriptiorKeyTypes.STRING
+            || outputData?.value?.type === ThemeDescriptiorKeyTypes.BOOL
             || outputData?.value?.type === ThemeDescriptiorKeyTypes.ARRAY_PROP) {
             result[outputData.prop] = outputData.value;
         }

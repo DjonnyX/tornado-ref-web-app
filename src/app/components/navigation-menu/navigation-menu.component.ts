@@ -9,9 +9,15 @@ import { INavRoute } from './interfaces';
 })
 export class NavigationMenuComponent implements OnInit {
 
+  get classes() {
+    return { 'navigation-menu': true, [this.size]: true };
+  }
+
   @Input() collection: Array<INavRoute>;
 
   @Input() selected: number = 0;
+
+  @Input() size: string = "normal";
 
   @Output() select = new EventEmitter<number>();
 
@@ -23,7 +29,7 @@ export class NavigationMenuComponent implements OnInit {
     this.select.emit(index);
   }
 
-  toggleExpand(item: INavRoute) { 
+  toggleExpand(item: INavRoute) {
     item.expanded = !item.expanded;
   }
 

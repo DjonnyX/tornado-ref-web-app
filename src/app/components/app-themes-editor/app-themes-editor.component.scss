@@ -29,3 +29,43 @@ $entity-width-d: px2em(200);
         }
     }
 }
+
+@media screen and (min-width: 600px) {
+    .editor {
+        .entities-wrapper {
+            grid-template-columns: repeat(auto-fill, minmax($entity-width-d, 1fr));
+        }
+
+        .entity {
+            .entity-active-zone {
+                height: $entity-height-d - $ctrl-panel-height;
+            }
+        }
+
+        .button-add {
+            &:not(.float) {
+                height: $entity-height-d;
+            }
+        }
+    }
+}
+
+@media screen and (max-width: 599px) {
+    .editor {
+        .entities-wrapper {
+            grid-template-columns: repeat(auto-fill, minmax($entity-width-m, 1fr));
+        }
+
+        .entity {
+            .entity-active-zone {
+                height: $entity-height-m - $ctrl-panel-height;
+            }
+        }
+
+        .button-add {
+            &:not(.float) {
+                height: $entity-height-m;
+            }
+        }
+    }
+}

@@ -9,6 +9,7 @@ import { AssetPickerUploaderModule } from '@components/assets/asset-picker-uploa
 import { KeyValueModule } from '@components/key-value/key-value.module';
 import { ColorPickerModule } from '@components/color-picker/color-picker.module';
 import { GradientColorEditorModule } from '@components/gradient-color-editor/gradient-color-editor.module';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { GradientColorEditorModule } from '@components/gradient-color-editor/gra
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatCheckboxModule,
     MatFormFieldModule,
     AssetPickerUploaderModule,
     ColorPickerModule,

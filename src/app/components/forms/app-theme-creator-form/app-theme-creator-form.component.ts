@@ -169,7 +169,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
       },
       props: this._compiledThemeArray.map(v => ({
         key: v.name,
-        value: v.value.value || this.getAsset(v.name)?.mipmap?.x32 || '---',
+        value: v.value.value?.toString() || this.getAsset(v.name)?.mipmap?.x32 || '---',
       })),
     };
   }
