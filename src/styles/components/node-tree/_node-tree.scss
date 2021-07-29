@@ -1,7 +1,7 @@
-@import "../themes/theme";
-@import "../utils/px2em";
-@import "../abstracts/vars";
-@import "../mixins";
+@import "../../themes/theme";
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../mixins";
 
 $offset-x: px2em(64);
 $way-border-weight: 1px;
@@ -66,6 +66,13 @@ $node-tree-item-margin-bottom: 5px; //Gap
                 .content__ctrls {
                     display: flex;
                     align-items: center;
+                    height: 100%;
+                    border-right-width: 1px;
+                    border-right-style: solid;
+                    //Theme
+                    @include themify($themes) {
+                    border-color: themed('entityDividerBorderColor');
+                }
                 }
 
                 .content__checkbox-active {
