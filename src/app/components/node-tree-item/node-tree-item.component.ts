@@ -424,9 +424,9 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   getStyleClasses(): any {
     let type: string = "root";
-    if (this.node.type === NodeTypes.SELECTOR_JOINT) {
+    if (this.node.type === NodeTypes.SELECTOR || this.node.type === NodeTypes.SELECTOR_JOINT) {
       type = "folder";
-    } else if (this.node.type === NodeTypes.PRODUCT_JOINT) {
+    } else if (this.node.type === NodeTypes.PRODUCT || this.node.type === NodeTypes.PRODUCT_JOINT) {
       type = "product";
     } else if (this.node.type === NodeTypes.KIOSK_ROOT) {
       type = "root";
