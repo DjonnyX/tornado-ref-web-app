@@ -1,4 +1,4 @@
-<div class="node-tree-item" *ngIf="!!node && isStoreContain">
+<div [ngClass]="getStyleClasses()" *ngIf="!!node && isStoreContain">
     <div class="node-item-way-hider" *ngIf="isInstanceChain && isLastChild"></div>
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span
