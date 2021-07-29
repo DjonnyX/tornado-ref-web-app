@@ -16,6 +16,7 @@ $divider-color-dark: #2E333F;
 // Components
 
 $background-color: #F0F0F0;
+$background-color-1100: darken($background-color, 10%);
 
 $menu-expantion-item-color: #60636A;
 $menu-item-color: $background-color;

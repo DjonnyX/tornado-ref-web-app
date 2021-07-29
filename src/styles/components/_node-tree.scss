@@ -1,8 +1,13 @@
 @import "../themes/theme";
 @import "../utils/px2em";
+@import "../abstracts/vars";
+@import "../mixins";
 
 $offset-x: px2em(64);
-$way-border-weight: 2px;
+$way-border-weight: 1px;
+$way-border-color: #d5d5d5;
+$node-tree-item-border-radius: 6px;
+$node-tree-item-margin-bottom: 5px; //Gap
 
 .node-tree-item {
     position: relative;
@@ -51,7 +56,8 @@ $way-border-weight: 2px;
                 overflow: hidden;
                 padding: px2em(4);
                 align-items: center;
-                border-radius: 3px;
+                border-radius: $node-tree-item-border-radius;
+                margin-bottom: $node-tree-item-margin-bottom;
 
                 &.has-scenario {
                     border-radius: 3px 3px 0 0;
@@ -84,6 +90,7 @@ $way-border-weight: 2px;
                     margin-left: -px2em(12);
                     margin-bottom: -px2em(12);
                     margin-right: px2em(12);
+                    border-radius: 3px;
                 }
 
                 .content__text {
@@ -113,15 +120,22 @@ $way-border-weight: 2px;
             align-items: center;
             justify-content: center;
 
+            mat-button-wrapper {
+                display: flex;
+                width: auto;
+                height: auto;
+            }
+
             mat-icon {
-                height: 1em;
+                // height: 1em;
                 font-size: 1.5em;
+                color: $white;
             }
         }
     }
 }
 
-$border-primary: $way-border-weight dotted $primary;
+$border-primary: $way-border-weight solid $way-border-color;
 
 .primary {
     .node-tree-item {
@@ -144,12 +158,13 @@ $border-primary: $way-border-weight dotted $primary;
 
             .node-tree-item__content {
                 .content {
-                    color: $primary-700;
+                    // color: $primary-700;
+                    color: $primary-color;
                     background: #ffffff;
-                    border: 1px solid rgba($primary, 0.3);
+                    // border: 1px solid rgba($primary, 0.3);
 
                     .content__name {
-                        background: rgba($primary, 0.1);
+                        // background: rgba($primary, 0.1);
 
                         &.active {
                             background: rgb(66, 176, 240);
@@ -157,7 +172,7 @@ $border-primary: $way-border-weight dotted $primary;
 
                         &:hover {
                             background: $accent;
-                            color: white;
+                            color: $white;
                         }
                     }
 
@@ -218,7 +233,7 @@ $border-primary: $way-border-weight dotted $primary;
     }
 }
 
-$border-primary: $way-border-weight dotted $primary;
+// $border-primary: $way-border-weight solid $way-border-color;
 
 .secondary {
     .node-tree-item {
