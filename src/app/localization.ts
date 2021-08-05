@@ -1,6 +1,7 @@
 const LOCALIZATION = {
     "ru": {
         "common_ctrl_required": "обязательное",
+        // signin
         "auth_signin-title": "Вход",
         "auth_signin_signup-link": "Зарегистрироваться",
         "auth_signin_email-field-label": "Email",
@@ -9,9 +10,29 @@ const LOCALIZATION = {
         "auth_signin_password-field-pattern-validation-message": "Пароль должен содержать латинские буквы, цифры и заглавные буквы.",
         "auth_signin_cant-enter": "",
         "auth_signin_enter": "Войти",
+        // signup
+        "auth_signup-title": "Регистрация",
+        "auth_signup-exists-account": "Уже зарегистрированы?",
+        "auth_signup-signin": "Войти",
+        "auth_signup-integration-field-label": "Интеграция",
+        "auth_signup-first-name-field-label": "Имя",
+        "auth_signup-first-name-field-validation-pattern-message": "Имя должно состоять более чем из 1 буквы",
+        "auth_signup-last-name-field-label": "Фамилия",
+        "auth_signup-last-name-field-validation-pattern-message": "Фамилия должна состоять более чем из 1 буквы",
+        "auth_signup-email-field-label": "Email",
+        "auth_signup-email-field-validation-pattern-message": "Пожалуйста, введите действительный адрес электронной почты",
+        "auth_signup-password-field-label": "Пароль",
+        "auth_signup-password-field-validation-pattern-message": "Пароль должен содержать латинские буквы, цифры и заглавные буквы.",
+        "auth_signup-confirm-password-field-label": "Повторить пароль",
+        "auth_signup-confirm-password-field-validation-message": "Пароли не совпадают",
+        "auth_signup-captcha-field-label": "Введите текст с картинки",
+        "auth_signup-registration": "Зарегистрироваться",
+        "auth_signup-agree-with": "Я согласен с",
+        "auth_signup-term-of-use": "Условиями использования",
     },
     "eng": {
         "common_ctrl_required": "required",
+        // signin
         "auth_signin-title": "Signin",
         "auth_signin_signup-link": "Signup",
         "auth_signin_email-field-label": "Email",
@@ -20,6 +41,25 @@ const LOCALIZATION = {
         "auth_signin_password-field-pattern-validation-message": "The password must contain Latin letters, numbers and capital letters.",
         "auth_signin_cant-enter": "Can't sign in?",
         "auth_signin_enter": "Enter",
+        // signup
+        "auth_signup-title": "Sugnup",
+        "auth_signup-exists-account": "Already Registered?",
+        "auth_signup-signin": "Signin",
+        "auth_signup-integration-field-label": "Integration",
+        "auth_signup-first-name-field-label": "First name",
+        "auth_signup-first-name-field-validation-pattern-message": "The name must be more than 1 letter",
+        "auth_signup-last-name-field-label": "Last name",
+        "auth_signup-last-name-field-validation-pattern-message": "The last must be more than 1 letter",
+        "auth_signup-email-field-label": "Email",
+        "auth_signup-email-field-validation-pattern-message": "Please enter a valid email address",
+        "auth_signup-password-field-label": "Password",
+        "auth_signup-password-field-validation-pattern-message": "The password must contain Latin letters, numbers and capital letters.",
+        "auth_signup-confirm-password-field-label": "Confirm password",
+        "auth_signup-confirm-password-field-validation-message": "Password mismatch",
+        "auth_signup-captcha-field-label": "Enter the text from the picture",
+        "auth_signup-registration": "Register",
+        "auth_signup-agree-with": "I agree with",
+        "auth_signup-term-of-use": "terms of use",
     }
 };
 
