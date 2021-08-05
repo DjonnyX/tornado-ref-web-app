@@ -1,0 +1,10 @@
+@import "../../../../../utils/px2em";
+@import "../../../../../abstracts/vars";
+@import "../../../../../mixins";
+
+.editor.product-editor {
+
+    &__container {
+        padding-top: 0px;
+    }
+}

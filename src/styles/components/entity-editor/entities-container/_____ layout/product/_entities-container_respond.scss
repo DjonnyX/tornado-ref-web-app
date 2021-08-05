@@ -1,0 +1,29 @@
+@import "../../../../../utils/px2em";
+@import "../../../../../abstracts/vars";
+@import "../../../../../mixins";
+
+$entities-product-container-padding: 10px 30px 0px 40px;
+$entities-product-container-padding-sm: 10px 20px 0px 20px;
+
+.product-editor {
+    @include respond-above (md) {
+
+        .entities-container.entities-product {
+            padding: $entities-product-container-padding;
+        }
+    }
+
+    @include respond-between (sm, md) {
+
+        .entities-container.entities-product {
+            padding: $entities-product-container-padding;
+        }
+    }
+
+    @include respond-below (sm) {
+
+        .entities-container.entities-product {
+            padding: $entities-product-container-padding-sm;
+        }
+    }
+}

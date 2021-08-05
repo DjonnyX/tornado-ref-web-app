@@ -1,9 +1,10 @@
 <div class="editor">
 
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+
     <div class="editor__container">
 
-        <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)">
-        </ta-state-panel>
+
         <div class="entities-container entities-card-layout">
             <div class="entity" *ngFor="let language of collection | search: searchPattern"
                 [ngClass]="{'is-default': language.isDefault, 'disabled': !language.active}">

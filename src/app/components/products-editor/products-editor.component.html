@@ -24,7 +24,7 @@
     </mat-menu>
 </ng-template>
 <!-- Content -->
-<div class="editor" *ngIf="!!defaultLanguage">
+<div class="editor product-editor" *ngIf="!!defaultLanguage">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"
         (layout)="onSwitchLayout($event)" (showHiddenEntities)="onShowHiddenEntities($event)"></ta-state-panel>
     <ng-container [ngSwitch]="layoutType">
