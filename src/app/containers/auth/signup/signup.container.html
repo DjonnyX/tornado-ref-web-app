@@ -47,7 +47,7 @@
                                         {{localization.get("auth_signup-first-name-field-label")}}
                                     </mat-label>
                                     <input matInput [formControl]="ctrlFirstName" required>
-                                    <mat-error *ngIf="!ctrlFirstName.hasError('pattern')">
+                                    <mat-error *ngIf="ctrlFirstName.hasError('pattern')">
                                         {{localization.get("auth_signup-first-name-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlFirstName.hasError('required')">
@@ -63,7 +63,7 @@
                                         {{localization.get("auth_signup-last-name-field-label")}}
                                     </mat-label>
                                     <input matInput [formControl]="ctrlLastName" required>
-                                    <mat-error *ngIf="!ctrlLastName.hasError('pattern')">
+                                    <mat-error *ngIf="ctrlLastName.hasError('pattern')">
                                         {{localization.get("auth_signup-last-name-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlLastName.hasError('required')">
@@ -79,7 +79,7 @@
                                         {{localization.get("auth_signup-email-field-label")}}
                                     </mat-label>
                                     <input matInput [formControl]="ctrlEmail" placeholder="Email" required>
-                                    <mat-error *ngIf="!ctrlEmail.hasError('pattern')">
+                                    <mat-error *ngIf="ctrlEmail.hasError('pattern')">
                                         {{localization.get("auth_signup-email-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlEmail.hasError('required')">
@@ -95,7 +95,7 @@
                                         {{localization.get("auth_signup-password-field-label")}}
                                     </mat-label>
                                     <input matInput type="password" [formControl]="ctrlPassword" required>
-                                    <mat-error *ngIf="!ctrlPassword.hasError('pattern')">
+                                    <mat-error *ngIf="ctrlPassword.hasError('pattern')">
                                         {{localization.get("auth_signup-password-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlPassword.hasError('required')">

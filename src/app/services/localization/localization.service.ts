@@ -5,7 +5,7 @@ import { LocalizationConfig } from './localization.config';
   providedIn: 'root'
 })
 export class LocalizationService {
-  lang: string = "ru";
+  lang: string = "eng";
 
   constructor(private _config: LocalizationConfig) { }
 

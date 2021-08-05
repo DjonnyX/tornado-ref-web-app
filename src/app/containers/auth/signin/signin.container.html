@@ -27,7 +27,7 @@
                                     <mat-label>{{localization.get("auth_signin_email-field-label")}}</mat-label>
                                     <input matInput type="text" [formControl]="ctrlEmail" name="username"
                                         [placeholder]="localization.get('auth_signin_email-field-label')" required>
-                                    <mat-error *ngIf="!ctrlEmail.hasError('pattern')">
+                                    <mat-error *ngIf="ctrlEmail.hasError('pattern')">
                                         {{localization.get("auth_signin_email-field-pattern-validation-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlEmail.hasError('required')">
@@ -42,7 +42,7 @@
                                     <mat-label>{{localization.get("auth_signin_password-field-label")}}</mat-label>
                                     <input matInput type="password" [formControl]="ctrlPassword" name="password"
                                         [placeholder]="localization.get('auth_signin_password-field-label')" required>
-                                    <mat-error *ngIf="!ctrlPassword.hasError('pattern')">
+                                    <mat-error *ngIf="ctrlPassword.hasError('pattern')">
                                         {{localization.get("auth_signin_password-field-pattern-validation-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlEmail.hasError('required')">

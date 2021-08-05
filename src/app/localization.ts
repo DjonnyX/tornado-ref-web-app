@@ -1,7 +1,10 @@
 const LOCALIZATION = {
     "ru": {
         "common_ctrl_required": "обязательное",
-        // signin
+        // auth error
+        "auth_error_title": "Ошибка",
+        "auth_error_return-to-signin": "Вернуться к авторизации",
+        // sign in
         "auth_signin-title": "Вход",
         "auth_signin_signup-link": "Зарегистрироваться",
         "auth_signin_email-field-label": "Email",
@@ -10,7 +13,7 @@ const LOCALIZATION = {
         "auth_signin_password-field-pattern-validation-message": "Пароль должен содержать латинские буквы, цифры и заглавные буквы.",
         "auth_signin_cant-enter": "Не получается войти?",
         "auth_signin_enter": "Войти",
-        // signup
+        // sign up
         "auth_signup-title": "Регистрация",
         "auth_signup-exists-account": "Уже зарегистрированы?",
         "auth_signup-signin": "Войти",
@@ -89,25 +92,38 @@ const LOCALIZATION = {
         "auth_forgot-password_captcha": "Введите текст с картинки",
         "auth_forgot-password_button-send": "Отправить",
         // auth forgot password result
+        "auth_forgot-password-result_title": "Проверьте Ваш email",
+        "auth_forgot-password-result_message": "Если учетная запись Tornado существует, Вы получите электронное письмо со ссылкой для сброса пароля.",
+        "auth_forgot-password-result_back-to-signin": "Вернуться к авторизации",
         // auth reset password
+        "auth_reset-password_title": "Сбросить пароль",
+        "auth_reset-password_message": "Введите новый пароль, чтобы продолжить. Вы выйдете из всех ваших активных сессий.",
+        "auth_reset-password_new-password": "Новый пароль",
+        "auth_reset-password_new-password-validation-pattern-message": "Пароль должен содержать латинские буквы, цифры и заглавные буквы.",
+        "auth_reset-password_button-reset": "Сбросить пароль",
         // auth reset password result
-
+        "auth_reset-password-result_title": "Ваш пароль был сброшен!",
+        "auth_reset-password-result_message": "Войдите снова с новым паролем.",
+        "auth_reset-password-result_return-to-signin": "Вернуться, чтобы войти",
     },
     "eng": {
         "common_ctrl_required": "required",
-        // signin
-        "auth_signin-title": "Signin",
-        "auth_signin_signup-link": "Signup",
+        // auth error
+        "auth_error_title": "Error",
+        "auth_error_return-to-signin": "Return to sign in",
+        // sign in
+        "auth_signin-title": "Sign in",
+        "auth_signin_signup-link": "Sign up",
         "auth_signin_email-field-label": "Email",
         "auth_signin_email-field-pattern-validation-message": "Please enter a valid email address",
         "auth_signin_password-field-label": "Password",
         "auth_signin_password-field-pattern-validation-message": "The password must contain Latin letters, numbers and capital letters.",
         "auth_signin_cant-enter": "Can't sign in?",
         "auth_signin_enter": "Enter",
-        // signup
-        "auth_signup-title": "Sugnup",
+        // sign up
+        "auth_signup-title": "Sign up",
         "auth_signup-exists-account": "Already Registered?",
-        "auth_signup-signin": "Signin",
+        "auth_signup-signin": "Sign in",
         "auth_signup-integration-field-label": "Integration",
         "auth_signup-first-name-field-label": "First name",
         "auth_signup-first-name-field-validation-pattern-message": "The name must be more than 1 letter",
@@ -177,15 +193,25 @@ const LOCALIZATION = {
         "auth_forgot-password_title": "Forgot your password?",
         "auth_forgot-password_message": `Don't worry, we'll support you! Just enter your email address and we will send
         link to you where you can reset your password.`,
-        "auth_forgot-password_back-to-signin": "Signin",
+        "auth_forgot-password_back-to-signin": "Sign in",
         "auth_forgot-password_email-field-label": "Email",
         "auth_forgot-password_email-field-pattern-validation-message": "Please enter a valid email address",
         "auth_forgot-password_captcha": "Enter the text from the picture",
         "auth_forgot-password_button-send": "Send",
         // auth forgot password result
+        "auth_forgot-password-result_title": "Check your email",
+        "auth_forgot-password-result_message": "If a Tornado account exists, you will receive an email with a link to reset your password.",
+        "auth_forgot-password-result_back-to-signin": "Return to sign in",
         // auth reset password
+        "auth_reset-password_title": "Reset the password",
+        "auth_reset-password_message": "Enter your new password to continue. You will be logged out of all your active sessions.",
+        "auth_reset-password_new-password": "New password",
+        "auth_reset-password_new-password-validation-pattern-message": "The password must contain Latin letters, numbers and capital letters.",
+        "auth_reset-password_button-reset": "Reset",
         // auth reset password result
-
+        "auth_reset-password-result_title": "Your password has been reset!",
+        "auth_reset-password-result_message": "Log in again with a new password.",
+        "auth_reset-password-result_return-to-signin": "Return to sign in",
     }
 };
 
