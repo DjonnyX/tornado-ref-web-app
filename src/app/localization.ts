@@ -8,7 +8,7 @@ const LOCALIZATION = {
         "auth_signin_email-field-pattern-validation-message": "Пожалуйста введите корректный email адрес",
         "auth_signin_password-field-label": "Пароль",
         "auth_signin_password-field-pattern-validation-message": "Пароль должен содержать латинские буквы, цифры и заглавные буквы.",
-        "auth_signin_cant-enter": "",
+        "auth_signin_cant-enter": "Не получается войти?",
         "auth_signin_enter": "Войти",
         // signup
         "auth_signup-title": "Регистрация",
@@ -78,7 +78,20 @@ const LOCALIZATION = {
         the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
         release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
         like
-        Aldus PageMaker including versions of Lorem Ipsum.`
+        Aldus PageMaker including versions of Lorem Ipsum.`,
+        // auth forgot password
+        "auth_forgot-password_title": "Забыли пароль?",
+        "auth_forgot-password_message": `Не волнуйтесь, мы вас поддержим! Просто введите свой адрес электронной почты, и мы пришлем
+        вам ссылку, по которой вы сможете сбросить пароль.`,
+        "auth_forgot-password_back-to-signin": "Войти",
+        "auth_forgot-password_email-field-label": "Email",
+        "auth_forgot-password_email-field-pattern-validation-message": "Пожалуйста, введите действительный адрес электронной почты",
+        "auth_forgot-password_captcha": "Введите текст с картинки",
+        "auth_forgot-password_button-send": "Отправить",
+        // auth forgot password result
+        // auth reset password
+        // auth reset password result
+
     },
     "eng": {
         "common_ctrl_required": "required",
@@ -159,7 +172,20 @@ const LOCALIZATION = {
         the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the
         release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software
         like
-        Aldus PageMaker including versions of Lorem Ipsum.`
+        Aldus PageMaker including versions of Lorem Ipsum.`,
+        // auth forgot password
+        "auth_forgot-password_title": "Forgot your password?",
+        "auth_forgot-password_message": `Don't worry, we'll support you! Just enter your email address and we will send
+        link to you where you can reset your password.`,
+        "auth_forgot-password_back-to-signin": "Signin",
+        "auth_forgot-password_email-field-label": "Email",
+        "auth_forgot-password_email-field-pattern-validation-message": "Please enter a valid email address",
+        "auth_forgot-password_captcha": "Enter the text from the picture",
+        "auth_forgot-password_button-send": "Send",
+        // auth forgot password result
+        // auth reset password
+        // auth reset password result
+
     }
 };
 
