@@ -9,6 +9,19 @@ $way-border-color: #d5d5d5;
 $node-tree-item-border-radius: 6px;
 $node-tree-item-margin-vertical: 5px; //Gap
 
+
+.node-tree-item.root {
+
+}
+
+.node-tree-item.folder {
+    
+}
+
+.node-tree-item.product {
+    
+}
+
 .node-tree-item {
     position: relative;
 
@@ -29,7 +42,7 @@ $node-tree-item-margin-vertical: 5px; //Gap
         margin-top: px2em(22);
     }
 
-    .node-tree-item-wrapper {
+    &__wrapper {
         .node-tree-item-way {
             margin: px2em(4) 0 0 $offset-x;
 
@@ -63,7 +76,7 @@ $node-tree-item-margin-vertical: 5px; //Gap
                     border-radius: 3px 3px 0 0;
                 }
 
-                .content__ctrls {
+                &__ctrls {
                     display: flex;
                     align-items: center;
                     height: 100%;
@@ -75,12 +88,12 @@ $node-tree-item-margin-vertical: 5px; //Gap
                 }
                 }
 
-                .content__checkbox-active {
+                &__checkbox-active {
                     padding-left: px2em(12);
                     padding-right: px2em(20);
                 }
 
-                .content__name {
+                &__name {
                     padding: px2em(12);
                     border-radius: 3px;
                     margin: auto 0;
@@ -89,7 +102,7 @@ $node-tree-item-margin-vertical: 5px; //Gap
                     align-items: center;
                 }
 
-                .content__thumbnail {
+                &__thumbnail {
                     image-rendering: pixelated;
                     width: px2em(32);
                     height: px2em(32);
@@ -100,7 +113,7 @@ $node-tree-item-margin-vertical: 5px; //Gap
                     border-radius: 3px;
                 }
 
-                .content__text {
+                &__text {
                     text-overflow: ellipsis;
                     word-break: keep-all;
                     overflow: hidden;
@@ -154,7 +167,7 @@ $border-primary: $way-border-weight solid $way-border-color;
             border-bottom: $border-primary;
         }
 
-        .node-tree-item-wrapper {
+        &__wrapper {
             .node-tree-item-way {
                 border-left: $border-primary;
 
@@ -170,7 +183,7 @@ $border-primary: $way-border-weight solid $way-border-color;
                     background: #ffffff;
                     // border: 1px solid rgba($primary, 0.3);
 
-                    .content__name {
+                    &__name {
                         // background: rgba($primary, 0.1);
 
                         &.active {
@@ -228,7 +241,7 @@ $border-primary: $way-border-weight solid $way-border-color;
     }
 
     .node-tree-item {
-        .node-tree-item-wrapper {
+        &__wrapper {
             .node-tree-item__content {
                 .content {
                     &.is-instance {
@@ -251,7 +264,7 @@ $border-primary: $way-border-weight solid $way-border-color;
             border-bottom: $border-primary;
         }
 
-        .node-tree-item-wrapper {
+        &__wrapper {
             .node-tree-item-way {
                 border-left: $border-primary;
 
@@ -266,7 +279,7 @@ $border-primary: $way-border-weight solid $way-border-color;
                     background: #ffffff;
                     border: 1px solid rgba($primary, 0.75);
 
-                    .content__name {
+                    &__name {
                         background: rgba($primary, 0.1);
 
                         &.active {
@@ -323,7 +336,7 @@ $border-primary: $way-border-weight solid $way-border-color;
     }
 
     .node-tree-item {
-        .node-tree-item-wrapper {
+        &__wrapper {
             .node-tree-item__content {
                 .content {
                     &.is-instance {

@@ -2,7 +2,7 @@
     <div class="node-item-way-hider" *ngIf="isInstanceChain && isLastChild"></div>
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span
-        [ngClass]="{'node-tree-item-wrapper': true, 'is-instance': !!nodeInstance, 'disabled': (!!nodeInstance && !nodeInstance.active) || (!node.active)}">
+        [ngClass]="{'node-tree-item__wrapper': true, 'is-instance': !!nodeInstance, 'disabled': (!!nodeInstance && !nodeInstance.active) || (!node.active)}">
         <div class="node-tree-item__content">
             <div matRipple class="content" [ngClass]="{
                 'has-scenario': (!!node.scenarios && node.scenarios.length > 0) || (!!nodeInstance && !!nodeInstance.scenarios && nodeInstance.scenarios.length > 0),
@@ -135,7 +135,8 @@
             <ng-template #renderInstanceNode>
                 <ng-container *ngIf="!!nodeInstance">
                     <div cdkDropList class="drag-drop-list" (cdkDropListDropped)="drop($event)">
-                        <div cdkDrag class="drag-drop-box" *ngFor="let childId of nodeInstance.children; let index = index">
+                        <div cdkDrag class="drag-drop-box"
+                            *ngFor="let childId of nodeInstance.children; let index = index">
                             <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
                             <ta-node-tree-item [isInstanceChain]="true" [currentIndex]="index"
                                 [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)"
