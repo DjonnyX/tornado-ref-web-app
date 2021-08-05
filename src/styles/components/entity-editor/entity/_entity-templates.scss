@@ -16,7 +16,7 @@
                 }
 
                 &__body {
-                    height: $entity-body-cards-height;
+                    // height: $entity-body-cards-height;
 
                     &__gradient {
                         display: block;
@@ -44,12 +44,12 @@
                 }
 
                 &__image {
-                    @include box($entity-image-cards-size);
+                    // @include box($entity-image-cards-size);
 
-                    &__thumbnail {
-                        @include box($entity-image-cards-size);
-                        // border-radius: 12px;
-                    }
+                    // &__thumbnail {
+                    //     @include box($entity-image-cards-size);
+                    //     // border-radius: 12px;
+                    // }
                 }
             }
         }
@@ -91,12 +91,12 @@
                 }
 
                 &__image {
-                    @include box($entity-image-list-size);
+                    // @include box($entity-image-list-size);
 
-                    &__thumbnail {
-                        @include box($entity-image-list-size);
-                        // border-radius: 3px;
-                    }
+                    // &__thumbnail {
+                    //     @include box($entity-image-list-size);
+                    //     // border-radius: 3px;
+                    // }
                 }
 
                 .tags {

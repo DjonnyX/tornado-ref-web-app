@@ -36,7 +36,7 @@
                     <div class="editor__group-list">
                         <div class="editor__group-list__header">{{systemTag?.name || 'Не распределены'}}</div>
                         <div class="entities-container entities-list-layout">
-                            <div class="entity"
+                            <div class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
                                 <div class="entity__wrapper">
@@ -147,7 +147,7 @@
                     <div class="editor__group-list">
                         <div class="editor__group-list__header">{{systemTag?.name || 'Не распределены'}}</div>
                         <div class="entities-container entities-card-layout">
-                            <div class="entity"
+                            <div class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
                                 <div class="entity__wrapper">
@@ -228,7 +228,7 @@
 
         </ng-container>
     </ng-container>
-<!-- 
+    <!-- 
     <div class="create-entity-button-wrapper" *ngIf="hasCreate()">
         <button color="accent" mat-raised-button class="button-add float" (click)="onCreateProduct()">
             Добавить продукт

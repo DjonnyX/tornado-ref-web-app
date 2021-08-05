@@ -6,10 +6,11 @@
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 
     <!--  -->
-    <div class="entities-container entities-list-layout">
+    <div class="entities-container entities-card-layout">
       <div class="entity" *ngFor="let tag of collection | search:searchPattern:defaultLanguage?.code"
         [class.disabled]="!tag.active">
-        <div class="entity__control">
+
+        <!-- <div class="entity__control">
           <div class="entity__control__checkbox">
             <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
             </mat-checkbox>
@@ -31,23 +32,58 @@
               <span>Удалить</span>
             </button>
           </mat-menu>
-        </div>
-        <div matRipple class="entity__body" (click)="onEdit(tag)">
-          <div class="content">
-            <div class="content-resources">
-              <img align="center" *ngIf="hasThumbnail(tag, 'x32')" class="entity-thumbnail"
-                [src]="getThumbnail(tag, 'x32')">
+        </div> -->
+
+
+        <!-- Controls -->
+
+        <div class="entity__control">
+          <div class="entity__control__container">
+            <div class="entity__control__checkbox">
+              <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
+              </mat-checkbox>
             </div>
-            <div class="content-text">
-              <div class="content__name">
-                {{getName(tag)}}
-              </div>
-              <div *ngIf="getDescription(tag)" class="content__description">
-                {{getDescription(tag)}}
+            <!-- ActionMenu -->
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
+              <mat-icon class="icon">more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item type="button" (click)="onToggleActive($event, tag)">
+                <mat-icon>{{tag.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                <span>{{tag.active ? 'Деактивировать' : 'Активировать'}}</span>
+              </button>
+              <button mat-menu-item (click)="onEdit(tag)">
+                <mat-icon>edit</mat-icon>
+                <span>Редактировать</span>
+              </button>
+              <button mat-menu-item (click)="onDelete(tag)">
+                <mat-icon>delete_forever</mat-icon>
+                <span>Удалить</span>
+              </button>
+            </mat-menu>
+            <!-- ActionMenu -->
+          </div>
+        </div>
+
+        <!-- Controls -->
+
+
+        <div matRipple class="entity__body" (click)="onEdit(tag)">
+          <div class="entity__body__content">
+            <div class="entity__body__container">
+              <div class="entity__text-group">
+                <img align="center" *ngIf="hasThumbnail(tag, 'x32')" class="entity-thumbnail"
+                  [src]="getThumbnail(tag, 'x32')">
+                <div class="entity__name">
+                  {{getName(tag)}}
+                </div>
+                <div *ngIf="getDescription(tag)" class="entity__description">
+                  {{getDescription(tag)}}
+                </div>
+                <div class="color" [style.background]="getColor(tag)"></div>
               </div>
             </div>
           </div>
-          <div class="color" [style.background]="getColor(tag)"></div>
         </div>
       </div>
 

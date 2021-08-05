@@ -1,0 +1,13 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.entity {
+    &__image.auto-size {
+        @include box(auto);
+
+        .entity__image__thumbnail {
+            @include box(auto);
+        }
+    }
+}

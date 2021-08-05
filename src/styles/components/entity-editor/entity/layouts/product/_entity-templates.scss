@@ -1,0 +1,42 @@
+@import "../../../../../utils/px2em";
+@import "../../../../../abstracts/vars";
+@import "../../../../../mixins";
+
+.editor {
+
+    .entities-container {
+
+        //Card template
+        &.entities-card-layout {
+            
+            .entity.entity-product {
+
+                .entity__body {
+                    height: $entity-body-cards-height;
+                }
+
+                .entity__image {
+                    @include box($entity-image-cards-size);
+
+                    &__thumbnail {
+                        @include box($entity-image-cards-size);
+                    }
+                }
+            }
+        }
+
+        //List template
+        &.entities-list-layout {
+            
+            .entity.entity-product {
+                .entity__image {
+                    @include box($entity-image-list-size);
+
+                    &__thumbnail {
+                        @include box($entity-image-list-size);
+                    }
+                }
+            }
+        }
+    }
+}
