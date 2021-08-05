@@ -98,6 +98,7 @@ export default class UserEffects {
           email: params.email,
           captchaId: params.captchaId,
           captchaVal: params.captchaVal,
+          language: params.language,
         }).pipe(
           mergeMap(_ => {
             this._router.navigate(["forgot-password-result"]);

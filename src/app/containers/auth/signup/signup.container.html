@@ -4,23 +4,32 @@
             <div class="form__header">
                 <div class="form__header__content">
                     <span>
-                        <h4 class="form__header__title m0">Регистрация</h4>
+                        <h4 class="form__header__title m0">
+                            {{localization.get("auth_signup-title")}}
+                        </h4>
                     </span>
                     <span>
-                        <span class="form__header__description">Уже зарегистрированы?</span>
-                        <a [routerLink]="['/signin']" [queryParams]="registerQueryParams" class="form__link">Войти</a>
+                        <span class="form__header__description">
+                            {{localization.get("auth_signup-exists-account")}}
+                        </span>
+                        <a [routerLink]="['/signin']" [queryParams]="registerQueryParams" class="form__link">
+                            {{localization.get("auth_signup-signin")}}
+                        </a>
                     </span>
                 </div>
                 <!--<mat-divider></mat-divider>-->
             </div>
             <div class="form__body">
-                <ta-query-progress class="query-progress-container" customClass="auth__query-progress-container" [process]="isProcess$ | async">
+                <ta-query-progress class="query-progress-container" customClass="auth__query-progress-container"
+                    [process]="isProcess$ | async">
                     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
                         <div class="form__input-block">
 
                             <div class="form-item">
                                 <mat-form-field class="form__field full-width" appearance="outline">
-                                    <mat-label>Интеграция</mat-label>
+                                    <mat-label>
+                                        {{localization.get("auth_signup-integration-field-label")}}
+                                    </mat-label>
                                     <mat-select [formControl]="ctrlIntegration" required>
                                         <mat-option *ngFor="let integration of (integrations$ | async)"
                                             [value]="integration.id">
@@ -34,65 +43,80 @@
 
                             <div class="form-item">
                                 <mat-form-field class="form__field full-width" appearance="outline">
-                                    <mat-label>Имя</mat-label>
+                                    <mat-label>
+                                        {{localization.get("auth_signup-first-name-field-label")}}
+                                    </mat-label>
                                     <input matInput [formControl]="ctrlFirstName" required>
-                                    <mat-error *ngIf="!ctrlFirstName.hasError('required')">
-                                        Имя должно состоять более чем из 1 буквы
+                                    <mat-error *ngIf="ctrlFirstName.hasError('pattern')">
+                                        {{localization.get("auth_signup-first-name-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlFirstName.hasError('required')">
-                                        Имя - <strong>обязательное</strong>
+                                        {{localization.get("auth_signup-first-name-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
 
                             <div class="form-item">
                                 <mat-form-field class="form__field full-width" appearance="outline">
-                                    <mat-label>Фамилия</mat-label>
+                                    <mat-label>
+                                        {{localization.get("auth_signup-last-name-field-label")}}
+                                    </mat-label>
                                     <input matInput [formControl]="ctrlLastName" required>
-                                    <mat-error *ngIf="!ctrlLastName.hasError('required')">
-                                        Фамилия должна состоять более чем из 1 буквы
+                                    <mat-error *ngIf="ctrlLastName.hasError('pattern')">
+                                        {{localization.get("auth_signup-last-name-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlLastName.hasError('required')">
-                                        Фамилия - <strong>обязательное</strong>
+                                        {{localization.get("auth_signup-last-name-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
 
                             <div class="form-item">
                                 <mat-form-field class="form__field full-width" appearance="outline">
-                                    <mat-label>Email</mat-label>
+                                    <mat-label>
+                                        {{localization.get("auth_signup-email-field-label")}}
+                                    </mat-label>
                                     <input matInput [formControl]="ctrlEmail" placeholder="Email" required>
-                                    <mat-error *ngIf="!ctrlEmail.hasError('required')">
-                                        Пожалуйста, введите действительный адрес электронной почты
+                                    <mat-error *ngIf="ctrlEmail.hasError('pattern')">
+                                        {{localization.get("auth_signup-email-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlEmail.hasError('required')">
-                                        Email - <strong>обязательное</strong>
+                                        {{localization.get("auth_signup-email-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
 
                             <div class="form-item">
                                 <mat-form-field class="form__field full-width" appearance="outline">
-                                    <mat-label>Пароль</mat-label>
+                                    <mat-label>
+                                        {{localization.get("auth_signup-password-field-label")}}
+                                    </mat-label>
                                     <input matInput type="password" [formControl]="ctrlPassword" required>
-                                    <mat-error *ngIf="!ctrlPassword.hasError('required')">
-                                        Пароль должен содержать латинские буквы, цифры и заглавные буквы.
+                                    <mat-error *ngIf="ctrlPassword.hasError('pattern')">
+                                        {{localization.get("auth_signup-password-field-validation-pattern-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlPassword.hasError('required')">
-                                        Пароль - <strong>обязательное</strong>
+                                        {{localization.get("auth_signup-password-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
 
                             <div class="form-item">
                                 <mat-form-field class="form__field full-width" appearance="outline">
-                                    <mat-label>Подтвердить пароль</mat-label>
+                                    <mat-label>
+                                        {{localization.get("auth_signup-confirm-password-field-label")}}
+                                    </mat-label>
                                     <input matInput type="password" [formControl]="ctrlconfirmPassword" required>
                                     <mat-error *ngIf="ctrlconfirmPassword.value !== ctrlPassword.value">
-                                        Пароли не совпадают
+                                        {{localization.get("auth_signup-confirm-password-field-validation-message")}}
                                     </mat-error>
                                     <mat-error *ngIf="ctrlconfirmPassword.hasError('required')">
-                                        Пароль - <strong>обязательное</strong>
+                                        {{localization.get("auth_signup-confirm-password-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -108,10 +132,13 @@
                                     </span>
                                 </div>
                                 <mat-form-field class="form__field full-width" appearance="outline">
-                                    <mat-label>Введите текст с картинки</mat-label>
+                                    <mat-label>
+                                        {{localization.get("auth_signup-captcha-field-label")}}
+                                    </mat-label>
                                     <input matInput type="text" [formControl]="ctrlCaptcha" required>
                                     <mat-error *ngIf="ctrlCaptcha.hasError('required')">
-                                        Текст с картинки - <strong>обязателен</strong>
+                                        {{localization.get("auth_signup-captcha-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
                                     </mat-error>
                                 </mat-form-field>
                             </div>
@@ -120,10 +147,12 @@
                             <mat-divider class="form__divider"></mat-divider>
                             <div class="form__params-block">
                                 <div class="form-item">
-                                    <mat-checkbox color="accent" class="form__checkbox" [formControl]="ctrlRememberMe">
-                                        Я согласен с
-                                        <a [routerLink]="['/term-of-use']" class="form__link">Условиями
-                                            использования</a>
+                                    <mat-checkbox color="accent" class="form__checkbox"
+                                        [formControl]="ctrlAgreeWithTermOfUse">
+                                        {{localization.get("auth_signup-agree-with")}}
+                                        <a [routerLink]="['/term-of-use']" class="form__link">
+                                            {{localization.get("auth_signup-term-of-use")}}
+                                        </a>
                                     </mat-checkbox>
                                 </div>
                                 <div class="form-item">
@@ -133,7 +162,7 @@
 
                         <div class="form__submit">
                             <button mat-flat-button color="accent" type="submit" class="button button__text"
-                                [disabled]="!form.valid">Зарегистрироваться</button>
+                                [disabled]="!form.valid">{{localization.get("auth_signup-registration")}}</button>
                         </div>
                     </form>
                 </ta-query-progress>

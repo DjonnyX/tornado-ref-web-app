@@ -16,6 +16,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { IIntegration } from '@djonnyx/tornado-types';
 import { IntegrationSelectors, IntegrationsSelectors } from '@store/selectors';
 import { IntegrationsActions } from '@store/actions/integrations.action';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-signup',
@@ -44,7 +45,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
   ctrlPassword = new FormControl('', [Validators.required, Validators.pattern(PASSWORD_PATTERN)]);
   ctrlconfirmPassword = new FormControl('', [Validators.required, equalControlsValidator(this.ctrlPassword)]);
   ctrlCaptcha = new FormControl('', [Validators.required]);
-  ctrlRememberMe = new FormControl('', [Validators.requiredTrue]);
+  ctrlAgreeWithTermOfUse = new FormControl('', [Validators.requiredTrue]);
 
   constructor(
     private _fb: FormBuilder,
@@ -52,6 +53,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
     private _sanitizer: DomSanitizer,
+    public readonly localization: LocalizationService,
   ) {
     super();
 
@@ -63,7 +65,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
       password: this.ctrlPassword,
       confirmPassword: this.ctrlconfirmPassword,
       captchaValue: this.ctrlCaptcha,
-      rememberMe: this.ctrlRememberMe
+      rememberMe: this.ctrlAgreeWithTermOfUse
     });
   }
 

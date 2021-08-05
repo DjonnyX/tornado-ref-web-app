@@ -8,6 +8,7 @@ import { IUserSigninRequest } from '@services';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { PASSWORD_PATTERN } from '@app/core/patterns';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-signin',
@@ -30,6 +31,7 @@ export class SigninContainer implements OnInit {
     private _fb: FormBuilder,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
+    public readonly localization: LocalizationService,
   ) {
     this.form = this._fb.group({
       email: this.ctrlEmail,
