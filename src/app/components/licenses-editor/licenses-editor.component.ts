@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAccount, IIntegration, ILicense, IRef, LicenseStates } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-licenses-editor-component',
@@ -56,7 +57,7 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
       }
     }
   }
-  
+
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
@@ -73,7 +74,10 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -106,8 +110,8 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить валюту?",
-          message: `"${license.key}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-license",
+          message: `#{"${license.key}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

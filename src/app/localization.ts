@@ -5,12 +5,14 @@ const LOCALIZATION = {
         "common_action-deactivate": "Деактивировать",
         "common_action-activate": "Активировать",
         "common_action-edit": "Редактировать",
+        "common_action-details": "Подробнее",
         "common_action-delete": "Удалить",
         "common_action-cancel": "Отменить",
         "common_dialog-delete-the-category": "Удалить категорию?",
         "common_dialog-delete-the-product": "Удалить продукт?",
         "common_dialog-delete-the-ad": "Удалить рекламу?",
         "common_dialog-delete-app": "Удалить приложение?",
+        "common_dialog-delete-license": "Удалить лицензию?",
         "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
         // auth error
         "auth_error_title": "Ошибка",
@@ -149,6 +151,10 @@ const LOCALIZATION = {
         "menu_order-types": "Типы заказов",
         "menu_business-periods": "Бизнес-периоды",
         "menu_languages": "Языки",
+        // licenses
+        "licenses_key-serial-number": "Ключ",
+        "licenses_key-client": "Клиент",
+        "licenses_key-integration": "Интеграция",
     },
     "eng": {
         "common_ctrl_required": "required",
@@ -156,12 +162,14 @@ const LOCALIZATION = {
         "common_action-deactivate": "Deactivate",
         "common_action-activate": "Activate",
         "common_action-edit": "Edit",
+        "common_action-details": "Details",
         "common_action-delete": "Delete",
         "common_action-cancel": "Cancel",
         "common_dialog-delete-the-category": "Delete the category?",
         "common_dialog-delete-the-product": "Delete the product?",
         "common_dialog-delete-the-ad": "Delete the advert?",
         "common_dialog-delete-app": "Delete the app?",
+        "common_dialog-delete-license": "Delete the license?",
         "common_action-will-be-permanently-deleted": "will be permanently deleted.",
         // auth error
         "auth_error_title": "Error",
@@ -300,6 +308,10 @@ const LOCALIZATION = {
         "menu_order-types": "Order types",
         "menu_business-periods": "Business periods",
         "menu_languages": "Languages",
+        // licenses
+        "licenses_key-serial-number": "Serial key",
+        "licenses_key-client": "Client",
+        "licenses_key-integration": "integration",
     }
 };
 
