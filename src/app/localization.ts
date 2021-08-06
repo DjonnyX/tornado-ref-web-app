@@ -14,6 +14,7 @@ const LOCALIZATION = {
         "common_dialog-delete-app": "Удалить приложение?",
         "common_dialog-delete-license": "Удалить лицензию?",
         "common_dialog-delete-integration": "Удалить интеграцию?",
+        "common_dialog-delete-the-license-type": "Удалить тип лицензии?",
         "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
         // auth error
         "auth_error_title": "Ошибка",
@@ -172,6 +173,7 @@ const LOCALIZATION = {
         "common_dialog-delete-app": "Delete the app?",
         "common_dialog-delete-license": "Delete the license?",
         "common_dialog-delete-integration": "Delete the integration?",
+        "common_dialog-delete-the-license-type": "Delete the license type?",
         "common_action-will-be-permanently-deleted": "will be permanently deleted.",
         // auth error
         "auth_error_title": "Error",
