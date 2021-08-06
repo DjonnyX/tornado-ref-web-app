@@ -8,7 +8,7 @@
                         [class.expanded]='item.expanded || hasExistsIndex(item.children, selected)' matRipple
                         (click)="toggleExpand(item)">
                         <span class="navigation-menu__expantion-item-icon" [ngClass]="getIconClass(item)"></span>
-                        <span fxHide.sm="true" class="navigation-menu__expantion-item-label">{{item.name}}</span>
+                        <span fxHide.sm="true" class="navigation-menu__expantion-item-label">{{localization.get(item.name)}}</span>
                         <mat-icon fxHide.sm="true">
                             {{item.expanded || hasExistsIndex(item.children, selected) ? 'expand_more' : 'chevron_right'}}
                         </mat-icon>
@@ -24,7 +24,7 @@
                 <div matRipple class="navigation-menu__item" (click)="selectRoute(item.index)"
                     [class.selected]="item.index === selected">
                     <span class="navigation-menu__item-icon" [ngClass]="getIconClass(item)"></span>
-                    <span fxHide.sm="true" class="navigation-menu__item-label">{{item.name}}</span>
+                    <span fxHide.sm="true" class="navigation-menu__item-label">{{localization.get(item.name)}}</span>
                 </div>
             </ng-template>
         </ng-container>

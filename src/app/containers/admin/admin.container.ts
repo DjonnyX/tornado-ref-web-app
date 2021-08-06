@@ -12,6 +12,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { UserActions } from '@store/actions/user.action';
 import { RoleTypes } from '@enums/role-types';
 import { UserRights } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-admin',
@@ -33,73 +34,73 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   roteCollection: Array<INavRoute> = [
     {
       icon: "folder",
-      name: "Настройки",
+      name: "menu_settings", //"Настройки",
       roles: [RoleTypes.ADMIN],
       children: [
         {
           icon: "license",
-          name: "Типы лицензий",
+          name: "menu_license-types", //"Типы лицензий",
           route: "license-types",
         },
         {
           icon: "license",
-          name: "Интеграции",
+          name: "menu_integrations", //"Интеграции",
           route: "integrations",
         },
         {
           icon: "license",
-          name: "Лицензии",
+          name: "menu_licenses", //"Лицензии",
           route: "licenses",
         },
         {
           icon: "application",
-          name: "Приложения",
+          name: "menu_applications", //"Приложения",
           route: "applications",
         },
       ]
     },
     {
       icon: "folder",
-      name: "Настройки",
+      name: "menu_user-settings", //"Настройки",
       roles: [RoleTypes.CLIENT],
       children: [
         {
           icon: "license",
-          name: "Лицензии",
+          name: "menu_user-licenses", //"Лицензии",
           route: "licenses-account",
         },
         {
           icon: "devices",
-          name: "Устройства",
+          name: "menu_devices", //"Устройства",
           route: "terminals",
         },
         {
           icon: "markets",
-          name: "Магазины",
+          name: "menu_stores", //"Магазины",
           route: "stores",
         },
         {
           icon: "backups",
-          name: "Бэкапы",
+          name: "menu_backups", //"Бэкапы",
           route: "backups",
         },
         {
           icon: "folder-themes",
-          name: "Темы",
+          name: "menu_themes", //Темы",
           children: [
             {
               icon: "menu-theme",
-              name: "Киоск",
+              name: "menu_app-kiosk", //"Киоск",
               route: "themes-kiosk",
             },
             {
               icon: "queue",
-              name: "Электронная очередь",
+              name: "menu_app-eq", //"Электронная очередь",
               route: "themes-eq",
             },
             {
               icon: "order-admin",
-              name: "Сборщик заказов",
+              name: "menu_app-order-picker", //"Сборщик заказов",
               route: "themes-order-picker",
             },
           ]
@@ -108,40 +109,40 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     },
     {
       icon: "folder",
-      name: "Контент",
+      name: "menu_user-content", //"Контент",
       roles: [RoleTypes.CLIENT],
       children: [
         {
           icon: "folder-menu",
-          name: "Формирование меню",
+          name: "menu_menu-folder", //"Формирование меню",
           children: [
             {
               icon: "menu-theme",
-              name: "Меню",
+              name: "menu_menu", //"Меню",
               route: "menu-tree",
             },
             {
               icon: "products",
-              name: "Товары",
+              name: "menu_products", //"Товары",
               route: "products",
             },
             {
               icon: "tags",
-              name: "Тэги",
+              name: "menu_tags", //"Тэги",
               route: "tags",
             },
             {
               icon: "folder-menu",
-              name: "Группы",
+              name: "menu_menu-groups", //"Группы",
               children: [
                 {
                   icon: "menu-group",
-                  name: "Группы меню",
+                  name: "menu_menu-categories", //"Группы меню",
                   route: "menu-categories",
                 },
                 {
                   icon: "modifiers-group",
-                  name: "Группы модификаторов",
+                  name: "menu_menu-schema-categories", //"Группы модификаторов",
                   route: "schema-categories",
                 },
               ]
@@ -150,54 +151,54 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         },
         {
           icon: "folder",
-          name: "Рекламы",
+          name: "menu_ads", //"Рекламы",
           children: [
             {
               icon: "splash-screen",
-              name: "Заставки",
+              name: "menu_splash-screen", //"Заставки",
               route: "intros",
             },
             {
               icon: "splash-screen-disconnected",
-              name: "Заставка (терминал не работает)",
+              name: "menu_splash-screen-disconnected", //"Заставка (терминал не работает)",
               route: "service-unavailable-intros",
             },
             {
               icon: "banners",
-              name: "Банеры",
+              name: "menu_banners", //"Банеры",
               route: "banners",
             },
           ],
         },
         {
           icon: "folder",
-          name: "Дополнительно",
+          name: "menu_advanced-settings", //"Дополнительно",
           children: [
             {
               icon: "checkue",
-              name: "Чеки",
+              name: "menu_checkues", //"Чеки",
               route: "checkues",
               right: UserRights.ENABLE_CHECKUES,
             },
             {
               icon: "currency",
-              name: "Валюты",
+              name: "menu_currencies", //"Валюты",
               route: "currencies",
             },
 
             {
               icon: "order-types",
-              name: "Типы заказов",
+              name: "menu_order-types", //"Типы заказов",
               route: "order-types",
             },
             {
               icon: "business-periods",
-              name: "Бизнес-периоды",
+              name: "menu_business-periods", //"Бизнес-периоды",
               route: "business-periods",
             },
             {
               icon: "languages",
-              name: "Языки",
+              name: "menu_languages", //"Языки",
               route: "languages",
             },
           ]
@@ -208,7 +209,13 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   private _currentRouteIndex: number;
 
-  constructor(private _media: MediaObserver, private _router: Router, private _activatedRoute: ActivatedRoute, private _store: Store<IAppState>) {
+  constructor(
+    private _media: MediaObserver,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _store: Store<IAppState>,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
