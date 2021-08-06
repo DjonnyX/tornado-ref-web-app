@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IDialogData {
   title: string;
@@ -21,7 +22,10 @@ interface IDialogData {
 })
 export class DeleteEntityDialogComponent implements OnInit {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: IDialogData,
+    public readonly localization: LocalizationService,
+  ) { }
 
   ngOnInit(): void {
 

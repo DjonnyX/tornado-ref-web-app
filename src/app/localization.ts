@@ -1,6 +1,15 @@
 const LOCALIZATION = {
     "ru": {
         "common_ctrl_required": "обязательное",
+        "common_not-allocated": "Не распределено",
+        "common_action-deactivate": "Деактивировать",
+        "common_action-activate": "Активировать",
+        "common_action-edit": "Редактировать",
+        "common_action-delete": "Удалить",
+        "common_action-cancel": "Отменить",
+        "common_dialog-delete-the-category": "Удалить категорию?",
+        "common_dialog-delete-the-product": "Удалить продукт?",
+        "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
         // auth error
         "auth_error_title": "Ошибка",
         "auth_error_return-to-signin": "Вернуться к авторизации",
@@ -141,6 +150,15 @@ const LOCALIZATION = {
     },
     "eng": {
         "common_ctrl_required": "required",
+        "common_not-allocated": "Not allocated",
+        "common_action-deactivate": "Deactivate",
+        "common_action-activate": "Activate",
+        "common_action-edit": "Edit",
+        "common_action-delete": "Delete",
+        "common_action-cancel": "Cancel",
+        "common_dialog-delete-the-category": "Delete the category?",
+        "common_dialog-delete-the-product": "Delete the product?",
+        "common_action-will-be-permanently-deleted": "will be permanently deleted.",
         // auth error
         "auth_error_title": "Error",
         "auth_error_return-to-signin": "Return to sign in",

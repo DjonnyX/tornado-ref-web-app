@@ -5,6 +5,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-selectors-editor-component',
@@ -23,7 +24,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
-  
+
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -49,7 +50,10 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -126,8 +130,8 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить категорию?",
-          message: `"${this.getSelectorName(selector)}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-category",
+          message: `#{"${this.getSelectorName(selector)}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

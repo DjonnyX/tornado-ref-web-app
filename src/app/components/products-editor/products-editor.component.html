@@ -2,7 +2,7 @@
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <ng-container *ngFor="let systemTag of actualSystemTags">
         <div class="editor__list">
-            <div class="editor__list__header">{{systemTag?.name || 'Не распределены'}}</div>
+            <div class="editor__list__header">{{systemTag?.name || localization.get("common_not-allocated")}}</div>
             <div class="entities-wrapper">
                 <div class="entity"
                     *ngFor="let product of collection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
@@ -18,16 +18,23 @@
                         <mat-menu #menu="matMenu">
                             <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
                                 <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                <span>{{product.active ? 'Деактивировать' : 'Активировать'}}</span>
+                                <span>
+                                    {{product.active ? localization.get("common_action-deactivate") :
+                                    localization.get("common_action-activate")}}
+                                </span>
                             </button>
                             <button mat-menu-item (click)="onEditProduct(product)">
                                 <mat-icon>edit</mat-icon>
-                                <span>Редактировать</span>
+                                <span>
+                                    {{localization.get("common_action-edit")}}
+                                </span>
                             </button>
                             <ng-container *ngIf="hasDelete()">
                                 <button mat-menu-item (click)="onDeleteProduct(product)">
                                     <mat-icon>delete_forever</mat-icon>
-                                    <span>Удалить</span>
+                                    <span>
+                                        {{localization.get("common_action-delete")}}
+                                    </span>
                                 </button>
                             </ng-container>
                         </mat-menu>
