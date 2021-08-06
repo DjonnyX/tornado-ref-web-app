@@ -1,49 +1,60 @@
 <div class="editor">
+
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let license of collection | search: searchPattern"
-            [class.disabled]="isLicenseDisabled(license)">
-            <div class="entity__control">
-                <div class="entity__control__checkbox"></div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="onView(license)">
-                        <mat-icon>details</mat-icon>
-                        <span>Подробнее</span>
+
+    <div class="editor__container">
+
+        <div class="entities-container entities-card-layout">
+            <div class="entity" *ngFor="let license of collection | search: searchPattern"
+                [class.disabled]="isLicenseDisabled(license)">
+                <div class="entity__control">
+                    <div class="entity__control__checkbox"></div>
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                        aria-label="Menu">
+                        <mat-icon class="icon">more_vert</mat-icon>
                     </button>
-                </mat-menu>
-            </div>
-            <div matRipple class="entity__body" (click)="onEdit(license)">
-                <div class="content">
-                    <div class="content__container">
-                        <div *ngIf="!!license.licType?.name" class="content__name">
-                            {{license.licType?.name}}
-                        </div>
-                        <div class="content__description" style="text-transform: none;">
-                            Интеграция: {{integrationsMap[license.licType?.integrationId]?.name}}
-                        </div>
-                        <div class="content__description" style="text-transform: none;">
-                            <span>
-                                Клиент: {{accountsMap[license.clientId]?.email}}
-                            </span>
-                            <span>
-                                ({{accountsMap[license.clientId]?.lastName}}
-                                {{accountsMap[license.clientId]?.firstName}})
-                            </span>
-                        </div>
-                        <div class="content__description" style="text-transform: none;">
-                            Ключ: <b>{{license.key}}</b>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="onView(license)">
+                            <mat-icon>details</mat-icon>
+                            <span>Подробнее</span>
+                        </button>
+                    </mat-menu>
+                </div>
+                <div matRipple class="entity__body" (click)="onEdit(license)">
+                    <div class="content">
+                        <div class="content__container">
+                            <div *ngIf="!!license.licType?.name" class="content__name">
+                                {{license.licType?.name}}
+                            </div>
+                            <div class="content__description" style="text-transform: none;">
+                                Интеграция: {{integrationsMap[license.licType?.integrationId]?.name}}
+                            </div>
+                            <div class="content__description" style="text-transform: none;">
+                                <span>
+                                    Клиент: {{accountsMap[license.clientId]?.email}}
+                                </span>
+                                <span>
+                                    ({{accountsMap[license.clientId]?.lastName}}
+                                    {{accountsMap[license.clientId]?.firstName}})
+                                </span>
+                            </div>
+                            <div class="content__description" style="text-transform: none;">
+                                Ключ: <b>{{license.key}}</b>
+                            </div>
                         </div>
                     </div>
+                    <div class="color"></div>
                 </div>
-                <div class="color"></div>
             </div>
+            <!-- Panel Add Item -->
+            <div class="entities-bottom-panel">
+                <div class="entities-bottom-panel__container">
+                    <button color="accent" class="button-add" (click)="onCreate()">
+                        <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                        <div class="">Добавить лицензию</div>
+                    </button>
+                </div>
+            </div>
+            <!-- Panel Add Item -->
         </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-            <mat-icon>add</mat-icon>
-        </button>
     </div>
-</div>
