@@ -10,6 +10,7 @@ const LOCALIZATION = {
         "common_dialog-delete-the-category": "Удалить категорию?",
         "common_dialog-delete-the-product": "Удалить продукт?",
         "common_dialog-delete-the-ad": "Удалить рекламу?",
+        "common_dialog-delete-app": "Удалить приложение?",
         "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
         // auth error
         "auth_error_title": "Ошибка",
@@ -160,6 +161,7 @@ const LOCALIZATION = {
         "common_dialog-delete-the-category": "Delete the category?",
         "common_dialog-delete-the-product": "Delete the product?",
         "common_dialog-delete-the-ad": "Delete the advert?",
+        "common_dialog-delete-app": "Delete the app?",
         "common_action-will-be-permanently-deleted": "will be permanently deleted.",
         // auth error
         "auth_error_title": "Error",
