@@ -1,33 +1,56 @@
 <div class="wrapper admin__wrapper" ngClass.xs="wrapper--xs">
-    <mat-toolbar class="main-toolbar admin__toolbar">
-        <span *ngIf="isMobile$ | async">
-            <button mat-icon-button (click)="toggleSidenav()">
-                <mat-icon>menu</mat-icon>
-            </button>
-        </span>
-        <span class="page-title">{{localization.get((currentRoute$ | async)?.name)}}</span>
-        <span class="spacer"></span>
 
-        <!--Switch .app-container.theme-light to .theme-dark-->
-        <span class="tab-button__group dark">
-            <button class="tab-button">
-                <div class="tab-button__container">
-                    <div class="tab-button__icon icon-theme-light"></div>
-                    <!--Toggle icon-theme-light to icon-theme-dark-->
+    <!-- <mat-toolbar class="main-toolbar admin__toolbar"> -->
+    <div class="main-toolbar admin__toolbar">
+
+        <!--Logo section (menu.width)-->
+        <div class="admin__toolbar__logo-section">
+            <span *ngIf="isMobile$ | async">
+                <button mat-icon-button (click)="toggleSidenav()">
+                    <mat-icon>menu</mat-icon>
+                </button>
+            </span>
+
+            <div class="admin__logo">
+                <div class="admin__logo__container">
+                    <!--Logo-->
+                    <div class="admin__logo__icon icon-logo-tornado-server"></div>
+                    <!--Logo-->
                 </div>
-            </button>
-        </span>
+            </div>
+        </div>
+        <!--Logo section (menu.width)-->
 
-        <!--Sign-out-->
-        <button (click)="signout()" class="main-toolbar__button">
-            <p>Выйти</p>
-            <span class="main-toolbar__icon icon-signout"></span>
-        </button>
-        <!--Sign-out-->
-        <!-- <button mat-icon-button (click)="signout()">
-            <mat-icon>exit_to_app</mat-icon>
-        </button> -->
-    </mat-toolbar>
+
+
+        <!--Toolbar section (menu.width)-->
+        <div class="admin__toolbar__navigation-section">
+            <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ | async)?.name)}}</span>
+            <span class="spacer"></span>
+            <!--Switch .app-container.theme-light to .theme-dark-->
+            <span class="tab-button__group dark">
+                <button class="tab-button">
+                    <div class="tab-button__container">
+                        <div class="tab-button__icon icon-theme-light"></div>
+                        <!--Toggle icon-theme-light to icon-theme-dark-->
+                    </div>
+                </button>
+            </span>
+
+            <!--Sign-out-->
+            <button (click)="signout()" class="main-toolbar__button">
+                <p>Выйти</p>
+                <span class="main-toolbar__icon icon-signout"></span>
+            </button>
+        </div>
+        <!--Toolbar section (menu.width)-->
+
+
+
+
+        <!-- </mat-toolbar> -->
+    </div>
+
     <mat-sidenav-container (backdropClick)="closeSidenav()" [hasBackdrop]="isMobile$ | async"
         class="drawer-container admin__view__wrapper">
         <mat-sidenav class="mat-elevation-z2 admin__view__navigation" role="navigation" ngClass.xs="sidenav--xs"
@@ -47,6 +70,16 @@
         </mat-sidenav-content>
     </mat-sidenav-container>
 </div>
+
+
+
+
+
+
+
+
+
+
 <!-- 
 <div class="wrapper admin__wrapper">
     <div class="main-toolbar admin__toolbar">
