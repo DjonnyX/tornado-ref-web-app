@@ -18,6 +18,7 @@ const LOCALIZATION = {
         "common_dialog-delete-integration": "Удалить интеграцию?",
         "common_dialog-delete-the-license-type": "Удалить тип лицензии?",
         "common_dialog-delete-the-currency": "Удалить валюту?",
+        "common_dialog-delete-the-language": "Удалить язык?",
         "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
         // auth error
         "auth_error_title": "Ошибка",
@@ -180,6 +181,7 @@ const LOCALIZATION = {
         "common_dialog-delete-integration": "Delete the integration?",
         "common_dialog-delete-the-license-type": "Delete the license type?",
         "common_dialog-delete-the-currency": "Delete the currency?",
+        "common_dialog-delete-the-language": "Delete the language?",
         "common_action-will-be-permanently-deleted": "will be permanently deleted.",
         // auth error
         "auth_error_title": "Error",
