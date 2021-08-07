@@ -48,10 +48,10 @@
                                     <!-- Controls -->
                                     <div class="entity__control">
                                         <div class="entity__control__container">
+                                            <!--My checkbox-->
                                             <div class="entity__control__checkbox">
-                                                <!--My checkbox-->
                                                 <ta-checkbox #checkboxActive [checked]="product.active"
-                                                (click)="onToggleActive($event, product)"></ta-checkbox>
+                                                    (click)="onToggleActive($event, product)"></ta-checkbox>
                                             </div>
                                             <!--My checkbox-->
                                         </div>
@@ -162,7 +162,7 @@
                                         <div class="entity__control__container">
                                             <!--My checkbox-->
                                             <ta-checkbox #checkboxActive [checked]="product.active"
-                                            (click)="onToggleActive($event, product)"></ta-checkbox>
+                                                (click)="onToggleActive($event, product)"></ta-checkbox>
 
                                             <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}">
                                             </ng-container>

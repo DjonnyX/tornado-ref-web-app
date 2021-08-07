@@ -25,6 +25,10 @@ $node-tree-item-margin-vertical: 5px; //Gap
 .node-tree-item {
     position: relative;
 
+    .node__control__checkbox {
+        padding: 10px;
+    }
+
     .node-item-way-hider {
         position: absolute;
         width: 4px;

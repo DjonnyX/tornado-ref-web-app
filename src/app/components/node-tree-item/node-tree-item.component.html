@@ -13,10 +13,16 @@
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
                         <mat-icon>{{isExpanded || isSearchExpanded ? 'expand_more' : 'chevron_right'}}</mat-icon>
                     </button>
-                    <div *ngIf="!isRoot && !lock" class="content__checkbox-active">
+                    <!-- <div *ngIf="!isRoot && !lock" class="content__checkbox-active">
                         <mat-checkbox color="accent" #checkboxActive [checked]="node.active"
                             (click)="onToggleActive($event)"></mat-checkbox>
+                    </div> -->
+                    <!--My checkbox-->
+                    <div class="node__control__checkbox">
+                        <ta-checkbox #checkboxActive [checked]="node.active" (click)="onToggleActive($event)">
+                        </ta-checkbox>
                     </div>
+                    <!--My checkbox-->
                 </span>
                 <ng-container *ngIf="!isRoot; else root">
                     <span class="content__name" [class.active]="isSearchMatch" (click)="onSetContent($event)">
