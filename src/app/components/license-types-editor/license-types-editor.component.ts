@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ILicenseType, IRef, IAsset, IIntegration } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-license-types-editor-component',
@@ -67,7 +68,10 @@ export class LicenseTypesEditorComponent extends BaseComponent implements OnInit
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -90,8 +94,8 @@ export class LicenseTypesEditorComponent extends BaseComponent implements OnInit
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить тип лицензии?",
-          message: `"${licenseType.name}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-license-type",
+          message: `#{"${licenseType.name}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

@@ -25,19 +25,29 @@
                             <button mat-menu-item type="button" (click)="onToggleDefault($event, language)">
                                 <mat-icon>{{language.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}
                                 </mat-icon>
-                                <span>{{language.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
+                                <span>
+                                    {{language.isDefault ? localization.get("common_action-remove-as-default") :
+                                    localization.get("common_action-make-as-default")}}
+                                </span>
                             </button>
                             <button mat-menu-item type="button" (click)="onToggleActive($event, language)">
                                 <mat-icon>{{language.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                <span>{{language.active ? 'Деактивировать' : 'Активировать'}}</span>
+                                <span>
+                                    {{language.active ? localization.get("common_action-deactivate") :
+                                    localization.get("common_action-activate")}}
+                                </span>
                             </button>
                             <button mat-menu-item (click)="onEdit(language)">
                                 <mat-icon>edit</mat-icon>
-                                <span>Редактировать</span>
+                                <span>
+                                    {{localization.get("common_action-edit")}}
+                                </span>
                             </button>
                             <button mat-menu-item (click)="onDelete(language)">
                                 <mat-icon>delete_forever</mat-icon>
-                                <span>Удалить</span>
+                                <span>
+                                    {{localization.get("common_action-delete")}}
+                                </span>
                             </button>
                         </mat-menu>
                         <!-- ActionMenu -->

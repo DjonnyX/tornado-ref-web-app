@@ -3,22 +3,26 @@
     <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
         <mat-icon class="icon">more_vert</mat-icon>
     </button>
-    <mat-menu #menu="matMenu" class="action-menu">
-        <button mat-menu-item type="button" (click)="onToggleActive($event, product)" class="action-menu__item">
-            <mat-icon class="action-menu__item__icon">{{product.active ? 'visibility_off' :
-                'visibility'}}
-            </mat-icon>
-            <span class="action-menu__item__name">{{product.active ? 'Деактивировать' :
-                'Активировать'}}</span>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
+            <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <span>
+                {{product.active ? localization.get("common_action-deactivate") :
+                localization.get("common_action-activate")}}
+            </span>
         </button>
-        <button mat-menu-item (click)="onEditProduct(product)" class="action-menu__item">
-            <mat-icon class="action-menu__item__icon">edit</mat-icon>
-            <span class="action-menu__item__name">Редактировать</span>
+        <button mat-menu-item (click)="onEditProduct(product)">
+            <mat-icon>edit</mat-icon>
+            <span>
+                {{localization.get("common_action-edit")}}
+            </span>
         </button>
         <ng-container *ngIf="hasDelete()">
-            <button mat-menu-item (click)="onDeleteProduct(product)" class="action-menu__item">
-                <mat-icon class="action-menu__item__icon">delete_forever</mat-icon>
-                <span class="action-menu__item__name">Удалить</span>
+            <button mat-menu-item (click)="onDeleteProduct(product)">
+                <mat-icon>delete_forever</mat-icon>
+                <span>
+                    {{localization.get("common_action-delete")}}
+                </span>
             </button>
         </ng-container>
     </mat-menu>
@@ -34,7 +38,7 @@
                 <!--Entity Wrapper-->
                 <ng-container *ngFor="let systemTag of actualSystemTags">
                     <div class="editor__group-list">
-                        <div class="editor__group-list__header">{{systemTag?.name || 'Не распределены'}}</div>
+                        <div class="editor__group-list__header">{{systemTag?.name || localization.get("common_not-allocated")}}</div>
                         <div class="entities-container entities-list-layout">
                             <div class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"

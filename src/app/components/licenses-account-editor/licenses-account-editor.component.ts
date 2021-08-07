@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { LocalizationService } from '@app/services/localization/localization.service';
 import { BaseComponent } from '@components/base/base-component';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { IAccount, IIntegration, ILicenseAccount, IRef, LicenseStates } from '@djonnyx/tornado-types';
@@ -56,7 +57,7 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
       }
     }
   }
-  
+
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
@@ -67,7 +68,10 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -85,8 +89,8 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Внимание",
-          message: "Вы уверены, что хотите удалить лицензию у устройства?",
+          title: "common_dialog-attention",
+          message: "common_dialog-message-are-you-sure-you-want-to-remove-the-license-from-the-device",
         },
       });
 
