@@ -38,7 +38,8 @@
                 <!--Entity Wrapper-->
                 <ng-container *ngFor="let systemTag of actualSystemTags">
                     <div class="editor__group-list">
-                        <div class="editor__group-list__header">{{systemTag?.name || localization.get("common_not-allocated")}}</div>
+                        <div class="editor__group-list__header">{{systemTag?.name ||
+                            localization.get("common_not-allocated")}}</div>
                         <div class="entities-container entities-list-layout">
                             <div class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
@@ -157,16 +158,12 @@
                                 <div class="entity__wrapper">
                                     <div class="entity__control">
                                         <div class="entity__control__container">
-                                            <div class="entity__control__checkbox">
-                                                <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                                                    (click)="onToggleActive($event, product)">
-                                                </mat-checkbox>
-                                            </div>
-
                                             <!--My checkbox-->
-                                            <div class="entity__control__checkbox">
+                                            <div
+                                                [ngClass]="{'entity__control__checkbox': true, 'active': !!product.active, 'inactive': !product.active}">
                                                 <label class="entity__control__checkbox__container">
-                                                    <input type="checkbox">
+                                                    <input type="checkbox" #checkboxActive [checked]="product.active"
+                                                        (click)="onToggleActive($event, product)">
                                                     <span class="checkmark"></span>
                                                 </label>
                                             </div>
