@@ -15,15 +15,21 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item type="button" (click)="onToggleActive($event, ad)">
                         <mat-icon>{{ad.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{ad.active ? 'Деактивировать' : 'Активировать'}}</span>
+                        <span>
+                            {{ad.active ? localization.get("common_action-deactivate") :
+                            localization.get("common_action-activate")}}</span>
                     </button>
                     <button mat-menu-item (click)="onEditAd(ad)">
                         <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
+                        <span>
+                            {{localization.get("common_action-edit")}}
+                        </span>
                     </button>
                     <button mat-menu-item (click)="onDeleteAd(ad)">
                         <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
+                        <span>
+                            {{localization.get("common_action-delete")}}
+                        </span>
                     </button>
                 </mat-menu>
             </div>

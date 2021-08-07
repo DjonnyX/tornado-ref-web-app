@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ILanguage, IRef, IAsset } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-languages-editor-component',
@@ -18,7 +19,7 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
-  
+
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -46,7 +47,10 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -56,7 +60,7 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
-  
+
   hasThumbnail(assetId: string, size: "x32" | "x128" = "x32"): boolean {
     const asset = this._assetsDictionary[assetId];
     return !!asset?.mipmap?.[size];
@@ -93,8 +97,8 @@ export class LanguagesEditorComponent extends BaseComponent implements OnInit, O
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить язык?",
-          message: `"${language.name}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-language",
+          message: `#{"${language.name}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

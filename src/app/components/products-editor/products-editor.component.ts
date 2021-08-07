@@ -9,6 +9,7 @@ import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITa
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 import { Pipe, PipeTransform } from '@angular/core';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Pipe({
   name: 'filterProducts'
@@ -110,7 +111,11 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog, private _cdr: ChangeDetectorRef) {
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -234,8 +239,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить продукт?",
-          message: `"${this.getProductName(product)}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-product",
+          message: `#{"${this.getProductName(product)}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

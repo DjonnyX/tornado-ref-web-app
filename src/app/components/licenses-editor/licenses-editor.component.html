@@ -16,7 +16,9 @@
                     <mat-menu #menu="matMenu">
                         <button mat-menu-item (click)="onView(license)">
                             <mat-icon>details</mat-icon>
-                            <span>Подробнее</span>
+                            <span>
+                                {{localization.get("common_action-details")}}
+                            </span>
                         </button>
                     </mat-menu>
                 </div>
@@ -27,11 +29,13 @@
                                 {{license.licType?.name}}
                             </div>
                             <div class="content__description" style="text-transform: none;">
-                                Интеграция: {{integrationsMap[license.licType?.integrationId]?.name}}
+                                {{localization.get("licenses_key-integration")}}:
+                                {{integrationsMap[license.licType?.integrationId]?.name}}
                             </div>
                             <div class="content__description" style="text-transform: none;">
                                 <span>
-                                    Клиент: {{accountsMap[license.clientId]?.email}}
+                                    {{localization.get("licenses_key-client")}}:
+                                    {{accountsMap[license.clientId]?.email}}
                                 </span>
                                 <span>
                                     ({{accountsMap[license.clientId]?.lastName}}
@@ -39,7 +43,7 @@
                                 </span>
                             </div>
                             <div class="content__description" style="text-transform: none;">
-                                Ключ: <b>{{license.key}}</b>
+                                {{localization.get("licenses_key-serial-number")}}: <b>{{license.key}}</b>
                             </div>
                         </div>
                     </div>

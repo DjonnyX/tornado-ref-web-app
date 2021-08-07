@@ -5,7 +5,7 @@
                 <mat-icon>menu</mat-icon>
             </button>
         </span>
-        <span class="page-title">{{(currentRoute$ | async)?.name}}</span>
+        <span class="page-title">{{localization.get((currentRoute$ | async)?.name)}}</span>
         <span class="spacer"></span>
         <button (click)="signout()" class="main-toolbar__button">
             <p>Выйти</p>

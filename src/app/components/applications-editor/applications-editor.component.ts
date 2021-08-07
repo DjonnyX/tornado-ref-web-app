@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IApplication, IRef, IAsset } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-applications-editor-component',
@@ -18,7 +19,7 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
-  
+
   /*private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -46,7 +47,10 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -56,7 +60,7 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
   ngOnDestroy(): void {
     super.ngOnDestroy();
   }
-  
+
   onCreate(): void {
     this.create.emit();
   }
@@ -69,8 +73,8 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить приложение?",
-          message: `"${application.name}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-app",
+          message: `#{"${application.name}"}common_action-will-be-permanently-deleted.`,
         },
       });
 
