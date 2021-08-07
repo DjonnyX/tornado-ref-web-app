@@ -152,7 +152,6 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     }
 
     this.actualSystemTags = this._systemTags.filter(s => {
-      console.log(s.id, systemTags)
       return systemTags.indexOf(s.id) > -1;
     });
 

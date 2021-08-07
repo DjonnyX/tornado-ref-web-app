@@ -1,0 +1,6 @@
+<div [ngClass]="{'checkbox': true, 'active': !!value, 'inactive': !value}">
+    <label class="checkbox__container">
+        <input type="checkbox" [checked]="value" (click)="onToggleChecked($event)">
+        <span class="checkmark"></span>
+    </label>
+</div>
