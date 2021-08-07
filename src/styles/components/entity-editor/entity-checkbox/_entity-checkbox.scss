@@ -19,7 +19,7 @@
 .entity__control__checkbox {
 
     &__container {
-        display: block;
+        display: flex;
         position: relative;
         // padding-left: 35px;
         // margin-bottom: 12px;
@@ -40,7 +40,7 @@
         }
 
         .checkmark {
-            display: block;
+            display: flex;
             box-sizing: border-box;
             position: relative;
             top: 0;
@@ -50,6 +50,7 @@
             border-radius: 4px;
             border: 2px solid $primary-color;
             justify-content: center;
+            align-items: center;
         }
 
         input:checked ~ .checkmark { //Checked
