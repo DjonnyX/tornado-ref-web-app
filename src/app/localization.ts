@@ -10,6 +10,9 @@ const LOCALIZATION = {
         "common_action-cancel": "Отменить",
         "common_action-make-as-default": "Сделать основным",
         "common_action-remove-as-default": "Убрать как основной",
+        "common_action-unlink-from-device": "Отвязать от устройства",
+        "common_info-active": "Активна",
+        "common_info-free": "Свободна",
         "common_dialog-delete-the-category": "Удалить категорию?",
         "common_dialog-delete-the-product": "Удалить продукт?",
         "common_dialog-delete-the-ad": "Удалить рекламу?",
@@ -19,6 +22,8 @@ const LOCALIZATION = {
         "common_dialog-delete-the-license-type": "Удалить тип лицензии?",
         "common_dialog-delete-the-currency": "Удалить валюту?",
         "common_dialog-delete-the-language": "Удалить язык?",
+        "common_dialog-attention": "Внимание",
+        "common_dialog-are-you-sure-you-want-to-remove-the-license-from-the-device": "Вы уверены, что хотите удалить лицензию у устройства",
         "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
         // auth error
         "auth_error_title": "Ошибка",
@@ -161,6 +166,7 @@ const LOCALIZATION = {
         "licenses_key-serial-number": "Ключ",
         "licenses_key-client": "Клиент",
         "licenses_key-integration": "Интеграция",
+        "licenses_no-licenses": "Лицензии отсутствуют",
     },
     "eng": {
         "common_ctrl_required": "required",
@@ -173,6 +179,9 @@ const LOCALIZATION = {
         "common_action-cancel": "Cancel",
         "common_action-make-as-default": "Make as default",
         "common_action-remove-as-default": "Remove as default",
+        "common_action-unlink-from-device": "Unlink from device",
+        "common_info-active": "Active",
+        "common_info-free": "Free",
         "common_dialog-delete-the-category": "Delete the category?",
         "common_dialog-delete-the-product": "Delete the product?",
         "common_dialog-delete-the-ad": "Delete the advert?",
@@ -182,6 +191,8 @@ const LOCALIZATION = {
         "common_dialog-delete-the-license-type": "Delete the license type?",
         "common_dialog-delete-the-currency": "Delete the currency?",
         "common_dialog-delete-the-language": "Delete the language?",
+        "common_dialog-attention": "Attention",
+        "common_dialog-are-you-sure-you-want-to-remove-the-license-from-the-device": "Are you sure you want to remove the license from the device",
         "common_action-will-be-permanently-deleted": "will be permanently deleted.",
         // auth error
         "auth_error_title": "Error",
@@ -324,6 +335,7 @@ const LOCALIZATION = {
         "licenses_key-serial-number": "Serial key",
         "licenses_key-client": "Client",
         "licenses_key-integration": "integration",
+        "licenses_no-licenses": "No licenses",
     }
 };
 

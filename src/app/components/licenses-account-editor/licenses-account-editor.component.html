@@ -7,7 +7,7 @@
                 <div class="entity-checkbox-active">
                     <span class="license-status" [ngClass]="{'active': !!license.imei}"></span>
                     <span class="license-status-text">
-                        {{!!license.imei ? 'активна' : 'свободна'}}
+                        {{localization.get(!!license.imei ? 'common_info-active' : 'common_info-free')}}
                     </span>
                 </div>
                 <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
@@ -16,11 +16,15 @@
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item (click)="onView(license)">
                         <mat-icon>details</mat-icon>
-                        <span>Подробнее</span>
+                        <span>
+                            {{localization.get("common_action-details")}}
+                        </span>
                     </button>
                     <button *ngIf="!!license.imei" mat-menu-item (click)="onUnbind(license)">
                         <mat-icon>cancel</mat-icon>
-                        <span>Отвязать от устройства</span>
+                        <span>
+                            {{localization.get("common_action-unlink-from-device")}}
+                        </span>
                     </button>
                 </mat-menu>
             </div>
@@ -30,18 +34,18 @@
                         {{license.licType?.name}}
                     </div>
                     <div *ngIf="!!integrationsMap" class="content__description" style="text-transform: none;">
-                        Интеграция: {{integrationsMap[license.licType?.integrationId]?.name}}
+                        {{localization.get("licenses_key-integration")}}: {{integrationsMap[license.licType?.integrationId]?.name}}
                     </div>
                     <div *ngIf="!!accountsMap" class="content__description" style="text-transform: none;">
                         <span>
-                            Клиент: {{accountsMap[license.clientId]?.email}}
+                            {{localization.get("licenses_key-client")}}: {{accountsMap[license.clientId]?.email}}
                         </span>
                         <span>
                             ({{accountsMap[license.clientId]?.lastName}} {{accountsMap[license.clientId]?.firstName}})
                         </span>
                     </div>
                     <div class="content__description" style="text-transform: none;">
-                        Ключ: <b>{{license.key}}</b>
+                        {{localization.get("licenses_key-serial-number")}}: <b>{{license.key}}</b>
                     </div>
                 </div>
                 <div class="color"></div>
@@ -52,7 +56,7 @@
 <ng-container *ngIf="!collection || collection.length === 0">
     <div class="licenses-none__wrapper">
         <div class="licenses-none__text">
-            Лицензии отсутствуют
+            {{localization.get("licenses_no-licenses")}}
         </div>
     </div>
 </ng-container>
