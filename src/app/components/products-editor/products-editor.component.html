@@ -48,10 +48,16 @@
                                     <!-- Controls -->
                                     <div class="entity__control">
                                         <div class="entity__control__container">
-                                            <div class="entity__control__checkbox">
-                                                <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                                                    (click)="onToggleActive($event, product)"></mat-checkbox>
+                                            <!--My checkbox-->
+                                            <div
+                                                [ngClass]="{'entity__control__checkbox': true, 'active': !!product.active, 'inactive': !product.active}">
+                                                <label class="entity__control__checkbox__container">
+                                                    <input type="checkbox" #checkboxActive [checked]="product.active"
+                                                        (click)="onToggleActive($event, product)">
+                                                    <span class="checkmark"></span>
+                                                </label>
                                             </div>
+                                            <!--My checkbox-->
                                         </div>
                                     </div>
                                     <!-- Controls -->
