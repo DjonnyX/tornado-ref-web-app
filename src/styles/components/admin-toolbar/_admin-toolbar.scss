@@ -61,11 +61,11 @@ $admin-section-container-padding-h: 16px;
         color: $background-color;
         padding: 10px;
         border-radius: 6px;
-        background-color: $primary-color-50;
+        // background-color: $primary-color-50;
 
         &::before {
             color: $background-color;
-            font-size: 26px;
+            font-size: 24px;
         }
     }
 }
