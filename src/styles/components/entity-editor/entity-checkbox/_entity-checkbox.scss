@@ -13,3 +13,62 @@
         overflow: hidden;
     }
 }
+
+//My
+
+.entity__control__checkbox {
+
+    &__container {
+        display: block;
+        position: relative;
+        padding-left: 35px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+        input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkmark {
+            box-sizing: border-box;
+            position: absolute;
+            top: 0;
+            left: 0;
+            @include box(20px);
+            background-color: #eee;
+            border-radius: 4px;
+            border: 2px solid $primary-color;
+            justify-content: center;
+        }
+
+        input:checked ~ .checkmark { //Checked
+            // @extend .icon-checkbox-check;
+            background-color: $accent-color;
+            border: 2px solid $accent-color;
+
+            &::before {
+                content: "\e920";
+                font-family: icomoon;
+                font-size: 16px;
+                color: $white;
+            }
+        }
+
+        &:hover { //Hover
+
+            .checkmark {
+                background-color: #ccc;
+            }
+        }
+    }
+
+}

@@ -4,7 +4,6 @@
 
     <div class="editor__container">
 
-
         <div class="entities-container entities-card-layout">
             <div class="entity" *ngFor="let language of collection | search: searchPattern"
                 [ngClass]="{'is-default': language.isDefault, 'disabled': !language.active}">

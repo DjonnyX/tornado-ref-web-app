@@ -158,6 +158,16 @@
                                                     (click)="onToggleActive($event, product)">
                                                 </mat-checkbox>
                                             </div>
+
+                                            <!--My checkbox-->
+                                            <div class="entity__control__checkbox">
+                                                <label class="entity__control__checkbox__container">
+                                                    <input type="checkbox">
+                                                    <span class="checkmark"></span>
+                                                </label>
+                                            </div>
+                                            <!--My checkbox-->
+
                                             <ng-container *ngTemplateOutlet="popupMenu; context: {data: product}">
                                             </ng-container>
                                         </div>
