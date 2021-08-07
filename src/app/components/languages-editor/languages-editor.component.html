@@ -11,10 +11,16 @@
                 <!-- Controls -->
                 <div class="entity__control">
                     <div class="entity__control__container">
-                        <div class="entity__control__checkbox">
+                        <!-- <div class="entity__control__checkbox">
                             <mat-checkbox color="accent" #checkboxActive [checked]="language.active"
                                 (click)="onToggleActive($event, language)"></mat-checkbox>
+                        </div> -->
+                        <!--My checkbox-->
+                        <div class="entity__control__checkbox">
+                            <ta-checkbox #checkboxActive [checked]="language.active"
+                                (click)="onToggleActive($event, language)"></ta-checkbox>
                         </div>
+                        <!--My checkbox-->
                         <!-- ActionMenu -->
                         <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
                             aria-label="Menu">
