@@ -5,6 +5,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ICurrency, IRef, UserRights } from '@djonnyx/tornado-types';
 import { Observable } from 'rxjs';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-currencies-editor-component',
@@ -34,7 +35,10 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -70,8 +74,8 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить валюту?",
-          message: `"${currency.name}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-currency",
+          message: `#{"${currency.name}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

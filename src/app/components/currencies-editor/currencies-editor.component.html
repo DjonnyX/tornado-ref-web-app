@@ -19,22 +19,32 @@
                         <button mat-menu-item type="button" (click)="onToggleDefault($event, currency)">
                             <mat-icon>{{currency.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}
                             </mat-icon>
-                            <span>{{currency.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
+                            <span>
+                                {{currency.isDefault ? localization.get("common_action-remove-as-default") :
+                                localization.get("common_action-make-as-default")}}
+                            </span>
                         </button>
                         <button mat-menu-item type="button" (click)="onToggleActive($event, currency)">
                             <mat-icon>{{currency.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            <span>{{currency.active ? 'Деактивировать' : 'Активировать'}}</span>
+                            <span>
+                                {{currency.active ? localization.get("common_action-deactivate") :
+                                localization.get("common_action-activate")}}
+                            </span>
                         </button>
                     </ng-container>
 
                     <button mat-menu-item (click)="onEdit(currency)">
                         <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
+                        <span>
+                            {{localization.get("common_action-edit")}}
+                        </span>
                     </button>
                     <ng-container *ngIf="hasDelete()">
                         <button mat-menu-item (click)="onDelete(currency)">
                             <mat-icon>delete_forever</mat-icon>
-                            <span>Удалить</span>
+                            <span>
+                                {{localization.get("common_action-delete")}}
+                            </span>
                         </button>
                     </ng-container>
                 </mat-menu>

@@ -8,6 +8,8 @@ const LOCALIZATION = {
         "common_action-details": "Подробнее",
         "common_action-delete": "Удалить",
         "common_action-cancel": "Отменить",
+        "common_action-make-as-default": "Сделать основным",
+        "common_action-remove-as-default": "Убрать как основной",
         "common_dialog-delete-the-category": "Удалить категорию?",
         "common_dialog-delete-the-product": "Удалить продукт?",
         "common_dialog-delete-the-ad": "Удалить рекламу?",
@@ -15,6 +17,7 @@ const LOCALIZATION = {
         "common_dialog-delete-license": "Удалить лицензию?",
         "common_dialog-delete-integration": "Удалить интеграцию?",
         "common_dialog-delete-the-license-type": "Удалить тип лицензии?",
+        "common_dialog-delete-the-currency": "Удалить валюту?",
         "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
         // auth error
         "auth_error_title": "Ошибка",
@@ -167,6 +170,8 @@ const LOCALIZATION = {
         "common_action-details": "Details",
         "common_action-delete": "Delete",
         "common_action-cancel": "Cancel",
+        "common_action-make-as-default": "Make as default",
+        "common_action-remove-as-default": "Remove as default",
         "common_dialog-delete-the-category": "Delete the category?",
         "common_dialog-delete-the-product": "Delete the product?",
         "common_dialog-delete-the-ad": "Delete the advert?",
@@ -174,6 +179,7 @@ const LOCALIZATION = {
         "common_dialog-delete-license": "Delete the license?",
         "common_dialog-delete-integration": "Delete the integration?",
         "common_dialog-delete-the-license-type": "Delete the license type?",
+        "common_dialog-delete-the-currency": "Delete the currency?",
         "common_action-will-be-permanently-deleted": "will be permanently deleted.",
         // auth error
         "auth_error_title": "Error",
