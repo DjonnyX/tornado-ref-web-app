@@ -7,10 +7,23 @@
         </span>
         <span class="page-title">{{localization.get((currentRoute$ | async)?.name)}}</span>
         <span class="spacer"></span>
+
+        <!--Switch .app-container.theme-light to .theme-dark-->
+        <span class="tab-button__group dark">
+            <button class="tab-button">
+                <div class="tab-button__container">
+                    <div class="tab-button__icon icon-theme-light"></div>
+                    <!--Toggle icon-theme-light to icon-theme-dark-->
+                </div>
+            </button>
+        </span>
+
+        <!--Sign-out-->
         <button (click)="signout()" class="main-toolbar__button">
             <p>Выйти</p>
             <span class="main-toolbar__icon icon-signout"></span>
         </button>
+        <!--Sign-out-->
         <!-- <button mat-icon-button (click)="signout()">
             <mat-icon>exit_to_app</mat-icon>
         </button> -->

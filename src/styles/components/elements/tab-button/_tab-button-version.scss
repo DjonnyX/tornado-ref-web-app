@@ -1,0 +1,34 @@
+@import "../../../base/reset-button";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+$tab-button-background-color-normal-dark: $primary-color;
+$tab-button-icon-color-normal-dark: $background-color;
+$tab-button-border-normal-dark: $divider-color-dark;
+
+
+.tab-button__group.dark {
+
+    .tab-button {
+
+    & {
+        background-color: $tab-button-background-color-normal-dark;
+        border: $tab-button-border-normal-dark;
+
+        .tab-button__icon::before {
+            color: $tab-button-icon-color-normal-dark;
+        }
+    }
+
+    //Active
+    &.active {
+        background-color: $tab-button-background-color-active;
+        border: $tab-button-border-active;
+
+        .tab-button__icon::before {
+            color: $tab-button-icon-color-active;
+        }
+    }
+    }
+
+}
