@@ -173,6 +173,9 @@ const LOCALIZATION = {
         // backups
         "backups_form": "Сформировать",
         "backups_upload": "Загрузить",
+        // stores
+        "stores_add-new": "Добавить магазин",
+        "stores_dialog-delete-the-store": "Удалить магазин?",
     },
     "eng": {
         "common_ctrl_required": "required",
@@ -348,6 +351,9 @@ const LOCALIZATION = {
         // backups
         "backups_form": "Form",
         "backups_upload": "Upload",
+        // stores
+        "stores_add-new": "Add new",
+        "stores_dialog-delete-the-store": "Delete the store?"
     }
 };
 
