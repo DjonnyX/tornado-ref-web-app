@@ -1,12 +1,15 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
+import { BaseComponent } from '@components/base/base-component';
+import { interval } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-search',
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent extends BaseComponent implements OnInit {
   @Input() placeholder: string;
 
   @Input() liveSearch: boolean = true;
@@ -23,7 +26,9 @@ export class SearchComponent implements OnInit {
 
   isFill = false;
 
-  constructor() { }
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.form = new FormGroup({
@@ -42,8 +47,8 @@ export class SearchComponent implements OnInit {
     );
   }
 
-  clear() {
-    this.ctrlSearch.setValue("");
+  clear(e: Event) {
+    this.ctrlSearch.reset();
   }
 
   onOver() {
@@ -51,7 +56,12 @@ export class SearchComponent implements OnInit {
   }
 
   onOut() {
-    this.isHover = false;
+    interval(250).pipe(
+      takeUntil(this.unsubscribe$),
+      take(1),
+    ).subscribe(_ => {
+      this.isHover = false;
+    });
   }
 
   onFocus() {
@@ -59,7 +69,12 @@ export class SearchComponent implements OnInit {
   }
 
   onBlur() {
-    this.isFocused = false;
+    interval(250).pipe(
+      takeUntil(this.unsubscribe$),
+      take(1),
+    ).subscribe(_ => {
+      this.isFocused = false;
+    });
   }
 
   onSubmit() {

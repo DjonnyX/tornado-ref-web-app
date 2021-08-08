@@ -31,7 +31,7 @@
             // color: $secondary-color;
             margin-right: 7px;
             z-index: 2;
-            @include transition(width border, 75ms 75ms, ease, 0s);
+            @include transition(width border, 75ms 75ms, ease, 150ms);
 
             //Icon
             &__icon {
@@ -57,7 +57,7 @@
             height: 100%;
             margin: 0;
             z-index: 2;
-            @include transition(width border, 75ms 75ms, ease, 0s);
+            @include transition(width border, 75ms 75ms, ease, 150ms);
 
             &__container {
                 display: flex;
@@ -120,7 +120,7 @@
     }
     //Search opened
     &.focused {
-        @include transition(width border, 125ms 125ms, ease, 0s);
+        @include transition(width border, 125ms 125ms, ease, 150ms);
         border: $search-border-opened;
         width: $search-width-opened;
 
@@ -137,7 +137,7 @@
     }
     //Search closed
     & {
-        @include transition(width border, 75ms 75ms, ease, 0s);
+        @include transition(width border, 75ms 75ms, ease, 150ms);
         border: $search-border-closed;
         width: $search-width-closed;
     }
