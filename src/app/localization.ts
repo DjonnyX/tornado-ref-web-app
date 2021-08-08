@@ -22,6 +22,7 @@ const LOCALIZATION = {
         "common_dialog-delete-the-license-type": "Удалить тип лицензии?",
         "common_dialog-delete-the-currency": "Удалить валюту?",
         "common_dialog-delete-the-language": "Удалить язык?",
+        "common_dialog-delete-the-tag": "Удалить тэг?",
         "common_dialog-attention": "Внимание",
         "common_dialog-are-you-sure-you-want-to-remove-the-license-from-the-device": "Вы уверены, что хотите удалить лицензию у устройства",
         "common_action-will-be-permanently-deleted": "будет безвозвратно удален.",
@@ -167,6 +168,8 @@ const LOCALIZATION = {
         "licenses_key-client": "Клиент",
         "licenses_key-integration": "Интеграция",
         "licenses_no-licenses": "Лицензии отсутствуют",
+        // tags
+        "tags_add-new": "Добавить тэг",
     },
     "eng": {
         "common_ctrl_required": "required",
@@ -191,6 +194,7 @@ const LOCALIZATION = {
         "common_dialog-delete-the-license-type": "Delete the license type?",
         "common_dialog-delete-the-currency": "Delete the currency?",
         "common_dialog-delete-the-language": "Delete the language?",
+        "common_dialog-delete-the-tag": "Delete the tag?",
         "common_dialog-attention": "Attention",
         "common_dialog-are-you-sure-you-want-to-remove-the-license-from-the-device": "Are you sure you want to remove the license from the device",
         "common_action-will-be-permanently-deleted": "will be permanently deleted.",
@@ -336,6 +340,8 @@ const LOCALIZATION = {
         "licenses_key-client": "Client",
         "licenses_key-integration": "integration",
         "licenses_no-licenses": "No licenses",
+        // tags
+        "tags_add-new": "New tag",
     }
 };
 

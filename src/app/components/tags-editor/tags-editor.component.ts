@@ -5,6 +5,7 @@ import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag, IRef, IAsset, ITagContentsItem, ILanguage } from '@djonnyx/tornado-types';
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-tags-editor-component',
@@ -78,6 +79,7 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
   constructor(
     public dialog: MatDialog,
     private _cdr: ChangeDetectorRef,
+    public readonly localization: LocalizationService,
   ) {
     super();
   }
@@ -139,8 +141,8 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить тэг?",
-          message: `"${this.getName(tag)}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-tag",
+          message: `#{"${this.getName(tag)}" }common_action-will-be-permanently-deleted.`,
         },
       });
 
