@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?fvri62');
-  src:  url('fonts/icomoon.eot?fvri62#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?fvri62') format('truetype'),
-    url('fonts/icomoon.woff?fvri62') format('woff'),
-    url('fonts/icomoon.svg?fvri62#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?ltkklv');
+  src:  url('fonts/icomoon.eot?ltkklv#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?ltkklv') format('truetype'),
+    url('fonts/icomoon.woff?ltkklv') format('woff'),
+    url('fonts/icomoon.svg?ltkklv#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-menu-arrow:before {
+  content: "\e922";
+}
 .icon-logo-tornado-server:before {
   content: "\e921";
 }
