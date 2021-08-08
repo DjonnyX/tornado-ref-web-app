@@ -4,6 +4,7 @@
 
 .dropdown-selector {
     display: block;
+    color: $primary-color;
     position: relative;
 
     &__button {
@@ -13,11 +14,14 @@
     &__content {
         display: none;
         position: absolute;
+        flex-direction: row;
+        color: $primary-color;
         right: 0;
         background-color: #f9f9f9;
         min-width: 160px;
         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
         padding: 12px 16px;
+        border-radius: 6px;
         z-index: 1;
 
         select {
@@ -32,7 +36,7 @@
     &.active {
 
         .dropdown-selector__content {
-            display: block;
+            display: flex;
         }
     }
 }
