@@ -50,10 +50,9 @@
                         <a href="#">Документация</a>
                     </span>
                     <span class="tab-button__group dark">
-                        <button class="tab-button">
+                        <button class="tab-button" (click)="onThemeToggle()">
                             <div class="tab-button__container">
-                                <div class="tab-button__icon icon-theme-light"></div>
-                                <!--Toggle icon-theme-light to icon-theme-dark-->
+                                <div [ngClass]="btnThemeClasses"></div>
                             </div>
                         </button>
                     </span>

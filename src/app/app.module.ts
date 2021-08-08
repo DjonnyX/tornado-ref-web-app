@@ -23,6 +23,7 @@ import { CookieConsentModule } from '@components/cookie-consent/cookie-consent.m
 import { EmptyPageComponent } from '@components/empty-page/empty-page.component';
 import { LocalizationModule } from './services/localization/localization.module';
 import LOCALIZATION from './localization';
+import { ThemeService } from './services/theme.service';
 
 @NgModule({
   declarations: [
@@ -52,9 +53,10 @@ import LOCALIZATION from './localization';
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor,
-      multi: true
+      multi: true,
     },
     NotificationService,
+    ThemeService,
     AuthService,
   ],
   bootstrap: [AppComponent]

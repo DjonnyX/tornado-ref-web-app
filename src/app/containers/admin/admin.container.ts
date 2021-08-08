@@ -13,6 +13,7 @@ import { UserActions } from '@store/actions/user.action';
 import { RoleTypes } from '@enums/role-types';
 import { UserRights } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
+import { ThemeService } from '@app/services/theme.service';
 
 @Component({
   selector: 'ta-admin',
@@ -209,11 +210,14 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   private _currentRouteIndex: number;
 
+  btnThemeClasses: any = { 'tab-button__icon': true };
+
   constructor(
     private _media: MediaObserver,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
+    public readonly themeService: ThemeService,
     public readonly localization: LocalizationService,
   ) {
     super();
@@ -273,10 +277,23 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
+  onThemeToggle(): void {
+    this.themeService.toggle();
+  }
+
   ngOnInit() {
+    this.themeService.theme$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(
+      v => {
+        this.btnThemeClasses = { ['tab-button__icon']: true, [`icon-theme-${v}`]: true };
+      }
+    );
+
     this.normalizedRoutesCollection(this.roteCollection);
 
     this._router.events.pipe(
+      takeUntil(this.unsubscribe$),
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       const url = this.extractUrlPath(event.urlAfterRedirects);
