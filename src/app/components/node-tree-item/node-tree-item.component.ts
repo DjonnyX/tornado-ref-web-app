@@ -19,6 +19,7 @@ import { ICollectionDictionary } from '@app/utils/collection.util';
 import { NodeTreeStores } from '@components/node-tree/enums/node-tree-stores.enum';
 import { Router } from '@angular/router';
 import { CdkDragDrop } from '@angular/cdk/drag-drop';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 const arrayItemToUpward = (array: Array<string>, item: string): Array<string> => {
   const collection = [...array];
@@ -244,7 +245,11 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
    */
   isSearchExpanded = false;
 
-  constructor(public dialog: MatDialog, private _router: Router) {
+  constructor(
+    public dialog: MatDialog,
+    private _router: Router,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -482,7 +487,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
-          title: "Выберите контент для узла",
+          title: "common_dialog-choose-a-content-for-node",
           assetsDictionary: this.assetsDictionary,
           products: this.products,
           groupModifiersNodes: this.groupModifiersNodes,
@@ -550,7 +555,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(SetupNodeContentDialogComponent,
       {
         data: {
-          title: "Выберите контент для узла",
+          title: "common_dialog-choose-a-content-for-node",
           multi: true,
           assetsDictionary: this.assetsDictionary,
           products: this.products,
@@ -603,8 +608,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить продукт?",
-          message: `"${this.getContentName()}" будет безвозвратно удален.. ${!!this.node.children && this.node.children.length > 0 ? "Его дети будет безвозвратно удалены.." : ""}`,
+          title: "common_dialog-delete-the-content",
+          message: `#{"${this.getContentName()}"} common_action-will-be-permanently-deleted. ${!!this.node.children && this.node.children.length > 0 ? "common_dialog-his-children-will-be-permanently-deleted." : ""}`,
         },
       });
 
@@ -623,7 +628,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           type: this.getNodeScenarioType(),
-          title: "Настроить сценарий",
+          title: "common_dialog-setup-scenario",
           scenario: undefined,
           scenarios: this.node.scenarios,
           businessPeriods: this.businessPeriods,
@@ -665,8 +670,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить все сценарии?",
-          message: "Сценарии будут безвозвратно удалены.",
+          title: "common_dialog-delete-all-scenarios",
+          message: "common_dialog-scenarios-will-be-permanently-deleted.",
         },
       });
 
@@ -684,8 +689,8 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить сценарий?",
-          message: "Сценарий будет безвозвратно удален.",
+          title: "common_dialog-delete-the-scenario",
+          message: "common_dialog-scenario-will-be-permanently-deleted.",
         },
       });
 
@@ -716,7 +721,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           type: this.getNodeScenarioType(),
-          title: "Редактировать сценарий",
+          title: "common_dialog-edit-scenario",
           scenario: scenario,
           scenarios: this.node.scenarios,
           stores: this.stores,

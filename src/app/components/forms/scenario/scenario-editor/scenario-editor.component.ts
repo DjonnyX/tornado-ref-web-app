@@ -10,6 +10,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-scenario-editor',
@@ -201,7 +202,9 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
   readonly ScenarioPriceActionTypes = ScenarioPriceActionTypes;
 
-  constructor() {
+  constructor(
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 

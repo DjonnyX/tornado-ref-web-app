@@ -49,34 +49,46 @@
                                     {{(!!nodeInstance && nodeInstance.active) || node.active ? 'visibility_off' :
                                     'visibility'}}
                                 </mat-icon>
-                                <span>{{(!!nodeInstance && nodeInstance.active) || node.active ? 'Деактивировать' :
-                                    'Активировать'}}</span>
+                                <span>{{localization.get((!!nodeInstance && nodeInstance.active) || node.active ?
+                                    'common_action-deactivate' :
+                                    'common_action-activate')}}</span>
                             </button>
                             <button mat-menu-item (click)="onNavigateToContent()">
                                 <mat-icon>arrow_forward</mat-icon>
-                                <span>Перейти к "{{getContentName()}}"</span>
+                                <span>
+                                    {{localization.get("common_action-move-to")}} "{{getContentName()}}"</span>
                             </button>
                             <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
                                 <mat-icon>arrow_upward</mat-icon>
-                                <span>Вверх</span>
+                                <span>
+                                    {{localization.get("common_action-upward")}}
+                                </span>
                             </button>
                             <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
                                 <mat-icon>arrow_downward</mat-icon>
-                                <span>Вниз</span>
+                                <span>
+                                    {{localization.get("common_action-downward")}}
+                                </span>
                             </button>
                             <button mat-menu-item (click)="onSetContent()">
                                 <mat-icon>edit</mat-icon>
-                                <span>Редактировать</span>
+                                <span>
+                                    {{localization.get("common_action-edit")}}
+                                </span>
                             </button>
                         </ng-container>
                         <button *ngIf="node.type !== NodeTypes.SELECTOR_NODE" mat-menu-item (click)="onAddScenario()">
                             <mat-icon>linear_scale</mat-icon>
-                            <span>Добавить сценарий</span>
+                            <span>
+                                {{localization.get("common_action-add-scenario")}}
+                            </span>
                         </button>
                         <ng-container *ngIf="!isRoot">
                             <button mat-menu-item (click)="onDelete()">
                                 <mat-icon>delete_forever</mat-icon>
-                                <span>Удалить</span>
+                                <span>
+                                    {{localization.get("common_action-delete")}}
+                                </span>
                             </button>
                         </ng-container>
                     </mat-menu>
