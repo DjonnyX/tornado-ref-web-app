@@ -34,12 +34,21 @@ $admin-section-container-padding-h: 16px;
         }
     }
 
+    &__navline__group {
+        display: flex;
+        gap: 10px;
+    }
+
     //elements
 
     &__page-title {
         font-size: 18px;
         font-weight: 500;
         color: $background-color;
+
+        &.parent {
+            opacity: 0.3;
+        }
     }
 }
 

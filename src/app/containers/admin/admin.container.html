@@ -29,7 +29,12 @@
         <!--Toolbar section (menu.width)-->
         <div class="admin__toolbar__navigation-section">
             <div class="admin__toolbar__navigation-section__container">
-                <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ | async)?.name)}}</span>
+                <div class="admin__toolbar__navline__group">
+                    <span class="admin__toolbar__page-title parent">{{localization.get((currentRoute$ |
+                        async)?.name)}}</span>
+                    <!--Title of a parent folder-->
+                    <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ | async)?.name)}}</span>
+                </div>
                 <span class="spacer"></span>
                 <!--Switch .app-container.theme-light to .theme-dark-->
                 <span class="tab-button__group dark">
