@@ -1,6 +1,8 @@
 <form [formGroup]="form" [ngClass]="fieldClass" class="search-form">
     <mat-form-field color="accent" appearance="legacy" class="search-form__field">
-        <mat-label class="search-form__field__label">Поиск по имени</mat-label>
+        <mat-label class="search-form__field__label">
+            {{localization.get("common_search-by-name")}}
+        </mat-label>
         <input matInput type="text" [formControl]="ctrlSearch">
         <button mat-button *ngIf="!!ctrlSearch.value && ctrlSearch.value !== ''" matSuffix mat-icon-button
             aria-label="Clear" class="button-close" (click)="onClear()">

@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { LocalizationService } from '@app/services/localization/localization.service';
 import { formatDT } from '@app/utils/dt-formatter.util';
 import { IRef } from '@djonnyx/tornado-types';
 
@@ -34,7 +35,9 @@ export class StatePanelComponent implements OnInit {
 
   get buttonLayoutClasses() { return { ['tab-button__icon']: true, [`icon-filter-${this.layout === LayoutTypes.CARD ? 'card' : 'list'}`]: true }; }
 
-  constructor() { }
+  constructor(
+    public readonly localization: LocalizationService,
+  ) { }
 
   ngOnInit(): void { }
 

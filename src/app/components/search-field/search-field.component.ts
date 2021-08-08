@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { LocalizationService } from '@app/services/localization/localization.service';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 
@@ -9,7 +10,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./search-field.component.scss']
 })
 export class SearchFieldComponent extends BaseComponent implements OnInit, OnDestroy {
-  
+
   form: FormGroup;
 
   ctrlSearch = new FormControl("");
@@ -18,7 +19,10 @@ export class SearchFieldComponent extends BaseComponent implements OnInit, OnDes
 
   @Output() search = new EventEmitter<string>();
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({

@@ -2,6 +2,7 @@ const LOCALIZATION = {
     "ru": {
         "common_ctrl_required": "обязательное",
         "common_not-allocated": "Не распределено",
+        "common_search-by-name": "Поиск по имени",
         "common_action-deactivate": "Деактивировать",
         "common_action-activate": "Активировать",
         "common_action-edit": "Редактировать",
@@ -180,6 +181,7 @@ const LOCALIZATION = {
     "eng": {
         "common_ctrl_required": "required",
         "common_not-allocated": "Not allocated",
+        "common_search-by-name": "Search by name",
         "common_action-deactivate": "Deactivate",
         "common_action-activate": "Activate",
         "common_action-edit": "Edit",
