@@ -2,7 +2,9 @@
     <ta-products-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
         [rights]="rights$ | async" [tagList]="tags$ | async" [assets]="assets$ | async"
         [currencies]="currencies$ | async" [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-        [systemTags]="systemTags$ | async" (create)="onCreate()" (edit)="onEdit($event)" (update)="onUpdate($event)"
-        (delete)="onDelete($event)">
+        [systemTags]="systemTags$ | async" [layoutType]="layoutType$ | async"
+        [displayInactiveEntities]="displayInactiveEntities$ | async" (create)="onCreate()" (edit)="onEdit($event)"
+        (update)="onUpdate($event)" (delete)="onDelete($event)" (changeLayout)="onChangeLayout($event)"
+        (changeDisplayInactiveEntities)="onChangeDisplayInactiveEntities($event)">
     </ta-products-editor-component>
 </ta-query-progress>

@@ -5,7 +5,7 @@ import { MediaObserver } from '@angular/flex-layout';
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
-import { AdminSelectors } from '@store/selectors';
+import { AdminSelectors, SettingsSelectors } from '@store/selectors';
 import { INavRoute } from '@components/navigation-menu/interfaces';
 import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
@@ -13,7 +13,7 @@ import { UserActions } from '@store/actions/user.action';
 import { RoleTypes } from '@enums/role-types';
 import { UserRights } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
-import { ThemeService } from '@app/services/theme.service';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-admin',
@@ -29,6 +29,8 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   currentRouteIndex$: Observable<number>;
 
   currentRoute$: Observable<INavRoute>;
+
+  parentRoute$: Observable<INavRoute>;
 
   sidenavIsOpen$: Observable<boolean>;
 
@@ -217,7 +219,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
-    public readonly themeService: ThemeService,
     public readonly localization: LocalizationService,
   ) {
     super();
@@ -262,14 +263,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0): number {
+  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null): number {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
       if (!!collection[i].children && collection[i].children.length > 0) {
         collection[i].expanded = true;
-        result = this.normalizedRoutesCollection(collection[i].children, result);
+        result = this.normalizedRoutesCollection(collection[i].children, result, collection[i]);
       } else {
         collection[i].index = result;
+        collection[i].parent = parent;
         result++;
       }
     }
@@ -278,12 +280,13 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   }
 
   onThemeToggle(): void {
-    this.themeService.toggle();
+    this._store.dispatch(SettingsActions.toggleTheme());
   }
 
   ngOnInit() {
-    this.themeService.theme$.pipe(
+    this._store.pipe(
       takeUntil(this.unsubscribe$),
+      select(SettingsSelectors.selectTheme),
     ).subscribe(
       v => {
         this.btnThemeClasses = { ['tab-button__icon']: true, [`icon-theme-${v}`]: true };
@@ -320,6 +323,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
     this.currentRoute$ = this.currentRouteIndex$.pipe(
       map(index => this.findRouteByIndex(index, this.roteCollection)),
+    );
+
+    this.parentRoute$ = this.currentRoute$.pipe(
+      map(route => route.parent),
     );
 
     this.size$ = this._media.media$.pipe(

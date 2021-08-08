@@ -48,6 +48,7 @@ import { IAppThemesState } from './app-themes.state';
 import { IAppThemeAssetsState } from './app-theme-assets.state';
 import { ISystemTagState } from './system-tag.state';
 import { ISystemTagsState } from './system-tags.state';
+import { ISettingsState } from './settings.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -100,4 +101,5 @@ export interface IAppState {
     taThemes: IAppThemesState,
     taSystemTag: ISystemTagState,
     taSystemTags: ISystemTagsState,
+    taSettings: ISettingsState,
 }

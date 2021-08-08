@@ -29,8 +29,10 @@
 </ng-template>
 <!-- Content -->
 <div class="editor product-editor" *ngIf="!!defaultLanguage">
-    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"
-        (layout)="onSwitchLayout($event)" (showHiddenEntities)="onShowHiddenEntities($event)"></ta-state-panel>
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" [layout]="layoutType"
+        [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
+        (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)">
+    </ta-state-panel>
     <ng-container [ngSwitch]="layoutType">
         <!-- List-template -->
         <ng-container *ngSwitchCase="LayoutTypes.LIST">

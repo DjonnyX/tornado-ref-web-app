@@ -18,9 +18,9 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   public readonly LayoutTypes = LayoutTypes;
 
-  layoutType: LayoutTypes;
+  @Output() changeLayout = new EventEmitter<LayoutTypes>();
 
-  isShowHiddenEntities: boolean = true;
+  @Output() changeDisplayInactiveEntities = new EventEmitter<boolean>();
 
   private _collection: Array<ISelector>;
   @Input() set collection(value: Array<ISelector>) {
@@ -40,6 +40,17 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
+
+  @Input() layoutType: LayoutTypes;
+
+  private _displayInactiveEntities: boolean = true;
+  @Input() set displayInactiveEntities(v: boolean) {
+    if (this._displayInactiveEntities !== v) {
+      this._displayInactiveEntities = v;
+      this.resetFilteredCollection();
+    }
+  }
+  get displayInactiveEntities() { return this._displayInactiveEntities; }
 
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -82,12 +93,12 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   }
 
   resetFilteredCollection() {
-    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this.isShowHiddenEntities));
+    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this._displayInactiveEntities));
     this._cdr.markForCheck();
   }
 
   onSwitchLayout(layoutType: LayoutTypes) {
-    this.layoutType = layoutType;
+    this.changeLayout.emit(layoutType);
   }
 
   getSelectorContent(selector: ISelector): ISelectorContentsItem {
@@ -175,8 +186,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     this.searchPattern = pattern;
   }
 
-  onShowHiddenEntities(isShowHiddenEntities: boolean) {
-    this.isShowHiddenEntities = isShowHiddenEntities;
-    this.resetFilteredCollection();
+  onShowHiddenEntities(displayInactiveEntities: boolean) {
+    this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 }

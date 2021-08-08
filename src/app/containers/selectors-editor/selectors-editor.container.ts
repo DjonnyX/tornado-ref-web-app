@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { SelectorsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
+import { SelectorsSelectors, AssetsSelectors, LanguagesSelectors, SettingsSelectors } from '@store/selectors';
 import { SelectorsActions } from '@store/actions/selectors.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
@@ -12,6 +12,8 @@ import { ISelector, ITag, IRef, SelectorTypes, IAsset, ILanguage } from '@djonny
 import { AssetsActions } from '@store/actions/assets.action';
 import { map, filter } from 'rxjs/operators';
 import { LanguagesActions } from '@store/actions/languages.action';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-selectors-editor',
@@ -39,10 +41,22 @@ export class SelectorsEditorContainer implements OnInit, OnDestroy {
 
   private _selectorsType: SelectorTypes;
 
+  layoutType$: Observable<LayoutTypes>;
+
+  displayInactiveEntities$: Observable<boolean>;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
     this._selectorsType = this._activatedRoute.snapshot.data.type;
+
+    this.layoutType$ = this._store.pipe(
+      select(SettingsSelectors.selectSelectorsLayout),
+    );
+
+    this.displayInactiveEntities$ = this._store.pipe(
+      select(SettingsSelectors.selectSelectorsInactiveVisibility),
+    );
 
     this._store.dispatch(SelectorsActions.getAllRequest({
       options: {
@@ -141,5 +155,13 @@ export class SelectorsEditorContainer implements OnInit, OnDestroy {
 
   onDelete(id: string): void {
     this._store.dispatch(SelectorsActions.deleteRequest({ id }));
+  }
+
+  onChangeLayout(layout: LayoutTypes): void {
+    this._store.dispatch(SettingsActions.changeSelectorsLayout({ layout }));
+  }
+
+  onChangeDisplayInactiveEntities(showInactive: boolean): void {
+    this._store.dispatch(SettingsActions.changeSelectorsVisibility({ showInactive }));
   }
 }

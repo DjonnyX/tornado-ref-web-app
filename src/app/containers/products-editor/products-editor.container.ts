@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { ProductsSelectors, AssetsSelectors, LanguagesSelectors, UserSelectors, SystemTagsSelectors, CurrenciesSelectors } from '@store/selectors';
+import { ProductsSelectors, AssetsSelectors, LanguagesSelectors, UserSelectors, SystemTagsSelectors, CurrenciesSelectors, SettingsSelectors } from '@store/selectors';
 import { ProductsActions } from '@store/actions/products.action';
 import { IAsset } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -16,6 +16,8 @@ import { IProduct, ITag, IRef, ILanguage, UserRights, ISystemTag, ICurrency } fr
 import { LanguagesActions } from '@store/actions/languages.action';
 import { SystemTagsActions } from '@store/actions/system-tags.action';
 import { CurrenciesActions } from '@store/actions/currencies.action';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-products-editor',
@@ -47,6 +49,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   rights$: Observable<Array<UserRights>>;
 
+  layoutType$: Observable<LayoutTypes>;
+
+  displayInactiveEntities$: Observable<boolean>;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
@@ -55,6 +61,14 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     this.rights$ = this._store.pipe(
       select(UserSelectors.selectUserProfile),
       map(p => p?.account?.rights || []),
+    );
+
+    this.layoutType$ = this._store.pipe(
+      select(SettingsSelectors.selectProductsLayout),
+    );
+
+    this.displayInactiveEntities$ = this._store.pipe(
+      select(SettingsSelectors.selectProductsInactiveVisibility),
     );
 
     this.isProcess$ = combineLatest([
@@ -168,5 +182,13 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   onDelete(id: string): void {
     this._store.dispatch(ProductsActions.deleteRequest({ id }));
+  }
+
+  onChangeLayout(layout: LayoutTypes): void {
+    this._store.dispatch(SettingsActions.changeProductsLayout({ layout }));
+  }
+
+  onChangeDisplayInactiveEntities(showInactive: boolean): void {
+    this._store.dispatch(SettingsActions.changeProductsVisibility({ showInactive }));
   }
 }
