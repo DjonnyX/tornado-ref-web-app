@@ -32,11 +32,27 @@ $admin-section-container-padding-h: 16px;
             height: 100%;
             padding-right: $admin-section-container-padding-h;
         }
+
+        &__right-group, &__left-group {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+        }
     }
 
     &__navline__group {
         display: flex;
         gap: 10px;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        color: $neutral-color;
+
+        a {
+
+        }
     }
 
     //elements

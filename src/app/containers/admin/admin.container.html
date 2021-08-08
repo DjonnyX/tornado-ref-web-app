@@ -29,28 +29,41 @@
         <!--Toolbar section (menu.width)-->
         <div class="admin__toolbar__navigation-section">
             <div class="admin__toolbar__navigation-section__container">
-                <div class="admin__toolbar__navline__group">
-                    <span class="admin__toolbar__page-title parent">{{localization.get((currentRoute$ |
-                        async)?.name)}}</span>
-                    <!--Title of a parent folder-->
-                    <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ | async)?.name)}}</span>
-                </div>
-                <span class="spacer"></span>
-                <!--Switch .app-container.theme-light to .theme-dark-->
-                <span class="tab-button__group dark">
-                    <button class="tab-button">
-                        <div class="tab-button__container">
-                            <div class="tab-button__icon icon-theme-light"></div>
-                            <!--Toggle icon-theme-light to icon-theme-dark-->
-                        </div>
-                    </button>
-                </span>
 
-                <!--Sign-out-->
-                <button (click)="signout()" class="main-toolbar__button">
-                    <p>Выйти</p>
-                    <span class="main-toolbar__icon icon-signout"></span>
-                </button>
+                <!--Left Group-->
+                <div class="admin__toolbar__navigation-section__left-group">
+                    <div class="admin__toolbar__navline__group">
+                        <span class="admin__toolbar__page-title parent">{{localization.get((currentRoute$ |
+                            async)?.name)}}</span>
+                        <!--Title of a parent folder-->
+                        <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ |
+                            async)?.name)}}</span>
+                    </div>
+                </div>
+
+                <span class="spacer"></span>
+
+                <!--Right Group-->
+                <div class="admin__toolbar__navigation-section__right-group">
+                    <!--Switch .app-container.theme-light to .theme-dark-->
+                    <span class="admin__toolbar__link">
+                        <a href="#">Документация</a>
+                    </span>
+                    <span class="tab-button__group dark">
+                        <button class="tab-button">
+                            <div class="tab-button__container">
+                                <div class="tab-button__icon icon-theme-light"></div>
+                                <!--Toggle icon-theme-light to icon-theme-dark-->
+                            </div>
+                        </button>
+                    </span>
+                    <!--Sign-out-->
+                    <button (click)="signout()" class="main-toolbar__button">
+                        <p>Выйти</p>
+                        <span class="main-toolbar__icon icon-signout"></span>
+                    </button>
+                </div>
+
             </div>
         </div>
         <!--Toolbar section (menu.width)-->
