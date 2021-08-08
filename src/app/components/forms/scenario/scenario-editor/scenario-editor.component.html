@@ -3,29 +3,39 @@
         <ng-container *ngIf="actualTypes.length > 0; else noScriptsAvailable">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Действие</mat-label>
+                    <mat-label>
+                        {{localization.get("scenario_action")}}
+                    </mat-label>
                     <mat-select [formControl]="ctrlAction" required>
-                        <mat-option *ngFor="let type of actualTypes" [value]="type">{{getTypeName(type)}}</mat-option>
+                        <mat-option *ngFor="let type of actualTypes" [value]="type">
+                            {{localization.get(getTypeName(type))}}
+                        </mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlAction.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
         </ng-container>
         <ng-template #noScriptsAvailable>
-            Нет доступных сценариев.
+            {{localization.get("scenario_not-available-scenarios")}}
         </ng-template>
 
         <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_STORE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Доступно в магазинах</mat-label>
+                    <mat-label>
+                        {{localization.get("scenario_available-by-stores")}}
+                    </mat-label>
                     <mat-select [formControl]="ctrlValue" multiple required>
                         <mat-option *ngFor="let store of stores" [value]="store.id">{{getStoreName(store)}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -34,13 +44,17 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Бизнес-периоды</mat-label>
+                    <mat-label>
+                        {{localization.get("scenario_business-periods")}}
+                    </mat-label>
                     <mat-select [formControl]="ctrlValue" multiple required>
                         <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обзательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -49,13 +63,17 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Тип заказа</mat-label>
+                    <mat-label>
+                        {{localization.get("scenario_order-types")}}
+                    </mat-label>
                     <mat-select [formControl]="ctrlValue" multiple required>
                         <mat-option *ngFor="let ot of orderTypes" [value]="ot.id">{{getOrderTypeName(ot)}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обзательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -70,7 +88,9 @@
                         <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>-->
             </div>
@@ -79,10 +99,13 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioIntroActionTypes.DURATION">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Продолжительность</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Продолжительность" required>
+                    <mat-label>localization.get("scenario_duration-ms")</mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_duration-ms')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -91,10 +114,15 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.UP_LIMIT">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Верхний предел</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Верхний предел" required>
+                    <mat-label>
+                        {{localization.get("scenario_up-limit")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_up-limit')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -103,10 +131,15 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioProductActionTypes.DOWN_LIMIT">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Нижний предел</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Нижний предел" required>
+                    <mat-label>
+                        {{localization.get("scenario_down-limit")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_down-limit')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -115,22 +148,27 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioPriceActionTypes.PRICE">
             <div class="form-item" *ngIf="!ctrlIsPercentage.value" style="margin-bottom: 12px;">
                 <mat-checkbox color="primary" [formControl]="ctrlIsStatic">
-                    Фиксированная цена
+                    {{localization.get("scenario_fixed-price")}}
                 </mat-checkbox>
             </div>
 
             <div class="form-item" style="margin-bottom: 12px;">
                 <mat-checkbox *ngIf="!ctrlIsStatic.value" color="primary" [formControl]="ctrlIsPercentage">
-                    Процентная наценка / скидка
+                    {{localization.get("scenario_percentage-extra-charge-or-discount")}}
                 </mat-checkbox>
             </div>
 
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Наценка / скидка</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Наценка / скидка" required>
+                    <mat-label>
+                        {{localization.get("scenario_extra-charge-or-discount")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_extra-charge-or-discount')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -139,35 +177,44 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Бизнес-периоды</mat-label>
+                    <mat-label>
+                        {{localization.get("scenario_business-periods")}}
+                    </mat-label>
                     <mat-select [formControl]="ctrlEntities" multiple required>
                         <mat-option *ngFor="let bp of businessPeriods" [value]="bp.id">{{getBusinessPeriodName(bp)}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlEntities.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
 
             <div class="form-item" *ngIf="!ctrlIsPercentage.value" style="margin-bottom: 12px;">
                 <mat-checkbox color="primary" [formControl]="ctrlIsStatic">
-                    Фиксированная цена
+                    {{localization.get("scenario_fixed-price")}}
                 </mat-checkbox>
             </div>
 
             <div class="form-item" style="margin-bottom: 12px;">
                 <mat-checkbox *ngIf="!ctrlIsStatic.value" color="primary" [formControl]="ctrlIsPercentage">
-                    Процентная наценка / скидка
+                    {{localization.get("scenario_percentage-extra-charge-or-discount")}}
                 </mat-checkbox>
             </div>
 
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Наценка / скидка</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Наценка / скидка" required>
+                    <mat-label>
+                        {{localization.get("scenario_extra-charge-or-discount")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_extra-charge-or-discount')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -176,35 +223,42 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Типы заказов</mat-label>
+                    <mat-label>{{localization.get("scenario_order-types")}}</mat-label>
                     <mat-select [formControl]="ctrlEntities" multiple required>
                         <mat-option *ngFor="let ot of orderTypes" [value]="ot.id">{{getOrderTypeName(ot)}}
                         </mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlEntities.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
 
             <div class="form-item" *ngIf="!ctrlIsPercentage.value" style="margin-bottom: 12px;">
                 <mat-checkbox color="primary" [formControl]="ctrlIsStatic">
-                    Фиксированная цена
+                    {{localization.get("scenario_fixed-price")}}
                 </mat-checkbox>
             </div>
 
             <div class="form-item" style="margin-bottom: 12px;">
                 <mat-checkbox *ngIf="!ctrlIsStatic.value" color="primary" [formControl]="ctrlIsPercentage">
-                    Процентная наценка / скидка
+                    {{localization.get("scenario_percentage-extra-charge-or-discount")}}
                 </mat-checkbox>
             </div>
 
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Наценка / скидка</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Наценка / скидка" required>
+                    <mat-label>
+                        {{localization.get("scenario_extra-charge-or-discount")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_extra-charge-or-discount')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -218,7 +272,9 @@
                         <mat-option *ngFor="let currency of currencies" [value]="currency.id">{{currency.name}}</mat-option>
                     </mat-select>
                     <mat-error *ngIf="ctrlCurrency.hasError('required')">
-                        <strong>required</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -228,7 +284,9 @@
                     <mat-label>Fixed price</mat-label>
                     <input matInput type="number" [formControl]="ctrlValue" placeholder="Fixed price">
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>required</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>-->
@@ -237,11 +295,15 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioSelectorActionTypes.MAX_USAGE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Максимальное количество</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Максимальное количество"
-                        required>
+                    <mat-label>
+                        {{localization.get("scenario_minimum-quantity")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_maximum-quantity')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>
@@ -250,11 +312,15 @@
         <ng-container *ngIf="ctrlAction.value === ScenarioSelectorActionTypes.MIN_USAGE">
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Минимальное количество</mat-label>
-                    <input matInput type="number" [formControl]="ctrlValue" placeholder="Минимальное количество"
-                        required>
+                    <mat-label>
+                        {{localization.get("scenario_minimum-quantity")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_minimum-quantity')" required>
                     <mat-error *ngIf="ctrlValue.hasError('required')">
-                        <strong>обязательное</strong>
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
                     </mat-error>
                 </mat-form-field>
             </div>

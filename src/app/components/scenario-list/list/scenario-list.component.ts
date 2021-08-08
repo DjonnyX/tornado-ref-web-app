@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { IScenario } from '@djonnyx/tornado-types/dist/interfaces/raw/IScenario';
 import { IBusinessPeriod, ICurrency, ILanguage, IOrderType, IStore } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-scenario-list',
@@ -25,15 +26,15 @@ export class ScenarioListComponent implements OnInit {
   @Input() storesDictionary: { [id: string]: IStore };
 
   @Input() businessPeriods: Array<IBusinessPeriod>;
-  
-  @Input() businessPeriodsDictionary: {[id: string]: IBusinessPeriod};
+
+  @Input() businessPeriodsDictionary: { [id: string]: IBusinessPeriod };
 
   @Input() orderTypes: Array<IOrderType>;
 
   @Input() orderTypesDictionary: { [id: string]: IOrderType };
-  
+
   @Input() lock: boolean;
-  
+
   @Input() disabled: boolean;
 
   @Output() deleteAll = new EventEmitter<void>();
@@ -52,7 +53,9 @@ export class ScenarioListComponent implements OnInit {
 
   isExpanded = true;
 
-  constructor() { }
+  constructor(
+    public readonly localization: LocalizationService,
+  ) { }
 
   ngOnInit(): void { }
 

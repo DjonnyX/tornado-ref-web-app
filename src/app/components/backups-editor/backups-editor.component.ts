@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { LocalizationService } from '@app/services/localization/localization.service';
 import { NotificationService } from '@app/services/notification.service';
 import { BaseComponent } from '@components/base/base-component';
 import { FileDownloaderComponent } from '@components/file-downloader/file-downloader.component';
@@ -28,7 +29,11 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
   private _isBackupUploadingProgress$ = new BehaviorSubject<number>(0)
   get isBackupUploadingProgress$() { return this._isBackupUploadingProgress$; }
 
-  constructor(private _apiService: ApiService, private _notificationService: NotificationService) {
+  constructor(
+    private _apiService: ApiService,
+    private _notificationService: NotificationService,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 

@@ -6,6 +6,7 @@ import {
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
 import { ICollectionDictionary } from '@app/utils/collection.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IDialogData {
   type: NodeScenarioTypes;
@@ -50,7 +51,10 @@ export class EditScenarioDialogComponent implements OnInit {
     }
   }
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: IDialogData,
+    public readonly localization: LocalizationService,
+  ) { }
 
   ngOnInit(): void { }
 

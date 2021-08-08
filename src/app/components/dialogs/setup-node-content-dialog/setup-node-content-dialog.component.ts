@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { LocalizationService } from '@app/services/localization/localization.service';
 import { SelectContentFormModes } from '@components/forms/select-content-form/enums/select-content-form-modes.enum';
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import { ISelector, IProduct, INode, IEntity, NodeTypes, IAsset, ILanguage } from '@djonnyx/tornado-types';
@@ -32,7 +33,10 @@ export class SetupNodeContentDialogComponent<C = any> implements OnInit {
 
   content: C;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: IDialogData) { }
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: IDialogData,
+    public readonly localization: LocalizationService,
+  ) { }
 
   ngOnInit(): void {
   }

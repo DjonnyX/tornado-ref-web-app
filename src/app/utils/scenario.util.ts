@@ -7,34 +7,34 @@ export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | Scenario
   ScenarioIntroActionTypes | ScenarioProductActionTypes | ScenarioSelectorActionTypes | ScenarioPriceActionTypes): string => {
   switch (type) {
     case ScenarioProgrammActionTypes.SWITCH:
-      return "Условие";
+      return "scenario_condition";
     case ScenarioProgrammActionTypes.EXPRESSION:
-      return "Выражение";
+      return "scenario_expression";
     case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-      return "Доступность по Бизнес-периодам";
+      return "scenario_available-by-business-periods";
     case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
-      return "Доступность по магазинам";
+      return "scenario_available-by-stores";
     case ScenarioCommonActionTypes.VISIBLE_BY_TERMINAL:
-      return "Доступность по терминалам";
+      return "scenario_available-by-terminals";
     case ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE:
-      return "Доступность по типам заказа";
+      return "scenario_available-by-order-types";
     case ScenarioIntroActionTypes.DURATION:
-      return "Продолжительность (мс)";
+      return "scenario_duration_ms";
     case ScenarioProductActionTypes.DOWN_LIMIT:
-      return "Нижний предел";
+      return "scenario_down-limit";
     case ScenarioProductActionTypes.UP_LIMIT:
-      return "Верхний предел";
+      return "scenario_up-limit";
     case ScenarioPriceActionTypes.PRICE:
-      return "Наценка / скидка";
+      return "scenario_extra-charge-or-discount";
     case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
-      return "Наценка / скидка по Бизнес-периоду";
+      return "scenario_extra-charge-or-discount-by-business-periods";
     case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
-      return "Наценка / скидка по типу заказа";
+      return "scenario_extra-charge-or-discount-by-order-types";
     case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
-      return "Продукты по-умолчанию";
+      return "scenario_default-products";
     case ScenarioSelectorActionTypes.MAX_USAGE:
-      return "Максимальное количество";
+      return "scenario_maximum-quantity";
     case ScenarioSelectorActionTypes.MIN_USAGE:
-      return "Минимальное количество";
+      return "scenario_minimum-quantity";
   }
 }
