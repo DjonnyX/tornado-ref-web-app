@@ -30,6 +30,8 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   currentRoute$: Observable<INavRoute>;
 
+  parentRoute$: Observable<INavRoute>;
+
   sidenavIsOpen$: Observable<boolean>;
 
   roteCollection: Array<INavRoute> = [
@@ -261,14 +263,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0): number {
+  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null): number {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
       if (!!collection[i].children && collection[i].children.length > 0) {
         collection[i].expanded = true;
-        result = this.normalizedRoutesCollection(collection[i].children, result);
+        result = this.normalizedRoutesCollection(collection[i].children, result, collection[i]);
       } else {
         collection[i].index = result;
+        collection[i].parent = parent;
         result++;
       }
     }
@@ -320,6 +323,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
     this.currentRoute$ = this.currentRouteIndex$.pipe(
       map(index => this.findRouteByIndex(index, this.roteCollection)),
+    );
+
+    this.parentRoute$ = this.currentRoute$.pipe(
+      map(route => route.parent),
     );
 
     this.size$ = this._media.media$.pipe(
