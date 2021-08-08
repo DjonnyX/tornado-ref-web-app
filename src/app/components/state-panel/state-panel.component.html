@@ -18,28 +18,20 @@
                 <!-- Hide or show hidden entities -->
                 <span class="tab-button__group">
                     <button
-                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': isShowHiddenEntities}"
+                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': displayInactiveEntities}"
                         (click)="onToggleVisibleHiddenEntities()">
                         <div class="tab-button__container">
                             <div class="tab-button__icon"
-                                [ngClass]="{'icon-filter-show': isShowHiddenEntities, 'icon-filter-hide': !isShowHiddenEntities}">
+                                [ngClass]="{'icon-filter-show': displayInactiveEntities, 'icon-filter-hide': !displayInactiveEntities}">
                             </div>
                         </div>
                     </button>
                 </span>
                 <span class="tab-button__group">
-                    <button
-                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': layoutType === LayoutTypes.LIST}"
-                        (click)="onSwitchToList()">
+                    <button [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': true}"
+                        (click)="onSwitchLayout()">
                         <div class="tab-button__container">
-                            <div class="tab-button__icon icon-filter-list"></div>
-                        </div>
-                    </button>
-                    <button
-                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': layoutType === LayoutTypes.CARD}"
-                        (click)="onSwitchToCard()">
-                        <div class="tab-button__container">
-                            <div class="tab-button__icon icon-filter-card"></div>
+                            <div [ngClass]="buttonLayoutClasses"></div>
                         </div>
                     </button>
 

@@ -7,10 +7,12 @@ import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { TagActions } from '@store/actions/tag.action';
 import { ITag, IRef, IAsset, ILanguage } from '@djonnyx/tornado-types';
-import { AssetsSelectors, LanguagesSelectors } from '@store/selectors';
+import { AssetsSelectors, LanguagesSelectors, SettingsSelectors } from '@store/selectors';
 import { map, filter } from 'rxjs/operators';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-tags-editor',
@@ -19,6 +21,10 @@ import { LanguagesActions } from '@store/actions/languages.action';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TagsEditorContainer implements OnInit, OnDestroy {
+
+  layoutType$: Observable<LayoutTypes>;
+
+  displayInactiveEntities$: Observable<boolean>;
 
   public isProcess$: Observable<boolean>;
 
@@ -37,6 +43,14 @@ export class TagsEditorContainer implements OnInit, OnDestroy {
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.layoutType$ = this._store.pipe(
+      select(SettingsSelectors.selectTagsLayout),
+    );
+
+    this.displayInactiveEntities$ = this._store.pipe(
+      select(SettingsSelectors.selectTagsInactiveVisibility),
+    );
+
     this.isProcess$ = combineLatest([
       this._store.pipe(
         select(TagsSelectors.selectLoading),
@@ -117,5 +131,13 @@ export class TagsEditorContainer implements OnInit, OnDestroy {
 
   onDelete(id: string): void {
     this._store.dispatch(TagsActions.deleteRequest({ id }));
+  }
+
+  onChangeLayout(layout: LayoutTypes): void {
+    this._store.dispatch(SettingsActions.changeTagsLayout({ layout }));
+  }
+
+  onChangeDisplayInactiveEntities(showInactive: boolean): void {
+    this._store.dispatch(SettingsActions.changeTagsVisibility({ showInactive }));
   }
 }

@@ -5,7 +5,7 @@ import { MediaObserver } from '@angular/flex-layout';
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
-import { AdminSelectors } from '@store/selectors';
+import { AdminSelectors, SettingsSelectors } from '@store/selectors';
 import { INavRoute } from '@components/navigation-menu/interfaces';
 import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
@@ -13,7 +13,7 @@ import { UserActions } from '@store/actions/user.action';
 import { RoleTypes } from '@enums/role-types';
 import { UserRights } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
-import { ThemeService } from '@app/services/theme.service';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-admin',
@@ -217,7 +217,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
-    public readonly themeService: ThemeService,
     public readonly localization: LocalizationService,
   ) {
     super();
@@ -278,12 +277,13 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   }
 
   onThemeToggle(): void {
-    this.themeService.toggle();
+    this._store.dispatch(SettingsActions.toggleTheme());
   }
 
   ngOnInit() {
-    this.themeService.theme$.pipe(
+    this._store.pipe(
       takeUntil(this.unsubscribe$),
+      select(SettingsSelectors.selectTheme),
     ).subscribe(
       v => {
         this.btnThemeClasses = { ['tab-button__icon']: true, [`icon-theme-${v}`]: true };

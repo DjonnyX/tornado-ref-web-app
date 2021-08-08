@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITag, IRef, IAsset, ITagContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 @Component({
   selector: 'ta-tags-editor-component',
@@ -13,7 +14,22 @@ import { ITag, IRef, IAsset, ITagContentsItem, ILanguage } from '@djonnyx/tornad
 })
 export class TagsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<ITag>;
+  public readonly LayoutTypes = LayoutTypes;
+
+  @Output() changeLayout = new EventEmitter<LayoutTypes>();
+
+  @Output() changeDisplayInactiveEntities = new EventEmitter<boolean>();
+
+  private _collection: Array<ITag>;
+  @Input() set collection(value: Array<ITag>) {
+    if (this._collection != value) {
+      this._collection = value || [];
+
+      this.resetFilteredCollection();
+    }
+  }
+
+  public filteredCollection: Array<ITag>;
 
   @Input() refInfo: IRef;
 
@@ -22,7 +38,18 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
-  
+
+  @Input() layoutType: LayoutTypes;
+
+  private _displayInactiveEntities: boolean = true;
+  @Input() set displayInactiveEntities(v: boolean) {
+    if (this._displayInactiveEntities !== v) {
+      this._displayInactiveEntities = v;
+      this.resetFilteredCollection();
+    }
+  }
+  get displayInactiveEntities() { return this._displayInactiveEntities; }
+
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -48,7 +75,10 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    private _cdr: ChangeDetectorRef,
+  ) {
     super();
   }
 
@@ -126,5 +156,18 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  resetFilteredCollection() {
+    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this._displayInactiveEntities));
+    this._cdr.markForCheck();
+  }
+
+  onSwitchLayout(layoutType: LayoutTypes) {
+    this.changeLayout.emit(layoutType);
+  }
+
+  onShowHiddenEntities(displayInactiveEntities: boolean) {
+    this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 }

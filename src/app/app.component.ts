@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { CapabilitiesSelectors, UserSelectors } from '@store/selectors';
+import { CapabilitiesSelectors, SettingsSelectors, UserSelectors } from '@store/selectors';
 import { combineLatest } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
@@ -9,7 +9,6 @@ import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
 import { RoleTypes } from '@enums/role-types';
 import { UserActions } from '@store/actions/user.action';
-import { ThemeService } from './services/theme.service';
 
 @Component({
   selector: 'app-root',
@@ -26,10 +25,10 @@ export class AppComponent implements OnInit {
     private _store: Store<IAppState>,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
-    public readonly themeService: ThemeService,
   ) {
-
-    this.themeService.theme$.subscribe(
+    this._store.pipe(
+      select(SettingsSelectors.selectTheme),
+    ).subscribe(
       v => {
         this.themeClass = { [`theme-${v}`]: true };
       }

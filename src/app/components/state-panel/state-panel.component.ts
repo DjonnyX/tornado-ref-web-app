@@ -22,21 +22,21 @@ export class StatePanelComponent implements OnInit {
 
   @Input() searchFieldClass = "accent";
 
+  @Input() layout: LayoutTypes;
+
+  @Input() displayInactiveEntities: boolean;
+
   @Output() search = new EventEmitter<string>();
 
-  @Output() layout = new EventEmitter<LayoutTypes>();
+  @Output() changeLayout = new EventEmitter<LayoutTypes>();
 
-  @Output() showHiddenEntities = new EventEmitter<boolean>();
+  @Output() changeInactiveVisibility = new EventEmitter<boolean>();
 
-  layoutType: LayoutTypes;
-
-  isShowHiddenEntities: boolean = true;
+  get buttonLayoutClasses() { return { ['tab-button__icon']: true, [`icon-filter-${this.layout === LayoutTypes.CARD ? 'card' : 'list'}`]: true }; }
 
   constructor() { }
 
-  ngOnInit(): void {
-    this.onSwitchToCard();
-  }
+  ngOnInit(): void { }
 
   formatlastUpdate(): string {
     return formatDT(this.refInfo.lastUpdate);
@@ -46,18 +46,12 @@ export class StatePanelComponent implements OnInit {
     this.search.emit(pattern);
   }
 
-  onSwitchToList() {
-    this.layoutType = LayoutTypes.LIST;
-    this.layout.emit(this.layoutType);
-  }
-
-  onSwitchToCard() {
-    this.layoutType = LayoutTypes.CARD;
-    this.layout.emit(this.layoutType);
+  onSwitchLayout() {
+    this.changeLayout.emit(this.layout === LayoutTypes.LIST ? LayoutTypes.CARD : LayoutTypes.LIST);
   }
 
   onToggleVisibleHiddenEntities() {
-    this.isShowHiddenEntities = !this.isShowHiddenEntities;
-    this.showHiddenEntities.emit(this.isShowHiddenEntities);
+    this.displayInactiveEntities = !this.displayInactiveEntities;
+    this.changeInactiveVisibility.emit(this.displayInactiveEntities);
   }
 }

@@ -19,7 +19,6 @@ export class FilterProductsPipe implements PipeTransform {
     if (!items) return [];
     return items.filter(p => p.systemTag === systemTag?.id);
   }
-
 }
 
 @Component({
@@ -33,7 +32,9 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   public readonly LayoutTypes = LayoutTypes;
 
-  isShowHiddenEntities: boolean = true;
+  @Output() changeLayout = new EventEmitter<LayoutTypes>();
+
+  @Output() changeDisplayInactiveEntities = new EventEmitter<boolean>();
 
   public filteredCollection: Array<IProduct>;
 
@@ -84,7 +85,16 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() rights: Array<UserRights>;
 
-  layoutType: LayoutTypes;
+  @Input() layoutType: LayoutTypes;
+
+  private _displayInactiveEntities: boolean = true;
+  @Input() set displayInactiveEntities(v: boolean) {
+    if (this._displayInactiveEntities !== v) {
+      this._displayInactiveEntities = v;
+      this.resetFilteredCollection();
+    }
+  }
+  get displayInactiveEntities() { return this._displayInactiveEntities; }
 
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -160,12 +170,12 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   }
 
   resetFilteredCollection() {
-    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this.isShowHiddenEntities));
+    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this._displayInactiveEntities));
     this._cdr.markForCheck();
   }
 
   onSwitchLayout(layoutType: LayoutTypes) {
-    this.layoutType = layoutType;
+    this.changeLayout.emit(layoutType);
   }
 
   getProductContent(product: IProduct): IProductContentsItem {
@@ -265,8 +275,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return this.rights.indexOf(UserRights.DELETE_PRODUCT) > -1;
   }
 
-  onShowHiddenEntities(isShowHiddenEntities: boolean) {
-    this.isShowHiddenEntities = isShowHiddenEntities;
-    this.resetFilteredCollection();
+  onShowHiddenEntities(displayInactiveEntities: boolean) {
+    this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 }
