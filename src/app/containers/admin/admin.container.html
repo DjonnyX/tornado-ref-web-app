@@ -46,7 +46,9 @@
                 <!--Right Group-->
                 <div class="admin__toolbar__navigation-section__right-group">
                     <span class="admin__toolbar__link">
-                        <a href="#">Документация</a>
+                        <a href="#">
+                            {{localization.get("common_documentation")}}
+                        </a>
                     </span>
                     <span class="tab-button__group dark">
                         <button class="tab-button" (click)="onThemeToggle()">
@@ -57,7 +59,9 @@
                     </span>
                     <!--Sign-out-->
                     <button (click)="signout()" class="main-toolbar__button">
-                        <p>Выйти</p>
+                        <p>
+                            {{localization.get("common_exit")}}
+                        </p>
                         <span class="main-toolbar__icon icon-signout"></span>
                     </button>
                 </div>

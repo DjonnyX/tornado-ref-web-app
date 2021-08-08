@@ -1,5 +1,7 @@
 const LOCALIZATION = {
     "ru": {
+        "common_documentation": "Документация",
+        "common_exit": "Выход",
         "common_ctrl_required": "обязательное",
         "common_not-allocated": "Не распределено",
         "common_search-by-name": "Поиск по имени",
@@ -179,6 +181,8 @@ const LOCALIZATION = {
         "stores_dialog-delete-the-store": "Удалить магазин?",
     },
     "eng": {
+        "common_documentation": "Documentation",
+        "common_exit": "Exit",
         "common_ctrl_required": "required",
         "common_not-allocated": "Not allocated",
         "common_search-by-name": "Search by name",
