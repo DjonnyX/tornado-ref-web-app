@@ -58,7 +58,7 @@ export class StoresEditorComponent extends BaseComponent implements OnInit, OnDe
       {
         data: {
           title: "stores_dialog-delete-the-store",
-          message: `"${store.name}" }common_action-will-be-permanently-deleted.`,
+          message: `#{"${store.name}" }common_action-will-be-permanently-deleted.`,
         },
       });
 
