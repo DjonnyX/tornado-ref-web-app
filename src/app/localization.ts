@@ -170,6 +170,9 @@ const LOCALIZATION = {
         "licenses_no-licenses": "Лицензии отсутствуют",
         // tags
         "tags_add-new": "Добавить тэг",
+        // backups
+        "backups_form": "Сформировать",
+        "backups_upload": "Загрузить",
     },
     "eng": {
         "common_ctrl_required": "required",
@@ -342,6 +345,9 @@ const LOCALIZATION = {
         "licenses_no-licenses": "No licenses",
         // tags
         "tags_add-new": "New tag",
+        // backups
+        "backups_form": "Form",
+        "backups_upload": "Upload",
     }
 };
 
