@@ -68,7 +68,7 @@
                                 <input class="dropdown-selector__input" [id]="index" type="radio" [value]="lang.code"
                                     [formControl]="ctrlLanguage" [checked]="selectedLang === lang">
                                 <p class="dropdown-selector__input-text">
-                                    {{lang.code}}
+                                    {{lang.data.__name__}}
                                 </p>
                             </div>
                         </div>
@@ -78,10 +78,10 @@
                                 class="dropdown-selector__list__item">
                                 <div class="dropdown-selector__list__item__container">
                                     <span class="dropdown-selector__option-image sm">
-                                        <img src="/">
+                                        <img [src]="lang.data.__img__">
                                     </span>
                                     <label class="dropdown-selector__option" [for]="index">
-                                        {{lang.code}}
+                                        {{lang.data.__name__}}
                                     </label>
                                 </div>
                             </li>

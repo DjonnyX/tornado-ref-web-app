@@ -1,6 +1,7 @@
 const LOCALIZATION = {
     "ru": {
-        "img": "embeded-assets/langs/lang-ru.png",
+        "__img__": "embeded-assets/langs/lang-ru.png",
+        "__name__": "ru",
         "common_documentation": "Документация",
         "common_exit": "Выход",
         "common_ctrl_required": "обязательное",
@@ -229,7 +230,8 @@ const LOCALIZATION = {
         "scenario_fixed-price": "Fixed price",
     },
     "eng": {
-        "img": "embeded-assets/langs/lang-en.png",
+        "__img__": "embeded-assets/langs/lang-en.png",
+        "__name__": "en",
         "common_documentation": "Documentation",
         "common_exit": "Sign out",
         "common_ctrl_required": "required",

@@ -19,9 +19,9 @@ $dropdown-selector-border-radius: 4px;
         background-color: $background-color;
 
         // &:focus, &:hover {
-            //  & + .dropdown-selector__list {
-            //      opacity: 1;
-            //  }
+        //  & + .dropdown-selector__list {
+        //      opacity: 1;
+        //  }
         // }
     }
 
@@ -69,14 +69,15 @@ $dropdown-selector-border-radius: 4px;
         background-color: $white;
 
         &__item {
-
             &__container {
                 align-items: center;
+                justify-content: center;
                 display: flex;
                 padding: 6px 10px;
             }
 
-            &:hover, &:focus {
+            &:hover,
+            &:focus {
                 color: rgba($primary-color, 0.75);
                 background-color: $background-color;
             }
@@ -86,7 +87,7 @@ $dropdown-selector-border-radius: 4px;
     &__option {
         display: block;
         padding: 15px;
-        
+
         // &:hover, &:focus {
         //     color: rgba($primary-color, 0.75);
         //     background-color: $background-color;
@@ -95,6 +96,11 @@ $dropdown-selector-border-radius: 4px;
 
     &__option-image {
         @include box(auto);
+
+        image {
+            width: 24px;
+            height: auto;
+        }
     }
 
     &__option-image.xs {
@@ -118,7 +124,6 @@ $dropdown-selector-border-radius: 4px;
         border-radius: 4px;
     }
 }
-
 
 // .dropdown-selector {
 //     display: block;
