@@ -23,6 +23,17 @@ $anim-scale-in-out: 0.75;
         border-radius: $dropdown-selector-border-radius;
         color: $primary-color;
         background-color: $background-color;
+        transform: scale(1.0);
+        opacity: 1.0;
+
+        &:hover, &:focus {
+            opacity: $tab-bar-button-focus-opacity;
+        }
+
+        &:active {
+            transform: scale($tab-bar-button-active-scale);
+            // opacity: $tab-bar-button-active-opacity;
+        }
     }
 
     &__substrate {
