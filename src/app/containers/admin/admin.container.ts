@@ -14,6 +14,8 @@ import { RoleTypes } from '@enums/role-types';
 import { UserRights } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import { SettingsActions } from '@store/actions/settings.action';
+import { FormControl } from '@angular/forms';
+import LOCALIZATION from '@app/localization';
 
 @Component({
   selector: 'ta-admin',
@@ -210,6 +212,16 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     },
   ];
 
+  // Нужно будет сделать правильно!
+  public readonly languages = [
+    { code: "ru", data: LOCALIZATION.ru },
+    { code: "eng", data: LOCALIZATION.eng },
+  ];
+
+  ctrlLanguage = new FormControl(null, []);
+
+  selectedLang: any;
+
   private _currentRouteIndex: number;
 
   btnThemeClasses: any = { 'tab-button__icon': true };
@@ -284,6 +296,25 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.ctrlLanguage.valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+      filter(v => !!v),
+    ).subscribe(
+      v => {
+        this._store.dispatch(SettingsActions.changeLanguage({ language: v }));
+      }
+    );
+
+    this._store.pipe(
+      takeUntil(this.unsubscribe$),
+      select(SettingsSelectors.selectLanguage),
+    ).subscribe(
+      v => {
+        this.ctrlLanguage.setValue(v);
+        this.selectedLang = this.languages.find(l => l.code === v);
+      }
+    );
+
     this._store.pipe(
       takeUntil(this.unsubscribe$),
       select(SettingsSelectors.selectTheme),

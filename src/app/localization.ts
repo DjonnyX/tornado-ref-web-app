@@ -1,5 +1,6 @@
 const LOCALIZATION = {
     "ru": {
+        "img": "embeded-assets/langs/lang-ru.png",
         "common_documentation": "Документация",
         "common_exit": "Выход",
         "common_ctrl_required": "обязательное",
@@ -228,6 +229,7 @@ const LOCALIZATION = {
         "scenario_fixed-price": "Fixed price",
     },
     "eng": {
+        "img": "embeded-assets/langs/lang-en.png",
         "common_documentation": "Documentation",
         "common_exit": "Exit",
         "common_ctrl_required": "required",

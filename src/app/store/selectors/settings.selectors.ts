@@ -8,6 +8,10 @@ export namespace SettingsSelectors {
         selectSettings,
         state => state.theme,
     );
+    export const selectLanguage = createSelector(
+        selectSettings,
+        state => state.language,
+    );
     export const selectProductsLayout = createSelector(
         selectSettings,
         state => state.productsLayout,
