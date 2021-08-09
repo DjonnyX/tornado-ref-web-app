@@ -27,6 +27,7 @@ $anim-scale-in-out: 0.75;
         opacity: 1.0;
         @include transition(transform opacity, $tab-bar-button-interaction-duration, ease);
 
+        //Interactions
         &:hover, &:focus {
             opacity: $tab-bar-button-focus-opacity;
         }
@@ -124,7 +125,7 @@ $anim-scale-in-out: 0.75;
         overflow: hidden;
         @include box(auto);
     }
-    
+
     &__option-image.xs {
         @include box(8px);
         border-radius: 3px;

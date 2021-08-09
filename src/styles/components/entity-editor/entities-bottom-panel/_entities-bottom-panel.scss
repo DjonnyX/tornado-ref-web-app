@@ -6,13 +6,10 @@
     bottom: 0;
     @include margin-h;
     margin-bottom: 20px;
-    // width: 100%;
     right: 0;
-    // height: 60px;
 
     &__container {
         display: flex;
-        // padding: 0px 40px;
         @extend .entities-container;
     }
 

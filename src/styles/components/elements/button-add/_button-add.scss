@@ -1,3 +1,19 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
 .button-add {
     @extend .button-base;
+    transform: scale(1.0);
+    opacity: 1.0;
+    @include transition(transform opacity, $button-interaction-duration, ease);
+
+    //Interactions
+    &:hover, &:focus {
+        opacity: $button-focus-opacity;
+    }
+
+    &:active {
+        transform: scale($button-active-scale);
+    }
 }
