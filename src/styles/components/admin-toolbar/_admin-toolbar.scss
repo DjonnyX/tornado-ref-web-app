@@ -4,6 +4,8 @@
 
 $admin-section-container-padding-h: 16px;
 
+$dropdown-selector-value-width: 32px;
+
 .admin__toolbar {
     display: grid;
     grid-template-columns: 340px auto;
@@ -65,6 +67,14 @@ $admin-section-container-padding-h: 16px;
 
         &.parent {
             opacity: 0.3;
+        }
+    }
+
+    .dropdown-selector {
+    
+        .dropdown-selector__current-value {
+            width: $dropdown-selector-value-width;
+            text-transform: uppercase;
         }
     }
 }
