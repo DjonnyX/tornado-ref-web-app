@@ -1,3 +1,9 @@
+<ng-template #notAllocated>
+    <div>
+        {{localization.get("common_not-allocated")}}
+    </div>
+</ng-template>
+
 <!-- ActionMenu -->
 <ng-template #popupMenu let-product="data">
     <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
@@ -40,8 +46,12 @@
                 <!--Entity Wrapper-->
                 <ng-container *ngFor="let systemTag of actualSystemTags">
                     <div class="editor__group-list">
-                        <div class="editor__group-list__header">{{systemTag?.name ||
-                            localization.get("common_not-allocated")}}</div>
+                        <div class="editor__group-list__header">
+                            <ng-container *ngIf="!!systemTag?.name; else notAllocated">
+                                {{systemTag?.name}} ({{(filteredCollection | filterProducts:systemTag |
+                                search:searchPattern:defaultLanguage?.code).length}})
+                            </ng-container>
+                        </div>
                         <div class="entities-container entities-list-layout">
                             <div class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
@@ -77,7 +87,8 @@
                                                     </div>
                                                     <div class="entity__description">
                                                         {{getProductDescription(product) | slice:0:60
-                                                        }}{{getProductDescription(product).length > 20 ? "..." : ""}}
+                                                        }}{{getProductDescription(product).length > 20 ? "..." :
+                                                        ""}}
                                                     </div>
                                                     <div class="entity__elements-group">
                                                         <div class="tags">
@@ -154,7 +165,12 @@
             <div class="editor__container">
                 <ng-container *ngFor="let systemTag of actualSystemTags">
                     <div class="editor__group-list">
-                        <div class="editor__group-list__header">{{systemTag?.name || 'Не распределены'}}</div>
+                        <div class="editor__group-list__header">
+                            <ng-container *ngIf="!!systemTag?.name; else notAllocated">
+                                {{systemTag?.name}} ({{(filteredCollection | filterProducts:systemTag |
+                                search:searchPattern:defaultLanguage?.code).length}})
+                            </ng-container>
+                        </div>
                         <div class="entities-container entities-card-layout">
                             <div class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
