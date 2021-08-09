@@ -7,36 +7,110 @@
     color: $primary-color;
     position: relative;
 
-    &__button {
-
-    }
-
-    &__content {
-        display: none;
-        position: absolute;
-        flex-direction: row;
-        color: $primary-color;
-        right: 0;
-        background-color: #f9f9f9;
-        min-width: 160px;
-        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-        padding: 12px 16px;
+    &__current-value {
+        position: relative;
+        box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
+        cursor: pointer;
+        outline: none;
         border-radius: 6px;
-        z-index: 1;
+        color: $primary-color;
+        // background-color: #f9f9f9;
 
-        select {
-            display: none;
+        &:focus, &:hover {
 
-            option {
-
+            & + .dropdown-selector__list {
+                opacity: 1;
             }
         }
     }
 
-    &.active {
+    &__value {
+        display: flex;
+    }
 
-        .dropdown-selector__content {
-            display: flex;
+    &__input {
+        display: none;
+
+        &:checked + .dropdown-selector__input-text {
+            display: block;
+            margin: 0;
+        }
+    }
+
+    &__input-text {
+        display: none;
+        width: 100%;
+        margin: 0px;
+        padding: 15px;
+        border-radius: 6px;
+        background-color: #fff;
+    }
+
+    p {
+        margin: 0;
+    }
+
+    &__list {
+        position: absolute;
+        width: auto;
+        padding: 0;
+        list-style: none;
+        opacity: 0;
+        margin: 0;
+        margin-top: 10px;
+        border-radius: 6px;
+        overflow: hidden;
+        box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 10%);
+    }
+
+    &__option {
+        display: block;
+        padding: 15px;
+        background-color: #fff;
+        
+        &:hover, &:focus {
+            color: #546c84;
+            background-color: #fbfbfb;
         }
     }
 }
+
+
+// .dropdown-selector {
+//     display: block;
+//     color: $primary-color;
+//     position: relative;
+
+//     &__button {
+
+//     }
+
+//     &__content {
+//         display: none;
+//         position: absolute;
+//         flex-direction: row;
+//         color: $primary-color;
+//         right: 0;
+//         background-color: #f9f9f9;
+//         min-width: 160px;
+//         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+//         padding: 12px 16px;
+//         border-radius: 6px;
+//         z-index: 1;
+
+//         select {
+//             display: none;
+
+//             option {
+
+//             }
+//         }
+//     }
+
+//     &.active {
+
+//         .dropdown-selector__content {
+//             display: flex;
+//         }
+//     }
+// }

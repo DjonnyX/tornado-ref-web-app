@@ -36,6 +36,7 @@ $admin-section-container-padding-h: 16px;
         &__right-group, &__left-group {
             display: flex;
             flex-direction: row;
+            align-items: center;
             gap: 10px;
         }
     }
