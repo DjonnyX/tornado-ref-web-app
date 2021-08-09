@@ -12,7 +12,10 @@ $dropdown-selector-list-border-radius: 6px;
     padding: 8px 0px;
 
     &__current-value {
+        display: flex;
         position: relative;
+        align-items: center;
+        justify-content: center;     
         box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
         cursor: pointer;
         outline: none;
