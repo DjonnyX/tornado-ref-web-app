@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { MediaObserver } from '@angular/flex-layout';
-import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
 import { AdminSelectors, SettingsSelectors } from '@store/selectors';
@@ -23,6 +23,8 @@ import LOCALIZATION from '@app/localization';
   styleUrls: ['./admin.container.scss']
 })
 export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
+
+  isLanguagePickerExpanded: boolean = false;
 
   isMobile$: Observable<boolean>;
 
@@ -236,6 +238,14 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     super();
   }
 
+  onLanguagePickerExpand(): void {
+    this.isLanguagePickerExpanded = true;
+  }
+
+  onLanguagePickerCollapse(): void {
+    this.isLanguagePickerExpanded = false;
+  }
+
   private extractUrlPath(url: string): string {
     const urlPath = url?.match(/(?<=(\/admin\/))([\w-])+/);
     return !!urlPath && urlPath.length > 0 ? urlPath[0] : undefined;
@@ -301,6 +311,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       filter(v => !!v),
     ).subscribe(
       v => {
+        this.isLanguagePickerExpanded = false;
         this._store.dispatch(SettingsActions.changeLanguage({ language: v }));
       }
     );

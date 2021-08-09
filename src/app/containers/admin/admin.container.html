@@ -59,65 +59,30 @@
                     </span>
 
                     <!--Lang-->
+                    <div *ngIf="isLanguagePickerExpanded" class="dropdown-selector__substrate"
+                        (click)="onLanguagePickerCollapse()"></div>
 
-                    <!-- <div class="dropdown-selector active admin__toolbar__lang">
-                        <button class="dropdown-selector__button">
-                            Ru
-                        </button>
-                        <div class="dropdown-selector__content">
-                            <select class="dropdown-selector__container">
-                                <option value="0">Ru</option>
-                                <option value="1">En</option>
-                                <option value="2">De</option>
-                            </select>
-                        </div>
-                    </div> -->
-
-                    <div class="dropdown-selector">
+                    <div class="dropdown-selector" (click)="onLanguagePickerExpand()">
                         <div class="dropdown-selector__current-value">
-                            <div class="dropdown-selector__value">
-                                <input class="dropdown-selector__input" type="radio" id="0" value="1" checked="checked"
-                                    name="lang">
-                                <p class="dropdown-selector__input-text">Ru</p>
-                            </div>
-                            <div class="dropdown-selector__value">
-                                <input class="dropdown-selector__input" type="radio" id="1" value="2" name="lang">
-                                <p class="dropdown-selector__input-text">En</p>
-                            </div>
-                            <div class="dropdown-selector__value">
-                                <input class="dropdown-selector__input" type="radio" id="2" value="3" name="lang">
-                                <p class="dropdown-selector__input-text">Dert</p>
+                            <div class="dropdown-selector__value" *ngFor="let lang of languages; let index = index;">
+                                <input class="dropdown-selector__input" [id]="index" type="radio" [value]="lang.code"
+                                    [formControl]="ctrlLanguage" [checked]="selectedLang === lang">
+                                <p class="dropdown-selector__input-text">
+                                    {{lang.code}}
+                                </p>
                             </div>
                         </div>
 
-                        <ul class="dropdown-selector__list">
-                            <li>
-                                <label class="dropdown-selector__option" for="0">Ru</label>
-                            </li>
-                            <li>
-                                <label class="dropdown-selector__option" for="1">En</label>
-                            </li>
-                            <li>
-                                <label class="dropdown-selector__option" for="2">Dert</label>
+                        <ul *ngIf="isLanguagePickerExpanded" class="dropdown-selector__list">
+                            <li *ngFor="let lang of languages; let index = index;">
+                                <label class="dropdown-selector__option" [for]="index">
+                                    {{lang.code}}
+                                </label>
                             </li>
                         </ul>
                     </div>
-
-                    <mat-select class="select-language" [formControl]="ctrlLanguage" style="min-width: 48px;">
-                        <mat-select-trigger>
-                            <!-- <span *ngIf="selectedLang">
-                                <img [src]="selectedLang.data.img" width="24" />
-                            </span> -->
-                            <span class="select-language__thumb">
-                                {{selectedLang?.code}}
-                            </span>
-                        </mat-select-trigger>
-                        <mat-option *ngFor="let lang of languages" [value]="lang.code">
-                            <img [src]="lang.data.img" width="24" />
-                            {{lang.code}}
-                        </mat-option>
-                    </mat-select>
                     <!--Lang-->
+
                     <!--Sign-out-->
                     <button (click)="signout()" class="main-toolbar__button">
                         <p>

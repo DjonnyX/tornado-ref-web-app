@@ -18,12 +18,19 @@ $dropdown-selector-border-radius: 4px;
         color: $primary-color;
         background-color: $background-color;
 
-        &:focus, &:hover {
+        // &:focus, &:hover {
+            //  & + .dropdown-selector__list {
+            //      opacity: 1;
+            //  }
+        // }
+    }
 
-            & + .dropdown-selector__list {
-                opacity: 1;
-            }
-        }
+    &__substrate {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
     }
 
     &__value {
@@ -54,7 +61,7 @@ $dropdown-selector-border-radius: 4px;
         width: auto;
         padding: 0;
         list-style: none;
-        opacity: 0;
+        // opacity: 0;
         margin: 0;
         margin-top: 10px;
         border-radius: $dropdown-selector-border-radius;
