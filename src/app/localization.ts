@@ -231,7 +231,7 @@ const LOCALIZATION = {
     "eng": {
         "img": "embeded-assets/langs/lang-en.png",
         "common_documentation": "Documentation",
-        "common_exit": "Exit",
+        "common_exit": "Sign out",
         "common_ctrl_required": "required",
         "common_not-allocated": "Not allocated",
         "common_search-by-name": "Search by name",
