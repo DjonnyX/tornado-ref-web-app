@@ -4,7 +4,8 @@ import { LayoutTypes } from '@components/state-panel/state-panel.component';
 import { SettingsActions } from '@store/actions/settings.action';
 
 export const initialState: ISettingsState = {
-    theme: 'light',
+    theme: "light",
+    language: "ru",
     productsLayout: LayoutTypes.CARD,
     productsInactiveVisibility: true,
     selectorsLayout: LayoutTypes.CARD,
@@ -25,6 +26,12 @@ const settingsReducer = createReducer(
         return {
             ...state,
             theme: state.theme === 'light' ? 'dark' : 'light',
+        };
+    }),
+    on(SettingsActions.changeLanguage, (state, { language }) => {
+        return {
+            ...state,
+            language,
         };
     }),
     on(SettingsActions.changeProductsLayout, (state, { layout }) => {

@@ -4,6 +4,7 @@ import { LayoutTypes } from "@components/state-panel/state-panel.component";
 export enum SettingsActionTypes {
     CHANGE_THEME = "TORNADO/settings/change-theme",
     TOGGLE_THEME = "TORNADO/settings/toggle-theme",
+    CHANGE_LANGUAGE = "TORNADO/settings/change-language",
     CHANGE_PRODUCTS_LAYOUT = "TORNADO/setting/change-products-layout",
     CHANGE_PRODUCTS_VISIBILITY = "TORNADO/setting/change-products-visibility",
     CHANGE_SELECTORS_LAYOUT = "TORNADO/setting/change-selectors-layout",
@@ -19,6 +20,10 @@ export namespace SettingsActions {
     );
     export const toggleTheme = createAction(
         SettingsActionTypes.TOGGLE_THEME,
+    );
+    export const changeLanguage = createAction(
+        SettingsActionTypes.CHANGE_LANGUAGE,
+        props<{ language: string }>(),
     );
     export const changeProductsLayout = createAction(
         SettingsActionTypes.CHANGE_PRODUCTS_LAYOUT,

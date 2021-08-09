@@ -102,6 +102,20 @@
                         </ul>
                     </div>
 
+                    <mat-select class="select-language" [formControl]="ctrlLanguage" style="min-width: 48px;">
+                        <mat-select-trigger>
+                            <!-- <span *ngIf="selectedLang">
+                                <img [src]="selectedLang.data.img" width="24" />
+                            </span> -->
+                            <span class="select-language__thumb">
+                                {{selectedLang?.code}}
+                            </span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let lang of languages" [value]="lang.code">
+                            <img [src]="lang.data.img" width="24" />
+                            {{lang.code}}
+                        </mat-option>
+                    </mat-select>
                     <!--Lang-->
                     <!--Sign-out-->
                     <button (click)="signout()" class="main-toolbar__button">

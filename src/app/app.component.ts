@@ -9,6 +9,7 @@ import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
 import { RoleTypes } from '@enums/role-types';
 import { UserActions } from '@store/actions/user.action';
+import { LocalizationService } from './services/localization/localization.service';
 
 @Component({
   selector: 'app-root',
@@ -25,12 +26,21 @@ export class AppComponent implements OnInit {
     private _store: Store<IAppState>,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
+    private _localization: LocalizationService,
   ) {
     this._store.pipe(
       select(SettingsSelectors.selectTheme),
     ).subscribe(
       v => {
         this.themeClass = { [`theme-${v}`]: true };
+      }
+    );
+
+    this._store.pipe(
+      select(SettingsSelectors.selectLanguage),
+    ).subscribe(
+      v => {
+        this._localization.changeLanguage(v);
       }
     );
 
