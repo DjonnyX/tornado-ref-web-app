@@ -97,7 +97,7 @@ $dropdown-selector-border-radius: 4px;
     &__option-image {
         @include box(auto);
 
-        image {
+        img {
             width: 24px;
             height: auto;
         }
