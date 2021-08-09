@@ -143,11 +143,11 @@ $anim-scale-in-out: 0.75;
     .dropdown-selector__current-value ~ .dropdown-selector__list {
         animation-duration: 175ms;
         animation-timing-function: cubic-bezier(0.68, -0.32, 0.32, 1.32);
-        animation-name: anim-scale-in;
+        animation-name: anim-dropdown-selector-list-in;
     }
 }
 
-@keyframes anim-scale-in {
+@keyframes anim-dropdown-selector-list-in {
   from {
     transform: scale(0.5);// rotate3d(0, 1, 0, -45deg);
     opacity: 0.0;
