@@ -3,11 +3,13 @@
 @import "../../../mixins";
 
 $dropdown-selector-border-radius: 4px;
+$dropdown-selector-list-border-radius: 6px;
 
 .dropdown-selector {
     display: block;
     color: $primary-color;
     position: relative;
+    padding: 8px 0px;
 
     &__current-value {
         position: relative;
@@ -63,17 +65,21 @@ $dropdown-selector-border-radius: 4px;
         // opacity: 0;
         margin: 0;
         margin-top: 10px;
-        border-radius: $dropdown-selector-border-radius;
+        border-radius: $dropdown-selector-list-border-radius;
         overflow: hidden;
         box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 10%);
         background-color: $white;
 
         &__item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid $divider-color-light;
+
             &__container {
                 align-items: center;
                 justify-content: center;
                 display: flex;
-                padding: 6px 10px;
+                padding: 0px;
             }
 
             &:hover,
@@ -81,20 +87,35 @@ $dropdown-selector-border-radius: 4px;
                 color: rgba($primary-color, 0.75);
                 background-color: $background-color;
             }
+
+            &:last-child {
+                border-bottom: none;
+            }
         }
     }
 
     &__option {
-        display: block;
-        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        padding: 0px;
+        font-size: 16px;
+        gap: 10px;
+        padding: 15px 20px;
 
         // &:hover, &:focus {
         //     color: rgba($primary-color, 0.75);
         //     background-color: $background-color;
         // }
+        &.vertical {
+            flex-direction: column;
+            gap: 6px;
+
+        }
     }
 
     &__option-image {
+        display: flex;
+        overflow: hidden;
         @include box(auto);
     }
 

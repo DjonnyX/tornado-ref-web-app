@@ -1,6 +1,4 @@
 @mixin box($width, $height: $width) {
-  img {
-    width: $width;
-    height: $height;
-  }
+  width: $width;
+  height: $height;
 }
