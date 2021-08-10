@@ -1,0 +1,22 @@
+$tab-button-width: 36px;
+$tab-button-height: 36px;
+$tab-button-size: 36px;
+
+$tab-button-roundness: 4px;
+$tab-button-icon-size: 20px;
+
+//normal
+$tab-button-opacity-normal: 0.2;
+$tab-button-background-color-normal: rgba($white, 1.0);
+$tab-button-border-normal: 1px solid rgba($background-color, 1.0);
+$tab-button-color-normal: rgba($primary-color, $tab-button-opacity-normal);
+
+//active
+$tab-button-background-color-active: rgba($background-color, 1.0);
+$tab-button-border-active: 1px solid rgba($background-color, 1.0);
+$tab-button-color-active: rgba($primary-color, 1.0);
+
+//inverse
+$tab-button-background-color-normal-inverse: $primary-color-50;
+$tab-button-color-normal-inverse: $background-color;
+$tab-button-border-normal-inverse: $divider-color-inverse;

@@ -62,7 +62,7 @@
                     <div *ngIf="isLanguagePickerExpanded" class="dropdown-selector__substrate"
                         (click)="onLanguagePickerCollapse()"></div>
 
-                    <div class="dropdown-selector opened" (click)="onLanguagePickerExpand()">
+                    <div class="dropdown-selector language-button inverse-button" (click)="onLanguagePickerExpand()">
                         <div class="dropdown-selector__current-value">
                             <div class="dropdown-selector__value" *ngFor="let lang of languages; let index = index;">
                                 <input class="dropdown-selector__input" [id]="index" type="radio" [value]="lang.code"
