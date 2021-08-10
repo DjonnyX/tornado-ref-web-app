@@ -29,6 +29,7 @@
         transform: scale(1.0);
         opacity: 1.0;
         @include transition(transform opacity, $entity-interaction-duration, ease);
+        pointer-events: unset;
 
         &__wrapper {
             display: flex;
@@ -152,13 +153,26 @@
         &.disabled {
             opacity: 0.5;
         }
-    }
-    //Interactions
-    // .entity__body:hover > .entity {
-    //     opacity: $entity-focus-opacity;
-    // }
 
-    // .entity .entity__body:active {
-    //     transform: scale($entity-active-scale);
+        // Interactions
+
+        &.focused {
+            opacity: $entity-focus-opacity;
+        }
+
+        &.pressed {
+            transform: scale($entity-active-scale);
+        }
+    }
+
+    // .entity:has( .entity__wrapper > div.entity__body:hover), .entity:has(.entity__body:hover) {
+    //     opacity: $entity-focus-opacity;
+    //     background-color: $accent-color;
     // }
 }
+
+
+
+// .entity:has( .entity__body:active) {
+//     transform: scale($entity-active-scale);
+// }
