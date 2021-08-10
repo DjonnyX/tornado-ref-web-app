@@ -1,0 +1,35 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+//Checkbox inactive
+.checkbox {
+
+    .checkmark {
+
+    }
+}
+
+//Checkbox active
+.checkbox.active {
+
+    .checkmark {
+        animation-duration: $search-interaction-duration;
+        animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        animation-name: checkbox-animation-in;
+    }
+}
+
+@keyframes checkbox-animation-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0.0;
+  }
+  65% {
+    transform: scale(1.03);
+    opacity: 1.0;
+  }
+  to {
+    transform: scale(1.0);
+  }
+}
