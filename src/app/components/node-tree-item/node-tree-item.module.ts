@@ -14,6 +14,7 @@ import { EditScenarioDialogModule } from '@components/dialogs/edit-scenario-dial
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
 import { RouterModule } from '@angular/router';
+import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { RouterModule } from '@angular/router';
     SetupNodeContentDialogModule,
     ScenarioListModule,
     EditScenarioDialogModule,
+    TapEffectModule,
   ]
 })
 export class NodeTreeItemModule { }
