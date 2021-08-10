@@ -5,7 +5,7 @@
     <div class="editor__container">
 
         <div class="entities-container entities-card-layout">
-            <div class="entity" *ngFor="let language of collection | search: searchPattern"
+            <div #entityLanguageListItem class="entity" *ngFor="let language of collection | search: searchPattern"
                 [ngClass]="{'is-default': language.isDefault, 'disabled': !language.active}">
 
                 <!-- Controls -->
@@ -62,7 +62,7 @@
 
 
                 <!-- Body -->
-                <div matRipple class="entity__body" (click)="onEdit(language)">
+                <div [tapEffect]="entityLanguageListItem" class="entity__body" (click)="onEdit(language)">
                     <div class="entity__body__content">
                         <div class="entity__body__container">
                             <div class="entity__text-group-h">

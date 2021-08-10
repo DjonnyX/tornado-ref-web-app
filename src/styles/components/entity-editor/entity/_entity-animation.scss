@@ -1,0 +1,114 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+// Interactions
+
+.editor {
+
+    .entity {
+
+        &.disabled {
+            opacity: $entity-disabled-opacity;
+        }
+
+        &.focused:not(.disabled) {
+            opacity: $entity-focus-opacity;
+        }
+
+        &.pressed:not(.disabled) {
+            transform: scale($entity-active-scale);
+            opacity: $entity-focus-opacity;
+        }
+
+        &.focused:is(.disabled) {
+        }
+
+        &.pressed:is(.disabled) {
+            transform: scale($entity-active-scale);
+        }
+
+        & {
+            transform: scale(1.0);
+            opacity: 1.0;
+            @include transition(transform opacity, $entity-interaction-duration, ease);
+        }
+    }
+}
+
+// Animation Sequence
+// // Interactions
+// .editor {
+
+//     .entity {
+
+//         &.focused {
+//             animation-duration: $search-interaction-duration;
+//             animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+//             animation-name: entity-animation-focus;
+//             opacity: $entity-focus-opacity;
+//         }
+
+//         &.pressed {
+//             animation-duration: $search-interaction-duration;
+//             animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+//             animation-name: entity-animation-in;
+//             opacity: $entity-focus-opacity;
+//             transform: scale($entity-active-scale);
+//         }
+
+//         & {
+//             animation-duration: $search-interaction-duration;
+//             animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+//             animation-name: entity-animation-out;
+//             opacity: 1.0;
+//             transform: scale(1.0);
+//         }
+
+//         &.disabled {
+//             opacity: $entity-disabled-opacity;
+//         }
+//     }
+// }
+
+// @keyframes entity-animation-focus {
+//   from {
+//     opacity: 1.0;
+//   }
+//   65% {
+//     opacity: $entity-focus-opacity;
+//   }
+//   to {
+//     opacity: $entity-focus-opacity;
+//   }
+// }
+
+// @keyframes entity-animation-in {
+//   from {
+//     transform: scale(1.0);
+//     opacity: 1.0;
+//   }
+//   65% {
+//     transform: scale($entity-active-scale * 0.97);
+//     opacity: $entity-focus-opacity;
+//   }
+//   to {
+//     transform: scale($entity-active-scale);
+//     opacity: $entity-focus-opacity;
+//   }
+// }
+
+// @keyframes entity-animation-out {
+//   from {
+//     transform: scale($entity-active-scale);
+//     opacity: $entity-focus-opacity;
+//   }
+//   65% {
+//     transform: scale($entity-active-scale * 1.03);
+//     opacity: 1.0;
+//   }
+//   to {
+//     transform: scale(1.0);
+//     opacity: 1.0;
+//   }
+// }

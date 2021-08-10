@@ -25,10 +25,7 @@
         height: 100%;
         overflow: hidden;
         border-radius: $entity-border-radius;
-        box-shadow: 0px 4px 16px rgba(0,0,0,0.02);
-        transform: scale(1.0);
-        opacity: 1.0;
-        @include transition(transform opacity, $entity-interaction-duration, ease);
+        box-shadow: 0px 4px 16px rgba(0,0,0,0.02);    
         pointer-events: unset;
 
         &__wrapper {
@@ -148,20 +145,6 @@
             align-items: center;
             height: 40px;
             margin-right: 3px;
-        }
-
-        &.disabled {
-            opacity: 0.5;
-        }
-
-        // Interactions
-
-        &.focused {
-            opacity: $entity-focus-opacity;
-        }
-
-        &.pressed {
-            transform: scale($entity-active-scale);
         }
     }
 
