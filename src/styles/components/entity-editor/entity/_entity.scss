@@ -37,6 +37,7 @@
         &__body {
             @extend .entity-container;
             overflow: hidden;
+            cursor: pointer;
 
             &__content {
                 position: relative;

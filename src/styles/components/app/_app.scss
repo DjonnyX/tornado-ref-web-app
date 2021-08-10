@@ -1,0 +1,7 @@
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+app-root {
+    @include user-select(none);
+}
