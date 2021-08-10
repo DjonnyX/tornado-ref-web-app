@@ -53,7 +53,7 @@
                             </ng-container>
                         </div>
                         <div class="entities-container entities-list-layout">
-                            <div class="entity entity-product"
+                            <div #entityProductListItem class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
                                 <div class="entity__wrapper">
@@ -70,7 +70,8 @@
                                     </div>
                                     <!-- Controls -->
                                     <!-- Entity Active-Zone -->
-                                    <div tapEffect class="entity__body" (click)="onEditProduct(product)">
+                                    <div [tapEffect]="entityProductListItem" class="entity__body"
+                                        (click)="onEditProduct(product)">
                                         <div class="entity__body__content">
                                             <div class="entity__body__gradient"></div>
                                             <div class="entity__body__container">
@@ -172,7 +173,7 @@
                             </ng-container>
                         </div>
                         <div class="entities-container entities-card-layout">
-                            <div class="entity entity-product"
+                            <div #entityProductCardItem class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
                                 <div class="entity__wrapper">
@@ -186,7 +187,8 @@
                                             </ng-container>
                                         </div>
                                     </div>
-                                    <div tapEffect class="entity__body" (click)="onEditProduct(product)">
+                                    <div [tapEffect]="entityProductCardItem" class="entity__body"
+                                        (click)="onEditProduct(product)">
                                         <div class="entity__body__content">
                                             <div class="entity__body__gradient"></div>
                                             <div class="entity__body__container">
