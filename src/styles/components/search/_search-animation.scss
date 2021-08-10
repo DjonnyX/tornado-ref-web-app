@@ -4,19 +4,22 @@
 @import "../../mixins";
 
 .search {
+  // border: $search-border-closed;
+  // width: $search-width-closed;
   // @include transition(width border, $entity-interaction-duration, ease-in-out);
 
-    &.focused {
+  //Search opened
+    &.typed, &.hit, &.pressed {
         animation-duration: $search-interaction-duration;
         animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
         animation-name: search-animation-in;
-        
+
         border: $search-border-opened;
         width: $search-width-opened;
     }
 
     //Search closed
-    &:not(.focused) {
+    &:not(.hit, .typed) {
         animation-duration: $search-interaction-duration;
         animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
         animation-name: search-animation-out;
