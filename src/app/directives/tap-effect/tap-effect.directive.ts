@@ -19,6 +19,7 @@ export class TapEffectDirective {
     let element: HTMLElement;
     element = this.tapEffect ? this.tapEffect : this._host.nativeElement;
     element.classList.remove("hit");
+    element.classList.remove("pressed");
   }
 
   @HostListener('pointerdown') onDown() {
