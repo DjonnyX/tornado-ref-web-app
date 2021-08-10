@@ -20,10 +20,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   ctrlSearch = new FormControl("");
 
-  isFocused = false;
-
-  isHover = false;
-
   isFill = false;
 
   constructor() {
@@ -49,32 +45,6 @@ export class SearchComponent extends BaseComponent implements OnInit {
 
   clear(e: Event) {
     this.ctrlSearch.reset();
-  }
-
-  onOver() {
-    this.isHover = true;
-  }
-
-  onOut() {
-    interval(250).pipe(
-      takeUntil(this.unsubscribe$),
-      take(1),
-    ).subscribe(_ => {
-      this.isHover = false;
-    });
-  }
-
-  onFocus() {
-    this.isFocused = true;
-  }
-
-  onBlur() {
-    interval(250).pipe(
-      takeUntil(this.unsubscribe$),
-      take(1),
-    ).subscribe(_ => {
-      this.isFocused = false;
-    });
   }
 
   onSubmit() {

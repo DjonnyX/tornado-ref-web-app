@@ -1,5 +1,4 @@
-<div
-    [ngClass]="{'search': true, 'opened': isHover, 'closed': !isHover, 'focused': isFocused, 'empty': !isFill, 'typed': isFill}">
+<div #host [ngClass]="{'search': true, 'empty': !isFill, 'typed': isFill}">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="search__form">
         <div class="search__form__container">
             <!--<label for="state-panel-search" class="search__form__label">Поиск</label>-->
@@ -11,8 +10,8 @@
                     <span class="search__form__button-clear__icon icon-search-cross"></span>
                 </div>
             </button>
-            <input [placeholder]="placeholder" class="search__form__text-field" formControlName="search"
-                (focus)="onFocus()" (blur)="onBlur()" (mouseover)="onOver()" (mouseout)="onOut()" />
+            <input [tapEffect]="host" [placeholder]="placeholder" class="search__form__text-field"
+                formControlName="search" />
         </div>
     </form>
 </div>
