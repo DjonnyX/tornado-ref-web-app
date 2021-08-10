@@ -1,0 +1,17 @@
+@import "../../../base/reset-button";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.tab-button {
+    transform: scale(1.0);
+    opacity: 1.0;
+    @include transition(transform opacity, $tab-bar-button-interaction-duration, ease);
+
+    &:hover, &:focus {
+        opacity: $tab-bar-button-focus-opacity;
+    }
+
+    &:active {
+        transform: scale($tab-bar-button-active-scale);
+    }
+}

@@ -3,6 +3,7 @@
  */
 
  @import "./palette";
+ @import "./tab-button";
 
 $themes: (
   light: (
@@ -15,7 +16,7 @@ $themes: (
     searchBackgroundColor: $background-color,
     textColor: $primary-color,
     //Entity
-    entityGroupListColor: rgba($secondary-color, 0.4),//lighten($primary-color, 40),
+    entityGroupListColor: rgba($secondary-color, 0.4),
     entityBackgroundColor: $white,
     entityTitleColor: $primary-color,
     entityDescriptionColor: rgba($secondary-color, 0.4),
@@ -25,6 +26,16 @@ $themes: (
     //Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
+    //Tab button
+    tabButtonBackgroundColorNormal: $tab-button-background-color-normal,
+    tabButtonBorderColorNormal: $tab-button-border-normal,
+    tabButtonColorNormal: $tab-button-color-normal,
+    tabButtonBackgroundColorActive: $tab-button-background-color-active,
+    tabButtonBorderColorActive: $tab-button-border-active,
+    tabButtonColorActive: $tab-button-color-active,
+    tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse,
+    tabButtonColorNormalInverse:$tab-button-color-normal-inverse,
+    tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse,
   ),
   dark: (
     //Common
@@ -46,5 +57,15 @@ $themes: (
     //Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
+    //Tab button
+    tabButtonBackgroundColorNormal: $tab-button-background-color-normal-theme-dark,
+    tabButtonBorderColorNormal: $tab-button-border-normal-theme-dark,
+    tabButtonColorNormal: $tab-button-color-normal-theme-dark,
+    tabButtonBackgroundColorActive: $tab-button-background-color-active-theme-dark,
+    tabButtonBorderColorActive: $tab-button-border-active-theme-dark,
+    tabButtonColorActive: $tab-button-color-active-theme-dark,
+    tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse-theme-dark,
+    tabButtonColorNormalInverse:$tab-button-color-normal-inverse-theme-dark,
+    tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse-theme-dark,
   ),
 );

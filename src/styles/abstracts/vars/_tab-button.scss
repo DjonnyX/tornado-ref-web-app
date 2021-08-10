@@ -5,18 +5,38 @@ $tab-button-size: 36px;
 $tab-button-roundness: 4px;
 $tab-button-icon-size: 20px;
 
+//Theme-Light
+
 //normal
 $tab-button-opacity-normal: 0.2;
-$tab-button-background-color-normal: rgba($white, 1.0);
-$tab-button-border-normal: 1px solid rgba($background-color, 1.0);
+
+$tab-button-background-color-normal: $white;
+$tab-button-border-normal: $background-color;
 $tab-button-color-normal: rgba($primary-color, $tab-button-opacity-normal);
 
 //active
-$tab-button-background-color-active: rgba($background-color, 1.0);
-$tab-button-border-active: 1px solid rgba($background-color, 1.0);
+$tab-button-background-color-active: $background-color;
+$tab-button-border-active: $background-color;
 $tab-button-color-active: rgba($primary-color, 1.0);
 
 //inverse
 $tab-button-background-color-normal-inverse: $primary-color-50;
 $tab-button-color-normal-inverse: $background-color;
 $tab-button-border-normal-inverse: $divider-color-inverse;
+
+//Theme-Dark
+
+//normal
+$tab-button-background-color-normal-theme-dark: $primary-color;
+$tab-button-border-normal-theme-dark: $primary-color;
+$tab-button-color-normal-theme-dark: rgba($background-color, $tab-button-opacity-normal);
+
+//active
+$tab-button-background-color-active-theme-dark: $primary-color-50;
+$tab-button-border-active-theme-dark: $primary-color-50;
+$tab-button-color-active-theme-dark: rgba($background-color, 1.0);
+
+//inverse
+$tab-button-background-color-normal-inverse-theme-dark: $primary-color-50;
+$tab-button-color-normal-inverse-theme-dark: $background-color;
+$tab-button-border-normal-inverse-theme-dark: $divider-color-inverse;

@@ -2,27 +2,3 @@
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
-.tab-button__group.dark {
-
-    .tab-button {
-
-    & {
-        background-color: $tab-button-background-color-normal-inverse;
-        border: $tab-button-border-normal-inverse;
-
-        .tab-button__icon::before {
-            color: $tab-button-color-normal-inverse;
-        }
-    }
-
-    //Active
-    &.active {
-        background-color: $tab-button-background-color-active;
-        border: $tab-button-border-active;
-
-        .tab-button__icon::before {
-            color: $tab-button-color-active;
-        }
-    }
-    }
-}

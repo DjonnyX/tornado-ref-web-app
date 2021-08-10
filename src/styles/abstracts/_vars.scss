@@ -3,7 +3,6 @@
 @import "./vars/button-base";
 @import "./vars/breakepoints";
 @import "./vars/palette";
-@import "./vars/themes";
 // @import "./vars/entity-checkbox";
 
 @import "./vars/tab-button";
@@ -18,6 +17,7 @@
 
 @import "./vars/entity-editor"; //+
 @import "./vars/interactions";
+@import "./vars/themes";
 
 // ?
 $padding: px2em(18);

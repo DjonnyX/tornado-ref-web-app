@@ -16,7 +16,6 @@
     flex-direction: row;
     gap: 10px;
     height: 100%;
-    // margin-left: 20px;
     align-items: center;
 }
 
@@ -29,9 +28,8 @@
     overflow: hidden;
     margin: 0;
     padding: 0;
-    transform: scale(1.0);
-    opacity: 1.0;
-    @include transition(transform opacity, $tab-bar-button-interaction-duration, ease);
+    border-width: 1px;
+    border-style: solid;
 
     &__container {
         display: flex;
@@ -46,37 +44,9 @@
         font-size: $tab-button-icon-size;
         margin: auto;
 
-        //Icon
-        &::before {
-            // color: $tab-button-icon-color-normal;
-        }
-    }
-
-    //Normal
-    & {
-        background-color: $tab-button-background-color-normal;
-        border: $tab-button-border-normal;
-
-        .tab-button__icon::before {
-            color: $tab-button-color-normal;
-        }
-    }
-
-    //Active
-    &.active {
-        background-color: $tab-button-background-color-active;
-        border: $tab-button-border-active;
-
-        .tab-button__icon::before {
-            color: $tab-button-color-active;
-        }
-    }
-
-    &:hover, &:focus {
-        opacity: $tab-bar-button-focus-opacity;
-    }
-
-    &:active {
-        transform: scale($tab-bar-button-active-scale);
+        // //Icon
+        // &::before {
+        //     // color: $tab-button-icon-color-normal;
+        // }
     }
 }
