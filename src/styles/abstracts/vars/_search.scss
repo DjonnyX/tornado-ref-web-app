@@ -23,11 +23,11 @@ $search-button-search-icon-size: 16px;
 
 //Search button-clear
 $search-button-clear-size: 16px;
-$search-button-clear-border-radius: $search-button-clear-size/2;
+$search-button-clear-border-radius: $search-button-clear-size/2;//6px;//$search-button-clear-size/2;
 $search-button-clear-color: rgba($white, 0.55);
 $search-button-clear-background-color: rgba($white, 0.15);
 
-$search-button-clear-icon-size: px2em(14);
+$search-button-clear-icon-size: 14px;
 
 //Search placeholder
-$search-text-field-placeholder-size: px2em(15);
+$search-text-field-placeholder-size: 15p;

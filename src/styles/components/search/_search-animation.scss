@@ -1,0 +1,54 @@
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../base/reset-input";
+@import "../../mixins";
+
+.search {
+
+    &.focused {
+        animation-duration: $search-interaction-duration;
+        animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        animation-name: search-animation-in;
+        border: $search-border-opened;
+        width: $search-width-opened;
+    }
+
+    //Search closed
+    & {
+        animation-duration: $search-interaction-duration;
+        animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        animation-name: search-animation-out;
+        border: $search-border-closed;
+        width: $search-width-closed;
+    }
+}
+
+@keyframes search-animation-in {
+  from {
+    width: $search-width-closed;
+    border: $search-border-closed;
+  }
+  65% {
+    width: $search-width-opened * 1.01;
+    border: $search-border-opened;
+  }
+  to {
+    width: $search-width-opened;
+    border: $search-border-opened;
+  }
+}
+
+@keyframes search-animation-out {
+  from {
+    width: $search-width-opened;
+    border: $search-border-opened;
+  }
+  65% {
+    width: $search-width-closed * 1.01;
+    border: $search-border-closed;
+  }
+  to {
+    width: $search-width-closed;
+    border: $search-border-closed;
+  }
+}

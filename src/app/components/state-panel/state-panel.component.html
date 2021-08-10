@@ -18,6 +18,7 @@
             <div class="filter__container">
                 <!-- Hide or show hidden entities -->
                 <span class="tab-button__group">
+                    <!--Filter-->
                     <button
                         [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': displayInactiveEntities}"
                         (click)="onToggleVisibleHiddenEntities()">
@@ -27,8 +28,7 @@
                             </div>
                         </div>
                     </button>
-                </span>
-                <span class="tab-button__group">
+                    <!--Template-->
                     <button [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': true}"
                         (click)="onSwitchLayout()">
                         <div class="tab-button__container">

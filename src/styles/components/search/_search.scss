@@ -120,9 +120,8 @@
     }
     //Search opened
     &.focused {
-        @include transition(width border, 125ms 125ms, ease, 150ms);
-        border: $search-border-opened;
-        width: $search-width-opened;
+        // @include transition(width border, 125ms 125ms, ease, 150ms);
+        // border: $search-border-opened;
 
         &__form {
 
@@ -136,11 +135,11 @@
         }
     }
     //Search closed
-    & {
-        @include transition(width border, 75ms 75ms, ease, 150ms);
-        border: $search-border-closed;
-        width: $search-width-closed;
-    }
+    // & {
+    //     @include transition(width border, 75ms 75ms, ease);
+    //     border: $search-border-closed;
+    //     width: $search-width-closed;
+    // }
 
     // &:hover {
     //     animation-duration: 125ms;
