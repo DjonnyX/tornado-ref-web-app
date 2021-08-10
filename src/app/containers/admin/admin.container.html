@@ -78,10 +78,12 @@
                                 class="dropdown-selector__list__item">
                                 <div class="dropdown-selector__list__item__container">
                                     <label class="dropdown-selector__option " [for]="index">
-                                        <span class="dropdown-selector__option-image sm">
-                                            <img [src]="lang.data.__img__">
-                                        </span>
-                                        {{lang.data.__name__}}
+                                        <div class="dropdown-selector__option__content">
+                                            <span class="dropdown-selector__option-image sm">
+                                                <img [src]="lang.data.__img__">
+                                            </span>
+                                            {{lang.data.__name__}}
+                                        </div>
                                     </label>
                                 </div>
                             </li>
