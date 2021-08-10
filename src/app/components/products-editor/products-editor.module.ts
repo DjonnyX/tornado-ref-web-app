@@ -11,6 +11,7 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
 import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
 import { StatePanelModule } from '@components/state-panel/state-panel.module';
 import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
+import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
   ],
   imports: [
     CommonModule,
-    MatRippleModule,
+    TapEffectModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,

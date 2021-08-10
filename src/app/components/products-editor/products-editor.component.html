@@ -53,7 +53,7 @@
                             </ng-container>
                         </div>
                         <div class="entities-container entities-list-layout">
-                            <div class="entity entity-product"
+                            <div tapEffect class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
                                 <div class="entity__wrapper">
@@ -172,7 +172,7 @@
                             </ng-container>
                         </div>
                         <div class="entities-container entities-card-layout">
-                            <div class="entity entity-product"
+                            <div tapEffect class="entity entity-product"
                                 *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                 [class.disabled]="!product.active">
                                 <div class="entity__wrapper">
