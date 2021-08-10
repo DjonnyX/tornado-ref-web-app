@@ -10,6 +10,7 @@ $themes: (
     //Common
     backgroundColor: $background-color,
     foregroundColor: $primary-color,
+    neutralColor: $neutral-color,
     dividerColor: $divider-color,
     statePanelBackgroundColor: $white,
     //Search
@@ -41,6 +42,7 @@ $themes: (
     //Common
     backgroundColor: $primary-color,
     foregroundColor: $primary-color,
+    neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
     statePanelBackgroundColor: $secondary-color,
     //Search

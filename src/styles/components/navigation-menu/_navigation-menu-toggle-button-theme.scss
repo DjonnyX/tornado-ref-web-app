@@ -1,0 +1,27 @@
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.navigation-menu {
+    
+    .navigation-menu__toggle-button {
+
+        &__icon {
+
+            &__symbol {
+                @include themify($themes) {
+                    color: themed('neutralColor');
+                }
+            }
+        }
+
+        svg {
+
+            path {
+                @include themify($themes) {
+                    fill: themed('backgroundColor');
+                }
+            }
+        }
+    }
+}
