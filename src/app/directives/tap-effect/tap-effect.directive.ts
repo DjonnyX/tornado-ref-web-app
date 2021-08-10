@@ -1,25 +1,35 @@
-import { Directive, ElementRef, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
 
 @Directive({
   selector: '[tapEffect]'
 })
 export class TapEffectDirective {
 
+  @Input() tapEffect: HTMLElement;
+
   constructor(private _host: ElementRef<HTMLElement>) { }
 
   @HostListener('pointerenter') onEnter() {
-    this._host.nativeElement.classList.add("hit");
+    let element: HTMLElement;
+    element = this.tapEffect ? this.tapEffect : this._host.nativeElement;
+    element.classList.add("hit");
   }
 
   @HostListener('pointerleave') onLeave() {
-    this._host.nativeElement.classList.remove("hit");
+    let element: HTMLElement;
+    element = this.tapEffect ? this.tapEffect : this._host.nativeElement;
+    element.classList.remove("hit");
   }
 
   @HostListener('pointerdown') onDown() {
-    this._host.nativeElement.classList.add("pressed");
+    let element: HTMLElement;
+    element = this.tapEffect ? this.tapEffect : this._host.nativeElement;
+    element.classList.add("pressed");
   }
 
   @HostListener('pointerup') onUp() {
-    this._host.nativeElement.classList.remove("pressed");
+    let element: HTMLElement;
+    element = this.tapEffect ? this.tapEffect : this._host.nativeElement;
+    element.classList.remove("pressed");
   }
 }
