@@ -9,7 +9,7 @@ $themes: (
     //Common
     backgroundColor: $background-color,
     foregroundColor: $primary-color,
-    dividerColor: $divider-color-light,
+    dividerColor: $divider-color,
     statePanelBackgroundColor: $white,
     //Search
     searchBackgroundColor: $background-color,
@@ -21,7 +21,7 @@ $themes: (
     entityDescriptionColor: rgba($secondary-color, 0.4),
     entityCoastColor: $primary-color,
     entityActionMenuButtonColor: $primary-color,
-    entityDividerBorderColor: $divider-color-light,
+    entityDividerBorderColor: $divider-color,
     //Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
@@ -30,7 +30,7 @@ $themes: (
     //Common
     backgroundColor: $primary-color,
     foregroundColor: $primary-color,
-    dividerColor: $divider-color-dark,
+    dividerColor: $divider-color-inverse,
     statePanelBackgroundColor: $secondary-color,
     //Search
     searchBackgroundColor: $background-color,
@@ -42,7 +42,7 @@ $themes: (
     entityDescriptionColor: rgba($background-color, 0.4),
     entityCoastColor: $background-color,
     entityActionMenuButtonColor: $white,
-    entityDividerBorderColor: $divider-color-dark,
+    entityDividerBorderColor: $divider-color-inverse,
     //Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,

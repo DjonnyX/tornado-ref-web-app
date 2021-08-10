@@ -6,6 +6,8 @@
 @import "./vars/themes";
 // @import "./vars/entity-checkbox";
 
+@import "./vars/tab-button";
+@import "./vars/dropdown-selector";
 @import "./vars/navigation-menu";
 @import "./vars/search";
 @import "./vars/action-menu";
@@ -15,6 +17,7 @@
 @import "./vars/tags";
 
 @import "./vars/entity-editor"; //+
+@import "./vars/interactions";
 
 // ?
 $padding: px2em(18);

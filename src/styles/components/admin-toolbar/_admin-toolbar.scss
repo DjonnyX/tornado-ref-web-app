@@ -3,8 +3,7 @@
 @import "../../mixins";
 
 $admin-section-container-padding-h: 16px;
-
-$dropdown-selector-value-width: auto;
+$dropdown-selector-value-width: 36px;
 
 .admin__toolbar {
     display: grid;
@@ -67,14 +66,6 @@ $dropdown-selector-value-width: auto;
 
         &.parent {
             opacity: 0.3;
-        }
-    }
-
-    .dropdown-selector {
-    
-        .dropdown-selector__current-value {
-            width: $dropdown-selector-value-width;
-            text-transform: uppercase;
         }
     }
 }

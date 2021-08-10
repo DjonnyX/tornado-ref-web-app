@@ -50,7 +50,7 @@
                             {{localization.get("common_documentation")}}
                         </a>
                     </span>
-                    <span class="tab-button__group dark">
+                    <span class="theme-button tab-button__group dark">
                         <button class="tab-button" (click)="onThemeToggle()">
                             <div class="tab-button__container">
                                 <div [ngClass]="btnThemeClasses"></div>
@@ -62,7 +62,7 @@
                     <div *ngIf="isLanguagePickerExpanded" class="dropdown-selector__substrate"
                         (click)="onLanguagePickerCollapse()"></div>
 
-                    <div class="dropdown-selector" (click)="onLanguagePickerExpand()">
+                    <div class="dropdown-selector language-button inverse-button" (click)="onLanguagePickerExpand()">
                         <div class="dropdown-selector__current-value">
                             <div class="dropdown-selector__value" *ngFor="let lang of languages; let index = index;">
                                 <input class="dropdown-selector__input" [id]="index" type="radio" [value]="lang.code"
@@ -77,10 +77,10 @@
                             <li *ngFor="let lang of languages; let index = index;"
                                 class="dropdown-selector__list__item">
                                 <div class="dropdown-selector__list__item__container">
-                                    <span class="dropdown-selector__option-image sm">
-                                        <img [src]="lang.data.__img__">
-                                    </span>
-                                    <label class="dropdown-selector__option" [for]="index">
+                                    <label class="dropdown-selector__option " [for]="index">
+                                        <span class="dropdown-selector__option-image sm">
+                                            <img [src]="lang.data.__img__">
+                                        </span>
                                         {{lang.data.__name__}}
                                     </label>
                                 </div>

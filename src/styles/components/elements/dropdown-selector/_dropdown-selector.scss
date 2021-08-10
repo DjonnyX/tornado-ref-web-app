@@ -3,26 +3,38 @@
 @import "../../../mixins";
 
 $dropdown-selector-border-radius: 4px;
+$dropdown-selector-list-border-radius: 6px;
+$anim-scale-in-out: 0.75;
 
 .dropdown-selector {
     display: block;
     color: $primary-color;
     position: relative;
+    padding: 8px 0px;
 
     &__current-value {
+        display: flex;
         position: relative;
+        align-items: center;
+        justify-content: center;     
         box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
         cursor: pointer;
         outline: none;
         border-radius: $dropdown-selector-border-radius;
-        color: $primary-color;
-        background-color: $background-color;
+        color: $dropdown-selector-button-color-normal;
+        background-color: $dropdown-selector-button-background-color-normal;
+        transform: scale(1.0);
+        opacity: 1.0;
+        @include transition(transform opacity, $tab-bar-button-interaction-duration, ease);
 
-        // &:focus, &:hover {
-        //  & + .dropdown-selector__list {
-        //      opacity: 1;
-        //  }
-        // }
+        //Interactions
+        &:hover, &:focus {
+            opacity: $tab-bar-button-focus-opacity;
+        }
+
+        &:active {
+            transform: scale($tab-bar-button-active-scale);
+        }
     }
 
     &__substrate {
@@ -60,20 +72,24 @@ $dropdown-selector-border-radius: 4px;
         width: auto;
         padding: 0;
         list-style: none;
-        // opacity: 0;
         margin: 0;
         margin-top: 10px;
-        border-radius: $dropdown-selector-border-radius;
+        border-radius: $dropdown-selector-list-border-radius;
         overflow: hidden;
         box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 10%);
         background-color: $white;
+        transform: translateY($anim-scale-in-out);
 
         &__item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid $divider-color;
+
             &__container {
                 align-items: center;
                 justify-content: center;
                 display: flex;
-                padding: 6px 10px;
+                padding: 0px;
             }
 
             &:hover,
@@ -81,20 +97,32 @@ $dropdown-selector-border-radius: 4px;
                 color: rgba($primary-color, 0.75);
                 background-color: $background-color;
             }
+
+            &:last-child {
+                border-bottom: none;
+            }
         }
     }
 
     &__option {
-        display: block;
-        padding: 15px;
+        display: flex;
+        flex-direction: row;
+        padding: 0px;
+        font-size: 16px;
+        gap: 10px;
+        padding: 15px 20px;
+        cursor: pointer;
 
-        // &:hover, &:focus {
-        //     color: rgba($primary-color, 0.75);
-        //     background-color: $background-color;
-        // }
+        &.vertical {
+            flex-direction: column;
+            gap: 6px;
+
+        }
     }
 
     &__option-image {
+        display: flex;
+        overflow: hidden;
         @include box(auto);
     }
 
@@ -120,41 +148,27 @@ $dropdown-selector-border-radius: 4px;
     }
 }
 
-// .dropdown-selector {
-//     display: block;
-//     color: $primary-color;
-//     position: relative;
+//Animation
 
-//     &__button {
+.dropdown-selector {
 
-//     }
+    .dropdown-selector__current-value ~ .dropdown-selector__list {
+        animation-duration: 175ms;
+        animation-timing-function: cubic-bezier(0.68, -0.32, 0.32, 1.32);
+        animation-name: anim-dropdown-selector-list-in;
+    }
+}
 
-//     &__content {
-//         display: none;
-//         position: absolute;
-//         flex-direction: row;
-//         color: $primary-color;
-//         right: 0;
-//         background-color: #f9f9f9;
-//         min-width: 160px;
-//         box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-//         padding: 12px 16px;
-//         border-radius: 6px;
-//         z-index: 1;
-
-//         select {
-//             display: none;
-
-//             option {
-
-//             }
-//         }
-//     }
-
-//     &.active {
-
-//         .dropdown-selector__content {
-//             display: flex;
-//         }
-//     }
-// }
+@keyframes anim-dropdown-selector-list-in {
+  from {
+    transform: scale(0.5);// rotate3d(0, 1, 0, -45deg);
+    opacity: 0.0;
+  }
+  65% {
+    transform: scale(1.03);
+    opacity: 1.0;
+  }
+  to {
+    transform: scale(1.0);// rotate3d(0, 1, 0, 0deg);
+  }
+}

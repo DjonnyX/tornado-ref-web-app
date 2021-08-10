@@ -26,6 +26,10 @@
         overflow: hidden;
         border-radius: $entity-border-radius;
         box-shadow: 0px 4px 16px rgba(0,0,0,0.02);
+        transform: scale(1.0);
+        opacity: 1.0;
+        @include transition(transform opacity, $entity-interaction-duration, ease);
+        pointer-events: unset;
 
         &__wrapper {
             display: flex;
@@ -45,7 +49,6 @@
 
             &__container {
                 display: flex;
-                // gap: 20px;
             }
 
             &__gradient {
@@ -55,12 +58,6 @@
                 background: linear-gradient(0deg, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%);
             }
         }
-
-        // &__top-container {
-        //     display: block;
-        //     position: relative;
-        //     height: 100%;
-        // }
         
         &__name {
             font-size: $entity-title-font-size;
@@ -113,7 +110,6 @@
             display: block;
             position: relative;
             margin-right: 20px;
-            // overflow: hidden;
 
             &__thumbnail {
                 overflow: hidden;
@@ -123,12 +119,6 @@
                 background-color: #ffffff;
                 border-radius: $entity-image-radius;
             }
-
-            // &.image-auto-size {
-            //     @include box(auto);
-
-            //     &__thumbnail {
-            // }
         }
 
         &__control {
@@ -148,7 +138,6 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                // margin-left: 20px;
             }
         }
 
@@ -157,7 +146,6 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            // height: 100%;
             height: 40px;
             margin-right: 3px;
         }
@@ -165,94 +153,26 @@
         &.disabled {
             opacity: 0.5;
         }
+
+        // Interactions
+
+        &.focused {
+            opacity: $entity-focus-opacity;
+        }
+
+        &.pressed {
+            transform: scale($entity-active-scale);
+        }
     }
+
+    // .entity:has( .entity__wrapper > div.entity__body:hover), .entity:has(.entity__body:hover) {
+    //     opacity: $entity-focus-opacity;
+    //     background-color: $accent-color;
+    // }
 }
 
-        //
 
-        // &.disabled {
-//             opacity: 0.5;
-//         }
 
-//         &__body {
-//             @include button();
-//             color: $primary-color;
-//             background: $white;
-//             box-sizing: border-box;
-//         }
-
-//         &__content {
-//             position: relative;
-//             overflow: hidden;
-//             height: 100%;
-
-//             &__gradient {
-//                 display: block;
-//                 position: absolute;
-//                 width: 100%;
-//                 bottom: 0px;
-//                 background: linear-gradient(0deg, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%);
-//             }
-//         }
-
-//          &__name {
-//                 font-weight: 400;
-//                 margin-bottom: px2em(6);
-//                 color: $primary-color;
-//             }
-
-//         &__description {
-//             font-size: 0.74em;
-//             word-wrap: break-word;
-//             color: rgba($primary-color, 0.65);
-//         }
-
-//         &__footer {
-//             display: flex;
-//             align-items: center;
-//             justify-content: space-between;
-//             padding: px2em(8) px2em(12);
-//             border-top: 1px solid rgba($primary-color, 0.1);
-//             background-color: $entity-footer-background-color;
-
-//             img {
-//                 image-rendering: pixelated;
-//                 border: 1px solid rgba($primary-color, 0.15);
-//                 background-color: #ffffff;
-//             }
-//         }
-
-//         &__thumbnail {
-//             height: px2em(32);
-//             overflow: hidden;
-//             image-rendering: pixelated;
-//             border-radius: 3px;
-//         }
-
-//         &__control {
-//             display: flex;
-//             justify-content: space-between;
-//             background: #ffffff;
-//             border-bottom: 1px solid rgba($primary-color, 0.1);
-
-//             &__checkbox {
-//                 display: flex;
-//                 justify-content: center;
-//                 align-items: center;
-//                 margin-left: $entity-control-checkbox-margin-left;
-//             }
-//         }
-
-//         &__action-menu__button {
-//             margin-left: auto;
-//             display: flex;
-//             justify-content: center;
-//             align-items: center;
-//             color: $primary-color;
-//             height: 100%;
-//         }
-//     }
-
-//     .button-add.mat-raised-button {
-//         box-shadow: none;
-//     }
+// .entity:has( .entity__body:active) {
+//     transform: scale($entity-active-scale);
+// }

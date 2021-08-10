@@ -1,0 +1,11 @@
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.dropdown-selector.language-button {
+    
+    .dropdown-selector__current-value {
+        text-transform: uppercase;
+        @include box($tab-button-size);
+    }
+}

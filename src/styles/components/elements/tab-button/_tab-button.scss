@@ -2,19 +2,6 @@
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
-$tab-button-size: 36px;
-$tab-button-roundness: 4px;
-$tab-button-icon-size: 20px;
-
-$tab-button-opacity-normal: 0.2;
-$tab-button-background-color-normal: rgba($white, 1.0);
-$tab-button-border-normal: 1px solid rgba($background-color, 1.0);
-$tab-button-icon-color-normal: rgba($primary-color, $tab-button-opacity-normal);
-
-$tab-button-background-color-active: rgba($background-color, 1.0);
-$tab-button-border-active: 1px solid rgba($background-color, 1.0);
-$tab-button-icon-color-active: rgba($primary-color, 1.0);
-
 .filter {
     height: 100%;
 
@@ -42,6 +29,9 @@ $tab-button-icon-color-active: rgba($primary-color, 1.0);
     overflow: hidden;
     margin: 0;
     padding: 0;
+    transform: scale(1.0);
+    opacity: 1.0;
+    @include transition(transform opacity, $tab-bar-button-interaction-duration, ease);
 
     &__container {
         display: flex;
@@ -68,7 +58,7 @@ $tab-button-icon-color-active: rgba($primary-color, 1.0);
         border: $tab-button-border-normal;
 
         .tab-button__icon::before {
-            color: $tab-button-icon-color-normal;
+            color: $tab-button-color-normal;
         }
     }
 
@@ -78,7 +68,15 @@ $tab-button-icon-color-active: rgba($primary-color, 1.0);
         border: $tab-button-border-active;
 
         .tab-button__icon::before {
-            color: $tab-button-icon-color-active;
+            color: $tab-button-color-active;
         }
+    }
+
+    &:hover, &:focus {
+        opacity: $tab-bar-button-focus-opacity;
+    }
+
+    &:active {
+        transform: scale($tab-bar-button-active-scale);
     }
 }
