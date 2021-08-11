@@ -48,14 +48,32 @@ $admin-view-navigation-width-xl: $admin-view-navigation-width;
         }
 
         .admin__view__navigation {
+            position: relative;
             width: $navigation-menu-width;
             height: 100%;
             overflow: hidden;
+
+            &__scroll-view {
+                display: block;
+                position: relative;
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+            }
         }
 
         .admin__view__content {
             position: relative;
             height: 100%;
+            overflow: hidden;
+
+            &__scroll-view {
+                display: block;
+                position: relative;
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+            }
         }
     }
 }

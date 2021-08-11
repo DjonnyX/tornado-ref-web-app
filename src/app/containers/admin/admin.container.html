@@ -112,31 +112,35 @@
 
     <div class="drawer-container admin__view__wrapper">
         <div class="admin__view__navigation">
-            <!-- Navigation Menu -->
-            <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection"
-                [selected]="currentRouteIndex$ | async" (select)="selectRoute($event)">
-                <!--Toggle Button-->
-                <div class="navigation-menu__toggle-button">
-                    <div class="navigation-menu__toggle-button__icon">
-                        <div class="navigation-menu__toggle-button__icon__symbol icon-menu-arrow">
-                        </div>
+            <!--Toggle Button-->
+            <div class="navigation-menu__toggle-button">
+                <div class="navigation-menu__toggle-button__icon">
+                    <div class="navigation-menu__toggle-button__icon__symbol icon-menu-arrow">
                     </div>
-                    <svg width="22" height="80" viewBox="0 0 22 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path
-                            d="M17.0581 10.5941L4.94194 19.4059C1.83701 21.664 0 25.2715 0 29.1107V50.8893C0 54.7285 1.83701 58.336 4.94194 60.5941L17.0581 69.4059C20.163 71.664 22 75.2715 22 79.1107V0.889305C22 4.72854 20.163 8.33601 17.0581 10.5941Z" />
-                    </svg>
                 </div>
-                <!--Toggle Button-->
-            </ta-navigation-menu>
-            <!-- Navigation Menu -->
+                <svg width="22" height="80" viewBox="0 0 22 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M17.0581 10.5941L4.94194 19.4059C1.83701 21.664 0 25.2715 0 29.1107V50.8893C0 54.7285 1.83701 58.336 4.94194 60.5941L17.0581 69.4059C20.163 71.664 22 75.2715 22 79.1107V0.889305C22 4.72854 20.163 8.33601 17.0581 10.5941Z" />
+                </svg>
+            </div>
+            <!--Toggle Button-->
+            <div class="admin__view__navigation__scroll-view">
+                <!-- Navigation Menu -->
+                <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection"
+                    [selected]="currentRouteIndex$ | async" (select)="selectRoute($event)">
+                </ta-navigation-menu>
+                <!-- Navigation Menu -->
+            </div>
         </div>
-        <div class="content admin__view__content">
+        <div class="admin__view__content">
             <!-- <div class="saturn-page-logo__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
                 <img class="saturn-page-logo" src="embeded-assets/icons/saturn-page-logo.svg">
             </div> -->
-            <main>
-                <router-outlet></router-outlet>
-            </main>
+            <div class="admin__view__content__scroll-view">
+                <main>
+                    <router-outlet></router-outlet>
+                </main>
+            </div>
         </div>
     </div>
 </div>
