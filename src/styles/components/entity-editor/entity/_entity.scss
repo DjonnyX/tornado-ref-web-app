@@ -5,13 +5,20 @@
 .editor {
     display: block;
     position: relative;
-    height: 100%; // 100vh
+    // height: 100%; // 100vh
+    height: calc(100vh - #{$admin-toolbar-height});
+    overflow: hidden;
+    
+    &__scroll-view {
+        height: 100%;
+        overflow: auto;
+    }
 
     &__container {
         display: block;
         position: relative;
         width: 100%;
-        height: 100%;
+        height: auto;
         padding-top: $editor-container-padding-top;
         padding-bottom: $editor-container-padding-bottom;
         // overflow: auto;

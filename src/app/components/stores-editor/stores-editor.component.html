@@ -2,103 +2,106 @@
 
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 
-    <div class="editor__container">
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container">
 
-        <div class="entities-container entities-card-layout">
+            <div class="entities-container entities-card-layout">
 
-            <div class="entity" *ngFor="let store of collection | search: searchPattern">
+                <div class="entity" *ngFor="let store of collection | search: searchPattern">
 
-                <!-- <div class="entity__control">
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="onEdit(store)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
+                    <!-- <div class="entity__control">
+                    <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                        aria-label="Menu">
+                        <mat-icon class="icon">more_vert</mat-icon>
                     </button>
-
-                    <ng-container *ngIf="hasDelete()">
-                        <button mat-menu-item (click)="onDelete(store)">
-                            <mat-icon>delete_forever</mat-icon>
-                            <span>Удалить</span>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item (click)="onEdit(store)">
+                            <mat-icon>edit</mat-icon>
+                            <span>Редактировать</span>
                         </button>
-                    </ng-container>
-                </mat-menu>
-            </div> -->
 
-                <!-- Controls -->
-
-                <div class="entity__control">
-                    <div class="entity__control__container">
-                        <!-- <div class="entity__control__checkbox">
-                                <mat-checkbox color="accent" #checkboxActive [checked]="store.active"
-                                    (click)="onToggleActive($event, store)">
-                                </mat-checkbox>
-                            </div> -->
-                        <!-- ActionMenu -->
-                        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                            aria-label="Menu">
-                            <mat-icon class="icon">more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item (click)="onEdit(store)">
-                                <mat-icon>edit</mat-icon>
-                                <span>
-                                    {{localization.get("common_action-edit")}}
-                                </span>
+                        <ng-container *ngIf="hasDelete()">
+                            <button mat-menu-item (click)="onDelete(store)">
+                                <mat-icon>delete_forever</mat-icon>
+                                <span>Удалить</span>
                             </button>
+                        </ng-container>
+                    </mat-menu>
+                </div> -->
 
-                            <ng-container *ngIf="hasDelete()">
-                                <button mat-menu-item (click)="onDelete(store)">
-                                    <mat-icon>delete_forever</mat-icon>
+                    <!-- Controls -->
+
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <!-- <div class="entity__control__checkbox">
+                                    <mat-checkbox color="accent" #checkboxActive [checked]="store.active"
+                                        (click)="onToggleActive($event, store)">
+                                    </mat-checkbox>
+                                </div> -->
+                            <!-- ActionMenu -->
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="onEdit(store)">
+                                    <mat-icon>edit</mat-icon>
                                     <span>
-                                        {{localization.get("common_action-delete")}}
+                                        {{localization.get("common_action-edit")}}
                                     </span>
                                 </button>
-                            </ng-container>
-                        </mat-menu>
-                        <!-- ActionMenu -->
+
+                                <ng-container *ngIf="hasDelete()">
+                                    <button mat-menu-item (click)="onDelete(store)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                        <span>
+                                            {{localization.get("common_action-delete")}}
+                                        </span>
+                                    </button>
+                                </ng-container>
+                            </mat-menu>
+                            <!-- ActionMenu -->
+                        </div>
                     </div>
-                </div>
 
-                <!-- Controls -->
+                    <!-- Controls -->
 
-                <div matRipple class="entity__body" (click)="onEdit(store)">
-                    <div class="entity__body__content">
-                        <div class="entity__body__container">
-                            <div class="entity__text-group">
+                    <div matRipple class="entity__body" (click)="onEdit(store)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group">
 
-                                <div class="entity__name">
-                                    {{store.name}}
+                                    <div class="entity__name">
+                                        {{store.name}}
+                                    </div>
+                                    <div class="entity__description" style="text-transform: none;">
+                                        {{store.address}}
+                                    </div>
+
                                 </div>
-                                <div class="entity__description" style="text-transform: none;">
-                                    {{store.address}}
-                                </div>
-
                             </div>
                         </div>
+                        <div class="color" [style.background]="store.color"></div>
                     </div>
-                    <div class="color" [style.background]="store.color"></div>
+
                 </div>
 
-            </div>
-
-            <!-- Panel Add Item -->
-            <div class="entities-bottom-panel">
-                <div class="entities-bottom-panel__container">
-                    <button color="accent" class="button-add" (click)="onCreate()">
-                        <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-                        <div class="">
-                            {{localization.get("stores_add-new")}}
-                        </div>
-                    </button>
+                <!-- Panel Add Item -->
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreate()">
+                            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                            <div class="">
+                                {{localization.get("stores_add-new")}}
+                            </div>
+                        </button>
+                    </div>
                 </div>
+                <!-- Panel Add Item -->
+
             </div>
-            <!-- Panel Add Item -->
 
         </div>
-
     </div>
 </div>

@@ -6,123 +6,126 @@
     (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)"></ta-state-panel>
 
   <!--  -->
-  <div class="editor__container">
+  <!--Editor Scroll View-->
+  <div class="editor__scroll-view">
+    <div class="editor__container">
 
-    <div class="entities-container entities-card-layout">
-      <div class="entity" *ngFor="let tag of filteredCollection | search:searchPattern:defaultLanguage?.code"
-        [class.disabled]="!tag.active">
+      <div class="entities-container entities-card-layout">
+        <div class="entity" *ngFor="let tag of filteredCollection | search:searchPattern:defaultLanguage?.code"
+          [class.disabled]="!tag.active">
 
-        <!-- <div class="entity__control">
-          <div class="entity__control__checkbox">
-            <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
-            </mat-checkbox>
-          </div>
-          <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
-            <mat-icon class="icon">more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item type="button" (click)="onToggleActive($event, tag)">
-              <mat-icon>{{tag.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-              <span>{{tag.active ? 'Деактивировать' : 'Активировать'}}</span>
-            </button>
-            <button mat-menu-item (click)="onEdit(tag)">
-              <mat-icon>edit</mat-icon>
-              <span>Редактировать</span>
-            </button>
-            <button mat-menu-item (click)="onDelete(tag)">
-              <mat-icon>delete_forever</mat-icon>
-              <span>Удалить</span>
-            </button>
-          </mat-menu>
-        </div> -->
-
-
-        <!-- Controls -->
-
-        <div class="entity__control">
-          <div class="entity__control__container">
-            <!-- <div class="entity__control__checkbox">
-              <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
-              </mat-checkbox>
+          <!-- <div class="entity__control">
+              <div class="entity__control__checkbox">
+                <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
+                </mat-checkbox>
+              </div>
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
+                <mat-icon class="icon">more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="onToggleActive($event, tag)">
+                  <mat-icon>{{tag.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <span>{{tag.active ? 'Деактивировать' : 'Активировать'}}</span>
+                </button>
+                <button mat-menu-item (click)="onEdit(tag)">
+                  <mat-icon>edit</mat-icon>
+                  <span>Редактировать</span>
+                </button>
+                <button mat-menu-item (click)="onDelete(tag)">
+                  <mat-icon>delete_forever</mat-icon>
+                  <span>Удалить</span>
+                </button>
+              </mat-menu>
             </div> -->
-            <!--My checkbox-->
-            <div class="entity__control__checkbox">
-              <ta-checkbox #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
-              </ta-checkbox>
+
+
+          <!-- Controls -->
+
+          <div class="entity__control">
+            <div class="entity__control__container">
+              <!-- <div class="entity__control__checkbox">
+                  <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
+                  </mat-checkbox>
+                </div> -->
+              <!--My checkbox-->
+              <div class="entity__control__checkbox">
+                <ta-checkbox #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
+                </ta-checkbox>
+              </div>
+              <!--My checkbox-->
+              <!-- ActionMenu -->
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
+                <mat-icon class="icon">more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item type="button" (click)="onToggleActive($event, tag)">
+                  <mat-icon>{{tag.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  <span>
+                    {{tag.active ? localization.get("common_action-deactivate") :
+                    localization.get("common_action-activate")}}
+                  </span>
+                </button>
+                <button mat-menu-item (click)="onEdit(tag)">
+                  <mat-icon>edit</mat-icon>
+                  <span>
+                    {{localization.get("common_action-edit")}}
+                  </span>
+                </button>
+                <button mat-menu-item (click)="onDelete(tag)">
+                  <mat-icon>delete_forever</mat-icon>
+                  <span>
+                    {{localization.get("common_action-delete")}}
+                  </span>
+                </button>
+              </mat-menu>
+              <!-- ActionMenu -->
             </div>
-            <!--My checkbox-->
-            <!-- ActionMenu -->
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
-              <mat-icon class="icon">more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <button mat-menu-item type="button" (click)="onToggleActive($event, tag)">
-                <mat-icon>{{tag.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                <span>
-                  {{tag.active ? localization.get("common_action-deactivate") :
-                  localization.get("common_action-activate")}}
-                </span>
-              </button>
-              <button mat-menu-item (click)="onEdit(tag)">
-                <mat-icon>edit</mat-icon>
-                <span>
-                  {{localization.get("common_action-edit")}}
-                </span>
-              </button>
-              <button mat-menu-item (click)="onDelete(tag)">
-                <mat-icon>delete_forever</mat-icon>
-                <span>
-                  {{localization.get("common_action-delete")}}
-                </span>
-              </button>
-            </mat-menu>
-            <!-- ActionMenu -->
           </div>
-        </div>
 
-        <!-- Controls -->
+          <!-- Controls -->
 
 
-        <div matRipple class="entity__body" (click)="onEdit(tag)">
-          <div class="entity__body__content">
-            <div class="entity__body__container">
-              <div class="entity__text-group">
-                <img align="center" *ngIf="hasThumbnail(tag, 'x32')" class="entity-thumbnail"
-                  [src]="getThumbnail(tag, 'x32')">
-                <div class="entity__name">
-                  {{getName(tag)}}
+          <div matRipple class="entity__body" (click)="onEdit(tag)">
+            <div class="entity__body__content">
+              <div class="entity__body__container">
+                <div class="entity__text-group">
+                  <img align="center" *ngIf="hasThumbnail(tag, 'x32')" class="entity-thumbnail"
+                    [src]="getThumbnail(tag, 'x32')">
+                  <div class="entity__name">
+                    {{getName(tag)}}
+                  </div>
+                  <div *ngIf="getDescription(tag)" class="entity__description">
+                    {{getDescription(tag)}}
+                  </div>
+                  <div class="color" [style.background]="getColor(tag)"></div>
                 </div>
-                <div *ngIf="getDescription(tag)" class="entity__description">
-                  {{getDescription(tag)}}
-                </div>
-                <div class="color" [style.background]="getColor(tag)"></div>
               </div>
             </div>
           </div>
         </div>
-      </div>
 
 
-      <!-- <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-        <mat-icon>add</mat-icon>
-      </button> -->
+        <!-- <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+            <mat-icon>add</mat-icon>
+          </button> -->
 
-      <!-- Panel Add Item -->
-      <div class="entities-bottom-panel">
-        <div class="entities-bottom-panel__container">
-          <button color="accent" class="button-add" (click)="onCreate()">
-            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-            <div class="">
-              {{localization.get("tags_add-new")}}
-            </div>
-          </button>
+        <!-- Panel Add Item -->
+        <div class="entities-bottom-panel">
+          <div class="entities-bottom-panel__container">
+            <button color="accent" class="button-add" (click)="onCreate()">
+              <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+              <div class="">
+                {{localization.get("tags_add-new")}}
+              </div>
+            </button>
+          </div>
         </div>
+        <!-- Panel Add Item -->
+
+
       </div>
-      <!-- Panel Add Item -->
 
-
+      <!--  -->
     </div>
-
-    <!--  -->
   </div>
 </div>

@@ -2,103 +2,106 @@
 
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 
-    <div class="editor__container">
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container">
 
-        <div class="entities-container entities-card-layout">
-            <div #entityLanguageListItem class="entity" *ngFor="let language of collection | search: searchPattern"
-                [ngClass]="{'is-default': language.isDefault, 'disabled': !language.active}">
+            <div class="entities-container entities-card-layout">
+                <div #entityLanguageListItem class="entity" *ngFor="let language of collection | search: searchPattern"
+                    [ngClass]="{'is-default': language.isDefault, 'disabled': !language.active}">
 
-                <!-- Controls -->
-                <div class="entity__control">
-                    <div class="entity__control__container">
-                        <!-- <div class="entity__control__checkbox">
-                            <mat-checkbox color="accent" #checkboxActive [checked]="language.active"
-                                (click)="onToggleActive($event, language)"></mat-checkbox>
-                        </div> -->
-                        <!--My checkbox-->
-                        <div class="entity__control__checkbox">
-                            <ta-checkbox #checkboxActive [checked]="language.active"
-                                (click)="onToggleActive($event, language)"></ta-checkbox>
+                    <!-- Controls -->
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <!-- <div class="entity__control__checkbox">
+                                <mat-checkbox color="accent" #checkboxActive [checked]="language.active"
+                                    (click)="onToggleActive($event, language)"></mat-checkbox>
+                            </div> -->
+                            <!--My checkbox-->
+                            <div class="entity__control__checkbox">
+                                <ta-checkbox #checkboxActive [checked]="language.active"
+                                    (click)="onToggleActive($event, language)"></ta-checkbox>
+                            </div>
+                            <!--My checkbox-->
+                            <!-- ActionMenu -->
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item type="button" (click)="onToggleDefault($event, language)">
+                                    <mat-icon>{{language.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}
+                                    </mat-icon>
+                                    <span>
+                                        {{language.isDefault ? localization.get("common_action-remove-as-default") :
+                                        localization.get("common_action-make-as-default")}}
+                                    </span>
+                                </button>
+                                <button mat-menu-item type="button" (click)="onToggleActive($event, language)">
+                                    <mat-icon>{{language.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <span>
+                                        {{language.active ? localization.get("common_action-deactivate") :
+                                        localization.get("common_action-activate")}}
+                                    </span>
+                                </button>
+                                <button mat-menu-item (click)="onEdit(language)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>
+                                        {{localization.get("common_action-edit")}}
+                                    </span>
+                                </button>
+                                <button mat-menu-item (click)="onDelete(language)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>
+                                        {{localization.get("common_action-delete")}}
+                                    </span>
+                                </button>
+                            </mat-menu>
+                            <!-- ActionMenu -->
                         </div>
-                        <!--My checkbox-->
-                        <!-- ActionMenu -->
-                        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                            aria-label="Menu">
-                            <mat-icon class="icon">more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item type="button" (click)="onToggleDefault($event, language)">
-                                <mat-icon>{{language.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}
-                                </mat-icon>
-                                <span>
-                                    {{language.isDefault ? localization.get("common_action-remove-as-default") :
-                                    localization.get("common_action-make-as-default")}}
-                                </span>
-                            </button>
-                            <button mat-menu-item type="button" (click)="onToggleActive($event, language)">
-                                <mat-icon>{{language.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                <span>
-                                    {{language.active ? localization.get("common_action-deactivate") :
-                                    localization.get("common_action-activate")}}
-                                </span>
-                            </button>
-                            <button mat-menu-item (click)="onEdit(language)">
-                                <mat-icon>edit</mat-icon>
-                                <span>
-                                    {{localization.get("common_action-edit")}}
-                                </span>
-                            </button>
-                            <button mat-menu-item (click)="onDelete(language)">
-                                <mat-icon>delete_forever</mat-icon>
-                                <span>
-                                    {{localization.get("common_action-delete")}}
-                                </span>
-                            </button>
-                        </mat-menu>
-                        <!-- ActionMenu -->
                     </div>
-                </div>
-                <!-- Controls -->
+                    <!-- Controls -->
 
 
-                <!-- Body -->
-                <div [tapEffect]="entityLanguageListItem" class="entity__body" (click)="onEdit(language)">
-                    <div class="entity__body__content">
-                        <div class="entity__body__container">
-                            <div class="entity__text-group-h">
-                                <div class="entity__image auto-size">
-                                    <img align="center" *ngIf="hasThumbnail(language.resources?.main, 'x32')"
-                                        class="entity__image__thumbnail"
-                                        [src]="getThumbnail(language.resources?.main, 'x32')">
-                                </div>
-                                <div class="entity__name">
-                                    {{language.name}}
+                    <!-- Body -->
+                    <div [tapEffect]="entityLanguageListItem" class="entity__body" (click)="onEdit(language)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group-h">
+                                    <div class="entity__image auto-size">
+                                        <img align="center" *ngIf="hasThumbnail(language.resources?.main, 'x32')"
+                                            class="entity__image__thumbnail"
+                                            [src]="getThumbnail(language.resources?.main, 'x32')">
+                                    </div>
+                                    <div class="entity__name">
+                                        {{language.name}}
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
 
-            <!-- <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-                <mat-icon>add</mat-icon>
-            </button> -->
+                <!-- <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
+                    <mat-icon>add</mat-icon>
+                </button> -->
 
-            <!-- Panel Add Item -->
-            <div class="entities-bottom-panel">
-                <div class="entities-bottom-panel__container">
-                    <button color="accent" class="button-add" (click)="onCreate()">
-                        <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-                        <div class="">Добавить язык</div>
-                    </button>
+                <!-- Panel Add Item -->
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreate()">
+                            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                            <div class="">Добавить язык</div>
+                        </button>
+                    </div>
                 </div>
-            </div>
-            <!-- Panel Add Item -->
+                <!-- Panel Add Item -->
 
+
+            </div>
 
         </div>
-
     </div>
 
 </div>

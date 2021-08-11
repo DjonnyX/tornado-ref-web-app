@@ -1,15 +1,13 @@
 @import "./palette";
 
-// $state-panel-background-color: $primary-color-50;
+$state-panel-height: auto;
+$state-panel-height-sm: auto;
 
-$state-panel-height-desktop: auto;
-$state-panel-height-xs: auto;
+$state-panel-container-padding: 12px 40px;
+$state-panel-container-padding-sm: 12px 20px;
 
-$state-panel-container-padding-desktop: px2em(12) px2em(40);
-$state-panel-container-padding-xs: px2em(12) px2em(20);
-
-$state-panel-margin-bottom-desktop: 0;//px2em(20);
-$state-panel-margin-bottom-xs: 0;//px2em(20);
+$state-panel-margin-bottom: 0;//px2em(20);
+$state-panel-margin-bottom-sm: 0;//px2em(20);
 
 $state-panel-info-version-color: rgba($white, 0.35);
 $state-panel-info-font-size: 0.65rem;
