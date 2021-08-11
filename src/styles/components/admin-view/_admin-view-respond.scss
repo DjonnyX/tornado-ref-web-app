@@ -39,15 +39,20 @@
         grid-template-rows: $admin-toolbar-height auto;
 
         .admin__toolbar {
-            grid-template-columns: $navigation-menu-width-sm auto; //Layout
+            grid-template-columns: 0 auto; //Layout //$navigation-menu-width-sm
             height: $admin-toolbar-height;
+
+            &__logo-section {
+                display: none;
+            }
         }
 
         .admin__view__wrapper {
-            grid-template-columns: $navigation-menu-width-sm auto;
+            grid-template-columns: 0 auto; //$navigation-menu-width-sm
 
             .admin__view__navigation {
                 width: $navigation-menu-width-sm;
+                transform: translateX(-$navigation-menu-width-sm);
 
                 &__scroll-view {
                     

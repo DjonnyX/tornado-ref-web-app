@@ -33,6 +33,11 @@
                 <!--Left Group-->
                 <div class="admin__toolbar__navigation-section__left-group">
                     <div class="admin__toolbar__navline__group">
+
+                        <!--Navigation Toggle Button-->
+                        <div class="navigation-menu__toggle-button"></div>
+                        <!--Navigation Toggle Button-->
+
                         <span class="admin__toolbar__page-title parent">{{localization.get((parentRoute$ |
                             async)?.name)}}</span>
                         <!--Title of a parent folder-->
@@ -113,9 +118,9 @@
     <div class="drawer-container admin__view__wrapper">
         <div class="admin__view__navigation">
             <!--Toggle Button-->
-            <div class="navigation-menu__toggle-button">
-                <div class="navigation-menu__toggle-button__icon">
-                    <div class="navigation-menu__toggle-button__icon__symbol icon-menu-arrow">
+            <div class="navigation-menu__rollup-button">
+                <div class="navigation-menu__rollup-button__icon">
+                    <div class="navigation-menu__rollup-button__icon__symbol icon-menu-arrow">
                     </div>
                 </div>
                 <svg width="22" height="80" viewBox="0 0 22 80" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -1,36 +1,9 @@
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
-$navigation-menu-toggle-button-height: 84px;
-
-.admin__view__navigation {
-    
-    .navigation-menu__toggle-button {
-        display: block;
-        position: absolute;
-        right: 0;
-        @include box(22px, $navigation-menu-toggle-button-height);
-        z-index: 999;
-        top: calc(50% - #{$navigation-menu-toggle-button-height/2});
-
-        &__icon {
-            display: flex;
-            position: absolute;
-            height: 100%;
-            width: 100%;
-            justify-content: center;
-            align-items: center;
-
-            &__symbol {
-                font-size: 16px;
-            }
-        }
-
-        svg {
-
-            path {
-                //
-            }
-        }
-    }
+.navigation-menu__toggle-button {
+    display: block;
+    position: relative;
+    @include box(32px);
+    background-color: $accent-color;
 }
