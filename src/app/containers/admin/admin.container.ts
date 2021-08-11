@@ -224,6 +224,8 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   selectedLang: any;
 
+  isMenuOpened: boolean = false;
+
   private _currentRouteIndex: number;
 
   btnThemeClasses: any = { 'tab-button__icon': true };
@@ -236,6 +238,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     public readonly localization: LocalizationService,
   ) {
     super();
+  }
+
+  onToggleMenu(): void {
+    this.isMenuOpened = !this.isMenuOpened;
   }
 
   onLanguagePickerExpand(): void {

@@ -35,7 +35,9 @@
                     <div class="admin__toolbar__navline__group">
 
                         <!--Navigation Toggle Button-->
-                        <div class="navigation-menu__toggle-button"></div>
+                        <div [ngClass]="{'navigation-menu__toggle-button': true, 'active': isMenuOpened, 'inactive': !isMenuOpened}"
+                            (click)="onToggleMenu()">
+                        </div>
                         <!--Navigation Toggle Button-->
 
                         <span class="admin__toolbar__page-title parent">{{localization.get((parentRoute$ |
@@ -115,7 +117,8 @@
         <!-- </mat-toolbar> -->
     </div>
 
-    <div class="admin__view__wrapper">
+    <div
+        [ngClass]="{'drawer-container': true, 'admin__view__wrapper': true, 'opened': isMenuOpened, 'closed': !isMenuOpened}">
         <div class="admin__view__navigation">
             <!--Toggle Button-->
             <div class="navigation-menu__rollup-button">
@@ -177,7 +180,7 @@
             <router-outlet></router-outlet>
         </main>
     </mat-sidenav-content>
-</mat-sidenav-container>
+</mat-sidenav-container> -->
 <!-- old sidenav -->
 
 
