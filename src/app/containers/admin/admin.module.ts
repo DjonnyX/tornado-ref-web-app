@@ -10,6 +10,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavigationMenuModule } from '@components/navigation-menu/navigation-menu.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectModule } from '@components/base/select/select.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     FlexLayoutModule,
     NavigationMenuModule,
+    SelectModule,
   ]
 })
 export class AdminModule { }
