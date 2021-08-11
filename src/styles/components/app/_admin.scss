@@ -23,10 +23,13 @@ $admin-view-navigation-width-xl: $admin-view-navigation-width;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: $admin-toolbar-height auto;
+    // display: flex;
+    // flex-direction: column;
     position: relative;
     @include box(100%);
 
     .admin__toolbar {
+        height: $admin-toolbar-height;  //layout
         @include themify($themes) {
             background: themed('foregroundColor');
         }
@@ -37,13 +40,17 @@ $admin-view-navigation-width-xl: $admin-view-navigation-width;
         grid-template-columns: 340px auto;
         grid-template-rows: 1fr;
         position: relative;
-        @include box(100%);
+        width: 100%;
+        // height: calc(100% - #{$admin-toolbar-height}); //layout
+        overflow: hidden;
         @include themify($themes) {
             background: themed('backgroundColor');
         }
 
         .admin__view__navigation {
             width: $navigation-menu-width;
+            height: 100%;
+            overflow: hidden;
         }
 
         .admin__view__content {
