@@ -14,12 +14,12 @@
         @include transition(transform, $admin-view-navigation-interaction-duration, ease);
 
         .admin__view__navigation {
-            @include transition(transform, $admin-view-navigation-interaction-duration, ease);
+            // @include transition(transform, $admin-view-navigation-interaction-duration, ease);
 
         }
 
         .admin__view__content {
-            @include transition(transform, $admin-view-navigation-interaction-duration, ease);
+            // @include transition(transform, $admin-view-navigation-interaction-duration, ease);
 
         }
     }

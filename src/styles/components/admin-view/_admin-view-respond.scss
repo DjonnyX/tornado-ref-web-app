@@ -14,6 +14,7 @@
 
         .admin__view__wrapper {
             grid-template-columns: $navigation-menu-width auto;
+            height: calc(100vh - #{$admin-toolbar-height});
 
             .admin__view__navigation {
                 width: $navigation-menu-width;
@@ -43,10 +44,11 @@
 
         .admin__view__wrapper {
             grid-template-columns: 0 auto;
+            height: calc(100vh - #{$admin-toolbar-height});
 
             .admin__view__navigation {
                 width: $navigation-menu-width-sm;
-                // transform: translateX(-$navigation-menu-width-sm);
+                transform: translateX(-$navigation-menu-width-sm);
 
             }
 
@@ -55,25 +57,25 @@
             }
 
             &.opened {
-                // transform: translateX($navigation-menu-width-sm);
+                transform: translateX($navigation-menu-width-sm);
 
                 .admin__view__navigation {
-                    transform: translateX(0px);
+                    // transform: translateX(0px);
                 }
                 .admin__view__content {
-                    transform: translateX($navigation-menu-width-sm);
+                    // transform: translateX($navigation-menu-width-sm);
                 }
             }
 
             &.closed {
-                // transform: translateX(0);
+                transform: translateX(0);
 
                 .admin__view__navigation {
-                    transform: translateX(-$navigation-menu-width-sm);
+                    // transform: translateX(-$navigation-menu-width-sm);
                 }
 
                 .admin__view__content {
-                    transform: translateX(0px);
+                    // transform: translateX(0px);
                 }
             }
         }
