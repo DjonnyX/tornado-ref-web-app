@@ -6,10 +6,14 @@
 
     .admin__toolbar {
         //
+
+        .navigation-menu__toggle-button {
+
+        }
     }
 
     .admin__logo {
-        display: block;
+        display: none;
     }
 }
 
@@ -18,6 +22,10 @@
     
     .admin__toolbar {
         //
+
+        .navigation-menu__toggle-button {
+            display: block;
+        }
     }
 
     .admin__logo {
