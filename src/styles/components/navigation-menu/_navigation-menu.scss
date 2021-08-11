@@ -9,7 +9,8 @@ $text-size: 14px;
 $color: #5c707c;
 
 .navigation-menu {
-    min-width: 340px;
+    position: relative;
+    // min-width: $navigation-menu-width;
     width: 100%;
     color: $menu-item-color; //Common items
     background-color: $primary-color;
