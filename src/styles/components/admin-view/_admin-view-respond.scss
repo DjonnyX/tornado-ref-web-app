@@ -33,7 +33,7 @@
         grid-template-rows: $admin-toolbar-height auto;
 
         .admin__toolbar {
-            grid-template-columns: 0 auto; //Layout //$navigation-menu-width-sm
+            grid-template-columns: 1fr; //Layout //$navigation-menu-width-sm
             height: $admin-toolbar-height;
 
             &__logo-section {
