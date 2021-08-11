@@ -2,15 +2,17 @@
 @import "../../abstracts/vars";
 @import "../../mixins";
 
+$navigation-menu-toggle-button-height: 84px;
+
 .admin__view__navigation {
     
     .navigation-menu__toggle-button {
         display: block;
         position: absolute;
         right: 0;
-        @include box(22px, 84px);
+        @include box(22px, $navigation-menu-toggle-button-height);
         z-index: 999;
-        top: 240px;
+        top: calc(50% - #{$navigation-menu-toggle-button-height/2});
 
         &__icon {
             display: flex;
