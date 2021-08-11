@@ -37,6 +37,10 @@ $color: #5c707c;
         }
     }
 
+    &__expantion-item.active {
+        background-color: $accent-color;
+    }
+
     &__item {
         user-select: none;
 
@@ -72,14 +76,14 @@ $color: #5c707c;
 
     &__item,
     .expantion-item__wrapper {
-        padding: px2em(25); //item gap
+        padding: 25px; //item gap
     }
 
     .expantion-item__wrapper {
         display: grid;
         grid-template-columns: auto 1fr auto;
         align-items: center;
-        gap: px2em(24);
+        gap: 24px;
     }
 
     &__item {
@@ -87,7 +91,7 @@ $color: #5c707c;
         display: grid;
         grid-template-columns: auto 1fr;
         align-items: center;
-        gap: px2em(24);
+        gap: 24px;
 
         &.selected {
             background: $primary-color-50;
@@ -135,17 +139,17 @@ $color: #5c707c;
     .navigation-menu {
         &__item,
         .expantion-item__wrapper {
-            padding-left: px2em(40);
+            padding-left: 40px;
         }
         .navigation-menu {
             &__item,
             .expantion-item__wrapper {
-                padding-left: px2em(60);
+                padding-left: 60px;
             }
             .navigation-menu {
                 &__item,
                 .expantion-item__wrapper {
-                    padding-left: px2em(80);
+                    padding-left: 80px;
                 }
             }
         }
@@ -167,17 +171,17 @@ $color: #5c707c;
     .navigation-menu {
         &__item,
         .expantion-item__wrapper {
-            padding-left: px2em(20);
+            padding-left: 20px;
         }
         .navigation-menu {
             &__item,
             .expantion-item__wrapper {
-                padding-left: px2em(20);
+                padding-left: 20px;
             }
             .navigation-menu {
                 &__item,
                 .expantion-item__wrapper {
-                    padding-left: px2em(20);
+                    padding-left: 20px;
                 }
             }
         }

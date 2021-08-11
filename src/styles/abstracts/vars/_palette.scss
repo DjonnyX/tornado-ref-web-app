@@ -34,3 +34,6 @@ $primary-color-700: lighten($primary-color, 70%);
 $primary-color-800: lighten($primary-color, 80%);
 $primary-color-900: lighten($primary-color, 90%);
 $primary-color-950: lighten($primary-color, 95%);
+
+$primary-color-1050: darken($primary-color, 5%);
+$primary-color-1100: darken($primary-color, 10%);

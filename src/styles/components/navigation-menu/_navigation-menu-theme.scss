@@ -1,0 +1,32 @@
+@import "../../themes/theme";
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.navigation-menu {
+
+    .navigation-menu__expantion-item {
+
+        .expantion-item__wrapper.active {
+
+            .navigation-menu {
+                background-color: $accent-color;
+            }
+        }
+    }
+
+    &__expantion-item.active {
+
+    }
+
+    &__expantion-item__wrapper {
+        background-color: $accent-color;//$primary-color-1050
+    }
+}
+
+.expantion-item__wrapper.active {
+
+    .navigation-menu {
+        background-color: $accent-color;
+    }
+}
