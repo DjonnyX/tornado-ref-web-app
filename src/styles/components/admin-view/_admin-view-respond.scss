@@ -1,0 +1,65 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+// lg
+@include respond-above(lg) {
+    
+    .admin__view {
+        grid-template-rows: $admin-toolbar-height auto;
+
+        .admin__toolbar {
+            height: $admin-toolbar-height;
+            grid-template-columns: $navigation-menu-width auto; //Layout
+        }
+
+        .admin__view__wrapper {
+            grid-template-columns: $navigation-menu-width auto;
+
+            .admin__view__navigation {
+                width: $navigation-menu-width;
+
+                &__scroll-view {
+                    
+                }
+            }
+
+            .admin__view__content {
+
+                &__scroll-view {
+
+                }
+            }
+        }
+    }
+}
+
+// md
+@include respond-below(lg) {
+    .admin__view {
+        grid-template-rows: $admin-toolbar-height auto;
+
+        .admin__toolbar {
+            grid-template-columns: $navigation-menu-width-sm auto; //Layout
+            height: $admin-toolbar-height;
+        }
+
+        .admin__view__wrapper {
+            grid-template-columns: $navigation-menu-width-sm auto;
+
+            .admin__view__navigation {
+                width: $navigation-menu-width-sm;
+
+                &__scroll-view {
+                    
+                }
+            }
+
+            .admin__view__content {
+
+                &__scroll-view {
+
+                }
+            }
+        }
+    }
+}

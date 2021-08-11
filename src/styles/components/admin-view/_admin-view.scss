@@ -1,4 +1,3 @@
-@import "../../utils/px2em";
 @import "../../abstracts/vars";
 @import "../../mixins";
 // @import "../themes/theme";
@@ -22,26 +21,28 @@ $admin-view-navigation-width-xl: $admin-view-navigation-width;
 .admin__view {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: $admin-toolbar-height auto;
-    // display: flex;
-    // flex-direction: column;
+    // grid-template-rows: $admin-toolbar-height auto; //layout
     position: relative;
     @include box(100%);
 
     .admin__toolbar {
-        height: $admin-toolbar-height;  //layout
+        // height: $admin-toolbar-height;  //layout
+        // overflow-x: hidden;
         @include themify($themes) {
             background: themed('foregroundColor');
+        }
+
+        .admin__toolbar__container {
+
         }
     }
 
     .admin__view__wrapper {
         display: grid;
-        grid-template-columns: 340px auto;
+        // grid-template-columns: 340px auto; //layout
         grid-template-rows: 1fr;
         position: relative;
         width: 100%;
-        // height: calc(100% - #{$admin-toolbar-height}); //layout
         overflow: hidden;
         @include themify($themes) {
             background: themed('backgroundColor');
