@@ -48,11 +48,9 @@
         }
 
         .admin__view__wrapper {
-            grid-template-columns: 0 auto; //$navigation-menu-width-sm
 
             .admin__view__navigation {
                 width: $navigation-menu-width-sm;
-                transform: translateX(-$navigation-menu-width-sm);
 
                 &__scroll-view {
                     
@@ -63,6 +61,22 @@
 
                 &__scroll-view {
 
+                }
+            }
+
+            &.opened {
+                grid-template-columns: $navigation-menu-width-sm auto;
+
+                .admin__view__navigation {
+                    transform: translateX(0px);
+                }
+            }
+
+            &.closed {
+                grid-template-columns: 0 auto;
+
+                .admin__view__navigation {
+                    transform: translateX(-$navigation-menu-width-sm);
                 }
             }
         }
