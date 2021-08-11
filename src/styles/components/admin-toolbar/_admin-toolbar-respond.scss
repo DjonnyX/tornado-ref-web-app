@@ -1,0 +1,26 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+// lg
+@include respond-above(lg) {
+
+    .admin__toolbar {
+        //
+    }
+
+    .admin__logo {
+        display: block;
+    }
+}
+
+// md
+@include respond-below(lg) {
+    
+    .admin__toolbar {
+        //
+    }
+
+    .admin__logo {
+        display: none;
+    }
+}

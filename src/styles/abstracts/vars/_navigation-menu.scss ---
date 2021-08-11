@@ -1,3 +1,4 @@
 $navigation-menu-width: 340px;
+$navigation-menu-width-sm: 70px;
 
 // $navigation-menu-width-md: 340px;

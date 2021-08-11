@@ -3,7 +3,7 @@
 
 // xl
 @include xl {
-    .editor {
+    .navigation-menu {
 
         .entity {
 

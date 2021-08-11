@@ -1,16 +1,17 @@
-@import "../../utils/px2em";
-@import "../../abstracts/vars";
-@import "../../mixins";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
 
-.navigation-menu {
+$navigation-menu-rollup-button-height: 84px;
+
+.admin__view__navigation {
     
-    .navigation-menu__toggle-button {
+    .navigation-menu__rollup-button {
         display: block;
         position: absolute;
         right: 0;
-        @include box(22px, 84px);
+        @include box(22px, $navigation-menu-rollup-button-height);
         z-index: 999;
-        top: 240px;
+        top: calc(50% - #{$navigation-menu-rollup-button-height/2});
 
         &__icon {
             display: flex;

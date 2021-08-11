@@ -6,11 +6,11 @@
                 <div class="navigation-menu__expantion-item">
                     <span class="expantion-item__wrapper"
                         [class.expanded]='item.expanded || hasExistsIndex(item.children, selected)'
-                        [class.active]='hasExistsIndex(item.children, selected) || item.index === selected' matRipple (click)="toggleExpand(item)">
+                        [class.active]='hasExistsIndex(item.children, selected) || item.index === selected' matRipple
+                        (click)="toggleExpand(item)">
                         <span class="navigation-menu__expantion-item-icon" [ngClass]="getIconClass(item)"></span>
-                        <span fxHide.sm="true"
-                            class="navigation-menu__expantion-item-label">{{localization.get(item.name)}}</span>
-                        <mat-icon fxHide.sm="true">
+                        <span class="navigation-menu__expantion-item-label">{{localization.get(item.name)}}</span>
+                        <mat-icon>
                             {{item.expanded || hasExistsIndex(item.children, selected) ? 'expand_more' :
                             'chevron_right'}}
                         </mat-icon>
@@ -22,10 +22,10 @@
                 </div>
             </ng-container>
             <ng-template #link>
-                <div matRipple class="navigation-menu__item" (click)="selectRoute(item.index)"
+                <div class="navigation-menu__item" (click)="selectRoute(item.index)"
                     [class.selected]="item.index === selected">
                     <span class="navigation-menu__item-icon" [ngClass]="getIconClass(item)"></span>
-                    <span fxHide.sm="true" class="navigation-menu__item-label">{{localization.get(item.name)}}</span>
+                    <span class="navigation-menu__item-label">{{localization.get(item.name)}}</span>
                 </div>
             </ng-template>
         </ng-container>

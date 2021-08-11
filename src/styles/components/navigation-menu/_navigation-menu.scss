@@ -1,5 +1,4 @@
 @import "../../themes/theme";
-@import "../../utils/px2em";
 @import "../../abstracts/vars";
 @import "../../mixins";
 
@@ -9,7 +8,7 @@ $text-size: 14px;
 $color: #5c707c;
 
 .navigation-menu {
-    min-width: 340px;
+    position: relative;
     width: 100%;
     color: $menu-item-color; //Common items
     background-color: $primary-color;
@@ -156,34 +155,34 @@ $color: #5c707c;
     }
 }
 
-@media screen and (min-width: 600px) and (max-width: 959px) {
-    .navigation-menu {
-        min-width: auto;
+// @media screen and (min-width: 600px) and (max-width: 959px) {
+//     .navigation-menu {
+//         min-width: auto;
 
-        &__item,
-        .expantion-item__wrapper {
-            grid-template-columns: auto;
-        }
-    }
-}
+//         &__item,
+//         .expantion-item__wrapper {
+//             grid-template-columns: auto;
+//         }
+//     }
+// }
 
-.navigation-menu.sm {
-    .navigation-menu {
-        &__item,
-        .expantion-item__wrapper {
-            padding-left: 20px;
-        }
-        .navigation-menu {
-            &__item,
-            .expantion-item__wrapper {
-                padding-left: 20px;
-            }
-            .navigation-menu {
-                &__item,
-                .expantion-item__wrapper {
-                    padding-left: 20px;
-                }
-            }
-        }
-    }
-}
+// .navigation-menu.sm {
+//     .navigation-menu {
+//         &__item,
+//         .expantion-item__wrapper {
+//             padding-left: 20px;
+//         }
+//         .navigation-menu {
+//             &__item,
+//             .expantion-item__wrapper {
+//                 padding-left: 20px;
+//             }
+//             .navigation-menu {
+//                 &__item,
+//                 .expantion-item__wrapper {
+//                     padding-left: 20px;
+//                 }
+//             }
+//         }
+//     }
+// }

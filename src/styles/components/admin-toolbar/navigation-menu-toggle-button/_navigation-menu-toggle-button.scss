@@ -1,0 +1,9 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.navigation-menu__toggle-button {
+    display: block;
+    position: relative;
+    @include box(32px);
+    background-color: $accent-color;
+}

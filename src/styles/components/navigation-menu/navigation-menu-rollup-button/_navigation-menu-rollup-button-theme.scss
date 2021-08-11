@@ -1,10 +1,9 @@
-@import "../../utils/px2em";
-@import "../../abstracts/vars";
-@import "../../mixins";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
 
-.navigation-menu {
+.admin__view__navigation {
     
-    .navigation-menu__toggle-button {
+    .navigation-menu__rollup-button {
 
         &__icon {
 

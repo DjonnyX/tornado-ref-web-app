@@ -1,0 +1,80 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+// @import "../themes/theme";
+
+$admin-view-navigation-width: 320px;
+
+$admin-view-navigation-width-xs: $admin-view-navigation-width;
+$admin-view-navigation-width-sm: $admin-view-navigation-width;
+$admin-view-navigation-width-md: $admin-view-navigation-width;
+$admin-view-navigation-width-lg: $admin-view-navigation-width;
+$admin-view-navigation-width-xl: $admin-view-navigation-width;
+
+// mat-sidenav-container {
+//     background: #F0F0F0;
+// }
+
+.app-container {
+    height: 100vh;
+}
+
+.admin__view {
+    display: grid;
+    grid-template-columns: 1fr;
+    // grid-template-rows: $admin-toolbar-height auto; //layout
+    position: relative;
+    @include box(100%);
+
+    .admin__toolbar {
+        // height: $admin-toolbar-height;  //layout
+        // overflow-x: hidden;
+        @include themify($themes) {
+            background: themed('foregroundColor');
+        }
+
+        .admin__toolbar__container {
+
+        }
+    }
+
+    .admin__view__wrapper {
+        display: grid;
+        // grid-template-columns: 340px auto; //layout
+        grid-template-rows: 1fr;
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        @include themify($themes) {
+            background: themed('backgroundColor');
+        }
+
+        .admin__view__navigation {
+            position: relative;
+            width: $navigation-menu-width;
+            height: 100%;
+            overflow: hidden;
+
+            &__scroll-view {
+                display: block;
+                position: relative;
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+            }
+        }
+
+        .admin__view__content {
+            position: relative;
+            height: 100%;
+            overflow: hidden;
+
+            &__scroll-view {
+                display: block;
+                position: relative;
+                height: 100%;
+                width: 100%;
+                overflow: auto;
+            }
+        }
+    }
+}

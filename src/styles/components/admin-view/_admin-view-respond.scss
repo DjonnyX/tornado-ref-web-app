@@ -1,0 +1,81 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+// lg
+@include respond-above(lg) {
+    
+    .admin__view {
+        grid-template-rows: $admin-toolbar-height auto;
+
+        .admin__toolbar {
+            height: $admin-toolbar-height;
+            grid-template-columns: $navigation-menu-width auto; //Layout
+        }
+
+        .admin__view__wrapper {
+            grid-template-columns: $navigation-menu-width auto;
+
+            .admin__view__navigation {
+                width: $navigation-menu-width;
+
+            }
+
+            .admin__view__content {
+
+            }
+        }
+    }
+}
+
+// md
+@include respond-below(lg) {
+    .admin__view {
+        grid-template-rows: $admin-toolbar-height auto;
+
+        .admin__toolbar {
+            grid-template-columns: 0 auto; //Layout //$navigation-menu-width-sm
+            height: $admin-toolbar-height;
+
+            &__logo-section {
+                display: none;
+            }
+        }
+
+        .admin__view__wrapper {
+            grid-template-columns: 0 auto;
+
+            .admin__view__navigation {
+                width: $navigation-menu-width-sm;
+                // transform: translateX(-$navigation-menu-width-sm);
+
+            }
+
+            .admin__view__content {
+
+            }
+
+            &.opened {
+                // transform: translateX($navigation-menu-width-sm);
+
+                .admin__view__navigation {
+                    transform: translateX(0px);
+                }
+                .admin__view__content {
+                    transform: translateX($navigation-menu-width-sm);
+                }
+            }
+
+            &.closed {
+                // transform: translateX(0);
+
+                .admin__view__navigation {
+                    transform: translateX(-$navigation-menu-width-sm);
+                }
+
+                .admin__view__content {
+                    transform: translateX(0px);
+                }
+            }
+        }
+    }
+}
