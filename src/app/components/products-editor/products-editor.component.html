@@ -165,8 +165,6 @@
                 <!--Entity Wrapper-->
             </ng-container>
 
-
-
             <!-- Card-template -->
             <ng-container *ngSwitchCase="LayoutTypes.CARD">
                 <div class="editor__container">
@@ -199,7 +197,7 @@
                                             <div [tapEffect]="entityProductCardItem" class="entity__body"
                                                 (click)="onEditProduct(product)">
                                                 <div class="entity__body__content">
-                                                    <div class="entity__body__gradient"></div>
+                                                    <!-- <div class="entity__body__gradient"></div> -->
                                                     <div class="entity__body__container">
                                                         <div class="entity__image">
                                                             <img align="center" *ngIf="hasThumbnail(product, 'x128')"

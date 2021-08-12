@@ -34,11 +34,11 @@
 
                     <div class="entity__control">
                         <div class="entity__control__container">
+                            <!--My checkbox-->
                             <!-- <div class="entity__control__checkbox">
-                                    <mat-checkbox color="accent" #checkboxActive [checked]="store.active"
-                                        (click)="onToggleActive($event, store)">
-                                    </mat-checkbox>
-                                </div> -->
+                                <ta-checkbox #checkboxActive [checked]="store.active"
+                                    (click)="onToggleActive($event, store)"></ta-checkbox>
+                            </div> -->
                             <!-- ActionMenu -->
                             <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
                                 aria-label="Menu">
@@ -64,21 +64,18 @@
                             <!-- ActionMenu -->
                         </div>
                     </div>
-
                     <!-- Controls -->
 
                     <div matRipple class="entity__body" (click)="onEdit(store)">
                         <div class="entity__body__content">
                             <div class="entity__body__container">
                                 <div class="entity__text-group">
-
                                     <div class="entity__name">
                                         {{store.name}}
                                     </div>
                                     <div class="entity__description" style="text-transform: none;">
                                         {{store.address}}
                                     </div>
-
                                 </div>
                             </div>
                         </div>
@@ -101,7 +98,6 @@
                 <!-- Panel Add Item -->
 
             </div>
-
         </div>
     </div>
 </div>
