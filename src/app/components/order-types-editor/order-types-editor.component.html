@@ -1,56 +1,87 @@
 <div class="editor">
+
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let orderType of collection | search:searchPattern:defaultLanguage?.code"
-            [ngClass]="{'is-default': orderType.isDefault, 'disabled': !orderType.active}">
-            <div class="entity__control">
-                <div class="entity__control__checkbox">
-                    <mat-checkbox color="accent" #checkboxActive [checked]="orderType.active"
-                        (click)="onToggleActive($event, orderType)"></mat-checkbox>
-                </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item type="button" (click)="onToggleDefault($event, orderType)">
-                        <mat-icon>{{orderType.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}</mat-icon>
-                        <span>{{orderType.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
-                    </button>
-                    <button mat-menu-item type="button" (click)="onToggleActive($event, orderType)">
-                        <mat-icon>{{orderType.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{orderType.active ? 'Деактивировать' : 'Активировать'}}</span>
-                    </button>
-                    <button mat-menu-item (click)="onEdit(orderType)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
-                    </button>
-                    <button mat-menu-item (click)="onDelete(orderType)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
-                    </button>
-                </mat-menu>
-            </div>
-            <div matRipple class="entity__body" (click)="onEdit(orderType)">
-                <div class="content">
-                    <div class="content-resources">
-                        <img align="center" *ngIf="hasThumbnail(orderType, 'x32')" class="entity-thumbnail"
-                            [src]="getThumbnail(orderType, 'x32')">
-                    </div>
-                    <div class="content__text">
-                        <div class="content__name">
-                            {{getName(orderType)}}
+
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container">
+
+            <div class="entities-container entities-card-layout">
+
+                <div #entityOrderTypesListItem class="entity"
+                    *ngFor="let orderType of collection | search:searchPattern:defaultLanguage?.code"
+                    [ngClass]="{'is-default': orderType.isDefault, 'disabled': !orderType.active}">
+                    <!-- Controls -->
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <!-- <div class="entity__control__checkbox">
+                            <mat-checkbox color="accent" #checkboxActive [checked]="orderType.active"
+                                (click)="onToggleActive($event, orderType)"></mat-checkbox>
+                        </div> -->
+                            <!--My checkbox-->
+                            <div class="entity__control__checkbox">
+                                <ta-checkbox #checkboxActive [checked]="orderType.active"
+                                    (click)="onToggleActive($event, orderType)"></ta-checkbox>
+                            </div>
+                            <!--My checkbox-->
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item type="button" (click)="onToggleDefault($event, orderType)">
+                                    <mat-icon>{{orderType.isDefault ? 'radio_button_unchecked' :
+                                        'radio_button_checked'}}</mat-icon>
+                                    <span>{{orderType.isDefault ? 'Убрать как основной' : 'Сделать основным'}}</span>
+                                </button>
+                                <button mat-menu-item type="button" (click)="onToggleActive($event, orderType)">
+                                    <mat-icon>{{orderType.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <span>{{orderType.active ? 'Деактивировать' : 'Активировать'}}</span>
+                                </button>
+                                <button mat-menu-item (click)="onEdit(orderType)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Редактировать</span>
+                                </button>
+                                <button mat-menu-item (click)="onDelete(orderType)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Удалить</span>
+                                </button>
+                            </mat-menu>
                         </div>
-                        <div *ngIf="getDescription(orderType)" class="content__description">
-                            {{getDescription(orderType)}}
+                    </div>
+                    <div class="entity__body" (click)="onEdit(orderType)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group">
+                                    <div class="entity__image auto-size">
+                                        <img align="center" *ngIf="hasThumbnail(orderType, 'x32')"
+                                            class="entity__image__thumbnail" [src]="getThumbnail(orderType, 'x32')">
+                                    </div>
+                                    <div class="entity__text-group">
+                                        <div class="entity__name">
+                                            {{getName(orderType)}}
+                                        </div>
+                                        <div *ngIf="getDescription(orderType)" class="entity__description">
+                                            {{getDescription(orderType)}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+                        <div class="color" [style.background]="getColor(orderType)"></div>
                     </div>
                 </div>
-                <div class="color" [style.background]="getColor(orderType)"></div>
+                <!-- Panel Add Item -->
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreate()">
+                            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                            <div class="">Добавить валюту</div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Panel Add Item -->
             </div>
         </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-            <mat-icon>add</mat-icon>
-        </button>
     </div>
 </div>

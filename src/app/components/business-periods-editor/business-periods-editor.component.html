@@ -1,45 +1,71 @@
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let businessPeriod of collection | search: searchPattern"
-            [class.disabled]="!businessPeriod.active">
-            <div class="entity__control">
-                <div class="entity__control__checkbox">
-                    <mat-checkbox color="accent" #checkboxActive [checked]="businessPeriod.active"
-                        (click)="onToggleActive($event, businessPeriod)"></mat-checkbox>
-                </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item type="button" (click)="onToggleActive($event, businessPeriod)">
-                        <mat-icon>{{businessPeriod.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{businessPeriod.active ? 'Деактивировать' : 'Активировать'}}</span>
-                    </button>
-                    <button mat-menu-item (click)="onEditBusinessPeriod(businessPeriod)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
-                    </button>
-                    <button mat-menu-item (click)="onDeleteBusinessPeriod(businessPeriod)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
-                    </button>
-                </mat-menu>
-            </div>
-            <div matRipple class="entity__body" (click)="onEditBusinessPeriod(businessPeriod)">
-                <div class="content">
-                    <div class="content__name">
-                        {{getName(businessPeriod)}}
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container">
+
+            <div class="entities-container entities-card-layout">
+
+                <div #entityBusinessPeriodsListItem class="entity"
+                    *ngFor="let businessPeriod of collection | search: searchPattern"
+                    [class.disabled]="!businessPeriod.active">
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <!--My checkbox-->
+                            <div class="entity__control__checkbox">
+                                <ta-checkbox #checkboxActive [checked]="businessPeriod.active"
+                                    (click)="onToggleActive($event, businessPeriod)"></ta-checkbox>
+                            </div>
+                            <!--My checkbox-->
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item type="button" (click)="onToggleActive($event, businessPeriod)">
+                                    <mat-icon>{{businessPeriod.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    <span>{{businessPeriod.active ? 'Деактивировать' : 'Активировать'}}</span>
+                                </button>
+                                <button mat-menu-item (click)="onEditBusinessPeriod(businessPeriod)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Редактировать</span>
+                                </button>
+                                <button mat-menu-item (click)="onDeleteBusinessPeriod(businessPeriod)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Удалить</span>
+                                </button>
+                            </mat-menu>
+                        </div>
                     </div>
-                    <div class="content__description">
-                        {{getDescription(businessPeriod)}}
+                    <div [tapEffect]="entityBusinessPeriodsListItem" class="entity__body"
+                        (click)="onEditBusinessPeriod(businessPeriod)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group">
+                                    <div class="entity__name">
+                                        {{getName(businessPeriod)}}
+                                    </div>
+                                    <div class="entity__description">
+                                        {{getDescription(businessPeriod)}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Panel Add Item -->
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreateBusinessPeriod()">
+                            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                            <div class="">Добавить бизнес период</div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Panel Add Item -->
+
             </div>
         </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreateBusinessPeriod()">
-            <mat-icon>add</mat-icon>
-        </button>
     </div>
 </div>

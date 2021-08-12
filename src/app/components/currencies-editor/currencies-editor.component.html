@@ -1,71 +1,97 @@
 <div class="editor">
+
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let currency of collection | search: searchPattern"
-            [ngClass]="{'is-default': currency.isDefault, 'disabled': !currency.active}">
-            <div class="entity__control">
-                <ng-container *ngIf="hasCreate()">
-                    <div class="entity__control__checkbox">
-                        <mat-checkbox color="accent" #checkboxActive [checked]="currency.active"
-                            (click)="onToggleActive($event, currency)"></mat-checkbox>
-                    </div>
-                </ng-container>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
 
-                    <ng-container *ngIf="hasCreate()">
-                        <button mat-menu-item type="button" (click)="onToggleDefault($event, currency)">
-                            <mat-icon>{{currency.isDefault ? 'radio_button_unchecked' : 'radio_button_checked'}}
-                            </mat-icon>
-                            <span>
-                                {{currency.isDefault ? localization.get("common_action-remove-as-default") :
-                                localization.get("common_action-make-as-default")}}
-                            </span>
-                        </button>
-                        <button mat-menu-item type="button" (click)="onToggleActive($event, currency)">
-                            <mat-icon>{{currency.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                            <span>
-                                {{currency.active ? localization.get("common_action-deactivate") :
-                                localization.get("common_action-activate")}}
-                            </span>
-                        </button>
-                    </ng-container>
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container">
 
-                    <button mat-menu-item (click)="onEdit(currency)">
-                        <mat-icon>edit</mat-icon>
-                        <span>
-                            {{localization.get("common_action-edit")}}
-                        </span>
-                    </button>
-                    <ng-container *ngIf="hasDelete()">
-                        <button mat-menu-item (click)="onDelete(currency)">
-                            <mat-icon>delete_forever</mat-icon>
-                            <span>
-                                {{localization.get("common_action-delete")}}
-                            </span>
-                        </button>
-                    </ng-container>
-                </mat-menu>
-            </div>
-            <div matRipple class="entity__body" (click)="onEdit(currency)">
-                <div class="content">
-                    <div class="content__name">
-                        {{currency.name}}
+            <div class="entities-container entities-card-layout">
+
+                <div #entityCurrencyListItem class="entity" *ngFor="let currency of collection | search: searchPattern"
+                    [ngClass]="{'is-default': currency.isDefault, 'disabled': !currency.active}">
+                    <!-- Controls -->
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <!--My checkbox-->
+                            <div class="entity__control__checkbox">
+                                <ta-checkbox #checkboxActive [checked]="currency.active"
+                                    (click)="onToggleActive($event, currency)"></ta-checkbox>
+                            </div>
+                            <!--My checkbox-->
+                            <!-- ActionMenu -->
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+
+                                <ng-container *ngIf="hasCreate()">
+                                    <button mat-menu-item type="button" (click)="onToggleDefault($event, currency)">
+                                        <mat-icon>{{currency.isDefault ? 'radio_button_unchecked' :
+                                            'radio_button_checked'}}
+                                        </mat-icon>
+                                        <span>
+                                            {{currency.isDefault ? localization.get("common_action-remove-as-default") :
+                                            localization.get("common_action-make-as-default")}}
+                                        </span>
+                                    </button>
+                                    <button mat-menu-item type="button" (click)="onToggleActive($event, currency)">
+                                        <mat-icon>{{currency.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                        <span>
+                                            {{currency.active ? localization.get("common_action-deactivate") :
+                                            localization.get("common_action-activate")}}
+                                        </span>
+                                    </button>
+                                </ng-container>
+
+                                <button mat-menu-item (click)="onEdit(currency)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>
+                                        {{localization.get("common_action-edit")}}
+                                    </span>
+                                </button>
+                                <ng-container *ngIf="hasDelete()">
+                                    <button mat-menu-item (click)="onDelete(currency)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                        <span>
+                                            {{localization.get("common_action-delete")}}
+                                        </span>
+                                    </button>
+                                </ng-container>
+                            </mat-menu>
+                            <!-- ActionMenu -->
+                        </div>
                     </div>
-                    <div class="content__description" style="text-transform: none;">
-                        {{currency.name}} / {{currency.symbol}}
+                    <div [tapEffect]="entityCurrencyListItem" class="entity__body" (click)="onEdit(currency)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group">
+                                    <div class="entity__name">
+                                        {{currency.name}}
+                                    </div>
+                                    <div class="entity__description" style="text-transform: none;">
+                                        {{currency.name}} / {{currency.symbol}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="color" [style.background]="currency.color"></div>
                     </div>
                 </div>
-                <div class="color" [style.background]="currency.color"></div>
+
+                <!-- Panel Add Item -->
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreate()">
+                            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                            <div class="">Добавить валюту</div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Panel Add Item -->
+
             </div>
         </div>
-        <ng-container *ngIf="hasCreate()">
-            <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-                <mat-icon>add</mat-icon>
-            </button>
-        </ng-container>
     </div>
 </div>

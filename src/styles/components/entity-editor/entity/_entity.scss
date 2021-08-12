@@ -43,6 +43,7 @@
 
         &__body {
             @extend .entity-container;
+            height: 100%;
             overflow: hidden;
             cursor: pointer;
 

@@ -1,5 +1,7 @@
 <div class="scenario-entity-editor" *ngIf="!!entity">
-    <span [ngClass]="{'scenario-entity-editor-wrapper': true, 'disabled': (!!entity && !entity.active) || (!entity.active)}">
+
+    <span
+        [ngClass]="{'scenario-entity-editor-wrapper': true, 'disabled': (!!entity && !entity.active) || (!entity.active)}">
         <div class="scenario-entity-editor__content">
             <div matRipple class="content" [ngClass]="{
                 'has-scenario': (!!entity.scenarios && entity.scenarios.length > 0)}"
@@ -35,14 +37,13 @@
             </div>
         </div>
         <ng-container *ngIf="!!entity.scenarios && entity.scenarios.length > 0">
-            <ta-scenario-list [scenarios]="entity.scenarios" [businessPeriods]="businessPeriods" [currencies]="currencies"
-                [currenciesDictionary]="currenciesDictionary" [businessPeriodsDictionary]="businessPeriodsDictionary"
-                [languages]="languages" [stores]="stores" [storesDictionary]="storesDictionary"
-                [defaultLanguage]="defaultLanguage" (deleteAll)="onDeleteScenarios()"
-                (delete)="onDeleteScenario($event)" (add)="onAddScenario()" (edit)="onEditScenario($event)"
-                (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
-                (downward)="onDownwardScenario($event)" [lock]="false"
-                [disabled]="(!entity.active)">
+            <ta-scenario-list [scenarios]="entity.scenarios" [businessPeriods]="businessPeriods"
+                [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
+                [businessPeriodsDictionary]="businessPeriodsDictionary" [languages]="languages" [stores]="stores"
+                [storesDictionary]="storesDictionary" [defaultLanguage]="defaultLanguage"
+                (deleteAll)="onDeleteScenarios()" (delete)="onDeleteScenario($event)" (add)="onAddScenario()"
+                (edit)="onEditScenario($event)" (update)="onUpdateScenario($event)" (upward)="onUpwardScenario($event)"
+                (downward)="onDownwardScenario($event)" [lock]="false" [disabled]="(!entity.active)">
             </ta-scenario-list>
         </ng-container>
     </span>
