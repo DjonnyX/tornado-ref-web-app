@@ -101,15 +101,31 @@
             width: auto;
         }
 
-        &__elements-group {
+        &__elements-group-space-between {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
+        &__elements-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
         &__coast {
             font-size: 18px;
             margin: 0;
+        }
+
+        &__weight {
+            font-size: 18px;
+            margin: 0;
+            opacity: 0.5;
+
+            &::after {
+                content: "/";
+            }
         }
 
         &__image {

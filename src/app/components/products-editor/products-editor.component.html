@@ -95,7 +95,7 @@
                                                                 }}{{getProductDescription(product).length > 20 ? "..." :
                                                                 ""}}
                                                             </div>
-                                                            <div class="entity__elements-group">
+                                                            <div class="entity__elements-group-space-between">
                                                                 <div class="tags">
                                                                     <span class="tag" *ngFor="let tag of product.tags"
                                                                         [style.background]="getTagColor(tag)"
@@ -103,9 +103,14 @@
                                                                         {{getTagName(tag)}}
                                                                     </span>
                                                                 </div>
-                                                                <p class="entity__coast">
-                                                                    {{getPrices(product)}}
-                                                                </p>
+                                                                <div class="entity__elements-group">
+                                                                    <p class="entity__weight">
+                                                                        {{product.weight}}
+                                                                    </p>
+                                                                    <p class="entity__coast">
+                                                                        {{getPrices(product)}}
+                                                                    </p>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div>
