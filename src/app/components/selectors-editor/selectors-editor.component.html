@@ -39,68 +39,176 @@
         [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
         (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)">
     </ta-state-panel>
-    <ng-container [ngSwitch]="layoutType">
-        <!-- List-template -->
-        <ng-container *ngSwitchCase="LayoutTypes.LIST">
-            <div class="editor__container">
-                <!--Entity Wrapper-->
-                <ng-container *ngFor="let systemTag of actualSystemTags">
-                    <ng-container *ngIf="(filteredCollection | filterSelectors:systemTag |
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <ng-container [ngSwitch]="layoutType">
+            <!-- List-template -->
+            <ng-container *ngSwitchCase="LayoutTypes.LIST">
+                <div class="editor__container">
+                    <!--Entity Wrapper-->
+                    <ng-container *ngFor="let systemTag of actualSystemTags">
+                        <ng-container *ngIf="(filteredCollection | filterSelectors:systemTag |
                     search:searchPattern:defaultLanguage?.code).length">
-                        <div class="editor__group-list">
-                            <div class="editor__group-list__header">
-                                <ng-container *ngIf="!!systemTag?.name; else notAllocated">
-                                    {{systemTag?.name}} ({{(filteredCollection | filterSelectors:systemTag |
-                                    search:searchPattern:defaultLanguage?.code).length}})
-                                </ng-container>
-                            </div>
-                            <div class="entities-container entities-list-layout">
-                                <div #entitySelectorListItem class="entity entity-product"
-                                    *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
-                                    [class.disabled]="!selector.active">
-                                    <div class="entity__wrapper">
-                                        <!-- Controls -->
-                                        <div class="entity__control">
-                                            <div class="entity__control__container">
-                                                <!--My checkbox-->
-                                                <div class="entity__control__checkbox">
-                                                    <ta-checkbox #checkboxActive [checked]="selector.active"
-                                                        (click)="onToggleActive($event, selector)"></ta-checkbox>
+                            <div class="editor__group-list">
+                                <div class="editor__group-list__header">
+                                    <ng-container *ngIf="!!systemTag?.name; else notAllocated">
+                                        {{systemTag?.name}} ({{(filteredCollection | filterSelectors:systemTag |
+                                        search:searchPattern:defaultLanguage?.code).length}})
+                                    </ng-container>
+                                </div>
+                                <div class="entities-container entities-list-layout">
+                                    <div #entitySelectorListItem class="entity entity-product"
+                                        *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
+                                        [class.disabled]="!selector.active">
+                                        <div class="entity__wrapper">
+                                            <!-- Controls -->
+                                            <div class="entity__control">
+                                                <div class="entity__control__container">
+                                                    <!--My checkbox-->
+                                                    <div class="entity__control__checkbox">
+                                                        <ta-checkbox #checkboxActive [checked]="selector.active"
+                                                            (click)="onToggleActive($event, selector)"></ta-checkbox>
+                                                    </div>
+                                                    <!--My checkbox-->
                                                 </div>
-                                                <!--My checkbox-->
+                                            </div>
+                                            <!-- Controls -->
+                                            <!-- Entity Active-Zone -->
+                                            <div [tapEffect]="entitySelectorListItem" class="entity__body"
+                                                (click)="onEditSelector(selector)">
+                                                <div class="entity__body__content">
+                                                    <div class="entity__body__gradient"></div>
+                                                    <div class="entity__body__container">
+                                                        <!-- <img align="center" *ngIf="hasThumbnail(selector)" class="entity__thumbnail"
+                                            [src]="getThumbnail(selector)"> -->
+                                                        <div class="entity__image">
+                                                            <img align="center" *ngIf="hasThumbnail(selector, 'x128')"
+                                                                class="entity__image__thumbnail"
+                                                                [src]="getThumbnail(selector, 'x128')">
+                                                        </div>
+                                                        <div class="entity__text-group">
+                                                            <div class="entity__name">
+                                                                {{getSelectorName(selector)}}
+                                                            </div>
+                                                            <div class="entity__description">
+                                                                {{getSelectorDescription(selector) | slice:0:60
+                                                                }}{{getSelectorDescription(selector).length > 20 ? "..."
+                                                                :
+                                                                ""}}
+                                                            </div>
+                                                        </div>
+                                                        <div class="entity__elements-group">
+                                                            <div class="tags">
+                                                                <span class="tag" *ngFor="let tag of selector.tags"
+                                                                    [style.background]="getTagColor(tag)"
+                                                                    [matTooltip]="getTagName(tag)">
+                                                                    {{getTagName(tag)}}
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="entity__footer">
+                                                <div class="entity__footer__container">
+                                                    <ng-container
+                                                        *ngTemplateOutlet="popupMenu; context: {data: selector}">
+                                                    </ng-container>
+                                                </div>
                                             </div>
                                         </div>
-                                        <!-- Controls -->
+                                        <div class="color" [style.background]="getSelectorColor(selector)"></div>
                                         <!-- Entity Active-Zone -->
-                                        <div [tapEffect]="entitySelectorListItem" class="entity__body"
-                                            (click)="onEditSelector(selector)">
-                                            <div class="entity__body__content">
-                                                <div class="entity__body__gradient"></div>
-                                                <div class="entity__body__container">
-                                                    <!-- <img align="center" *ngIf="hasThumbnail(selector)" class="entity__thumbnail"
-                                            [src]="getThumbnail(selector)"> -->
-                                                    <div class="entity__image">
-                                                        <img align="center" *ngIf="hasThumbnail(selector, 'x128')"
-                                                            class="entity__image__thumbnail"
-                                                            [src]="getThumbnail(selector, 'x128')">
-                                                    </div>
-                                                    <div class="entity__text-group">
-                                                        <div class="entity__name">
-                                                            {{getSelectorName(selector)}}
+
+                                    </div>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </ng-container>
+
+                    <!-- Entity -->
+
+                    <!-- Entity -->
+                    <!--ButtonAdd-->
+
+                    <!-- <ng-container *ngIf="hasCreate()">
+                    <button color="accent" mat-raised-button class="button-add" (click)="onCreateSelector()">
+                        <mat-icon class="button-add-icon">add</mat-icon>
+                    </button>
+                </ng-container> -->
+
+                    <!-- Panel Add Item -->
+                    <ng-container *ngIf="hasCreate()">
+                        <div class="entities-bottom-panel">
+                            <div class="entities-bottom-panel__container">
+                                <button color="accent" class="button-add" (click)="onCreateSelector()">
+                                    <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                                    <div class="">Добавить категорию</div>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <!-- Panel Add Item -->
+
+                    <!--ButtonAdd-->
+                    <!-- </div> -->
+                </div>
+                <!--Entity Wrapper-->
+            </ng-container>
+
+
+
+            <!-- Card-template -->
+            <ng-container *ngSwitchCase="LayoutTypes.CARD">
+                <div class="editor__container">
+                    <ng-container *ngFor="let systemTag of actualSystemTags">
+                        <ng-container *ngIf="(filteredCollection | filterSelectors:systemTag |
+                    search:searchPattern:defaultLanguage?.code).length">
+                            <div class="editor__group-list">
+                                <div class="editor__group-list__header">
+                                    <ng-container *ngIf="!!systemTag?.name; else notAllocated">
+                                        {{systemTag?.name}} ({{(filteredCollection | filterSelectors:systemTag |
+                                        search:searchPattern:defaultLanguage?.code).length}})
+                                    </ng-container>
+                                </div>
+                                <div class="entities-container entities-card-layout">
+                                    <div #entitySelectorCardItem class="entity entity-product"
+                                        *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
+                                        [class.disabled]="!selector.active">
+                                        <div class="entity__wrapper">
+                                            <div class="entity__control">
+                                                <div class="entity__control__container">
+                                                    <!--My checkbox-->
+                                                    <ta-checkbox #checkboxActive [checked]="selector.active"
+                                                        (click)="onToggleActive($event, selector)"></ta-checkbox>
+
+                                                    <ng-container
+                                                        *ngTemplateOutlet="popupMenu; context: {data: selector}">
+                                                    </ng-container>
+                                                </div>
+                                            </div>
+                                            <div [tapEffect]="entitySelectorCardItem" class="entity__body"
+                                                (click)="onEditSelector(selector)">
+                                                <div class="entity__body__content">
+                                                    <div class="entity__body__gradient"></div>
+                                                    <div class="entity__body__container">
+                                                        <div class="entity__image">
+                                                            <img align="center" *ngIf="hasThumbnail(selector, 'x128')"
+                                                                class="entity__image__thumbnail"
+                                                                [src]="getThumbnail(selector, 'x128')">
                                                         </div>
-                                                        <div class="entity__description">
-                                                            {{getSelectorDescription(selector) | slice:0:60
-                                                            }}{{getSelectorDescription(selector).length > 20 ? "..." :
-                                                            ""}}
-                                                        </div>
-                                                    </div>
-                                                    <div class="entity__elements-group">
-                                                        <div class="tags">
-                                                            <span class="tag" *ngFor="let tag of selector.tags"
-                                                                [style.background]="getTagColor(tag)"
-                                                                [matTooltip]="getTagName(tag)">
-                                                                {{getTagName(tag)}}
-                                                            </span>
+                                                        <div class="entity__text-group">
+                                                            <div class="entity__name">
+                                                                {{getSelectorName(selector)}}
+                                                            </div>
+                                                            <div class="entity__description">
+                                                                <!-- {{getSelectorDescription(selector)}} -->
+                                                                <!-- {{getSelectorDescription(selector) | slice:0:120 -->
+                                                                {{getSelectorDescription(selector) | slice:0:80
+                                                                }}{{getSelectorDescription(selector).length > 20 ? "..."
+                                                                :
+                                                                ""}}
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -108,147 +216,46 @@
                                         </div>
                                         <div class="entity__footer">
                                             <div class="entity__footer__container">
-                                                <ng-container *ngTemplateOutlet="popupMenu; context: {data: selector}">
-                                                </ng-container>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="color" [style.background]="getSelectorColor(selector)"></div>
-                                    <!-- Entity Active-Zone -->
-
-                                </div>
-                            </div>
-                        </div>
-                    </ng-container>
-                </ng-container>
-
-                <!-- Entity -->
-
-                <!-- Entity -->
-                <!--ButtonAdd-->
-
-                <!-- <ng-container *ngIf="hasCreate()">
-                    <button color="accent" mat-raised-button class="button-add" (click)="onCreateSelector()">
-                        <mat-icon class="button-add-icon">add</mat-icon>
-                    </button>
-                </ng-container> -->
-
-                <!-- Panel Add Item -->
-                <ng-container *ngIf="hasCreate()">
-                    <div class="entities-bottom-panel">
-                        <div class="entities-bottom-panel__container">
-                            <button color="accent" class="button-add" (click)="onCreateSelector()">
-                                <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-                                <div class="">Добавить категорию</div>
-                            </button>
-                        </div>
-                    </div>
-                </ng-container>
-                <!-- Panel Add Item -->
-
-                <!--ButtonAdd-->
-                <!-- </div> -->
-            </div>
-            <!--Entity Wrapper-->
-        </ng-container>
-
-
-
-        <!-- Card-template -->
-        <ng-container *ngSwitchCase="LayoutTypes.CARD">
-            <div class="editor__container">
-                <ng-container *ngFor="let systemTag of actualSystemTags">
-                    <ng-container *ngIf="(filteredCollection | filterSelectors:systemTag |
-                    search:searchPattern:defaultLanguage?.code).length">
-                        <div class="editor__group-list">
-                            <div class="editor__group-list__header">
-                                <ng-container *ngIf="!!systemTag?.name; else notAllocated">
-                                    {{systemTag?.name}} ({{(filteredCollection | filterSelectors:systemTag |
-                                    search:searchPattern:defaultLanguage?.code).length}})
-                                </ng-container>
-                            </div>
-                            <div class="entities-container entities-card-layout">
-                                <div #entitySelectorCardItem class="entity entity-product"
-                                    *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
-                                    [class.disabled]="!selector.active">
-                                    <div class="entity__wrapper">
-                                        <div class="entity__control">
-                                            <div class="entity__control__container">
-                                                <!--My checkbox-->
-                                                <ta-checkbox #checkboxActive [checked]="selector.active"
-                                                    (click)="onToggleActive($event, selector)"></ta-checkbox>
-
-                                                <ng-container *ngTemplateOutlet="popupMenu; context: {data: selector}">
-                                                </ng-container>
-                                            </div>
-                                        </div>
-                                        <div [tapEffect]="entitySelectorCardItem" class="entity__body"
-                                            (click)="onEditSelector(selector)">
-                                            <div class="entity__body__content">
-                                                <div class="entity__body__gradient"></div>
-                                                <div class="entity__body__container">
-                                                    <div class="entity__image">
-                                                        <img align="center" *ngIf="hasThumbnail(selector, 'x128')"
-                                                            class="entity__image__thumbnail"
-                                                            [src]="getThumbnail(selector, 'x128')">
-                                                    </div>
-                                                    <div class="entity__text-group">
-                                                        <div class="entity__name">
-                                                            {{getSelectorName(selector)}}
-                                                        </div>
-                                                        <div class="entity__description">
-                                                            <!-- {{getSelectorDescription(selector)}} -->
-                                                            <!-- {{getSelectorDescription(selector) | slice:0:120 -->
-                                                            {{getSelectorDescription(selector) | slice:0:80
-                                                            }}{{getSelectorDescription(selector).length > 20 ? "..." :
-                                                            ""}}
-                                                        </div>
-                                                    </div>
+                                                <div class="tags">
+                                                    <span class="tag" *ngFor="let tag of selector.tags"
+                                                        [style.background]="getTagColor(tag)"
+                                                        [matTooltip]="getTagName(tag)">
+                                                        {{getTagName(tag)}}
+                                                    </span>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="color" [style.background]="getSelectorColor(selector)"></div>
                                     </div>
-                                    <div class="entity__footer">
-                                        <div class="entity__footer__container">
-                                            <div class="tags">
-                                                <span class="tag" *ngFor="let tag of selector.tags"
-                                                    [style.background]="getTagColor(tag)"
-                                                    [matTooltip]="getTagName(tag)">
-                                                    {{getTagName(tag)}}
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="color" [style.background]="getSelectorColor(selector)"></div>
                                 </div>
                             </div>
-                        </div>
+                        </ng-container>
                     </ng-container>
-                </ng-container>
 
-                <!-- <ng-container *ngIf="hasCreate()">
+                    <!-- <ng-container *ngIf="hasCreate()">
                                         <button color="accent" mat-raised-button class="button-add" (click)="onCreateSelector()">
                                             <mat-icon class="button-add-icon">add</mat-icon>
                                         </button>
                                     </ng-container> -->
 
-                <!-- Panel Add Item -->
-                <ng-container *ngIf="hasCreate()">
-                    <div class="entities-bottom-panel">
-                        <div class="entities-bottom-panel__container">
-                            <button color="accent" class="button-add" (click)="onCreateSelector()">
-                                <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-                                <div class="">Добавить категорию</div>
-                            </button>
+                    <!-- Panel Add Item -->
+                    <ng-container *ngIf="hasCreate()">
+                        <div class="entities-bottom-panel">
+                            <div class="entities-bottom-panel__container">
+                                <button color="accent" class="button-add" (click)="onCreateSelector()">
+                                    <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                                    <div class="">Добавить категорию</div>
+                                </button>
+                            </div>
                         </div>
-                    </div>
-                </ng-container>
-                <!-- Panel Add Item -->
-            </div>
-            <!-- </div> -->
+                    </ng-container>
+                    <!-- Panel Add Item -->
+                </div>
+                <!-- </div> -->
 
+            </ng-container>
         </ng-container>
-    </ng-container>
+    </div>
     <!-- 
     <div class="create-entity-button-wrapper" *ngIf="hasCreate()">
         <button color="accent" mat-raised-button class="button-add float" (click)="onCreateSelector()">
