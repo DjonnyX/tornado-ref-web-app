@@ -77,7 +77,7 @@
                                             <div [tapEffect]="entityProductListItem" class="entity__body"
                                                 (click)="onEditProduct(product)">
                                                 <div class="entity__body__content">
-                                                    <div class="entity__body__gradient"></div>
+                                                    <!-- <div class="entity__body__gradient"></div> -->
                                                     <div class="entity__body__container">
                                                         <!-- <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
                                                     [src]="getThumbnail(product)"> -->
@@ -266,15 +266,8 @@
                     <!-- Panel Add Item -->
                 </div>
                 <!-- </div> -->
-
             </ng-container>
         </ng-container>
     </div>
     <!--Editor Scroll View-->
-    <!-- 
-    <div class="create-entity-button-wrapper" *ngIf="hasCreate()">
-        <button color="accent" mat-raised-button class="button-add float" (click)="onCreateProduct()">
-            Добавить продукт
-        </button>
-    </div> -->
 </div>
