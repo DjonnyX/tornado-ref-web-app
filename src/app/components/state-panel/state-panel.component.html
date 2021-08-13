@@ -7,8 +7,9 @@
                 <span fxHide.xs="true" class="state-panel__info__date">{{formatlastUpdate()}}</span>
             </ng-container>
         </div> -->
-        <ta-search [placeholder]="localization.get('common_search-by-name')" [liveSearch]="true"
-            (search)="onSearch($event)"></ta-search>
+        <ta-search *ngIf="rights.indexOf(StatePanelRights.SEARCH_BOX) > -1"
+            [placeholder]="localization.get('common_search-by-name')" [liveSearch]="true" (search)="onSearch($event)">
+        </ta-search>
         <div class="spacer"></div>
         <!--<ta-search-field [fieldClass]="searchFieldClass" (search)="onSearch($event)"></ta-search-field>-->
         <!--<ta-search-field (search)="onSearch($event)"></ta-search-field>-->
@@ -19,7 +20,7 @@
                 <!-- Hide or show hidden entities -->
                 <span class="tab-button__group">
                     <!--Filter-->
-                    <button
+                    <button *ngIf="rights.indexOf(StatePanelRights.TOGGLE_INVISIBLE_ENTITIES) > -1"
                         [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': displayInactiveEntities}"
                         (click)="onToggleVisibleHiddenEntities()">
                         <div class="tab-button__container">
@@ -29,7 +30,8 @@
                         </div>
                     </button>
                     <!--Template-->
-                    <button [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': true}"
+                    <button *ngIf="rights.indexOf(StatePanelRights.TOGGLE_LAYOUT) > -1"
+                        [ngClass]="{'tab-button': true, 'filter-button-layout': true, 'active': true}"
                         (click)="onSwitchLayout()">
                         <div class="tab-button__container">
                             <div [ngClass]="buttonLayoutClasses"></div>

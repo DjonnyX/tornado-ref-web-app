@@ -56,6 +56,7 @@
                         </a>
                     </span>
 
+                    <!--Lang-->
 
                     <span class="tab-button__group">
                         <!--Theme-->
@@ -66,40 +67,16 @@
                                 </div>
                             </button>
                         </span>
-                        <!--Lang-->
-                        <div *ngIf="isLanguagePickerExpanded" class="dropdown-selector__substrate"
-                            (click)="onLanguagePickerCollapse()"></div>
 
-                        <div class="dropdown-selector language-button inverse-button"
-                            (click)="onLanguagePickerExpand()">
-                            <div class="dropdown-selector__current-value">
-                                <div class="dropdown-selector__value"
-                                    *ngFor="let lang of languages; let index = index;">
-                                    <input class="dropdown-selector__input" [id]="index" type="radio"
-                                        [value]="lang.code" [formControl]="ctrlLanguage"
-                                        [checked]="selectedLang === lang">
-                                    <p class="dropdown-selector__input-text">
-                                        {{lang.data.__name__}}
-                                    </p>
-                                </div>
-                            </div>
-
-                            <ul *ngIf="isLanguagePickerExpanded" class="dropdown-selector__list">
-                                <li *ngFor="let lang of languages; let index = index;"
-                                    class="dropdown-selector__list__item">
-                                    <div class="dropdown-selector__list__item__container">
-                                        <label class="dropdown-selector__option " [for]="index">
-                                            <div class="dropdown-selector__option__content">
-                                                <span class="dropdown-selector__option-image sm">
-                                                    <img [src]="lang.data.__img__">
-                                                </span>
-                                                {{lang.data.__name__}}
-                                            </div>
-                                        </label>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+                        <ng-template #languagePickerItemRenderer let-data="data">
+                            <span class="dropdown-selector__option-image sm">
+                                <img [src]="data.data.__img__">
+                            </span>
+                            {{data.data.__name__}}
+                        </ng-template>
+                        <ta-select [formControl]="ctrlLanguage" [items]="languages" valuePropName="code"
+                            displayValuePropName="data.__name__" [itemRenderer]="languagePickerItemRenderer">
+                        </ta-select>
                         <!--Lang-->
                     </span>
 
@@ -111,7 +88,6 @@
                         <span class="admin-toolbar__icon icon-signout"></span>
                     </button>
                 </div>
-
             </div>
         </div>
         <!--Toolbar section (menu.width)-->

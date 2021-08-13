@@ -8,6 +8,12 @@ export enum LayoutTypes {
   CARD,
 }
 
+export enum StatePanelRights {
+  SEARCH_BOX,
+  TOGGLE_INVISIBLE_ENTITIES,
+  TOGGLE_LAYOUT,
+}
+
 @Component({
   selector: 'ta-state-panel',
   templateUrl: './state-panel.component.html',
@@ -15,7 +21,15 @@ export enum LayoutTypes {
 })
 export class StatePanelComponent implements OnInit {
 
+  public readonly StatePanelRights = StatePanelRights;
+
   public readonly LayoutTypes = LayoutTypes;
+
+  @Input() rights: Array<StatePanelRights> = [
+    StatePanelRights.SEARCH_BOX,
+    StatePanelRights.TOGGLE_INVISIBLE_ENTITIES,
+    StatePanelRights.TOGGLE_LAYOUT,
+  ];
 
   @Input() refInfo: IRef;
 

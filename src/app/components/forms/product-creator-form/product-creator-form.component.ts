@@ -258,7 +258,9 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       if (!this.systemTags.find(t => t.name.toLocaleLowerCase() === this.ctrlSystemTag?.value?.toLowerCase())) {
         this.createSystemTag.emit({
           name: this.ctrlSystemTag.value,
-          extra: {},
+          extra: {
+            entity: "product",
+          },
         })
       }
     }

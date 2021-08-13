@@ -1,14 +1,20 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { take, takeUntil } from 'rxjs/operators';
+import { map, startWith, take, takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
-import { ISelector, ITag, IAsset, ICurrency, IPrice, ISelectorContents, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IAsset, ICurrency, IPrice, ISelectorContents, ISelectorContentsItem, ILanguage, ISystemTag } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
 import { deepEqual, deepMergeObjects } from '@app/utils/object.util';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
+import { Observable } from 'rxjs/internal/Observable';
+import { IKeyValue } from '@components/key-value/key-value.component';
+
+interface IData {
+  systemTag: IKeyValue;
+}
 
 @Component({
   selector: 'ta-selector-creator-form',
@@ -20,7 +26,26 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   form: FormGroup;
 
+  ctrlSystemTag = new FormControl();
+
   @Input() assets: Array<IAsset>;
+
+  private _systemTags: Array<ISystemTag>;
+  @Input() set systemTags(v: Array<ISystemTag>) {
+    if (!!v && this._systemTags !== v) {
+      this._systemTags = v;
+
+      if (this.ctrlSystemTag?.value !== undefined) {
+        const ctrlSystemTagsValue = this.ctrlSystemTag.value?.toLowerCase();
+        const selectedSystemTag = this._systemTags?.find(t => t.name.toLocaleLowerCase() === ctrlSystemTagsValue ||
+          t.id.toLocaleLowerCase() === ctrlSystemTagsValue);
+        this.ctrlSystemTag.setValue(!!selectedSystemTag ? this.ctrlSystemTag?.value : undefined);
+      }
+
+      this.generateData();
+    }
+  }
+  get systemTags() { return this._systemTags; }
 
   private _defaultLanguage: ILanguage;
   @Input() set defaultLanguage(v: ILanguage) {
@@ -28,6 +53,8 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this._defaultLanguage = v;
 
       this.sortLanguages();
+
+      this.generateData();
     }
   }
 
@@ -39,6 +66,8 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this._languages = v;
 
       this.sortLanguages();
+
+      this.generateData();
     }
   }
 
@@ -52,6 +81,10 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this._selector = selector;
 
       this._state = { ...this._state, ...(this._selector ? this._selector.contents : undefined) };
+
+      this.generateData();
+
+      this.ctrlSystemTag.setValue(selector.systemTag);
     }
   }
 
@@ -71,21 +104,52 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() update = new EventEmitter<ISelector>();
 
+  @Output() createSystemTag = new EventEmitter<ISystemTag>();
+
+  @Output() deleteSystemTag = new EventEmitter<string>();
+
   @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
   @Output() uploadIconResource = new EventEmitter<IFileUploadEvent>();
 
   private _state: ISelectorContents = {};
 
+  private _data: IData;
+
+  get data() {
+    return this._data;
+  }
+
   private _initState: any;
 
   private _isDirty = false;
   get isDirty() { return this._isDirty; }
 
+  systemTagsFilteredOptions: Observable<Array<ISystemTag>>;
+
+  systemTagsDisplayFn = (value: string): string => {
+    return this.systemTags?.find(t => t.id === value)?.name || value;
+  }
+
   constructor(private _fb: FormBuilder, public dialog: MatDialog) {
     super();
 
-    this.form = this._fb.group({})
+    this.form = this._fb.group({
+      systemTag: this.ctrlSystemTag,
+    });
+  }
+
+  private generateData(): void {
+    if (!this._selector || !this._defaultLanguage || !this._systemTags) {
+      return;
+    }
+
+    this._data = {
+      systemTag: {
+        key: "Системный тэг",
+        value: this.systemTagsDisplayFn(this._selector.systemTag),
+      },
+    };
   }
 
   ngOnInit(): void {
@@ -96,7 +160,41 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this.checkDirty();
     });
 
+    this.systemTagsFilteredOptions = this.ctrlSystemTag.valueChanges.pipe(
+      startWith(""),
+      map(name => name ? this._systemTagsFilter(name) : [...(this.systemTags || [])]),
+    );
+
     this.resetInitState();
+  }
+
+  onSystemTagSubmit(event: KeyboardEvent): void {
+    if (event.keyCode === 13) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
+      if (!this.systemTags.find(t => t.name.toLocaleLowerCase() === this.ctrlSystemTag?.value?.toLowerCase())) {
+        this.createSystemTag.emit({
+          name: this.ctrlSystemTag.value,
+          extra: {
+            entity: this._selector.type,
+          },
+        })
+      }
+    }
+  }
+
+  onDeleteSystemTag(event: Event, id: string): void {
+    event.stopImmediatePropagation();
+    event.preventDefault();
+
+    this.deleteSystemTag.emit(id);
+  }
+
+  private _systemTagsFilter(name: string): ISystemTag[] {
+    const filterValue = name.toLowerCase();
+
+    return this.systemTags?.filter(option => option?.name?.toLowerCase().indexOf(filterValue) === 0);
   }
 
   ngOnDestroy(): void {

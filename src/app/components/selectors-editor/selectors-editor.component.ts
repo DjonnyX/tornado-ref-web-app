@@ -1,12 +1,22 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef, Pipe, PipeTransform } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage, ISystemTag, UserRights } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
 import { LocalizationService } from '@app/services/localization/localization.service';
+
+@Pipe({
+  name: 'filterSelectors'
+})
+export class FilterSelectorsPipe implements PipeTransform {
+  transform(items: Array<ISelector>, systemTag: ISystemTag | undefined): any[] {
+    if (!items) return [];
+    return items.filter(s => s.systemTag === systemTag?.id);
+  }
+}
 
 @Component({
   selector: 'ta-selectors-editor-component',
@@ -33,6 +43,18 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   public filteredCollection: Array<ISelector>;
 
+  private _systemTags: Array<ISystemTag>;
+  @Input() set systemTags(v: Array<ISystemTag>) {
+    if (this._systemTags !== v) {
+      this._systemTags = v;
+
+      this.resetActualSystemTags();
+    }
+  }
+  get systemTags() { return this._systemTags; }
+
+  actualSystemTags: Array<ISystemTag>;
+
   @Input() refInfo: IRef;
 
   @Input() tagList: Array<ITag>;
@@ -41,13 +63,18 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   @Input() languages: Array<ILanguage>;
 
+  @Input() rights: Array<UserRights>;
+
   @Input() layoutType: LayoutTypes;
 
   private _displayInactiveEntities: boolean = true;
   @Input() set displayInactiveEntities(v: boolean) {
     if (this._displayInactiveEntities !== v) {
       this._displayInactiveEntities = v;
+
       this.resetFilteredCollection();
+
+      this.resetActualSystemTags();
     }
   }
   get displayInactiveEntities() { return this._displayInactiveEntities; }
@@ -92,6 +119,26 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     super.ngOnDestroy();
   }
 
+  resetActualSystemTags() {
+    if (!this._collection || !this._systemTags) {
+      return;
+    }
+
+    const systemTags: Array<string> = [];
+    for (let product of this._collection) {
+      if (product.systemTag !== undefined && systemTags.indexOf(product.systemTag) === -1) {
+        systemTags.push(product.systemTag);
+      }
+    }
+
+    this.actualSystemTags = this._systemTags.filter(s => {
+      return systemTags.indexOf(s.id) > -1;
+    });
+
+    // не распределенная категория
+    this.actualSystemTags.push(undefined);
+  }
+
   resetFilteredCollection() {
     this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this._displayInactiveEntities));
     this._cdr.markForCheck();
@@ -128,7 +175,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   getSelectorDescription(selector: ISelector): string | undefined {
     const selectorContent = this.getSelectorContent(selector);
-    return selectorContent?.description;
+    return selectorContent?.description || "";
   }
 
   getSelectorColor(selector: ISelector): string | undefined {
@@ -153,6 +200,14 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     event.preventDefault();
 
     this.update.emit({ ...selector, active: !selector.active });
+  }
+
+  hasCreate() {
+    return this.rights.indexOf(UserRights.CREATE_SELECTOR) > -1;
+  }
+
+  hasDelete() {
+    return this.rights.indexOf(UserRights.DELETE_SELECTOR) > -1;
   }
 
   onCreateSelector(): void {

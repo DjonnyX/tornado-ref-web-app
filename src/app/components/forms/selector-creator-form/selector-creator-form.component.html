@@ -17,6 +17,40 @@
     </ta-selector-content>
   </ng-template>
 
+  <ng-container *ngIf="!isEditMode || isEdit; else commonInfo">
+    <ng-container *ngIf="!!selector">
+      <p class="form-header">
+        Системный тэг
+      </p>
+      <div class="form__input-block">
+        <div class="form-item">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Системный тэг</mat-label>
+            <input (keydown)="onSystemTagSubmit($event)" type="text" matInput [formControl]="ctrlSystemTag"
+              [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete" [displayWith]="systemTagsDisplayFn">
+              <mat-option *ngFor="let systemTag of systemTagsFilteredOptions | async" [value]="systemTag.id">
+                <div class="autocomplete-option">
+                  <span class="autocomplete-option__name">{{systemTag.name}}</span>
+                  <button mat-icon-button aria-label="Clear" (click)="onDeleteSystemTag($event, systemTag.id)">
+                    <mat-icon style="margin: 0;">close</mat-icon>
+                  </button>
+                </div>
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </div>
+      </div>
+    </ng-container>
+  </ng-container>
+  <ng-template #commonInfo>
+    <div class="form__block" *ngIf="!!data">
+      <div class="form-item full-width">
+        <ta-key-value [data]="data.systemTag"></ta-key-value>
+      </div>
+    </div>
+  </ng-template>
+
   <div class="form__submit" align="end">
     <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
       <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">

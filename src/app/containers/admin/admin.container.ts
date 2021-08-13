@@ -24,8 +24,6 @@ import LOCALIZATION from '@app/localization';
 })
 export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
-  isLanguagePickerExpanded: boolean = false;
-
   isMobile$: Observable<boolean>;
 
   size$: Observable<string>;
@@ -244,14 +242,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     this.isMenuOpened = !this.isMenuOpened;
   }
 
-  onLanguagePickerExpand(): void {
-    this.isLanguagePickerExpanded = true;
-  }
-
-  onLanguagePickerCollapse(): void {
-    this.isLanguagePickerExpanded = false;
-  }
-
   private extractUrlPath(url: string): string {
     const urlPath = url?.match(/(?<=(\/admin\/))([\w-])+/);
     return !!urlPath && urlPath.length > 0 ? urlPath[0] : undefined;
@@ -317,7 +307,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       filter(v => !!v),
     ).subscribe(
       v => {
-        this.isLanguagePickerExpanded = false;
         this._store.dispatch(SettingsActions.changeLanguage({ language: v }));
       }
     );

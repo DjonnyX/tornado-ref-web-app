@@ -1,0 +1,39 @@
+<div *ngIf="isExpanded" class="dropdown-selector__substrate" (click)="onCollapse()"></div>
+
+<div class="dropdown-selector language-button inverse-button" (click)="onExpand()">
+    <div class="dropdown-selector__current-value">
+        <div class="dropdown-selector__value" *ngFor="let item of items; let index = index;">
+            <input class="dropdown-selector__input" [id]="index" type="radio"
+                [value]="getPropValue(item, valuePropName)" [formControl]="ctrlInput" [checked]="selected === item">
+            <p class="dropdown-selector__input-text">
+                {{item.data.__name__}}
+            </p>
+        </div>
+    </div>
+
+    <ul *ngIf="isExpanded" class="dropdown-selector__list">
+        <li *ngFor="let item of items; let index = index;" class="dropdown-selector__list__item">
+            <div class="dropdown-selector__list__item__container">
+                <label class="dropdown-selector__option " [for]="index">
+                    <div class="dropdown-selector__option__content">
+                        <ng-container *ngIf="!itemRenderer; else tmpItemRenderer">
+                            <span class="dropdown-selector__option-image sm">
+                                <img [src]="getPropValue(item, iconValuePropName)">
+                            </span>
+                            {{getPropValue(item, displayValuePropName)}}
+                        </ng-container>
+                        <ng-template #tmpItemRenderer>
+                            <ng-container [ngTemplateOutlet]="itemRenderer" [ngTemplateOutletContext]="{data:item}">
+                            </ng-container>
+                        </ng-template>
+                    </div>
+                </label>
+            </div>
+        </li>
+    </ul>
+
+    <!-- <ng-container 
+             [ngTemplateOutlet]="link.type == 'complex' ?complexLink : simpleLink" 
+             [ngTemplateOutletContext]="{link:link}">
+        </ng-container> -->
+</div>

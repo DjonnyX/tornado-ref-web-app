@@ -10,6 +10,9 @@ import { SelectorContentModule } from './selector-content/selector-content.modul
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
+import { KeyValueModule } from '@components/key-value/key-value.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 @NgModule({
   declarations: [
@@ -24,12 +27,15 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    MatIconModule,
     MatSelectModule,
     MatFormFieldModule,
     MatTabsModule,
     MatDialogModule,
+    MatAutocompleteModule,
     DeleteEntityDialogModule,
     SelectorContentModule,
+    KeyValueModule,
   ]
 })
 export class SelectorCreatorFormModule { }
