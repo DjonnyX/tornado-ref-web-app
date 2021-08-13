@@ -1,21 +1,33 @@
-<ta-state-panel [rights]="[0, 1]" [searchFieldClass]="searchFieldClass" [refInfo]="refInfo" [hasShowRefInfo]="hasShowRefInfo"
-    (search)="onSearch($event)"></ta-state-panel>
-<div class="node-tree__stores">
-    <ta-tab-list [items]="tabs" (select)="onTabSelect($event)"></ta-tab-list>
-</div>
-<div class="node-tree__editor">
-    <ng-container *ngIf="!!nodes && !!products && !!selectors && !!defaultLanguage">
-        <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id" [nodes]="nodes"
-            [nodesDictionary]="nodesDictionary" [groupModifiersNodes]="groupModifiersNodes"
-            [groupMenuNodes]="groupMenuNodes" [products]="products" [selectors]="selectors"
-            [menuGroupsSelectors]="menuGroupsSelectors" [modifiersGroupsSelectors]="modifiersGroupsSelectors"
-            [businessPeriods]="businessPeriods" [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
-            [businessPeriodsDictionary]="businessPeriodsDictionary" [productsDictionary]="productsDictionary"
-            [selectorsDictionary]="selectorsDictionary" [assetsDictionary]="assetsDictionary"
-            [searchPattern]="searchPattern" [mode]="mode" [currentStoreId]="currentStoreId"
-            [defaultLanguage]="defaultLanguage" [languages]="languages" [languagesDictionary]="languagesDictionary"
-            [orderTypes]="orderTypes" [orderTypesDictionary]="orderTypesDictionary" [stores]="storesCollection"
-            [storesDictionary]="storesDictionary" (create)="onCreate($event)" (update)="onUpdate($event)"
-            (delete)="onDelete($event)"></ta-node-tree-item>
-    </ng-container>
+<div class="node-tree__editor editor product-editor">
+
+    <ta-state-panel [rights]="[0, 1]" [searchFieldClass]="searchFieldClass" [refInfo]="refInfo"
+        [hasShowRefInfo]="hasShowRefInfo" (search)="onSearch($event)"></ta-state-panel>
+
+    <div class="editor__scroll-view">
+        <div class="editor__container">
+
+            <div class="node-tree__stores">
+                <ta-tab-list [items]="tabs" (select)="onTabSelect($event)"></ta-tab-list>
+            </div>
+            <div class="node-tree__editor">
+                <ng-container *ngIf="!!nodes && !!products && !!selectors && !!defaultLanguage">
+                    <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id"
+                        [nodes]="nodes" [nodesDictionary]="nodesDictionary" [groupModifiersNodes]="groupModifiersNodes"
+                        [groupMenuNodes]="groupMenuNodes" [products]="products" [selectors]="selectors"
+                        [menuGroupsSelectors]="menuGroupsSelectors"
+                        [modifiersGroupsSelectors]="modifiersGroupsSelectors" [businessPeriods]="businessPeriods"
+                        [currencies]="currencies" [currenciesDictionary]="currenciesDictionary"
+                        [businessPeriodsDictionary]="businessPeriodsDictionary"
+                        [productsDictionary]="productsDictionary" [selectorsDictionary]="selectorsDictionary"
+                        [assetsDictionary]="assetsDictionary" [searchPattern]="searchPattern" [mode]="mode"
+                        [currentStoreId]="currentStoreId" [defaultLanguage]="defaultLanguage" [languages]="languages"
+                        [languagesDictionary]="languagesDictionary" [orderTypes]="orderTypes"
+                        [orderTypesDictionary]="orderTypesDictionary" [stores]="storesCollection"
+                        [storesDictionary]="storesDictionary" (create)="onCreate($event)" (update)="onUpdate($event)"
+                        (delete)="onDelete($event)"></ta-node-tree-item>
+                </ng-container>
+            </div>
+
+        </div>
+    </div>
 </div>
