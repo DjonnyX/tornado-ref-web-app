@@ -1,0 +1,65 @@
+@import "../../themes/theme";
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+$folder-header-height: 54px;
+
+.folder-header {
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+
+    &__container {
+        display: flex;
+        position: relative;
+        flex-direction: row;
+        @include box(auto, $folder-header-height);
+    }
+
+    &__content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding-left: 10px;
+        @include themify($themes) {
+            background-color: themed('folderHeaderBackgroundColor');
+        }
+
+        // &__group {
+
+        // }
+    }
+
+    &__title-group {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    &__title, p {
+        font-size: 16px;
+        @include themify($themes) {
+            color: themed('folderHeaderColor');
+        }
+    }
+
+    &__title.secondary, p.secondary {
+        font-size: 16px;
+        @include themify($themes) {
+            color: themed('folderHeaderColor');
+        }
+        opacity: 0.4;
+    }
+
+    &__left-corner, &__right-corner {
+
+        svg {
+
+            path {
+                @include themify($themes) {
+                    fill: themed('folderHeaderBackgroundColor');
+                }
+            }
+        }
+    }
+}

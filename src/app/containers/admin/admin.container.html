@@ -29,19 +29,52 @@
 
                 <!--Left Group-->
                 <div class="admin__toolbar__navigation-section__left-group">
+                    <!--Navigation Toggle Button-->
+                    <div [ngClass]="{'navigation-menu__toggle-button': true, 'active': isMenuOpened, 'inactive': !isMenuOpened}"
+                        (click)="onToggleMenu()">
+                    </div>
+                    <!--Navigation Toggle Button-->
                     <div class="admin__toolbar__navline__group">
 
-                        <!--Navigation Toggle Button-->
-                        <div [ngClass]="{'navigation-menu__toggle-button': true, 'active': isMenuOpened, 'inactive': !isMenuOpened}"
-                            (click)="onToggleMenu()">
-                        </div>
-                        <!--Navigation Toggle Button-->
-
-                        <span class="admin__toolbar__page-title parent">{{localization.get((parentRoute$ |
+                        <!-- Navline-->
+                        <!-- <span class="admin__toolbar__page-title parent">{{localization.get((parentRoute$ |
                             async)?.name)}}</span>
-                        <!--Title of a parent folder-->
                         <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ |
-                            async)?.name)}}</span>
+                            async)?.name)}}</span> -->
+                        <!--Navline -->
+
+                        <!--Folder Header-->
+                        <div class="folder-header">
+                            <div class="folder-header__container">
+                                <div class="folder-header__left-corner">
+                                    <svg width="30" height="54" viewBox="0 0 30 54" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M0 24C0 12.6863 0 7.02944 3.51472 3.51472C7.02944 0 12.6863 0 24 0H30V54H0V24Z"
+                                            fill="white" />
+                                    </svg>
+                                </div>
+                                <div class="folder-header__content">
+                                    <div class="folder-header__content__group">
+                                        <div class="folder-header__title-group">
+                                            <p class="folder-header__title secondary">{{localization.get((parentRoute$ |
+                                                async)?.name)}}</p>
+                                            <p class="folder-header__title">{{localization.get((currentRoute$ |
+                                                async)?.name)}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="folder-header__right-corner">
+                                    <svg width="83" height="54" viewBox="0 0 83 54" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M0 0V0C7.88819 0 11.8323 0 15.3783 1.40334C15.9393 1.62534 16.4899 1.87261 17.0285 2.14439C20.4332 3.86239 23.0536 6.81025 28.2942 12.706L53.0414 40.5466C56.5773 44.5245 58.3452 46.5134 60.3622 48.0852C63.9118 50.8516 68.0761 52.7216 72.502 53.5368C75.0168 54 77.6778 54 83 54V54H0V0Z"
+                                            fill="white" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Folder Header-->
                     </div>
                 </div>
 

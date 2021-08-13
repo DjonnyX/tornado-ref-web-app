@@ -12,6 +12,7 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color,
+    //State Panel
     statePanelBackgroundColor: $white,
     //Search
     searchBackgroundColor: $background-color,
@@ -37,6 +38,9 @@ $themes: (
     tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse,
     tabButtonColorNormalInverse:$tab-button-color-normal-inverse,
     tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse,
+    //Folder Header
+    folderHeaderBackgroundColor:$white,
+    folderHeaderColor:$primary-color,
   ),
   dark: (
     //Common
@@ -44,6 +48,7 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
+    //State Panel
     statePanelBackgroundColor: $secondary-color,
     //Search
     searchBackgroundColor: $background-color,
@@ -69,5 +74,8 @@ $themes: (
     tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse-theme-dark,
     tabButtonColorNormalInverse:$tab-button-color-normal-inverse-theme-dark,
     tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse-theme-dark,
+    //Folder Header
+    folderHeaderBackgroundColor:$secondary-color,
+    folderHeaderColor:$white,
   ),
 );

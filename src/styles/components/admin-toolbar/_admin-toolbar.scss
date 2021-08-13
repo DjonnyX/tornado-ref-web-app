@@ -8,10 +8,12 @@ $dropdown-selector-value-width: 36px;
     display: grid;
     // grid-template-columns: $navigation-menu-width auto; //Layout
     box-sizing: border-box;
+    height: 100%;
 
     &__logo-section {
         display: flex;
         position: relative;
+        height: 100%;
         // width: $navigation-menu-width;  //Layout
         width: 100%;
 
@@ -43,6 +45,7 @@ $dropdown-selector-value-width: 36px;
             flex-direction: row;
             align-items: center;
             gap: 20px;
+            height: 100%;
         }
     }
 
@@ -50,6 +53,7 @@ $dropdown-selector-value-width: 36px;
         display: flex;
         align-items: center;
         gap: 10px;
+        height: 100%;
     }
 
     &__link {
