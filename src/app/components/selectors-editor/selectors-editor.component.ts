@@ -38,6 +38,8 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
       this._collection = value || [];
 
       this.resetFilteredCollection();
+      
+      this.resetActualSystemTags();
     }
   }
 
