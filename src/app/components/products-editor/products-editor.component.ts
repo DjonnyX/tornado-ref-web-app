@@ -204,17 +204,17 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   getProductName(product: IProduct): string | undefined {
     const productContent = this.getProductContent(product);
-    return !!productContent ? productContent.name : undefined;
+    return productContent?.name;
   }
 
   getProductDescription(product: IProduct): string | undefined {
     const productContent = this.getProductContent(product);
-    return !!productContent ? productContent.description : undefined;
+    return productContent?.description || "";
   }
 
   getProductColor(product: IProduct): string | undefined {
     const productContent = this.getProductContent(product);
-    return !!productContent ? productContent.color : undefined;
+    return productContent?.color;
   }
 
   hasThumbnail(product: IProduct, size: "x32" | "x128" = "x32"): boolean {

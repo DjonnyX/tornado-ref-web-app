@@ -4,7 +4,7 @@ import { IAppState } from '@store/state';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import {
   SelectorsSelectors, SelectorAssetsSelectors, BusinessPeriodsSelectors, AssetsSelectors, LanguagesSelectors, TagsSelectors,
-  MenuNodesSelectors, ProductsSelectors, CurrenciesSelectors, OrderTypesSelectors, StoresSelectors
+  MenuNodesSelectors, ProductsSelectors, CurrenciesSelectors, OrderTypesSelectors, StoresSelectors, SystemTagsSelectors
 } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap, debounceTime } from 'rxjs/operators';
@@ -17,7 +17,8 @@ import { SelectorActions } from '@store/actions/selector.action';
 import {
   ISelector, SelectorResourceTypes, ILanguage, IBusinessPeriod, IStore, INode, IProduct, IOrderType, ITag,
   ICurrency,
-  SelectorTypes
+  SelectorTypes,
+  ISystemTag
 } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
@@ -29,6 +30,7 @@ import { TagsActions } from '@store/actions/tags.action';
 import { CurrenciesActions } from '@store/actions/currencies.action';
 import { StoresActions } from '@store/actions/stores.action';
 import { OrderTypesActions } from '@store/actions/order-types.action';
+import { SystemTagsActions } from '@store/actions/system-tags.action';
 
 @Component({
   selector: 'ta-selector-creator',
@@ -71,6 +73,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   orderTypes$: Observable<Array<IOrderType>>;
 
   tags$: Observable<Array<ITag>>;
+
+  systemTags$: Observable<Array<ISystemTag>>;
 
   currencies$: Observable<Array<ICurrency>>;
 
@@ -141,15 +145,18 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(SystemTagsSelectors.selectLoading),
+      ),
     ]).pipe(
       map(([isGetSelectorProcess, isSelectorsProcess, isAssetsProcess, isLanguagesProcess,
         isTagsProcess, isMenuNodesProcess, isProductsProcess,
         isBusinessPeriodsProcess, isCurrenciesProcess, isOrderTypesProcess,
-        isStoresProcess]) =>
+        isStoresProcess, isSystemTagsProcess]) =>
         isGetSelectorProcess || isSelectorsProcess || isAssetsProcess || isLanguagesProcess ||
         isTagsProcess || isMenuNodesProcess || isProductsProcess ||
         isBusinessPeriodsProcess || isCurrenciesProcess || isOrderTypesProcess ||
-        isStoresProcess),
+        isStoresProcess || isSystemTagsProcess),
     );
 
     this.isProcessMainOptions$ = combineLatest([
@@ -184,6 +191,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
     this.tags$ = this._store.pipe(
       select(TagsSelectors.selectCollection),
+    );
+
+    this.systemTags$ = this._store.pipe(
+      select(SystemTagsSelectors.selectCollection),
     );
 
     this.currencies$ = this._store.pipe(
@@ -336,6 +347,17 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
     this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
+    this._store.dispatch(SystemTagsActions.getAllRequest(
+      {
+        options: {
+          filter: [{
+            id: "extra.entity",
+            operation: "equals",
+            value: this._selectorType,
+          }],
+        }
+      }
+    ));
 
     if (this._selectorType === SelectorTypes.SCHEMA_CATEGORY) {
       if (!this.isEditMode) {
@@ -361,11 +383,12 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
         this.assets$,
         this.stores$,
         this.nodes$,
+        this.systemTags$,
       ]).pipe(
         debounceTime(100),
-        map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, nodes,]) => {
+        map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, nodes, systemTags]) => {
           return !!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
-            !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes
+            !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes && !!systemTags
         }
         ),
       );
@@ -388,9 +411,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
           this.languages$,
           this.defaultLanguage$,
           this.assets$,
+          this.systemTags$,
         ]).pipe(
-          map(([languages, defaultLanguage, assets]) =>
-            !!languages && !!defaultLanguage && !!assets),
+          map(([languages, defaultLanguage, assets, systemTags]) =>
+            !!languages && !!defaultLanguage && !!assets && !!systemTags),
         );
 
         this.isPrepareToConfigure$ = this.selectorId$.pipe(
@@ -416,6 +440,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SelectorAssetsActions.clear());
     this._store.dispatch(AssetsActions.clear());
     this._store.dispatch(LanguagesActions.clear());
+    this._store.dispatch(SystemTagsActions.clear());
 
     if (this._selectorType === SelectorTypes.SCHEMA_CATEGORY) {
       this._store.dispatch(ProductsActions.clear());
@@ -426,6 +451,14 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       this._store.dispatch(OrderTypesActions.clear());
       this._store.dispatch(MenuNodesActions.clear());
     }
+  }
+
+  onCreateSystemTag(systemTag: ISystemTag): void {
+    this._store.dispatch(SystemTagsActions.createRequest({ systemTag }));
+  }
+
+  onDeleteSystemTag(id: string): void {
+    this._store.dispatch(SystemTagsActions.deleteRequest({ id }));
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {

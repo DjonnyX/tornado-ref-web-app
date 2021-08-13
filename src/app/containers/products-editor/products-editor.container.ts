@@ -143,9 +143,19 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(CurrenciesActions.getAllRequest({}));
     this._store.dispatch(ProductsActions.getAllRequest({}));
     this._store.dispatch(TagsActions.getAllRequest({}));
-    this._store.dispatch(SystemTagsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
     this._store.dispatch(LanguagesActions.getAllRequest({}));
+    this._store.dispatch(SystemTagsActions.getAllRequest(
+      {
+        options: {
+          filter: [{
+            id: "extra.entity",
+            operation: "equals",
+            value: "product",
+          }],
+        }
+      }
+    ));
   }
 
   ngOnDestroy(): void {

@@ -23,7 +23,6 @@ import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
   ],
   imports: [
     CommonModule,
-    TapEffectModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
@@ -33,6 +32,7 @@ import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
     DeleteEntityDialogModule,
     StatePanelModule,
     SearchPipeModule,
+    TapEffectModule,
   ]
 })
 export class ProductsEditorComponentModule { }
