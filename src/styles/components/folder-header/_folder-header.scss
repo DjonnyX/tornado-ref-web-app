@@ -2,7 +2,7 @@
 @import "../../abstracts/vars";
 @import "../../mixins";
 
-$folder-header-height: 54px;
+$folder-header-height: 48px;
 
 .folder-header {
     height: 100%;
@@ -37,14 +37,13 @@ $folder-header-height: 54px;
     }
 
     &__title, p {
-        font-size: 16px;
+        font-size: 14px;
         @include themify($themes) {
             color: themed('folderHeaderColor');
         }
     }
 
     &__title.secondary, p.secondary {
-        font-size: 16px;
         @include themify($themes) {
             color: themed('folderHeaderColor');
         }
