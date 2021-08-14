@@ -12,6 +12,11 @@ $anim-scale-in-out: 0.75;
     position: relative;
     padding: 8px 0px;
 
+    &__substrate {
+        width: 100vw;
+        height: 100vh;
+    }
+
     &__current-value {
         display: flex;
         position: relative;
