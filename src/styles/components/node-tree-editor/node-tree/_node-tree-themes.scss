@@ -1,0 +1,74 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+// .primary {
+//     .node-tree-item {
+//         .node-item-way-hider {
+//             background: $primary-800;
+//         }
+
+//         .node-tree-item-joint {
+//             border-bottom: $border-primary;
+//         }
+
+//         &__wrapper {
+//             .node-tree-item-way {
+//                 border-left: $border-primary;
+
+//                 .way-nail {
+//                     background: $primary-800;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+.node-tree-item {
+
+    .node-item-way-hider {
+        // background: $primary-800;
+        @include themify($themes) {
+            background: themed('nodeWayBorderColor');
+        }
+    }
+
+    .node-tree-item-joint {
+        @include themify($themes) {
+            border-bottom-color: themed('nodeWayBorderColor');
+        }
+    }
+
+    &__wrapper {
+
+        .node-tree-item-way {
+            @include themify($themes) {
+                border-left-color: themed('nodeWayBorderColor');
+            }
+
+            .way-nail {
+                // background: $primary-800;
+                @include themify($themes) {
+                    background: themed('nodeWayBorderColor');
+                }
+            }
+        }
+    }
+
+    &__wrapper {
+        
+        .node-tree-item__content {
+
+            .content {
+                @include themify($themes) {
+                    background-color: themed('entityBackgroundColor');
+                }
+
+                &__text {
+                    @include themify($themes) {
+                        color: themed('entityTitleColor');
+                    }
+                }
+            }
+        }
+    }
+}

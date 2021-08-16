@@ -1,5 +1,5 @@
-@import "../../../utils/px2em";
 @import "../../../abstracts/vars";
+@import "../../../mixins";
 
 // Common Style
 
@@ -13,15 +13,10 @@
     .tag {
         display: block;
         position: relative;
-        // width: $tag-size;
-        // height: $tag-size;
-        width: auto;
-        height: auto;
-        // border: 1px solid rgb(222 226 229);
-        padding: 4px 10px; //px2em(6) px2em(12) px2em(4) px2em(12);
+        @include box(auto);
+        padding: 4px 10px;
         color: #fff;
         font-size: 10px;
-        // text-transform: uppercase;
         line-height: 1.0;
         letter-spacing: 0.5px;
         border-radius: 10px;//$tag-roundness-xl;

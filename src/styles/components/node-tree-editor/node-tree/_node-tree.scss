@@ -2,7 +2,7 @@
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
-$offset-x: px2em(64);
+$offset-x: 64px;
 $way-border-weight: 1px;
 $way-border-color: #d5d5d5;
 $node-tree-item-border-radius: 6px;
@@ -23,6 +23,10 @@ $node-tree-item-thumbnail-size: 32px;
     
 }
 
+// .drag-drop-box {
+//     background: none;
+// }
+
 .node-tree-item {
     position: relative;
 
@@ -37,6 +41,8 @@ $node-tree-item-thumbnail-size: 32px;
         bottom: 0;
         z-index: 1;
         margin-left: -3px;
+        border-left-width: 1px;
+        border-left-style: solid;
     }
 
     .node-tree-item-joint {
@@ -45,11 +51,15 @@ $node-tree-item-thumbnail-size: 32px;
         width: 32px;
         height: 6px;
         margin-top: 22px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
     }
 
     &__wrapper {
         .node-tree-item-way {
-            margin: px2em(4) 0 0 $offset-x;
+            margin: 4px 0 0 $offset-x;
+            border-left-width: 1px;
+            border-left-style: solid;
 
             .way-nail {
                 position: absolute;
@@ -72,7 +82,7 @@ $node-tree-item-thumbnail-size: 32px;
                 grid-template-columns: auto 1fr auto;
                 align-items: baseline;
                 overflow: hidden;
-                padding: px2em(4);
+                padding: 4px;
                 align-items: center;
                 border-radius: $node-tree-item-border-radius;
                 margin: $node-tree-item-margin-vertical 0;
@@ -102,6 +112,7 @@ $node-tree-item-thumbnail-size: 32px;
                     padding: 12px;
                     border-radius: 3px;
                     margin: auto 0;
+                    margin-left: 12px;
                     display: grid;
                     grid-template-columns: auto 1fr;
                     align-items: center;
@@ -133,11 +144,11 @@ $node-tree-item-thumbnail-size: 32px;
         }
 
         .button-create {
-            margin-left: -(px2em(20));
-            margin-top: px2em(18);
-            margin-bottom: px2em(18);
+            margin-left: -20px;
+            margin-top: 18px;
+            margin-bottom: 18px;
             padding: 0;
-            min-width: px2em(38);
+            min-width: 38px;
             width: 2.375em;
             height: 2.375em;
             display: flex;
@@ -161,193 +172,194 @@ $node-tree-item-thumbnail-size: 32px;
 
 $border-primary: $way-border-weight solid $way-border-color;
 
-.primary {
-    .node-tree-item {
-        .node-item-way-hider {
-            background: $primary-800;
-        }
+// .primary {
+//     .node-tree-item {
+//         .node-item-way-hider {
+//             background: $primary-800;
+//         }
 
-        .node-tree-item-joint {
-            border-bottom: $border-primary;
-        }
+//         .node-tree-item-joint {
+//             border-bottom: $border-primary;
+//         }
 
-        &__wrapper {
-            .node-tree-item-way {
-                border-left: $border-primary;
+//         &__wrapper {
+//             .node-tree-item-way {
+//                 border-left: $border-primary;
 
-                .way-nail {
-                    background: $primary-800;
-                }
-            }
+//                 .way-nail {
+//                     background: $primary-800;
+//                 }
+//             }
 
-            .node-tree-item__content {
-                .content {
-                    // color: $primary-700;
-                    color: $primary-color;
-                    background: #ffffff;
-                    // border: 1px solid rgba($primary, 0.3);
+//             .node-tree-item__content {
+//                 .content {
+//                     // color: $primary-700;
+//                     color: $primary-color;
+//                     background: $white;
+//                     // border: 1px solid rgba($primary, 0.3);
 
-                    &__name {
-                        // background: rgba($primary, 0.1);
+//                     &__name {
+//                         // background: rgba($primary, 0.1);
 
-                        &.active {
-                            background: rgb(66, 176, 240);
-                        }
+//                         &.active {
+//                             background: rgb(66, 176, 240);
+//                         }
 
-                        &:hover {
-                            background: $accent;
-                            color: $white;
-                        }
-                    }
+//                         &:hover {
+//                             background: $accent;
+//                             color: $white;
+//                         }
+//                     }
 
-                    &.wrong {
-                        background: $warn;
+//                     &.wrong {
+//                         background: $warn;
 
-                        .content__name {
-                            background: rgba(0, 0, 0, 0.1);
+//                         .content__name {
+//                             background: rgba(0, 0, 0, 0.1);
 
-                            &.hover {
-                                background: $warn-100;
-                            }
-                        }
-                    }
+//                             &.hover {
+//                                 background: $warn-100;
+//                             }
+//                         }
+//                     }
 
-                    &.lock {
-                        background: $instance-node-color;
+//                     &.lock {
+//                         // background: $instance-node-color;
+//                         background: $white;
 
-                        .content__name {
-                            background: transparent;
+//                         .content__name {
+//                             background: transparent;
 
-                            &.active {
-                                background: transparent;
-                            }
+//                             &.active {
+//                                 background: transparent;
+//                             }
 
-                            &:hover {
-                                background: transparent;
-                            }
-                        }
-                    }
+//                             &:hover {
+//                                 background: transparent;
+//                             }
+//                         }
+//                     }
 
-                    &.is-instance {
-                        background: $instance-node-color;
-                    }
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
 
-                    &.disabled {
-                        opacity: 0.5;
-                    }
-                }
+//                     &.disabled {
+//                         opacity: 0.5;
+//                     }
+//                 }
 
-                .entity__action-menu__button {
-                    color: $primary-700;
-                }
-            }
-        }
-    }
+//                 .entity__action-menu__button {
+//                     color: $primary-700;
+//                 }
+//             }
+//         }
+//     }
 
-    .node-tree-item {
-        &__wrapper {
-            .node-tree-item__content {
-                .content {
-                    &.is-instance {
-                        background: $instance-node-color;
-                    }
-                }
-            }
-        }
-    }
-}
+//     .node-tree-item {
+//         &__wrapper {
+//             .node-tree-item__content {
+//                 .content {
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
 
 // $border-primary: $way-border-weight solid $way-border-color;
 
-.secondary {
-    .node-tree-item {
-        .node-item-way-hider {
-            background: #ffffff;
-        }
-        .node-tree-item-joint {
-            border-bottom: $border-primary;
-        }
+// .secondary {
+//     .node-tree-item {
+//         .node-item-way-hider {
+//             background: #ffffff;
+//         }
+//         .node-tree-item-joint {
+//             border-bottom: $border-primary;
+//         }
 
-        &__wrapper {
-            .node-tree-item-way {
-                border-left: $border-primary;
+//         &__wrapper {
+//             .node-tree-item-way {
+//                 border-left: $border-primary;
 
-                .way-nail {
-                    background: #ffffff;
-                }
-            }
+//                 .way-nail {
+//                     background: $white;
+//                 }
+//             }
 
-            .node-tree-item__content {
-                .content {
-                    color: $primary-700;
-                    background: #ffffff;
-                    border: 1px solid rgba($primary, 0.75);
+//             .node-tree-item__content {
+//                 .content {
+//                     color: $primary-700;
+//                     background: $white;
+//                     border: 1px solid rgba($primary, 0.75);
 
-                    &__name {
-                        background: rgba($primary, 0.1);
+//                     &__name {
+//                         background: rgba($primary, 0.1);
 
-                        &.active {
-                            background: rgb(66, 176, 240);
-                        }
+//                         &.active {
+//                             background: rgb(66, 176, 240);
+//                         }
 
-                        &:hover {
-                            background: $accent;
-                        }
-                    }
+//                         &:hover {
+//                             background: $accent;
+//                         }
+//                     }
 
-                    &.wrong {
-                        background: $warn;
+//                     &.wrong {
+//                         background: $warn;
 
-                        .content__name {
-                            background: rgba(0, 0, 0, 0.1);
+//                         .content__name {
+//                             background: rgba(0, 0, 0, 0.1);
 
-                            &.hover {
-                                background: $warn-100;
-                            }
-                        }
-                    }
+//                             &.hover {
+//                                 background: $warn-100;
+//                             }
+//                         }
+//                     }
 
-                    &.lock {
-                        background: $instance-node-color;
+//                     &.lock {
+//                         background: $instance-node-color;
 
-                        .content__name {
-                            background: transparent;
+//                         .content__name {
+//                             background: transparent;
 
-                            &.active {
-                                background: transparent;
-                            }
+//                             &.active {
+//                                 background: transparent;
+//                             }
 
-                            &:hover {
-                                background: transparent;
-                            }
-                        }
-                    }
+//                             &:hover {
+//                                 background: transparent;
+//                             }
+//                         }
+//                     }
 
-                    &.is-instance {
-                        background: $instance-node-color;
-                    }
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
 
-                    &.disabled {
-                        opacity: 0.5;
-                    }
-                }
+//                     &.disabled {
+//                         opacity: 0.5;
+//                     }
+//                 }
 
-                .entity__action-menu__button {
-                    color: $primary-700;
-                }
-            }
-        }
-    }
+//                 .entity__action-menu__button {
+//                     color: $primary-700;
+//                 }
+//             }
+//         }
+//     }
 
-    .node-tree-item {
-        &__wrapper {
-            .node-tree-item__content {
-                .content {
-                    &.is-instance {
-                        background: $instance-node-color;
-                    }
-                }
-            }
-        }
-    }
-}
+//     .node-tree-item {
+//         &__wrapper {
+//             .node-tree-item__content {
+//                 .content {
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

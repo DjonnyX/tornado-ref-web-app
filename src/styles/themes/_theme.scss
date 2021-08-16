@@ -43,7 +43,7 @@ $warn: mat-color($ta-warn);
 $warn-100: lighten(mat-color($ta-warn), 50);
 $warn-700: darken(mat-color($ta-warn), 14);
 $warn-800: darken(mat-color($ta-warn), 20);
-$instance-node-color: #e7e7e7;
+// $instance-node-color: #e7e7e7;
 $block-color: lighten($primary, 10);
 
 .mat-checkbox-layout {

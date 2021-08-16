@@ -3,6 +3,7 @@ $secondary-color: #2B2F3C;
 $neutral-color: #7B7D83;
 $accent-color: #ffa000;
 
+
 $white: #fff;
 $black: #000;
 
@@ -13,6 +14,9 @@ $black: #000;
 
 $divider-color: #F0F0F0;
 $divider-color-inverse: #2E333F;
+
+$border-color: #d7d8db;
+$border-color-inverse: $divider-color-inverse;
 
 // Components
 
@@ -37,3 +41,9 @@ $primary-color-950: lighten($primary-color, 95%);
 
 $primary-color-1050: darken($primary-color, 5%);
 $primary-color-1100: darken($primary-color, 10%);
+
+
+
+// Temporary
+$instance-node-color: $white;
+$line-color: $primary-color;
