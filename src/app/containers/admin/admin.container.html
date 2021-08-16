@@ -32,19 +32,26 @@
                     <!--Navigation Toggle Button-->
                     <div [ngClass]="{'navigation-menu__toggle-button': true, 'active': isMenuOpened, 'inactive': !isMenuOpened}"
                         (click)="onToggleMenu()">
+                        <div class="navigation-menu__toggle-button__container">
+                            <div class="navigation-menu__toggle-button__icon">
+                                <div class="navigation-menu__toggle-button__icon__line line-top"></div>
+                                <div class="navigation-menu__toggle-button__icon__line line-center"></div>
+                                <div class="navigation-menu__toggle-button__icon__line line-bottom"></div>
+                            </div>
+                        </div>
                     </div>
                     <!--Navigation Toggle Button-->
                     <div class="admin__toolbar__navline__group">
 
                         <!-- Navline-->
-                        <!-- <span class="admin__toolbar__page-title parent">{{localization.get((parentRoute$ |
+                        <span class="admin__toolbar__page-title parent">{{localization.get((parentRoute$ |
                             async)?.name)}}</span>
                         <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ |
-                            async)?.name)}}</span> -->
+                            async)?.name)}}</span>
                         <!--Navline -->
 
                         <!--Folder Header-->
-                        <div class="folder-header">
+                        <!-- <div class="folder-header">
                             <div class="folder-header__container">
                                 <div class="folder-header__left-corner">
                                     <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
@@ -73,7 +80,7 @@
                                     </svg>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <!--Folder Header-->
                     </div>
                 </div>

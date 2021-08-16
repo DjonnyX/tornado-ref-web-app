@@ -1,13 +1,14 @@
-@import "../../themes/theme";
-@import "../../utils/px2em";
-@import "../../abstracts/vars";
-@import "../../mixins";
+@import "../../../themes/theme";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
 
 $offset-x: px2em(64);
 $way-border-weight: 1px;
 $way-border-color: #d5d5d5;
 $node-tree-item-border-radius: 6px;
 $node-tree-item-margin-vertical: 5px; //Gap
+
+$node-tree-item-thumbnail-size: 32px;
 
 
 .node-tree-item.root {
@@ -41,9 +42,9 @@ $node-tree-item-margin-vertical: 5px; //Gap
     .node-tree-item-joint {
         position: absolute;
         display: block;
-        width: px2em(32);
-        height: px2em(6);
-        margin-top: px2em(22);
+        width: 32px;
+        height: 6px;
+        margin-top: 22px;
     }
 
     &__wrapper {
@@ -52,8 +53,8 @@ $node-tree-item-margin-vertical: 5px; //Gap
 
             .way-nail {
                 position: absolute;
-                width: px2em(10);
-                height: px2em(26);
+                width: 10px;
+                height: 26px;
                 z-index: 1;
                 margin-left: -($way-border-weight);
                 bottom: 0;
@@ -61,7 +62,7 @@ $node-tree-item-margin-vertical: 5px; //Gap
         }
 
         .node-tree-item__content {
-            margin: 0 0 0 px2em(42);
+            margin: 0 0 0 42px;
             box-sizing: border-box;
 
             .content {
@@ -89,16 +90,16 @@ $node-tree-item-margin-vertical: 5px; //Gap
                     //Theme
                     @include themify($themes) {
                     border-color: themed('entityDividerBorderColor');
-                }
+                    }
                 }
 
                 &__checkbox-active {
-                    padding-left: px2em(12);
-                    padding-right: px2em(20);
+                    padding-left: 10px;
+                    padding-right: 20px;
                 }
 
                 &__name {
-                    padding: px2em(12);
+                    padding: 12px;
                     border-radius: 3px;
                     margin: auto 0;
                     display: grid;
@@ -108,12 +109,11 @@ $node-tree-item-margin-vertical: 5px; //Gap
 
                 &__thumbnail {
                     image-rendering: pixelated;
-                    width: px2em(32);
-                    height: px2em(32);
-                    margin-top: -px2em(12);
-                    margin-left: -px2em(12);
-                    margin-bottom: -px2em(12);
-                    margin-right: px2em(12);
+                    @include box($node-tree-item-thumbnail-size);
+                    margin-top: -12px;
+                    margin-left: -12px;
+                    margin-bottom: -12px;
+                    margin-right: 12px;
                     border-radius: 3px;
                 }
 

@@ -1,6 +1,9 @@
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
+$navigation-menu-toggle-button-icon-line-height: 2px;
+$navigation-menu-toggle-button-icon-size: 16px;
+
 .navigation-menu__toggle-button {
     // display: block;
     position: relative;
@@ -8,4 +11,38 @@
     background-color: $primary-color-50;
     border-radius: 6px;
     margin-left: 15px;
+
+    &__container {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;
+        @include box(100%);
+    }
+
+    &__icon {
+        display: block;
+        position: relative;
+        @include box($navigation-menu-toggle-button-icon-size);
+        // justify-content: space-between;
+
+        &__line {
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: $navigation-menu-toggle-button-icon-line-height;
+            background-color: $background-color;
+            border-radius: 1px;
+
+            &.line-top {
+                top: 0;
+            }
+            &.line-center {
+                top: ($navigation-menu-toggle-button-icon-size - $navigation-menu-toggle-button-icon-line-height)/2;
+            }
+            &.line-bottom {
+                bottom: 0;
+            }
+        }        
+    }
 }
