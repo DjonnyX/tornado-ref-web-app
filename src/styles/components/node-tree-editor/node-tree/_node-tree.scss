@@ -1,4 +1,4 @@
-@import "../../../themes/theme";
+// @import "../../../themes/theme";
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
@@ -97,10 +97,6 @@ $node-tree-item-thumbnail-size: 32px;
                     height: 100%;
                     border-right-width: 1px;
                     border-right-style: solid;
-                    //Theme
-                    @include themify($themes) {
-                    border-color: themed('entityDividerBorderColor');
-                    }
                 }
 
                 &__checkbox-active {
@@ -133,6 +129,43 @@ $node-tree-item-thumbnail-size: 32px;
                     word-break: keep-all;
                     overflow: hidden;
                     white-space: nowrap;
+                }
+
+                &.wrong {
+                    background: $warn;
+
+                    .content__name {
+                        background: rgba(0, 0, 0, 0.1);
+
+                        &.hover {
+                            background: $warn-100;
+                        }
+                    }
+                }
+
+                &.lock {
+                    // background: $instance-node-color;
+                    background: $white;
+
+                    .content__name {
+                        background: transparent;
+
+                        &.active {
+                            background: transparent;
+                        }
+
+                        &:hover {
+                            background: transparent;
+                        }
+                    }
+                }
+
+                &.is-instance {
+                    background: $instance-node-color;
+                }
+
+                &.disabled {
+                    opacity: 0.5;
                 }
             }
 
@@ -170,7 +203,7 @@ $node-tree-item-thumbnail-size: 32px;
     }
 }
 
-$border-primary: $way-border-weight solid $way-border-color;
+// $border-primary: $way-border-weight solid $way-border-color;
 
 // .primary {
 //     .node-tree-item {

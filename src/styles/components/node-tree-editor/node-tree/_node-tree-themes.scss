@@ -23,6 +23,17 @@
 //     }
 // }
 
+.drag-drop-box {
+    // background-color: $background-color;
+
+    .content {
+        @include themify($themes) {
+            background-color: themed('entityBackgroundColor'); //app-root theme
+        }
+        background-color: $white;
+    }
+}
+
 .node-tree-item {
 
     .node-item-way-hider {
@@ -61,6 +72,16 @@
             .content {
                 @include themify($themes) {
                     background-color: themed('entityBackgroundColor');
+                }
+
+                &__ctrls {
+                    @include themify($themes) {
+                        border-color: themed('entityDividerBorderColor');
+                    }
+                }
+                //Searched
+                &__name.active {
+                    background-color: rgba($accent-color, 0.25);
                 }
 
                 &__text {
