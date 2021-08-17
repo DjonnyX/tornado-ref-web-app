@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
 
   private _url: string;
 
-  themeClass: any;
+  private _previouseTheme: string;
 
   constructor(
     private _store: Store<IAppState>,
@@ -32,7 +32,11 @@ export class AppComponent implements OnInit {
       select(SettingsSelectors.selectTheme),
     ).subscribe(
       v => {
-        this.themeClass = { [`theme-${v}`]: true };
+        const appRoot = document.body.getElementsByTagName("app-root")[0];
+        const themeClass = `theme-${v}`;
+        appRoot.classList.add(themeClass);
+        appRoot.classList.remove(this._previouseTheme);
+        this._previouseTheme = themeClass;
       }
     );
 
