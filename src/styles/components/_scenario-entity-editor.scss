@@ -24,10 +24,10 @@ $way-border-weight: 2px;
                 overflow: hidden;
                 padding: px2em(4);
                 align-items: center;
-                border-radius: 3px;
+                border-radius: 4px;
 
                 &.has-scenario {
-                    border-radius: 3px 3px 0 0;
+                    border-radius: 4px 4px 0 0;
                 }
 
                 .content__ctrls {
@@ -42,7 +42,7 @@ $way-border-weight: 2px;
 
                 .content__name {
                     padding: px2em(12);
-                    border-radius: 3px;
+                    border-radius: 4px;
                     margin: auto 0;
                     display: flex;
                     align-items: center;

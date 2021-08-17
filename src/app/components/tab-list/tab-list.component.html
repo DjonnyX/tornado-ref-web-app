@@ -1,5 +1,12 @@
 <div class="tab-list">
-    <div class="tab-list__item" [class.selected]="item === selected" *ngFor="let item of items" (click)="onSelect(item)">
-        {{item.name}}
+    <div class="tab-list__item" [class.selected]="item === selected" *ngFor="let item of items"
+        (click)="onSelect(item)">
+        <div class="tab-list__item__container">
+            <div class="tab-list__item__content">
+                <div class="tab-list__item__group">
+                    <p class="tab-list__item__name">{{item.name}}</p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
