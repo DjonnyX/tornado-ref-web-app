@@ -23,6 +23,33 @@
 //     }
 // }
 
+.cdk-drop-list-dragging {
+
+    .drag-drop-box {
+
+        .content {
+
+            .node-tree-item-joint {
+                display: none;
+            }
+        }
+    }
+}
+
+.cdk-drop-drag-preview {
+
+    .node-tree-item-joint {
+            display: none; //in others
+        }
+}
+
+.drag-drop-list.cdk-drop-list-dragging .drag-drop-box:not(.cdk-drag-placeholder) {
+
+    .node-tree-item-joint {
+            // display: none; //in others
+        }
+}
+
 .drag-drop-box {
     // background-color: $background-color;
 
@@ -39,13 +66,13 @@
     .node-item-way-hider {
         // background: $primary-800;
         @include themify($themes) {
-            background: themed('nodeWayBorderColor');
+            background: themed('nodeWayBorderColor')!important;
         }
     }
 
     .node-tree-item-joint {
         @include themify($themes) {
-            border-bottom-color: themed('nodeWayBorderColor');
+            border-bottom-color: themed('nodeWayBorderColor')!important;
         }
     }
 
@@ -53,13 +80,13 @@
 
         .node-tree-item-way {
             @include themify($themes) {
-                border-left-color: themed('nodeWayBorderColor');
+                border-left-color: themed('nodeWayBorderColor')!important;
             }
 
             .way-nail {
                 // background: $primary-800;
                 @include themify($themes) {
-                    background: themed('nodeWayBorderColor');
+                    background: themed('nodeWayBorderColor')!important;
                 }
             }
         }
@@ -71,22 +98,22 @@
 
             .content {
                 @include themify($themes) {
-                    background-color: themed('entityBackgroundColor');
+                    background-color: themed('entityBackgroundColor')!important;
                 }
 
                 &__ctrls {
                     @include themify($themes) {
-                        border-color: themed('entityDividerBorderColor');
+                        border-color: themed('entityDividerBorderColor')!important;
                     }
                 }
                 //Searched
                 &__name.active {
-                    background-color: rgba($accent-color, 0.25);
+                    background-color: rgba($accent-color, 0.25)!important;
                 }
 
                 &__text {
                     @include themify($themes) {
-                        color: themed('entityTitleColor');
+                        color: themed('entityTitleColor')!important;
                     }
                 }
             }
