@@ -7,7 +7,7 @@
             <div tapEffect class="content" [ngClass]="{
                 'has-scenario': (!!node.scenarios && node.scenarios.length > 0) || (!!nodeInstance && !!nodeInstance.scenarios && nodeInstance.scenarios.length > 0),
                 'is-instance': !!nodeInstance}" [class.lock]="!!lock"
-                [class.disabled]="isDisabled || (!!nodeInstance && !nodeInstance.active) || (!node.active)"
+                [class.disabled]="isDisabled || (!!nodeInstance && !nodeInstance.active) || !node.active || (!isRoot && !getContent()?.active)"
                 [class.wrong]="!isRoot && !getContentName()" (click)="toggleExpand()">
                 <span class="content__ctrls">
                     <button mat-icon-button *ngIf="hasAllowSubCreation()">
