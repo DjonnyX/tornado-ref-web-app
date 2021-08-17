@@ -51,9 +51,19 @@
 }
 
 //Hide inderted items 
-//.cdk-drag-dragging
+//Dragged
 .cdk-drag-preview {
-    // background-color: rgba($accent-color, 0.25);
+
+    .node-tree-item {
+
+        &__wrapper {
+
+            .node-tree-item-way {
+                // display: none;
+                opacity: 0.0;
+            }
+        }
+    }
 
     //Hide Joint
     .node-tree-item-joint {
