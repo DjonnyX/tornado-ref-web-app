@@ -10,6 +10,7 @@ import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 import { Pipe, PipeTransform } from '@angular/core';
 import { LocalizationService } from '@app/services/localization/localization.service';
+import { IActionMenuItem } from '@components/action-menu/action-menu.component';
 
 @Pipe({
   name: 'filterProducts'
@@ -28,7 +29,6 @@ export class FilterProductsPipe implements PipeTransform {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
-
 
   public readonly LayoutTypes = LayoutTypes;
 
@@ -120,6 +120,36 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
+
+  getActionMenuItems(product: IProduct): Array<IActionMenuItem> {
+    const items = [{
+      translateKey: product.active ? this.localization.get("common_action-deactivate") :
+        this.localization.get("common_action-activate"),
+      icon: "",
+      trigger: () => {
+        this.onToggleActive(product);
+      }
+    },
+    {
+      translateKey: this.localization.get("common_action-edit"),
+      icon: "",
+      trigger: () => {
+        this.onEditProduct(product);
+      }
+    }];
+
+    if (this.hasDelete()) {
+      items.push({
+        translateKey: product.active ? this.localization.get("common_action-deactivate") :
+          this.localization.get("common_action-delete"),
+        icon: "",
+        trigger: () => {
+          this.onDeleteProduct(product);
+        }
+      });
+    }
+    return items;
+  }
 
   constructor(
     private _cdr: ChangeDetectorRef,
@@ -229,10 +259,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return asset?.mipmap?.[size]?.replace("\\", "/");
   }
 
-  onToggleActive(event: Event, product: IProduct): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-
+  onToggleActive(product: IProduct): void {
     this.update.emit({ ...product, active: !product.active });
   }
 

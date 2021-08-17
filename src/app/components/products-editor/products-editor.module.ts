@@ -12,6 +12,7 @@ import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
 import { StatePanelModule } from '@components/state-panel/state-panel.module';
 import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
 import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
+import { ActionMenuModule } from '@components/action-menu/action-menu.module';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
     StatePanelModule,
     SearchPipeModule,
     TapEffectModule,
+    ActionMenuModule,
   ]
 })
 export class ProductsEditorComponentModule { }
