@@ -1,7 +1,7 @@
 @import "./palette";
 
 $search-text-field-color: $primary-color;
-// $search-text-field-background-color: $primary-color;
+$search-text-field-color-inverse: $background-color; //Themes
 
 //Search
 $search-padding: 0px 12px;
@@ -11,12 +11,19 @@ $search-border-width: 1px;
 //Closed
 $search-width-closed: 160px;
 $search-text-field-color-closed: rgba($primary-color, 0.4); //placeholder color
-$search-border-closed: $search-border-width solid rgba($background-color, 1.0);
+$search-text-field-color-closed-inverse: rgba($background-color, 0.4);
+
+$search-border-color-closed: rgba($background-color, 1.0);
+$search-border-color-closed-inverse: rgba($primary-color, 1.0);
 
 //Opened
 $search-width-opened: 400px;
 $search-text-field-color-opened: $primary-color; //text color
-$search-border-opened: $search-border-width solid rgba($secondary-color, 0.1);
+$search-text-field-color-opened-inverse: $primary-color;
+
+$search-border-color-opened: rgba($secondary-color, 0.1);
+$search-border-color-opened-inverse: rgba($background-color, 0.1);
+
 
 //Search button-search
 $search-button-search-icon-size: 16px;
@@ -24,8 +31,11 @@ $search-button-search-icon-size: 16px;
 //Search button-clear
 $search-button-clear-size: 20px;
 $search-button-clear-border-radius: $search-button-clear-size/2;//6px;//$search-button-clear-size/2;
-$search-button-clear-color: rgba($white, 0.55);
-$search-button-clear-background-color: rgba($white, 0.15);
+
+$search-button-clear-color: $background-color;
+$search-button-clear-color-inverse: $primary-color;
+$search-button-clear-background-color: $primary-color;
+$search-button-clear-background-color-inverse: $background-color;
 
 $search-button-clear-icon-size: 14px;
 

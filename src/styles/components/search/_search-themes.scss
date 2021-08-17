@@ -2,8 +2,50 @@
 @import "../../mixins";
 
 .search {
-    // background-color: $search-text-field-background-color;
     @include themify($themes) {
         background-color: themed('searchBackgroundColor');
+    }
+
+    //Search opened
+    &.typed, &.hit, &.pressed {
+        @include themify($themes) {
+            border-color: themed('searchBorderColorOpened');
+        }
+    }
+
+    //Search closed
+    &:not(.hit, .typed) {
+        @include themify($themes) {
+            border-color: themed('searchBorderColorClosed');
+        }
+    }
+
+    &__form {
+
+        &__button-clear {
+
+            &__container {
+                @include themify($themes) {
+                    background-color: themed('searchButtonClearBackgroundColor');
+                }
+            }
+            &__icon {
+                @include themify($themes) {
+                    color: themed('searchButtonClearColor');
+                }
+            }
+        }
+
+        &__text-field {
+            @include themify($themes) {
+                color: themed('searchTextFieldColor');
+            }
+
+            &::placeholder {
+                @include themify($themes) {
+                    color: themed('searchTextFieldPlaceholderColor');
+                }
+            }
+        }
     }
 }

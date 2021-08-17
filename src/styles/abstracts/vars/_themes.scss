@@ -16,6 +16,13 @@ $themes: (
     statePanelBackgroundColor: $white,
     //Search
     searchBackgroundColor: $background-color,
+    searchTextFieldColor: $search-text-field-color,
+    searchTextFieldPlaceholderColor: $search-text-field-color-closed,
+    searchButtonClearColor: $search-button-clear-color,
+    searchButtonClearBackgroundColor: $search-button-clear-background-color,
+    searchBorderColorClosed: $search-border-color-closed,
+    searchBorderColorOpened: $search-border-color-opened,
+    //
     textColor: $primary-color,
     //Entity
     entityGroupListColor: rgba($secondary-color, 0.4),
@@ -43,17 +50,26 @@ $themes: (
     folderHeaderColor:$primary-color,
     //Node Tree
     nodeWayBorderColor: $border-color,
+    //
+    cdkDragPreviewBackgroundColor: $background-color,
   ),
   dark: (
     //Common
-    backgroundColor: $primary-color,
-    foregroundColor: $primary-color,
+    backgroundColor: $background-color-inverse,
+    foregroundColor: $background-color-inverse,
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
     //State Panel
     statePanelBackgroundColor: $secondary-color,
     //Search
-    searchBackgroundColor: $background-color,
+    searchBackgroundColor: $background-color-inverse,
+    searchTextFieldColor: $search-text-field-color-inverse,
+    searchTextFieldPlaceholderColor: $search-text-field-color-closed-inverse,
+    searchButtonClearColor: $search-button-clear-color-inverse,
+    searchButtonClearBackgroundColor: $search-button-clear-background-color-inverse,
+    searchBorderColorClosed: $search-border-color-closed-inverse,
+    searchBorderColorOpened: $search-border-color-opened-inverse,
+    //
     textColor: $white,
     //Entity
     entityGroupListColor: $white,
@@ -81,5 +97,7 @@ $themes: (
     folderHeaderColor:$white,
     //Node Tree
     nodeWayBorderColor: $border-color-inverse,
+    //
+    cdkDragPreviewBackgroundColor: $background-color-inverse,
   ),
 );

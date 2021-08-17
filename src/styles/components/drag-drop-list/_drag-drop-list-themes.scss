@@ -1,0 +1,14 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.cdk-drag-preview {
+    // @include themify($themes) {
+    //     background-color: themed('cdkDragPreviewBackgroundColor');
+    // }
+}
+
+.drag-drop-placeholder {
+    @include themify($themes) {
+        background-color: themed('backgroundColor');
+    }
+}

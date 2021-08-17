@@ -1,4 +1,3 @@
-@import "../../utils/px2em";
 @import "../../abstracts/vars";
 @import "../../base/reset-input";
 @import "../../mixins";
@@ -7,9 +6,6 @@ $search-icon-color-closed: rgba($secondary-color, 0.4);
 $search-icon-color-opened: $secondary-color;
 
 .search {
-  // border: $search-border-closed;
-  // width: $search-width-closed;
-  // @include transition(width border, $entity-interaction-duration, ease-in-out);
 
   //Search opened
     &.typed, &.hit, &.pressed {
@@ -17,7 +13,6 @@ $search-icon-color-opened: $secondary-color;
         animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
         animation-name: search-animation-in;
 
-        border: $search-border-opened;
         width: $search-width-opened;
     }
 
@@ -27,7 +22,6 @@ $search-icon-color-opened: $secondary-color;
         animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
         animation-name: search-animation-out;
 
-        border: $search-border-closed;
         width: $search-width-closed;
     }
 
@@ -82,30 +76,24 @@ $search-icon-color-opened: $secondary-color;
 @keyframes search-animation-in {
   from {
     width: $search-width-closed;
-    border: $search-border-closed;
   }
   65% {
     width: $search-width-opened * 1.01;
-    border: $search-border-opened;
   }
   to {
     width: $search-width-opened;
-    border: $search-border-opened;
   }
 }
 
 @keyframes search-animation-out {
   from {
     width: $search-width-opened;
-    border: $search-border-opened;
   }
   65% {
     width: $search-width-closed * 1.01;
-    border: $search-border-closed;
   }
   to {
     width: $search-width-closed;
-    border: $search-border-closed;
   }
 }
 
@@ -124,21 +112,6 @@ $search-icon-color-opened: $secondary-color;
     transform: scale(1.0);
   }
 }
-
-// @keyframes search-button-clear-animation-out {
-//   from {
-//     width: $search-width-opened;
-//     border: $search-border-opened;
-//   }
-//   65% {
-//     width: $search-width-closed * 1.01;
-//     border: $search-border-closed;
-//   }
-//   to {
-//     width: $search-width-closed;
-//     border: $search-border-closed;
-//   }
-// }
 
 //Search Icon
 @keyframes search-icon-animation-in {
