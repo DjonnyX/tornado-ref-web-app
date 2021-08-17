@@ -32,10 +32,10 @@ export class AppComponent implements OnInit {
       select(SettingsSelectors.selectTheme),
     ).subscribe(
       v => {
-        const appRoot = document.body.getElementsByTagName("app-root")[0];
+        const body = document.body;
         const themeClass = `theme-${v}`;
-        appRoot.classList.add(themeClass);
-        appRoot.classList.remove(this._previouseTheme);
+        body.classList.add(themeClass);
+        body.classList.remove(this._previouseTheme);
         this._previouseTheme = themeClass;
       }
     );
