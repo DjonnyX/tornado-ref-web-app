@@ -6,7 +6,7 @@
             <input class="dropdown-selector__input" [id]="index" type="radio"
                 [value]="getPropValue(item, valuePropName)" [formControl]="ctrlInput" [checked]="selected === item">
             <p class="dropdown-selector__input-text">
-                {{item.data.__name__}}
+                {{item?.data?.__name__}}
             </p>
         </div>
     </div>

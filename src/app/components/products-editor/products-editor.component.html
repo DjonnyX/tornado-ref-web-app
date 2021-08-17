@@ -6,11 +6,16 @@
 
 <!-- ActionMenu -->
 <ng-template #popupMenu let-product="data">
+    <!-- <button mat-icon-button (click)="actionMenu.open()" class="entity__action-menu__button" aria-label="Menu">
+        <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+    <ta-action-menu #actionMenu [items]="getActionMenuItems(product)"></ta-action-menu> -->
+
     <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
         <mat-icon class="icon">more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
+        <button mat-menu-item type="button" (click)="onToggleActive(product)">
             <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
             <span>
                 {{product.active ? localization.get("common_action-deactivate") :
@@ -67,7 +72,7 @@
                                                     <!--My checkbox-->
                                                     <div class="entity__control__checkbox">
                                                         <ta-checkbox #checkboxActive [checked]="product.active"
-                                                            (click)="onToggleActive($event, product)"></ta-checkbox>
+                                                            (click)="onToggleActive(product)"></ta-checkbox>
                                                     </div>
                                                     <!--My checkbox-->
                                                 </div>
@@ -192,7 +197,7 @@
                                                 <div class="entity__control__container">
                                                     <!--My checkbox-->
                                                     <ta-checkbox #checkboxActive [checked]="product.active"
-                                                        (click)="onToggleActive($event, product)"></ta-checkbox>
+                                                        (click)="onToggleActive(product)"></ta-checkbox>
 
                                                     <ng-container
                                                         *ngTemplateOutlet="popupMenu; context: {data: product}">

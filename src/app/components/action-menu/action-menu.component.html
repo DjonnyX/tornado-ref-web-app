@@ -1,0 +1,8 @@
+<ng-template #itemRenderer let-data="data">
+    <span class="dropdown-selector__option-image sm">
+        <span [class]="data.icon"></span>
+    </span>
+    {{localization.get(data.translateKey)}}
+</ng-template>
+<ta-select #select [formControl]="ctrlActionMenu" [items]="items" [itemRenderer]="itemRenderer">
+</ta-select>
