@@ -56,7 +56,9 @@ $node-tree-item-thumbnail-size: 32px;
     }
 
     &__wrapper {
+        
         .node-tree-item-way {
+            display: none;
             margin: 4px 0 0 $offset-x;
             border-left-width: 1px;
             border-left-style: solid;
@@ -161,7 +163,7 @@ $node-tree-item-thumbnail-size: 32px;
                 }
 
                 &.is-instance {
-                    background: $instance-node-color;
+                    background: $neutral-color;//$instance-node-color;
                 }
 
                 &.disabled {
