@@ -2,6 +2,7 @@ import { IProduct } from '@djonnyx/tornado-types';
 
 export const formatProductModel = (model: IProduct) => ({
     active: model.active,
+    position: model.position,
     contents: model.contents,
     prices: model.prices.map(price => ({
         currency: price.currency,

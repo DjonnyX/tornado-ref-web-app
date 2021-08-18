@@ -62,6 +62,13 @@
                                     </ng-container>
                                 </div>
                                 <div class="entities-container entities-list-layout">
+                                    <!-- <div *ngIf="filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code as items"
+                                        cdkDropList class="drag-drop-list" [cdkDropListData]="items"
+                                        (cdkDropListDropped)="drop($event)">
+                                        <div cdkDrag [cdkDragData]="product" #entityProductListItem
+                                            class="entity entity-product" *ngFor="let product of items | sortProducts:'position'"
+                                            [class.disabled]="!product.active">
+                                            <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
                                     <div #entityProductListItem class="entity entity-product"
                                         *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                         [class.disabled]="!product.active">
@@ -97,7 +104,8 @@
                                                             </div>
                                                             <div class="entity__description">
                                                                 {{getProductDescription(product) | slice:0:60
-                                                                }}{{getProductDescription(product).length > 20 ? "..." :
+                                                                }}{{getProductDescription(product).length > 20 ?
+                                                                "..." :
                                                                 ""}}
                                                             </div>
                                                             <div class="entity__elements-group-space-between">
@@ -138,7 +146,7 @@
                                         </div>
                                         <div class="color" [style.background]="getProductColor(product)"></div>
                                         <!-- Entity Active-Zone -->
-
+                                        <!-- </div> -->
                                     </div>
                                 </div>
                             </div>

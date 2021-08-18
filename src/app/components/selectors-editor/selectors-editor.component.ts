@@ -7,6 +7,7 @@ import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage, ISyste
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
 import { LocalizationService } from '@app/services/localization/localization.service';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Pipe({
   name: 'filterSelectors'
@@ -246,4 +247,15 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   onShowHiddenEntities(displayInactiveEntities: boolean) {
     this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
+
+  /*drop(event: CdkDragDrop<string[]>) {
+    const item = event.item.data as ISelector;
+    const globalIndex = this._collection?.findIndex(i => i === item);
+    const groupItems = this.collection?.filter(i => i.systemTag === item.systemTag);
+
+    this.update.emit({
+      ...item,
+      position: globalIndex - groupItems.length + (event.previousIndex + event.currentIndex),
+    });
+  }*/
 }

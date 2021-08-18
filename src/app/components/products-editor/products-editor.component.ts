@@ -11,6 +11,7 @@ import { LayoutTypes } from '@components/state-panel/state-panel.component';
 import { Pipe, PipeTransform } from '@angular/core';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import { IActionMenuItem } from '@components/action-menu/action-menu.component';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Pipe({
   name: 'filterProducts'
@@ -19,6 +20,16 @@ export class FilterProductsPipe implements PipeTransform {
   transform(items: Array<IProduct>, systemTag: ISystemTag | undefined): any[] {
     if (!items) return [];
     return items.filter(p => p.systemTag === systemTag?.id);
+  }
+}
+
+@Pipe({
+  name: 'sortProducts'
+})
+export class SortProductsPipe implements PipeTransform {
+  transform(items: Array<IProduct>, prop: string): any[] {
+    if (!items) return [];
+    return items.sort((a, b) => a?.[prop] - b?.[prop]);
   }
 }
 
@@ -305,4 +316,19 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   onShowHiddenEntities(displayInactiveEntities: boolean) {
     this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
+
+  /*drop(event: CdkDragDrop<string[]>) {
+    const item = event.item.data as IProduct;
+    const globalIndex = this._collection?.findIndex(i => i === item);
+    if (globalIndex === -1) {
+      throw Error("Item not found");
+    }
+
+    const groupItems = this.collection?.filter(i => i.systemTag === item.systemTag);
+
+    this.update.emit({
+      ...item,
+      position: globalIndex - groupItems.length + (event.previousIndex + event.currentIndex),
+    });
+  }*/
 }

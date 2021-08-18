@@ -57,6 +57,11 @@
                                     </ng-container>
                                 </div>
                                 <div class="entities-container entities-list-layout">
+                                    <!-- <div cdkDropList class="drag-drop-list" (cdkDropListDropped)="drop($event)">
+                                        <div cdkDrag #entitySelectorListItem class="entity entity-product"
+                                            *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
+                                            [class.disabled]="!selector.active">
+                                            <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
                                     <div #entitySelectorListItem class="entity entity-product"
                                         *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
                                         [class.disabled]="!selector.active">
@@ -67,7 +72,8 @@
                                                     <!--My checkbox-->
                                                     <div class="entity__control__checkbox">
                                                         <ta-checkbox #checkboxActive [checked]="selector.active"
-                                                            (click)="onToggleActive($event, selector)"></ta-checkbox>
+                                                            (click)="onToggleActive($event, selector)">
+                                                        </ta-checkbox>
                                                     </div>
                                                     <!--My checkbox-->
                                                 </div>
@@ -92,7 +98,8 @@
                                                             </div>
                                                             <div class="entity__description">
                                                                 {{getSelectorDescription(selector) | slice:0:60
-                                                                }}{{getSelectorDescription(selector).length > 20 ? "..."
+                                                                }}{{getSelectorDescription(selector).length > 20 ?
+                                                                "..."
                                                                 :
                                                                 ""}}
                                                             </div>
@@ -111,6 +118,7 @@
                                         </div>
                                         <!-- <div class="color" [style.background]="getSelectorColor(selector)"></div> -->
                                         <!-- Entity Active-Zone -->
+                                        <!-- </div> -->
                                     </div>
                                 </div>
                             </div>
