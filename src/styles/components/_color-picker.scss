@@ -1,4 +1,5 @@
-@import "../themes";
+// @import "../themes";
+@import "../abstracts/vars";
 @import "../base/reset-input";
 @import "../utils/px2em";
 
@@ -10,16 +11,16 @@
         @include reset-input();
 
         &.light {
-            color: $primary-100;
+            color: $primary-color-100;
         }
         &.dark {
-            color: $primary-800;
+            color: $primary-color-800;
         }
 
         cursor: pointer;
 
         position: relative;
-        border: 1px solid rgba($primary, 0.1);
+        border: 1px solid rgba($primary-color, 0.1);
         border-radius: 4px;
         padding: px2em(10);
         width: 100%;

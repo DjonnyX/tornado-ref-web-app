@@ -73,6 +73,25 @@ $node-tree-item-thumbnail-size: 32px;
             }
         }
 
+        .node-tree-item__content + .scenario_editor {
+            border-radius: 0 0 4px 4px;
+        }
+
+        .node-tree-scenario-editor {
+            margin-top: -5px;
+
+            .scenario-editor {
+
+                &__content {
+                    border-radius: 0 0 4px 4px;
+
+                    .content {
+                        border-radius: 0 0 4px 4px;
+                    }
+                }
+            }
+        }
+
         .node-tree-item__content {
             margin: 0 0 0 42px;
             box-sizing: border-box;

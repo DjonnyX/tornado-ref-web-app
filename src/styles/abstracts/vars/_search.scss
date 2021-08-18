@@ -40,4 +40,11 @@ $search-button-clear-background-color-inverse: $background-color;
 $search-button-clear-icon-size: 14px;
 
 //Search placeholder
-$search-text-field-placeholder-size: 15p;
+$search-text-field-placeholder-size: 15px;
+
+//Search Icon
+$search-icon-color-closed: rgba($secondary-color, 0.4);
+$search-icon-color-closed-inverse: rgba($background-color, 0.4);
+
+$search-icon-color-opened: $secondary-color;
+$search-icon-color-opened-inverse: $background-color;
