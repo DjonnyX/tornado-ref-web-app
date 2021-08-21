@@ -1,6 +1,8 @@
 @import "../../abstracts/vars";
 @import "../../mixins";
 
+$navigation-menu-roll-up-width: 300px;
+
 // lg
 @include respond-above(lg) {
     
@@ -9,7 +11,7 @@
 
         .admin__toolbar {
             height: $admin-toolbar-height;
-            grid-template-columns: $navigation-menu-width auto; //Layout
+            grid-template-columns: $navigation-menu-width auto;
         }
 
         .admin__view__wrapper {
@@ -18,11 +20,22 @@
 
             .admin__view__navigation {
                 width: $navigation-menu-width;
-
             }
 
             .admin__view__content {
 
+            }
+
+            &.rolled-up {
+                transform: translateX(-$navigation-menu-roll-up-width);
+                width: calc(100% + #{$navigation-menu-roll-up-width});
+
+                .admin__view__navigation {
+                    // transform: translateX(0px);
+                }
+                .admin__view__content {
+                    // transform: translateX($navigation-menu-width-sm);
+                }
             }
         }
     }
