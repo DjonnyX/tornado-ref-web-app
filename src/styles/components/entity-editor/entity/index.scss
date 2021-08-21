@@ -1,8 +1,9 @@
-@import "./entity-container";
-@import "./entity-themes";
-@import "./entity-templates";
+@import "./entity.container";
+@import "./entity.theme";
+@import "./entity.templates";
 @import "./entity";
-@import "./entity-animation";
+@import "./entity.animation";
+@import "./entity.modifier";
 
 // Entity layouts
 @import "./layouts/product/index"; //.entity-product
