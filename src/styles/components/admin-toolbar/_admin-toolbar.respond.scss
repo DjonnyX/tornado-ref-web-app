@@ -10,10 +10,17 @@
         .navigation-menu__toggle-button {
             display: none;
         }
-    }
 
-    .admin__logo {
-        display: block;
+        .admin__logo {
+            display: block;
+        }
+
+        &.rolled-up {
+
+            .admin__logo {
+                display: none;
+            }
+        }
     }
 }
 
@@ -26,9 +33,9 @@
         .navigation-menu__toggle-button {
             display: block;
         }
-    }
 
-    .admin__logo {
-        display: none;
+        .admin__logo {
+            display: none;
+        }
     }
 }

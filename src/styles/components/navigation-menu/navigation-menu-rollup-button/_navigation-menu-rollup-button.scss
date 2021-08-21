@@ -12,6 +12,7 @@ $navigation-menu-rollup-button-height: 84px;
         @include box(22px, $navigation-menu-rollup-button-height);
         z-index: 999;
         top: calc(50% - #{$navigation-menu-rollup-button-height/2});
+        cursor: pointer;
 
         &__icon {
             display: flex;

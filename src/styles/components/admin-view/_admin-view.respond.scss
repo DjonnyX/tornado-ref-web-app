@@ -12,6 +12,11 @@ $navigation-menu-roll-up-width: 300px;
         .admin__toolbar {
             height: $admin-toolbar-height;
             grid-template-columns: $navigation-menu-width auto;
+
+            &.rolled-up {
+                // transform: translateX(-$navigation-menu-roll-up-width);
+                grid-template-columns: #{$navigation-menu-width - $navigation-menu-roll-up-width} auto;
+            }
         }
 
         .admin__view__wrapper {
