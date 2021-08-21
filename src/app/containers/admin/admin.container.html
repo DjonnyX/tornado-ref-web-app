@@ -139,10 +139,11 @@
     </div>
 
     <div
-        [ngClass]="{'drawer-container': true, 'admin__view__wrapper': true, 'opened': isMenuOpened, 'closed': !isMenuOpened}">
+        [ngClass]="{'drawer-container': true, 'admin__view__wrapper': true, 'opened': isMenuOpened, 'closed': !isMenuOpened, 'rolled-up': isRollupActive}">
         <div class="admin__view__navigation">
             <!--Toggle Button-->
-            <div class="navigation-menu__rollup-button">
+            <div [ngClass]="{'navigation-menu__rollup-button': true, 'active': isRollupActive, 'inactive': !isRollupActive}"
+                (click)="toggleRollupButton()">
                 <div class="navigation-menu__rollup-button__icon">
                     <div class="navigation-menu__rollup-button__icon__symbol icon-menu-arrow">
                     </div>
