@@ -3,7 +3,7 @@
  */
 
  @import "./palette";
- @import "./tab-button";
+ @import "./tab-button"; //???
 
 $themes: (
   light: (
@@ -14,6 +14,8 @@ $themes: (
     dividerColor: $divider-color,
     // Admin Toolbar
     adminToolbarBackgroundColor: $primary-color,
+    // Navigation Menu
+    navigationMenuBackgroundColor: $primary-color,
     //State Panel
     statePanelBackgroundColor: $white,
     //Search
@@ -64,7 +66,9 @@ $themes: (
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
     // Admin Toolbar
-    adminToolbarBackgroundColor: $primary-color,
+    adminToolbarBackgroundColor: $primary-color-1025,
+    // Navigation Menu
+    navigationMenuBackgroundColor: $primary-color-1025,
     //State Panel
     statePanelBackgroundColor: $secondary-color,
     //Search

@@ -4,7 +4,10 @@
 
 .navigation-menu {
     color: $menu-item-color; //Common items
-    background-color: $primary-color;
+    // background-color: $primary-color; //navigationMenuBackgroundColor
+    @include themify($themes) {
+        background-color: themed('navigationMenuBackgroundColor');
+    }
 
     .navigation-menu__expantion-item {
 
