@@ -228,6 +228,8 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   btnThemeClasses: any = { 'tab-button__icon': true };
 
+  isRollupActive: boolean = true;
+
   constructor(
     private _media: MediaObserver,
     private _router: Router,
@@ -240,6 +242,10 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   onToggleMenu(): void {
     this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  toggleRollupButton(): void {
+    this.isRollupActive = !this.isRollupActive;
   }
 
   private extractUrlPath(url: string): string {
