@@ -3,6 +3,8 @@
 @import "../../mixins";
 
 .navigation-menu {
+    color: $menu-item-color; //Common items
+    background-color: $primary-color;
 
     .navigation-menu__expantion-item {
 

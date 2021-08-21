@@ -3,6 +3,23 @@ $secondary-color: #2B2F3C;
 $neutral-color: #7B7D83;
 $accent-color: #ffa000;
 
+$primary-color-50: lighten($primary-color, 5%);
+$primary-color-100: lighten($primary-color, 10%);
+$primary-color-150: lighten($primary-color, 15%);
+$primary-color-200: lighten($primary-color, 20%);
+$primary-color-250: lighten($primary-color, 25%);
+$primary-color-300: lighten($primary-color, 30%);
+$primary-color-500: lighten($primary-color, 50%);
+$primary-color-600: lighten($primary-color, 60%);
+$primary-color-700: lighten($primary-color, 70%);
+$primary-color-800: lighten($primary-color, 80%);
+$primary-color-900: lighten($primary-color, 90%);
+$primary-color-950: lighten($primary-color, 95%);
+
+$primary-color-1025: darken($primary-color, 2.5%);
+$primary-color-1050: darken($primary-color, 5%);
+$primary-color-1100: darken($primary-color, 10%);
+
 
 $white: #fff;
 $black: #000;
@@ -21,28 +38,11 @@ $border-color-inverse: $divider-color-inverse;
 // Components
 
 $background-color: #F0F0F0;
-$background-color-inverse: $primary-color;
+$background-color-inverse: $primary-color-1025;
 $background-color-1100: darken($background-color, 10%);
 
 $menu-expantion-item-color: #60636A;
 $menu-item-color: $background-color;
-
-$primary-color-50: lighten($primary-color, 5%);
-$primary-color-100: lighten($primary-color, 10%);
-$primary-color-150: lighten($primary-color, 15%);
-$primary-color-200: lighten($primary-color, 20%);
-$primary-color-250: lighten($primary-color, 25%);
-$primary-color-300: lighten($primary-color, 30%);
-$primary-color-500: lighten($primary-color, 50%);
-$primary-color-600: lighten($primary-color, 60%);
-$primary-color-700: lighten($primary-color, 70%);
-$primary-color-800: lighten($primary-color, 80%);
-$primary-color-900: lighten($primary-color, 90%);
-$primary-color-950: lighten($primary-color, 95%);
-
-$primary-color-1050: darken($primary-color, 5%);
-$primary-color-1100: darken($primary-color, 10%);
-
 
 
 // Temporary

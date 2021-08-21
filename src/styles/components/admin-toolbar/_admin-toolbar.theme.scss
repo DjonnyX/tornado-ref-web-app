@@ -1,0 +1,8 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.admin__toolbar {
+    @include themify($themes) {
+        background: themed('adminToolbarBackgroundColor');
+    }
+}

@@ -28,9 +28,9 @@ $admin-view-navigation-width-xl: $admin-view-navigation-width;
     .admin__toolbar {
         // height: $admin-toolbar-height;  //layout
         // overflow-x: hidden;
-        @include themify($themes) {
-            background: themed('foregroundColor');
-        }
+        // @include themify($themes) {
+        //     background: themed('foregroundColor');
+        // }
 
         .admin__toolbar__container {
 

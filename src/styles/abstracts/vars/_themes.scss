@@ -12,6 +12,8 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color,
+    // Admin Toolbar
+    adminToolbarBackgroundColor: $primary-color,
     //State Panel
     statePanelBackgroundColor: $white,
     //Search
@@ -58,13 +60,15 @@ $themes: (
   dark: (
     //Common
     backgroundColor: $background-color-inverse,
-    foregroundColor: $background-color-inverse,
+    foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
+    // Admin Toolbar
+    adminToolbarBackgroundColor: $primary-color,
     //State Panel
     statePanelBackgroundColor: $secondary-color,
     //Search
-    searchBackgroundColor: $background-color-inverse,
+    searchBackgroundColor: $primary-color,
     searchTextFieldColor: $search-text-field-color-inverse,
     searchTextFieldPlaceholderColor: $search-text-field-color-closed-inverse,
     searchButtonClearColor: $search-button-clear-color-inverse,
