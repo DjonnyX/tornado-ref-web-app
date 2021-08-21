@@ -9,6 +9,7 @@ $dropdown-selector-value-width: 36px;
     // grid-template-columns: $navigation-menu-width auto; //Layout
     box-sizing: border-box;
     height: 100%;
+    z-index: 9999;
 
     &__logo-section {
         display: flex;
