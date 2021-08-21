@@ -6,7 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { ScenarioListItemComponent } from '../item/scenario-list-item.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatMenuModule } from '@angular/material/menu';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+// import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatCheckboxModule,
+    // MatCheckboxModule,
+    CheckboxModule,
   ]
 })
 export class ScenarioListModule { }

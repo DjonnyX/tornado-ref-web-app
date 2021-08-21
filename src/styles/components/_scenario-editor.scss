@@ -49,6 +49,10 @@ $border: 1px solid rgba($primary, 0.75);
                 padding-right: px2em(20);
                 height: px2em(44);
 
+                .content__text {
+                    font-size: 14px;
+                }
+
                 .content__checkbox-active {
                     padding-left: px2em(12);
                     padding-right: px2em(20);
