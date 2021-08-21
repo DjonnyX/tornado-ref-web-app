@@ -1,0 +1,43 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+//Default
+
+.checkbox {
+
+    &__container {
+        font-size: 22px;
+
+        .checkmark {
+            @include box(20px);
+        }
+
+        input:checked ~ .checkmark { //Checked
+
+            &::before {
+                font-size: 16px;
+
+            }
+        }
+    }
+}
+
+//Medium
+
+.md {
+    .checkbox {
+        font-size: 16px;
+
+        .checkmark {
+            @include box(16px);
+        }
+
+        input:checked ~ .checkmark { //Checked
+
+            &::before {
+                font-size: 13px;
+
+            }
+        }
+    }
+}
