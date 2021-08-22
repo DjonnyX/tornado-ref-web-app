@@ -77,6 +77,18 @@
             line-height: $entity-description-line-height;
         }
 
+        &__tag {
+            display: inline-flex;
+            border-radius: 6px;
+            padding: 3px 12px;
+            margin-bottom: 8px;
+
+            &__name {
+                @extend .entity__name;
+                margin-bottom: 0px;
+            }
+        }
+
         &__footer {
             display: flex;
             align-items: center;

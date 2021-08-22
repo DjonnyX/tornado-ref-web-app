@@ -34,6 +34,7 @@ $themes: (
     entityGroupListColor: rgba($secondary-color, 0.4),
     entityBackgroundColor: $white,
     entityTitleColor: $primary-color,
+    entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($secondary-color, 0.4),
     entityCoastColor: $primary-color,
     entityActionMenuButtonColor: $primary-color,
@@ -58,6 +59,8 @@ $themes: (
     nodeWayBorderColor: $border-color,
     //
     cdkDragPreviewBackgroundColor: $background-color,
+    // Query Progress
+    queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color,
   ),
   dark: (
     //Common
@@ -87,6 +90,7 @@ $themes: (
     entityGroupListColor: $white,
     entityBackgroundColor: $primary-color-100,
     entityTitleColor: $background-color,
+    entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($background-color, 0.4),
     entityCoastColor: $background-color,
     entityActionMenuButtonColor: $white,
@@ -111,5 +115,7 @@ $themes: (
     nodeWayBorderColor: $border-color-inverse,
     //
     cdkDragPreviewBackgroundColor: $background-color-inverse,
+    // Query Progress
+    queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color-inverse,
   ),
 );

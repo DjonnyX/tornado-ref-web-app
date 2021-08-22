@@ -14,39 +14,8 @@
         <div class="entity" *ngFor="let tag of filteredCollection | search:searchPattern:defaultLanguage?.code"
           [class.disabled]="!tag.active">
 
-          <!-- <div class="entity__control">
-              <div class="entity__control__checkbox">
-                <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
-                </mat-checkbox>
-              </div>
-              <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
-                <mat-icon class="icon">more_vert</mat-icon>
-              </button>
-              <mat-menu #menu="matMenu">
-                <button mat-menu-item type="button" (click)="onToggleActive($event, tag)">
-                  <mat-icon>{{tag.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                  <span>{{tag.active ? 'Деактивировать' : 'Активировать'}}</span>
-                </button>
-                <button mat-menu-item (click)="onEdit(tag)">
-                  <mat-icon>edit</mat-icon>
-                  <span>Редактировать</span>
-                </button>
-                <button mat-menu-item (click)="onDelete(tag)">
-                  <mat-icon>delete_forever</mat-icon>
-                  <span>Удалить</span>
-                </button>
-              </mat-menu>
-            </div> -->
-
-
-          <!-- Controls -->
-
           <div class="entity__control">
             <div class="entity__control__container">
-              <!-- <div class="entity__control__checkbox">
-                  <mat-checkbox color="accent" #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
-                  </mat-checkbox>
-                </div> -->
               <!--My checkbox-->
               <div class="entity__control__checkbox">
                 <ta-checkbox #checkboxActive [checked]="tag.active" (click)="onToggleActive($event, tag)">
@@ -81,7 +50,6 @@
               <!-- ActionMenu -->
             </div>
           </div>
-
           <!-- Controls -->
 
 
@@ -91,13 +59,15 @@
                 <div class="entity__text-group">
                   <img align="center" *ngIf="hasThumbnail(tag, 'x32')" class="entity-thumbnail"
                     [src]="getThumbnail(tag, 'x32')">
-                  <div class="entity__name">
-                    {{getName(tag)}}
+                  <div class="entity__tag" [style.background]="getColor(tag)">
+                    <div class="entity__tag__name">
+                      {{getName(tag)}}
+                    </div>
                   </div>
                   <div *ngIf="getDescription(tag)" class="entity__description">
                     {{getDescription(tag)}}
                   </div>
-                  <div class="color" [style.background]="getColor(tag)"></div>
+
                 </div>
               </div>
             </div>

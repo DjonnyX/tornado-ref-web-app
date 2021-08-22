@@ -6,7 +6,7 @@
                 <div class="navigation-menu__expantion-item">
                     <span class="expantion-item__wrapper"
                         [class.expanded]='item.expanded || hasExistsIndex(item.children, selected)'
-                        [class.active]='hasExistsIndex(item.children, selected) || item.index === selected' matRipple
+                        [class.active]='hasExistsIndex(item.children, selected) || item.index === selected'
                         (click)="toggleExpand(item)">
                         <span class="navigation-menu__expantion-item-icon" [ngClass]="getIconClass(item)"></span>
                         <span class="navigation-menu__expantion-item-label">{{localization.get(item.name)}}</span>

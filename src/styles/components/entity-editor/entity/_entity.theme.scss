@@ -37,6 +37,15 @@
             }
         }
 
+        &__tag {
+
+            &__name {
+                @include themify($themes) {
+                    color: themed('entityTitleColorInverse');
+                }
+            }
+        }
+
         &__coast {
             @include themify($themes) {
                 color: themed('entityCoastColor');
