@@ -7,7 +7,7 @@ $entity-footer-container_list_padding: 0px 5px;
 $entity-control-container_cards_padding: 0px 0px 0px $entity-container_padding;
 $entity-control-container_list_padding: 0px $entity-container_padding;
 
-$entity-width: 280px; //px2em(250);
+$entity-width: 280px;
 
 //Content Group
 $entity-title-font-size: 16px;
@@ -19,14 +19,14 @@ $entity-description-line-height: 1.5;
 $entity-coast-font-size: 18px;
 
 //Containers
-$entity-control-height: 53px;
-$entity-footer-height: 52px;
+$entity-control-height: 44px;
+$entity-footer-height: 44px;
 
-$entity-body-cards-height: 130px;//168px;
+$entity-body-cards-height: 110px;
 
 $entity-border-radius: 8px;
 
 //Templates
-$entity-image-cards-size: 128px;
+$entity-image-cards-size: $entity-body-cards-height - 2px;
 $entity-image-list-size: 76px;
 $entity-image-radius: 6px;
