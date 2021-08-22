@@ -65,10 +65,10 @@
         }
         
         &__name {
-            font-size: $entity-title-font-size;
+            font-size: $entity-name-font-size;
             font-weight: 400;
             margin-bottom: 4px;
-            line-height: $entity-title-line-height;
+            line-height: $entity-name-line-height;
         }
 
         &__description {
@@ -84,7 +84,11 @@
             margin-bottom: 8px;
 
             &__name {
-                @extend .entity__name;
+                // @extend .entity__name;
+                font-size: $entity-tag-name-font-size;
+                font-weight: 400;
+                margin-bottom: 4px;
+                line-height: $entity-tag-name-line-height;
                 margin-bottom: 0px;
             }
         }
