@@ -3,6 +3,7 @@
 
 .tab-list {
   @extend .button-group;
+  margin-bottom: 25px;
 
   &__item {
     @extend .button;
