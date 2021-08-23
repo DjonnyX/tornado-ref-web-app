@@ -21,10 +21,11 @@
 
     &__name {
       @extend .button__name;
+      font-size: $tab-list-font-size;
     }
 
     &.selected {
-        background: $accent-color;
+        // background: $accent-color;
         // border: 1px solid lighten($accent-color, 5);
         // color: white;
     }

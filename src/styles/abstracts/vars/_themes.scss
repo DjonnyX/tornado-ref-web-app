@@ -61,6 +61,11 @@ $themes: (
     cdkDragPreviewBackgroundColor: $background-color,
     // Query Progress
     queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color,
+    // Tab List
+    tabListNameColor: $secondary-color,
+    tabListItemBackgroundColor: $inactive-color-light,
+    tabListNameColorSelected: $white,
+    tabListItemBackgroundColorSelected: $accent-color,
   ),
   dark: (
     //Common
@@ -117,5 +122,10 @@ $themes: (
     cdkDragPreviewBackgroundColor: $background-color-inverse,
     // Query Progress
     queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color-inverse,
+    // Tab List
+    tabListNameColor: $secondary-color,
+    tabListItemBackgroundColor: $inactive-color-light-inverse,
+    tabListNameColorSelected: $white,
+    tabListItemBackgroundColorSelected: $accent-color,
   ),
 );
