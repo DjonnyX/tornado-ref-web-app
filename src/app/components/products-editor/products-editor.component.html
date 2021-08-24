@@ -59,8 +59,8 @@
                                             *ngIf="filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code | sortProducts:'position' as items"
                                             cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)">
                                             <div #entityProductListItem cdkDrag [cdkDragData]="product"
-                                                class="entity entity-product entity-list-layout"
-                                                *ngFor="let product of items" [class.disabled]="!product.active">
+                                                class="entity entity-product list-layout" *ngFor="let product of items"
+                                                [class.disabled]="!product.active">
                                                 <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
 
                                                 <div class="entity__wrapper">
@@ -149,7 +149,7 @@
                                 <!-- Card-template -->
                                 <ng-container *ngSwitchCase="LayoutTypes.CARD">
                                     <div class="entities-container entities-card-layout">
-                                        <div #entityProductCardItem class="entity entity-product entity-card-layout"
+                                        <div #entityProductCardItem class="entity entity-product card-layout"
                                             *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
                                             [class.disabled]="!product.active">
                                             <div class="entity__wrapper">
