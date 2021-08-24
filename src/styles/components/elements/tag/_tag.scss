@@ -20,6 +20,10 @@
         line-height: 1.0;
         letter-spacing: 0.5px;
         border-radius: 10px;//$tag-roundness-xl;
+
+        &.inactive {
+            opacity: 0.4;
+        }
     }
 }
 

@@ -1,0 +1,76 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+// .primary {
+//     .node-tree-item {
+//         .node-item-way-hider {
+//             background: $primary-800;
+//         }
+
+//         .node-tree-item-joint {
+//             border-bottom: $border-primary;
+//         }
+
+//         &__wrapper {
+//             .node-tree-item-way {
+//                 border-left: $border-primary;
+
+//                 .way-nail {
+//                     background: $primary-800;
+//                 }
+//             }
+//         }
+//     }
+// }
+
+.cdk-drop-list-dragging {
+
+    .drag-drop-box {
+
+        .content {
+
+            .node-tree-item-joint {
+                display: none;
+            }
+        }
+    }
+}
+
+.cdk-drop-drag-preview {
+
+    .node-tree-item-joint {
+            display: none; //in others
+        }
+}
+
+.drag-drop-list.cdk-drop-list-dragging .drag-drop-box:not(.cdk-drag-placeholder) {
+
+    .node-tree-item-joint {
+            // display: none; //in others
+        }
+}
+
+//Hide inderted items 
+//Dragged
+.cdk-drag-preview {
+
+    .node-tree-item {
+
+        &__wrapper {
+
+            .node-tree-item-way {
+                // display: none;
+                opacity: 0.0;
+            }
+        }
+    }
+
+    //Hide Joint
+    .node-tree-item-joint {
+        display: none;
+    }
+
+    // .node-tree-item-way, .node-item-way-hider {
+    //     display: none;
+    // }
+}

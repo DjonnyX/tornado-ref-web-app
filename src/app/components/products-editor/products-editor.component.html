@@ -48,7 +48,8 @@
                     <ng-container *ngFor="let systemTag of tagsList">
                         <div cdkDropList [cdkDropListData]="actualSystemTags"
                             (cdkDropListDropped)="onDropSystemTag($event)" *ngIf="(filteredCollection | filterProducts:systemTag |
-                            search:searchPattern:defaultLanguage?.code).length as systemTagsLength">
+                            search:searchPattern:defaultLanguage?.code).length as systemTagsLength"
+                            class="drag-drop-list">
                             <ta-expansion-panel cdkDrag [cdkDragData]="systemTag" [headerTemplateData]="{
                                         title: !!systemTag?.name ? systemTag.name + '(' + systemTagsLength + ')' : localization.get('common_not-allocated')
                                     }">
