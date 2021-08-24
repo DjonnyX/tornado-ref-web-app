@@ -17,14 +17,33 @@
 //         padding: 0 0 px2em(16);
 //     }
 // }
+.cdk-drag-preview { 
+
+    .expansion-panel {
+
+        &__header {
+            pointer-events: visible;
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorHover'); 
+            }
+        }
+    }
+}
 
 .expansion-panel {
 
     &__header {
 
         &:hover {
-            // background-color: rgba(0,0,0,0.1);
-            // color: black;
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorHover'); 
+            }
+        }
+
+        &:active {
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorActive'); 
+            }
         }
     }
 

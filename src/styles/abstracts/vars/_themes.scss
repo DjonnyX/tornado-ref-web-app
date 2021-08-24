@@ -66,6 +66,10 @@ $themes: (
     tabListItemBackgroundColor: $tab-list-item-background-color,
     tabListNameColorSelected: $tab-list-name-color-selected,
     tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected,
+    //Expansion Panel
+    expansionPanelBackgroundColor: $expansion-panel-background-color,
+    expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover,
+    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active,
   ),
   dark: (
     //Common
@@ -127,5 +131,9 @@ $themes: (
     tabListItemBackgroundColor: $tab-list-item-background-color-inverse,
     tabListNameColorSelected: $tab-list-name-color-selected-inverse,
     tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected-inverse,
+    //Expansion Panel
+    expansionPanelBackgroundColor: $expansion-panel-background-color-inverse,
+    expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover-inverse,
+    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active-inverse,
   ),
 );
