@@ -115,6 +115,8 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
 
   @Output() reposition = new EventEmitter<Array<IEntityPosition>>();
 
+  @Output() repositionSystemTags = new EventEmitter<Array<IEntityPosition>>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
@@ -260,7 +262,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 
-  drop(event: CdkDragDrop<string[]>) {
+  onDrop(event: CdkDragDrop<string[]>) {
     const item = event.item.data as ISelector;
     const globalPreviousIndex = this._collection?.findIndex(i => i === item);
     if (globalPreviousIndex === -1) {
@@ -277,6 +279,22 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     this.reposition.emit(
       collection.map((product, index) => ({
         id: product.id,
+        position: index,
+      }))
+    );
+  }
+
+  onDropSystemTag(event: CdkDragDrop<string[]>) {
+    const previousIndex = event.previousIndex;
+    const currentIndex = event.currentIndex;
+
+    const collection = [...(this._systemTags || [])];
+    const systemTag = collection[previousIndex];
+    collection.splice(previousIndex, 1);
+    collection.splice(currentIndex, 0, systemTag);
+    this.repositionSystemTags.emit(
+      collection.map((st, index) => ({
+        id: st.id,
         position: index,
       }))
     );

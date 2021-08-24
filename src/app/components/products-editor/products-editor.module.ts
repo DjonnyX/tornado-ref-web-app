@@ -14,6 +14,7 @@ import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
 import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
 import { ActionMenuModule } from '@components/action-menu/action-menu.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExpansionPanelModule } from '@components/base/expansion-panel/expansion-panel.module';
 // import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
@@ -39,6 +40,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     TapEffectModule,
     ActionMenuModule,
     DragDropModule,
+    ExpansionPanelModule,
   ]
 })
 export class ProductsEditorComponentModule { }

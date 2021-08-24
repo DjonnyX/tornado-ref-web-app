@@ -252,12 +252,13 @@ export class ApiService {
       });
   }
 
-  public updateProductsPositions(positions: Array<IEntityPosition>): Observable<IEntityPositionsResponse> {
+  public updateProductsPositions(positions: Array<IEntityPosition>, options?: IRequestOptions): Observable<IEntityPositionsResponse> {
     return this._http
       .put<IEntityPositionsResponse>("api/v1/products/positions", positions, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: extractParams(options),
       });
   }
 
@@ -1889,6 +1890,16 @@ export class ApiService {
         headers: {
           "authorization": this.getAuthToken(),
         },
+      });
+  }
+
+  public updateSystemTagsPositions(positions: Array<IEntityPosition>, options?: IRequestOptions): Observable<IEntityPositionsResponse> {
+    return this._http
+      .put<IEntityPositionsResponse>("api/v1/system-tags/positions", positions, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
       });
   }
 

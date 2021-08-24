@@ -72,8 +72,8 @@ export default class SelectorsEffects {
     public readonly updatePositionsRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorsActions.repositionRequest),
-            switchMap(({ positions }) => {
-                return this._apiService.updateProductsPositions(positions).pipe(
+            switchMap(({ positions, options }) => {
+                return this._apiService.updateSelectorsPositions(positions, options).pipe(
                     mergeMap(res => {
                         return [SelectorsActions.repositionSuccess({ positions, meta: res.meta })];
                     }),

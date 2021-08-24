@@ -13,6 +13,7 @@ import { StatePanelModule } from '@components/state-panel/state-panel.module';
 import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
 import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExpansionPanelModule } from '@components/base/expansion-panel/expansion-panel.module';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     SearchPipeModule,
     TapEffectModule,
     DragDropModule,
+    ExpansionPanelModule,
   ]
 })
 export class SelectorsEditorComponentModule { }

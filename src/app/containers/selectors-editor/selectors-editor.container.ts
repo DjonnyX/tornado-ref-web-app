@@ -188,15 +188,30 @@ export class SelectorsEditorContainer implements OnInit, OnDestroy {
   }
 
   onReposition(positions: Array<IEntityPosition>): void {
-    this._store.dispatch(SelectorsActions.repositionRequest({ positions, options: {
-      filter: [
-        {
-          id: "type",
+    this._store.dispatch(SelectorsActions.repositionRequest({
+      positions, options: {
+        filter: [
+          {
+            id: "type",
+            operation: "equals",
+            value: this._selectorsType,
+          }
+        ]
+      }
+    }));
+  }
+
+  onSystemTagsReposition(positions: Array<IEntityPosition>): void {
+    this._store.dispatch(SystemTagsActions.repositionRequest({
+      positions,
+      options: {
+        filter: [{
+          id: "extra.entity",
           operation: "equals",
           value: this._selectorsType,
-        }
-      ]
-    } }));
+        }],
+      }
+    }));
   }
 
   onChangeLayout(layout: LayoutTypes): void {

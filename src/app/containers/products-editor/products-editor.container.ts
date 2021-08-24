@@ -198,6 +198,19 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(ProductsActions.repositionRequest({ positions }));
   }
 
+  onSystemTagsReposition(positions: Array<IEntityPosition>): void {
+    this._store.dispatch(SystemTagsActions.repositionRequest({
+      positions,
+      options: {
+        filter: [{
+          id: "extra.entity",
+          operation: "equals",
+          value: "product",
+        }],
+      }
+    }));
+  }
+
   onChangeLayout(layout: LayoutTypes): void {
     this._store.dispatch(SettingsActions.changeProductsLayout({ layout }));
   }
