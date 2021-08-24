@@ -1,6 +1,6 @@
 <ng-template #tmpBaseHeaderContent let-data>
-    <span class="header-base__title">{{data.title}}</span>
-    <span class="header-base__icon" [ngClass]="{headerIconBase: !!headerIconBase}">
+    <span class="expansion-panel__title">{{data.title}}</span>
+    <span class="expansion-panel__icon" [ngClass]="{headerIconBase: !!headerIconBase}">
         <div *ngIf="opened; else iconClosed" class="icon-checkbox-check"></div>
         <ng-template #iconClosed>
             <div class="icon-banners"></div>
