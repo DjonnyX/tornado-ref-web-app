@@ -92,6 +92,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder-themes",
           name: "menu_themes", //Темы",
+          expanded: false,
           children: [
             {
               icon: "menu-theme",
@@ -120,6 +121,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder-menu",
           name: "menu_menu-folder", //"Формирование меню",
+          expanded: false,
           children: [
             {
               icon: "menu-theme",
@@ -139,6 +141,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
             {
               icon: "folder-menu",
               name: "menu_menu-groups", //"Группы",
+              expanded: false,
               children: [
                 {
                   icon: "menu-group",
@@ -157,6 +160,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder",
           name: "menu_ads", //"Рекламы",
+          expanded: false,
           children: [
             {
               icon: "splash-screen",
@@ -178,6 +182,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder",
           name: "menu_advanced-settings", //"Дополнительно",
+          expanded: false,
           children: [
             {
               icon: "checkue",
@@ -190,7 +195,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
               name: "menu_currencies", //"Валюты",
               route: "currencies",
             },
-
             {
               icon: "order-types",
               name: "menu_order-types", //"Типы заказов",
@@ -228,7 +232,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   btnThemeClasses: any = { 'tab-button__icon': true };
 
-  isRollupActive: boolean = true;
+  isRollupActive: boolean = false;
 
   constructor(
     private _media: MediaObserver,
@@ -291,7 +295,9 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
       if (!!collection[i].children && collection[i].children.length > 0) {
-        collection[i].expanded = true;
+        if (collection[i].expanded === undefined) {
+          collection[i].expanded = true;
+        }
         result = this.normalizedRoutesCollection(collection[i].children, result, collection[i]);
       } else {
         collection[i].index = result;
