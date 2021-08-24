@@ -62,10 +62,10 @@ $themes: (
     // Query Progress
     queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color,
     // Tab List
-    tabListNameColor: $secondary-color,
-    tabListItemBackgroundColor: $inactive-color-light,
-    tabListNameColorSelected: $white,
-    tabListItemBackgroundColorSelected: $accent-color,
+    tabListNameColor: $tab-list-name-color,
+    tabListItemBackgroundColor: $tab-list-item-background-color,
+    tabListNameColorSelected: $tab-list-name-color-selected,
+    tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected,
   ),
   dark: (
     //Common
@@ -123,9 +123,9 @@ $themes: (
     // Query Progress
     queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color-inverse,
     // Tab List
-    tabListNameColor: $white,
-    tabListItemBackgroundColor: $inactive-color-light-inverse,
-    tabListNameColorSelected: $white,
-    tabListItemBackgroundColorSelected: $accent-color,
+    tabListNameColor: $tab-list-name-color-inverse,
+    tabListItemBackgroundColor: $tab-list-item-background-color-inverse,
+    tabListNameColorSelected: $tab-list-name-color-selected-inverse,
+    tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected-inverse,
   ),
 );

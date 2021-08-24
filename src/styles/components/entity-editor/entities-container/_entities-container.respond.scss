@@ -4,20 +4,26 @@
 @include respond-above (md) {
 
     .entities-container {
-        padding: $entities-container-padding;
+        // padding: $entities-container-padding;
+        padding-left: $entities-container-padding-left;
+        padding-right: $entities-container-padding-right;
     }
 }
 
 @include respond-between (sm, md) {
 
     .entities-container {
-        padding: $entities-container-padding;
+        // padding: $entities-container-padding;
+        padding-left: $entities-container-padding-left;
+        padding-right: $entities-container-padding-right;
     }
 }
 
 @include respond-below (sm) {
 
     .entities-container {
-        padding: $entities-container-padding-sm;
+        // padding: $entities-container-padding-sm;
+        padding-left: $entities-container-padding-left-md;
+        padding-right: $entities-container-padding-right-md;
     }
 }

@@ -3,35 +3,32 @@
 
 // Interactions
 
-.editor {
+.entity {
 
-    .entity {
+    &.disabled {
+        opacity: $entity-disabled-opacity;
+    }
 
-        &.disabled {
-            opacity: $entity-disabled-opacity;
-        }
+    &.focused:not(.disabled) {
+        opacity: $entity-focus-opacity;
+    }
 
-        &.focused:not(.disabled) {
-            opacity: $entity-focus-opacity;
-        }
+    &.pressed:not(.disabled) {
+        transform: scale($entity-active-scale);
+        opacity: $entity-focus-opacity;
+    }
 
-        &.pressed:not(.disabled) {
-            transform: scale($entity-active-scale);
-            opacity: $entity-focus-opacity;
-        }
+    &.focused:is(.disabled) {
+    }
 
-        &.focused:is(.disabled) {
-        }
+    &.pressed:is(.disabled) {
+        transform: scale($entity-active-scale);
+    }
 
-        &.pressed:is(.disabled) {
-            transform: scale($entity-active-scale);
-        }
-
-        & {
-            transform: scale(1.0);
-            opacity: 1.0;
-            @include transition(transform opacity, $entity-interaction-duration, ease);
-        }
+    & {
+        transform: scale(1.0);
+        opacity: 1.0;
+        @include transition(transform opacity, $entity-interaction-duration, ease);
     }
 }
 
