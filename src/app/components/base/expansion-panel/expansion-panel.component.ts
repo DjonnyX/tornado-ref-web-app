@@ -21,10 +21,7 @@ export class ExpansionPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  toggleExpand(e:Event): void {
-    e.stopImmediatePropagation();
-    e.preventDefault()
-    
+  onToggleExpand(e:Event): void {
     this.opened = !this.opened;
   }
 }

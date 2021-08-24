@@ -27,7 +27,7 @@ export class FilterProductsPipe implements PipeTransform {
   name: 'sortProducts'
 })
 export class SortProductsPipe implements PipeTransform {
-  transform(items: Array<IProduct>, prop: string): any[] {
+  transform(items: Array<any>, prop: string): any[] {
     if (!items) return [];
     return items.sort((a, b) => Number(a?.[prop]) - Number(b?.[prop]));
   }

@@ -13,7 +13,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
   name: 'filterSelectors'
 })
 export class FilterSelectorsPipe implements PipeTransform {
-  transform(items: Array<ISelector>, systemTag: ISystemTag | undefined): any[] {
+  transform(items: Array<any>, systemTag: ISystemTag | undefined): any[] {
     if (!items) return [];
     return items.filter(s => s.systemTag === systemTag?.id);
   }
@@ -23,7 +23,7 @@ export class FilterSelectorsPipe implements PipeTransform {
   name: 'sortSelectors'
 })
 export class SortSelectorsPipe implements PipeTransform {
-  transform(items: Array<ISelector>, prop: string): any[] {
+  transform(items: Array<IEntityPosition>, prop: string): any[] {
     if (!items) return [];
     return items.sort((a, b) => Number(a?.[prop]) - Number(b?.[prop]));
   }

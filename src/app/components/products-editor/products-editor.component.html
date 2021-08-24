@@ -1,9 +1,3 @@
-<ng-template #notAllocated>
-    <div>
-        {{localization.get("common_not-allocated")}}
-    </div>
-</ng-template>
-
 <!-- ActionMenu -->
 <ng-template #popupMenu let-product="data">
     <!-- <button mat-icon-button (click)="actionMenu.open()" class="entity__action-menu__button" aria-label="Menu">
@@ -50,27 +44,20 @@
             <!-- List-template -->
             <div class="editor__container">
                 <!--Entity Wrapper-->
-                <ng-container *ngFor="let systemTag of actualSystemTags">
-                    <ng-container *ngIf="!!systemTag?.name; else notAllocated">
-                        <div cdkDropList class="drag-drop-list" [cdkDropListData]="actualSystemTags"
+                <ng-container *ngIf="actualSystemTags | sortProducts: 'position' as tagsList">
+                    <ng-container *ngFor="let systemTag of tagsList">
+                        <div cdkDropList [cdkDropListData]="actualSystemTags"
                             (cdkDropListDropped)="onDropSystemTag($event)" *ngIf="(filteredCollection | filterProducts:systemTag |
                             search:searchPattern:defaultLanguage?.code).length as systemTagsLength">
                             <ta-expansion-panel cdkDrag [cdkDragData]="systemTag" [headerTemplateData]="{
-                                        title: systemTag.name + '(' + systemTagsLength + ')'
+                                        title: !!systemTag?.name ? systemTag.name + '(' + systemTagsLength + ')' : localization.get('common_not-allocated')
                                     }">
                                 <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
                                 <ng-container *ngSwitchCase="LayoutTypes.LIST">
-
-
                                     <div class="editor__group-list">
-                                        <div class="editor__group-list__header">
-                                            <ng-container *ngIf="!!systemTag?.name; else notAllocated">
-
-                                            </ng-container>
-                                        </div>
                                         <div class="entities-container entities-list-layout"
                                             *ngIf="filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code | sortProducts:'position' as items"
-                                            cdkDropList class="drag-drop-list" [cdkDropListData]="items"
+                                            cdkDropList [cdkDropListData]="items"
                                             (cdkDropListDropped)="onDrop($event)">
                                             <div #entityProductListItem cdkDrag [cdkDragData]="product"
                                                 class="entity entity-product" *ngFor="let product of items"
@@ -116,17 +103,20 @@
                                                                     </div>
                                                                     <div class="entity__elements-group-space-between">
                                                                         <div class="tags">
-                                                                            <span class="tag"
-                                                                                *ngFor="let tag of product.tags"
-                                                                                [style.background]="getTagColor(tag)"
-                                                                                [matTooltip]="getTagName(tag)">
-                                                                                {{getTagName(tag)}}
-                                                                            </span>
+                                                                            <ng-container
+                                                                                *ngFor="let tag of product.tags">
+                                                                                <span
+                                                                                    [ngClass]="{'tag': true, 'active': !!tag.active, 'inactive': !tag.active}"
+                                                                                    [style.background]="getTagColor(tag)"
+                                                                                    [matTooltip]="getTagName(tag)">
+                                                                                    {{getTagName(tag)}}
+                                                                                </span>
+                                                                            </ng-container>
                                                                         </div>
                                                                         <div class="entity__elements-group">
                                                                             <!-- <p class="entity__weight">
-                                                                        {{product.weight}}
-                                                                    </p> -->
+                                                                                {{product.weight}}
+                                                                            </p> -->
                                                                             <p class="entity__coast">
                                                                                 {{getPrices(product)}}
                                                                             </p>
@@ -159,7 +149,6 @@
                                 </ng-container>
                                 <!-- Card-template -->
                                 <ng-container *ngSwitchCase="LayoutTypes.CARD">
-
                                     <div class="entities-container entities-card-layout">
                                         <div #entityProductCardItem class="entity entity-product"
                                             *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
@@ -208,11 +197,14 @@
                                             <div class="entity__footer">
                                                 <div class="entity__footer__container">
                                                     <div class="tags">
-                                                        <span class="tag" *ngFor="let tag of product.tags"
-                                                            [style.background]="getTagColor(tag)"
-                                                            [matTooltip]="getTagName(tag)">
-                                                            {{getTagName(tag)}}
-                                                        </span>
+                                                        <ng-container *ngFor="let tag of product.tags">
+                                                            <span
+                                                                [ngClass]="{'tag': true, 'active': !!tag.active, 'inactive': !tag.active}"
+                                                                [style.background]="getTagColor(tag)"
+                                                                [matTooltip]="getTagName(tag)">
+                                                                {{getTagName(tag)}}
+                                                            </span>
+                                                        </ng-container>
                                                     </div>
                                                     <p class="entity__coast">
                                                         {{getPrices(product)}}
@@ -229,7 +221,6 @@
                                     <div class="entities-bottom-panel">
                                         <div class="entities-bottom-panel__container">
                                             <button color="accent" class="button-add" (click)="onCreateProduct()">
-                                                <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
                                                 <div class="">Добавить продукт</div>
                                             </button>
                                         </div>

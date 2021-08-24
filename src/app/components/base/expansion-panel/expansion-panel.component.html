@@ -3,13 +3,13 @@
     <span class="header-base__icon" [ngClass]="{headerIconBase: !!headerIconBase}">
         <div *ngIf="opened; else iconClosed" class="icon-checkbox-check"></div>
         <ng-template #iconClosed>
-            <div *ngIf="opened; else iconClosed" class="icon-banners"></div>
+            <div class="icon-banners"></div>
         </ng-template>
     </span>
 </ng-template>
 <div class="expansion-panel">
     <div class="expansion-panel__wrapper">
-        <div class="expansion-panel__header" (click)="toggleExpand($event)">
+        <div class="expansion-panel__header" (click)="onToggleExpand($event)">
             <ng-container
                 *ngTemplateOutlet="(!headerTemplate ? tmpBaseHeaderContent : headerTemplate); context: {$implicit: headerTemplateData}">
             </ng-container>
