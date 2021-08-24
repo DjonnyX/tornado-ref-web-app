@@ -7,6 +7,7 @@
 
   &__item {
     @extend .button;
+    cursor: pointer;
     
     &__container {
       @extend .button__container;
