@@ -171,19 +171,19 @@
                                         </div>
                                     </div>
                                 </ng-container>
-
-                                <ng-container *ngIf="hasCreate()">
-                                    <div class="entities-bottom-panel">
-                                        <div class="entities-bottom-panel__container">
-                                            <button color="accent" class="button-add" (click)="onCreateSelector()">
-                                                <div class="">Добавить категорию</div>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </ng-container>
                             </ta-expansion-panel>
                         </div>
                     </ng-container>
+                </ng-container>
+
+                <ng-container *ngIf="hasCreate()">
+                    <div class="entities-bottom-panel">
+                        <div class="entities-bottom-panel__container">
+                            <button color="accent" class="button-add" (click)="onCreateSelector()">
+                                <div class="">Добавить категорию</div>
+                            </button>
+                        </div>
+                    </div>
                 </ng-container>
             </div>
         </ng-container>
