@@ -16,8 +16,8 @@
             background-color: #c0c0c0;
         }
 
-        .loader-button__content {
-            color: #b3b3b3;
+        .loader-button__text-content {
+            color: #8a8a8a;
         }
     }
 
@@ -48,5 +48,8 @@
     &__text-content {
         text-transform: uppercase;
         font-weight: 600;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
     }
 }

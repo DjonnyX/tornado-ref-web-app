@@ -6,6 +6,7 @@
                 <div *ngIf="iconContent" [ngClass]="{'loader-button_icon-content': true, iconContent: true}"></div>
                 <div *ngIf="textContent" class="loader-button__text-content">
                     {{textContent}}
+                    <ng-content></ng-content>
                 </div>
             </div>
         </div>

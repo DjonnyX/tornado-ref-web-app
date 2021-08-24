@@ -26,8 +26,8 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
   isBackupUploading = false;
 
-  private _isBackupUploadingProgress$ = new BehaviorSubject<number>(0)
-  get isBackupUploadingProgress$() { return this._isBackupUploadingProgress$; }
+  private _backupUploadingTime = 0;
+  backupUploadingTime$: Observable<number>;
 
   constructor(
     private _apiService: ApiService,
@@ -87,6 +87,26 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
   onUploadFile(file: File): void {
     this.isBackupUploading = true;
+
+    const finish$ = new Subject<void>();
+
+    this.backupUploadingTime$ = interval(10).pipe(
+      takeUntil(finish$),
+      map(v => {
+        if (this._backupUploadingTime < 100) {
+          this._backupUploadingTime += 1;
+        } else {
+          this._backupUploadingTime = 0;
+        }
+        return this._backupUploadingTime;
+      }),
+      finalize(() => {
+        this._backupUploadingTime = 0;
+        this.backupUploadingTime$ = of(this._backupUploadingTime);
+      }),
+    );
+
+
     this._apiService.uploadBackup(file).pipe(
       map(res => {
         if (!res) {
@@ -112,11 +132,14 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
       // ok
       if (progress === -1) {
-        this._isBackupUploadingProgress$.next(0);
         this.isBackupUploading = false;
+
+        finish$.next();
+        finish$.complete();
+
         this._notificationService.success("База данных восстановлена");
       } else {
-        this._isBackupUploadingProgress$.next(progress);
+        /// this._backupUploadingTime$.next(progress);
       }
     });
   }
