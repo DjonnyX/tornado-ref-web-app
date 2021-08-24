@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IRequestOptions, ISelector } from '@djonnyx/tornado-types';
+import { IEntityPosition, IRequestOptions, ISelector } from '@djonnyx/tornado-types';
 
 export enum SelectorsActionTypes {
     GET_ALL_REQUEST = "TORNADO/selectors/get-all:request",
@@ -22,6 +22,10 @@ export enum SelectorsActionTypes {
     DELETE_REQUEST = "TORNADO/selectors/delete:request",
     DELETE_SUCCESS = "TORNADO/selectors/delete:success",
     DELETE_ERROR = "TORNADO/selectors/delete:error",
+
+    REPOSITION_REQUEST = "TORNADO/selectors-reposition/delete:request",
+    REPOSITION_SUCCESS = "TORNADO/selectors-reposition/delete:success",
+    REPOSITION_ERROR = "TORNADO/selectors-reposition/delete:error",
     
     CLEAR = "TORNADO/selectors/clear",
 }
@@ -95,6 +99,20 @@ export namespace SelectorsActions {
     export const deleteError = createAction(
         SelectorsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+    
+    // reposition
+    export const repositionRequest = createAction(
+        SelectorsActionTypes.REPOSITION_REQUEST,
+        props<{ positions: Array<IEntityPosition>, options?: IRequestOptions }>()
+    );
+    export const repositionSuccess = createAction(
+        SelectorsActionTypes.REPOSITION_SUCCESS,
+        props<{ positions: Array<IEntityPosition>, meta: IMetaRefsResponse }>()
+    );
+    export const repositionError = createAction(
+        SelectorsActionTypes.REPOSITION_ERROR,
+        props<{ error: string }>()
     );
 
     export const clear = createAction(

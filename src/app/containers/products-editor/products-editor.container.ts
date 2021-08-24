@@ -12,7 +12,7 @@ import { ProductActions } from '@store/actions/product.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { BaseComponent } from '@components/base/base-component';
 import { map, filter } from 'rxjs/operators';
-import { IProduct, ITag, IRef, ILanguage, UserRights, ISystemTag, ICurrency } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IRef, ILanguage, UserRights, ISystemTag, ICurrency, IEntityPosition } from '@djonnyx/tornado-types';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { SystemTagsActions } from '@store/actions/system-tags.action';
 import { CurrenciesActions } from '@store/actions/currencies.action';
@@ -192,6 +192,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   onDelete(id: string): void {
     this._store.dispatch(ProductsActions.deleteRequest({ id }));
+  }
+
+  onReposition(positions: Array<IEntityPosition>): void {
+    this._store.dispatch(ProductsActions.repositionRequest({ positions }));
   }
 
   onChangeLayout(layout: LayoutTypes): void {

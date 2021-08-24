@@ -4,7 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
-import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag, ICurrency } from '@djonnyx/tornado-types';
+import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag, ICurrency, IEntityPosition } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
@@ -29,7 +29,7 @@ export class FilterProductsPipe implements PipeTransform {
 export class SortProductsPipe implements PipeTransform {
   transform(items: Array<IProduct>, prop: string): any[] {
     if (!items) return [];
-    return items.sort((a, b) => a?.[prop] - b?.[prop]);
+    return items.sort((a, b) => Number(a?.[prop]) - Number(b?.[prop]));
   }
 }
 
@@ -127,6 +127,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
   @Output() edit = new EventEmitter<IProduct>();
 
   @Output() update = new EventEmitter<IProduct>();
+
+  @Output() reposition = new EventEmitter<Array<IEntityPosition>>();
 
   @Output() delete = new EventEmitter<string>();
 
@@ -317,18 +319,25 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 
-  /*drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>) {
     const item = event.item.data as IProduct;
-    const globalIndex = this._collection?.findIndex(i => i === item);
-    if (globalIndex === -1) {
+    const globalPreviousIndex = this._collection?.findIndex(i => i === item);
+    if (globalPreviousIndex === -1) {
       throw Error("Item not found");
     }
 
-    const groupItems = this.collection?.filter(i => i.systemTag === item.systemTag);
+    const offset = event.currentIndex - event.previousIndex;
+    const globalCurrentIndex = globalPreviousIndex + offset;
 
-    this.update.emit({
-      ...item,
-      position: globalIndex - groupItems.length + (event.previousIndex + event.currentIndex),
-    });
-  }*/
+    const collection = [...this._collection];
+    const product = collection[globalPreviousIndex];
+    collection.splice(globalPreviousIndex, 1);
+    collection.splice(globalCurrentIndex, 0, product);
+    this.reposition.emit(
+      collection.map((product, index) => ({
+        id: product.id,
+        position: index,
+      }))
+    );
+  }
 }

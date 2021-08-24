@@ -56,15 +56,15 @@
                                         search:searchPattern:defaultLanguage?.code).length}})
                                     </ng-container>
                                 </div>
-                                <div class="entities-container entities-list-layout">
-                                    <!-- <div cdkDropList class="drag-drop-list" (cdkDropListDropped)="drop($event)">
-                                        <div cdkDrag #entitySelectorListItem class="entity entity-product"
-                                            *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
-                                            [class.disabled]="!selector.active">
-                                            <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
-                                    <div #entitySelectorListItem class="entity entity-product"
-                                        *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
+                                <div class="entities-container entities-list-layout"
+                                    *ngIf="filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code | sortSelectors:'position' as items"
+                                    cdkDropList class="drag-drop-list" [cdkDropListData]="items"
+                                    (cdkDropListDropped)="drop($event)">
+                                    <div #entitySelectorListItem cdkDrag [cdkDragData]="selector" #entityProductListItem
+                                        class="entity entity-product" *ngFor="let selector of items"
                                         [class.disabled]="!selector.active">
+                                        <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+
                                         <div class="entity__wrapper">
                                             <!-- Controls -->
                                             <div class="entity__control">
@@ -231,6 +231,4 @@
             </ng-container>
         </ng-container>
     </div>
-
-
 </div>

@@ -69,6 +69,24 @@ export default class SelectorsEffects {
         )
     );
 
+    public readonly updatePositionsRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(SelectorsActions.repositionRequest),
+            switchMap(({ positions }) => {
+                return this._apiService.updateProductsPositions(positions).pipe(
+                    mergeMap(res => {
+                        return [SelectorsActions.repositionSuccess({ positions, meta: res.meta })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(SelectorsActions.repositionError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SelectorsActions.deleteRequest),

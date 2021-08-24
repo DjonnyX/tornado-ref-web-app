@@ -61,17 +61,17 @@
                                         search:searchPattern:defaultLanguage?.code).length}})
                                     </ng-container>
                                 </div>
-                                <div class="entities-container entities-list-layout">
-                                    <!-- <div *ngIf="filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code as items"
-                                        cdkDropList class="drag-drop-list" [cdkDropListData]="items"
-                                        (cdkDropListDropped)="drop($event)">
-                                        <div cdkDrag [cdkDragData]="product" #entityProductListItem
-                                            class="entity entity-product" *ngFor="let product of items | sortProducts:'position'"
-                                            [class.disabled]="!product.active">
-                                            <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
-                                    <div #entityProductListItem class="entity entity-product"
-                                        *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
+                                <div class="entities-container entities-list-layout"
+                                    *ngIf="filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code | sortProducts:'position' as items"
+                                    cdkDropList class="drag-drop-list" [cdkDropListData]="items"
+                                    (cdkDropListDropped)="drop($event)">
+                                    <div #entitySelectorListItem cdkDrag [cdkDragData]="product" #entityProductListItem
+                                        class="entity entity-product" *ngFor="let product of items"
                                         [class.disabled]="!product.active">
+                                        <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+                                        <!-- <div #entityProductListItem class="entity entity-product"
+                                        *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
+                                        [class.disabled]="!product.active"> -->
                                         <div class="entity__wrapper">
                                             <!-- Controls -->
                                             <div class="entity__control">
@@ -146,7 +146,6 @@
                                         </div>
                                         <div class="color" [style.background]="getProductColor(product)"></div>
                                         <!-- Entity Active-Zone -->
-                                        <!-- </div> -->
                                     </div>
                                 </div>
                             </div>

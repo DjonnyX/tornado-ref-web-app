@@ -13,6 +13,7 @@ import { StatePanelModule } from '@components/state-panel/state-panel.module';
 import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
 import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
 import { ActionMenuModule } from '@components/action-menu/action-menu.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 // import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
@@ -37,7 +38,7 @@ import { ActionMenuModule } from '@components/action-menu/action-menu.module';
     SearchPipeModule,
     TapEffectModule,
     ActionMenuModule,
-    // DragDropModule,
+    DragDropModule,
   ]
 })
 export class ProductsEditorComponentModule { }

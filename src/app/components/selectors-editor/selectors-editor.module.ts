@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FilterSelectorsPipe, SelectorsEditorComponent } from './selectors-editor.component';
+import { FilterSelectorsPipe, SelectorsEditorComponent, SortSelectorsPipe } from './selectors-editor.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button'
@@ -18,6 +18,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
   declarations: [
     SelectorsEditorComponent,
     FilterSelectorsPipe,
+    SortSelectorsPipe,
   ],
   exports: [
     SelectorsEditorComponent,
@@ -36,7 +37,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     StatePanelModule,
     SearchPipeModule,
     TapEffectModule,
-    // DragDropModule,
+    DragDropModule,
   ]
 })
 export class SelectorsEditorComponentModule { }

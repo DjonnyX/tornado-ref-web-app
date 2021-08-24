@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IProduct, IRequestOptions } from '@djonnyx/tornado-types';
+import { IEntityPosition, IProduct, IRequestOptions } from '@djonnyx/tornado-types';
 
 export enum ProductsActionTypes {
     GET_ALL_REQUEST = "TORNADO/products/get-all:request",
@@ -22,6 +22,10 @@ export enum ProductsActionTypes {
     DELETE_REQUEST = "TORNADO/products/delete:request",
     DELETE_SUCCESS = "TORNADO/products/delete:success",
     DELETE_ERROR = "TORNADO/products/delete:error",
+
+    REPOSITION_REQUEST = "TORNADO/products-reposition/delete:request",
+    REPOSITION_SUCCESS = "TORNADO/products-reposition/delete:success",
+    REPOSITION_ERROR = "TORNADO/products-reposition/delete:error",
 
     CLEAR = "TORNADO/products/clear",
 }
@@ -94,6 +98,20 @@ export namespace ProductsActions {
     );
     export const deleteError = createAction(
         ProductsActionTypes.DELETE_ERROR,
+        props<{ error: string }>()
+    );
+    
+    // reposition
+    export const repositionRequest = createAction(
+        ProductsActionTypes.REPOSITION_REQUEST,
+        props<{ positions: Array<IEntityPosition>, options?: IRequestOptions }>()
+    );
+    export const repositionSuccess = createAction(
+        ProductsActionTypes.REPOSITION_SUCCESS,
+        props<{ positions: Array<IEntityPosition>, meta: IMetaRefsResponse }>()
+    );
+    export const repositionError = createAction(
+        ProductsActionTypes.REPOSITION_ERROR,
         props<{ error: string }>()
     );
 

@@ -8,7 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { TagsActions } from '@store/actions/tags.action';
 import { TagsSelectors } from '@store/selectors/tags.selectors';
 import { SelectorActions } from '@store/actions/selector.action';
-import { ISelector, ITag, IRef, SelectorTypes, IAsset, ILanguage, ISystemTag, UserRights } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IRef, SelectorTypes, IAsset, ILanguage, ISystemTag, UserRights, IEntityPosition } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { map, filter } from 'rxjs/operators';
 import { LanguagesActions } from '@store/actions/languages.action';
@@ -185,6 +185,18 @@ export class SelectorsEditorContainer implements OnInit, OnDestroy {
 
   onDelete(id: string): void {
     this._store.dispatch(SelectorsActions.deleteRequest({ id }));
+  }
+
+  onReposition(positions: Array<IEntityPosition>): void {
+    this._store.dispatch(SelectorsActions.repositionRequest({ positions, options: {
+      filter: [
+        {
+          id: "type",
+          operation: "equals",
+          value: this._selectorsType,
+        }
+      ]
+    } }));
   }
 
   onChangeLayout(layout: LayoutTypes): void {

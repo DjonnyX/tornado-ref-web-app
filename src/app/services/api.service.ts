@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -41,7 +41,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag
+  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -242,9 +242,19 @@ export class ApiService {
       });
   }
 
-  public updateProduct(id: string, product: IProduct): Observable<IProductsUpdateResponse> {
+  public updateProduct(id: string, product: IProduct, options?: IRequestOptions): Observable<IProductsUpdateResponse> {
     return this._http
       .put<IProductsUpdateResponse>(`api/v1/product/${id}`, product, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public updateProductsPositions(positions: Array<IEntityPosition>): Observable<IEntityPositionsResponse> {
+    return this._http
+      .put<IEntityPositionsResponse>("api/v1/products/positions", positions, {
         headers: {
           "authorization": this.getAuthToken(),
         },
@@ -395,6 +405,16 @@ export class ApiService {
         headers: {
           "authorization": this.getAuthToken(),
         },
+      });
+  }
+
+  public updateSelectorsPositions(positions: Array<IEntityPosition>, options?: IRequestOptions): Observable<IEntityPositionsResponse> {
+    return this._http
+      .put<IEntityPositionsResponse>("api/v1/selectors/positions", positions, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
       });
   }
 

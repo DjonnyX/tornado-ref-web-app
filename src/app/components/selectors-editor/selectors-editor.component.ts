@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage, ISystemTag, UserRights } from '@djonnyx/tornado-types';
+import { ISelector, ITag, IRef, IAsset, ISelectorContentsItem, ILanguage, ISystemTag, UserRights, IEntityPosition } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
 import { LayoutTypes } from '@components/state-panel/state-panel.component';
 import { LocalizationService } from '@app/services/localization/localization.service';
@@ -16,6 +16,16 @@ export class FilterSelectorsPipe implements PipeTransform {
   transform(items: Array<ISelector>, systemTag: ISystemTag | undefined): any[] {
     if (!items) return [];
     return items.filter(s => s.systemTag === systemTag?.id);
+  }
+}
+
+@Pipe({
+  name: 'sortSelectors'
+})
+export class SortSelectorsPipe implements PipeTransform {
+  transform(items: Array<ISelector>, prop: string): any[] {
+    if (!items) return [];
+    return items.sort((a, b) => Number(a?.[prop]) - Number(b?.[prop]));
   }
 }
 
@@ -102,6 +112,8 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
   @Output() edit = new EventEmitter<ISelector>();
 
   @Output() update = new EventEmitter<ISelector>();
+
+  @Output() reposition = new EventEmitter<Array<IEntityPosition>>();
 
   @Output() delete = new EventEmitter<string>();
 
@@ -248,14 +260,25 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 
-  /*drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<string[]>) {
     const item = event.item.data as ISelector;
-    const globalIndex = this._collection?.findIndex(i => i === item);
-    const groupItems = this.collection?.filter(i => i.systemTag === item.systemTag);
+    const globalPreviousIndex = this._collection?.findIndex(i => i === item);
+    if (globalPreviousIndex === -1) {
+      throw Error("Item not found");
+    }
 
-    this.update.emit({
-      ...item,
-      position: globalIndex - groupItems.length + (event.previousIndex + event.currentIndex),
-    });
-  }*/
+    const offset = event.currentIndex - event.previousIndex;
+    const globalCurrentIndex = globalPreviousIndex + offset;
+
+    const collection = [...this._collection];
+    const product = collection[globalPreviousIndex];
+    collection.splice(globalPreviousIndex, 1);
+    collection.splice(globalCurrentIndex, 0, product);
+    this.reposition.emit(
+      collection.map((product, index) => ({
+        id: product.id,
+        position: index,
+      }))
+    );
+  }
 }
