@@ -1,5 +1,5 @@
 <!-- ActionMenu -->
-<ng-template #popupMenu let-product="data">
+<ng-template #popupMenu let-selector="data">
     <!-- <button mat-icon-button (click)="actionMenu.open()" class="entity__action-menu__button" aria-label="Menu">
         <mat-icon class="icon">more_vert</mat-icon>
     </button>
@@ -123,7 +123,7 @@
                                 <!-- Card-template -->
                                 <ng-container *ngSwitchCase="LayoutTypes.CARD">
                                     <div class="entities-container entities-card-layout">
-                                        <div #entityProductCardItem class="entity entity-product"
+                                        <div #entitySelectorCardItem class="entity entity-product"
                                             *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
                                             [class.disabled]="!selector.active">
                                             <div class="entity__wrapper">

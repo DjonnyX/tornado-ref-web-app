@@ -23,7 +23,7 @@ export class FilterSelectorsPipe implements PipeTransform {
   name: 'sortSelectors'
 })
 export class SortSelectorsPipe implements PipeTransform {
-  transform(items: Array<IEntityPosition>, prop: string): any[] {
+  transform(items: Array<any>, prop: string): any[] {
     if (!items) return [];
     return items.sort((a, b) => Number(a?.[prop]) - Number(b?.[prop]));
   }

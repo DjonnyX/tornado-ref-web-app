@@ -57,8 +57,7 @@
                                     <div class="editor__group-list">
                                         <div class="entities-container entities-list-layout"
                                             *ngIf="filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code | sortProducts:'position' as items"
-                                            cdkDropList [cdkDropListData]="items"
-                                            (cdkDropListDropped)="onDrop($event)">
+                                            cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)">
                                             <div #entityProductListItem cdkDrag [cdkDragData]="product"
                                                 class="entity entity-product" *ngFor="let product of items"
                                                 [class.disabled]="!product.active">
