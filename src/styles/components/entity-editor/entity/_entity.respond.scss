@@ -3,273 +3,266 @@
 
 // xl
 @include xl {
-    .editor {
 
-        .entity {
+    .entity {
 
-            &__control {
-                height: $entity-ctrl-panel-height-xl;
-                border-radius: $entity-border-radius-xl $entity-border-radius-xl 0 0;
-            }
-
-            &__action-menu__button {
-                width: $entity-button-menu-width-xl;
-
-                .icon {
-                    font-size: $entity-action-menu-button-size-xl;
-                }
-            }
-
-            &__body {
-                height: $entity-body-height-xl;
-                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
-            }
-
-            &__content {
-                line-height: $entity-body-content-line-height-xl;
-
-                &__gradient {
-                    height: $entity-body-content-gradient-height-xl;
-                }
-                
-                &__container{
-                    margin: $entity-body-content-margin-xl;
-                }
-            }
-
-            &__name {
-                font-size: $entity-body-content-name-font-size-xl;
-            }
-
-            &__description {
-                font-size: $entity-body-content-description-font-size-xl;
-            }
-
+        &__control {
+            height: $entity-ctrl-panel-height-xl;
+            border-radius: $entity-border-radius-xl $entity-border-radius-xl 0 0;
         }
 
-        .button-add {
-            height: $entity-button-add-height-xl;
+        &__action-menu__button {
+            width: $entity-button-menu-width-xl;
 
-            .button-add-icon {
-                font-size: $button-add-icon-size-xl;
+            .icon {
+                font-size: $entity-action-menu-button-size-xl;
             }
+        }
+
+        &__body {
+            height: $entity-body-height-xl;
+            border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+        }
+
+        &__content {
+            line-height: $entity-body-content-line-height-xl;
+
+            &__gradient {
+                height: $entity-body-content-gradient-height-xl;
+            }
+            
+            &__container{
+                margin: $entity-body-content-margin-xl;
+            }
+        }
+
+        &__name {
+            font-size: $entity-body-content-name-font-size-xl;
+        }
+
+        &__description {
+            font-size: $entity-body-content-description-font-size-xl;
+        }
+
+    }
+
+    .button-add {
+        height: $entity-button-add-height-xl;
+
+        .button-add-icon {
+            font-size: $button-add-icon-size-xl;
         }
     }
 }
 
 // lg
 @include lg {
-    .editor {
 
-        .entity {
+    .entity {
 
-            &__control {
-                height: $entity-ctrl-panel-height-lg;
-                border-radius: $entity-border-radius-lg $entity-border-radius-lg 0 0;
-            }
+        &__control {
+            height: $entity-ctrl-panel-height-lg;
+            border-radius: $entity-border-radius-lg $entity-border-radius-lg 0 0;
+        }
 
-            &action-menu__button {
-                width: $entity-button-menu-width-lg;
+        &action-menu__button {
+            width: $entity-button-menu-width-lg;
 
-                .icon {
-                    font-size: $entity-action-menu-button-size-lg;
-                }
-            }
-
-            &__body {
-                height: $entity-body-height-lg;
-                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
-            }
-            &__content {
-                line-height: $entity-body-content-line-height-lg;
-
-                &__gradient {
-                    height: $entity-body-content-gradient-height-lg;
-                }
-                
-                &__container{
-                    margin: $entity-body-content-margin-lg;
-                }
-            }
-            &__name {
-                font-size: $entity-body-content-name-font-size-lg;
-            }
-
-            &__description {
-                font-size: $entity-body-content-description-font-size-lg;
+            .icon {
+                font-size: $entity-action-menu-button-size-lg;
             }
         }
 
-        .button-add {
-            height: $entity-button-add-height-lg;
+        &__body {
+            height: $entity-body-height-lg;
+            border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+        }
+        &__content {
+            line-height: $entity-body-content-line-height-lg;
 
-            .button-add-icon {
-                font-size: $button-add-icon-size-lg;
+            &__gradient {
+                height: $entity-body-content-gradient-height-lg;
             }
+            
+            &__container{
+                margin: $entity-body-content-margin-lg;
+            }
+        }
+        &__name {
+            font-size: $entity-body-content-name-font-size-lg;
+        }
+
+        &__description {
+            font-size: $entity-body-content-description-font-size-lg;
+        }
+    }
+
+    .button-add {
+        height: $entity-button-add-height-lg;
+
+        .button-add-icon {
+            font-size: $button-add-icon-size-lg;
         }
     }
 }
+
 // md
 @include md {
-    .editor {
 
-        .entity {
+    .entity {
 
-            &__control {
-                height: $entity-ctrl-panel-height-md;
-                border-radius: $entity-border-radius-md $entity-border-radius-md 0 0;
-            }
+        &__control {
+            height: $entity-ctrl-panel-height-md;
+            border-radius: $entity-border-radius-md $entity-border-radius-md 0 0;
+        }
 
-            &__action-menu__button {
-                width: $entity-button-menu-width-md;
+        &__action-menu__button {
+            width: $entity-button-menu-width-md;
 
-                .icon {
-                    font-size: $entity-action-menu-button-size-md;
-                }
-            }
-
-            &__body {
-                height: $entity-body-height-md;
-                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
-            }
-            &__content {
-                line-height: $entity-body-content-line-height-md;
-
-                &__gradient {
-                    height: $entity-body-content-gradient-height-md;
-                }
-                
-                &__container{
-                    margin: $entity-body-content-margin-md;
-                }
-            }
-            &__name {
-                font-size: $entity-body-content-name-font-size-md;
-            }
-
-            &__description {
-                font-size: $entity-body-content-description-font-size-md;
+            .icon {
+                font-size: $entity-action-menu-button-size-md;
             }
         }
 
-        .button-add {
-            height: $entity-button-add-height-md;
+        &__body {
+            height: $entity-body-height-md;
+            border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+        }
+        &__content {
+            line-height: $entity-body-content-line-height-md;
 
-            .button-add-icon {
-                font-size: $button-add-icon-size-md;
+            &__gradient {
+                height: $entity-body-content-gradient-height-md;
             }
+            
+            &__container{
+                margin: $entity-body-content-margin-md;
+            }
+        }
+        &__name {
+            font-size: $entity-body-content-name-font-size-md;
+        }
+
+        &__description {
+            font-size: $entity-body-content-description-font-size-md;
+        }
+    }
+
+    .button-add {
+        height: $entity-button-add-height-md;
+
+        .button-add-icon {
+            font-size: $button-add-icon-size-md;
         }
     }
 }
+
 // sm
 @include sm {
-    .editor {
 
-        .entity {
+    .entity {
 
-            .entity__control {
-                height: $entity-ctrl-panel-height-sm;
-                border-radius: $entity-border-radius-sm $entity-border-radius-sm 0 0;
+        .entity__control {
+            height: $entity-ctrl-panel-height-sm;
+            border-radius: $entity-border-radius-sm $entity-border-radius-sm 0 0;
 
-                .entity__action-menu__button {
-                    width: $entity-button-menu-width-sm;
+            .entity__action-menu__button {
+                width: $entity-button-menu-width-sm;
 
-                    .icon {
-                        font-size: $entity-action-menu-button-size-sm;
-                    }
+                .icon {
+                    font-size: $entity-action-menu-button-size-sm;
                 }
             }
+        }
 
-            .entity__body {
-                height: $entity-body-height-sm;
-                border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
+        .entity__body {
+            height: $entity-body-height-sm;
+            border-radius: 0 0 $entity-border-radius-sm $entity-border-radius-sm;
 
-                .content {
-                    line-height: $entity-body-content-line-height-sm;
+            .content {
+                line-height: $entity-body-content-line-height-sm;
 
-                    .content__gradient {
-                        height: $entity-body-content-gradient-height-sm;
-                    }
-                    
-                    .content__container{
-                        margin: $entity-body-content-margin-sm;
-                    }
+                .content__gradient {
+                    height: $entity-body-content-gradient-height-sm;
+                }
+                
+                .content__container{
+                    margin: $entity-body-content-margin-sm;
+                }
 
-                    .content__name {
-                        font-size: $entity-body-content-name-font-size-sm;
-                    }
+                .content__name {
+                    font-size: $entity-body-content-name-font-size-sm;
+                }
 
-                    .content__description {
-                        font-size: $entity-body-content-description-font-size-sm;
-                    }
+                .content__description {
+                    font-size: $entity-body-content-description-font-size-sm;
                 }
             }
-
         }
-        .button-add + .mat-raised-button {
-            box-shadow: none;
-        }
-        .button-add {
-            height: $entity-button-add-height-sm;
 
-            .button-add-icon {
-                font-size: $button-add-icon-size-sm;
-            }
+    }
+    .button-add + .mat-raised-button {
+        box-shadow: none;
+    }
+    .button-add {
+        height: $entity-button-add-height-sm;
+
+        .button-add-icon {
+            font-size: $button-add-icon-size-sm;
         }
     }
 }
+
 // xs
 @include xs {
-    .editor {
         
-        .entity {
+    .entity {
 
-            .entity__control {
-                height: $entity-ctrl-panel-height-xs;
-                border-radius: $entity-border-radius-xs $entity-border-radius-xs 0 0;
+        .entity__control {
+            height: $entity-ctrl-panel-height-xs;
+            border-radius: $entity-border-radius-xs $entity-border-radius-xs 0 0;
 
-                .entity__action-menu__button {
-                    width: $entity-button-menu-width-xs;
+            .entity__action-menu__button {
+                width: $entity-button-menu-width-xs;
 
-                    .icon {
-                        font-size: $entity-action-menu-button-size-xs;
-                    }
+                .icon {
+                    font-size: $entity-action-menu-button-size-xs;
                 }
             }
-
-            .entity__body {
-                height: $entity-body-height-xs;
-                border-radius: 0 0 $entity-border-radius-xs $entity-border-radius-xs;
-
-                .content {
-                    line-height: $entity-body-content-line-height-xs;
-
-                    .content__gradient {
-                        height: $entity-body-content-gradient-height-xs;
-                    }
-
-                    .content__container{
-                        margin: $entity-body-content-margin-xs;
-                    }
-
-                    .content__name {
-                        font-size: $entity-body-content-name-font-size-xs;
-                    }
-
-                    .content__description {
-                        font-size: $entity-body-content-description-font-size-xs;
-                    }
-                }
-            }
-
         }
 
-        .button-add {
-            height: $entity-button-add-height-xs;
+        .entity__body {
+            height: $entity-body-height-xs;
+            border-radius: 0 0 $entity-border-radius-xs $entity-border-radius-xs;
 
-            .button-add-icon {
-                font-size: $button-add-icon-size-xs;
+            .content {
+                line-height: $entity-body-content-line-height-xs;
+
+                .content__gradient {
+                    height: $entity-body-content-gradient-height-xs;
+                }
+
+                .content__container{
+                    margin: $entity-body-content-margin-xs;
+                }
+
+                .content__name {
+                    font-size: $entity-body-content-name-font-size-xs;
+                }
+
+                .content__description {
+                    font-size: $entity-body-content-description-font-size-xs;
+                }
             }
+        }
+
+    }
+
+    .button-add {
+        height: $entity-button-add-height-xs;
+
+        .button-add-icon {
+            font-size: $button-add-icon-size-xs;
         }
     }
 }

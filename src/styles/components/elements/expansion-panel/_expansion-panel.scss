@@ -26,12 +26,14 @@
     }
 
     &__header {
-        cursor: pointer;
         display: flex;
         justify-content: space-between;
         background-color: transparent;
         color: black;
-        padding: 20px 10px;
+        cursor: pointer;
+        @extend .entities-container;
+        padding-top: 20px;
+        padding-bottom: 20px;
 
         &:hover {
             background-color: rgba(0,0,0,0.1);
