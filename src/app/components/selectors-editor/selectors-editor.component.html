@@ -51,7 +51,7 @@
                             <ta-expansion-panel cdkDrag [cdkDragData]="systemTag" *ngIf="(filteredCollection | filterSelectors:systemTag |
                             search:searchPattern:defaultLanguage?.code).length as systemTagsLength"
                                 [headerTemplateData]="{
-                                        title: !!systemTag?.name ? systemTag.name + '(' + systemTagsLength + ')' : localization.get('common_not-allocated')
+                                        title: !!systemTag?.name ? systemTag.name + ' (' + systemTagsLength + ')' : localization.get('common_not-allocated')
                                     }">
                                 <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
                                 <ng-container *ngSwitchCase="LayoutTypes.LIST">
