@@ -58,11 +58,11 @@
                                     <div class="editor__group-list">
                                         <div class="entities-container entities-list-layout"
                                             *ngIf="filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code | sortSelectors:'position' as items"
-                                            cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)">
-                                            <div #entitySelectorListItem cdkDrag [cdkDragData]="selector"
+                                            ><!--cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)"-->
+                                            <div #entitySelectorListItem
                                                 class="entity entity-product" *ngFor="let selector of items"
-                                                [class.disabled]="!selector.active">
-                                                <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+                                                [class.disabled]="!selector.active"><!-- cdkDrag [cdkDragData]="selector"-->
+                                                <!-- <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
 
                                                 <div class="entity__wrapper">
                                                     <!-- Controls -->
