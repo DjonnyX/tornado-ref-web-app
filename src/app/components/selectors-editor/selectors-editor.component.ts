@@ -289,11 +289,11 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     const currentIndex = event.currentIndex;
 
     const collection = [...(this._systemTags || [])];
-    const systemTag = collection[previousIndex];
+    const systemTag = event.item.data;
     collection.splice(previousIndex, 1);
     collection.splice(currentIndex, 0, systemTag);
     this.repositionSystemTags.emit(
-      collection.map((st, index) => ({
+      collection.filter(st => !!st).map((st, index) => ({
         id: st.id,
         position: index,
       }))

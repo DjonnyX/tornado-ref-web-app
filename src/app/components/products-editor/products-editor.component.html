@@ -45,12 +45,12 @@
             <div class="editor__container">
                 <!--Entity Wrapper-->
                 <ng-container *ngIf="actualSystemTags | sortProducts: 'position' as tagsList">
-                    <ng-container *ngFor="let systemTag of tagsList">
-                        <div cdkDropList [cdkDropListData]="actualSystemTags"
-                            (cdkDropListDropped)="onDropSystemTag($event)" *ngIf="(filteredCollection | filterProducts:systemTag |
+                    <div cdkDropList [cdkDropListData]="actualSystemTags" (cdkDropListDropped)="onDropSystemTag($event)"
+                        class="drag-drop-list">
+                        <ng-container *ngFor="let systemTag of tagsList">
+                            <ta-expansion-panel cdkDrag [cdkDragData]="systemTag" *ngIf="(filteredCollection | filterProducts:systemTag |
                             search:searchPattern:defaultLanguage?.code).length as systemTagsLength"
-                            class="drag-drop-list">
-                            <ta-expansion-panel cdkDrag [cdkDragData]="systemTag" [headerTemplateData]="{
+                                [headerTemplateData]="{
                                         title: !!systemTag?.name ? systemTag.name + '(' + systemTagsLength + ')' : localization.get('common_not-allocated')
                                     }">
                                 <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
@@ -217,8 +217,8 @@
                                     </div>
                                 </ng-container>
                             </ta-expansion-panel>
-                        </div>
-                    </ng-container>
+                        </ng-container>
+                    </div>
                 </ng-container>
 
                 <ng-container *ngIf="hasCreate()">
