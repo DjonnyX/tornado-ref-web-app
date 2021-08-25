@@ -69,6 +69,24 @@ export default class SystemTagsEffects {
         )
     );
 
+    public readonly updatePositionsRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(SystemTagsActions.repositionRequest),
+            switchMap(({ positions, options }) => {
+                return this._apiService.updateSystemTagsPositions(positions, options).pipe(
+                    mergeMap(res => {
+                        return [SystemTagsActions.repositionSuccess({ positions, meta: res.meta })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(SystemTagsActions.repositionError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SystemTagsActions.deleteRequest),

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SelectorsEditorComponent } from './selectors-editor.component';
+import { FilterSelectorsPipe, SelectorsEditorComponent, SortSelectorsPipe } from './selectors-editor.component';
 import { MatRippleModule } from '@angular/material/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button'
@@ -10,27 +10,36 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.module';
 import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
 import { StatePanelModule } from '@components/state-panel/state-panel.module';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
+import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ExpansionPanelModule } from '@components/base/expansion-panel/expansion-panel.module';
 
 @NgModule({
   declarations: [
     SelectorsEditorComponent,
+    FilterSelectorsPipe,
+    SortSelectorsPipe,
   ],
   exports: [
     SelectorsEditorComponent,
   ],
   imports: [
     CommonModule,
+    TapEffectModule,
     MatRippleModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
     MatDialogModule,
     MatTooltipModule,
-    MatCheckboxModule,
+    CheckboxModule,
     DeleteEntityDialogModule,
     StatePanelModule,
     SearchPipeModule,
+    TapEffectModule,
+    DragDropModule,
+    ExpansionPanelModule,
   ]
 })
 export class SelectorsEditorComponentModule { }

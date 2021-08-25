@@ -1,24 +1,24 @@
 @import "../../../styles/components/entity-editor";
 @import "../../../styles/utils/px2em";
 
-$entity-height-m: px2em(100);
-$entity-height-d: px2em(120);
-$entity-width-m: px2em(140);
-$entity-width-d: px2em(190);
+// $entity-height-m: px2em(100);
+// $entity-height-d: px2em(120);
+// $entity-width-m: px2em(140);
+// $entity-width-d: px2em(190);
 
 .editor {
     .entity {
-        .content {
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: px2em(20);
-            margin: 0.5em 0.5em 1em;
+        // .content {
+        //     display: grid;
+        //     grid-template-columns: auto 1fr;
+        //     gap: px2em(20);
+        //     margin: 0.5em 0.5em 1em;
 
-            .content__name {
-                margin-top: auto;
-                margin-bottom: auto;
-            }
-        }
+        //     .content__name {
+        //         margin-top: auto;
+        //         margin-bottom: auto;
+        //     }
+        // }
 
         .color {
             width: 100%;
@@ -28,42 +28,38 @@ $entity-width-d: px2em(190);
     }
 }
 
-@media screen and (min-width: 600px) {
-    .editor {
-        .entities-wrapper {
-            grid-template-columns: repeat(auto-fill, minmax($entity-width-d, 1fr));
-        }
+// @media screen and (min-width: 600px) {
+//     .editor {
+//         .entities-wrapper {
+//             grid-template-columns: repeat(auto-fill, minmax($entity-width-d, 1fr));
+//         }
 
-        .entity {
-            .entity-active-zone {
-                height: $entity-height-d - $ctrl-panel-height;
-            }
-        }
+//         .entity {
+//             .entity__body {
+//                 height: $entity-height-d - $ctrl-panel-height;
+//             }
+//         }
 
-        .button-add {
-            &:not(.float) {
-                height: $entity-height-d;
-            }
-        }
-    }
-}
+//         .button-add {
+//             height: $entity-height-d;
+//         }
+//     }
+// }
 
-@media screen and (max-width: 599px) {
-    .editor {
-        .entities-wrapper {
-            grid-template-columns: repeat(auto-fill, minmax($entity-width-m, 1fr));
-        }
+// @media screen and (max-width: 599px) {
+//     .editor {
+//         .entities-wrapper {
+//             grid-template-columns: repeat(auto-fill, minmax($entity-width-m, 1fr));
+//         }
 
-        .entity {
-            .entity-active-zone {
-                height: $entity-height-m - $ctrl-panel-height;
-            }
-        }
+//         .entity {
+//             .entity__body {
+//                 height: $entity-height-m - $ctrl-panel-height;
+//             }
+//         }
 
-        .button-add {
-            &:not(.float) {
-                height: $entity-height-m;
-            }
-        }
-    }
-}
+//         .button-add {
+//             height: $entity-height-m;
+//         }
+//     }
+// }

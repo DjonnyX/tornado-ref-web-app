@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IStore, IRef, UserRights } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-stores-editor-component',
@@ -31,7 +32,10 @@ export class StoresEditorComponent extends BaseComponent implements OnInit, OnDe
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public readonly dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -53,8 +57,8 @@ export class StoresEditorComponent extends BaseComponent implements OnInit, OnDe
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить магазин?",
-          message: `"${store.name}" будет безвозвратно удален.`,
+          title: "stores_dialog-delete-the-store",
+          message: `#{"${store.name}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

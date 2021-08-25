@@ -1,28 +1,34 @@
-
 <div class="editor">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
-        <div class="entity" *ngFor="let integration of collection | search: searchPattern" [class.disabled]="isIntegrationDisabled(integration)">
-            <div class="entity-ctrls">
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
+        <div class="entity" *ngFor="let integration of collection | search: searchPattern"
+            [class.disabled]="isIntegrationDisabled(integration)">
+            <div class="entity__control">
+                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                    aria-label="Menu">
                     <mat-icon class="icon">more_vert</mat-icon>
                 </button>
                 <mat-menu #menu="matMenu">
                     <button mat-menu-item type="button" (click)="onToggleActive($event, integration)">
                         <mat-icon>{{integration.state === 0 ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>{{integration.state === 0 ? 'Деактивировать' : 'Активировать'}}</span>
+                        <span>
+                            {{integration.state === 0 ? localization.get("common_action-deactivate") :
+                            localization.get("common_action-activate")}}
+                        </span>
                     </button>
                     <button mat-menu-item (click)="onEdit(integration)">
                         <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
+                        <span>
+                            {{localization.get("common_action-edit")}}
+                        </span>
                     </button>
                     <!--<button mat-menu-item (click)="onDelete(integration)">
                         <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
+                        <span>{{localization.get("common_action-delete")}}</span>
                     </button>-->
                 </mat-menu>
             </div>
-            <div matRipple class="entity-active-zone" (click)="onEdit(integration)">
+            <div matRipple class="entity__body" (click)="onEdit(integration)">
                 <div class="content">
                     <div class="content__name">
                         {{integration.name}}

@@ -6,10 +6,24 @@
     margin: px2em(32);
 
     &__wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    &__description {
+        margin-bottom: 30px;
+    }
+
+    &__buttons {
         width: px2em(600);
         height: px2em(200);
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: px2em(12);
+    }
+
+    &__button-timer {
+        color: #1d1d1d;
     }
 }

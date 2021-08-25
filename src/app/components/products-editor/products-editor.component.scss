@@ -1,28 +1,28 @@
 @import "../../../styles/components/entity-editor";
 @import "../../../styles/utils/px2em";
 
-.editor {
-    .entity {
-        .color {
-            width: 100%;
-            height: px2em(10);
-            min-height: px2em(10);
-        }
+// .editor {
+//     .entity {
+//         .color {
+//             width: 100%;
+//             height: px2em(10);
+//             min-height: px2em(10);
+//         }
 
-        .bottom-panel {
-            .tags {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: flex-end;
-                margin-left: px2em(10);
+//         .entity__footer {
+//             .tags {
+//                 display: flex;
+//                 flex-wrap: wrap;
+//                 justify-content: flex-end;
+//                 margin-left: px2em(10);
 
-                .tag {
-                    width: px2em(10);
-                    height: px2em(10);
-                    border-radius: 50%;
-                    margin: 1px;
-                }
-            }
-        }
-    }
-}
+//                 .tag {
+//                     width: px2em(10);
+//                     height: px2em(10);
+//                     border-radius: 50%;
+//                     margin: 1px;
+//                 }
+//             }
+//         }
+//     }
+// }

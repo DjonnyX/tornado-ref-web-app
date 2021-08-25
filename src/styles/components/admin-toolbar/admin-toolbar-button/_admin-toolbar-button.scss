@@ -1,0 +1,27 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.admin-toolbar {
+
+    &__button {
+        display: flex;
+        gap: 10px;
+        font-size: 13px;
+        color: $neutral-color;
+        width: auto;
+        background: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__icon {
+        display: inline-block;
+        font-family: icons;
+        margin: auto;
+        color: $background-color;
+
+        &::before {
+            font-size: $tab-button-icon-size;
+        }
+    }
+}

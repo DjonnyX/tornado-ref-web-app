@@ -11,6 +11,7 @@ import { ICaptcha } from '@models';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-forgot-password',
@@ -38,6 +39,7 @@ export class ForgotPasswordContainer extends BaseComponent implements OnInit {
     private _store: Store<IAppState>,
     private _apiService: ApiService,
     private _sanitizer: DomSanitizer,
+    public readonly localization: LocalizationService,
   ) {
     super();
 
@@ -64,6 +66,7 @@ export class ForgotPasswordContainer extends BaseComponent implements OnInit {
         email: this.form.get('email').value,
         captchaId: this._captcha.id,
         captchaVal: this.form.get('captcha').value,
+        language: this.localization.lang,
       };
       this._store.dispatch(UserActions.userForgotPasswordRequest(params));
     }

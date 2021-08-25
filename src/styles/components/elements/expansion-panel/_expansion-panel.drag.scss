@@ -1,0 +1,12 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.cdk-drag-preview { 
+
+    .expansion-panel {
+
+        .expansion-panel__content {
+            display: none;
+        }
+    }
+}

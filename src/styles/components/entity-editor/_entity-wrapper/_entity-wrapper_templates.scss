@@ -1,0 +1,31 @@
+@import "../../../utils/px2em";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.editor {
+
+    .entities-wrapper {
+
+        //Card template
+        &.entities-card-layout {
+            display: grid;
+            grid-auto-flow: dense;
+            grid-auto-rows: auto;
+            align-items: center;
+
+            .entity {
+                //
+            }
+        }
+
+        //List template
+        &.entities-list-layout {
+            display: grid;
+            gap: 20px;
+
+            .entity {
+                //
+            }
+        }
+    }
+}

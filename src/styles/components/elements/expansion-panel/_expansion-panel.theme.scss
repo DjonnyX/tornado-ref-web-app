@@ -1,0 +1,58 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+// ???
+// .flat {
+//     .mat-expansion-panel {
+//         background: transparent !important;
+//         box-shadow: unset !important;
+//     }
+
+//     .mat-expansion-panel-header {
+//         padding: 0 px2em(8);
+//         background: rgba(0,0,0,0.1);
+//     }
+
+//     .mat-expansion-panel-body {
+//         padding: 0 0 px2em(16);
+//     }
+// }
+.cdk-drag-preview { 
+
+    .expansion-panel {
+
+        &__header {
+            pointer-events: visible;
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorHover'); 
+            }
+        }
+    }
+}
+
+.expansion-panel {
+
+    &__header {
+
+        &:hover {
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorHover'); 
+            }
+        }
+
+        &:active {
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorActive'); 
+            }
+        }
+    }
+
+    &__title {
+        @include themify($themes) {
+            color: themed('entityGroupListColor'); 
+        }
+    }
+
+    &__icon {
+    }
+}

@@ -1,0 +1,81 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+// Common Style
+
+.tags {
+    display: flex;
+    position: relative;
+    width: auto;
+    height: auto;
+    gap: 5px;
+
+    .tag {
+        display: block;
+        position: relative;
+        @include box(auto);
+        padding: 4px 10px;
+        color: #fff;
+        font-size: 10px;
+        line-height: 1.0;
+        letter-spacing: 0.5px;
+        border-radius: 10px;//$tag-roundness-xl;
+
+        &.inactive {
+            opacity: 0.4;
+        }
+    }
+}
+
+// Breakepoints:
+//xl
+@media screen and (min-width: $xl) {
+    .tags {
+
+        .tag {
+            width: $tag-size-xl;
+            height: $tag-size-xl;
+            
+        }
+    }
+}
+//lg
+@media screen and (min-width: $lg) and (max-width: $xl) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-lg;
+            height: $tag-size-lg;
+        }
+    }
+}
+//md
+@media screen and (min-width: $md) and (max-width: $lg) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-md;
+            height: $tag-size-md;
+        }
+    }
+}
+//sm
+@media screen and (min-width: $sm) and (max-width: $md) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-sm;
+            height: $tag-size-sm;
+        }
+    }
+}
+//xs
+@media screen and (max-width: $sm) {
+    .tags {
+        
+        .tag {
+            width: $tag-size-xs;
+            height: $tag-size-xs;
+        }
+    }
+}

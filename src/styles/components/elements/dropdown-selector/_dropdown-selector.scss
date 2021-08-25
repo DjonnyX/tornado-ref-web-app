@@ -1,0 +1,159 @@
+@import "../../../base/reset-button";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+$dropdown-selector-border-radius: 4px;
+$dropdown-selector-list-border-radius: 6px;
+$anim-scale-in-out: 0.75;
+
+.dropdown-selector {
+    display: block;
+    color: $primary-color;
+    position: relative;
+    padding: 8px 0px;
+
+    &__substrate {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    &__current-value {
+        display: flex;
+        position: relative;
+        align-items: center;
+        justify-content: center;     
+        box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);
+        cursor: pointer;
+        outline: none;
+        border-radius: $dropdown-selector-border-radius;
+        color: $dropdown-selector-button-color-normal;
+        background-color: $dropdown-selector-button-background-color-normal;
+        transform: scale(1.0);
+        opacity: 1.0;
+        @include transition(transform opacity, $tab-bar-button-interaction-duration, ease);
+
+        //Interactions
+        &:hover, &:focus {
+            opacity: $tab-bar-button-focus-opacity;
+        }
+
+        &:active {
+            transform: scale($tab-bar-button-active-scale);
+        }
+    }
+
+    &__substrate {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+    }
+
+    &__value {
+        display: flex;
+    }
+
+    &__input {
+        display: none;
+
+        &:checked + .dropdown-selector__input-text {
+            display: block;
+            margin: 0;
+        }
+    }
+
+    &__input-text {
+        display: none;
+        width: auto;
+        margin: 0;
+        padding: 10px;
+        font-size: 13px;
+        border-radius: $dropdown-selector-border-radius;
+    }
+
+    &__list {
+        position: absolute;
+        width: auto;
+        padding: 0;
+        list-style: none;
+        margin: 0;
+        margin-top: 10px;
+        border-radius: $dropdown-selector-list-border-radius;
+        overflow: hidden;
+        box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 10%);
+        background-color: $white;
+
+        &__item {
+            display: flex;
+            flex-direction: row;
+            border-bottom: 1px solid $divider-color;
+
+            &__container {
+                align-items: center;
+                justify-content: center;
+                display: flex;
+                padding: 0px;
+            }
+
+            &:hover,
+            &:focus {
+                color: rgba($primary-color, 0.75);
+                background-color: $background-color;
+            }
+
+            &:last-child {
+                border-bottom: none;
+            }
+        }
+    }
+
+    &__option {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        padding: 15px 20px;
+        cursor: pointer;
+
+        &__content {
+            display: flex;
+            flex-direction: row;
+            font-size: 16px;
+            gap: 10px;
+            pointer-events: unset;
+        }
+
+        &.vertical {
+            flex-direction: column;
+            gap: 6px;
+
+        }
+    }
+
+    &__option-image {
+        display: flex;
+        overflow: hidden;
+        @include box(auto);
+    }
+
+    &__option-image.xs {
+        @include box(8px);
+        border-radius: 3px;
+    }
+    &__option-image.sm {
+        @include box(16px);
+        border-radius: 3px;
+    }
+    &__option-image.md {
+        @include box(32px);
+        border-radius: 3px;
+    }
+    &__option-image.lg {
+        @include box(64px);
+        border-radius: 4px;
+    }
+    &__option-image.xl {
+        @include box(128px);
+        border-radius: 4px;
+    }
+}

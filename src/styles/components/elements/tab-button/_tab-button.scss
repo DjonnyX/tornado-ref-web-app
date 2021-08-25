@@ -1,0 +1,52 @@
+@import "../../../base/reset-button";
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.filter {
+    height: 100%;
+
+    &__container {
+        height: 100%;
+        display: flex;
+    }
+}
+
+.tab-button__group {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    height: 100%;
+    align-items: center;
+}
+
+.tab-button {
+    @include reset-button;
+    @include box($tab-button-size);
+    display: block;
+    position: relative;
+    border-radius: $tab-button-roundness;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    border-width: 1px;
+    border-style: solid;
+
+    &__container {
+        display: flex;
+        margin: auto;
+        height: 100%;
+    }
+
+    //Icon container
+    &__icon {
+        display: inline-block;
+        font-family: icons;
+        font-size: $tab-button-icon-size;
+        margin: auto;
+
+        // //Icon
+        // &::before {
+        //     // color: $tab-button-icon-color-normal;
+        // }
+    }
+}

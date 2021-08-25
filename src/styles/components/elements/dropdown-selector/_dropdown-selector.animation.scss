@@ -1,0 +1,25 @@
+//Animation
+
+.dropdown-selector {
+
+    .dropdown-selector__current-value ~ .dropdown-selector__list {
+        animation-duration: 175ms;
+        animation-timing-function: cubic-bezier(0.68, -0.32, 0.32, 1.32);
+        animation-name: anim-dropdown-selector-list-in;
+        transform: translateY($anim-scale-in-out);
+    }
+}
+
+@keyframes anim-dropdown-selector-list-in {
+  from {
+    transform: scale(0.5);// rotate3d(0, 1, 0, -45deg);
+    opacity: 0.0;
+  }
+  65% {
+    transform: scale(1.03);
+    opacity: 1.0;
+  }
+  to {
+    transform: scale(1.0);// rotate3d(0, 1, 0, 0deg);
+  }
+}

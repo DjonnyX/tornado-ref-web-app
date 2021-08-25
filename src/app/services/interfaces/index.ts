@@ -127,3 +127,4 @@ export { IAppThemeGetResponse } from './app-theme-get-response.interface';
 export { IAppThemeCreateResponse } from './app-theme-create-response.interface';
 export { IAppThemeUpdateResponse } from './app-theme-update-response.interface';
 export { IAppThemeDeleteResponse } from './app-theme-delete-response.interface';
+export { IEntityPositionsResponse } from './entity-positions-response.interface';

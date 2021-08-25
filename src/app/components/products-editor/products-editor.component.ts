@@ -1,13 +1,17 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAsset } from '@models';
-import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag } from '@djonnyx/tornado-types';
+import { IProduct, IRef, ITag, ILanguage, IProductContentsItem, UserRights, ISystemTag, ICurrency, IEntityPosition } from '@djonnyx/tornado-types';
 import { ITagContentsItem } from '@djonnyx/tornado-types/dist/interfaces/raw/ITagContents';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 import { Pipe, PipeTransform } from '@angular/core';
+import { LocalizationService } from '@app/services/localization/localization.service';
+import { IActionMenuItem } from '@components/action-menu/action-menu.component';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Pipe({
   name: 'filterProducts'
@@ -17,7 +21,16 @@ export class FilterProductsPipe implements PipeTransform {
     if (!items) return [];
     return items.filter(p => p.systemTag === systemTag?.id);
   }
+}
 
+@Pipe({
+  name: 'sortProducts'
+})
+export class SortProductsPipe implements PipeTransform {
+  transform(items: Array<any>, prop: string): any[] {
+    if (!items) return [];
+    return items.sort((a, b) => Number(a?.[prop]) - Number(b?.[prop]));
+  }
 }
 
 @Component({
@@ -28,10 +41,20 @@ export class FilterProductsPipe implements PipeTransform {
 })
 export class ProductsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  public readonly LayoutTypes = LayoutTypes;
+
+  @Output() changeLayout = new EventEmitter<LayoutTypes>();
+
+  @Output() changeDisplayInactiveEntities = new EventEmitter<boolean>();
+
+  public filteredCollection: Array<IProduct>;
+
   private _collection: Array<IProduct>;
   @Input() set collection(v: Array<IProduct>) {
     if (this._collection !== v) {
-      this._collection = v;
+      this._collection = v || [];
+
+      this.resetFilteredCollection();
 
       this.resetActualSystemTags();
     }
@@ -54,11 +77,35 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() tagList: Array<ITag>;
 
+  private _currenciesMap: { [code: string]: ICurrency } = {};
+  private _currencies: Array<ICurrency>;
+  @Input() set currencies(v: Array<ICurrency>) {
+    if (this._currencies !== v) {
+      this._currencies = v;
+
+      this._currenciesMap = {};
+      this._currencies?.forEach(c => {
+        this._currenciesMap[c.id] = c;
+      });
+    }
+  }
+
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
 
   @Input() rights: Array<UserRights>;
+
+  @Input() layoutType: LayoutTypes;
+
+  private _displayInactiveEntities: boolean = true;
+  @Input() set displayInactiveEntities(v: boolean) {
+    if (this._displayInactiveEntities !== v) {
+      this._displayInactiveEntities = v;
+      this.resetFilteredCollection();
+    }
+  }
+  get displayInactiveEntities() { return this._displayInactiveEntities; }
 
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -81,11 +128,49 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   @Output() update = new EventEmitter<IProduct>();
 
+  @Output() reposition = new EventEmitter<Array<IEntityPosition>>();
+
+  @Output() repositionSystemTags = new EventEmitter<Array<IEntityPosition>>();
+
   @Output() delete = new EventEmitter<string>();
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  getActionMenuItems(product: IProduct): Array<IActionMenuItem> {
+    const items = [{
+      translateKey: product.active ? this.localization.get("common_action-deactivate") :
+        this.localization.get("common_action-activate"),
+      icon: "",
+      trigger: () => {
+        this.onToggleActive(product);
+      }
+    },
+    {
+      translateKey: this.localization.get("common_action-edit"),
+      icon: "",
+      trigger: () => {
+        this.onEditProduct(product);
+      }
+    }];
+
+    if (this.hasDelete()) {
+      items.push({
+        translateKey: product.active ? this.localization.get("common_action-deactivate") :
+          this.localization.get("common_action-delete"),
+        icon: "",
+        trigger: () => {
+          this.onDeleteProduct(product);
+        }
+      });
+    }
+    return items;
+  }
+
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -93,6 +178,20 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  getPrices(product: IProduct): string {
+    let result = "";
+
+    product?.prices?.forEach((p, i) => {
+      if (i > 0) {
+        result += "; ";
+      }
+
+      result += `${((p.value || 0) * 0.01).toFixed(0)}${this._currenciesMap[p.currency]?.symbol}`;
+    });
+
+    return result;
   }
 
   resetActualSystemTags() {
@@ -108,13 +207,20 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     }
 
     this.actualSystemTags = this._systemTags.filter(s => {
-      console.log(s.id, systemTags)
       return systemTags.indexOf(s.id) > -1;
     });
 
     // не распределенная категория
     this.actualSystemTags.push(undefined);
-    console.log(this.actualSystemTags);
+  }
+
+  resetFilteredCollection() {
+    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this._displayInactiveEntities));
+    this._cdr.markForCheck();
+  }
+
+  onSwitchLayout(layoutType: LayoutTypes) {
+    this.changeLayout.emit(layoutType);
   }
 
   getProductContent(product: IProduct): IProductContentsItem {
@@ -143,17 +249,17 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   getProductName(product: IProduct): string | undefined {
     const productContent = this.getProductContent(product);
-    return !!productContent ? productContent.name : undefined;
+    return productContent?.name;
   }
 
   getProductDescription(product: IProduct): string | undefined {
     const productContent = this.getProductContent(product);
-    return !!productContent ? productContent.description : undefined;
+    return productContent?.description || "";
   }
 
   getProductColor(product: IProduct): string | undefined {
     const productContent = this.getProductContent(product);
-    return !!productContent ? productContent.color : undefined;
+    return productContent?.color;
   }
 
   hasThumbnail(product: IProduct, size: "x32" | "x128" = "x32"): boolean {
@@ -168,10 +274,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return asset?.mipmap?.[size]?.replace("\\", "/");
   }
 
-  onToggleActive(event: Event, product: IProduct): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
-
+  onToggleActive(product: IProduct): void {
     this.update.emit({ ...product, active: !product.active });
   }
 
@@ -187,8 +290,8 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить продукт?",
-          message: `"${this.getProductName(product)}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-product",
+          message: `#{"${this.getProductName(product)}" }common_action-will-be-permanently-deleted.`,
         },
       });
 
@@ -212,5 +315,47 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
   hasDelete() {
     return this.rights.indexOf(UserRights.DELETE_PRODUCT) > -1;
+  }
+
+  onShowHiddenEntities(displayInactiveEntities: boolean) {
+    this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
+  }
+
+  onDrop(event: CdkDragDrop<string[]>) {
+    const item = event.item.data as IProduct;
+    const globalPreviousIndex = this._collection?.findIndex(i => i === item);
+    if (globalPreviousIndex === -1) {
+      throw Error("Item not found");
+    }
+
+    const offset = event.currentIndex - event.previousIndex;
+    const globalCurrentIndex = globalPreviousIndex + offset;
+
+    const collection = [...(this._collection || [])];
+    const product = collection[globalPreviousIndex];
+    collection.splice(globalPreviousIndex, 1);
+    collection.splice(globalCurrentIndex, 0, product);
+    this.reposition.emit(
+      collection.map((product, index) => ({
+        id: product.id,
+        position: index,
+      }))
+    );
+  }
+
+  onDropSystemTag(event: CdkDragDrop<string[]>) {
+    const previousIndex = event.previousIndex;
+    const currentIndex = event.currentIndex;
+
+    const collection = [...(this._systemTags || [])];
+    const systemTag = event.item.data;
+    collection.splice(previousIndex, 1);
+    collection.splice(currentIndex, 0, systemTag);
+    this.repositionSystemTags.emit(
+      collection.filter(st => !!st).map((st, index) => ({
+        id: st.id,
+        position: index,
+      }))
+    );
   }
 }

@@ -10,6 +10,7 @@ import { PASSWORD_PATTERN } from '@app/core/patterns';
 import { BaseComponent } from '@components/base/base-component';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter } from 'rxjs/operators';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-reset-password',
@@ -30,6 +31,7 @@ export class ResetPasswordContainer extends BaseComponent implements OnInit, OnD
     private _fb: FormBuilder,
     private _store: Store<IAppState>,
     private _activatedRoute: ActivatedRoute,
+    public readonly localization: LocalizationService,
   ) {
     super();
 

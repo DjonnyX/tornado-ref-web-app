@@ -2,13 +2,13 @@
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <div class="entities-wrapper">
         <div class="entity" (click)="onEditAsset(asset)" *ngFor="let asset of collection | search: searchPattern">
-            <div matRipple class="entity-active-zone">
+            <div matRipple class="entity__body">
                 <div class="content">
                     {{asset.name}}
                 </div>
             </div>
-            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" (click)="onShowMenu($event)"
-                aria-label="Menu">
+            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                (click)="onShowMenu($event)" aria-label="Menu">
                 <mat-icon class="icon">more_vert</mat-icon>
             </button>
             <mat-menu #menu="matMenu">

@@ -35,7 +35,7 @@ const systemTagsReducer = createReducer(
             loading: true,
         };
     }),
-    on(SystemTagsActions.updateRequest, state => {
+    on(SystemTagsActions.updateRequest, SystemTagsActions.repositionRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
@@ -65,7 +65,7 @@ const systemTagsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SystemTagsActions.updateError, (state, { error }) => {
+    on(SystemTagsActions.updateError, SystemTagsActions.repositionError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -108,6 +108,33 @@ const systemTagsReducer = createReducer(
             collection.splice(existsTagIndex, 1);
             collection.splice(existsTagIndex, 0, systemTag);
         }
+        return {
+            ...state,
+            collection,
+            meta,
+            error: undefined,
+            isUpdateProcess: false,
+            loading: false,
+        };
+    }),
+    on(SystemTagsActions.repositionSuccess, (state, { positions, meta }) => {
+        const positionsDictionary: { [id: string]: number } = {};
+        positions?.forEach(pos => {
+            positionsDictionary[pos.id] = pos.position;
+        });
+        const collection = (state.collection || [])
+            .map(
+                item => {
+                    const newItem = { ...item };
+                    const pos = positionsDictionary[newItem.id];
+                    if (pos !== undefined) {
+                        newItem.position = pos;
+                    }
+
+                    return newItem;
+                }
+            );
+
         return {
             ...state,
             collection,

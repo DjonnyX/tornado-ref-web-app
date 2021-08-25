@@ -12,7 +12,9 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
 import { ScenarioListModule } from '@components/scenario-list/list/scenario-list.module';
 import { EditScenarioDialogModule } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
 import { RouterModule } from '@angular/router';
+import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
 
 @NgModule({
   declarations: [
@@ -31,10 +33,12 @@ import { RouterModule } from '@angular/router';
     MatMenuModule,
     MatDialogModule,
     MatCheckboxModule,
+    CheckboxModule,
     DeleteEntityDialogModule,
     SetupNodeContentDialogModule,
     ScenarioListModule,
     EditScenarioDialogModule,
+    TapEffectModule,
   ]
 })
 export class NodeTreeItemModule { }

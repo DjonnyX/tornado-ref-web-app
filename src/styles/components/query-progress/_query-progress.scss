@@ -1,0 +1,25 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.query-progress {
+    width: 100%;
+    height: 100%;
+    display: inline-flex;
+    box-sizing: border-box;
+    margin: 0 auto;
+    z-index: 999;
+    background-color: rgba(255, 255, 255, 0.5); //Theme
+    position: absolute;
+    top: 0;
+}
+
+.query-progress-container {
+    position: relative;
+}
+
+.form__body {
+    
+    .query-progress-container {
+        position: relative;
+    }
+}

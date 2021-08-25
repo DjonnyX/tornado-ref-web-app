@@ -1,4 +1,6 @@
-@import "../themes/theme";
+// @import "../themes/theme";
+@import "../abstracts/vars";
+@import "../mixins";
 @import "../utils/px2em";
 
 .list {
@@ -11,13 +13,13 @@
         display: grid;
         grid-template-columns: 1fr auto;
         align-items: baseline;
-        background: rgba($primary, 0.1);
+        background: rgba($primary-color, 0.1);
         color: #000000;
         margin-top: 4px;
         height: px2em(28);
 
         &.active {
-            background: $accent;
+            background: $accent-color;
             color: white;
         }
 

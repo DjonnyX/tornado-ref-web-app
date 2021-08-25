@@ -1,0 +1,158 @@
+@import "../../abstracts/vars";
+@import "../../base/reset-input";
+@import "../../mixins";
+
+.search {
+    display: flex;
+    position: relative;
+    vertical-align: middle;
+    // box-shadow: inset 0px 2px 6px rgba($black, 0.05);
+    padding: $search-padding;
+    border-radius: 32px;
+    height: 36px;
+    border-width: 1px;
+    border-style: solid;
+
+    &__form {
+        display: flex;
+        position: relative;
+        width: 100%;
+
+        &__container {
+            display: flex;
+            position: relative;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        button {
+            background: none;
+            background-color: none;
+        }
+
+        &__button-search {
+            display: flex;
+            position: relative;
+            // color: $secondary-color;
+            margin-right: 7px;
+            z-index: 2;
+            @include transition(width border, 75ms 75ms, ease, 150ms);
+
+            //Icon
+            &__icon {
+                display: block;
+                position: relative;
+                font-size: $search-button-search-icon-size;
+                line-height: 1;
+                margin: auto;
+                // @extend .icon-search;
+                
+                &:before {
+                    content: "\e917";
+                }
+            }
+        }
+
+        &__button-clear {
+            display: flex;
+            position: absolute;
+            right: 0;
+            width: 20px;
+            height: 100%;
+            margin: 0;
+            z-index: 2;
+            @include transition(width border, 75ms 75ms, ease, 150ms);
+
+            &__container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin: auto;
+                border-radius: $search-button-clear-border-radius;
+                @include box($search-button-clear-size);
+            }
+
+            &:active {
+                opacity: 0.5;
+                transform: scale(90%);
+            }
+
+            //Icon
+            &__icon {
+                display: block;
+                position: relative;
+                font-size: $search-button-clear-icon-size;
+                line-height: 1;
+                margin: auto;
+                // @extend .icon-search-cross;
+                
+                &:before {
+                    content: "\e916";
+                }
+            }
+        }
+
+        //Remove default button styles
+        button {
+            padding: 0;
+            border: none;
+            font: inherit;
+            outline: inherit;  
+        }
+
+        //Label don't used now
+        &__label {
+            display: none;
+        }
+
+        &__text-field {
+            @include reset-input();
+            display: block;
+            position: relative;
+            width: calc(100% - #{$search-button-clear-size});
+            
+            &::placeholder {
+                font-weight: 400;
+                font-size: $search-text-field-placeholder-size;
+            }
+        }
+    }
+
+    //Search opened
+    &.pressed {
+
+        // .search__form__button-search__icon {
+        //     color: $secondary-color;
+        // }
+
+        // &__form {
+
+        //     &__button-search {
+                
+        //         &__icon {
+        //             color: $secondary-color;
+        //         }
+        //     }
+
+        // }
+    }
+    
+    &.typed {
+
+        .search__form__button-clear {
+            opacity: 1.0;
+        }
+    }
+
+    &.pressed {
+
+    }
+
+    //Search isEmpty
+    &.empty {
+
+        .search__form__button-clear {
+            opacity: 0.0;
+        }
+    }
+}

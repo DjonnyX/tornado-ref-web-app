@@ -92,8 +92,9 @@ const languageAssetsReducer = createReducer(
         };
     }),
     on(LanguageAssetsActions.createSuccess, LanguageAssetsActions.uploadResourceSuccess, (state, { asset, tmpAsset, meta }) => {
-        const existsTmpAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection, asset];
+        const c = state.collection || [];
+        const existsTmpAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...c, asset];
         if (existsTmpAssetIndex > -1) {
             collection.splice(existsTmpAssetIndex, 1);
         }
@@ -107,8 +108,9 @@ const languageAssetsReducer = createReducer(
         };
     }),
     on(LanguageAssetsActions.createProgress, LanguageAssetsActions.uploadResourceProgress, (state, { tmpAsset, progress }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === tmpAsset.id);
-        let collection = [...state.collection];
+        const c = state.collection || [];
+        const existsAssetIndex = c.findIndex(p => p.id === tmpAsset.id);
+        let collection = [...c];
         const asset = { ...tmpAsset };
         asset.progress = progress;
         if (existsAssetIndex > -1) {
@@ -123,8 +125,9 @@ const languageAssetsReducer = createReducer(
         };
     }),
     on(LanguageAssetsActions.updateSuccess, (state, { asset, meta }) => {
-        const existsAssetIndex = state.collection.findIndex(p => p.id === asset.id);
-        let collection = [...state.collection];
+        const c = state.collection || [];
+        const existsAssetIndex = c.findIndex(p => p.id === asset.id);
+        let collection = [...c];
         if (existsAssetIndex > -1) {
             collection.splice(existsAssetIndex, 1);
             collection.splice(existsAssetIndex, 0, asset);

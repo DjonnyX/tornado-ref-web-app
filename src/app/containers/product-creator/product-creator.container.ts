@@ -339,7 +339,17 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(CurrenciesActions.getAllRequest({}));
     this._store.dispatch(StoresActions.getAllRequest({}));
     this._store.dispatch(OrderTypesActions.getAllRequest({}));
-    this._store.dispatch(SystemTagsActions.getAllRequest({}));
+    this._store.dispatch(SystemTagsActions.getAllRequest(
+      {
+        options: {
+          filter: [{
+            id: "extra.entity",
+            operation: "equals",
+            value: "product",
+          }],
+        }
+      }
+    ));
 
     const prepareMainRequests$ = combineLatest([
       this.tags$,

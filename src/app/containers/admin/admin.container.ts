@@ -2,16 +2,20 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { MediaObserver } from '@angular/flex-layout';
-import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map, takeUntil, filter } from 'rxjs/operators';
-import { AdminSelectors } from '@store/selectors';
+import { AdminSelectors, SettingsSelectors } from '@store/selectors';
 import { INavRoute } from '@components/navigation-menu/interfaces';
 import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
 import { UserActions } from '@store/actions/user.action';
 import { RoleTypes } from '@enums/role-types';
 import { UserRights } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
+import { SettingsActions } from '@store/actions/settings.action';
+import { FormControl } from '@angular/forms';
+import LOCALIZATION from '@app/localization';
 
 @Component({
   selector: 'ta-admin',
@@ -22,82 +26,87 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   isMobile$: Observable<boolean>;
 
+  size$: Observable<string>;
+
   currentRouteIndex$: Observable<number>;
 
   currentRoute$: Observable<INavRoute>;
+
+  parentRoute$: Observable<INavRoute>;
 
   sidenavIsOpen$: Observable<boolean>;
 
   roteCollection: Array<INavRoute> = [
     {
-      icon: "settings",
-      name: "Настройки",
+      icon: "folder",
+      name: "menu_settings", //"Настройки",
       roles: [RoleTypes.ADMIN],
       children: [
         {
           icon: "license",
-          name: "Типы лицензий",
+          name: "menu_license-types", //"Типы лицензий",
           route: "license-types",
         },
         {
           icon: "license",
-          name: "Интеграции",
+          name: "menu_integrations", //"Интеграции",
           route: "integrations",
         },
         {
           icon: "license",
-          name: "Лицензии",
+          name: "menu_licenses", //"Лицензии",
           route: "licenses",
         },
         {
           icon: "application",
-          name: "Приложения",
+          name: "menu_applications", //"Приложения",
           route: "applications",
         },
       ]
     },
     {
-      icon: "settings",
-      name: "Настройки",
+      icon: "folder",
+      name: "menu_user-settings", //"Настройки",
       roles: [RoleTypes.CLIENT],
       children: [
         {
           icon: "license",
-          name: "Лицензии",
+          name: "menu_user-licenses", //"Лицензии",
           route: "licenses-account",
         },
         {
-          icon: "terminal",
-          name: "Устройства",
+          icon: "devices",
+          name: "menu_devices", //"Устройства",
           route: "terminals",
         },
         {
-          icon: "store",
-          name: "Магазины",
+          icon: "markets",
+          name: "menu_stores", //"Магазины",
           route: "stores",
         },
         {
-          icon: "backup",
-          name: "Бэкапы",
+          icon: "backups",
+          name: "menu_backups", //"Бэкапы",
           route: "backups",
         },
         {
-          icon: "themes",
-          name: "Темы",
+          icon: "folder-themes",
+          name: "menu_themes", //Темы",
+          expanded: false,
           children: [
             {
-              icon: "kiosk",
-              name: "Киоск",
+              icon: "menu-theme",
+              name: "menu_app-kiosk", //"Киоск",
               route: "themes-kiosk",
             },
             {
-              icon: "eq",
-              name: "Электронная очередь",
+              icon: "queue",
+              name: "menu_app-eq", //"Электронная очередь",
               route: "themes-eq",
             },
             {
-              icon: "order-picker",
-              name: "Сборщик заказов",
+              icon: "order-admin",
+              name: "menu_app-order-picker", //"Сборщик заказов",
               route: "themes-order-picker",
             },
           ]
@@ -105,96 +114,142 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       ]
     },
     {
-      icon: "refs",
-      name: "Справочники",
+      icon: "folder",
+      name: "menu_user-content", //"Контент",
       roles: [RoleTypes.CLIENT],
       children: [
         {
-          icon: "menu",
-          name: "Меню",
-          route: "menu-tree",
-        },
-        {
-          icon: "products",
-          name: "Товары",
-          route: "products",
-        },
-        {
-          icon: "categories",
-          name: "Группы",
+          icon: "folder-menu",
+          name: "menu_menu-folder", //"Формирование меню",
+          expanded: false,
           children: [
             {
-              icon: "categories-menu",
-              name: "Группы меню",
-              route: "menu-categories",
+              icon: "menu-theme",
+              name: "menu_menu", //"Меню",
+              route: "menu-tree",
             },
             {
-              icon: "categories-constructor",
-              name: "Группы модификаторов",
-              route: "schema-categories",
+              icon: "products",
+              name: "menu_products", //"Товары",
+              route: "products",
             },
-          ]
+            {
+              icon: "tags",
+              name: "menu_tags", //"Тэги",
+              route: "tags",
+            },
+            {
+              icon: "folder-menu",
+              name: "menu_menu-groups", //"Группы",
+              expanded: false,
+              children: [
+                {
+                  icon: "menu-group",
+                  name: "menu_menu-categories", //"Группы меню",
+                  route: "menu-categories",
+                },
+                {
+                  icon: "modifiers-group",
+                  name: "menu_menu-schema-categories", //"Группы модификаторов",
+                  route: "schema-categories",
+                },
+              ]
+            },
+          ],
         },
         {
-          icon: "checkue",
-          name: "Чеки",
-          route: "checkues",
-          right: UserRights.ENABLE_CHECKUES,
-        },
-        {
-          icon: "currencies",
-          name: "Валюты",
-          route: "currencies",
-        },
-        {
-          icon: "tags",
-          name: "Тэги",
-          route: "tags",
-        },
-        {
-          icon: "order-types",
-          name: "Типы заказов",
-          route: "order-types",
-        },
-        {
-          icon: "business-periods",
-          name: "Бизнес-периоды",
-          route: "business-periods",
-        },
-        {
-          icon: "languages",
-          name: "Языки",
-          route: "languages",
-        },
-        {
-          icon: "ads",
-          name: "Рекламы",
+          icon: "folder",
+          name: "menu_ads", //"Рекламы",
+          expanded: false,
           children: [
             {
-              icon: "intros",
-              name: "Заставки",
+              icon: "splash-screen",
+              name: "menu_splash-screen", //"Заставки",
               route: "intros",
             },
             {
-              icon: "banners",
-              name: "Банеры",
-              route: "banners",
-            },
-            {
-              icon: "intros",
-              name: "Заставка (терминал не работает)",
+              icon: "splash-screen-disconnected",
+              name: "menu_splash-screen-disconnected", //"Заставка (терминал не работает)",
               route: "service-unavailable-intros",
             },
+            {
+              icon: "banners",
+              name: "menu_banners", //"Банеры",
+              route: "banners",
+            },
           ],
+        },
+        {
+          icon: "folder",
+          name: "menu_advanced-settings", //"Дополнительно",
+          expanded: false,
+          children: [
+            {
+              icon: "checkue",
+              name: "menu_checkues", //"Чеки",
+              route: "checkues",
+              right: UserRights.ENABLE_CHECKUES,
+            },
+            {
+              icon: "currency",
+              name: "menu_currencies", //"Валюты",
+              route: "currencies",
+            },
+            {
+              icon: "order-types",
+              name: "menu_order-types", //"Типы заказов",
+              route: "order-types",
+            },
+            {
+              icon: "business-periods",
+              name: "menu_business-periods", //"Бизнес-периоды",
+              route: "business-periods",
+            },
+            {
+              icon: "languages",
+              name: "menu_languages", //"Языки",
+              route: "languages",
+            },
+          ]
         },
       ]
     },
   ];
 
+  // Нужно будет сделать правильно!
+  public readonly languages = [
+    { code: "ru", data: LOCALIZATION.ru },
+    { code: "eng", data: LOCALIZATION.eng },
+  ];
+
+  ctrlLanguage = new FormControl(null, []);
+
+  selectedLang: any;
+
+  isMenuOpened: boolean = false;
+
   private _currentRouteIndex: number;
 
-  constructor(private _media: MediaObserver, private _router: Router, private _activatedRoute: ActivatedRoute, private _store: Store<IAppState>) {
+  btnThemeClasses: any = { 'tab-button__icon': true };
+
+  isRollupActive: boolean = false;
+
+  constructor(
+    private _media: MediaObserver,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _store: Store<IAppState>,
+    public readonly localization: LocalizationService,
+  ) {
     super();
+  }
+
+  onToggleMenu(): void {
+    this.isMenuOpened = !this.isMenuOpened;
+  }
+
+  toggleRollupButton(): void {
+    this.isRollupActive = !this.isRollupActive;
   }
 
   private extractUrlPath(url: string): string {
@@ -236,14 +291,17 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0): number {
+  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null): number {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
       if (!!collection[i].children && collection[i].children.length > 0) {
-        collection[i].expanded = true;
-        result = this.normalizedRoutesCollection(collection[i].children, result);
+        if (collection[i].expanded === undefined) {
+          collection[i].expanded = true;
+        }
+        result = this.normalizedRoutesCollection(collection[i].children, result, collection[i]);
       } else {
         collection[i].index = result;
+        collection[i].parent = parent;
         result++;
       }
     }
@@ -251,10 +309,43 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
+  onThemeToggle(): void {
+    this._store.dispatch(SettingsActions.toggleTheme());
+  }
+
   ngOnInit() {
+    this.ctrlLanguage.valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+      filter(v => !!v),
+    ).subscribe(
+      v => {
+        this._store.dispatch(SettingsActions.changeLanguage({ language: v }));
+      }
+    );
+
+    this._store.pipe(
+      takeUntil(this.unsubscribe$),
+      select(SettingsSelectors.selectLanguage),
+    ).subscribe(
+      v => {
+        this.ctrlLanguage.setValue(v);
+        this.selectedLang = this.languages.find(l => l.code === v);
+      }
+    );
+
+    this._store.pipe(
+      takeUntil(this.unsubscribe$),
+      select(SettingsSelectors.selectTheme),
+    ).subscribe(
+      v => {
+        this.btnThemeClasses = { ['tab-button__icon']: true, [`icon-theme-${v}`]: true };
+      }
+    );
+
     this.normalizedRoutesCollection(this.roteCollection);
 
     this._router.events.pipe(
+      takeUntil(this.unsubscribe$),
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       const url = this.extractUrlPath(event.urlAfterRedirects);
@@ -283,13 +374,20 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       map(index => this.findRouteByIndex(index, this.roteCollection)),
     );
 
-    this.isMobile$ = this._media.media$.pipe(
-      map(v => v.suffix === 'Xs')
+    this.parentRoute$ = this.currentRoute$.pipe(
+      map(route => route.parent),
     );
 
-    this.isMobile$.pipe(
+    this.size$ = this._media.media$.pipe(
       takeUntil(this.unsubscribe$),
-    ).subscribe(v => {
+      map(v => v.suffix?.toLowerCase()),
+    );
+
+    this.isMobile$ = this.size$.pipe(
+      map(v => v === "xs"),
+    );
+
+    this.isMobile$.subscribe(v => {
       if (!v) this._store.dispatch(AdminActions.setSidenavOpen({ sidenavIsOpen: false }));
     });
   }

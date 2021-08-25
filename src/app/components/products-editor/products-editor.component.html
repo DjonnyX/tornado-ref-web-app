@@ -1,65 +1,236 @@
-<div class="editor" *ngIf="!!defaultLanguage">
-    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <ng-container *ngFor="let systemTag of actualSystemTags">
-        <div class="editor__list">
-            <div class="editor__list__header">{{systemTag?.name || 'Не распределены'}}</div>
-            <div class="entities-wrapper">
-                <div class="entity"
-                    *ngFor="let product of collection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
-                    [class.disabled]="!product.active">
-                    <div class="entity-ctrls">
-                        <div class="entity-checkbox-active">
-                            <mat-checkbox color="accent" #checkboxActive [checked]="product.active"
-                                (click)="onToggleActive($event, product)"></mat-checkbox>
-                        </div>
-                        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
-                            <mat-icon class="icon">more_vert</mat-icon>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item type="button" (click)="onToggleActive($event, product)">
-                                <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                                <span>{{product.active ? 'Деактивировать' : 'Активировать'}}</span>
-                            </button>
-                            <button mat-menu-item (click)="onEditProduct(product)">
-                                <mat-icon>edit</mat-icon>
-                                <span>Редактировать</span>
-                            </button>
-                            <ng-container *ngIf="hasDelete()">
-                                <button mat-menu-item (click)="onDeleteProduct(product)">
-                                    <mat-icon>delete_forever</mat-icon>
-                                    <span>Удалить</span>
-                                </button>
-                            </ng-container>
-                        </mat-menu>
-                    </div>
-                    <div matRipple class="entity-active-zone" (click)="onEditProduct(product)">
-                        <div class="content">
-                            <div class="content__name">
-                                {{getProductName(product)}}
-                            </div>
-                            <div class="content__description">
-                                {{getProductDescription(product)}}
-                            </div>
-                        </div>
-                        <div class="bottom-panel">
-                            <img align="center" *ngIf="hasThumbnail(product, 'x32')" class="entity-thumbnail"
-                                [src]="getThumbnail(product, 'x32')">
-                            <div class="tags">
-                                <span class="tag" *ngFor="let tag of product.tags" [style.background]="getTagColor(tag)"
-                                    [matTooltip]="getTagName(tag)"></span>
-                            </div>
-                        </div>
-                        <div class="color" [style.background]="getProductColor(product)"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </ng-container>
+<!-- ActionMenu -->
+<ng-template #popupMenu let-product="data">
+    <!-- <button mat-icon-button (click)="actionMenu.open()" class="entity__action-menu__button" aria-label="Menu">
+        <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+    <ta-action-menu #actionMenu [items]="getActionMenuItems(product)"></ta-action-menu> -->
 
-    <div class="create-entity-button-wrapper" *ngIf="hasCreate()">
-        <button color="accent" mat-raised-button class="button-add float" (click)="onCreateProduct()">
-            Добавить продукт
-            <!-- <mat-icon>add</mat-icon> -->
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
+        <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item type="button" (click)="onToggleActive(product)">
+            <mat-icon>{{product.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <span>
+                {{product.active ? localization.get("common_action-deactivate") :
+                localization.get("common_action-activate")}}
+            </span>
         </button>
+        <button mat-menu-item (click)="onEditProduct(product)">
+            <mat-icon>edit</mat-icon>
+            <span>
+                {{localization.get("common_action-edit")}}
+            </span>
+        </button>
+        <ng-container *ngIf="hasDelete()">
+            <button mat-menu-item (click)="onDeleteProduct(product)">
+                <mat-icon>delete_forever</mat-icon>
+                <span>
+                    {{localization.get("common_action-delete")}}
+                </span>
+            </button>
+        </ng-container>
+    </mat-menu>
+</ng-template>
+<!-- Content -->
+<div class="editor product-editor" *ngIf="!!defaultLanguage">
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" [layout]="layoutType"
+        [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
+        (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)">
+    </ta-state-panel>
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <ng-container [ngSwitch]="layoutType">
+            <!-- List-template -->
+            <div class="editor__container">
+                <!--Entity Wrapper-->
+                <ng-container *ngIf="actualSystemTags | sortProducts: 'position' as tagsList">
+                    <div cdkDropList [cdkDropListData]="actualSystemTags" (cdkDropListDropped)="onDropSystemTag($event)"
+                        class="drag-drop-list">
+                        <ng-container *ngFor="let systemTag of tagsList">
+                            <ta-expansion-panel cdkDrag [cdkDragData]="systemTag" *ngIf="(filteredCollection | filterProducts:systemTag |
+                            search:searchPattern:defaultLanguage?.code).length as systemTagsLength"
+                                [headerTemplateData]="{
+                                        title: !!systemTag?.name ? systemTag.name + ' (' + systemTagsLength + ')' : localization.get('common_not-allocated')
+                                    }">
+                                <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+                                <ng-container *ngSwitchCase="LayoutTypes.LIST">
+                                    <div class="editor__group-list">
+                                        <div class="entities-container entities-list-layout"
+                                            *ngIf="filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code | sortProducts:'position' as items"
+                                            > <!--cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)"-->
+                                            <div #entityProductListItem
+                                                class="entity entity-product list-layout" *ngFor="let product of items"
+                                                [class.disabled]="!product.active"><!-- cdkDrag [cdkDragData]="product"-->
+                                                <!-- <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
+
+                                                <div class="entity__wrapper">
+                                                    <!-- Controls -->
+                                                    <div class="entity__control">
+                                                        <div class="entity__control__container">
+                                                            <!--My checkbox-->
+                                                            <div class="entity__control__checkbox">
+                                                                <ta-checkbox #checkboxActive [checked]="product.active"
+                                                                    (click)="onToggleActive(product)"></ta-checkbox>
+                                                            </div>
+                                                            <!--My checkbox-->
+                                                        </div>
+                                                    </div>
+                                                    <!-- Controls -->
+                                                    <!-- Entity Active-Zone -->
+                                                    <div [tapEffect]="entityProductListItem" class="entity__body"
+                                                        (click)="onEditProduct(product)">
+                                                        <div class="entity__body__content">
+                                                            <!-- <div class="entity__body__gradient"></div> -->
+                                                            <div class="entity__body__container">
+                                                                <!-- <img align="center" *ngIf="hasThumbnail(product)" class="entity__thumbnail"
+                                                    [src]="getThumbnail(product)"> -->
+                                                                <div class="entity__image">
+                                                                    <img align="center"
+                                                                        *ngIf="hasThumbnail(product, 'x128')"
+                                                                        class="entity__image__thumbnail"
+                                                                        [src]="getThumbnail(product, 'x128')">
+                                                                </div>
+                                                                <div class="entity__text-group">
+                                                                    <div class="entity__name">
+                                                                        {{getProductName(product)}}
+                                                                    </div>
+                                                                    <div class="entity__description">
+                                                                        {{getProductDescription(product) | slice:0:60
+                                                                        }}{{getProductDescription(product).length > 20 ?
+                                                                        "..." :
+                                                                        ""}}
+                                                                    </div>
+                                                                    <div class="entity__elements-group-space-between">
+                                                                        <div class="tags">
+                                                                            <ng-container
+                                                                                *ngFor="let tag of product.tags">
+                                                                                <span
+                                                                                    [ngClass]="{'tag': true, 'active': !!tag.active, 'inactive': !tag.active}"
+                                                                                    [style.background]="getTagColor(tag)"
+                                                                                    [matTooltip]="getTagName(tag)">
+                                                                                    {{getTagName(tag)}}
+                                                                                </span>
+                                                                            </ng-container>
+                                                                        </div>
+                                                                        <div class="entity__elements-group">
+                                                                            <!-- <p class="entity__weight">
+                                                                                {{product.weight}}
+                                                                            </p> -->
+                                                                            <p class="entity__coast">
+                                                                                {{getPrices(product)}}
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div>
+
+                                                                    <!-- <div class="prices__wrapper">
+                                                        <ta-prices [prices]="product.prices" (update)="onChangePrices($event)">
+                                                        </ta-prices>
+                                                    </div> -->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="entity__footer">
+                                                        <div class="entity__footer__container">
+                                                            <ng-container
+                                                                *ngTemplateOutlet="popupMenu; context: {data: product}">
+                                                            </ng-container>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="color" [style.background]="getProductColor(product)"></div>
+                                                <!-- Entity Active-Zone -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                                <!-- Card-template -->
+                                <ng-container *ngSwitchCase="LayoutTypes.CARD">
+                                    <div class="entities-container entities-card-layout">
+                                        <div #entityProductCardItem class="entity entity-product card-layout"
+                                            *ngFor="let product of filteredCollection | filterProducts:systemTag | search:searchPattern:defaultLanguage?.code"
+                                            [class.disabled]="!product.active">
+                                            <div class="entity__wrapper">
+                                                <div class="entity__control">
+                                                    <div class="entity__control__container">
+                                                        <!--My checkbox-->
+                                                        <ta-checkbox #checkboxActive [checked]="product.active"
+                                                            (click)="onToggleActive(product)"></ta-checkbox>
+
+                                                        <ng-container
+                                                            *ngTemplateOutlet="popupMenu; context: {data: product}">
+                                                        </ng-container>
+                                                    </div>
+                                                </div>
+                                                <div [tapEffect]="entityProductCardItem" class="entity__body"
+                                                    (click)="onEditProduct(product)">
+                                                    <div class="entity__body__content">
+                                                        <!-- <div class="entity__body__gradient"></div> -->
+                                                        <div class="entity__body__container">
+                                                            <div class="entity__image">
+                                                                <img align="center"
+                                                                    *ngIf="hasThumbnail(product, 'x128')"
+                                                                    class="entity__image__thumbnail"
+                                                                    [src]="getThumbnail(product, 'x128')">
+                                                            </div>
+                                                            <div class="entity__text-group">
+                                                                <div class="entity__name">
+                                                                    {{getProductName(product)}}
+                                                                </div>
+                                                                <div class="entity__description">
+                                                                    <!-- {{getProductDescription(product)}} -->
+                                                                    <!-- {{getProductDescription(product) | slice:0:120 -->
+                                                                    {{getProductDescription(product) |
+                                                                    slice:0:80
+                                                                    }}{{getProductDescription(product).length >
+                                                                    20 ? "..." :
+                                                                    ""}}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="entity__footer">
+                                                <div class="entity__footer__container">
+                                                    <div class="tags">
+                                                        <ng-container *ngFor="let tag of product.tags">
+                                                            <span
+                                                                [ngClass]="{'tag': true, 'active': !!tag.active, 'inactive': !tag.active}"
+                                                                [style.background]="getTagColor(tag)"
+                                                                [matTooltip]="getTagName(tag)">
+                                                                {{getTagName(tag)}}
+                                                            </span>
+                                                        </ng-container>
+                                                    </div>
+                                                    <p class="entity__coast">
+                                                        {{getPrices(product)}}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="color" [style.background]="getProductColor(product)">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </ta-expansion-panel>
+                        </ng-container>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="hasCreate()">
+                    <div class="entities-bottom-panel">
+                        <div class="entities-bottom-panel__container">
+                            <button color="accent" class="button-add" (click)="onCreateProduct()">
+                                <div class="">Добавить продукт</div>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
     </div>
 </div>

@@ -1,7 +1,11 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-products-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
         [rights]="rights$ | async" [tagList]="tags$ | async" [assets]="assets$ | async"
-        [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async" [systemTags]="systemTags$ | async"
-        (create)="onCreate()" (edit)="onEdit($event)" (update)="onUpdate($event)" (delete)="onDelete($event)">
+        [currencies]="currencies$ | async" [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+        [systemTags]="systemTags$ | async" [layoutType]="layoutType$ | async"
+        [displayInactiveEntities]="displayInactiveEntities$ | async" (create)="onCreate()" (edit)="onEdit($event)"
+        (update)="onUpdate($event)" (delete)="onDelete($event)" (reposition)="onReposition($event)"
+        (repositionSystemTags)="onSystemTagsReposition($event)" (changeLayout)="onChangeLayout($event)"
+        (changeDisplayInactiveEntities)="onChangeDisplayInactiveEntities($event)">
     </ta-products-editor-component>
 </ta-query-progress>

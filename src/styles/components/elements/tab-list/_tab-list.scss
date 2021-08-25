@@ -1,0 +1,43 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.tab-list {
+  @extend .button-group;
+  margin-bottom: 25px;
+
+  &__item {
+    @extend .button;
+    cursor: pointer;
+    
+    &__container {
+      @extend .button__container;
+    }
+
+    &__content {
+      @extend .button__content;
+    }
+
+    &__group {
+      @extend .button__group;
+    }
+
+    &__name {
+      @extend .button__name;
+      font-size: $tab-list-font-size;
+    }
+
+    &.selected {
+        // background: $accent-color;
+        // border: 1px solid lighten($accent-color, 5);
+        // color: white;
+    }
+
+    &:not(.selected):hover {
+        // background: darken($primary-color, 15);
+    }
+  }
+
+  &__item {
+    // margin: px2em(4);
+  }
+}

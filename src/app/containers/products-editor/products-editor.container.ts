@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { ProductsSelectors, AssetsSelectors, LanguagesSelectors, UserSelectors, SystemTagsSelectors } from '@store/selectors';
+import { ProductsSelectors, AssetsSelectors, LanguagesSelectors, UserSelectors, SystemTagsSelectors, CurrenciesSelectors, SettingsSelectors } from '@store/selectors';
 import { ProductsActions } from '@store/actions/products.action';
 import { IAsset } from '@models';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,9 +12,12 @@ import { ProductActions } from '@store/actions/product.action';
 import { AssetsActions } from '@store/actions/assets.action';
 import { BaseComponent } from '@components/base/base-component';
 import { map, filter } from 'rxjs/operators';
-import { IProduct, ITag, IRef, ILanguage, UserRights, ISystemTag } from '@djonnyx/tornado-types';
+import { IProduct, ITag, IRef, ILanguage, UserRights, ISystemTag, ICurrency, IEntityPosition } from '@djonnyx/tornado-types';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { SystemTagsActions } from '@store/actions/system-tags.action';
+import { CurrenciesActions } from '@store/actions/currencies.action';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-products-editor',
@@ -32,6 +35,8 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   public tags$: Observable<Array<ITag>>;
 
+  public currencies$: Observable<Array<ICurrency>>;
+
   public systemTags$: Observable<Array<ISystemTag>>;
 
   public assets$: Observable<Array<IAsset>>;
@@ -44,6 +49,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   rights$: Observable<Array<UserRights>>;
 
+  layoutType$: Observable<LayoutTypes>;
+
+  displayInactiveEntities$: Observable<boolean>;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
   }
@@ -52,6 +61,14 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     this.rights$ = this._store.pipe(
       select(UserSelectors.selectUserProfile),
       map(p => p?.account?.rights || []),
+    );
+
+    this.layoutType$ = this._store.pipe(
+      select(SettingsSelectors.selectProductsLayout),
+    );
+
+    this.displayInactiveEntities$ = this._store.pipe(
+      select(SettingsSelectors.selectProductsInactiveVisibility),
     );
 
     this.isProcess$ = combineLatest([
@@ -70,9 +87,12 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(LanguagesSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(CurrenciesSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess, isSystemTagsProcess]) =>
-        isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess || isSystemTagsProcess),
+      map(([isProductsProgress, isAssetsProgress, isTagsProgress, isLanguagesProcess, isSystemTagsProcess, isGetCyrrenciesProcess]) =>
+        isProductsProgress || isAssetsProgress || isTagsProgress || isLanguagesProcess || isSystemTagsProcess || isGetCyrrenciesProcess),
     );
 
     this.tags$ = this._store.pipe(
@@ -99,6 +119,10 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
       select(LanguagesSelectors.selectCollection),
     );
 
+    this.currencies$ = this._store.pipe(
+      select(CurrenciesSelectors.selectCollection),
+    );
+
     this.defaultLanguage$ = this.languages$.pipe(
       filter(languages => !!languages),
       map(languages => languages.find(v => !!v.isDefault)),
@@ -116,16 +140,28 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
         !!collection && !!assets && !!languages && !!tags && !!systemTags),
     );
 
+    this._store.dispatch(CurrenciesActions.getAllRequest({}));
     this._store.dispatch(ProductsActions.getAllRequest({}));
     this._store.dispatch(TagsActions.getAllRequest({}));
-    this._store.dispatch(SystemTagsActions.getAllRequest({}));
     this._store.dispatch(AssetsActions.getAllRequest());
     this._store.dispatch(LanguagesActions.getAllRequest({}));
+    this._store.dispatch(SystemTagsActions.getAllRequest(
+      {
+        options: {
+          filter: [{
+            id: "extra.entity",
+            operation: "equals",
+            value: "product",
+          }],
+        }
+      }
+    ));
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
+    this._store.dispatch(CurrenciesActions.clear());
     this._store.dispatch(ProductsActions.clear());
     this._store.dispatch(TagsActions.clear());
     this._store.dispatch(SystemTagsActions.clear());
@@ -156,5 +192,30 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
 
   onDelete(id: string): void {
     this._store.dispatch(ProductsActions.deleteRequest({ id }));
+  }
+
+  onReposition(positions: Array<IEntityPosition>): void {
+    this._store.dispatch(ProductsActions.repositionRequest({ positions }));
+  }
+
+  onSystemTagsReposition(positions: Array<IEntityPosition>): void {
+    this._store.dispatch(SystemTagsActions.repositionRequest({
+      positions,
+      options: {
+        filter: [{
+          id: "extra.entity",
+          operation: "equals",
+          value: "product",
+        }],
+      }
+    }));
+  }
+
+  onChangeLayout(layout: LayoutTypes): void {
+    this._store.dispatch(SettingsActions.changeProductsLayout({ layout }));
+  }
+
+  onChangeDisplayInactiveEntities(showInactive: boolean): void {
+    this._store.dispatch(SettingsActions.changeProductsVisibility({ showInactive }));
   }
 }

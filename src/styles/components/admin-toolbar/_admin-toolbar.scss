@@ -1,0 +1,107 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+$admin-section-container-padding-h: 16px;
+$dropdown-selector-value-width: 36px;
+
+.admin__toolbar {
+    display: grid;
+    // grid-template-columns: $navigation-menu-width auto; //Layout
+    box-sizing: border-box;
+    height: 100%;
+    z-index: 9999;
+
+    &__logo-section {
+        display: flex;
+        position: relative;
+        height: 100%;
+        // width: $navigation-menu-width;  //Layout
+        width: 100%;
+
+        &__container {
+            width: 100%;
+            height: 100%;
+            padding-left: $admin-section-container-padding-h;
+        }
+    }
+
+    &__navigation-section {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        &__container {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            white-space: nowrap;
+            width: 100%;
+            height: 100%;
+            padding-right: $admin-section-container-padding-h;
+        }
+
+        &__right-group, &__left-group {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+        }
+    }
+
+    &__navline__group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        height: 100%;
+    }
+
+    &__link {
+        display: flex;
+        align-items: center;
+        color: $neutral-color;
+
+        a {
+
+        }
+    }
+
+    //elements
+
+    &__page-title {
+        font-size: 18px;
+        font-weight: 500;
+        color: $background-color;
+
+        &.parent {
+            opacity: 0.3;
+        }
+    }
+}
+
+.admin__logo {
+    // display: block; //Layout
+    position: relative;
+    width: 100%;
+    height: 100%;
+
+    &__container {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: 100%;
+        align-items: center;
+    }
+
+    &__icon {
+        color: $background-color;
+        padding: 10px;
+        border-radius: 6px;
+
+        &::before {
+            color: $background-color;
+            font-size: 24px;
+        }
+    }
+}

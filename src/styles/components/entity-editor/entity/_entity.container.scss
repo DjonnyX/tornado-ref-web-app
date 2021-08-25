@@ -1,0 +1,7 @@
+@import "../../../abstracts/vars";
+
+.entity-container {
+    display: block;
+    position: relative;
+    padding: $entity-container_padding;
+}

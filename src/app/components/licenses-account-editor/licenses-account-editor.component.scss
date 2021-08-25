@@ -1,96 +1,92 @@
 @import "../../../styles/components/entity-editor";
 @import "../../../styles/utils/px2em";
 
-$entity-height-m: px2em(150);
-$entity-height-d: px2em(160);
-$entity-width-m: px2em(140);
-$entity-width-d: px2em(190);
+// $entity-height-m: px2em(150);
+// $entity-height-d: px2em(160);
+// $entity-width-m: px2em(140);
+// $entity-width-d: px2em(190);
 
-.editor {
-    .entity {
-        .color {
-            width: 100%;
-            height: px2em(10);
-            min-height: px2em(10);
-        }
+// .editor {
+//     .entity {
+//         .color {
+//             width: 100%;
+//             height: px2em(10);
+//             min-height: px2em(10);
+//         }
 
-        .license-status {
-            width: 10px;
-            height: 10px;
-            border-radius: 5px;
+//         .license-status {
+//             width: 10px;
+//             height: 10px;
+//             border-radius: 5px;
 
-            &:not(.active) {
-                background-color: rgba(0, 0, 0, 0.25);
-            }
-            &.active {
-                background-color: green;
-            }
-        }
+//             &:not(.active) {
+//                 background-color: rgba(0, 0, 0, 0.25);
+//             }
+//             &.active {
+//                 background-color: green;
+//             }
+//         }
 
-        .license-status-text {
-            margin-left: 4px;
-            font-size: px2em(12);
-        }
-    }
-}
+//         .license-status-text {
+//             margin-left: 4px;
+//             font-size: px2em(12);
+//         }
+//     }
+// }
 
-.licenses-none__wrapper {
-    position: absolute;
-    padding: px2em(60);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: content-box;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    height: 100%;
-}
+// .licenses-none__wrapper {
+//     position: absolute;
+//     padding: px2em(60);
+//     display: flex;
+//     align-items: center;
+//     justify-content: center;
+//     box-sizing: content-box;
+//     left: 0;
+//     top: 0;
+//     bottom: 0;
+//     right: 0;
+//     height: 100%;
+// }
 
-.licenses-none__text {
-    position: absolute;
-    color: white;
-    font-weight: 600;
-    text-align: center;
-}
+// .licenses-none__text {
+//     position: absolute;
+//     color: white;
+//     font-weight: 600;
+//     text-align: center;
+// }
 
-@media screen and (min-width: 600px) {
-    .editor {
-        .entities-wrapper {
-            grid-template-columns: repeat(auto-fill, minmax($entity-width-d, 1fr));
-        }
+// @media screen and (min-width: 600px) {
+//     .editor {
+//         .entities-wrapper {
+//             grid-template-columns: repeat(auto-fill, minmax($entity-width-d, 1fr));
+//         }
 
-        .entity {
-            .entity-active-zone {
-                height: $entity-height-d - $ctrl-panel-height;
-            }
-        }
+//         .entity {
+//             .entity__body {
+//                 height: $entity-height-d - $ctrl-panel-height;
+//             }
+//         }
 
-        .button-add {
-            &:not(.float) {
-                height: $entity-height-d;
-            }
-        }
-    }
-}
+//         .button-add {
+//             height: $entity-height-d;
+//         }
+//     }
+// }
 
-@media screen and (max-width: 599px) {
-    .editor {
-        .entities-wrapper {
-            grid-template-columns: repeat(auto-fill, minmax($entity-width-m, 1fr));
-        }
+// @media screen and (max-width: 599px) {
+//     .editor {
+//         .entities-wrapper {
+//             grid-template-columns: repeat(auto-fill, minmax($entity-width-m, 1fr));
+//         }
 
-        .entity {
-            .entity-active-zone {
-                height: $entity-height-m - $ctrl-panel-height;
-            }
-        }
+//         .entity {
+//             .entity__body {
+//                 height: $entity-height-m - $ctrl-panel-height;
+//             }
+//         }
 
-        .button-add {
-            &:not(.float) {
-                height: $entity-height-m;
-            }
-        }
-    }
-}
+//         .button-add {
+//             height: $entity-height-m;
+//         }
+//     }
+// }

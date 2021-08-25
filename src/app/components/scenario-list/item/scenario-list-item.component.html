@@ -1,11 +1,17 @@
 <div matRipple class="scenario-list__item" [class.disabled]="!scenario.active" (click)="onEdit($event)">
     <span class="item__content">
-        <div class="content__checkbox-active">
-            <mat-checkbox *ngIf="!lock" color="primary" #checkboxActive [checked]="scenario.active" (click)="onToggleActive($event)">
+        <!-- <div class="content__checkbox-active">
+            <mat-checkbox *ngIf="!lock" color="primary" #checkboxActive [checked]="scenario.active"
+                (click)="onToggleActive($event)">
             </mat-checkbox>
+        </div> -->
+        <!--My checkbox-->
+        <div class="entity__control__checkbox md">
+            <ta-checkbox #checkboxActive [checked]="scenario.active" (click)="onToggleActive($event)"></ta-checkbox>
         </div>
+        <!--My checkbox-->
         <div class="content__text">
-            {{getTitle()}}
+            {{localization.get(getTitle())}}
         </div>
     </span>
     <span *ngIf="!lock" class="item__menu-button">
@@ -16,19 +22,27 @@
     <mat-menu #menu="matMenu">
         <button mat-menu-item [disabled]="isFirstInCollection" (click)="onUpward()">
             <mat-icon>arrow_upward</mat-icon>
-            <span>Вверх</span>
+            <span>
+                {{localization.get("common_action-upward")}}
+            </span>
         </button>
         <button mat-menu-item [disabled]="isLastInCollection" (click)="onDownward()">
             <mat-icon>arrow_downward</mat-icon>
-            <span>Вниз</span>
+            <span>
+                {{localization.get("common_action-downward")}}
+            </span>
         </button>
         <button mat-menu-item (click)="onEdit()">
             <mat-icon>edit</mat-icon>
-            <span>Редактировать</span>
+            <span>
+                {{localization.get("common_action-edit")}}
+            </span>
         </button>
         <button mat-menu-item (click)="onDelete()">
             <mat-icon>delete_forever</mat-icon>
-            <span>Удалить</span>
+            <span>
+                {{localization.get("common_action-delete")}}
+            </span>
         </button>
     </mat-menu>
 </div>

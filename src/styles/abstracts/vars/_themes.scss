@@ -1,0 +1,139 @@
+/*
+ * Theme definitions
+ */
+
+ @import "./palette";
+ @import "./tab-button"; //???
+
+$themes: (
+  light: (
+    //Common
+    backgroundColor: $background-color,
+    foregroundColor: $primary-color,
+    neutralColor: $neutral-color,
+    dividerColor: $divider-color,
+    // Admin Toolbar
+    adminToolbarBackgroundColor: $primary-color,
+    // Navigation Menu
+    navigationMenuBackgroundColor: $primary-color,
+    //State Panel
+    statePanelBackgroundColor: $white,
+    //Search
+    searchBackgroundColor: $background-color,
+    searchTextFieldColor: $search-text-field-color,
+    searchTextFieldPlaceholderColor: $search-text-field-color-closed,
+    searchButtonClearColor: $search-button-clear-color,
+    searchButtonClearBackgroundColor: $search-button-clear-background-color,
+    searchBorderColorClosed: $search-border-color-closed,
+    searchBorderColorOpened: $search-border-color-opened,
+    searchIconColorClosed: $search-icon-color-closed,
+    searchIconColorOpened: $search-icon-color-opened,
+    //
+    textColor: $primary-color,
+    //Entity
+    entityGroupListColor: rgba($secondary-color, 0.4),
+    entityBackgroundColor: $white,
+    entityTitleColor: $primary-color,
+    entityTitleColorInverse: $white,
+    entityDescriptionColor: rgba($secondary-color, 0.4),
+    entityCoastColor: $primary-color,
+    entityActionMenuButtonColor: $primary-color,
+    entityDividerBorderColor: $divider-color,
+    //Base button
+    buttonBaseColor: $white,
+    buttonBasebackgroundColor: $accent-color,
+    //Tab button
+    tabButtonBackgroundColorNormal: $tab-button-background-color-normal,
+    tabButtonBorderColorNormal: $tab-button-border-normal,
+    tabButtonColorNormal: $tab-button-color-normal,
+    tabButtonBackgroundColorActive: $tab-button-background-color-active,
+    tabButtonBorderColorActive: $tab-button-border-active,
+    tabButtonColorActive: $tab-button-color-active,
+    tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse,
+    tabButtonColorNormalInverse:$tab-button-color-normal-inverse,
+    tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse,
+    //Folder Header
+    folderHeaderBackgroundColor:$white,
+    folderHeaderColor:$primary-color,
+    //Node Tree
+    nodeWayBorderColor: $border-color,
+    //
+    cdkDragPreviewBackgroundColor: $background-color,
+    // Query Progress
+    queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color,
+    // Tab List
+    tabListNameColor: $tab-list-name-color,
+    tabListItemBackgroundColor: $tab-list-item-background-color,
+    tabListNameColorSelected: $tab-list-name-color-selected,
+    tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected,
+    //Expansion Panel
+    expansionPanelBackgroundColor: $expansion-panel-background-color,
+    expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover,
+    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active,
+  ),
+  dark: (
+    //Common
+    backgroundColor: $background-color-inverse,
+    foregroundColor: $primary-color,
+    neutralColor: $neutral-color,
+    dividerColor: $divider-color-inverse,
+    // Admin Toolbar
+    adminToolbarBackgroundColor: $primary-color,
+    // Navigation Menu
+    navigationMenuBackgroundColor: $primary-color,
+    //State Panel
+    statePanelBackgroundColor: $secondary-color,
+    //Search
+    searchBackgroundColor: $primary-color,
+    searchTextFieldColor: $search-text-field-color-inverse,
+    searchTextFieldPlaceholderColor: $search-text-field-color-closed-inverse,
+    searchButtonClearColor: $search-button-clear-color-inverse,
+    searchButtonClearBackgroundColor: $search-button-clear-background-color-inverse,
+    searchBorderColorClosed: $search-border-color-closed-inverse,
+    searchBorderColorOpened: $search-border-color-opened-inverse,
+    searchIconColorClosed: $search-icon-color-closed-inverse,
+    searchIconColorOpened: $search-icon-color-opened-inverse,
+    //
+    textColor: $white,
+    //Entity
+    entityGroupListColor: $white,
+    entityBackgroundColor: $primary-color-100,
+    entityTitleColor: $background-color,
+    entityTitleColorInverse: $white,
+    entityDescriptionColor: rgba($background-color, 0.4),
+    entityCoastColor: $background-color,
+    entityActionMenuButtonColor: $white,
+    entityDividerBorderColor: $divider-color-inverse,
+    //Base button
+    buttonBaseColor: $white,
+    buttonBasebackgroundColor: $accent-color,
+    //Tab button
+    tabButtonBackgroundColorNormal: $tab-button-background-color-normal-theme-dark,
+    tabButtonBorderColorNormal: $tab-button-border-normal-theme-dark,
+    tabButtonColorNormal: $tab-button-color-normal-theme-dark,
+    tabButtonBackgroundColorActive: $tab-button-background-color-active-theme-dark,
+    tabButtonBorderColorActive: $tab-button-border-active-theme-dark,
+    tabButtonColorActive: $tab-button-color-active-theme-dark,
+    tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse-theme-dark,
+    tabButtonColorNormalInverse:$tab-button-color-normal-inverse-theme-dark,
+    tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse-theme-dark,
+    //Folder Header
+    folderHeaderBackgroundColor:$secondary-color,
+    folderHeaderColor:$white,
+    //Node Tree
+    nodeWayBorderColor: $border-color-inverse,
+    //
+    cdkDragPreviewBackgroundColor: $background-color-inverse,
+    // Query Progress
+    queryProgressOverlayBackgroundColor: $query-progress-overlay-background-color-inverse,
+    // Tab List
+    tabListNameColor: $tab-list-name-color-inverse,
+    tabListItemBackgroundColor: $tab-list-item-background-color-inverse,
+    tabListNameColorSelected: $tab-list-name-color-selected-inverse,
+    tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected-inverse,
+    //Expansion Panel
+    expansionPanelBackgroundColor: $expansion-panel-background-color-inverse,
+    expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover-inverse,
+    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active-inverse,
+  ),
+);

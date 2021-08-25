@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?brzpfw');
-  src:  url('fonts/icomoon.eot?brzpfw#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?brzpfw') format('truetype'),
-    url('fonts/icomoon.woff?brzpfw') format('woff'),
-    url('fonts/icomoon.svg?brzpfw#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?18r3ns');
+  src:  url('fonts/icomoon.eot?18r3ns#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?18r3ns') format('truetype'),
+    url('fonts/icomoon.woff?18r3ns') format('woff'),
+    url('fonts/icomoon.svg?18r3ns#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,10 +25,43 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-backup:before {
-  content: "\e915";
+.icon-scenario:before {
+  content: "\e923";
 }
-.icon-ads:before {
+.icon-inactive:before {
+  content: "\e924";
+}
+.icon-edit:before {
+  content: "\e925";
+}
+.icon-delete:before {
+  content: "\e926";
+}
+.icon-move-up:before {
+  content: "\e927";
+}
+.icon-upward:before {
+  content: "\e928";
+}
+.icon-backward:before {
+  content: "\e929";
+}
+.icon-menu-arrow:before {
+  content: "\e922";
+}
+.icon-logo-tornado-server:before {
+  content: "\e921";
+}
+.icon-saturn-logo:before {
+  content: "\e90d";
+}
+.icon-checkbox-check:before {
+  content: "\e920";
+}
+.icon-signout:before {
+  content: "\e91f";
+}
+.icon-backups:before {
   content: "\e900";
 }
 .icon-banners:before {
@@ -37,57 +70,84 @@
 .icon-business-periods:before {
   content: "\e902";
 }
-.icon-categories:before {
+.icon-currency:before {
   content: "\e903";
 }
-.icon-categories-constructor:before {
+.icon-devices:before {
   content: "\e904";
 }
-.icon-categories-menu:before {
+.icon-folder-menu:before {
   content: "\e905";
 }
-.icon-currencies:before {
+.icon-folder-themes:before {
   content: "\e906";
 }
-.icon-intros:before {
+.icon-folder:before {
   content: "\e907";
 }
 .icon-languages:before {
   content: "\e908";
 }
-.icon-menu:before {
+.icon-license:before {
   content: "\e909";
 }
-.icon-order-types:before {
+.icon-markets:before {
   content: "\e90a";
 }
-.icon-products:before {
+.icon-menu-group:before {
   content: "\e90b";
 }
-.icon-refs:before {
+.icon-menu-theme:before {
   content: "\e90c";
 }
-.icon-saturn-logo:before {
-  content: "\e90d";
-}
-.icon-saturn-text-logo:before {
+.icon-menu:before {
   content: "\e90e";
 }
-.icon-store:before {
+.icon-modifiers-group:before {
   content: "\e90f";
 }
-.icon-tags:before {
+.icon-order-admin:before {
   content: "\e910";
 }
-.icon-terminal:before {
+.icon-order-types:before {
   content: "\e911";
 }
-.icon-settings:before {
+.icon-products:before {
   content: "\e912";
 }
-.icon-license:before {
+.icon-queue:before {
   content: "\e913";
 }
-.icon-checkue:before {
+.icon-splash-screen-disconnected:before {
   content: "\e914";
+}
+.icon-splash-screen:before {
+  content: "\e915";
+}
+.icon-tags:before {
+  content: "\e91e";
+}
+.icon-theme-dark:before {
+  content: "\e91c";
+}
+.icon-theme-light:before {
+  content: "\e91d";
+}
+.icon-search-cross:before {
+  content: "\e916";
+}
+.icon-search:before {
+  content: "\e917";
+}
+.icon-filter-hide:before {
+  content: "\e918";
+}
+.icon-filter-show:before {
+  content: "\e919";
+}
+.icon-filter-card:before {
+  content: "\e91a";
+}
+.icon-filter-list:before {
+  content: "\e91b";
 }

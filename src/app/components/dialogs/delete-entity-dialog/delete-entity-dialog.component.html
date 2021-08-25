@@ -1,9 +1,18 @@
-<h2 mat-dialog-title><strong>{{data.title}}</strong></h2>
+<h2 mat-dialog-title>
+    <strong>
+        {{localization.get(data.title)}}
+    </strong>
+</h2>
 <mat-dialog-content class="mat-typography">
-    <p>{{data.message}}</p>
+    <p>
+        {{localization.get(data.message)}}
+    </p>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>{{data?.buttons?.cancel?.label || 'Отменить'}}</button>
-    <button color="accent" mat-flat-button [mat-dialog-close]="true">{{data?.buttons?.confirm?.label ||
-        'Удалить'}}</button><!-- cdkFocusInitial-->
+    <button mat-button mat-dialog-close>
+        {{localization.get(data?.buttons?.cancel?.label || 'common_action-cancel')}}
+    </button>
+    <button color="accent" mat-flat-button [mat-dialog-close]="true">
+        {{localization.get(data?.buttons?.confirm?.label || 'common_action-delete')}}
+    </button><!-- cdkFocusInitial-->
 </mat-dialog-actions>

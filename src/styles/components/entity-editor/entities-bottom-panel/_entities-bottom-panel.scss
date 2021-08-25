@@ -1,0 +1,24 @@
+@import "../../../mixins/margin";
+
+.entities-bottom-panel {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    @include margin-h;
+    margin-bottom: 20px;
+    right: 0;
+
+    &__container {
+        display: flex;
+        @extend .entities-container;
+    }
+
+    .button-add {
+        font-size: 15px;
+        border-radius: 8px;
+        margin: 0;
+        padding: 5px 25px;
+        box-shadow: 0px 0px 16px rgba($accent-color, 0.55);
+        border: none;
+    }
+}

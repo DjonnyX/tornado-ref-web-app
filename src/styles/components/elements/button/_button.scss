@@ -1,0 +1,75 @@
+@import "../../../mixins";
+@import "../../../abstracts/vars";
+
+.button-base {
+    display: block;
+    position: relative;
+    border-radius: $button-border-radius;
+    width: auto;
+    height: auto;
+    padding: $button-base-padding;
+    @include themify($themes) {
+        color: themed('buttonBaseColor');  
+        background-color: themed('buttonBasebackgroundColor');  
+    }
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: $button-group-gap;
+}
+
+.button {
+    display: block;
+    position: relative;
+    @include box(auto);
+    border-radius: $button-border-radius;
+    cursor: pointer;
+
+    &__container {
+        padding: $button-base-padding;
+    }
+
+    &__content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__group {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+
+        &.vertical {
+            flex-direction: row;
+        }
+    }
+
+    &__icon {
+        font-size: 16px;
+
+        &::before {
+            font-size: inherit;
+        }
+    }
+
+    &__name {
+        font-size: 16px;
+        font-weight: 400;
+    }
+
+    &.rounded {
+        border-radius: 32px;
+    }
+
+    &.outline {
+        border-width: $button-border-width;
+        border-style: solid;
+    }
+    &.sm {
+
+    }
+}

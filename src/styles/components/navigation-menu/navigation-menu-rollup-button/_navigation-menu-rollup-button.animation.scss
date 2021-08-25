@@ -1,0 +1,55 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+$navigation-menu-rollup-button-height: 84px;
+
+.admin__view__navigation {
+
+    .navigation-menu__rollup-button {
+
+        &.active {
+
+            .navigation-menu__rollup-button__icon {
+
+                .navigation-menu__rollup-button__icon__symbol {
+                    transform: rotate(180deg);
+                    animation-duration: $navigation-menu-rollup-button-interaction-duration;
+                    animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+                    animation-name: navigation-menu-rollup-button-animation-in;
+                    animation-delay: 0;
+                }
+            }
+        }
+        &.inactive {
+
+            .navigation-menu__rollup-button__icon {
+
+                .navigation-menu__rollup-button__icon__symbol {
+                    transform: rotate(0deg);
+                    animation-duration: $navigation-menu-rollup-button-interaction-duration;
+                    animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+                    animation-name: navigation-menu-rollup-button-animation-out;
+                    animation-delay: $navigation-menu-rollup-button-interaction-delay;
+                }
+            }
+        }
+    }
+}
+
+@keyframes navigation-menu-rollup-button-animation-in {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes navigation-menu-rollup-button-animation-out {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}

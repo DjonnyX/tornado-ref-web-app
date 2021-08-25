@@ -10,6 +10,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { LoaderButtonModule } from '@components/loader-button/loader-button.module';
 import { FileSelectorModule } from '@components/assets/file-selector/file-selector.module';
 import { FileDownloaderModule } from '@components/file-downloader/file-downloader.module';
+import { CountModule } from '@components/base/count/count.module';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FileDownloaderModule } from '@components/file-downloader/file-downloade
     LoaderButtonModule,
     FileSelectorModule,
     FileDownloaderModule,
+    CountModule,
   ]
 })
 export class BackupsEditorModule { }

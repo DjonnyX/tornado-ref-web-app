@@ -1,0 +1,58 @@
+// @import "../../utils/px2em";
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+//Animation
+
+$duration: 225ms;
+
+// .icon-theme-light
+$rotate-light-in: 30deg;
+$translate-light-y-in: 12px;
+
+// .icon-theme-dark
+$rotate-dark-in: 30deg;
+$translate-dark-y-in: 12px;
+
+.theme-button.tab-button__group {
+
+    .tab-button {
+
+        &__icon.icon-theme-dark {
+            animation-duration: $duration;
+            animation-timing-function: cubic-bezier(0.68, -0.32, 0.32, 1.16);
+            animation-name: anim-theme-button-dark;
+        }
+        &__icon.icon-theme-light {
+            animation-duration: $duration;
+            animation-timing-function: cubic-bezier(0.68, -0.32, 0.32, 1.16);
+            animation-name: anim-theme-button-light;
+        }
+    }
+}
+
+@keyframes anim-theme-button-light {
+  from {
+    transform: translateY($translate-light-y-in) rotate($rotate-light-in);
+    opacity: 0.0;
+  }
+  65% {
+    opacity: 1.0;
+  }
+  to {
+    transform: translateX(0px) rotate(0deg);
+  }
+}
+
+@keyframes anim-theme-button-dark {
+  from {
+    transform: translateY($translate-dark-y-in) rotate($rotate-dark-in);
+    opacity: 0.0;
+  }
+  65% {
+    opacity: 1.0;
+  }
+  to {
+    transform: translateY(0px) rotate(0deg);
+  }
+}

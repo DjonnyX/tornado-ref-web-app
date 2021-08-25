@@ -1,12 +1,31 @@
 @import "../utils/px2em";
+// @import "./vars/common";
 
+@import "./vars/breakepoints";
+@import "./vars/palette";
+// @import "./vars/entity-checkbox";
+@import "./vars/button";
+@import "./vars/tab-button";
+@import "./vars/tab-list";
+@import "./vars/expansion-panel";
+@import "./vars/dropdown-selector";
+@import "./vars/admin-view";
+@import "./vars/search";
+@import "./vars/action-menu";
+@import "./vars/forms";
+
+@import "./vars/query-progress";
+//@import "./vars/entity-editor";
+@import "./vars/state-panel";
+@import "./vars/tags";
+
+@import "./vars/entity-editor"; //+
+@import "./vars/interactions";
+@import "./vars/themes";
+
+// ?
 $padding: px2em(18);
 $base-radius: px2em(8);
-$toolbar-height: 64px;
-$toolbar-height-m: 56px;
-
-$corner-radius: 8px;
-
-// Forms
-$button-corner-radius: $corner-radius;
-$form-field-radius: $corner-radius;
+$toolbar-height: px2em(64);
+$toolbar-height-m: px2em(56);
+$ctrl-panel-height: px2em(64);

@@ -1,9 +1,9 @@
-<h2 mat-dialog-title><strong>{{data.title}}</strong></h2>
+<h2 mat-dialog-title><strong>{{localization.get(data.title)}}</strong></h2>
 <mat-dialog-content class="mat-typography" style="min-width: 320px;">
-    <p *ngIf="!!data.message">{{data.message}}</p>
-    <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [scenarios]="data.scenarios" [businessPeriods]="data.businessPeriods"
-        [businessPeriodsDictionary]="data.businessPeriodsDictionary" [currencies]="data.currencies"
-        [currenciesDictionary]="data.currenciesDictionary" [products]="data.products"
+    <p *ngIf="!!data.message">{{localization.get(data.message)}}</p>
+    <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [scenarios]="data.scenarios"
+        [businessPeriods]="data.businessPeriods" [businessPeriodsDictionary]="data.businessPeriodsDictionary"
+        [currencies]="data.currencies" [currenciesDictionary]="data.currenciesDictionary" [products]="data.products"
         [productsDictionary]="data.productsDictionary" [selectors]="data.selectors"
         [selectorsDictionary]="data.selectorsDictionary" [languages]="data.languages"
         [languagesDictionary]="data.languagesDictionary" [orderTypes]="data.orderTypes" [stores]="data.stores"
@@ -12,9 +12,11 @@
     </ta-scenario-editor>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Отменить</button>
+    <button mat-button mat-dialog-close>
+        {{localization.get("common_action-cancel")}}
+    </button>
     <button color="accent" mat-flat-button [mat-dialog-close]="result" [disabled]="status !== 'VALID'">
-        {{data.scenario ? "Сохранить" : "Создать"}}
+        {{localization.get(data.scenario ? "common_action-save" : "common_action-create")}}
     </button>
     <!--cdkFocusInitial-->
 </mat-dialog-actions>

@@ -1,0 +1,71 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+// .app-container {
+    
+// }
+
+/*
+ * Themes
+ */
+
+
+.entity {
+    @include themify($themes) {
+        background-color: themed('entityBackgroundColor');  
+    }
+
+    &__image {
+        
+        &__thumbnail {
+            @include themify($themes) {
+                border-color: themed('entityDividerBorderColor');
+            }
+        }
+    }
+
+    &__name {
+        @include themify($themes) {
+            color: themed('entityTitleColor');
+        }
+    }
+
+    &__description {
+        @include themify($themes) {
+            color: themed('entityDescriptionColor');
+        }
+    }
+
+    &__tag {
+
+        &__name {
+            @include themify($themes) {
+                color: themed('entityTitleColorInverse');
+            }
+        }
+    }
+
+    &__coast {
+        @include themify($themes) {
+            color: themed('entityCoastColor');
+        }
+    }
+
+    &__action-menu__button {
+        @include themify($themes) {
+            color: themed('entityActionMenuButtonColor');
+        }
+    }
+
+    &__footer {
+        @include themify($themes) {
+            border-color: themed('entityDividerBorderColor');
+        }
+    }
+
+    &__control {
+        @include themify($themes) {
+            border-color: themed('entityDividerBorderColor');
+        }
+    }
+}

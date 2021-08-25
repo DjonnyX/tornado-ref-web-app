@@ -1,0 +1,141 @@
+@import "../../abstracts/vars";
+@import "../../base/reset-input";
+@import "../../mixins";
+
+// $search-icon-color-closed: rgba($secondary-color, 0.4);
+// $search-icon-color-closed-inverse: rgba($background-color, 0.4);
+// $search-icon-color-opened: $secondary-color;
+// $search-icon-color-opened-inverse: $background-color;
+
+.search {
+
+  //Search opened
+    &.typed, &.hit, &.pressed {
+        animation-duration: $search-interaction-duration;
+        animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        animation-name: search-animation-in;
+
+        width: $search-width-opened;
+    }
+
+    //Search closed
+    &:not(.hit, .typed) {
+        animation-duration: $search-interaction-duration;
+        animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        animation-name: search-animation-out;
+
+        width: $search-width-closed;
+    }
+
+
+    //Clear Buton
+    &.typed {
+
+        .search__form__button-clear {
+          animation-duration: $search-interaction-duration;
+          animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+          animation-name: search-button-clear-animation-in;
+
+          opacity: 1.0;
+        }
+    }
+
+    //Search closed
+    &:not(.typed) {
+
+      .search__form__button-clear {
+          animation-duration: $search-interaction-duration;
+          animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+          animation-name: search-button-clear-animation-out;
+
+          opacity: 0.0;
+        }
+    }
+
+    //Search Button
+
+    &.typed, &.hit, &.pressed {
+
+      .search__form__button-search__icon {
+        // animation-duration: $search-icon-interaction-duration;
+        // animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        // animation-name: search-icon-animation-in;
+
+        // color: $search-icon-color-opened;
+      }
+    }
+
+    //Search closed
+    &:not(.hit, .typed) {
+        // animation-duration: $search-icon-interaction-duration;
+        // animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        // animation-name: search-icon-animation-out;
+
+        // color: $search-icon-color-closed;
+    }
+}
+
+@keyframes search-animation-in {
+  from {
+    width: $search-width-closed;
+  }
+  65% {
+    width: $search-width-opened * 1.01;
+  }
+  to {
+    width: $search-width-opened;
+  }
+}
+
+@keyframes search-animation-out {
+  from {
+    width: $search-width-opened;
+  }
+  65% {
+    width: $search-width-closed * 1.01;
+  }
+  to {
+    width: $search-width-closed;
+  }
+}
+
+//Clear Buton
+
+@keyframes search-button-clear-animation-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0.0;
+  }
+  65% {
+    transform: scale(1.03);
+    opacity: 1.0;
+  }
+  to {
+    transform: scale(1.0);
+  }
+}
+
+//Search Icon
+// @keyframes search-icon-animation-in {
+//   from {
+//     color: $search-icon-color-closed;
+//   }
+//   65% {
+//     color: $search-icon-color-opened;
+//   }
+//   to {
+//     color: $search-icon-color-opened;
+//   }
+// }
+
+// @keyframes search-icon-animation-out {
+//   from {
+//     color: $search-icon-color-opened;
+//   }
+//   65% {
+//     color: $search-icon-color-closed;
+//   }
+//   to {
+//     color: $search-icon-color-closed;
+//   }
+// }

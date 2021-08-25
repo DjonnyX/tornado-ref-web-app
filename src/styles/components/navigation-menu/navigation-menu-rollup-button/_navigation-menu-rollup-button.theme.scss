@@ -1,0 +1,26 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.admin__view__navigation {
+    
+    .navigation-menu__rollup-button {
+
+        &__icon {
+
+            &__symbol {
+                @include themify($themes) {
+                    color: themed('neutralColor');
+                }
+            }
+        }
+
+        svg {
+
+            path {
+                @include themify($themes) {
+                    fill: themed('backgroundColor');
+                }
+            }
+        }
+    }
+}

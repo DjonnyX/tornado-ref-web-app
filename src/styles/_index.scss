@@ -1,5 +1,11 @@
-@import "./typography/fonts";
+@import "./reset-styles/index";
+@import "./typography/index";
 @import "./themes";
 @import "./components";
 @import "./main";
 @import "./layouts";
+
+
+mat-sidenav {
+    box-shadow: none;
+}

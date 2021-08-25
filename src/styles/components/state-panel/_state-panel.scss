@@ -1,0 +1,56 @@
+@import "../../utils/px2em";
+@import "../../abstracts/vars";
+
+.state-panel {
+    position: absolute;
+    box-shadow: 0px 2px 24px rgb(0 0 0 / 7%);
+    width: 100%;
+    z-index: 1;
+
+    &__container {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0;
+    }
+
+    &__info {
+        font-size: $state-panel-info-font-size;
+        word-wrap: none;
+
+        &__version {
+            color: $state-panel-info-version-color;
+            text-transform: uppercase;
+        }
+
+        &__date {
+            color: $state-panel-info-date-color;
+        }
+    }
+
+    .spacer {
+        margin: auto;
+    }
+}
+// desktop
+@media screen and (min-width: $sm) {
+    .state-panel {
+        height: $state-panel-height;
+        margin-bottom: $state-panel-margin-bottom;
+
+        &__container {
+            padding: $state-panel-container-padding;
+        }
+    }
+}
+// mobile (xs)
+@media screen and (max-width: $sm) {
+    .state-panel {
+        height: $state-panel-height-sm;
+
+        &__container {
+            padding: $state-panel-container-padding-sm;
+            margin-bottom: $state-panel-margin-bottom-sm;
+        }
+    }
+}

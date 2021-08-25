@@ -10,6 +10,8 @@ import { DeleteEntityDialogModule } from '@components/dialogs/delete-entity-dial
 import { SearchPipeModule } from '@app/pipes/seach/search-pipe.module';
 import { StatePanelModule } from '@components/state-panel/state-panel.module';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { CheckboxModule } from '@components/base/checkbox/checkbox.module';
+import { TapEffectModule } from '@app/directives/tap-effect/tap-effect.module';
 
 @NgModule({
   declarations: [
@@ -20,12 +22,14 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   ],
   imports: [
     CommonModule,
+    TapEffectModule,
     MatRippleModule,
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
     MatDialogModule,
     MatCheckboxModule,
+    CheckboxModule,
     DeleteEntityDialogModule,
     StatePanelModule,
     SearchPipeModule,

@@ -1,0 +1,16 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.entities-container {
+    // display: block;
+    position: relative;
+    // width: 100%;
+}
+
+.editor {
+
+    .entities-container {
+        // padding-top: $entities-container-padding-top;
+        // padding-bottom: $entities-container-padding-bottom;
+    }
+}

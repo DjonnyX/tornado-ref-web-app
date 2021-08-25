@@ -1,6 +1,6 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
-import { IRequestOptions, ISystemTag } from '@djonnyx/tornado-types';
+import { IEntityPosition, IRequestOptions, ISystemTag } from '@djonnyx/tornado-types';
 
 export enum SystemTagsActionTypes {
     GET_ALL_REQUEST = "TORNADO/system-systemTags/get-all:request",
@@ -22,6 +22,10 @@ export enum SystemTagsActionTypes {
     DELETE_REQUEST = "TORNADO/system-systemTags/delete:request",
     DELETE_SUCCESS = "TORNADO/system-systemTags/delete:success",
     DELETE_ERROR = "TORNADO/system-systemTags/delete:error",
+
+    REPOSITION_REQUEST = "TORNADO/system-tags-reposition/delete:request",
+    REPOSITION_SUCCESS = "TORNADO/system-tags-reposition/delete:success",
+    REPOSITION_ERROR = "TORNADO/system-tags-reposition/delete:error",
 
     CLEAR = "TORNADO/system-systemTags/clear",
 }
@@ -95,6 +99,20 @@ export namespace SystemTagsActions {
     export const deleteError = createAction(
         SystemTagsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
+    );
+    
+    // reposition
+    export const repositionRequest = createAction(
+        SystemTagsActionTypes.REPOSITION_REQUEST,
+        props<{ positions: Array<IEntityPosition>, options?: IRequestOptions }>()
+    );
+    export const repositionSuccess = createAction(
+        SystemTagsActionTypes.REPOSITION_SUCCESS,
+        props<{ positions: Array<IEntityPosition>, meta: IMetaRefsResponse }>()
+    );
+    export const repositionError = createAction(
+        SystemTagsActionTypes.REPOSITION_ERROR,
+        props<{ error: string }>()
     );
 
     // clear

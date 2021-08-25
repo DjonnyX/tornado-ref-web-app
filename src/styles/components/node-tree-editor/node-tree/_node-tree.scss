@@ -1,0 +1,418 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+$offset-x: 64px;
+$way-border-weight: 1px;
+$way-border-color: #d5d5d5;
+$node-tree-item-border-radius: 6px;
+$node-tree-item-margin-vertical: 5px; //Gap
+
+$node-tree-item-thumbnail-size: 32px;
+
+
+.node-tree-item.root {
+
+}
+
+.node-tree-item.folder {
+    
+}
+
+.node-tree-item.product {
+    
+}
+
+// .drag-drop-box {
+//     background: none;
+// }
+
+.node-tree-item {
+    position: relative;
+
+    .node__control__checkbox {
+        padding: 10px;
+    }
+
+    .node-item-way-hider {
+        position: absolute;
+        width: 4px;
+        height: calc(100% - 26px);
+        bottom: 0;
+        z-index: 1;
+        margin-left: -3px;
+        border-left-width: 1px;
+        border-left-style: solid;
+    }
+
+    .node-tree-item-joint {
+        position: absolute;
+        display: block;
+        width: 32px;
+        height: 6px;
+        margin-top: 22px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+    }
+
+    &__wrapper {
+        
+        .node-tree-item-way {
+            display: none;
+            margin: 4px 0 0 $offset-x;
+            border-left-width: 1px;
+            border-left-style: solid;
+
+            .way-nail {
+                position: absolute;
+                width: 10px;
+                height: 26px;
+                z-index: 1;
+                margin-left: -($way-border-weight);
+                bottom: 0;
+            }
+        }
+
+        .node-tree-item__content + .scenario_editor {
+            border-radius: 0 0 4px 4px;
+        }
+
+        .node-tree-scenario-editor {
+            margin-top: -5px;
+
+            .scenario-editor {
+
+                &__content {
+                    border-radius: 0 0 4px 4px;
+
+                    .content {
+                        border-radius: 0 0 4px 4px;
+                    }
+                }
+            }
+        }
+
+        .node-tree-item__content {
+            margin: 0 0 0 42px;
+            box-sizing: border-box;
+
+            .content {
+                user-select: none;
+                cursor: pointer;
+                display: grid;
+                grid-template-columns: auto 1fr auto;
+                align-items: baseline;
+                overflow: hidden;
+                padding: 4px;
+                align-items: center;
+                border-radius: $node-tree-item-border-radius;
+                margin: $node-tree-item-margin-vertical 0;
+
+                &.has-scenario {
+                    border-radius: 3px 3px 0 0;
+                }
+
+                &__ctrls {
+                    display: flex;
+                    align-items: center;
+                    height: 100%;
+                    border-right-width: 1px;
+                    border-right-style: solid;
+                }
+
+                &__checkbox-active {
+                    padding-left: 10px;
+                    padding-right: 20px;
+                }
+
+                &__name {
+                    padding: 12px;
+                    border-radius: 3px;
+                    margin: auto 0;
+                    margin-left: 12px;
+                    display: grid;
+                    grid-template-columns: auto 1fr;
+                    align-items: center;
+                }
+
+                &__thumbnail {
+                    image-rendering: pixelated;
+                    @include box($node-tree-item-thumbnail-size);
+                    margin-top: -12px;
+                    margin-left: -12px;
+                    margin-bottom: -12px;
+                    margin-right: 12px;
+                    border-radius: 3px;
+                }
+
+                &__text {
+                    text-overflow: ellipsis;
+                    word-break: keep-all;
+                    overflow: hidden;
+                    white-space: nowrap;
+                }
+
+                &.wrong {
+                    background: $warn;
+
+                    .content__name {
+                        background: rgba(0, 0, 0, 0.1);
+
+                        &.hover {
+                            background: $warn-100;
+                        }
+                    }
+                }
+
+                &.lock {
+                    // background: $instance-node-color;
+                    background: $white;
+
+                    .content__name {
+                        background: transparent;
+
+                        &.active {
+                            background: transparent;
+                        }
+
+                        &:hover {
+                            background: transparent;
+                        }
+                    }
+                }
+
+                &.is-instance {
+                    background: $neutral-color;//$instance-node-color;
+                }
+
+                &.disabled {
+                    opacity: 0.5;
+                }
+            }
+
+            .entity__action-menu__button {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+
+        .button-create {
+            margin-left: -20px;
+            margin-top: 18px;
+            margin-bottom: 18px;
+            padding: 0;
+            min-width: 38px;
+            width: 2.375em;
+            height: 2.375em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            mat-button-wrapper {
+                display: flex;
+                width: auto;
+                height: auto;
+            }
+
+            mat-icon {
+                // height: 1em;
+                font-size: 1.5em;
+                color: $white;
+            }
+        }
+    }
+}
+
+// $border-primary: $way-border-weight solid $way-border-color;
+
+// .primary {
+//     .node-tree-item {
+//         .node-item-way-hider {
+//             background: $primary-800;
+//         }
+
+//         .node-tree-item-joint {
+//             border-bottom: $border-primary;
+//         }
+
+//         &__wrapper {
+//             .node-tree-item-way {
+//                 border-left: $border-primary;
+
+//                 .way-nail {
+//                     background: $primary-800;
+//                 }
+//             }
+
+//             .node-tree-item__content {
+//                 .content {
+//                     // color: $primary-700;
+//                     color: $primary-color;
+//                     background: $white;
+//                     // border: 1px solid rgba($primary, 0.3);
+
+//                     &__name {
+//                         // background: rgba($primary, 0.1);
+
+//                         &.active {
+//                             background: rgb(66, 176, 240);
+//                         }
+
+//                         &:hover {
+//                             background: $accent;
+//                             color: $white;
+//                         }
+//                     }
+
+//                     &.wrong {
+//                         background: $warn;
+
+//                         .content__name {
+//                             background: rgba(0, 0, 0, 0.1);
+
+//                             &.hover {
+//                                 background: $warn-100;
+//                             }
+//                         }
+//                     }
+
+//                     &.lock {
+//                         // background: $instance-node-color;
+//                         background: $white;
+
+//                         .content__name {
+//                             background: transparent;
+
+//                             &.active {
+//                                 background: transparent;
+//                             }
+
+//                             &:hover {
+//                                 background: transparent;
+//                             }
+//                         }
+//                     }
+
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
+
+//                     &.disabled {
+//                         opacity: 0.5;
+//                     }
+//                 }
+
+//                 .entity__action-menu__button {
+//                     color: $primary-700;
+//                 }
+//             }
+//         }
+//     }
+
+//     .node-tree-item {
+//         &__wrapper {
+//             .node-tree-item__content {
+//                 .content {
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }
+
+// $border-primary: $way-border-weight solid $way-border-color;
+
+// .secondary {
+//     .node-tree-item {
+//         .node-item-way-hider {
+//             background: #ffffff;
+//         }
+//         .node-tree-item-joint {
+//             border-bottom: $border-primary;
+//         }
+
+//         &__wrapper {
+//             .node-tree-item-way {
+//                 border-left: $border-primary;
+
+//                 .way-nail {
+//                     background: $white;
+//                 }
+//             }
+
+//             .node-tree-item__content {
+//                 .content {
+//                     color: $primary-700;
+//                     background: $white;
+//                     border: 1px solid rgba($primary, 0.75);
+
+//                     &__name {
+//                         background: rgba($primary, 0.1);
+
+//                         &.active {
+//                             background: rgb(66, 176, 240);
+//                         }
+
+//                         &:hover {
+//                             background: $accent;
+//                         }
+//                     }
+
+//                     &.wrong {
+//                         background: $warn;
+
+//                         .content__name {
+//                             background: rgba(0, 0, 0, 0.1);
+
+//                             &.hover {
+//                                 background: $warn-100;
+//                             }
+//                         }
+//                     }
+
+//                     &.lock {
+//                         background: $instance-node-color;
+
+//                         .content__name {
+//                             background: transparent;
+
+//                             &.active {
+//                                 background: transparent;
+//                             }
+
+//                             &:hover {
+//                                 background: transparent;
+//                             }
+//                         }
+//                     }
+
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
+
+//                     &.disabled {
+//                         opacity: 0.5;
+//                     }
+//                 }
+
+//                 .entity__action-menu__button {
+//                     color: $primary-700;
+//                 }
+//             }
+//         }
+//     }
+
+//     .node-tree-item {
+//         &__wrapper {
+//             .node-tree-item__content {
+//                 .content {
+//                     &.is-instance {
+//                         background: $instance-node-color;
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

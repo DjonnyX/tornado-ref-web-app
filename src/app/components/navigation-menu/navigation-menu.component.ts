@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AuthService } from '@app/services/auth.service';
+import { LocalizationService } from '@app/services/localization/localization.service';
 import { INavRoute } from './interfaces';
 
 @Component({
@@ -9,13 +10,22 @@ import { INavRoute } from './interfaces';
 })
 export class NavigationMenuComponent implements OnInit {
 
+  get classes() {
+    return { 'navigation-menu': true, [this.size]: true };
+  }
+
   @Input() collection: Array<INavRoute>;
 
   @Input() selected: number = 0;
 
+  @Input() size: string = "normal";
+
   @Output() select = new EventEmitter<number>();
 
-  constructor(public readonly authService: AuthService) { }
+  constructor(
+    public readonly authService: AuthService,
+    public readonly localization: LocalizationService,
+  ) { }
 
   ngOnInit(): void { }
 
@@ -23,7 +33,7 @@ export class NavigationMenuComponent implements OnInit {
     this.select.emit(index);
   }
 
-  toggleExpand(item: INavRoute) { 
+  toggleExpand(item: INavRoute) {
     item.expanded = !item.expanded;
   }
 

@@ -1,0 +1,144 @@
+@import "../utils/px2em";
+@import "../abstracts/vars";
+// @import "../themes/theme";
+
+$admin-view-navigation-width: 320px;
+
+$admin-view-navigation-width-xs: $admin-view-navigation-width;
+$admin-view-navigation-width-sm: $admin-view-navigation-width;
+$admin-view-navigation-width-md: $admin-view-navigation-width;
+$admin-view-navigation-width-lg: $admin-view-navigation-width;
+$admin-view-navigation-width-xl: $admin-view-navigation-width;
+
+.admin__wrapper {
+
+    .admin__toolbar {
+        background-color: rgba($primary-800,1.0);
+    }
+
+    .admin__view__wrapper {
+        background-color: #99b5c3;
+    //     display: flex;
+    //     flex-direction: row;
+
+    //     .admin__view__navigation {
+    //         position: relative;
+    //     }
+
+    //     .admin__view__content {
+    //         width: 100%;
+    //         margin: 0;
+    //         margin-left: 0 !important;
+    //     }
+    }
+}
+
+// @media screen and (min-width: $xl) {
+//     .admin__wrapper {
+//     //
+    
+//         .admin__toolbar {
+//             //
+//         }
+
+//         .admin__view__wrapper {
+//         //
+
+//             .admin__view__navigation {
+//                 width: $admin-view-navigation-width-xl;    
+//             }
+
+//             .admin__view__content {
+//                 //
+//             }
+//         }
+//     }
+// }
+// // lg
+// @media screen and (min-width: $lg) and (max-width: $xl) {
+//     .admin__wrapper {
+//     //
+    
+//         .admin__toolbar {
+//             //
+//         }
+
+//         .admin__view__wrapper {
+//         //
+
+//             .admin__view__navigation {
+//                 width: $admin-view-navigation-width-lg;    
+//             }
+
+//             .admin__view__content {
+//                 //
+//             }
+//         }
+//     }
+// }
+// // md
+// @media screen and (min-width: $md) and (max-width: $lg) {
+//     .admin__wrapper {
+//     //
+    
+//         .admin__toolbar {
+//             //
+//         }
+
+//         .admin__view__wrapper {
+//         //
+
+//             .admin__view__navigation {
+//                 width: $admin-view-navigation-width-md;    
+//             }
+
+//             .admin__view__content {
+//                 //
+//             }
+//         }
+//     }
+// }
+// // sm
+// @media screen and (min-width: $sm) and (max-width: $md) {
+//     .admin__wrapper {
+//     //
+    
+//         .admin__toolbar {
+//             //
+//         }
+
+//         .admin__view__wrapper {
+//         //
+
+//             .admin__view__navigation {
+//                 width: $admin-view-navigation-width-sm;    
+//             }
+
+//             .admin__view__content {
+//                 //
+//             }
+//         }
+//     }
+// }
+// // xs
+// @media screen and (max-width: $sm) {
+//     .admin__wrapper {
+//     //
+    
+//         .admin__toolbar {
+//             //
+//         }
+
+//         .admin__view__wrapper {
+//         //
+
+//             .admin__view__navigation {
+//                 width: $admin-view-navigation-width-xs;    
+//             }
+
+//             .admin__view__content {
+//                 //
+//             }
+//         }
+//     }
+// }

@@ -29,7 +29,7 @@ export class PriceComponent extends BaseComponent implements OnInit {
     if (this._price !== v) {
       this._price = v;
 
-      this.ctrlPrice.setValue((this._price.value * 0.01).toFixed(2));
+      this.ctrlPrice.setValue((this._price.value * 0.01).toFixed(0));
 
       this.updateValue();
     }

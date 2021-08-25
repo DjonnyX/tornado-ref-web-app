@@ -9,4 +9,5 @@ export interface INavRoute {
     index?: number;
     expanded?: boolean;
     children?: Array<INavRoute>;
+    parent?: INavRoute;
 }

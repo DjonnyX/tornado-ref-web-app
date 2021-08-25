@@ -1,0 +1,73 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.drag-drop-box {
+    // background-color: $background-color;
+
+    .content {
+        @include themify($themes) {
+            background-color: themed('entityBackgroundColor'); //app-root theme
+        }
+        background-color: $white;
+    }
+}
+
+.node-tree-item {
+
+    .node-item-way-hider {
+        // background: $primary-800;
+        @include themify($themes) {
+            background: themed('nodeWayBorderColor')!important;
+        }
+    }
+
+    .node-tree-item-joint {
+        @include themify($themes) {
+            border-bottom-color: themed('nodeWayBorderColor')!important;
+        }
+    }
+
+    &__wrapper {
+
+        .node-tree-item-way {
+            @include themify($themes) {
+                border-left-color: themed('nodeWayBorderColor')!important;
+            }
+
+            .way-nail {
+                // background: $primary-800;
+                @include themify($themes) {
+                    background: themed('nodeWayBorderColor')!important;
+                }
+            }
+        }
+    }
+
+    &__wrapper {
+        
+        .node-tree-item__content {
+
+            .content {
+                @include themify($themes) {
+                    background-color: themed('entityBackgroundColor')!important;
+                }
+
+                &__ctrls {
+                    @include themify($themes) {
+                        border-color: themed('entityDividerBorderColor')!important;
+                    }
+                }
+                //Searched
+                &__name.active {
+                    background-color: rgba($accent-color, 0.25)!important;
+                }
+
+                &__text {
+                    @include themify($themes) {
+                        color: themed('entityTitleColor')!important;
+                    }
+                }
+            }
+        }
+    }
+}

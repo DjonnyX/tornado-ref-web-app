@@ -35,7 +35,7 @@ const productsReducer = createReducer(
             loading: true,
         };
     }),
-    on(ProductsActions.updateRequest, state => {
+    on(ProductsActions.updateRequest, ProductsActions.repositionRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
@@ -65,7 +65,7 @@ const productsReducer = createReducer(
             loading: false,
         };
     }),
-    on(ProductsActions.updateError, (state, { error }) => {
+    on(ProductsActions.updateError, ProductsActions.repositionError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -108,6 +108,33 @@ const productsReducer = createReducer(
             collection.splice(existsProductIndex, 1);
             collection.splice(existsProductIndex, 0, product);
         }
+        return {
+            ...state,
+            collection,
+            meta,
+            error: undefined,
+            isUpdateProcess: false,
+            loading: false,
+        };
+    }),
+    on(ProductsActions.repositionSuccess, (state, { positions, meta }) => {
+        const positionsDictionary: { [id: string]: number } = {};
+        positions?.forEach(pos => {
+            positionsDictionary[pos.id] = pos.position;
+        });
+        const collection = (state.collection || [])
+            .map(
+                item => {
+                    const newItem = { ...item };
+                    const pos = positionsDictionary[newItem.id];
+                    if (pos !== undefined) {
+                        newItem.position = pos;
+                    }
+
+                    return newItem;
+                }
+            );
+
         return {
             ...state,
             collection,

@@ -1,0 +1,33 @@
+@import "../utils/px2em";
+@import "../abstracts/vars";
+// @import "../themes/theme";
+
+.cdk-overlay-container {
+
+    .mat-menu-panel {
+        border-radius: $action-menu-roundness;
+    }
+
+    .mat-elevation-z4 {
+        box-shadow: 0px 3px 16px rgb(0 0 0 / 20%);
+    }
+}
+
+.action-menu {
+
+    .action-menu__item {
+
+        .action-menu__item__icon {
+            font-size: $action-menu-item-icon-size;
+            color: $action-menu-item-icon-color;
+            vertical-align: inherit;
+            margin: 0;
+        }
+
+        .action-menu__item__name {
+            font-size: $action-menu-item-text-size;
+            color: $action-menu-item-text-color;
+            padding-right: $action-menu-item-text-padding-right;
+        }
+    }
+}

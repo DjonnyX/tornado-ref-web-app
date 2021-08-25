@@ -21,6 +21,8 @@ import { NotificationService } from './services/notification.service';
 import { AuthService } from './services/auth.service';
 import { CookieConsentModule } from '@components/cookie-consent/cookie-consent.module';
 import { EmptyPageComponent } from '@components/empty-page/empty-page.component';
+import { LocalizationModule } from './services/localization/localization.module';
+import LOCALIZATION from './localization';
 
 @NgModule({
   declarations: [
@@ -45,11 +47,12 @@ import { EmptyPageComponent } from '@components/empty-page/empty-page.component'
     QueryProgressessModule,
     MatSnackBarModule,
     CookieConsentModule,
+    LocalizationModule.forRoot(LOCALIZATION),
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS, useClass: HttpErrorInterceptor,
-      multi: true
+      multi: true,
     },
     NotificationService,
     AuthService,

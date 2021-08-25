@@ -1,0 +1,26 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.editor__group-list {
+    display: block;
+    position: relative;
+
+    .editor__group-list__header {
+        font-size: 11px;
+        text-transform: uppercase;
+        @extend .entities-container;
+        padding-top: 25px;
+        padding-bottom: 5px;
+    }
+}
+
+.editor__group-list:first-child {
+    
+    .editor__group-list__header {
+        padding-top: 0px;
+    }
+}
+
+.editor__group-list.is-empty {
+    display: none;
+}

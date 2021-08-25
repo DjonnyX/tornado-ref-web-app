@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { CapabilitiesSelectors, UserSelectors } from '@store/selectors';
+import { CapabilitiesSelectors, SettingsSelectors, UserSelectors } from '@store/selectors';
 import { combineLatest } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
@@ -9,6 +9,7 @@ import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
 import { RoleTypes } from '@enums/role-types';
 import { UserActions } from '@store/actions/user.action';
+import { LocalizationService } from './services/localization/localization.service';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +20,33 @@ export class AppComponent implements OnInit {
 
   private _url: string;
 
-  constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
+  private _previouseTheme: string;
+
+  constructor(
+    private _store: Store<IAppState>,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
+    private _localization: LocalizationService,
+  ) {
+    this._store.pipe(
+      select(SettingsSelectors.selectTheme),
+    ).subscribe(
+      v => {
+        const body = document.body;
+        const themeClass = `theme-${v}`;
+        body.classList.add(themeClass);
+        body.classList.remove(this._previouseTheme);
+        this._previouseTheme = themeClass;
+      }
+    );
+
+    this._store.pipe(
+      select(SettingsSelectors.selectLanguage),
+    ).subscribe(
+      v => {
+        this._localization.changeLanguage(v);
+      }
+    );
 
     this._store.dispatch(UserActions.resetLoading());
 

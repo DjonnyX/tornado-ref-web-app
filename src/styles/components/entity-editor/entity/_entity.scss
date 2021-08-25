@@ -1,0 +1,201 @@
+@import "../../../abstracts/vars";
+@import "../../../mixins";
+
+.editor {
+    display: block;
+    position: relative;
+    // height: 100%; // 100vh
+    height: calc(100vh - #{$admin-toolbar-height});
+    overflow: hidden;
+    
+    &__scroll-view {
+        height: 100%;
+        overflow: auto;
+    }
+
+    &__container {
+        display: block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding-top: $editor-container-padding-top;
+        padding-bottom: $editor-container-padding-bottom;
+        // overflow: auto;
+    }
+}
+
+.entity {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-radius: $entity-border-radius;
+    box-shadow: 0px 4px 16px rgba(0,0,0,0.02);    
+    pointer-events: unset;
+
+    &__wrapper {
+        display: flex;
+        position: relative;
+        height: 100%;
+    }
+
+    &__body {
+        @extend .entity-container;
+        height: 100%;
+        overflow: hidden;
+        cursor: pointer;
+
+        &__content {
+            position: relative;
+            overflow: hidden;
+            height: 100%;
+        }
+
+        &__container {
+            display: flex;
+        }
+
+        &__gradient {
+            position: absolute;
+            width: 100%;
+            bottom: 0px;
+            background: linear-gradient(0deg, rgba(255,255,255,1) 15%, rgba(255,255,255,0) 75%, rgba(255,255,255,0) 100%);
+        }
+    }
+    
+    &__name {
+        font-size: $entity-name-font-size;
+        font-weight: 400;
+        margin-bottom: 4px;
+        line-height: $entity-name-line-height;
+    }
+
+    &__description {
+        font-size: $entity-description-font-size;
+        word-wrap: break-word;
+        line-height: $entity-description-line-height;
+    }
+
+    &__tag {
+        display: inline-flex;
+        border-radius: 6px;
+        padding: 3px 12px;
+        margin-bottom: 8px;
+
+        &__name {
+            // @extend .entity__name;
+            font-size: $entity-tag-name-font-size;
+            font-weight: 400;
+            margin-bottom: 4px;
+            line-height: $entity-tag-name-line-height;
+            margin-bottom: 0px;
+        }
+    }
+
+    &__footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: $entity-footer-height;
+
+        &__container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+    }
+
+    &__text-group {
+        width: 100%;
+    }
+
+    &__text-group-h {
+        display: flex;
+        width: auto;
+    }
+
+    &__elements-group-space-between {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    &__elements-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    &__coast {
+        font-size: 18px;
+        margin: 0;
+    }
+
+    &__weight {
+        font-size: 18px;
+        margin: 0;
+        opacity: 0.5;
+
+        &::after {
+            content: "/";
+        }
+    }
+
+    &__image {
+        display: block;
+        position: relative;
+        margin-right: 20px;
+
+        &__thumbnail {
+            overflow: hidden;
+            image-rendering: pixelated;
+            border-width: 1px;
+            border-style: solid;
+            background-color: #ffffff;
+            border-radius: $entity-image-radius;
+        }
+    }
+
+    &__control {
+        display: flex;
+        justify-content: space-between;
+        min-height: $entity-control-height;
+        align-items: center;
+
+        &__container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 100%;
+        }
+
+        &__checkbox {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
+
+    &__action-menu__button {
+        margin-left: auto;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        margin-right: 3px;
+    }
+}
+
+    // .entity:has( .entity__wrapper > div.entity__body:hover), .entity:has(.entity__body:hover) {
+    //     opacity: $entity-focus-opacity;
+    //     background-color: $accent-color;
+    // }
+
+
+
+// .entity:has( .entity__body:active) {
+//     transform: scale($entity-active-scale);
+// }

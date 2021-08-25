@@ -1,0 +1,58 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+// lg
+@include respond-above(lg) {
+    .admin__view {
+
+        .admin__toolbar {
+
+            .admin__toolbar__container {
+
+            }
+        }
+
+        .admin__view__wrapper {
+            // @include transition(transform width, $admin-view-navigation-interaction-duration, ease);
+            // @include transition(width, $admin-view-navigation-interaction-duration, ease);
+
+            .admin__view__navigation {
+                // @include transition(transform, $admin-view-navigation-interaction-duration, ease);
+
+            }
+
+            .admin__view__content {
+                // @include transition(transform, $admin-view-navigation-interaction-duration, ease);
+
+            }
+        }
+    }
+}
+
+// md
+@include respond-below(lg) {
+    .admin__view {
+
+        .admin__toolbar {
+
+            .admin__toolbar__container {
+
+            }
+        }
+
+        .admin__view__wrapper {
+            @include transition(transform, $admin-view-navigation-interaction-duration, ease);
+            // @include transition(width, $admin-view-navigation-interaction-duration, ease);
+
+            .admin__view__navigation {
+                // @include transition(transform, $admin-view-navigation-interaction-duration, ease);
+
+            }
+
+            .admin__view__content {
+                // @include transition(transform, $admin-view-navigation-interaction-duration, ease);
+
+            }
+        }
+    }
+}

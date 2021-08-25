@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IAd, IRef, IAsset, IAdContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-ads-editor-component',
@@ -20,7 +21,7 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
-  
+
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -46,7 +47,10 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -101,8 +105,8 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить категорию?",
-          message: `"${this.getAdName(ad)}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-ad",
+          message: `#{"${this.getAdName(ad)}" }common_action-will-be-permanently-deleted.`,
         },
       });
 

@@ -51,6 +51,7 @@ import checkueReducer from "./checkue.reducer";
 import appThemeAssetsReducer from "./app-theme-assets.reducer";
 import systemTagReducer from "./system-tag.reducer";
 import systemTagsReducer from "./system-tags.reducer";
+import settingsReducer from "./settings.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -103,11 +104,12 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taAccounts: accountsReducer,
   taSystemTag: systemTagReducer,
   taSystemTags: systemTagsReducer,
+  taSettings: settingsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['taUser', 'taAdmin', 'taCapabilities'],
+    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taSettings'],
     rehydrate: true,
   })(reducer);
 }

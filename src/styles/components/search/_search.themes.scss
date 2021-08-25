@@ -1,0 +1,74 @@
+@import "../../abstracts/vars";
+@import "../../mixins";
+
+.search {
+    @include themify($themes) {
+        background-color: themed('searchBackgroundColor');
+    }
+
+    //Search opened
+    &.typed, &.hit, &.pressed {
+        @include themify($themes) {
+            border-color: themed('searchBorderColorOpened');
+        }
+
+        .search__form__button-search__icon {
+            @include themify($themes) {
+                color: themed('searchIconColorOpened');
+            }
+            // color: searchIconColorOpened;$search-icon-color-opened;
+        }
+    }
+
+    //Search closed
+    &:not(.hit, .typed) {
+        @include themify($themes) {
+            border-color: themed('searchBorderColorClosed');
+        }
+
+        .search__form__button-search__icon {
+            @include themify($themes) {
+                color: themed('searchIconColorClosed');
+            }
+        }
+    }
+
+    &__form {
+
+        &__button-search {
+
+            &__icon {
+                @include transition(transform, 90ms, ease);
+                @include themify($themes) {
+                    color: themed('searchButtonClearColor');
+                }
+            }
+        }
+
+        &__button-clear {
+
+            &__container {
+                @include themify($themes) {
+                    background-color: themed('searchButtonClearBackgroundColor');
+                }
+            }
+            &__icon {
+                @include themify($themes) {
+                    color: themed('searchButtonClearColor');
+                }
+            }
+        }
+
+        &__text-field {
+            @include themify($themes) {
+                color: themed('searchTextFieldColor');
+            }
+
+            &::placeholder {
+                @include themify($themes) {
+                    color: themed('searchTextFieldPlaceholderColor');
+                }
+            }
+        }
+    }
+}

@@ -35,7 +35,7 @@ const selectorsReducer = createReducer(
             loading: true,
         };
     }),
-    on(SelectorsActions.updateRequest, state => {
+    on(SelectorsActions.updateRequest, SelectorsActions.repositionRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
@@ -65,7 +65,7 @@ const selectorsReducer = createReducer(
             loading: false,
         };
     }),
-    on(SelectorsActions.updateError, (state, { error }) => {
+    on(SelectorsActions.updateError, SelectorsActions.repositionError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -108,6 +108,33 @@ const selectorsReducer = createReducer(
             collection.splice(existsSelectorIndex, 1);
             collection.splice(existsSelectorIndex, 0, selector);
         }
+        return {
+            ...state,
+            collection,
+            meta,
+            error: undefined,
+            isUpdateProcess: false,
+            loading: false,
+        };
+    }),
+    on(SelectorsActions.repositionSuccess, (state, { positions, meta }) => {
+        const positionsDictionary: { [id: string]: number } = {};
+        positions?.forEach(pos => {
+            positionsDictionary[pos.id] = pos.position;
+        });
+        const collection = (state.collection || [])
+            .map(
+                item => {
+                    const newItem = { ...item };
+                    const pos = positionsDictionary[newItem.id];
+                    if (pos !== undefined) {
+                        newItem.position = pos;
+                    }
+
+                    return newItem;
+                }
+            );
+
         return {
             ...state,
             collection,

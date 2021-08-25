@@ -4,6 +4,7 @@ import {
   ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ILanguage, IScenarioPriceValue, ScenarioPriceActionTypes, IOrderType
 } from '@djonnyx/tornado-types';
 import { getScenarioTypeName } from '@app/utils/scenario.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-scenario-list-item',
@@ -51,7 +52,9 @@ export class ScenarioListItemComponent implements OnInit {
 
   @Output() delete = new EventEmitter<void>();
 
-  constructor() { }
+  constructor(
+    public readonly localization: LocalizationService,
+  ) { }
 
   ngOnInit(): void { }
 
@@ -61,35 +64,35 @@ export class ScenarioListItemComponent implements OnInit {
 
     switch (this.scenario.action) {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")}`;
+        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.businessPeriodsDictionary[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
-        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? this.storesDictionary?.[v]?.name : "недоступен").join(", ")}`;
+        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? `#{${this.storesDictionary?.[v]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_TERMINAL:
-        // value = `: ${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? this.storesDictionary?.[v]?.name : "недоступен").join(", ")}`;
+        // value = `: ${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? `#{${this.storesDictionary?.[v]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE:
-        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.orderTypesDictionary[v] ? this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")}`;
+        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.orderTypesDictionary[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioPriceActionTypes.PRICE:
         return this.getScenarioPriceName(this.scenario);
       case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
         return `${this.getScenarioPriceName(this.scenario)} (${
-          ((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.businessPeriodsDictionary[v] ? this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")
+          ((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.businessPeriodsDictionary[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")
         })`;
       case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
         return `${this.getScenarioPriceName(this.scenario)} (${
-          ((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.orderTypesDictionary[v] ? this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name : "недоступен").join(", ")
+          ((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.orderTypesDictionary[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")
         })`;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioSelectorActionTypes.MAX_USAGE:
       case ScenarioSelectorActionTypes.MIN_USAGE:
-        value = `: ${this.scenario.value} шт`;
+        value = `#{: ${this.scenario.value} }common_info-pcs`;
         break;
       case ScenarioIntroActionTypes.DURATION:
-        value = `: ${this.scenario.value}`;
+        value = `#{: ${this.scenario.value}}`;
         break;
     }
 
@@ -102,26 +105,26 @@ export class ScenarioListItemComponent implements OnInit {
     if (priceValue.isPersentage) {
       value = `: ${(scenario.value as IScenarioPriceValue).value}%`;
       if ((scenario.value as IScenarioPriceValue).value > 0) {
-        return `Наценка${value}`;
+        return `scenario_extra-charge#{${value}}`;
       } else if ((scenario.value as IScenarioPriceValue).value < 0) {
-        return `Скидка${value}`;
+        return `scenario_discount#{${value}}`;
       } else {
-        return `Без скидки`;
+        return `scenario_without-discount`;
       }
     } else if (priceValue.isStatic) {
       value = `: ${((scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
       if ((scenario.value as IScenarioPriceValue).value <= 0) {
-        return `Бесплатно`;
+        return `scenario_free`;
       }
-      return `Цена${value}`;
+      return `scenario_price#{${value}}`;
     } else {
       value = `: ${(scenario.value as IScenarioPriceValue).value >= 0 ? '+' : ''}${((scenario.value as IScenarioPriceValue).value * 0.01).toFixed(2)} ${this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency] ? this.currenciesDictionary[(scenario.value as IScenarioPriceValue).currency].symbol : ""}`;
       if ((scenario.value as IScenarioPriceValue).value > 0) {
-        return `Наценка${value}`;
+        return `scenario_extra-charge#{${value}}`;
       } else if ((scenario.value as IScenarioPriceValue).value < 0) {
-        return `Скидка${value}`;
+        return `scenario_discount#{${value}}`;
       } else {
-        return `Без скидки`;
+        return `scenario_without-discount`;
       }
     }
   }
