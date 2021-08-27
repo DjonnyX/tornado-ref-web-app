@@ -21,7 +21,7 @@ export class ExpansionPanelComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onToggleExpand(e:Event): void {
+  onToggleExpand(e: Event): void {
     this.opened = !this.opened;
   }
 }

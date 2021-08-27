@@ -15,7 +15,10 @@ $themes: (
     // Admin Toolbar
     adminToolbarBackgroundColor: $primary-color,
     // Navigation Menu
-    navigationMenuBackgroundColor: $primary-color,
+    navigationMenuBackgroundColor: $navigation-menu-background-color,
+    navigationMenuItemBackgroundColor: $navigation-menu-item-background-color,
+    navigationMenuItemBackgroundColorSelected: $navigation-menu-item-background-color-selected,
+    navigationMenuFolderBorderColor: $navigation-menu-folder-border-color,
     //State Panel
     statePanelBackgroundColor: $white,
     //Search
@@ -70,6 +73,8 @@ $themes: (
     expansionPanelBackgroundColor: $expansion-panel-background-color,
     expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover,
     expansionPanelBackgroundColorActive: $expansion-panel-background-color-active,
+    expansionPanelIconColor: $expansion-panel-icon-color,
+    expansionPanelTitleColor: $expansion-panel-title-color,
   ),
   dark: (
     //Common
@@ -80,7 +85,10 @@ $themes: (
     // Admin Toolbar
     adminToolbarBackgroundColor: $primary-color,
     // Navigation Menu
-    navigationMenuBackgroundColor: $primary-color,
+    navigationMenuBackgroundColor: $navigation-menu-background-color-inverse,
+    navigationMenuItemBackgroundColor: $navigation-menu-item-background-color-inverse,
+    navigationMenuItemBackgroundColorSelected: $navigation-menu-item-background-color-selected-inverse,
+    navigationMenuFolderBorderColor: $navigation-menu-folder-border-color-inverse,
     //State Panel
     statePanelBackgroundColor: $secondary-color,
     //Search
@@ -135,5 +143,7 @@ $themes: (
     expansionPanelBackgroundColor: $expansion-panel-background-color-inverse,
     expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover-inverse,
     expansionPanelBackgroundColorActive: $expansion-panel-background-color-active-inverse,
+    expansionPanelIconColor: $expansion-panel-icon-color-invere,
+    expansionPanelTitleColor: $expansion-panel-title-color-inverse,
   ),
 );

@@ -1,6 +1,3 @@
-@import "../../../abstracts/vars";
-@import "../../../mixins";
-
 @include respond-above (md) {
 
     .entities-container {

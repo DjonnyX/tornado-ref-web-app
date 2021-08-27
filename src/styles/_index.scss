@@ -1,10 +1,14 @@
+@import "./abstracts/vars";
+@import "./mixins";
+@import "./utils/index";
+@import "./themes";
+
 @import "./reset-styles/index";
 @import "./typography/index";
-@import "./themes";
-@import "./components";
+
 @import "./main";
 @import "./layouts";
-
+@import "./components";
 
 mat-sidenav {
     box-shadow: none;

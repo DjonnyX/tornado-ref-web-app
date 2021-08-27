@@ -1,6 +1,3 @@
-@import "../../abstracts/vars";
-@import "../../mixins";
-
 .folder-header {
     @include transition(width, $folder-header-interaction-duration, ease-in-out);
 }

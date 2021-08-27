@@ -1,6 +1,10 @@
 @import "../../../abstracts/vars";
 @import "../../../mixins";
 
+.editor.editor-with-expansion-groups {
+    padding-top: $editor-container-with-expansion-groups-padding-top;
+}
+
 .editor {
     display: block;
     position: relative;

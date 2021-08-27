@@ -1,6 +1,3 @@
-@import "../../abstracts/vars";
-@import "../../mixins";
-
 .search {
     @include themify($themes) {
         background-color: themed('searchBackgroundColor');
