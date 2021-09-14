@@ -81,11 +81,11 @@
                                 <div *ngIf="!!accountsMap" class="entity__description" style="text-transform: none;">
                                     <span>
                                         {{localization.get("licenses_key-client")}}:
-                                        {{accountsMap[license.clientId]?.email}}
+                                        {{accountsMap[license.client]?.email}}
                                     </span>
                                     <span>
-                                        ({{accountsMap[license.clientId]?.lastName}}
-                                        {{accountsMap[license.clientId]?.firstName}})
+                                        ({{accountsMap[license.client]?.lastName}}
+                                        {{accountsMap[license.client]?.firstName}})
                                     </span>
                                 </div>
                                 <div class="entity__description" style="text-transform: none;">
