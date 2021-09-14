@@ -38,7 +38,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
 
   public registerQueryParams: any;
 
-  ctrlIntegration = new FormControl('', [Validators.required]);
+  ctrlIntegration = new FormControl('', []);
   ctrlFirstName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
   ctrlLastName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
