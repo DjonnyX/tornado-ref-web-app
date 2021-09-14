@@ -188,7 +188,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
               icon: "checkue",
               name: "menu_checkues", //"Чеки",
               route: "checkues",
-              right: UserRights.ENABLE_CHECKUES,
+              right: UserRights.READ_CHECKUES,
             },
             {
               icon: "currency",

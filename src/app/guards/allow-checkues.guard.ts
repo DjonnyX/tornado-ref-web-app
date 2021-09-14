@@ -17,7 +17,7 @@ export class AllowCheckuesGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const allowCheckues = this._authService.hasRight(UserRights.ENABLE_CHECKUES);
+    const allowCheckues = this._authService.hasRight(UserRights.READ_CHECKUES);
 
     if (!allowCheckues) {
       this._store.dispatch(CapabilitiesActions.setReturnUrl({ returnUrl: "" }));

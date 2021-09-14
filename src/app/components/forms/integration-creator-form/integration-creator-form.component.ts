@@ -39,10 +39,10 @@ const RIGHTS = [
     value: UserRights.DELETE_TERMINAL,
   }, {
     name: "ENABLE_ORDER_TYPES",
-    value: UserRights.ENABLE_ORDER_TYPES,
+    value: UserRights.READ_ORDER_TYPES,
   }, {
-    name: "ENABLE_CHECKUES",
-    value: UserRights.ENABLE_CHECKUES,
+    name: "READ_CHECKUES",
+    value: UserRights.READ_CHECKUES,
   },
 ];
 
@@ -61,7 +61,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   ctrlHost = new FormControl('', [Validators.required, Validators.pattern("^((http|https):\/\/).*\/$")]);
 
-  ctrlDescription = new FormControl('');
+  ctrlActive = new FormControl(true);
 
   ctrlRights = new FormControl(RIGHTS.map(v => v.value), [Validators.required]);
 
@@ -74,7 +74,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
       this.ctrlName.setValue(integration.name);
       this.ctrlHost.setValue(integration.host);
-      this.ctrlDescription.setValue(integration.description);
+      this.ctrlActive.setValue(integration.active);
       this.ctrlRights.setValue(integration.rights);
       this.ctrlVersion.setValue(integration.version);
     }
@@ -92,7 +92,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
     this.form = this._fb.group({
       host: this.ctrlHost,
       name: this.ctrlName,
-      description: this.ctrlDescription,
+      active: this.ctrlActive,
       rights: this.ctrlRights,
       version: this.ctrlVersion,
     })

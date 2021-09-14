@@ -38,10 +38,6 @@
                     </div>
 
                     <div class="form-item full-width">
-                        <ta-key-value [data]="data.integrationDescription"></ta-key-value>
-                    </div>
-
-                    <div class="form-item full-width">
                         <ta-key-value [data]="data.integrationVersion"></ta-key-value>
                     </div>
                 </div>
@@ -127,18 +123,6 @@
                                     <mat-option *ngFor="let licenseState of licenseStates" [value]="licenseState.value">
                                         <span>
                                             {{licenseState.name}}
-                                        </span>
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <mat-form-field class="full-width" appearance="outline">
-                                <mat-label>Статус</mat-label>
-                                <mat-select [formControl]="ctrlStatus" required>
-                                    <mat-option *ngFor="let licenseStatus of licenseStatuses"
-                                        [value]="licenseStatus.value">
-                                        <span>
-                                            {{licenseStatus.name}}
                                         </span>
                                     </mat-option>
                                 </mat-select>

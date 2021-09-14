@@ -1,29 +1,10 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicenseAccount, ILicenseType, IAccount, LicenseStatuses, LicenseStates, ITerminal, IStore } from '@djonnyx/tornado-types';
+import { IIntegration, ILicenseAccount, ILicenseType, IAccount, LicenseStates, ITerminal, IStore } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
 interface ISelectOption extends Array<{ name: string, value: number | string, link?: string }> { }
-
-const LICENSE_STATUSES: ISelectOption = [
-  {
-    name: "Новый",
-    value: LicenseStatuses.NEW,
-  },
-  {
-    name: "Дэмо",
-    value: LicenseStatuses.DEMO,
-  },
-  {
-    name: "Активный",
-    value: LicenseStatuses.ACTIVE,
-  },
-  {
-    name: "Деактивированный",
-    value: LicenseStatuses.DEACTIVE,
-  },
-];
 
 const LICENSE_STATES: ISelectOption = [
   {
@@ -47,9 +28,7 @@ interface IData {
   key: IKeyValue;
   price: IKeyValue;
   state: IKeyValue;
-  status: IKeyValue;
   integration: IKeyValue;
-  integrationDescription: IKeyValue;
   integrationVersion: IKeyValue;
   terminalName: IKeyValue;
   terminalStoreName: IKeyValue;
@@ -62,10 +41,6 @@ interface IData {
   styleUrls: ['./license-account-creator-form.component.scss']
 })
 export class LicenseAccountCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
-
-  public get licenseStatuses() {
-    return LICENSE_STATUSES;
-  }
 
   public get licenseStates() {
     return LICENSE_STATES;
@@ -170,17 +145,9 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
         key: "Статус",
         value: String(this._license?.state) || ' ---',
       },
-      status: {
-        key: "Состояние",
-        value: this._license?.status || ' ---',
-      },
       integration: {
         key: "Название",
         value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : ' ---',
-      },
-      integrationDescription: {
-        key: "Описание интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
