@@ -8,7 +8,7 @@
         //Card template
         &.entities-card-layout {
             
-            .entity.entity-product {
+            .entity.entity-xl {
 
                 .entity__body {
                     height: $entity-body-cards-height;
@@ -22,17 +22,42 @@
                     }
                 }
             }
+            
+            .entity.entity-m {
+
+                .entity__body {
+                    height: $entity-body-cards-height-m;
+                }
+
+                .entity__image {
+                    @include box($entity-image-cards-size-m);
+
+                    &__thumbnail {
+                        @include box($entity-image-cards-size-m);
+                    }
+                }
+            }
         }
 
         //List template
         &.entities-list-layout {
             
-            .entity.entity-product {
+            .entity.entity-xl {
                 .entity__image {
                     @include box($entity-image-list-size);
 
                     &__thumbnail {
                         @include box($entity-image-list-size);
+                    }
+                }
+            }
+            
+            .entity.entity-m {
+                .entity__image {
+                    @include box($entity-image-list-size-m);
+
+                    &__thumbnail {
+                        @include box($entity-image-list-size-m);
                     }
                 }
             }

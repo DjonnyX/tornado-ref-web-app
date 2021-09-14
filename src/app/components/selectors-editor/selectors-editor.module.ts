@@ -37,7 +37,6 @@ import { ExpansionPanelModule } from '@components/base/expansion-panel/expansion
     DeleteEntityDialogModule,
     StatePanelModule,
     SearchPipeModule,
-    TapEffectModule,
     DragDropModule,
     ExpansionPanelModule,
   ]

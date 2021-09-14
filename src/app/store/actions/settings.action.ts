@@ -11,6 +11,8 @@ export enum SettingsActionTypes {
     CHANGE_SELECTORS_VISIBILITY = "TORNADO/setting/change-selectors-visibility",
     CHANGE_TAGS_LAYOUT = "TORNADO/setting/change-tags-layout",
     CHANGE_TAGS_VISIBILITY = "TORNADO/setting/change-tags-visibility",
+    CHANGE_ADS_LAYOUT = "TORNADO/setting/change-ads-layout",
+    CHANGE_ADS_VISIBILITY = "TORNADO/setting/change-ads-visibility",
 }
 
 export namespace SettingsActions {
@@ -47,6 +49,14 @@ export namespace SettingsActions {
     );
     export const changeTagsVisibility = createAction(
         SettingsActionTypes.CHANGE_TAGS_VISIBILITY,
+        props<{ showInactive: boolean }>(),
+    );
+    export const changeAdsLayout = createAction(
+        SettingsActionTypes.CHANGE_ADS_LAYOUT,
+        props<{ layout: LayoutTypes }>(),
+    );
+    export const changeAdsVisibility = createAction(
+        SettingsActionTypes.CHANGE_ADS_VISIBILITY,
         props<{ showInactive: boolean }>(),
     );
 }

@@ -12,6 +12,8 @@ export const initialState: ISettingsState = {
     selectorsInactiveVisibility: true,
     tagsLayout: LayoutTypes.CARD,
     tagsInactiveVisibility: true,
+    adsLayout: LayoutTypes.CARD,
+    adsInactiveVisibility: true,
 };
 
 const settingsReducer = createReducer(
@@ -68,6 +70,18 @@ const settingsReducer = createReducer(
         return {
             ...state,
             tagsInactiveVisibility: showInactive,
+        };
+    }),
+    on(SettingsActions.changeAdsLayout, (state, { layout }) => {
+        return {
+            ...state,
+            adsLayout: layout,
+        };
+    }),
+    on(SettingsActions.changeAdsVisibility, (state, { showInactive }) => {
+        return {
+            ...state,
+            adsInactiveVisibility: showInactive,
         };
     }),
 );
