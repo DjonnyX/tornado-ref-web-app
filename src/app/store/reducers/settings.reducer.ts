@@ -14,6 +14,8 @@ export const initialState: ISettingsState = {
     tagsInactiveVisibility: true,
     adsLayout: LayoutTypes.CARD,
     adsInactiveVisibility: true,
+    appThemesLayout: LayoutTypes.CARD,
+    appThemesInactiveVisibility: true,
 };
 
 const settingsReducer = createReducer(
@@ -82,6 +84,18 @@ const settingsReducer = createReducer(
         return {
             ...state,
             adsInactiveVisibility: showInactive,
+        };
+    }),
+    on(SettingsActions.changeAppThemesLayout, (state, { layout }) => {
+        return {
+            ...state,
+            appThemesLayout: layout,
+        };
+    }),
+    on(SettingsActions.changeAppThemesVisibility, (state, { showInactive }) => {
+        return {
+            ...state,
+            appThemesInactiveVisibility: showInactive,
         };
     }),
 );

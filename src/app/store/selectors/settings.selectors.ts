@@ -44,4 +44,12 @@ export namespace SettingsSelectors {
         selectSettings,
         state => state.adsInactiveVisibility,
     );
+    export const selectAppThemesLayout = createSelector(
+        selectSettings,
+        state => state.appThemesLayout,
+    );
+    export const selectAppThemesInactiveVisibility = createSelector(
+        selectSettings,
+        state => state.appThemesInactiveVisibility,
+    );
 }

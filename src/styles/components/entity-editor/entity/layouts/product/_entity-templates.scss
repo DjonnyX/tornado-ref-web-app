@@ -2,14 +2,16 @@
 @import "../../../../../mixins";
 
 .editor {
+    .entity__control {
+        .entity__action-menu__button {
+            margin-left: auto;
+        }
+    }
 
     .entities-container {
-
         //Card template
         &.entities-card-layout {
-            
             .entity.entity-xl {
-
                 .entity__body {
                     height: $entity-body-cards-height;
                 }
@@ -22,9 +24,8 @@
                     }
                 }
             }
-            
-            .entity.entity-m {
 
+            .entity.entity-m {
                 .entity__body {
                     height: $entity-body-cards-height-m;
                 }
@@ -41,7 +42,6 @@
 
         //List template
         &.entities-list-layout {
-            
             .entity.entity-xl {
                 .entity__image {
                     @include box($entity-image-list-size);
@@ -51,7 +51,7 @@
                     }
                 }
             }
-            
+
             .entity.entity-m {
                 .entity__image {
                     @include box($entity-image-list-size-m);

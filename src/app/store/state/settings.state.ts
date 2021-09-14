@@ -11,4 +11,6 @@ export interface ISettingsState {
     tagsInactiveVisibility: boolean;
     adsLayout: LayoutTypes;
     adsInactiveVisibility: boolean;
+    appThemesLayout: LayoutTypes;
+    appThemesInactiveVisibility: boolean;
 }
