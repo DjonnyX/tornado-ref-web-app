@@ -1,10 +1,12 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IAppTheme, IRef, IAsset } from '@djonnyx/tornado-types';
+import { IAppTheme, IRef, IAsset, UserRights } from '@djonnyx/tornado-types';
 import { ICompiledTheme } from '@app/utils/app-theme.util';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-app-themes-editor-component',
@@ -14,12 +16,41 @@ import { ICompiledTheme } from '@app/utils/app-theme.util';
 })
 export class AppThemesEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<ICompiledTheme>;
+  public readonly LayoutTypes = LayoutTypes;
+
+  @Output() changeLayout = new EventEmitter<LayoutTypes>();
+
+  @Output() changeDisplayInactiveEntities = new EventEmitter<boolean>();
+
+  private _collection: Array<IAppTheme>;
+  @Input() set collection(value: Array<IAppTheme>) {
+    if (this._collection != value) {
+      this._collection = value || [];
+
+      this.resetFilteredCollection();
+    }
+  }
+
+  public filteredCollection: Array<IAppTheme>;
 
   @Input() refInfo: IRef;
 
   @Input() searchFieldClass = "accent";
-  
+
+  @Input() rights: Array<UserRights>;
+
+  @Input() layoutType: LayoutTypes;
+
+  private _displayInactiveEntities: boolean = true;
+  @Input() set displayInactiveEntities(v: boolean) {
+    if (this._displayInactiveEntities !== v) {
+      this._displayInactiveEntities = v;
+
+      this.resetFilteredCollection();
+    }
+  }
+  get displayInactiveEntities() { return this._displayInactiveEntities; }
+
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
   private _assets: Array<IAsset>;
@@ -45,7 +76,11 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    private _cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
@@ -54,6 +89,23 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  hasCreate() {
+    return this.rights.indexOf(UserRights.CREATE_AD) > -1;
+  }
+
+  hasDelete() {
+    return this.rights.indexOf(UserRights.DELETE_AD) > -1;
+  }
+
+  resetFilteredCollection() {
+    this.filteredCollection = (this._collection || []).filter(item => (!!item || !!this._displayInactiveEntities));
+    this._cdr.markForCheck();
+  }
+
+  onSwitchLayout(layoutType: LayoutTypes) {
+    this.changeLayout.emit(layoutType);
   }
 
   hasThumbnail(compiledTheme: ICompiledTheme, size: "x32" | "x128" = "x32"): boolean {
@@ -93,5 +145,9 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  onShowHiddenEntities(displayInactiveEntities: boolean) {
+    this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 }

@@ -1,6 +1,8 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
   <ta-app-themes-editor-component *ngIf="isPrepareToShow$ | async" [collection]="collection$ | async"
-    [refInfo]="refInfo$ | async" [assets]="assets$ | async" (create)="onCreate()" (update)="onUpdate($event)"
-    (edit)="onEdit($event)" (delete)="onDelete($event)">
+    [rights]="rights$ | async" [refInfo]="refInfo$ | async" [assets]="assets$ | async" (create)="onCreate()"
+    (update)="onUpdate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)" [layoutType]="layoutType$ | async"
+    [displayInactiveEntities]="displayInactiveEntities$ | async" (changeLayout)="onChangeLayout($event)"
+    (changeDisplayInactiveEntities)="onChangeDisplayInactiveEntities($event)">
   </ta-app-themes-editor-component>
 </ta-query-progress>

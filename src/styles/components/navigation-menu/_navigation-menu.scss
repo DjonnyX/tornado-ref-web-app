@@ -1,6 +1,3 @@
-@import "../../abstracts/vars";
-@import "../../mixins";
-
 $border: 1px dotted rgba($primary-800, 0.24);
 $icon-size: 20px;
 $text-size: 14px;
@@ -9,6 +6,8 @@ $color: #5c707c;
 .navigation-menu {
     position: relative;
     width: 100%;
+    height: 100%;
+    z-index: 9999;
 
     &__item,
     &__expantion-item {
@@ -63,7 +62,9 @@ $color: #5c707c;
 
     .navigation-menu__expantion-item + .navigation-menu__expantion-item {
         border-top: none;
-        border-bottom: 1px solid rgba(255,255,255,0.1);
+        // border-color: rgba(255,255,255,0.1);
+        border-bottom-style: solid;
+        border-bottom-width: $navigation-menu-folder-border-bottom-width;
     }
 
     .navigation-menu:last-child .navigation-menu__expantion-item:last-child {
@@ -90,7 +91,7 @@ $color: #5c707c;
         gap: 24px;
 
         &.selected {
-            background: $primary-color-50;
+            // background: $primary-color-50; //Theme
         }
         // expanded item-label
         &-label {

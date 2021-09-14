@@ -7,9 +7,9 @@ import { filter, take } from 'rxjs/operators';
 import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
 import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
-import { RoleTypes } from '@enums/role-types';
 import { UserActions } from '@store/actions/user.action';
 import { LocalizationService } from './services/localization/localization.service';
+import { DefaultRoleTypes } from '@djonnyx/tornado-types';
 
 @Component({
   selector: 'app-root',
@@ -78,9 +78,9 @@ export class AppComponent implements OnInit {
               queryParams: url.query,
             });
           } else if (returnUrl === undefined || returnUrl === "") {
-            if (profile.role === RoleTypes.CLIENT) {
+            if (profile.account.role.name !== DefaultRoleTypes.ADMIN) {
               this._router.navigate(["/admin/licenses-account"]);
-            } else if (profile.role === RoleTypes.ADMIN) {
+            } else {
               this._router.navigate(["/admin/licenses"]);
             }
           }

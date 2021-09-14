@@ -1,55 +1,155 @@
-<div class="editor">
-    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let ad of collection | search:searchPattern:defaultLanguage?.code"
-            [class.disabled]="!ad.active">
-            <div class="entity__control">
-                <div class="entity__control__checkbox">
-                    <mat-checkbox color="accent" #checkboxActive [checked]="ad.active"
-                        (click)="onToggleActive($event, ad)"></mat-checkbox>
-                </div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item type="button" (click)="onToggleActive($event, ad)">
-                        <mat-icon>{{ad.active ? 'visibility_off' : 'visibility'}}</mat-icon>
-                        <span>
-                            {{ad.active ? localization.get("common_action-deactivate") :
-                            localization.get("common_action-activate")}}</span>
-                    </button>
-                    <button mat-menu-item (click)="onEditAd(ad)">
-                        <mat-icon>edit</mat-icon>
-                        <span>
-                            {{localization.get("common_action-edit")}}
-                        </span>
-                    </button>
-                    <button mat-menu-item (click)="onDeleteAd(ad)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>
-                            {{localization.get("common_action-delete")}}
-                        </span>
-                    </button>
-                </mat-menu>
-            </div>
-            <div matRipple class="entity__body" (click)="onEditAd(ad)">
-                <div class="content">
-                    <div>
-                        <div class="content__name">
-                            {{getAdName(ad)}}
+<!-- ActionMenu -->
+<ng-template #popupMenu let-item="data">
+    <!-- <button mat-icon-button (click)="actionMenu.open()" class="entity__action-menu__button" aria-label="Menu">
+        <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+    <ta-action-menu #actionMenu [items]="getActionMenuItems(item)"></ta-action-menu> -->
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
+        <mat-icon class="icon">more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item type="button" (click)="onToggleActive($event, item)">
+            <mat-icon>{{item.active ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <span>
+                {{item.active ? localization.get("common_action-deactivate") :
+                localization.get("common_action-activate")}}
+            </span>
+        </button>
+        <button mat-menu-item (click)="onEditAdvert(item)">
+            <mat-icon>edit</mat-icon>
+            <span>
+                {{localization.get("common_action-edit")}}
+            </span>
+        </button>
+        <ng-container *ngIf="hasDelete()">
+            <button mat-menu-item (click)="onDeleteAdvert(item)">
+                <mat-icon>delete_forever</mat-icon>
+                <span>
+                    {{localization.get("common_action-delete")}}
+                </span>
+            </button>
+        </ng-container>
+    </mat-menu>
+</ng-template>
+<!-- Content -->
+<div class="editor ad-editor" *ngIf="!!defaultLanguage">
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" [layout]="layoutType"
+        [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
+        (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)">
+    </ta-state-panel>
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <ng-container [ngSwitch]="layoutType">
+            <!-- List-template -->
+            <div class="editor__container">
+                <!--Entity Wrapper-->
+
+                <ng-container *ngSwitchCase="LayoutTypes.LIST">
+                    <div class="editor__group-list">
+                        <div class="entities-container entities-list-layout"
+                            *ngIf="filteredCollection | search:searchPattern:defaultLanguage?.code as items">
+                            <div #entityAdvertListItem class="entity entity-m" *ngFor="let item of items"
+                                [class.disabled]="!item.active">
+
+                                <div class="entity__wrapper">
+                                    <!-- Controls -->
+                                    <div class="entity__control">
+                                        <div class="entity__control__container">
+                                            <!--My checkbox-->
+                                            <div class="entity__control__checkbox">
+                                                <ta-checkbox #checkboxActive [checked]="item.active"
+                                                    (click)="onToggleActive($event, item)">
+                                                </ta-checkbox>
+                                            </div>
+                                            <!--My checkbox-->
+                                        </div>
+                                    </div>
+                                    <!-- Controls -->
+                                    <!-- Entity Active-Zone -->
+                                    <div [tapEffect]="entityAdvertListItem" class="entity__body"
+                                        (click)="onEditAdvert(item)">
+                                        <div class="entity__body__content">
+                                            <!-- <div class="entity__body__gradient"></div> -->
+                                            <div class="entity__body__container">
+                                                <!-- <img align="center" *ngIf="hasThumbnail(item)" class="entity__thumbnail"
+                                                    [src]="getThumbnail(item)"> -->
+                                                <div class="entity__image">
+                                                    <img align="center" *ngIf="hasThumbnail(item, 'x128')"
+                                                        class="entity__image__thumbnail"
+                                                        [src]="getThumbnail(item, 'x128')">
+                                                </div>
+                                                <div class="entity__text-group">
+                                                    <div class="entity__name">
+                                                        {{getAdvertName(item)}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="entity__footer">
+                                        <div class="entity__footer__container">
+                                            <ng-container *ngTemplateOutlet="popupMenu; context: {data: item}">
+                                            </ng-container>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- <div class="color" [style.background]="getProductColor(item)"></div> -->
+                                <!-- Entity Active-Zone -->
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="bottom-panel">
-                    <img align="center" *ngIf="hasThumbnail(ad, 'x128')" class="entity-thumbnail"
-                        style="image-rendering: auto;" [src]="getThumbnail(ad, 'x128')">
-                </div>
-                <div class="color"></div>
+                </ng-container>
+                <!-- Card-template -->
+                <ng-container *ngSwitchCase="LayoutTypes.CARD">
+                    <div class="entities-container entities-card-layout">
+                        <div #entityAdvertCardItem class="entity entity-m"
+                            *ngFor="let item of filteredCollection | search:searchPattern:defaultLanguage?.code"
+                            [class.disabled]="!item.active">
+                            <div class="entity__wrapper">
+                                <div class="entity__control">
+                                    <div class="entity__control__container">
+                                        <!--My checkbox-->
+                                        <ta-checkbox #checkboxActive [checked]="item.active"
+                                            (click)="onToggleActive($event, item)"></ta-checkbox>
+
+                                        <ng-container *ngTemplateOutlet="popupMenu; context: {data: item}">
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div [tapEffect]="entityAdvertCardItem" class="entity__body"
+                                    (click)="onEditAdvert(item)">
+                                    <div class="entity__body__content">
+                                        <div class="entity__body__gradient"></div>
+                                        <div class="entity__body__container">
+                                            <div class="entity__image">
+                                                <img align="center" *ngIf="hasThumbnail(item, 'x128')"
+                                                    class="entity__image__thumbnail" [src]="getThumbnail(item, 'x128')">
+                                            </div>
+                                            <div class="entity__text-group">
+                                                <div class="entity__name">
+                                                    {{getAdvertName(item)}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="color" [style.background]="getAdvertColor(item)"></div> -->
+                        </div>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="hasCreate()">
+                    <div class="entities-bottom-panel">
+                        <div class="entities-bottom-panel__container">
+                            <button color="accent" class="button-add" (click)="onCreateAdvert()">
+                                <div class="">Добавить рекламу</div>
+                            </button>
+                        </div>
+                    </div>
+                </ng-container>
             </div>
-        </div>
-        <button color="accent" mat-raised-button class="button-add" (click)="onCreateAd()">
-            <mat-icon>add</mat-icon>
-        </button>
+        </ng-container>
     </div>
 </div>

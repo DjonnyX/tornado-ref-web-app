@@ -30,7 +30,7 @@
                                     <mat-label>
                                         {{localization.get("auth_signup-integration-field-label")}}
                                     </mat-label>
-                                    <mat-select [formControl]="ctrlIntegration" required>
+                                    <mat-select [formControl]="ctrlIntegration">
                                         <mat-option *ngFor="let integration of (integrations$ | async)"
                                             [value]="integration.id">
                                             <span>

@@ -1,18 +1,25 @@
 <ng-template #tmpBaseHeaderContent let-data>
     <span class="expansion-panel__title">{{data.title}}</span>
-    <span class="expansion-panel__icon" [ngClass]="{headerIconBase: !!headerIconBase}">
-        <div *ngIf="opened; else iconClosed" class="icon-checkbox-check"></div>
-        <ng-template #iconClosed>
-            <div class="icon-banners"></div>
-        </ng-template>
+    <span class="expansion-panel__icon-group">
+        <span class="expansion-panel__icon" [ngClass]="{headerIconBase: !!headerIconBase}">
+            <div *ngIf="opened; else iconClosed" class="icon-upward"></div>
+            <ng-template #iconClosed>
+                <div class="icon-backward"></div>
+            </ng-template>
+        </span>
+        <span class="expansion-panel__icon expansion-panel__icon__drag">
+            <div class="icon-drag"></div>
+        </span>
     </span>
 </ng-template>
 <div class="expansion-panel">
     <div class="expansion-panel__wrapper">
         <div class="expansion-panel__header" (click)="onToggleExpand($event)">
-            <ng-container
-                *ngTemplateOutlet="(!headerTemplate ? tmpBaseHeaderContent : headerTemplate); context: {$implicit: headerTemplateData}">
-            </ng-container>
+            <div class="expansion-panel__header__container">
+                <ng-container
+                    *ngTemplateOutlet="(!headerTemplate ? tmpBaseHeaderContent : headerTemplate); context: {$implicit: headerTemplateData}">
+                </ng-container>
+            </div>
         </div>
         <div class="expansion-panel__content" [ngClass]="{'opened': opened, 'closed': !opened}">
             <ng-content></ng-content>

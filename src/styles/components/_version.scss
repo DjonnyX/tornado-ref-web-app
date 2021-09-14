@@ -1,6 +1,3 @@
-@import "../themes/theme";
-@import "../utils/px2em";
-
 .version-wrapper {
     display: grid;
     grid-template-columns: 1fr px2em(100) px2em(100);

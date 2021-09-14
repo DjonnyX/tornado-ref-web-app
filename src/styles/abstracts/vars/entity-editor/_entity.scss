@@ -26,10 +26,13 @@ $entity-control-height: 44px;
 $entity-footer-height: 44px;
 
 $entity-body-cards-height: 110px;
+$entity-body-cards-height-m: 90px;
 
 $entity-border-radius: 8px;
 
 //Templates
 $entity-image-cards-size: $entity-body-cards-height - 2px;
+$entity-image-cards-size-m: $entity-body-cards-height-m - 2px;
 $entity-image-list-size: 76px;
+$entity-image-list-size-m: 62px;
 $entity-image-radius: 6px;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserRights } from '@djonnyx/tornado-types';
+import { DefaultRoleTypes, UserRights } from '@djonnyx/tornado-types';
 import { IUserProfile } from '@models';
 import { select, Store } from '@ngrx/store';
 import { UserSelectors } from '@store/selectors';
@@ -32,18 +32,19 @@ export class AuthService {
   }
 
   hasRight(right: UserRights) {
-    if (right === undefined || !this._profile?.account?.rights || this._profile.account.rights.length === 0) {
+    if (right === undefined || !this._profile?.account?.role?.rights || this._profile.account.role.rights.length === 0) {
       return true;
     }
 
-    return this._profile.account.rights.indexOf(right) > -1;
+    return this._profile.account.role.rights.indexOf(right) > -1;
   }
 
   hasAuthority(roles: Array<string>): boolean {
-    if (roles === undefined || !this._profile?.role || !roles || roles.length === 0) {
+    if (roles === undefined || !this._profile?.account.role || !roles || roles.length === 0) {
       return true;
     }
 
-    return roles.indexOf(this._profile.role) > -1;
+    return roles.indexOf(this._profile.account.role.name) > -1
+      || (this._profile.account.role.name === "any" && roles.indexOf(DefaultRoleTypes.ADMIN) === -1);
   }
 }

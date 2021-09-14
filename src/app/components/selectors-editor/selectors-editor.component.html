@@ -33,7 +33,7 @@
     </mat-menu>
 </ng-template>
 <!-- Content -->
-<div class="editor product-editor" *ngIf="!!defaultLanguage">
+<div class="editor xl-items-editor" *ngIf="!!defaultLanguage">
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" [layout]="layoutType"
         [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
         (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)">
@@ -60,7 +60,7 @@
                                             *ngIf="filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code | sortSelectors:'position' as items"
                                             ><!--cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)"-->
                                             <div #entitySelectorListItem
-                                                class="entity entity-product" *ngFor="let selector of items"
+                                                class="entity entity-xl" *ngFor="let selector of items"
                                                 [class.disabled]="!selector.active"><!-- cdkDrag [cdkDragData]="selector"-->
                                                 <!-- <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
 
@@ -124,7 +124,7 @@
                                 <!-- Card-template -->
                                 <ng-container *ngSwitchCase="LayoutTypes.CARD">
                                     <div class="entities-container entities-card-layout">
-                                        <div #entitySelectorCardItem class="entity entity-product"
+                                        <div #entitySelectorCardItem class="entity entity-xl"
                                             *ngFor="let selector of filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code"
                                             [class.disabled]="!selector.active">
                                             <div class="entity__wrapper">

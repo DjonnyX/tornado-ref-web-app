@@ -1,7 +1,13 @@
+$expansion-panel-icon-group-transform-x: 22px; //icon size
+
 $expansion-panel-background-color: none;
 $expansion-panel-background-color-hover: $inactive-color-light;
 $expansion-panel-background-color-active: $inactive-color-light;
+$expansion-panel-icon-color: rgba($secondary-color, 0.4);
+$expansion-panel-title-color: rgba($secondary-color, 0.4);
 
 $expansion-panel-background-color-inverse: none;
 $expansion-panel-background-color-hover-inverse: $inactive-color-light-inverse;
 $expansion-panel-background-color-active-inverse: $inactive-color-light-inverse;
+$expansion-panel-icon-color-invere: $inactive-color-light-inverse;
+$expansion-panel-title-color-inverse: $white;

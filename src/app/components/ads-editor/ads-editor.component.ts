@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IAd, IRef, IAsset, IAdContentsItem, ILanguage } from '@djonnyx/tornado-types';
+import { IAd, IRef, IAsset, IAdContentsItem, ILanguage, UserRights } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
 
 @Component({
   selector: 'ta-ads-editor-component',
@@ -14,13 +15,42 @@ import { LocalizationService } from '@app/services/localization/localization.ser
 })
 export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<IAd>;
+  public readonly LayoutTypes = LayoutTypes;
+
+  @Output() changeLayout = new EventEmitter<LayoutTypes>();
+
+  @Output() changeDisplayInactiveEntities = new EventEmitter<boolean>();
+
+  private _collection: Array<IAd>;
+  @Input() set collection(value: Array<IAd>) {
+    if (this._collection != value) {
+      this._collection = value || [];
+
+      this.resetFilteredCollection();
+    }
+  }
+
+  public filteredCollection: Array<IAd>;
 
   @Input() refInfo: IRef;
 
   @Input() defaultLanguage: ILanguage;
 
   @Input() languages: Array<ILanguage>;
+
+  @Input() rights: Array<UserRights>;
+
+  @Input() layoutType: LayoutTypes;
+
+  private _displayInactiveEntities: boolean = true;
+  @Input() set displayInactiveEntities(v: boolean) {
+    if (this._displayInactiveEntities !== v) {
+      this._displayInactiveEntities = v;
+
+      this.resetFilteredCollection();
+    }
+  }
+  get displayInactiveEntities() { return this._displayInactiveEntities; }
 
   private _assetsDictionary: { [id: string]: IAsset } = {};
 
@@ -48,6 +78,7 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
   searchPattern = "";
 
   constructor(
+    private _cdr: ChangeDetectorRef,
     public dialog: MatDialog,
     public readonly localization: LocalizationService,
   ) {
@@ -55,6 +86,23 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
   }
 
   ngOnInit(): void { }
+
+  hasCreate() {
+    return this.rights.indexOf(UserRights.CREATE_AD) > -1;
+  }
+
+  hasDelete() {
+    return this.rights.indexOf(UserRights.DELETE_AD) > -1;
+  }
+
+  resetFilteredCollection() {
+    this.filteredCollection = (this._collection || []).filter(item => (!!item.active || !!this._displayInactiveEntities));
+    this._cdr.markForCheck();
+  }
+
+  onSwitchLayout(layoutType: LayoutTypes) {
+    this.changeLayout.emit(layoutType);
+  }
 
   getAdContent(ad: IAd): IAdContentsItem {
     return ad.contents[this.defaultLanguage?.code];
@@ -64,12 +112,12 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
     super.ngOnDestroy();
   }
 
-  getAdName(ad: IAd): string | undefined {
+  getAdvertName(ad: IAd): string | undefined {
     const adContent = this.getAdContent(ad);
     return adContent?.name;
   }
 
-  getAdColor(ad: IAd): string | undefined {
+  getAdvertolor(ad: IAd): string | undefined {
     const adContent = this.getAdContent(ad);
     return adContent?.color;
   }
@@ -93,20 +141,20 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
     this.update.emit({ ...ad, active: !ad.active });
   }
 
-  onCreateAd(): void {
+  onCreateAdvert(): void {
     this.create.emit();
   }
 
-  onEditAd(ad: IAd): void {
+  onEditAdvert(ad: IAd): void {
     this.edit.emit(ad);
   }
 
-  onDeleteAd(ad: IAd): void {
+  onDeleteAdvert(ad: IAd): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
           title: "common_dialog-delete-the-ad",
-          message: `#{"${this.getAdName(ad)}" }common_action-will-be-permanently-deleted.`,
+          message: `#{"${this.getAdvertName(ad)}" }common_action-will-be-permanently-deleted.`,
         },
       });
 
@@ -122,5 +170,9 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
 
   onSearch(pattern: string): void {
     this.searchPattern = pattern;
+  }
+
+  onShowHiddenEntities(displayInactiveEntities: boolean) {
+    this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 }

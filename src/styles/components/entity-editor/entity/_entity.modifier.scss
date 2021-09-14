@@ -2,11 +2,34 @@
 @import "../../../mixins";
 
 .entity {
-    &__image.auto-size {
-        @include box(auto);
+    &__image {
+        &.auto-size {
+            @include box(auto);
+
+            .entity__image__thumbnail {
+                @include box(auto);
+            }
+        }
 
         .entity__image__thumbnail {
-            @include box(auto);
+                width: auto;
+                object-fit: cover;
+        }
+    }
+
+    &.entity-xl {
+        &__image {
+            .entity__image__thumbnail {
+                height: 100px;
+            }
+        }
+    }
+
+    &.entity-m {
+        &__image {
+            .entity__image__thumbnail {
+                height: 70px;
+            }
         }
     }
 }

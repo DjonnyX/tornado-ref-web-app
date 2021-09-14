@@ -9,4 +9,8 @@ export interface ISettingsState {
     selectorsInactiveVisibility: boolean;
     tagsLayout: LayoutTypes;
     tagsInactiveVisibility: boolean;
+    adsLayout: LayoutTypes;
+    adsInactiveVisibility: boolean;
+    appThemesLayout: LayoutTypes;
+    appThemesInactiveVisibility: boolean;
 }

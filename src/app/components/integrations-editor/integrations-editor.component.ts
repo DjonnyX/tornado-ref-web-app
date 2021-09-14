@@ -97,12 +97,12 @@ export class IntegrationsEditorComponent extends BaseComponent implements OnInit
     event.preventDefault();
 
     this.update.emit({
-      ...integration, state: integration.state === IntegrationStates.INACTIVE
-        ? IntegrationStates.ACTIVE : IntegrationStates.INACTIVE
+      ...integration, state: integration.state === IntegrationStates.NOT_WORK
+        ? IntegrationStates.WORK : IntegrationStates.NOT_WORK
     });
   }
 
   isIntegrationDisabled(integration: IIntegration): boolean {
-    return integration.state === IntegrationStates.INACTIVE;
+    return integration.state === IntegrationStates.NOT_WORK;
   }
 }

@@ -5,9 +5,9 @@ export const formatIntegrationModel = (model: IIntegration): IIntegration => {
     return {
         host: model.host,
         name: model.name,
-        description: model.description,
-        rights: model.rights,
         version: formatVersionModel(model.version),
+        rights: model.rights,
+        active: model.active,
         state: model.state,
     }
 }

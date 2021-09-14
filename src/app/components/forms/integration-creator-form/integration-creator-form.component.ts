@@ -3,48 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { IIntegration, UserRights } from '@djonnyx/tornado-types';
-
-interface IRight {
-  name: string;
-  value: number;
-}
-
-const RIGHTS = [
-  {
-    name: "CREATE_PRODUCT",
-    value: UserRights.CREATE_PRODUCT,
-  }, {
-    name: "DELETE_PRODUCT",
-    value: UserRights.DELETE_PRODUCT,
-  }, {
-    name: "CREATE_SELECTOR",
-    value: UserRights.CREATE_SELECTOR,
-  }, {
-    name: "DELETE_SELECTOR",
-    value: UserRights.DELETE_SELECTOR,
-  }, {
-    name: "CREATE_CURRENCY",
-    value: UserRights.CREATE_CURRENCY,
-  }, {
-    name: "DELETE_CURRENCY",
-    value: UserRights.DELETE_CURRENCY,
-  }, {
-    name: "CREATE_STORE",
-    value: UserRights.CREATE_STORE,
-  }, {
-    name: "CREATE_TERMINAL",
-    value: UserRights.CREATE_TERMINAL,
-  }, {
-    name: "DELETE_TERMINAL",
-    value: UserRights.DELETE_TERMINAL,
-  }, {
-    name: "ENABLE_ORDER_TYPES",
-    value: UserRights.ENABLE_ORDER_TYPES,
-  }, {
-    name: "ENABLE_CHECKUES",
-    value: UserRights.ENABLE_CHECKUES,
-  },
-];
+import { USER_RIGHTS_LIST } from '@app/utils/right.util';
 
 @Component({
   selector: 'ta-integration-creator-form',
@@ -53,7 +12,7 @@ const RIGHTS = [
 })
 export class IntegrationCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public readonly rights = RIGHTS;
+  public readonly rights = USER_RIGHTS_LIST;
 
   form: FormGroup;
 
@@ -61,9 +20,9 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   ctrlHost = new FormControl('', [Validators.required, Validators.pattern("^((http|https):\/\/).*\/$")]);
 
-  ctrlDescription = new FormControl('');
+  ctrlActive = new FormControl(true);
 
-  ctrlRights = new FormControl(RIGHTS.map(v => v.value), [Validators.required]);
+  ctrlRights = new FormControl(USER_RIGHTS_LIST.map(v => v.value), [Validators.required]);
 
   ctrlVersion = new FormControl(null);
 
@@ -74,7 +33,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
       this.ctrlName.setValue(integration.name);
       this.ctrlHost.setValue(integration.host);
-      this.ctrlDescription.setValue(integration.description);
+      this.ctrlActive.setValue(integration.active);
       this.ctrlRights.setValue(integration.rights);
       this.ctrlVersion.setValue(integration.version);
     }
@@ -92,7 +51,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
     this.form = this._fb.group({
       host: this.ctrlHost,
       name: this.ctrlName,
-      description: this.ctrlDescription,
+      active: this.ctrlActive,
       rights: this.ctrlRights,
       version: this.ctrlVersion,
     })

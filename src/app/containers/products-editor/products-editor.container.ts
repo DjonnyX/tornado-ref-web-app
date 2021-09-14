@@ -60,7 +60,7 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
   ngOnInit(): void {
     this.rights$ = this._store.pipe(
       select(UserSelectors.selectUserProfile),
-      map(p => p?.account?.rights || []),
+      map(p => p?.account?.role?.rights || []),
     );
 
     this.layoutType$ = this._store.pipe(

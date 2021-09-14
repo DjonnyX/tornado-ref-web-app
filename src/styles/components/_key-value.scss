@@ -1,6 +1,3 @@
-@import "../abstracts/vars";
-@import "../mixins";
-
 .key-value {
     display: grid;
     grid-template-columns: auto minmax(30px, 1fr) auto;

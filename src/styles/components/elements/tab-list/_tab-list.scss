@@ -1,6 +1,3 @@
-@import "../../../abstracts/vars";
-@import "../../../mixins";
-
 .tab-list {
   @extend .button-group;
   margin-bottom: 25px;

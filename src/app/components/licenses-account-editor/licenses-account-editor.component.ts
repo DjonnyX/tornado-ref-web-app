@@ -37,7 +37,7 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
     }
   }
 
-  private _accountsMap: { [id: string]: IAccount };
+  private _accountsMap: { [id: string]: IAccount } = {};
 
   get accountsMap() {
     return this._accountsMap;

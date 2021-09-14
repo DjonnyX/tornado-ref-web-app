@@ -2,14 +2,16 @@ import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/
 import { Observable, combineLatest } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { AdsSelectors, AssetsSelectors, LanguagesSelectors } from '@store/selectors';
+import { AdsSelectors, AssetsSelectors, LanguagesSelectors, SettingsSelectors, UserSelectors } from '@store/selectors';
 import { AdsActions } from '@store/actions/ads.action';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdActions } from '@store/actions/ad.action';
-import { IAd, IRef, AdTypes, IAsset, ILanguage } from '@djonnyx/tornado-types';
+import { IAd, IRef, AdTypes, IAsset, ILanguage, UserRights } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { map, filter } from 'rxjs/operators';
 import { LanguagesActions } from '@store/actions/languages.action';
+import { LayoutTypes } from '@components/state-panel/state-panel.component';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-ads-editor',
@@ -31,14 +33,33 @@ export class AdsEditorContainer implements OnInit, OnDestroy {
 
   defaultLanguage$: Observable<ILanguage>;
 
+  rights$: Observable<Array<UserRights>>;
+
   public refInfo$: Observable<IRef>;
 
   private _adsType: AdTypes;
 
+  layoutType$: Observable<LayoutTypes>;
+
+  displayInactiveEntities$: Observable<boolean>;
+
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.rights$ = this._store.pipe(
+      select(UserSelectors.selectUserProfile),
+      map(p => p?.account?.role?.rights || []),
+    );
+    
     this._adsType = this._activatedRoute.snapshot.data.type;
+
+    this.layoutType$ = this._store.pipe(
+      select(SettingsSelectors.selectAdsLayout),
+    );
+
+    this.displayInactiveEntities$ = this._store.pipe(
+      select(SettingsSelectors.selectAdsInactiveVisibility),
+    );
 
     this._store.dispatch(AdsActions.getAllRequest({
       options: {
@@ -126,5 +147,13 @@ export class AdsEditorContainer implements OnInit, OnDestroy {
 
   onDelete(id: string): void {
     this._store.dispatch(AdsActions.deleteRequest({ id }));
+  }
+
+  onChangeLayout(layout: LayoutTypes): void {
+    this._store.dispatch(SettingsActions.changeAdsLayout({ layout }));
+  }
+
+  onChangeDisplayInactiveEntities(showInactive: boolean): void {
+    this._store.dispatch(SettingsActions.changeAdsVisibility({ showInactive }));
   }
 }

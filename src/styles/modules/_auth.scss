@@ -1,5 +1,5 @@
 @import "src/styles/abstracts/vars";
-@import "src/styles/themes";
+// @import "src/styles/themes";
 // @import "src/styles/components/query-progress";
 
 .spacer {
@@ -104,7 +104,7 @@
 
             .form__header {
                 padding: $padding * 1.75 $padding * 2;
-                background-color: $primary-700;
+                background-color: $primary-color-700;
                 color: white;
                 display: flex;
                 justify-content: space-between;
@@ -117,7 +117,7 @@
                     width: 100%;
 
                     .form__link {
-                        color: $accent;
+                        color: $accent-color;
                         font-size: 14px;
                         font-weight: 400;
                     }
@@ -224,7 +224,7 @@
         background-size: cover;
         display: flex;
         flex-direction: column;
-        background-color: $primary;
+        background-color: $primary-color;
         // background-color: #f4f7f8;
 
         .form__wrapper {

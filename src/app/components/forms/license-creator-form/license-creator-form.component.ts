@@ -1,30 +1,11 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicense, ILicenseType, IAccount, LicenseStatuses, LicenseStates, ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
+import { IIntegration, ILicense, ILicenseType, IAccount, LicenseStates, ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
 interface ISelectOption extends Array<{ name: string, value: number | string }> { }
-
-const LICENSE_STATUSES: ISelectOption = [
-  {
-    name: "Новый",
-    value: LicenseStatuses.NEW,
-  },
-  {
-    name: "Дэмо",
-    value: LicenseStatuses.DEMO,
-  },
-  {
-    name: "Активный",
-    value: LicenseStatuses.ACTIVE,
-  },
-  {
-    name: "Деактивированный",
-    value: LicenseStatuses.DEACTIVE,
-  },
-];
 
 const LICENSE_STATES: ISelectOption = [
   {
@@ -48,9 +29,7 @@ interface IData {
   key: IKeyValue;
   price: IKeyValue;
   state: IKeyValue;
-  status: IKeyValue;
   integration: IKeyValue;
-  integrationDescription: IKeyValue;
   integrationVersion: IKeyValue;
   terminalName: IKeyValue;
   terminalStoreName: IKeyValue;
@@ -63,10 +42,6 @@ interface IData {
   styleUrls: ['./license-creator-form.component.scss']
 })
 export class LicenseCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
-
-  public get licenseStatuses() {
-    return LICENSE_STATUSES;
-  }
 
   public get licenseStates() {
     return LICENSE_STATES;
@@ -83,8 +58,6 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   ctrlAccount = new FormControl('', [Validators.required]);
 
   ctrlState = new FormControl('', [Validators.required]);
-
-  ctrlStatus = new FormControl('', [Validators.required]);
 
   range = new FormGroup({
     start: this.ctrlDateStart,
@@ -143,11 +116,10 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
       this.generateData();
 
-      this.ctrlAccount.setValue(license.clientId);
+      this.ctrlAccount.setValue(license.client);
       this.ctrlLicenseType.setValue(license.licTypeId);
       this.ctrlDateStart.setValue(license.dateStart);
       this.ctrlDateEnd.setValue(license.dateEnd);
-      this.ctrlStatus.setValue(license.status);
       this.ctrlState.setValue(license.state);
 
       this.range.get("start").setValue(license.dateStart);
@@ -177,11 +149,10 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     super();
 
     this.form = this._fb.group({
-      clientId: this.ctrlAccount,
+      client: this.ctrlAccount,
       licTypeId: this.ctrlLicenseType,
       dateStart: this.ctrlDateStart,
       dateEnd: this.ctrlDateEnd,
-      status: this.ctrlStatus,
       state: this.ctrlState,
     });
   }
@@ -216,17 +187,9 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
         key: "Статус",
         value: String(this._license?.state) || ' ---',
       },
-      status: {
-        key: "Состояние",
-        value: this._license?.status || ' ---',
-      },
       integration: {
         key: "Название",
         value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : ' ---',
-      },
-      integrationDescription: {
-        key: "Описание интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.description : ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",

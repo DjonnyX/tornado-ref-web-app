@@ -1,0 +1,10 @@
+.expansion-panel {
+
+    &__icon-group {
+        @include transition(transform, 125ms, ease-in-out);
+    }
+
+    &__icon__drag {
+        @include transition(opacity, 125ms, ease-in-out);
+    }
+}

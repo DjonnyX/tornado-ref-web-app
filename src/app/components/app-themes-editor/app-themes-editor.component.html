@@ -1,44 +1,127 @@
-<div class="editor">
-  <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
-  <div class="entities-wrapper">
-    <div class="entity" *ngFor="let compiledTheme of collection">
-      <div class="entity-ctrls">
-        <div class="content">
-          <div class="content-text">
-            <div class="content__name">
-              {{compiledTheme.theme.name}}
+<!-- ActionMenu -->
+<ng-template #popupMenu let-item="data">
+  <!-- <button mat-icon-button (click)="actionMenu.open()" class="entity__action-menu__button" aria-label="Menu">
+      <mat-icon class="icon">more_vert</mat-icon>
+  </button>
+  <ta-action-menu #actionMenu [items]="getActionMenuItems(item)"></ta-action-menu> -->
+
+  <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
+    <mat-icon class="icon">more_vert</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="onEdit(item)">
+      <mat-icon>edit</mat-icon>
+      <span>
+        {{localization.get("common_action-edit")}}
+      </span>
+    </button>
+    <ng-container *ngIf="hasDelete()">
+      <button mat-menu-item (click)="onDelete(item)">
+        <mat-icon>delete_forever</mat-icon>
+        <span>
+          {{localization.get("common_action-delete")}}
+        </span>
+      </button>
+    </ng-container>
+  </mat-menu>
+</ng-template>
+<!-- Content -->
+<div class="editor ad-editor">
+  <ta-state-panel [rights]="[0, 2]" searchFieldClass="color-accent" [refInfo]="refInfo" [layout]="layoutType"
+    [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
+    (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)">
+  </ta-state-panel>
+  <!--Editor Scroll View-->
+  <div class="editor__scroll-view">
+    <ng-container [ngSwitch]="layoutType">
+      <!-- List-template -->
+      <div class="editor__container">
+        <!--Entity Wrapper-->
+
+        <ng-container *ngSwitchCase="LayoutTypes.LIST">
+          <div class="editor__group-list">
+            <div class="entities-container entities-list-layout"
+              *ngIf="filteredCollection | search:searchPattern as items">
+              <div #entityListItem class="entity entity-m" *ngFor="let item of items">
+
+                <div class="entity__wrapper">
+                  <!-- Controls -->
+                  <div class="entity__control">
+                    <div class="entity__control__container">
+                    </div>
+                  </div>
+                  <!-- Controls -->
+                  <!-- Entity Active-Zone -->
+                  <div [tapEffect]="entityListItem" class="entity__body" (click)="onEdit(item)">
+                    <div class="entity__body__content">
+                      <div class="entity__body__container">
+                        <div class="entity__image">
+                          <img align="center" *ngIf="hasThumbnail(item, 'x128')" class="entity__image__thumbnail"
+                            [src]="getThumbnail(item, 'x128')">
+                        </div>
+                        <div class="entity__text-group">
+                          <div class="entity__name">
+                            {{item.theme.name}}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="entity__footer">
+                    <div class="entity__footer__container">
+                      <ng-container *ngTemplateOutlet="popupMenu; context: {data: item}">
+                      </ng-container>
+                    </div>
+                  </div>
+                </div>
+                <!-- Entity Active-Zone -->
+              </div>
             </div>
           </div>
-        </div>
-        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity-menu-button" aria-label="Menu">
-          <mat-icon class="icon">more_vert</mat-icon>
-        </button>
-        <mat-menu #menu="matMenu">
-          <button *ngIf="compiledTheme.theme.isDefault" mat-menu-item (click)="onEdit(compiledTheme)">
-            <mat-icon>details</mat-icon>
-            <span>Подробнее</span>
-          </button>
-          <button *ngIf="!compiledTheme.theme.isDefault" mat-menu-item (click)="onEdit(compiledTheme)">
-            <mat-icon>edit</mat-icon>
-            <span>Редактировать</span>
-          </button>
-          <button *ngIf="!compiledTheme.theme.isDefault" mat-menu-item (click)="onDelete(compiledTheme)">
-            <mat-icon>delete_forever</mat-icon>
-            <span>Удалить</span>
-          </button>
-        </mat-menu>
-      </div>
-      <div matRipple class="entity-active-zone" (click)="onEdit(compiledTheme)">
-        <div class="content">
-          <div class="content-resources">
-            <img align="center" *ngIf="hasThumbnail(compiledTheme, 'x32')" class="entity-thumbnail"
-              [src]="getThumbnail(compiledTheme, 'x32')">
+        </ng-container>
+        <!-- Card-template -->
+        <ng-container *ngSwitchCase="LayoutTypes.CARD">
+          <div class="entities-container entities-card-layout">
+            <div #entityCardItem class="entity entity-m" *ngFor="let item of filteredCollection | search:searchPattern">
+              <div class="entity__wrapper">
+                <div class="entity__control">
+                  <div class="entity__control__container">
+                    <div></div>
+                    <ng-container *ngTemplateOutlet="popupMenu; context: {data: item}">
+                    </ng-container>
+                  </div>
+                </div>
+                <div [tapEffect]="entityCardItem" class="entity__body" (click)="onEdit(item)">
+                  <div class="entity__body__content">
+                    <div class="entity__body__gradient"></div>
+                    <div class="entity__body__container">
+                      <div class="entity__image">
+                        <img align="center" *ngIf="hasThumbnail(item, 'x128')" class="entity__image__thumbnail"
+                          [src]="getThumbnail(item, 'x128')">
+                      </div>
+                      <div class="entity__text-group">
+                        <div class="entity__name">
+                          {{item.theme.name}}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
+        </ng-container>
+
+        <ng-container *ngIf="hasCreate()">
+          <div class="entities-bottom-panel">
+            <div class="entities-bottom-panel__container">
+              <button color="accent" class="button-add" (click)="onCreate()">
+                <div class="">Добавить тему</div>
+              </button>
+            </div>
+          </div>
+        </ng-container>
       </div>
-    </div>
-    <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-      <mat-icon>add</mat-icon>
-    </button>
+    </ng-container>
   </div>
 </div>
