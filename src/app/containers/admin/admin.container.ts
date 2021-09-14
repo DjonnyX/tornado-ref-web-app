@@ -10,8 +10,7 @@ import { INavRoute } from '@components/navigation-menu/interfaces';
 import { AdminActions } from '@store/actions/admin.action';
 import { BaseComponent } from '@components/base/base-component';
 import { UserActions } from '@store/actions/user.action';
-import { RoleTypes } from '@enums/role-types';
-import { UserRights } from '@djonnyx/tornado-types';
+import { DefaultRoleTypes, UserRights } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import { SettingsActions } from '@store/actions/settings.action';
 import { FormControl } from '@angular/forms';
@@ -40,7 +39,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "folder",
       name: "menu_settings", //"Настройки",
-      roles: [RoleTypes.ADMIN],
+      roles: [DefaultRoleTypes.ADMIN],
       children: [
         {
           icon: "license",
@@ -67,7 +66,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "folder",
       name: "menu_user-settings", //"Настройки",
-      roles: [RoleTypes.CLIENT],
+      roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
       children: [
         {
           icon: "license",
@@ -116,7 +115,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "folder",
       name: "menu_user-content", //"Контент",
-      roles: [RoleTypes.CLIENT],
+      roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
       children: [
         {
           icon: "folder-menu",

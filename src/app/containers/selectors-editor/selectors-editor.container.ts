@@ -55,7 +55,7 @@ export class SelectorsEditorContainer implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.rights$ = this._store.pipe(
       select(UserSelectors.selectUserProfile),
-      map(p => p?.account?.rights || []),
+      map(p => p?.account?.role?.rights || []),
     );
 
     this._selectorsType = this._activatedRoute.snapshot.data.type;

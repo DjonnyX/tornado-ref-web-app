@@ -114,6 +114,6 @@ export class LicenseTypesEditorComponent extends BaseComponent implements OnInit
   }
 
   getIntegrationName(licenseType: ILicenseType): string {
-    return this._integrationsMap[licenseType.integrationId]?.name;
+    return this._integrationsMap?.[licenseType.integrationId]?.name;
   }
 }

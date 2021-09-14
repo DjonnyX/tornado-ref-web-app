@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { AuthService } from '@app/services/auth.service';
-import { RoleTypes } from '@enums/role-types';
+import { DefaultRoleTypes } from '@djonnyx/tornado-types';
 import { Store } from '@ngrx/store';
 import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { IAppState } from '@store/state';
@@ -16,7 +16,7 @@ export class AllowAdminGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const allowAdmin = this._authService.hasAuthority([RoleTypes.ADMIN]);
+    const allowAdmin = this._authService.hasAuthority([DefaultRoleTypes.ADMIN]);
 
     if (!allowAdmin) {
       this._store.dispatch(CapabilitiesActions.setReturnUrl({ returnUrl: "" }));

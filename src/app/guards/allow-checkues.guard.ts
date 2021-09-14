@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { AuthService } from '@app/services/auth.service';
 import { UserRights } from '@djonnyx/tornado-types';
-import { RoleTypes } from '@enums/role-types';
 import { Store } from '@ngrx/store';
 import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { IAppState } from '@store/state';

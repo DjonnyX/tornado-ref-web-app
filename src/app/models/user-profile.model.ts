@@ -1,14 +1,6 @@
-import { UserRights } from "@djonnyx/tornado-types"; 
+import { IAccountInfo } from "@djonnyx/tornado-types"; 
 
 export interface IUserProfile {
-    account: {
-        id: string;
-        firstName: string;
-        lastName: string;
-        email: string;
-        integrationId: string;
-        rights: Array<UserRights>;
-    },
-    role: string;
+    account: IAccountInfo,
     token: string;
 }
