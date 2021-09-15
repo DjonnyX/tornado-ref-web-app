@@ -130,3 +130,4 @@ export { IAppThemeCreateResponse } from './app-theme-create-response.interface';
 export { IAppThemeUpdateResponse } from './app-theme-update-response.interface';
 export { IAppThemeDeleteResponse } from './app-theme-delete-response.interface';
 export { IEntityPositionsResponse } from './entity-positions-response.interface';
+export { IIntegrationServerInfoGetResponse } from './integration-server-info-get-response.interface';

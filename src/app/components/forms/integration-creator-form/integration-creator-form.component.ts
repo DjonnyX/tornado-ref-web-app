@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import { IIntegration, UserRights } from '@djonnyx/tornado-types';
 import { USER_RIGHTS_LIST } from '@app/utils/right.util';
 
@@ -12,7 +12,7 @@ import { USER_RIGHTS_LIST } from '@app/utils/right.util';
 })
 export class IntegrationCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public readonly rights = USER_RIGHTS_LIST;
+  public readonly rights = [...USER_RIGHTS_LIST];
 
   form: FormGroup;
 
@@ -31,17 +31,19 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
     if (integration) {
       this._integration = integration;
 
-      this.ctrlName.setValue(integration.name);
+      //this.ctrlName.setValue(integration.name);
       this.ctrlHost.setValue(integration.host);
       this.ctrlActive.setValue(integration.active);
-      this.ctrlRights.setValue(integration.rights);
-      this.ctrlVersion.setValue(integration.version);
+      //this.ctrlRights.setValue(integration.rights);
+      //this.ctrlVersion.setValue(integration.version);
     }
   }
 
   @Output() save = new EventEmitter<IIntegration>();
 
   @Output() cancel = new EventEmitter<void>();
+
+  @Output() update = new EventEmitter<IIntegration>();
 
   @Output() update = new EventEmitter<IIntegration>();
 
@@ -54,7 +56,9 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
       active: this.ctrlActive,
       rights: this.ctrlRights,
       version: this.ctrlVersion,
-    })
+    });
+
+    this.ctrlName.disable();
   }
 
   ngOnInit(): void {
@@ -62,7 +66,14 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       this.update.emit(value);
-    })
+    });
+
+    this.ctrlHost.valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+      debounceTime(250),
+    ).subscribe(v => {
+
+    });
   }
 
   ngOnDestroy(): void {

@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -1593,6 +1593,16 @@ export class ApiService {
   public deleteApplication(id: string): Observable<IApplicationDeleteResponse> {
     return this._http
       .delete<IApplicationDeleteResponse>(`api/v1/application/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // integration server info
+  public getIntegrationServerInfo(host: string): Observable<IIntegrationServerInfoGetResponse> {
+    return this._http
+      .post<IIntegrationServerInfoGetResponse>("api/v1/integration/server-info", { host }, {
         headers: {
           "authorization": this.getAuthToken(),
         },
