@@ -27,6 +27,16 @@ const INIT_STATE: IVersion = {
 })
 export class VersionComponent implements OnInit, ControlValueAccessor, Validator {
 
+  private _disabled: boolean = false;
+  @Input() set disabled(v: boolean) {
+    if (this._disabled !== v) {
+      this._disabled = v;
+    }
+  }
+  get disabled() {
+    return this._disabled;
+  }
+
   public mName: string = INIT_STATE.name;
   public mCode: number = INIT_STATE.code;
   public mVersion: string = INIT_STATE.version;

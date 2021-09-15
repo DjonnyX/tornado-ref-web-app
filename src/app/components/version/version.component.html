@@ -2,7 +2,7 @@
     <span class="form-item">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Имя</mat-label>
-            <input matInput type="text" [(ngModel)]="mName" (ngModelChange)="onChangeModel()" placeholder="Имя" required>
+            <input matInput type="text" [(ngModel)]="mName" (ngModelChange)="onChangeModel()" placeholder="Имя" required [disabled]="disabled">
             <mat-error *ngIf="!!mName">
                 <strong>обязательное</strong>
             </mat-error>
@@ -11,7 +11,7 @@
     <span class="form-item">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Код</mat-label>
-            <input matInput type="number" [(ngModel)]="mCode" (ngModelChange)="onChangeModel()" placeholder="Код" required>
+            <input matInput type="number" [(ngModel)]="mCode" (ngModelChange)="onChangeModel()" placeholder="Код" required [disabled]="disabled">
             <mat-error *ngIf="mCode !== undefined">
                 <strong>обязательное</strong>
             </mat-error>
@@ -20,7 +20,7 @@
     <span class="form-item">
         <mat-form-field class="full-width" appearance="outline">
             <mat-label>Версия</mat-label>
-            <input matInput type="text" [(ngModel)]="mVersion" (ngModelChange)="onChangeModel()" placeholder="Версия" required>
+            <input matInput type="text" [(ngModel)]="mVersion" (ngModelChange)="onChangeModel()" placeholder="Версия" required [disabled]="disabled">
             <mat-error *ngIf="!!mVersion">
                 <strong>обязательное</strong>
             </mat-error>
