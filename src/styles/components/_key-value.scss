@@ -2,14 +2,14 @@
     display: grid;
     grid-template-columns: auto minmax(30px, 1fr) auto;
     margin-bottom: 8px;
-    align-items: baseline;
+    align-items: end;
 
     &__key {
         text-align: left;
         word-break: break-all;
     }
     &__separator {
-        border-bottom: 1px dotted;
+        border-bottom: 1px dotted rgba($primary-color-400, 0.25);
         margin: 0 4px;
     }
     &__value {
