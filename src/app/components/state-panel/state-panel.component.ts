@@ -17,7 +17,10 @@ export enum StatePanelRights {
 @Component({
   selector: 'ta-state-panel',
   templateUrl: './state-panel.component.html',
-  styleUrls: ['./state-panel.component.scss']
+  styleUrls: ['./state-panel.component.scss'],
+  host: {
+    class: "ta-state-panel",
+  }
 })
 export class StatePanelComponent implements OnInit {
 

@@ -2,6 +2,23 @@
 @import "../../../../../mixins";
 
 .editor {
+    display: grid;
+    grid-template-rows: auto 1fr;
+
+    &__missing-elements__wrapper {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .missing-elements__text {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+        }
+    }
+
     .entity__control {
         .entity__action-menu__button {
             margin-left: auto;

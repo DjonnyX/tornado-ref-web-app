@@ -1,5 +1,9 @@
 <div class="editor">
-    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div>
+        <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)">
+        </ta-state-panel>
+    </div>
+
     <div class="entities-wrapper">
         <div class="entity" *ngFor="let terminal of collection | search: searchPattern"
             [class.disabled]="!isTerminalActive(terminal)">
@@ -35,12 +39,13 @@
                 <div class="color"></div>
             </div>
         </div>
+
+        <ng-container *ngIf="!collection || collection.length === 0">
+            <div class="editor__missing-elements__wrapper">
+                <div class="missing-elements__text">
+                    Устройства отсутствуют
+                </div>
+            </div>
+        </ng-container>
     </div>
 </div>
-<ng-container *ngIf="!collection || collection.length === 0">
-    <div class="terminals-none__wrapper">
-        <div class="terminals-none__text">
-            Устройства отсутствуют
-        </div>
-    </div>
-</ng-container>
