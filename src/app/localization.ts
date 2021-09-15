@@ -193,6 +193,9 @@ const LOCALIZATION = {
         "licenses_key-integration": "Интеграция",
         "licenses_no-licenses": "Лицензии отсутствуют",
         "licenses_add-new": "Добавить лицензию",
+        // license types
+        "license-types_no-license-types": "Типы лицензий отсутствуют",
+        "license-types_add-new": "Добавить тип лицензии",
         // tags
         "tags_add-new": "Добавить тэг",
         // backups
@@ -426,6 +429,9 @@ const LOCALIZATION = {
         "licenses_key-integration": "integration",
         "licenses_no-licenses": "No licenses",
         "licenses_add-new": "Add a license",
+        // license types
+        "license-types_no-license-types": "No license types",
+        "license-types_add-new": "Add a license type",
         // tags
         "tags_add-new": "New a tag",
         // backups
