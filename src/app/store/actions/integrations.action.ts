@@ -11,9 +11,17 @@ export enum IntegrationsActionTypes {
     GET_SUCCESS = "TORNADO/integrations/get:success",
     GET_ERROR = "TORNADO/integrations/get:error",
 
+    CREATE_REQUEST = "TORNADO/integrations/create:request",
+    CREATE_SUCCESS = "TORNADO/integrations/create:success",
+    CREATE_ERROR = "TORNADO/integrations/create:error",
+
     UPDATE_REQUEST = "TORNADO/integrations/update:request",
     UPDATE_SUCCESS = "TORNADO/integrations/update:success",
     UPDATE_ERROR = "TORNADO/integrations/update:error",
+
+    DELETE_REQUEST = "TORNADO/integrations/delete:request",
+    DELETE_SUCCESS = "TORNADO/integrations/delete:success",
+    DELETE_ERROR = "TORNADO/integrations/delete:error",
 
     CLEAR = "TORNADO/integrations/clear",
 }
@@ -47,10 +55,24 @@ export namespace IntegrationsActions {
         props<{ error: string }>(),
     );
 
+    // create
+    export const createRequest = createAction(
+        IntegrationsActionTypes.CREATE_REQUEST,
+        props<{ integration: IIntegration }>(),
+    );
+    export const createSuccess = createAction(
+        IntegrationsActionTypes.CREATE_SUCCESS,
+        props<{ integration: IIntegration, meta: IMetaRefsResponse }>(),
+    );
+    export const createError = createAction(
+        IntegrationsActionTypes.CREATE_ERROR,
+        props<{ error: string }>(),
+    );
+
     // update
     export const updateRequest = createAction(
         IntegrationsActionTypes.UPDATE_REQUEST,
-        props<{ id: string, integration: IIntegration }>(),
+        props<{ id: string, integration: IIntegration, setDafault?: boolean }>(),
     );
     export const updateSuccess = createAction(
         IntegrationsActionTypes.UPDATE_SUCCESS,
@@ -58,6 +80,20 @@ export namespace IntegrationsActions {
     );
     export const updateError = createAction(
         IntegrationsActionTypes.UPDATE_ERROR,
+        props<{ error: string }>(),
+    );
+
+    // delete
+    export const deleteRequest = createAction(
+        IntegrationsActionTypes.DELETE_REQUEST,
+        props<{ id: string }>(),
+    );
+    export const deleteSuccess = createAction(
+        IntegrationsActionTypes.DELETE_SUCCESS,
+        props<{ id: string, meta: IMetaRefsResponse }>(),
+    );
+    export const deleteError = createAction(
+        IntegrationsActionTypes.DELETE_ERROR,
         props<{ error: string }>(),
     );
 

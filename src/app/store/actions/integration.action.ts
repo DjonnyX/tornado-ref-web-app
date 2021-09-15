@@ -6,6 +6,10 @@ export enum IntegrationActionTypes {
     GET_SUCCESS = "TORNADO/integration/get:success",
     GET_ERROR = "TORNADO/integration/get:error",
 
+    CREATE_REQUEST = "TORNADO/integration/create:request",
+    CREATE_SUCCESS = "TORNADO/integration/create:success",
+    CREATE_ERROR = "TORNADO/integration/create:error",
+
     UPDATE_REQUEST = "TORNADO/integration/update:request",
     UPDATE_SUCCESS = "TORNADO/integration/update:success",
     UPDATE_ERROR = "TORNADO/integration/update:error",
@@ -26,6 +30,20 @@ export namespace IntegrationActions {
     export const getError = createAction(
         IntegrationActionTypes.GET_ERROR,
         props<{ error: string }>(),
+    );
+
+    // create
+    export const createRequest = createAction(
+        IntegrationActionTypes.CREATE_REQUEST,
+        props<{ integration: IIntegration }>()
+    );
+    export const createSuccess = createAction(
+        IntegrationActionTypes.CREATE_SUCCESS,
+        props<{ integration: IIntegration }>()
+    );
+    export const createError = createAction(
+        IntegrationActionTypes.CREATE_ERROR,
+        props<{ error: string }>()
     );
 
     // update

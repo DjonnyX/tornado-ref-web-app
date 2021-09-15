@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -1619,9 +1619,27 @@ export class ApiService {
       });
   }
 
+  public createIntegration(integration: IIntegration): Observable<IIntegrationCreateResponse> {
+    return this._http
+      .post<IIntegrationCreateResponse>("api/v1/integration", integration, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   public updateIntegration(id: string, integration: IIntegration): Observable<IIntegrationUpdateResponse> {
     return this._http
       .put<IIntegrationUpdateResponse>(`api/v1/integration/${id}`, integration, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteIntegration(id: string): Observable<IIntegrationDeleteResponse> {
+    return this._http
+      .delete<IIntegrationDeleteResponse>(`api/v1/integration/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

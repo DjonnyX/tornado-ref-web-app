@@ -33,6 +33,24 @@ export default class IntegrationEffects {
         )
     );
 
+    public readonly createRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(IntegrationActions.createRequest),
+            switchMap(({integration}) => {
+                return this._apiService.createIntegration(formatIntegrationModel(integration)).pipe(
+                    mergeMap(res => {
+                        return [IntegrationActions.createSuccess({ integration: res.data })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(IntegrationActions.createError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationActions.updateRequest),

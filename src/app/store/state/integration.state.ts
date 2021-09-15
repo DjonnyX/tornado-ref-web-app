@@ -4,7 +4,7 @@ import { IIntegration } from '@djonnyx/tornado-types';
 export interface IIntegrationState extends IBaseState {
     integration: IIntegration;
     isGetProcess: boolean;
-    // isCreateProcess: boolean;
+    isCreateProcess: boolean;
     isUpdateProcess: boolean;
-    // isDeleteProcess: boolean;
+    isDeleteProcess: boolean;
 }
