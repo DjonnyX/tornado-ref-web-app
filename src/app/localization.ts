@@ -192,6 +192,7 @@ const LOCALIZATION = {
         "licenses_key-client": "Клиент",
         "licenses_key-integration": "Интеграция",
         "licenses_no-licenses": "Лицензии отсутствуют",
+        "licenses_add-new": "Добавить лицензию",
         // tags
         "tags_add-new": "Добавить тэг",
         // backups
@@ -424,6 +425,7 @@ const LOCALIZATION = {
         "licenses_key-client": "Client",
         "licenses_key-integration": "integration",
         "licenses_no-licenses": "No licenses",
+        "licenses_add-new": "Add a license",
         // tags
         "tags_add-new": "New a tag",
         // backups
