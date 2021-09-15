@@ -103,5 +103,5 @@ export interface IAppState {
     taSystemTag: ISystemTagState,
     taSystemTags: ISystemTagsState,
     taSettings: ISettingsState,
-    integrationServerInfo: IIntegrationServerInfoState,
+    taIntegrationServerInfo: IIntegrationServerInfoState,
 }

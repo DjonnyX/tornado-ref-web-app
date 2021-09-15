@@ -1,5 +1,5 @@
 import { createAction, props } from "@ngrx/store";
-import { IIntegration } from '@djonnyx/tornado-types';
+import { IIntegration, IIntegrationEditable } from '@djonnyx/tornado-types';
 
 export enum IntegrationActionTypes {
     GET_REQUEST = "TORNADO/integration/get:request",
@@ -35,7 +35,7 @@ export namespace IntegrationActions {
     // create
     export const createRequest = createAction(
         IntegrationActionTypes.CREATE_REQUEST,
-        props<{ integration: IIntegration }>()
+        props<{ integration: IIntegrationEditable }>()
     );
     export const createSuccess = createAction(
         IntegrationActionTypes.CREATE_SUCCESS,
@@ -49,7 +49,7 @@ export namespace IntegrationActions {
     // update
     export const updateRequest = createAction(
         IntegrationActionTypes.UPDATE_REQUEST,
-        props<{ id: string, integration: IIntegration }>()
+        props<{ id: string, integration: IIntegrationEditable }>()
     );
     export const updateSuccess = createAction(
         IntegrationActionTypes.UPDATE_SUCCESS,

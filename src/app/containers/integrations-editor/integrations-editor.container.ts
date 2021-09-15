@@ -63,6 +63,10 @@ export class IntegrationsEditorContainer implements OnInit, OnDestroy {
   }
 
   onUpdate(integration: IIntegration): void {
-    this._store.dispatch(IntegrationsActions.updateRequest({id: integration.id, integration}));
+    this._store.dispatch(IntegrationsActions.updateRequest({ id: integration.id, integration }));
+  }
+
+  onDelete(id: string): void {
+    this._store.dispatch(IntegrationsActions.deleteRequest({ id }));
   }
 }

@@ -106,7 +106,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taSystemTag: systemTagReducer,
   taSystemTags: systemTagsReducer,
   taSettings: settingsReducer,
-  integrationServerInfo: integrationServerInfoReducer,
+  taIntegrationServerInfo: integrationServerInfoReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

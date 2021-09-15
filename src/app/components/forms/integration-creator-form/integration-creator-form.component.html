@@ -30,7 +30,7 @@
                                 </p>
                                 <mat-form-field class="full-width" appearance="outline">
                                     <mat-label>Имя</mat-label>
-                                    <input matInput type="text" formControlName="name" placeholder="Имя">
+                                    <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
                                     <mat-error *ngIf="ctrlName.hasError('required')">
                                         <strong>обязательное</strong>
                                     </mat-error>
@@ -42,7 +42,7 @@
                                 <p class="form-header">
                                     Версия
                                 </p>
-                                <ta-version formControlName="version" [disabled]="true"></ta-version>
+                                <ta-version [formControl]="ctrlVersion" [disabled]="true"></ta-version>
                             </div>
                         </div>
                         <div class="col-12">

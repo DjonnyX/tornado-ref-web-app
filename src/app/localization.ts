@@ -200,6 +200,8 @@ const LOCALIZATION = {
         // stores
         "stores_add-new": "Добавить магазин",
         "stores_dialog-delete-the-store": "Удалить магазин?",
+        // integrations
+        "integrations_add-new": "Добавить интеграцию",
         // scenario
         "scenario_scenarios": "Сценарии",
         "scenario_condition": "Условие",
@@ -423,13 +425,15 @@ const LOCALIZATION = {
         "licenses_key-integration": "integration",
         "licenses_no-licenses": "No licenses",
         // tags
-        "tags_add-new": "New tag",
+        "tags_add-new": "New a tag",
         // backups
         "backups_form": "Form",
         "backups_upload": "Upload",
         // stores
-        "stores_add-new": "Add new",
+        "stores_add-new": "Add a store",
         "stores_dialog-delete-the-store": "Delete the store?",
+        // integration
+        "integrations_add-new": "Add an integration",
         // scenario
         "scenario_scenarios": "Scenarios",
         "scenario_condition": "Condition",

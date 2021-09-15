@@ -41,7 +41,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition
+  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -1629,7 +1629,7 @@ export class ApiService {
       });
   }
 
-  public createIntegration(integration: IIntegration): Observable<IIntegrationCreateResponse> {
+  public createIntegration(integration: IIntegrationEditable): Observable<IIntegrationCreateResponse> {
     return this._http
       .post<IIntegrationCreateResponse>("api/v1/integration", integration, {
         headers: {
@@ -1638,7 +1638,7 @@ export class ApiService {
       });
   }
 
-  public updateIntegration(id: string, integration: IIntegration): Observable<IIntegrationUpdateResponse> {
+  public updateIntegration(id: string, integration: IIntegrationEditable): Observable<IIntegrationUpdateResponse> {
     return this._http
       .put<IIntegrationUpdateResponse>(`api/v1/integration/${id}`, integration, {
         headers: {
