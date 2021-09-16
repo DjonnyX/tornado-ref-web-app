@@ -105,7 +105,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder-themes",
           name: "menu_themes", //Темы",
-          expanded: false,
+          // expanded: false,
           right: UserRights.READ_THEMES,
           children: [
             {
@@ -138,7 +138,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder-menu",
           name: "menu_menu-folder", //"Формирование меню",
-          expanded: false,
+          // expanded: false,
           right: UserRights.READ_MENU,
           children: [
             {
@@ -162,7 +162,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
             {
               icon: "folder-menu",
               name: "menu_menu-groups", //"Группы",
-              expanded: false,
+              // expanded: false,
               right: UserRights.READ_SELECTORS,
               children: [
                 {
@@ -184,7 +184,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder",
           name: "menu_ads", //"Рекламы",
-          expanded: false,
+          // expanded: false,
           right: UserRights.READ_ADS,
           children: [
             {
@@ -210,7 +210,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder",
           name: "menu_advanced-settings", //"Дополнительно",
-          expanded: false,
+          // expanded: false,
           children: [
             {
               icon: "checkue",
