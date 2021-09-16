@@ -15,7 +15,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 export class FilterSelectorsPipe implements PipeTransform {
   transform(items: Array<any>, systemTag: ISystemTag | undefined): any[] {
     if (!items) return [];
-    return items.filter(s => s.systemTag === systemTag?.id);
+    return items.filter(s => (!s.systemTag && !systemTag?.id) || s.systemTag === systemTag?.id);
   }
 }
 
@@ -49,7 +49,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
       this._collection = value || [];
 
       this.resetFilteredCollection();
-      
+
       this.resetActualSystemTags();
     }
   }
@@ -142,9 +142,9 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
     }
 
     const systemTags: Array<string> = [];
-    for (let product of this._collection) {
-      if (product.systemTag !== undefined && systemTags.indexOf(product.systemTag) === -1) {
-        systemTags.push(product.systemTag);
+    for (let selector of this._collection) {
+      if (!!selector.systemTag && systemTags.indexOf(selector.systemTag) === -1) {
+        systemTags.push(selector.systemTag);
       }
     }
 

@@ -19,7 +19,7 @@ import { CdkDragDrop } from '@angular/cdk/drag-drop';
 export class FilterProductsPipe implements PipeTransform {
   transform(items: Array<IProduct>, systemTag: ISystemTag | undefined): any[] {
     if (!items) return [];
-    return items.filter(p => p.systemTag === systemTag?.id);
+    return items.filter(p => (!p.systemTag && !systemTag?.id) || p.systemTag == systemTag?.id);
   }
 }
 
@@ -201,7 +201,7 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
 
     const systemTags: Array<string> = [];
     for (let product of this._collection) {
-      if (product.systemTag !== undefined && systemTags.indexOf(product.systemTag) === -1) {
+      if (!!product.systemTag && systemTags.indexOf(product.systemTag) === -1) {
         systemTags.push(product.systemTag);
       }
     }

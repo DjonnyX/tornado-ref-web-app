@@ -47,15 +47,27 @@
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-label>Системный тэг</mat-label>
                         <input (keydown)="onSystemTagSubmit($event)" type="text" matInput [formControl]="ctrlSystemTag"
-                            [matAutocomplete]="auto">
+                            [matAutocomplete]="auto" placeholder="Выберите системный тег">
+                        <div matSuffix>
+                            <ng-container *ngIf="!isExistsSystemTag() else removeSystemTag">
+                                <button *ngIf="ctrlSystemTag.value" type="button" mat-icon-button (click)="onCreateSystemTag()">
+                                    <mat-icon>add_circle</mat-icon>
+                                </button>
+                            </ng-container>
+                            <ng-template #removeSystemTag>
+                                <button mat-icon-button type="button" (click)="onRemoveSystemTag()">
+                                    <mat-icon>close_circle</mat-icon>
+                                </button>
+                            </ng-template>
+                        </div>
                         <mat-autocomplete #auto="matAutocomplete" [displayWith]="systemTagsDisplayFn">
-                            <mat-option *ngFor="let systemTag of systemTagsFilteredOptions | async"
+                            <mat-option *ngFor="let systemTag of systemTagsFilteredOptions$ | async"
                                 [value]="systemTag.id">
                                 <div class="autocomplete-option">
                                     <span class="autocomplete-option__name">{{systemTag.name}}</span>
-                                    <button mat-icon-button aria-label="Clear"
+                                    <button mat-icon-button type="button"
                                         (click)="onDeleteSystemTag($event, systemTag.id)">
-                                        <mat-icon style="margin: 0;">close</mat-icon>
+                                        <mat-icon>close_circle</mat-icon>
                                     </button>
                                 </div>
                             </mat-option>
