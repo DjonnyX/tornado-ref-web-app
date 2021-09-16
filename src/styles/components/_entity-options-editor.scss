@@ -1,5 +1,7 @@
 .entity-options-editor {
-  color: $primary-700;
+  @include themify($themes) {
+      color: themed("formFontColor");
+  }
 
   .entity-options-editor__back-button {
     cursor: pointer;
@@ -9,8 +11,13 @@
   }
 
   .form {
+    @include themify($themes) {
+        background-color: themed("formBackgroundColor");
+    }
     .form-header {
-      color: $primary-800;
+      @include themify($themes) {
+          color: themed("formFontColor");
+      }
     }
 
     .form__block {
@@ -35,7 +42,9 @@
 
     .form {
       padding: px2em(54) px2em(60) px2em(60);
-      background: #ffffff;
+      @include themify($themes) {
+          background-color: themed("formBackgroundColor");
+      }
       border-radius: 3px;
     }
 
@@ -47,7 +56,9 @@
 
 @media screen and (max-width: 599px) {
   .entity-options-editor {
-    background: #ffffff;
+    @include themify($themes) {
+        background-color: themed("formBackgroundColor");
+    }
     min-height: 100%;
 
     .main-options-wrapper {

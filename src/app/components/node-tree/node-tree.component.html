@@ -1,9 +1,9 @@
-<div class="node-tree__editor editor xl-items-editor">
+<div class="node-tree__editor xl-items-editor" [ngClass]="{'editor': mode !== 'product'}">
 
     <ta-state-panel [rights]="[0, 1]" [searchFieldClass]="searchFieldClass" [refInfo]="refInfo"
         [hasShowRefInfo]="hasShowRefInfo" (search)="onSearch($event)"></ta-state-panel>
 
-    <div class="editor__scroll-view">
+    <div [ngClass]="{'editor__scroll-view': mode !== 'product'}">
         <div class="editor__container">
 
             <div class="node-tree__stores">
