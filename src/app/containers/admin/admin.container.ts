@@ -76,6 +76,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     {
       icon: "folder",
       name: "menu_user-settings", //"Настройки",
+      expanded: false,
       roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
       children: [
         {
@@ -103,28 +104,50 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
           right: UserRights.VIEW_BACKUPS,
         },
         {
-          icon: "folder-themes",
-          name: "menu_themes", //Темы",
-          // expanded: false,
-          right: UserRights.READ_THEMES,
+          icon: "folder-menu",
+          name: "menu_applications", //"Приложения",
+          expanded: false,
+          // right: UserRights.READ_APPLICATIONS,
+          roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
           children: [
             {
-              icon: "menu-theme",
-              name: "menu_app-kiosk", //"Киоск",
-              route: "themes-kiosk",
-              right: UserRights.READ_THEMES,
+              icon: "folder",
+              name: "menu_app-kiosk", //"KIOSK",
+              expanded: false,
+              children: [
+                {
+                  icon: "folder-themes",
+                  name: "menu_themes", //"Киоск",
+                  route: "themes-kiosk",
+                  right: UserRights.READ_THEMES,
+                },
+              ],
             },
             {
-              icon: "queue",
-              name: "menu_app-eq", //"Электронная очередь",
-              route: "themes-eq",
-              right: UserRights.READ_THEMES,
+              icon: "folder",
+              name: "menu_app-eq", //"EQ",
+              expanded: false,
+              children: [
+                {
+                  icon: "folder-themes",
+                  name: "menu_themes", //"Электронная очередь",
+                  route: "themes-eq",
+                  right: UserRights.READ_THEMES,
+                },
+              ],
             },
             {
-              icon: "order-admin",
-              name: "menu_app-order-picker", //"Сборщик заказов",
-              route: "themes-order-picker",
-              right: UserRights.READ_THEMES,
+              icon: "folder",
+              name: "menu_app-order-picker", //"Order picker",
+              expanded: false,
+              children: [
+                {
+                  icon: "folder-themes",
+                  name: "menu_themes", //"Сборщик заказов",
+                  route: "themes-order-picker",
+                  right: UserRights.READ_THEMES,
+                },
+              ],
             },
           ]
         },
@@ -184,7 +207,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder",
           name: "menu_ads", //"Рекламы",
-          // expanded: false,
+          expanded: false,
           right: UserRights.READ_ADS,
           children: [
             {
@@ -210,7 +233,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
         {
           icon: "folder",
           name: "menu_advanced-settings", //"Дополнительно",
-          // expanded: false,
+          expanded: false,
           children: [
             {
               icon: "checkue",
