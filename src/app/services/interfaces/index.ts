@@ -8,6 +8,12 @@ export { IUserResetPasswordRequest } from './user-reset-password-request.interfa
 export { IUserResetPasswordResponse } from './user-reset-password-response.interface';
 export { IUserForgotPasswordRequest } from './user-forgot-password-request.interface';
 export { IUserForgotPasswordResponse } from './user-forgot-password-response.interface';
+export { IUserResetEmailRequest } from './user-reset-email-request.interface';
+export { IUserResetEmailResponse } from './user-reset-email-response.interface';
+export { IUserChangeEmailRequest } from './user-change-email-request.interface';
+export { IUserChangeEmailResponse } from './user-change-email-response.interface';
+export { IUserUpdateProfileRequest } from './user-update-profile-request.interface';
+export { IUserUpdateProfileResponse } from './user-update-profile-response.interface';
 export { IMenuNodesGetResponse } from './menu-nodes-get-response.interface';
 export { IMenuNodesCreateResponse } from './menu-nodes-create-response.interface';
 export { IMenuNodesUpdateResponse } from './menu-nodes-update-response.interface';

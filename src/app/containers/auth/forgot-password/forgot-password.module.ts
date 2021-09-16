@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDividerModule } from '@angular/material/divider';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { ForgotPasswordRoutingModule } from './forgot-password-routing.module';
 import { MatIconModule } from '@angular/material/icon';
@@ -23,7 +22,6 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatDividerModule,
     MatIconModule,
     QueryProgressessModule,
     ForgotPasswordRoutingModule,

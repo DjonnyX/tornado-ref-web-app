@@ -30,6 +30,8 @@ export class ForgotPasswordContainer extends BaseComponent implements OnInit {
 
   public registerQueryParams: any;
 
+  fromProfile: boolean = false;
+
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
   ctrlCaptcha = new FormControl('', Validators.required);
 
@@ -50,14 +52,16 @@ export class ForgotPasswordContainer extends BaseComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.fromProfile = this._activatedRoute.snapshot.queryParamMap.get("fromprofile") == "true";
+
     const queryParams = this._activatedRoute.snapshot.queryParams;
     if (!!queryParams && !!queryParams['returnUrl'])
       this.registerQueryParams = { 'returnUrl': queryParams['returnUrl'] };
 
     this.isProcess$ = this._store
-      .pipe(select(UserSelectors.selectIsResetPasswordProcess));
+      .pipe(select(UserSelectors.selectIsForgotPasswordProcess));
 
-      this.onResetCatcha();
+    this.onResetCatcha();
   }
 
   public onSubmit() {
@@ -68,7 +72,7 @@ export class ForgotPasswordContainer extends BaseComponent implements OnInit {
         captchaVal: this.form.get('captcha').value,
         language: this.localization.lang,
       };
-      this._store.dispatch(UserActions.userForgotPasswordRequest(params));
+      this._store.dispatch(UserActions.userForgotPasswordRequest({ params, fromProfile: this.fromProfile }));
     }
   }
 

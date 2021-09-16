@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -151,6 +151,14 @@ export class ApiService {
       );
   }
 
+  public resetPassword(params: IUserResetPasswordRequest): Observable<{}> {
+    return this._http
+      .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
   public verifyResetPasswordToken(restorePassCode: string): Observable<{}> {
     return this._http
       .get<IUserResetPasswordResponse>("api/v1/auth/verify-reset-password-token", {
@@ -163,9 +171,34 @@ export class ApiService {
       );
   }
 
-  public resetPassword(params: IUserResetPasswordRequest): Observable<{}> {
+  public changeEmail(params: IUserChangeEmailRequest): Observable<IAccount> {
     return this._http
-      .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
+      .get<IUserChangeEmailResponse>("api/v1/account/change-email", {
+        params: params as any,
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      })
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public resetEmail(params: IUserResetEmailRequest): Observable<{}> {
+    return this._http
+      .post<IUserResetEmailResponse>("api/v1/account/change-email", params)
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public verifyResetEmailToken(restoreEmailCode: string): Observable<{}> {
+    return this._http
+      .get<IUserResetEmailResponse>("api/v1/account/verify-change-email-token", {
+        params: {
+          restoreEmailCode,
+        }
+      })
       .pipe(
         map(res => res.data),
       );

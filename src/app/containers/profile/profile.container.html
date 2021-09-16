@@ -1,0 +1,6 @@
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
+    <div class="entity-options-editor">
+        <ta-profile-form [profile]="profile$ | async" [isProfileInfoProcess]="isAccountProcess$ | async"
+            (saveUserInfo)="onSaveUserInfo($event)"></ta-profile-form>
+    </div>
+</ta-query-progress>

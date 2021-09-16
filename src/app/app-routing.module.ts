@@ -60,6 +60,34 @@ const routes: Routes = [
       )
   },
   {
+    path: 'change-email',
+    loadChildren: () =>
+      import('@containers/auth/change-email/change-email.module').then(
+        module => module.ChangeEmailModule,
+      )
+  },
+  {
+    path: 'change-email-result',
+    loadChildren: () =>
+      import('@containers/auth/change-email-result/change-email-result.module').then(
+        module => module.ChangeEmailResultModule,
+      )
+  },
+  {
+    path: 'reset-email',
+    loadChildren: () =>
+      import('@containers/auth/reset-email/reset-email.module').then(
+        module => module.ResetEmailModule,
+      )
+  },
+  {
+    path: 'reset-email-result',
+    loadChildren: () =>
+      import('@containers/auth/reset-email-result/reset-email-result.module').then(
+        module => module.ResetEmailResultModule,
+      )
+  },
+  {
     path: 'auth-error',
     loadChildren: () =>
       import('@containers/auth/auth-error/auth-error.module').then(

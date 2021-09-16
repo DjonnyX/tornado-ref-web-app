@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
@@ -9,15 +9,23 @@ import { LocalizationService } from '@app/services/localization/localization.ser
 })
 export class ForgotPasswordResultCotainer implements OnInit {
 
+  fromProfile: boolean = false;
+
   constructor(
     private _router: Router,
+    private _activatedRoute: ActivatedRoute,
     public readonly localization: LocalizationService,
   ) { }
 
   ngOnInit(): void {
+    this.fromProfile = this._activatedRoute.snapshot.queryParamMap.get("fromprofile") == "true";
   }
 
-  returnToSignIn() {
-    this._router.navigate(["signin"]);
+  returnTo() {
+    if (this.fromProfile) {
+      this._router.navigate(["admin/profile"]);
+    } else {
+      this._router.navigate(["signin"]);
+    }
   }
 }

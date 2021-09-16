@@ -3,11 +3,12 @@ import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { of } from "rxjs";
 import { switchMap, catchError, mergeMap, map } from "rxjs/operators";
 import { Store } from '@ngrx/store';
-import { ApiService, IUserSigninRequest, IUserSignupRequest, IUserResetPasswordRequest, IUserForgotPasswordRequest, IUserSignupParamsRequest } from "@services";
+import { ApiService, IUserSigninRequest, IUserSignupRequest, IUserResetPasswordRequest, IUserForgotPasswordRequest, IUserSignupParamsRequest, IUserChangeEmailRequest, IUserResetEmailRequest } from "@services";
 import { UserActions } from '@store/actions/user.action';
 import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
+import { IAccount } from "@djonnyx/tornado-types";
 
 @Injectable()
 export default class UserEffects {
@@ -93,7 +94,7 @@ export default class UserEffects {
   public readonly userForgotPasswordRequest = createEffect(() =>
     this._actions$.pipe(
       ofType(UserActions.userForgotPasswordRequest),
-      switchMap((params: IUserForgotPasswordRequest) => {
+      switchMap(({ params, fromProfile }) => {
         return this._apiService.forgotPassword({
           email: params.email,
           captchaId: params.captchaId,
@@ -101,7 +102,7 @@ export default class UserEffects {
           language: params.language,
         }).pipe(
           mergeMap(_ => {
-            this._router.navigate(["forgot-password-result"]);
+            this._router.navigate(["forgot-password-result"], { queryParams: { fromProfile }, queryParamsHandling: 'merge' });
             return [UserActions.userForgotPasswordSuccess()];
           }),
           map(v => v),
@@ -130,6 +131,65 @@ export default class UserEffects {
           catchError((error: Error) => {
             this._notificationService.error(error.message);
             return of(UserActions.userResetPasswordError({ error: error.message }))
+          }),
+        );
+      })
+    )
+  );
+
+  public readonly userUpdateProfileRequest = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.userUpdateProfileRequest),
+      switchMap(({ id, data }) => {
+        return this._apiService.updateAccount(id, data).pipe(
+          mergeMap(({data}) => {
+            return [UserActions.userUpdateProfileSuccess({ account: data })];
+          }),
+          map(v => v),
+          catchError((error: Error) => {
+            this._notificationService.error(error.message);
+            return of(UserActions.userUpdateProfileError({ error: error.message }))
+          }),
+        );
+      })
+    )
+  );
+
+  public readonly userChangeEmailRequest = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.userChangeEmailRequest),
+      switchMap(data => {
+        return this._apiService.changeEmail(data).pipe(
+          mergeMap(_ => {
+            this._router.navigate(["change-email-result"]);
+            return [UserActions.userChangeEmailSuccess()];
+          }),
+          map(v => v),
+          catchError((error: Error) => {
+            this._notificationService.error(error.message);
+            return of(UserActions.userChangeEmailError({ error: error.message }))
+          }),
+        );
+      })
+    )
+  );
+
+  public readonly userResetEmailRequest = createEffect(() =>
+    this._actions$.pipe(
+      ofType(UserActions.userResetEmailRequest),
+      switchMap((params: IUserResetEmailRequest) => {
+        return this._apiService.resetEmail({
+          restoreEmailCode: params.restoreEmailCode,
+          email: params.email,
+        }).pipe(
+          mergeMap(_ => {
+            this._router.navigate(["reset-email-result"]);
+            return [UserActions.userResetEmailSuccess()];
+          }),
+          map(v => v),
+          catchError((error: Error) => {
+            this._notificationService.error(error.message);
+            return of(UserActions.userResetEmailError({ error: error.message }))
           }),
         );
       })
