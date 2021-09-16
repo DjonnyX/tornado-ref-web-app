@@ -8,6 +8,12 @@ export { IUserResetPasswordRequest } from './user-reset-password-request.interfa
 export { IUserResetPasswordResponse } from './user-reset-password-response.interface';
 export { IUserForgotPasswordRequest } from './user-forgot-password-request.interface';
 export { IUserForgotPasswordResponse } from './user-forgot-password-response.interface';
+export { IUserResetEmailRequest } from './user-reset-email-request.interface';
+export { IUserResetEmailResponse } from './user-reset-email-response.interface';
+export { IUserChangeEmailRequest } from './user-change-email-request.interface';
+export { IUserChangeEmailResponse } from './user-change-email-response.interface';
+export { IUserUpdateProfileRequest } from './user-update-profile-request.interface';
+export { IUserUpdateProfileResponse } from './user-update-profile-response.interface';
 export { IMenuNodesGetResponse } from './menu-nodes-get-response.interface';
 export { IMenuNodesCreateResponse } from './menu-nodes-create-response.interface';
 export { IMenuNodesUpdateResponse } from './menu-nodes-update-response.interface';
@@ -113,7 +119,9 @@ export { IApplicationDeleteResponse } from './application-delete-response.interf
 export { IAuthCaptchaResponse } from "./auth.captcha-request.interface";
 export { IIntegrationsGetResponse } from './integrations-get-response.interface';
 export { IIntegrationGetResponse } from './integration-get-response.interface';
+export { IIntegrationCreateResponse } from './integration-create-response.interface';
 export { IIntegrationUpdateResponse } from './integration-update-response.interface';
+export { IIntegrationDeleteResponse } from './integration-delete-response.interface';
 export { IAccountsGetResponse } from './accounts-get-response.interface';
 export { IAccountGetResponse } from './account-get-response.interface';
 export { IAccountUpdateResponse } from './account-update-response.interface';
@@ -128,3 +136,4 @@ export { IAppThemeCreateResponse } from './app-theme-create-response.interface';
 export { IAppThemeUpdateResponse } from './app-theme-update-response.interface';
 export { IAppThemeDeleteResponse } from './app-theme-delete-response.interface';
 export { IEntityPositionsResponse } from './entity-positions-response.interface';
+export { IIntegrationServerInfoGetResponse } from './integration-server-info-get-response.interface';

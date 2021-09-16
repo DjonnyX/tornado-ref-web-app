@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -41,7 +41,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition
+  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -151,6 +151,14 @@ export class ApiService {
       );
   }
 
+  public resetPassword(params: IUserResetPasswordRequest): Observable<{}> {
+    return this._http
+      .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
   public verifyResetPasswordToken(restorePassCode: string): Observable<{}> {
     return this._http
       .get<IUserResetPasswordResponse>("api/v1/auth/verify-reset-password-token", {
@@ -163,9 +171,34 @@ export class ApiService {
       );
   }
 
-  public resetPassword(params: IUserResetPasswordRequest): Observable<{}> {
+  public changeEmail(params: IUserChangeEmailRequest): Observable<IAccount> {
     return this._http
-      .post<IUserResetPasswordResponse>("api/v1/auth/reset-password", params)
+      .get<IUserChangeEmailResponse>("api/v1/account/change-email", {
+        params: params as any,
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      })
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public resetEmail(params: IUserResetEmailRequest): Observable<{}> {
+    return this._http
+      .post<IUserResetEmailResponse>("api/v1/account/change-email", params)
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
+  public verifyResetEmailToken(restoreEmailCode: string): Observable<{}> {
+    return this._http
+      .get<IUserResetEmailResponse>("api/v1/account/verify-change-email-token", {
+        params: {
+          restoreEmailCode,
+        }
+      })
       .pipe(
         map(res => res.data),
       );
@@ -1599,6 +1632,16 @@ export class ApiService {
       });
   }
 
+  // integration server info
+  public getIntegrationServerInfo(host: string): Observable<IIntegrationServerInfoGetResponse> {
+    return this._http
+      .post<IIntegrationServerInfoGetResponse>("api/v1/integration/server-info", { host }, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   // integrations
   public getIntegrations(options?: IRequestOptions): Observable<IIntegrationsGetResponse> {
     return this._http
@@ -1619,9 +1662,27 @@ export class ApiService {
       });
   }
 
-  public updateIntegration(id: string, integration: IIntegration): Observable<IIntegrationUpdateResponse> {
+  public createIntegration(integration: IIntegrationEditable): Observable<IIntegrationCreateResponse> {
+    return this._http
+      .post<IIntegrationCreateResponse>("api/v1/integration", integration, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateIntegration(id: string, integration: IIntegrationEditable): Observable<IIntegrationUpdateResponse> {
     return this._http
       .put<IIntegrationUpdateResponse>(`api/v1/integration/${id}`, integration, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteIntegration(id: string): Observable<IIntegrationDeleteResponse> {
+    return this._http
+      .delete<IIntegrationDeleteResponse>(`api/v1/integration/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

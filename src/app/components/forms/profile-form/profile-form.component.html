@@ -1,0 +1,115 @@
+<div class="profile">
+    <div class="profile__block">
+        <ta-query-progress class="query-progress-container" [process]="isProfileInfoProcess">
+            <ng-container *ngIf="!isMainFormEdit else mainFormEditable">
+                <form class="form not-editable">
+                    <div class="form__wrapper">
+                        <h1 class="form-header">
+                            Профиль пользователя
+                        </h1>
+
+                        <div class="form__main-options">
+                            <div class="form__block" *ngIf="!!data">
+                                <div class="form-item full-width">
+                                    <ta-key-value [data]="data.firstName"></ta-key-value>
+                                </div>
+                                <div class="form-item full-width">
+                                    <ta-key-value [data]="data.lastName"></ta-key-value>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__buttons-group align-end">
+                        <button class="button primary" (click)="onMainFormEdit()">
+                            {{localization.get("common_action-edit")}}
+                        </button>
+                    </div>
+                </form>
+            </ng-container>
+        </ta-query-progress>
+    </div>
+
+    <div class="profile__block">
+        <ng-container>
+            <form class="form not-editable">
+                <div class="form__wrapper">
+                    <h1 class="form-header">
+                        Email и пароль
+                    </h1>
+
+                    <div class="form__main-options">
+                        <div class="form__block" *ngIf="!!data">
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="data.email"></ta-key-value>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form__params-block">
+                        <div class="form-item">
+                            <a [routerLink]="['/change-email']" class="form__link">
+                                Изменить email
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="form__params-block">
+                        <div class="form-item">
+                            <a [routerLink]="['/forgot-password']" [queryParams]="{fromprofile: true}"
+                                queryParamsHandling="merge" class="form__link">
+                                Изменить пароль
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </ng-container>
+    </div>
+</div>
+
+<ng-template #mainFormEditable>
+    <form class="form" [formGroup]="mainForm" (ngSubmit)="onMainFormSubmit()" (keydown)="onMainFormEnterSubmit($event)"
+        autocomplete="off">
+        <div class="form__wrapper">
+            <h1 class="form-header">
+                Профиль пользователя
+            </h1>
+
+            <div class="container">
+                <div class="col-6 col-m-6 col-sm-12">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>{{localization.get("auth_signup-first-name-field-label")}}</mat-label>
+                            <input matInput type="text" [formControl]="ctrlFirstName"
+                                [placeholder]="localization.get('auth_signup-first-name-field-label')" required>
+                            <mat-error *ngIf="ctrlFirstName.hasError('required')">
+                                <strong>{{localization.get("common_ctrl_required")}}</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+
+                <div class="col-6 col-m-6 col-sm-12">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>{{localization.get("auth_signup-last-name-field-label")}}</mat-label>
+                            <input matInput type="text" [formControl]="ctrlLastName"
+                                [placeholder]="localization.get('auth_signup-last-name-field-label')" required>
+                            <mat-error *ngIf="ctrlLastName.hasError('required')">
+                                <strong>{{localization.get("common_ctrl_required")}}</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form__buttons-group align-end">
+            <button class="button cancel"
+                (click)="onMainFormEditCancel()">{{localization.get("common_action-cancel")}}</button>
+            <button type="submit" class="button primary" [disabled]="!mainForm.valid">{{isMainFormEdit ? 'Сохранить' :
+                'Создать'}}</button>
+        </div>
+    </form>
+</ng-template>

@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { takeUntil } from 'rxjs/operators';
-import { IIntegration, UserRights } from '@djonnyx/tornado-types';
-import { USER_RIGHTS_LIST } from '@app/utils/right.util';
+import { debounceTime, filter, takeUntil } from 'rxjs/operators';
+import { IIntegration, IIntegrationServerInfo, UserRights } from '@djonnyx/tornado-types';
+import { IUserRightData, USER_RIGHTS_LIST } from '@app/utils/right.util';
 
 @Component({
   selector: 'ta-integration-creator-form',
@@ -12,7 +12,7 @@ import { USER_RIGHTS_LIST } from '@app/utils/right.util';
 })
 export class IntegrationCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public readonly rights = USER_RIGHTS_LIST;
+  public rights: Array<IUserRightData>;
 
   form: FormGroup;
 
@@ -22,7 +22,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   ctrlActive = new FormControl(true);
 
-  ctrlRights = new FormControl(USER_RIGHTS_LIST.map(v => v.value), [Validators.required]);
+  ctrlRights = new FormControl(null, [Validators.required]);
 
   ctrlVersion = new FormControl(null);
 
@@ -31,13 +31,27 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
     if (integration) {
       this._integration = integration;
 
-      this.ctrlName.setValue(integration.name);
       this.ctrlHost.setValue(integration.host);
       this.ctrlActive.setValue(integration.active);
-      this.ctrlRights.setValue(integration.rights);
-      this.ctrlVersion.setValue(integration.version);
     }
   }
+  get integration() {return this._integration;}
+
+  private _integrationServerInfo: IIntegrationServerInfo;
+  @Input() set integrationServerInfo(integrationServerInfo: IIntegrationServerInfo) {
+    if (integrationServerInfo) {
+      this._integrationServerInfo = integrationServerInfo;
+
+      this.ctrlName.setValue(integrationServerInfo.serverName);
+      this.rights = USER_RIGHTS_LIST.filter(r => integrationServerInfo.availableRights?.indexOf(r.value) > -1);
+      this.ctrlVersion.setValue({
+        name: integrationServerInfo.versionName,
+        code: integrationServerInfo.versionCode,
+        version: integrationServerInfo.version,
+      });
+    }
+  }
+  get integrationServerInfo() {return this._integrationServerInfo;}
 
   @Output() save = new EventEmitter<IIntegration>();
 
@@ -50,19 +64,20 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
     this.form = this._fb.group({
       host: this.ctrlHost,
-      name: this.ctrlName,
       active: this.ctrlActive,
-      rights: this.ctrlRights,
-      version: this.ctrlVersion,
-    })
+    });
+
+    this.ctrlName.disable();
   }
 
   ngOnInit(): void {
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
+      filter(v => this.form.valid),
+      debounceTime(250),
     ).subscribe(value => {
       this.update.emit(value);
-    })
+    });
   }
 
   ngOnDestroy(): void {

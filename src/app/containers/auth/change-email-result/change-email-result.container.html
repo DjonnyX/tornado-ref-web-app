@@ -1,0 +1,33 @@
+<div class="main-wrapper">
+    <div class="form__wrapper">
+        <div class="form__container">
+            <div class="form__header">
+                <div class="form__header__content">
+                    <h4 class="form__header__title m0">
+                        {{localization.get("auth_change-email-result_title")}}
+                    </h4>
+                </div>
+                <span class="form__header__message">
+                    <a [routerLink]="['/admin/profile']" class="form__link">
+                        {{localization.get("auth_change-email_to-back")}}
+                    </a>
+                </span>
+            </div>
+            <div class="form">
+                <div class="form__input-block">
+                    <div class="form-item">
+                        <p>
+                            {{localization.get("auth_change-email-result_message")}}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="form__submit">
+                    <button mat-flat-button color="accent" class="button button__text" (click)="returnTo()">
+                        {{localization.get("auth_change-email-result_back-to-profile")}}
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

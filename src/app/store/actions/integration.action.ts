@@ -1,10 +1,14 @@
 import { createAction, props } from "@ngrx/store";
-import { IIntegration } from '@djonnyx/tornado-types';
+import { IIntegration, IIntegrationEditable } from '@djonnyx/tornado-types';
 
 export enum IntegrationActionTypes {
     GET_REQUEST = "TORNADO/integration/get:request",
     GET_SUCCESS = "TORNADO/integration/get:success",
     GET_ERROR = "TORNADO/integration/get:error",
+
+    CREATE_REQUEST = "TORNADO/integration/create:request",
+    CREATE_SUCCESS = "TORNADO/integration/create:success",
+    CREATE_ERROR = "TORNADO/integration/create:error",
 
     UPDATE_REQUEST = "TORNADO/integration/update:request",
     UPDATE_SUCCESS = "TORNADO/integration/update:success",
@@ -28,10 +32,24 @@ export namespace IntegrationActions {
         props<{ error: string }>(),
     );
 
+    // create
+    export const createRequest = createAction(
+        IntegrationActionTypes.CREATE_REQUEST,
+        props<{ integration: IIntegrationEditable }>()
+    );
+    export const createSuccess = createAction(
+        IntegrationActionTypes.CREATE_SUCCESS,
+        props<{ integration: IIntegration }>()
+    );
+    export const createError = createAction(
+        IntegrationActionTypes.CREATE_ERROR,
+        props<{ error: string }>()
+    );
+
     // update
     export const updateRequest = createAction(
         IntegrationActionTypes.UPDATE_REQUEST,
-        props<{ id: string, integration: IIntegration }>()
+        props<{ id: string, integration: IIntegrationEditable }>()
     );
     export const updateSuccess = createAction(
         IntegrationActionTypes.UPDATE_SUCCESS,

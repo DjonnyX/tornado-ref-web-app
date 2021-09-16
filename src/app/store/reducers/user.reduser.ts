@@ -9,6 +9,9 @@ export const initialState: IUserState = {
   isSignupProgress: false,
   isSignoutProgress: false,
   isForgotPasswordProgress: false,
+  isChangeEmailProgress: false,
+  isResetEmailProgress: false,
+  isUpdateProfileProgress: false,
   isResetPasswordProgress: false,
   error: undefined,
   profile: undefined,
@@ -27,6 +30,8 @@ const userReducer = createReducer(
       isSignoutProgress: false,
       isForgotPasswordProgress: false,
       isResetPasswordProgress: false,
+      isChangeEmailProgress: false,
+      isUpdateProfileProgress: false,
     };
   }),
   on(UserActions.clearProfile, state => {
@@ -75,6 +80,27 @@ const userReducer = createReducer(
       ...state,
       loading: true,
       isResetPasswordProgress: true,
+    };
+  }),
+  on(UserActions.userChangeEmailRequest, state => {
+    return {
+      ...state,
+      loading: true,
+      isChangeEmailProgress: true,
+    };
+  }),
+  on(UserActions.userResetEmailRequest, state => {
+    return {
+      ...state,
+      loading: true,
+      isResetEmailProgress: true,
+    };
+  }),
+  on(UserActions.userUpdateProfileRequest, state => {
+    return {
+      ...state,
+      loading: true,
+      isUpdateProfileProgress: true,
     };
   }),
   on(UserActions.userSigninError, (state, { error }) => {
@@ -126,6 +152,30 @@ const userReducer = createReducer(
       isForgotPasswordProgress: false,
     };
   }),
+  on(UserActions.userChangeEmailError, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      loading: false,
+      isChangeEmailProgress: false,
+    };
+  }),
+  on(UserActions.userResetEmailError, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      loading: false,
+      isResetEmailProgress: false,
+    };
+  }),
+  on(UserActions.userUpdateProfileError, (state, { error }) => {
+    return {
+      ...state,
+      error,
+      loading: false,
+      isUpdateProfileProgress: false,
+    };
+  }),
   on(UserActions.userSigninSuccess, (state, { profile }) => {
     return {
       ...state,
@@ -174,6 +224,34 @@ const userReducer = createReducer(
       error: undefined,
       loading: false,
       isForgotPasswordProgress: false,
+    };
+  }),
+  on(UserActions.userChangeEmailSuccess, (state) => {
+    return {
+      ...state,
+      error: undefined,
+      loading: false,
+      isChangeEmailProgress: false,
+    };
+  }),
+  on(UserActions.userResetEmailSuccess, (state) => {
+    return {
+      ...state,
+      error: undefined,
+      loading: false,
+      isResetEmailProgress: false,
+    };
+  }),
+  on(UserActions.userUpdateProfileSuccess, (state, { account }) => {
+    return {
+      ...state,
+      profile: {
+        ...state.profile,
+        account,
+      },
+      error: undefined,
+      loading: false,
+      isUpdateProfileProgress: false,
     };
   }),
 );

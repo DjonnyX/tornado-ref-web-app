@@ -39,10 +39,14 @@
                     <div class="admin__toolbar__navline__group">
 
                         <!-- Navline-->
-                        <span class="admin__toolbar__page-title parent">{{localization.get((parentRoute$ |
-                            async)?.name)}}</span>
-                        <span class="admin__toolbar__page-title">{{localization.get((currentRoute$ |
-                            async)?.name)}}</span>
+                        <ng-container *ngIf="(parentRoute$ | async)?.name as parentRouteName">
+                            <span class="admin__toolbar__page-title parent">
+                                {{localization.get(parentRouteName)}}
+                            </span>
+                            <span class="admin__toolbar__page-title">
+                                {{localization.get((currentRoute$ | async)?.name)}}
+                            </span>
+                        </ng-container>
                         <!--Navline -->
 
                         <!--Folder Header-->

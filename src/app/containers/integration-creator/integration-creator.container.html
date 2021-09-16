@@ -4,8 +4,9 @@
             Назад
         </div>
         <div class="form">
-            <ta-integration-creator-form [integration]="integration$ | async" (save)="onSubmit($event)"
-                (cancel)="onCancel()"></ta-integration-creator-form>
+            <ta-integration-creator-form [integration]="integration$ | async"
+                [integrationServerInfo]="integrationServerInfo$ | async" (save)="onSubmit($event)" (cancel)="onCancel()"
+                (update)="onUpdate($event)"></ta-integration-creator-form>
         </div>
     </div>
 </ta-query-progress>

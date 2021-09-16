@@ -7,9 +7,10 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { IntegrationActions } from '@store/actions/integration.action';
 import { IntegrationSelectors } from '@store/selectors/integration.selectors';
-import { IIntegration, IStore } from '@djonnyx/tornado-types';
-import { StoresSelectors } from '@store/selectors';
+import { IIntegration, IIntegrationEditable, IIntegrationServerInfo, IStore } from '@djonnyx/tornado-types';
+import { IntegrationServerInfoSelectors, StoresSelectors } from '@store/selectors';
 import { StoresActions } from '@store/actions/stores.action';
+import { IntegrationServerInfoActions } from '@store/actions/integration-server-info.action';
 
 @Component({
   selector: 'ta-integration-creator',
@@ -23,9 +24,13 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
 
   integration$: Observable<IIntegration>;
 
+  integrationServerInfo$: Observable<IIntegrationServerInfo>;
+
   stores$: Observable<Array<IStore>>;
 
   private _integrationId: string;
+
+  isEditMode = false;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -34,7 +39,12 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
   ngOnInit(): void {
     this._integrationId = this._activatedRoute.snapshot.queryParams["id"];
 
+    this.isEditMode = !!this._integrationId;
+
     this.isProcess$ = combineLatest([
+      this._store.pipe(
+        select(IntegrationServerInfoSelectors.selectIsGetProcess),
+      ),
       this._store.pipe(
         select(IntegrationSelectors.selectIsGetProcess),
       ),
@@ -45,12 +55,16 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
         select(StoresSelectors.selectIsGetProcess),
       ),
     ]).pipe(
-      map(([isIntegrationGetProcess, selectIsUpdateProcess, isStoresGetProcess]) =>
-        isIntegrationGetProcess || selectIsUpdateProcess || isStoresGetProcess),
+      map(([isIntegrationServerInfoGetProcess, isIntegrationGetProcess, selectIsUpdateProcess, isStoresGetProcess]) =>
+        isIntegrationServerInfoGetProcess || isIntegrationGetProcess || selectIsUpdateProcess || isStoresGetProcess),
     );
 
     this.integration$ = this._store.pipe(
       select(IntegrationSelectors.selectEntity),
+    );
+
+    this.integrationServerInfo$ = this._store.pipe(
+      select(IntegrationServerInfoSelectors.selectEntity),
     );
 
     this.stores$ = this._store.pipe(
@@ -63,6 +77,7 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
       filter(integration => this._integrationId !== integration.id),
     ).subscribe(integration => {
       this._integrationId = integration.id;
+      this.isEditMode = true;
     });
 
     if (!!this._integrationId) {
@@ -74,15 +89,24 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
     super.ngOnDestroy();
 
     this._store.dispatch(IntegrationActions.clear());
+    this._store.dispatch(IntegrationServerInfoActions.clear());
     this._store.dispatch(StoresActions.clear());
   }
 
-  onSubmit(integration: IIntegration): void {
-    this._store.dispatch(IntegrationActions.updateRequest({ id: integration.id, integration }));
+  onSubmit(integration: IIntegrationEditable): void {
+    if (this.isEditMode) {
+      this._store.dispatch(IntegrationActions.updateRequest({ id: integration.id, integration }));
+    } else {
+      this._store.dispatch(IntegrationActions.createRequest({ integration }));
+    }
   }
 
   onCancel(): void {
     this._router.navigate(["/admin/integrations"]);
+  }
+
+  onUpdate(integrationData: IIntegrationEditable) {
+    this._store.dispatch(IntegrationServerInfoActions.getRequest({ host: integrationData.host }));
   }
 
   onToBack(): void {

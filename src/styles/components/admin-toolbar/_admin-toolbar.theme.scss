@@ -1,5 +1,9 @@
 .admin__toolbar {
-        @include themify($themes) {
-        background: themed('adminToolbarBackgroundColor');
+    @include themify($themes) {
+        background: themed("adminToolbarBackgroundColor");
+
+        &__logo-section {
+            background: themed("adminToolbarLogoSectionBackgroundColor");
+        }
     }
 }

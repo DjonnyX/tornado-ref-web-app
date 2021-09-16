@@ -133,17 +133,37 @@ const LOCALIZATION = {
         Aldus PageMaker including versions of Lorem Ipsum.`,
         // auth forgot password
         "auth_forgot-password_title": "Забыли пароль?",
+        "auth_forgot-password_change-password-title": "Хотите поменять пароль?",
         "auth_forgot-password_message": `Не волнуйтесь, мы вас поддержим! Просто введите свой адрес электронной почты, и мы пришлем
+        вам ссылку, по которой вы сможете сбросить пароль.`,
+        "auth_forgot-password_change-password-message": `Просто введите свой адрес электронной почты, и мы пришлем
         вам ссылку, по которой вы сможете сбросить пароль.`,
         "auth_forgot-password_back-to-signin": "Войти",
         "auth_forgot-password_email-field-label": "Email",
         "auth_forgot-password_email-field-pattern-validation-message": "Пожалуйста, введите действительный адрес электронной почты",
         "auth_forgot-password_captcha": "Введите текст с картинки",
         "auth_forgot-password_button-send": "Отправить",
+        "auth_forgot-password_to-back": "Назад",
         // auth forgot password result
         "auth_forgot-password-result_title": "Проверьте Ваш email",
         "auth_forgot-password-result_message": "Если учетная запись Tornado существует, Вы получите электронное письмо со ссылкой для сброса пароля.",
         "auth_forgot-password-result_back-to-signin": "Вернуться к авторизации",
+        "auth_forgot-password-result_back-to-profile": "Вернуться в профиль",
+        "auth_forgot-password-result_to-back": "Назад",
+        // auth change email
+        "auth_change-email_title": "Хотите поменять email?",
+        "auth_change-email_message": `Просто введите свой адрес электронной почты, и мы пришлем
+        вам ссылку, по которой вы сможете изменить email адрес.`,
+        "auth_change-email_email-field-label": "Email",
+        "auth_change-email_email-field-pattern-validation-message": "Пожалуйста, введите действительный адрес электронной почты",
+        "auth_change-email_captcha": "Введите текст с картинки",
+        "auth_change-email_button-send": "Отправить",
+        "auth_change-email_to-back": "Назад",
+        // auth change email result
+        "auth_change-email-result_title": "Проверьте Ваш email",
+        "auth_change-email-result_message": "Если учетная запись Tornado существует, Вы получите электронное письмо со ссылкой для изменения email адреса.",
+        "auth_change-email-result_back-to-profile": "Вернуться в профиль",
+        "auth_change-email-result_to-back": "Назад",
         // auth reset password
         "auth_reset-password_title": "Сбросить пароль",
         "auth_reset-password_message": "Введите новый пароль, чтобы продолжить. Вы выйдете из всех ваших активных сессий.",
@@ -154,7 +174,18 @@ const LOCALIZATION = {
         "auth_reset-password-result_title": "Ваш пароль был сброшен!",
         "auth_reset-password-result_message": "Войдите снова с новым паролем.",
         "auth_reset-password-result_return-to-signin": "Вернуться, чтобы войти",
+        // auth reset email
+        "auth_reset-email_title": "Сбросить email",
+        "auth_reset-email_message": "Введите новый email, чтобы продолжить.",
+        "auth_reset-email_new-email": "Новый email",
+        "auth_reset-email_new-email-validation-pattern-message": "Не корректный email.",
+        "auth_reset-email_button-reset": "Сбросить email",
+        // auth reset email result
+        "auth_reset-email-result_title": "Поздравляем!",
+        "auth_reset-email-result_message": "Ваш email был изменен!",
+        "auth_reset-email-result_return-to-signin": "Вернуться",
         // navigation menu
+        "menu_user-profile": "Профиль пользователя",
         "menu_settings": "Настройки",
         "menu_license-types": "Типы лицензий",
         "menu_integrations": "Интеграции",
@@ -166,6 +197,7 @@ const LOCALIZATION = {
         "menu_stores": "Магазины",
         "menu_backups": "Бэкапы",
         "menu_themes": "Темы",
+        "menu_theme": "Тема",
         "menu_app-kiosk": "Киоск",
         "menu_app-eq": "Электронная очередь",
         "menu_app-order-picker": "Сборщик заказов",
@@ -192,6 +224,10 @@ const LOCALIZATION = {
         "licenses_key-client": "Клиент",
         "licenses_key-integration": "Интеграция",
         "licenses_no-licenses": "Лицензии отсутствуют",
+        "licenses_add-new": "Добавить лицензию",
+        // license types
+        "license-types_no-license-types": "Типы лицензий отсутствуют",
+        "license-types_add-new": "Добавить тип лицензии",
         // tags
         "tags_add-new": "Добавить тэг",
         // backups
@@ -200,6 +236,8 @@ const LOCALIZATION = {
         // stores
         "stores_add-new": "Добавить магазин",
         "stores_dialog-delete-the-store": "Удалить магазин?",
+        // integrations
+        "integrations_add-new": "Добавить интеграцию",
         // scenario
         "scenario_scenarios": "Сценарии",
         "scenario_condition": "Условие",
@@ -363,17 +401,37 @@ const LOCALIZATION = {
         Aldus PageMaker including versions of Lorem Ipsum.`,
         // auth forgot password
         "auth_forgot-password_title": "Forgot your password?",
+        "auth_forgot-password_change-password-title": "Want to change your password?",
         "auth_forgot-password_message": `Don't worry, we'll support you! Just enter your email address and we will send
+        link to you where you can reset your password.`,
+        "auth_forgot-password_change-password-message": `Enter your email address and we will send
         link to you where you can reset your password.`,
         "auth_forgot-password_back-to-signin": "Sign in",
         "auth_forgot-password_email-field-label": "Email",
         "auth_forgot-password_email-field-pattern-validation-message": "Please enter a valid email address",
         "auth_forgot-password_captcha": "Enter the text from the picture",
         "auth_forgot-password_button-send": "Send",
+        "auth_forgot-password_to-back": "Back",
         // auth forgot password result
         "auth_forgot-password-result_title": "Check your email",
         "auth_forgot-password-result_message": "If a Tornado account exists, you will receive an email with a link to reset your password.",
         "auth_forgot-password-result_back-to-signin": "Return to sign in",
+        "auth_forgot-password-result_back-to-profile": "Return to profile",
+        "auth_forgot-password-result_to-back": "Back",
+        // auth change email
+        "auth_change-email_title": "Want to change your email?",
+        "auth_change-email_message": `Just enter your email address and we will send
+        link to you where you can change your email address.`,
+        "auth_change-email_email-field-label": "Email",
+        "auth_change-email_email-field-pattern-validation-message": "Please enter a valid email address",
+        "auth_change-email_captcha": "Enter the text from the picture",
+        "auth_change-email_button-send": "Send",
+        "auth_change-email_to-back": "Back",
+        // auth change email result
+        "auth_change-email-result_title": "Check your email",
+        "auth_change-email-result_message": "If a Tornado account exists, you will receive an email with a link to change your email address.",
+        "auth_change-email-result_back-to-profile": "Return to profile",
+        "auth_change-email-result_to-back": "Back",
         // auth reset password
         "auth_reset-password_title": "Reset the password",
         "auth_reset-password_message": "Enter your new password to continue. You will be logged out of all your active sessions.",
@@ -384,7 +442,18 @@ const LOCALIZATION = {
         "auth_reset-password-result_title": "Your password has been reset!",
         "auth_reset-password-result_message": "Log in again with a new password.",
         "auth_reset-password-result_return-to-signin": "Return to sign in",
+        // auth reset email
+        "auth_reset-email_title": "Reset email",
+        "auth_reset-email_message": "Enter a new email to continue.",
+        "auth_reset-email_new-email": "New email",
+        "auth_reset-email_new-email-validation-pattern-message": "Incorrect email.",
+        "auth_reset-email_button-reset": "Reset email",
+        // auth reset email result
+        "auth_reset-email-result_title": "Congratulations!",
+        "auth_reset-email-result_message": "Your email has been changed!",
+        "auth_reset-email-result_return-to-signin": "Return",
         // navigation menu
+        "menu_user-profile": "User profile",
         "menu_settings": "Settings",
         "menu_license-types": "license types",
         "menu_integrations": "Integrations",
@@ -396,7 +465,8 @@ const LOCALIZATION = {
         "menu_stores": "Stores",
         "menu_backups": "Backups",
         "menu_themes": "Themes",
-        "menu_app-kiosk": "Menu",
+        "menu_theme": "Theme",
+        "menu_app-kiosk": "Kiosk",
         "menu_app-eq": "Electronic queue",
         "menu_app-order-picker": "Order picker",
         "menu_user-content": "Content",
@@ -405,8 +475,8 @@ const LOCALIZATION = {
         "menu_products": "Products",
         "menu_tags": "Tags",
         "menu_menu-groups": "Groups",
-        "menu_menu-categories": "Categories",
-        "menu_menu-schema-categories": "Categories of modifiers",
+        "menu_menu-categories": "Menu groups",
+        "menu_menu-schema-categories": "Modifier groups",
         "menu_ads": "Ads",
         "menu_splash-screen": "Splash screen",
         "menu_splash-screen-disconnected": "Splash screen (not work)",
@@ -422,14 +492,20 @@ const LOCALIZATION = {
         "licenses_key-client": "Client",
         "licenses_key-integration": "integration",
         "licenses_no-licenses": "No licenses",
+        "licenses_add-new": "Add a license",
+        // license types
+        "license-types_no-license-types": "No license types",
+        "license-types_add-new": "Add a license type",
         // tags
-        "tags_add-new": "New tag",
+        "tags_add-new": "New a tag",
         // backups
         "backups_form": "Form",
         "backups_upload": "Upload",
         // stores
-        "stores_add-new": "Add new",
+        "stores_add-new": "Add a store",
         "stores_dialog-delete-the-store": "Delete the store?",
+        // integration
+        "integrations_add-new": "Add an integration",
         // scenario
         "scenario_scenarios": "Scenarios",
         "scenario_condition": "Condition",

@@ -1,3 +1,10 @@
+.ta-state-panel {
+    height: auto;
+    display: block;
+    position: relative;
+    min-height: 64px;
+}
+
 .state-panel {
     position: absolute;
     box-shadow: 0px 2px 24px rgb(0 0 0 / 7%);

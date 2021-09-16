@@ -1,0 +1,78 @@
+$size-l: 1920;
+$size-m: 1280;
+$size-sm: 1024;
+$size-s: 375;
+
+@mixin fluid-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+$columns: 12;
+
+@mixin grid-system($suffix, $dimensionMaxWidth) {
+  @media (max-width: #{$dimensionMaxWidth}px) {
+    $container-margin-bottom: 16px;
+    $gap: 6px;
+
+    @if $suffix == s {
+      $container-margin-bottom: 10px;
+      $gap: 2px;
+    } @else if $suffix == sm {
+      $container-margin-bottom: 12px;
+      $gap: 3px;
+    } @else if $suffix == m {
+      $container-margin-bottom: 14px;
+      $gap: 4px;
+    } @else if $suffix == l {
+      $container-margin-bottom: 14px;
+      $gap: 4px;
+    }
+
+    @include base-grid-system(col-#{$suffix}, $gap, $container-margin-bottom);
+  }
+}
+
+@mixin base-grid-system($colName, $gap, $container-margin-bottom) {
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    //margin: 0 #{-$gap} #{$container-margin-bottom} #{-$gap};
+
+    &--vehicle-form {
+      min-width: 20rem;
+    }
+
+    &.flex-end {
+      align-items: flex-end;
+    }
+
+    @for $width from 1 through $columns {
+      .#{$colName}-#{$width} {
+        // flex-basis: calc(#{$width / $columns * 100%} - #{$gap * 2});
+        padding: 0 $gap;
+        display: inline-block;
+        box-sizing: border-box;
+        min-width: 11rem;
+        flex: 1;
+
+        &.flex-center {
+          justify-content: center;
+          display: flex;
+        }
+
+        &.flex-end {
+          justify-content: flex-end;
+          display: flex;
+        }
+      }
+    }
+  }
+}
+
+@include base-grid-system(col, 4px, 16px);
+@include grid-system(l, $size-l);
+@include grid-system(m, $size-m);
+@include grid-system(sm, $size-sm);
+@include grid-system(s, $size-s);

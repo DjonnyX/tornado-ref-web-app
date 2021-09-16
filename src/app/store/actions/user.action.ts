@@ -1,9 +1,10 @@
 import { createAction, props } from "@ngrx/store";
 import { ICaptcha, IUserProfile } from '@models';
 import {
-  IUserSigninRequest, IUserSignupParamsRequest, IUserSignupRequest, IErrorResponse,
-  IUserResetPasswordRequest, IUserForgotPasswordRequest
+  IUserSigninRequest, IUserSignupParamsRequest, IUserSignupRequest,
+  IUserResetPasswordRequest, IUserForgotPasswordRequest, IUserChangeEmailRequest, IUserUpdateProfileRequest, IUserResetEmailRequest
 } from '@services';
+import { IAccount } from "@djonnyx/tornado-types";
 
 export enum UserActionTypes {
   USER_SIGNIN_REQUEST = "TORNADO/user-signin:request",
@@ -25,6 +26,18 @@ export enum UserActionTypes {
   USER_RESET_PASSWORD_REQUEST = "TORNADO/user-reset-password:request",
   USER_RESET_PASSWORD_SUCCESS = "TORNADO/user-reset-password:success",
   USER_RESET_PASSWORD_ERROR = "TORNADO/user-reset-password:error",
+
+  USER_UPDATE_PROFILE_REQUEST = "TORNADO/user-update-profile:request",
+  USER_UPDATE_PROFILE_SUCCESS = "TORNADO/user-update-profile:success",
+  USER_UPDATE_PROFILE_ERROR = "TORNADO/user-update-profile:error",
+
+  USER_CHANGE_EMAIL_REQUEST = "TORNADO/user-change-email:request",
+  USER_CHANGE_EMAIL_SUCCESS = "TORNADO/user-change-email:success",
+  USER_CHANGE_EMAIL_ERROR = "TORNADO/user-change-email:error",
+
+  USER_RESET_EMAIL_REQUEST = "TORNADO/user-reset-email:request",
+  USER_RESET_EMAIL_SUCCESS = "TORNADO/user-reset-email:success",
+  USER_RESET_EMAIL_ERROR = "TORNADO/user-reset-email:error",
 
   SIGNOUT_REQUEST = "TORNADO/user/signout:request",
   SIGNOUT_SUCCESS = "TORNADO/user/signout:success",
@@ -80,7 +93,7 @@ export namespace UserActions {
   // forgot password
   export const userForgotPasswordRequest = createAction(
     UserActionTypes.USER_FORGOT_PASSWORD_REQUEST,
-    props<IUserForgotPasswordRequest>()
+    props<{ params: IUserForgotPasswordRequest, fromProfile: boolean }>()
   );
   export const userForgotPasswordSuccess = createAction(
     UserActionTypes.USER_FORGOT_PASSWORD_SUCCESS,
@@ -100,6 +113,46 @@ export namespace UserActions {
   );
   export const userResetPasswordError = createAction(
     UserActionTypes.USER_RESET_PASSWORD_ERROR,
+    props<{ error: string }>()
+  );
+
+  // reset email
+  export const userResetEmailRequest = createAction(
+    UserActionTypes.USER_RESET_EMAIL_REQUEST,
+    props<IUserResetEmailRequest>()
+  );
+  export const userResetEmailSuccess = createAction(
+    UserActionTypes.USER_RESET_EMAIL_SUCCESS,
+  );
+  export const userResetEmailError = createAction(
+    UserActionTypes.USER_RESET_EMAIL_ERROR,
+    props<{ error: string }>()
+  );
+
+  // update profile
+  export const userUpdateProfileRequest = createAction(
+    UserActionTypes.USER_UPDATE_PROFILE_REQUEST,
+    props<{ id: string, data: IAccount }>()
+  );
+  export const userUpdateProfileSuccess = createAction(
+    UserActionTypes.USER_UPDATE_PROFILE_SUCCESS,
+    props<{ account: IAccount }>()
+  );
+  export const userUpdateProfileError = createAction(
+    UserActionTypes.USER_UPDATE_PROFILE_ERROR,
+    props<{ error: string }>()
+  );
+
+  // change email
+  export const userChangeEmailRequest = createAction(
+    UserActionTypes.USER_CHANGE_EMAIL_REQUEST,
+    props<IUserChangeEmailRequest>()
+  );
+  export const userChangeEmailSuccess = createAction(
+    UserActionTypes.USER_CHANGE_EMAIL_SUCCESS,
+  );
+  export const userChangeEmailError = createAction(
+    UserActionTypes.USER_CHANGE_EMAIL_ERROR,
     props<{ error: string }>()
   );
 

@@ -1,0 +1,79 @@
+<div class="main-wrapper">
+    <div class="form__wrapper">
+        <div class="form__container">
+            <div class="form__header">
+                <div class="form__header__content">
+                    <span>
+                        <h4 class="form__header__title m0">
+                            {{localization.get("auth_change-email_title")}}
+                        </h4>
+                        <p>
+                            {{localization.get("auth_change-email_message")}}
+                        </p>
+                    </span>
+                    <span class="form__header__message">
+                        <a [routerLink]="['/admin/profile']" class="form__link">
+                            {{localization.get("auth_change-email_to-back")}}
+                        </a>
+                    </span>
+                </div>
+            </div>
+            <div class="form__header__body">
+                <ta-query-progress class="query-progress-container" customClass="auth__query-progress-container"
+                    [process]="isProcess$ | async">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+                        <div class="form__input-block">
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>
+                                        {{localization.get("auth_change-email_email-field-label")}}
+                                    </mat-label>
+                                    <input matInput type="text" [formControl]="ctrlEmail" name="username"
+                                        placeholder="Email" required>
+                                    <mat-error *ngIf="ctrlEmail.hasError('pattern')">
+                                        {{localization.get("auth_change-email_email-field-pattern-validation-message")}}
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlEmail.hasError('required')">
+                                        {{localization.get("auth_change-email_email-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <div class="captcha">
+                                    <span [innerHtml]="safeCaptchaSvg" class="captcha__img"></span>
+                                    <span class="captcha__reset-button">
+                                        <button mat-icon-button type="button" (click)="onResetCatcha()">
+                                            <mat-icon>settings_backup_restore</mat-icon>
+                                        </button>
+                                    </span>
+                                </div>
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>
+                                        {{localization.get("auth_change-email_captcha")}}
+                                    </mat-label>
+                                    <input matInput type="text" [formControl]="ctrlCaptcha">
+                                    <mat-error *ngIf="ctrlCaptcha.hasError('required')">
+                                        {{localization.get("auth_change-email_captcha")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="form__params-block">
+                        </div>
+
+                        <div class="form__submit">
+                            <button mat-flat-button color="accent" type="submit" class="button button__text"
+                                [disabled]="!form.valid">
+                                {{localization.get("auth_change-email_button-send")}}
+                            </button>
+                        </div>
+                    </form>
+                </ta-query-progress>
+            </div>
+        </div>
+
+    </div>
+</div>

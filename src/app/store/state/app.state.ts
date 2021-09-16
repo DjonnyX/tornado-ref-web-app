@@ -49,6 +49,7 @@ import { IAppThemeAssetsState } from './app-theme-assets.state';
 import { ISystemTagState } from './system-tag.state';
 import { ISystemTagsState } from './system-tags.state';
 import { ISettingsState } from './settings.state';
+import { IIntegrationServerInfoState } from './integration-server-info.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -102,4 +103,5 @@ export interface IAppState {
     taSystemTag: ISystemTagState,
     taSystemTags: ISystemTagsState,
     taSettings: ISettingsState,
+    taIntegrationServerInfo: IIntegrationServerInfoState,
 }

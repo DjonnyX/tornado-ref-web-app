@@ -9,7 +9,7 @@ import { combineLatest, Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NAME_PATTERN, PASSWORD_PATTERN } from '@app/core/patterns';
 import { equalControlsValidator } from '@app/validators/equals-control.validator';
-import { map, takeUntil } from 'rxjs/operators';
+import { filter, map, takeUntil } from 'rxjs/operators';
 import { ICaptcha } from '@models';
 import { BaseComponent } from '@components/base/base-component';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -95,6 +95,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
 
     this.captcha$.pipe(
       takeUntil(this.unsubscribe$),
+      filter(captcha => !!captcha),
     ).subscribe(v => {
       this._captcha = v;
       this._safeCaptchaSvg = this._sanitizer.bypassSecurityTrustHtml(this._captcha.svg);

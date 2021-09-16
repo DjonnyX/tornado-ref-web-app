@@ -2,63 +2,124 @@
 
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 
-    <div class="editor__container">
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container">
 
-        <div class="entities-container entities-card-layout">
-            <div class="entity" *ngFor="let license of collection | search: searchPattern"
-                [class.disabled]="isLicenseDisabled(license)">
-                <div class="entity__control">
-                    <div class="entity__control__checkbox"></div>
-                    <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                        aria-label="Menu">
-                        <mat-icon class="icon">more_vert</mat-icon>
-                    </button>
-                    <mat-menu #menu="matMenu">
-                        <button mat-menu-item (click)="onView(license)">
-                            <mat-icon>details</mat-icon>
-                            <span>
-                                {{localization.get("common_action-details")}}
-                            </span>
+            <div class="entities-container entities-card-layout">
+
+                <div class="entity" *ngFor="let license of collection | search: searchPattern">
+
+                    <!-- <div class="entity__control">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                            aria-label="Menu">
+                            <mat-icon class="icon">more_vert</mat-icon>
                         </button>
-                    </mat-menu>
-                </div>
-                <div matRipple class="entity__body" (click)="onEdit(license)">
-                    <div class="content">
-                        <div class="content__container">
-                            <div *ngIf="!!license.licType?.name" class="content__name">
-                                {{license.licType?.name}}
-                            </div>
-                            <div class="content__description" style="text-transform: none;">
-                                {{localization.get("licenses_key-integration")}}:
-                                {{integrationsMap[license.licType?.integrationId]?.name}}
-                            </div>
-                            <div class="content__description" style="text-transform: none;">
-                                <span>
-                                    {{localization.get("licenses_key-client")}}:
-                                    {{accountsMap[license.client]?.email}}
-                                </span>
-                                <span>
-                                    ({{accountsMap[license.client]?.lastName}}
-                                    {{accountsMap[license.client]?.firstName}})
-                                </span>
-                            </div>
-                            <div class="content__description" style="text-transform: none;">
-                                {{localization.get("licenses_key-serial-number")}}: <b>{{license.key}}</b>
-                            </div>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="onEdit(license)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Редактировать</span>
+                            </button>
+    
+                            <ng-container *ngIf="hasDelete()">
+                                <button mat-menu-item (click)="onDelete(license)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Удалить</span>
+                                </button>
+                            </ng-container>
+                        </mat-menu>
+                    </div> -->
+
+                    <!-- Controls -->
+
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <!--My checkbox-->
+                            <!-- <div class="entity__control__checkbox">
+                                    <ta-checkbox #checkboxActive [checked]="license.active"
+                                        (click)="onToggleActive($event, license)"></ta-checkbox>
+                                </div> -->
+                            <!-- ActionMenu -->
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="onEdit(license)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>
+                                        {{localization.get("common_action-edit")}}
+                                    </span>
+                                </button>
+
+                                <ng-container *ngIf="hasDelete()">
+                                    <button mat-menu-item (click)="onDelete(license)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                        <span>
+                                            {{localization.get("common_action-delete")}}
+                                        </span>
+                                    </button>
+                                </ng-container>
+                            </mat-menu>
+                            <!-- ActionMenu -->
                         </div>
                     </div>
-                    <div class="color"></div>
+                    <!-- Controls -->
+
+                    <div matRipple class="entity__body" (click)="onEdit(license)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group">
+                                    <div *ngIf="!!license.licType?.name" class="content__name">
+                                        {{license.licType?.name}}
+                                    </div>
+                                    <div class="content__description" style="text-transform: none;">
+                                        {{localization.get("licenses_key-integration")}}:
+                                        {{integrationsMap[license.licType?.integrationId]?.name}}
+                                    </div>
+                                    <div class="content__description" style="text-transform: none;">
+                                        <span>
+                                            {{localization.get("licenses_key-client")}}:
+                                            {{accountsMap[license.client]?.email}}
+                                        </span>
+                                        <span>
+                                            ({{accountsMap[license.client]?.lastName}}
+                                            {{accountsMap[license.client]?.firstName}})
+                                        </span>
+                                    </div>
+                                    <div class="content__description" style="text-transform: none;">
+                                        {{localization.get("licenses_key-serial-number")}}: <b>{{license.key}}</b>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="color" [style.background]="license.color"></div>
+                    </div>
+
                 </div>
-            </div>
-            <!-- Panel Add Item -->
-            <div class="entities-bottom-panel">
-                <div class="entities-bottom-panel__container">
-                    <button color="accent" class="button-add" (click)="onCreate()">
-                        <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
-                        <div class="">Добавить лицензию</div>
-                    </button>
+
+                <!-- Panel Add Item -->
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreate()">
+                            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                            <div class="">
+                                {{localization.get("licenses_add-new")}}
+                            </div>
+                        </button>
+                    </div>
                 </div>
+                <!-- Panel Add Item -->
+
             </div>
-            <!-- Panel Add Item -->
         </div>
+
+        <ng-container *ngIf="!collection || collection.length === 0">
+            <div class="editor__missing-elements__wrapper">
+                <div class="missing-elements__text">
+                    {{localization.get("licenses_no-licenses")}}
+                </div>
+            </div>
+        </ng-container>
     </div>
+</div>

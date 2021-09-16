@@ -83,14 +83,16 @@ $themes: (
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
     // Admin Toolbar
-    adminToolbarBackgroundColor: $primary-color,
+    adminToolbarBackgroundColor: #171920, //$primary-color,
+    adminToolbarLogoSectionBackgroundColor: $navigation-menu-background-color-inverse, // new
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color-inverse,
     navigationMenuItemBackgroundColor: $navigation-menu-item-background-color-inverse,
     navigationMenuItemBackgroundColorSelected: $navigation-menu-item-background-color-selected-inverse,
     navigationMenuFolderBorderColor: $navigation-menu-folder-border-color-inverse,
     //State Panel
-    statePanelBackgroundColor: $secondary-color,
+    statePanelBackgroundColor: #171920,// $secondary-color,
+    statePanelBorderColor: #1c1e25,// $secondary-color, // New
     //Search
     searchBackgroundColor: $primary-color,
     searchTextFieldColor: $search-text-field-color-inverse,

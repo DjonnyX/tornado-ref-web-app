@@ -7,6 +7,9 @@ export interface IUserState extends IBaseState {
     isSignupProgress: boolean;
     isResetPasswordProgress: boolean;
     isForgotPasswordProgress: boolean;
+    isChangeEmailProgress: boolean;
+    isResetEmailProgress: boolean;
+    isUpdateProfileProgress: boolean;
     isSignoutProgress: boolean;
     profile: IUserProfile;
     captcha: ICaptcha;

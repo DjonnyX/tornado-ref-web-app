@@ -10,6 +10,13 @@ const routes: Routes = [
     component: AdminContainer,
     children: [
       {
+        path: 'profile',
+        loadChildren: () =>
+          import('@containers/profile/profile.module').then(
+            module => module.ProfileModule,
+          )
+      },
+      {
         path: 'menu-tree',
         loadChildren: () =>
           import('@containers/menu-tree-editor/menu-tree-editor.module').then(

@@ -1,5 +1,6 @@
 .state-panel {
     @include themify($themes) {
         background-color: themed('statePanelBackgroundColor');
+        border-top: 1px solid themed('statePanelBorderColor');
     }
 }

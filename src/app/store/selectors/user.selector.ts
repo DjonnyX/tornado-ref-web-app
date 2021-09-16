@@ -39,6 +39,21 @@ export namespace UserSelectors {
     state => state.isResetPasswordProgress
   );
 
+  export const selectIsChangeEmailProcess = createSelector(
+    selectUser,
+    state => state.isChangeEmailProgress
+  );
+
+  export const selectIsResetEmailProcess = createSelector(
+    selectUser,
+    state => state.isResetEmailProgress
+  );
+
+  export const selectIsUpdateUserProfileProcess = createSelector(
+    selectUser,
+    state => state.isUpdateProfileProgress
+  );
+
   export const selectLoaded = createSelector(
     selectUser,
     state => state.loading

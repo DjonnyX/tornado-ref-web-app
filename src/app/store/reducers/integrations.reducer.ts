@@ -8,7 +8,7 @@ export const initialState: IIntegrationsState = {
     loading: false,
     isGetProcess: false,
     isUpdateProcess: false,
-    // isDeleteProcess: false,
+    isDeleteProcess: false,
     error: undefined,
     collection: undefined,
 };
@@ -34,13 +34,13 @@ const integrationsReducer = createReducer(
             loading: true,
         };
     }),
-    /*on(IntegrationsActions.deleteRequest, state => {
+    on(IntegrationsActions.deleteRequest, state => {
         return {
             ...state,
             isDeleteProcess: true,
             loading: true,
         };
-    }),*/
+    }),
     on(IntegrationsActions.getAllError, (state, { error }) => {
         return {
             ...state,
@@ -57,14 +57,14 @@ const integrationsReducer = createReducer(
             loading: false,
         };
     }),
-    /*on(IntegrationsActions.deleteError, (state, { error }) => {
+    on(IntegrationsActions.deleteError, (state, { error }) => {
         return {
             ...state,
             error,
             isDeleteProcess: false,
             loading: false,
         };
-    }),*/
+    }),
     on(IntegrationsActions.getAllSuccess, (state, { collection, meta }) => {
         return {
             ...state,
@@ -91,7 +91,7 @@ const integrationsReducer = createReducer(
             loading: false,
         };
     }),
-    /*on(IntegrationsActions.deleteSuccess, (state, { id, meta }) => {
+    on(IntegrationsActions.deleteSuccess, (state, { id, meta }) => {
         const existsIntegrationIndex = state.collection.findIndex(p => p.id === id);
         let collection: Array<IIntegration> = [...state.collection];
         if (existsIntegrationIndex > -1) {
@@ -105,7 +105,7 @@ const integrationsReducer = createReducer(
             isDeleteProcess: false,
             loading: false,
         };
-    }),*/
+    }),
 );
 
 export default integrationsReducer;

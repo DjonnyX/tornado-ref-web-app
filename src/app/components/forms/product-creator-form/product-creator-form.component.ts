@@ -1,6 +1,6 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
-import { map, startWith, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import {
@@ -14,7 +14,7 @@ import { IKeyValue } from '@components/key-value/key-value.component';
 import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection.util';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 interface IData {
   tags: IKeyValue;
@@ -45,19 +45,23 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Input() assets: Array<IAsset>;
 
-  private _systemTags: Array<ISystemTag>;
+  private _previousSystemTags: Array<ISystemTag> = [];
+
+  private _systemTags$ = new BehaviorSubject<Array<ISystemTag>>([]);
+  systemTags$ = this._systemTags$.asObservable();
+  private _systemTags: Array<ISystemTag> = [];
   @Input() set systemTags(v: Array<ISystemTag>) {
-    if (!!v && this._systemTags !== v) {
+    if (this._systemTags !== v) {
+      this._previousSystemTags = this._systemTags?.length ? [...this._systemTags] : undefined;
       this._systemTags = v;
 
-      if (this.ctrlSystemTag?.value !== undefined) {
-        const ctrlSystemTagsValue = this.ctrlSystemTag.value?.toLowerCase();
-        const selectedSystemTag = this._systemTags?.find(t => t.name.toLocaleLowerCase() === ctrlSystemTagsValue ||
-          t.id.toLocaleLowerCase() === ctrlSystemTagsValue);
-        this.ctrlSystemTag.setValue(!!selectedSystemTag ? this.ctrlSystemTag?.value : undefined);
+      if (!!this._previousSystemTags && this._previousSystemTags.length < this._systemTags.length) {
+        this.autoSelectSystemTag(null, true);
       }
 
       this.generateData();
+
+      this._systemTags$.next(v);
     }
   }
   get systemTags() { return this._systemTags; }
@@ -177,13 +181,17 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   private _isDirty = false;
   get isDirty() { return this._isDirty; }
 
-  systemTagsFilteredOptions: Observable<Array<ISystemTag>>;
+  systemTagsFilteredOptions$: Observable<Array<ISystemTag>>;
 
   systemTagsDisplayFn = (value: string): string => {
     return this.systemTags?.find(t => t.id === value)?.name || value;
   }
 
-  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
+  constructor(
+    private _fb: FormBuilder,
+    private _cdr: ChangeDetectorRef,
+    public dialog: MatDialog,
+  ) {
     super();
 
     this.form = this._fb.group({
@@ -238,16 +246,73 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.checkDirty();
     });
 
-    this.systemTagsFilteredOptions = this.ctrlSystemTag.valueChanges.pipe(
-      startWith(""),
-      map(name => name ? this._systemTagsFilter(name) : [...(this.systemTags || [])]),
+    this.ctrlSystemTag.valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+      debounceTime(100),
+    ).subscribe(v => {
+      this.autoSelectSystemTag(v);
+    });
+
+    this.systemTagsFilteredOptions$ = this.systemTags$.pipe(
+      takeUntil(this.unsubscribe$),
+      switchMap(items => {
+        return this.ctrlSystemTag.valueChanges.pipe(
+          startWith(""),
+          map(name => name ? this._systemTagsFilter(name) : this.systemTags ? [... this.systemTags] : []),
+        );
+      }),
     );
 
     this.resetInitState();
   }
 
-  ngOnDestroy(): void {
-    super.ngOnDestroy();
+  private getSelectedSystemTag() {
+    const systemTagInput = this.ctrlSystemTag.value;
+    return this.systemTags.find(t => t.name.toLowerCase() === systemTagInput?.toLowerCase() || t.id === systemTagInput);
+  }
+
+  private getRawValue() {
+    const systemTag = this.getSelectedSystemTag();
+
+    const result = this.form.getRawValue();
+    result.systemTag = systemTag?.id;
+
+    if (!this.ctrlSystemTag.value) {
+      result.systemTag = undefined;
+    }
+
+    return result;
+  }
+
+  private autoSelectSystemTag(value?: string, selectLast: boolean = false): void {
+    if (!value) {
+      return;
+    }
+
+    let systemTag: ISystemTag;
+    if (!selectLast) {
+      if (!!value) {
+        systemTag = this.systemTags.find(t => t.name.toLowerCase() == value.toLowerCase() || t.id == value)
+      } else {
+        systemTag = this._systemTags.length ? this._systemTags[this._systemTags.length - 1] : null;
+      }
+    } else {
+      systemTag = this._systemTags.length ? this._systemTags[this._systemTags.length - 1] : null;
+    }
+
+    if (!systemTag && !this.ctrlSystemTag.value) {
+      this.ctrlSystemTag.setValue(undefined);
+      return;
+    }
+
+    if (!!systemTag?.id && systemTag?.id != this.ctrlSystemTag.value) {
+      this.ctrlSystemTag.setValue(systemTag?.id);
+    }
+  }
+
+  isExistsSystemTag() {
+    const systemTagInput = this.ctrlSystemTag.value;
+    return !!this.systemTags.find(t => t.name.toLowerCase() === systemTagInput?.toLowerCase() || t.id === systemTagInput);
   }
 
   onSystemTagSubmit(event: KeyboardEvent): void {
@@ -255,22 +320,41 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       event.stopImmediatePropagation();
       event.preventDefault();
 
-      if (!this.systemTags.find(t => t.name.toLocaleLowerCase() === this.ctrlSystemTag?.value?.toLowerCase())) {
-        this.createSystemTag.emit({
-          name: this.ctrlSystemTag.value,
-          extra: {
-            entity: "product",
-          },
-        })
-      }
+      this.onCreateNewSystemTag();
+    }
+  }
+
+  onRemoveSystemTag() {
+    this.ctrlSystemTag.setValue(null);
+  }
+
+  onCreateSystemTag() {
+    this.onCreateNewSystemTag();
+  }
+
+  private onCreateNewSystemTag(): void {
+    if (!this.isExistsSystemTag() && this.ctrlSystemTag.value) {
+      this.createSystemTag.emit({
+        name: this.ctrlSystemTag.value,
+        extra: {
+          entity: "product",
+        },
+      });
     }
   }
 
   onDeleteSystemTag(event: Event, id: string): void {
-    event.stopImmediatePropagation();
-    event.preventDefault();
+    if (event) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+    }
 
     this.deleteSystemTag.emit(id);
+
+    if (this.ctrlSystemTag.value == id) {
+      this.onRemoveSystemTag();
+      this.onSave();
+    }
   }
 
   private _systemTagsFilter(name: string): ISystemTag[] {
@@ -304,14 +388,24 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     });
   }
 
-  resetInitState() {
-    this._initState = {
+  getState() {
+    const state = {
       ...this._product,
-      ...this.form.value,
+      ...this.getRawValue(),
       contents: { ...(!!this._product ? this._product.contents : undefined), ...this._state },
       active: !!this._product && this._product.active !== undefined ? this._product.active : true,
       extra: !!this._product ? this._product.extra : {},
     };
+
+    if (!state.systemTag) {
+      state.systemTag = null;
+    }
+
+    return state;
+  }
+
+  resetInitState() {
+    this._initState = this.getState();
   }
 
   getTagContent(tag: ITag): ITagContentsItem {
@@ -339,13 +433,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   onSave(): void {
     if (this.form.valid) {
-      this.save.emit({
-        ...this._product,
-        ...this.form.value,
-        contents: { ...(!!this._product ? this._product.contents : undefined), ...this._state },
-        active: !!this._product && this._product.active !== undefined ? this._product.active : true,
-        extra: !!this._product ? this._product.extra : {},
-      });
+      this.save.emit(this.getState());
 
       this.isEdit = false;
       this.resetInitState();
@@ -354,13 +442,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   checkDirty() {
-    const newState = {
-      ...this._product,
-      ...this.form.value,
-      contents: { ...(!!this._product ? this._product.contents : undefined), ...this._state },
-      active: !!this._product && this._product.active !== undefined ? this._product.active : true,
-      extra: !!this._product ? this._product.extra : {},
-    };
+    const newState = this.getState();
 
     this._isDirty = !deepEqual(this._initState, newState);
   }

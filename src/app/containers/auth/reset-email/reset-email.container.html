@@ -1,0 +1,49 @@
+<div class="main-wrapper">
+    <div class="form__wrapper">
+        <div class="form__container">
+            <div class="form__header">
+                <div class="form__header__content">
+                    <span>
+                        <h4 class="form__header__title m0">
+                            {{localization.get("auth_reset-email_title")}}
+                        </h4>
+                        <p>
+                            {{localization.get("auth_reset-email_message")}}
+                        </p>
+                    </span>
+                </div>
+            </div>
+            <ta-query-progress class="query-progress-container" customClass="auth__query-progress-container"
+                [process]="isProcess$ | async">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form" autocomplete="off">
+                    <div class="form__input-block">
+                        <div class="form-item">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>
+                                    {{localization.get("auth_reset-email_new-email")}}
+                                </mat-label>
+                                <input matInput type="email" [formControl]="ctrlEmail" required>
+                                <mat-error *ngIf="ctrlEmail.hasError('email')">
+                                    {{localization.get("auth_reset-email_new-email-validation-pattern-message")}}
+                                </mat-error>
+                                <mat-error *ngIf="ctrlEmail.hasError('required')">
+                                    {{localization.get("auth_reset-email_new-email")}} -
+                                    <strong>{{localization.get("common_ctrl_required")}}</strong>
+                                </mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                    <div class="form__params-block">
+                    </div>
+
+                    <div class="form__submit">
+                        <button mat-flat-button color="accent" type="submit" class="button button__text"
+                            [disabled]="!form.valid">
+                            {{localization.get("auth_reset-email_button-reset")}}
+                        </button>
+                    </div>
+                </form>
+            </ta-query-progress>
+        </div>
+    </div>
+</div>

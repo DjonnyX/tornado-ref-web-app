@@ -16,7 +16,7 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() collection: Array<ILicense>;
 
-  private _integrationsMap: { [id: string]: IIntegration };
+  private _integrationsMap: { [id: string]: IIntegration } = {};
 
   get integrationsMap() {
     return this._integrationsMap;
@@ -85,6 +85,10 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
+  }
+
+  hasDelete() {
+    return true;
   }
 
   onToggleActive(event: Event, license: ILicense): void {

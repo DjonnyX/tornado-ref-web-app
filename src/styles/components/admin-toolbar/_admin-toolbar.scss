@@ -35,7 +35,7 @@ $dropdown-selector-value-width: 36px;
             white-space: nowrap;
             width: 100%;
             height: 100%;
-            padding-right: $admin-section-container-padding-h;
+            padding: 0 #{$admin-section-container-padding-h * 2};
         }
 
         &__right-group, &__left-group {

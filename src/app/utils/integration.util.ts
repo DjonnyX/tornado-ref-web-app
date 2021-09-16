@@ -1,13 +1,8 @@
-import { IIntegration } from '@djonnyx/tornado-types';
-import { formatVersionModel } from './version.util';
+import { IIntegrationEditable } from '@djonnyx/tornado-types';
 
-export const formatIntegrationModel = (model: IIntegration): IIntegration => {
+export const formatIntegrationModel = (model: IIntegrationEditable): IIntegrationEditable => {
     return {
         host: model.host,
-        name: model.name,
-        version: formatVersionModel(model.version),
-        rights: model.rights,
         active: model.active,
-        state: model.state,
     }
 }

@@ -5,9 +5,9 @@ import { IIntegrationState } from '@store/state/integration.state';
 export const initialState: IIntegrationState = {
     loading: false,
     isGetProcess: false,
-    // isCreateProcess: false,
+    isCreateProcess: false,
     isUpdateProcess: false,
-    // isDeleteProcess: false,
+    isDeleteProcess: false,
     error: undefined,
     integration: undefined,
 };
@@ -26,13 +26,13 @@ const integrationReducer = createReducer(
             loading: true,
         };
     }),
-    /*on(IntegrationActions.createRequest, state => {
+    on(IntegrationActions.createRequest, state => {
         return {
             ...state,
             isCreateProcess: true,
             loading: true,
         };
-    }),*/
+    }),
     on(IntegrationActions.updateRequest, state => {
         return {
             ...state,
@@ -48,14 +48,14 @@ const integrationReducer = createReducer(
             loading: false,
         };
     }),
-    /*on(IntegrationActions.createError, (state, { error }) => {
+    on(IntegrationActions.createError, (state, { error }) => {
         return {
             ...state,
             error,
             isCreateProcess: false,
             loading: false,
         };
-    }),*/
+    }),
     on(IntegrationActions.updateError, (state, { error }) => {
         return {
             ...state,
@@ -73,7 +73,7 @@ const integrationReducer = createReducer(
             loading: false,
         };
     }),
-    /*on(IntegrationActions.createSuccess, (state, { integration }) => {
+    on(IntegrationActions.createSuccess, (state, { integration }) => {
         return {
             ...state,
             integration,
@@ -81,7 +81,7 @@ const integrationReducer = createReducer(
             isCreateProcess: false,
             loading: false,
         };
-    }),*/
+    }),
     on(IntegrationActions.updateSuccess, (state, { integration }) => {
         return {
             ...state,

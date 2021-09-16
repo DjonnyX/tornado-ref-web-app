@@ -21,3 +21,15 @@ body {
 .auth__query-progress-container {
     height: auto;
 }
+
+.form__buttons-group {
+    display: flex;
+
+    &.align-end {
+        justify-content: flex-end;
+    }
+
+    button:not(:last-child) {
+        margin-right: 3px;
+    }
+}

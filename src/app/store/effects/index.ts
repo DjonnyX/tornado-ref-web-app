@@ -47,6 +47,7 @@ import CheckueEffects from './checkue.effects';
 import CheckuesEffects from './checkues.effects';
 import SystemTagEffects from './system-tag.effects';
 import SystemTagsEffects from './system-tags.effects';
+import IntegrationServerInfoEffects from "./integration-server-info.effects";
 
 const rootEffects = [
   UserEffects,
@@ -98,5 +99,6 @@ const rootEffects = [
   CheckuesEffects,
   SystemTagEffects,
   SystemTagsEffects,
+  IntegrationServerInfoEffects,
 ];
 export default rootEffects;

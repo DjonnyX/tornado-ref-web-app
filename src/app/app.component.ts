@@ -2,14 +2,31 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { CapabilitiesSelectors, SettingsSelectors, UserSelectors } from '@store/selectors';
-import { combineLatest } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
-import { Router, ActivatedRoute, NavigationStart, NavigationEnd } from '@angular/router';
+import { filter, switchMap, take, tap } from 'rxjs/operators';
+import { Router, NavigationEnd } from '@angular/router';
 import { CapabilitiesActions } from '@store/actions/capabilities.action';
 import { extractURL } from './utils/url-extractor.util';
 import { UserActions } from '@store/actions/user.action';
 import { LocalizationService } from './services/localization/localization.service';
 import { DefaultRoleTypes } from '@djonnyx/tornado-types';
+
+const ROOT_LINKS = [
+  "signin",
+  "signin",
+  "signup",
+  "forgot-password",
+  "forgot-password-result",
+  "reset-password",
+  "reset-password-result",
+  "change-email",
+  "change-email-result",
+  "reset-email",
+  "reset-email-result",
+  "term-of-use",
+  "auth-error",
+  "cookie-term-of-use",
+  "page-not-found",
+];
 
 @Component({
   selector: 'app-root',
@@ -20,14 +37,25 @@ export class AppComponent implements OnInit {
 
   private _url: string;
 
+  private _startUrl: string;
+
   private _previouseTheme: string;
+
+  private _rootLinks = Array<string>();
 
   constructor(
     private _store: Store<IAppState>,
     private _router: Router,
-    private _activatedRoute: ActivatedRoute,
     private _localization: LocalizationService,
   ) {
+    ROOT_LINKS.forEach(link => {
+      this._rootLinks.push(link);
+      this._rootLinks.push(`/${link}`);
+      this._rootLinks.push(`/${link}/`);
+    });
+
+    this._startUrl = `${window.location.pathname}/${window.location.search}`;
+
     this._store.pipe(
       select(SettingsSelectors.selectTheme),
     ).subscribe(
@@ -59,38 +87,43 @@ export class AppComponent implements OnInit {
       }
     });
 
-    combineLatest([
-      this._store.pipe(
-        select(UserSelectors.selectUserProfile),
-      ),
-    ]).subscribe(([profile]) => {
-      this._store.pipe(
-        take(1),
-        select(CapabilitiesSelectors.selectReturnUrl),
-      ).subscribe(returnUrl => {
+    this._store.pipe(
+      select(UserSelectors.selectUserProfile),
+    ).pipe(
+      switchMap((profile) => {
+        return this._store.pipe(
+          take(1),
+          select(CapabilitiesSelectors.selectReturnUrl),
+          tap(returnUrl => {
+            const startUrl = this._startUrl;
+            this._startUrl = null;
 
-        // signin
-        if (!!profile?.token) {
-          const url = extractURL(decodeURIComponent(returnUrl));
+            if (!startUrl) {
+              // signin
+              if (!!profile?.token) {
+                const url = extractURL(decodeURIComponent(returnUrl));
 
-          if (!!returnUrl) {
-            this._router.navigate([url.path], {
-              queryParams: url.query,
-            });
-          } else if (returnUrl === undefined || returnUrl === "") {
-            if (profile.account.role.name !== DefaultRoleTypes.ADMIN) {
-              this._router.navigate(["/admin/licenses-account"]);
-            } else {
-              this._router.navigate(["/admin/licenses"]);
+                if (!!returnUrl) {
+                  this._router.navigate([url.path], {
+                    queryParams: url.query,
+                  });
+                } else if (returnUrl === undefined || returnUrl === "") {
+                  if (profile.account.role.name !== DefaultRoleTypes.ADMIN) {
+                    this._router.navigate(["/admin/profile"]);
+                  } else {
+                    this._router.navigate(["/admin/licenses"]);
+                  }
+                }
+              }
+              // signout
+              else if (!!this.extractUrlPath(this._url) || this.isReturnedRoute(this._url)) {
+                this._router.navigate(["signin"]);
+              }
             }
-          }
-        }
-        // signout
-        else if (!!this.extractUrlPath(this._url) || this.isReturnedRoute(this._url)) {
-          this._router.navigate(["signin"]);
-        }
-      });
-    });
+          }),
+        );
+      })
+    ).subscribe();
   }
 
   ngOnInit(): void { }
@@ -103,21 +136,10 @@ export class AppComponent implements OnInit {
   private isReturnedRoute(url: string): boolean {
     const urlPath = this.extractUrlPath(url);
 
-    switch (urlPath) {
-      case undefined:
-      case "/signin":
-      case "/signup":
-      case "/forgot-password":
-      case "/forgot-password-result":
-      case "/reset-password":
-      case "/reset-password-result":
-      case "/term-of-use":
-      case "/auth-error":
-      case "/cookie-term-of-use":
-      case "/page-not-found":
-        return false;
-      default:
-        return true;
+    if (!urlPath) {
+      return false;
     }
+
+    return this._rootLinks.indexOf(urlPath) === -1;
   }
 }

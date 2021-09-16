@@ -6,6 +6,6 @@ export interface IIntegrationsState extends IBaseState {
     meta: IMetaRefsResponse;
     isGetProcess: boolean;
     isUpdateProcess: boolean;
-    // isDeleteProcess: boolean;
+    isDeleteProcess: boolean;
     collection: Array<IIntegration> | null;
 }

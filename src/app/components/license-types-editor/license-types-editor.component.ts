@@ -82,6 +82,10 @@ export class LicenseTypesEditorComponent extends BaseComponent implements OnInit
     super.ngOnDestroy();
   }
 
+  hasDelete() {
+    return true;
+  }
+
   onCreate(): void {
     this.create.emit();
   }

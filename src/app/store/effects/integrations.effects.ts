@@ -33,6 +33,24 @@ export default class IntegrationsEffects {
         )
     );
 
+    public readonly createRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(IntegrationsActions.createRequest),
+            switchMap(({ integration }) => {
+                return this._apiService.createIntegration(formatIntegrationModel(integration)).pipe(
+                    mergeMap(res => {
+                        return [IntegrationsActions.createSuccess({ integration: res.data, meta: res.meta })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(IntegrationsActions.createError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationsActions.updateRequest),
@@ -45,6 +63,24 @@ export default class IntegrationsEffects {
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationsActions.updateError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
+    public readonly deleteRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(IntegrationsActions.deleteRequest),
+            switchMap(({ id }) => {
+                return this._apiService.deleteIntegration(id).pipe(
+                    mergeMap(res => {
+                        return [IntegrationsActions.deleteSuccess({ id, meta: res.meta })];
+                    }),
+                    map(v => v),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(IntegrationsActions.deleteError({ error: error.message }));
                     }),
                 );
             })

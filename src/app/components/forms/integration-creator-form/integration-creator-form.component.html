@@ -7,49 +7,54 @@
 
             <div class="form__main-options">
                 <div class="form__input-block">
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Хост</mat-label>
-                            <input matInput type="text" formControlName="host" placeholder="http://127.0.0.1:8089/"
-                                required>
-                            <mat-error *ngIf="ctrlName.hasError('required')">
-                                <strong>обязательное</strong>
-                            </mat-error>
-                            <mat-error *ngIf="ctrlName.hasError('pattern')">
-                                <strong>некорректный формат хоста</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Права</mat-label>
-                            <mat-select formControlName="rights" multiple required>
-                                <mat-option *ngFor="let right of rights" [value]="right.value">
-                                    <span>
-                                        {{right.name}}
-                                    </span>
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form-item">
-                        <mat-form-field class="full-width" appearance="outline">
-                            <mat-label>Имя</mat-label>
-                            <input matInput type="text" formControlName="name" placeholder="Имя" required>
-                            <mat-error *ngIf="ctrlName.hasError('required')">
-                                <strong>обязательное</strong>
-                            </mat-error>
-                        </mat-form-field>
-                    </div>
-
-                    <div class="form__input-block">
-                        <p class="form-header">
-                            Версия
-                        </p>
-                        <ta-version formControlName="version"></ta-version>
+                    <div class="container">
+                        <div class="col-12">
+                            <div class="form-item">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Хост</mat-label>
+                                    <input matInput type="text" formControlName="host"
+                                        placeholder="http://127.0.0.1:8089/" required>
+                                    <mat-error *ngIf="ctrlName.hasError('required')">
+                                        <strong>обязательное</strong>
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlName.hasError('pattern')">
+                                        <strong>некорректный формат хоста</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-8 col-m-12">
+                            <div class="form-item">
+                                <p class="form-header">
+                                    Имя интеграции
+                                </p>
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Имя</mat-label>
+                                    <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
+                                    <mat-error *ngIf="ctrlName.hasError('required')">
+                                        <strong>обязательное</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="col-4 col-m-12">
+                            <div class="form__input-block">
+                                <p class="form-header">
+                                    Версия
+                                </p>
+                                <ta-version [formControl]="ctrlVersion" [disabled]="true"></ta-version>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <p class="form-header">
+                                Права
+                            </p>
+                            <ul>
+                                <li *ngFor="let right of rights">
+                                    {{right.name}}
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
             </div>
