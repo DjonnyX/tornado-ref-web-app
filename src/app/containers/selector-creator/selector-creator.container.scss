@@ -17,3 +17,12 @@ $marging: (-(px2em(60)));
         }
     }
 }
+
+.header-selectors__modifiers {
+    h2.form__header {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    margin-bottom: 20px;
+}

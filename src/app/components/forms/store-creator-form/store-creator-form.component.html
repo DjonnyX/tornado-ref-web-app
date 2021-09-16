@@ -46,7 +46,7 @@
 </form>
 
 <ng-template #editForm>
-    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
         <h2 class="form-header">
             Информация о магазине
         </h2>
