@@ -38,16 +38,12 @@
   </div>
 
   <div>
-    <h1 class="form-header">
-      Группа
+    <h1 class="form-header" *ngIf="!!data">
+      {{data.name.value}}
     </h1>
 
     <ng-container *ngIf="!isEdit; else editFields">
       <div class="form__block" *ngIf="!!data">
-        <div class="form-item full-width">
-          <ta-key-value [data]="data.name"></ta-key-value>
-        </div>
-
         <div class="form-item full-width">
           <ta-key-value [data]="data.description"></ta-key-value>
         </div>

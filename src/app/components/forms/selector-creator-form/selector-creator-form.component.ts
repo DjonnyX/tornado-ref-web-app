@@ -269,6 +269,11 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     }
 
     this.deleteSystemTag.emit(id);
+
+    if (this.ctrlSystemTag.value == id) {
+      this.onRemoveSystemTag();
+      this.onSave();
+    }
   }
 
   private _systemTagsFilter(name: string): ISystemTag[] {
