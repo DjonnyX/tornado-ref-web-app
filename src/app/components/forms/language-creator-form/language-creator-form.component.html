@@ -12,9 +12,9 @@
         </div>
 
         <div>
-            <h1 class="form-header">
-                Язык
-            </h1>
+            <h2 class="form-header" *ngIf="!!data">
+                {{data.name.value}}
+            </h2>
 
             <div class="form__main-options">
                 <ng-container *ngIf="!isEditMode || isEdit; else info">
@@ -44,10 +44,6 @@
                     <div class="form__block" *ngIf="!!data">
                         <div class="form-item full-width">
                             <ta-key-value [data]="data.code"></ta-key-value>
-                        </div>
-
-                        <div class="form-item full-width">
-                            <ta-key-value [data]="data.name"></ta-key-value>
                         </div>
                     </div>
                 </ng-template>

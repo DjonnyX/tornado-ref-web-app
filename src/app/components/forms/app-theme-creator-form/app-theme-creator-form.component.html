@@ -13,9 +13,9 @@
         </div>
 
         <div>
-            <h1 class="form-header">
-                Тема
-            </h1>
+            <h2 class="form-header" *ngIf="!!data">
+                {{data.name.value}}
+            </h2>
 
             <div class="form__main-options">
                 <ng-container *ngIf="!isEditMode || isEdit; else info">
@@ -51,8 +51,8 @@
                                         <mat-label>{{item.name}}</mat-label>
                                         <mat-form-field class="full-width" appearance="outline">
                                             <!-- <mat-label>{{item.name}}</mat-label> -->
-                                            <input matInput type="number" [formControlName]="item.name" placeholder="Имя"
-                                                required>
+                                            <input matInput type="number" [formControlName]="item.name"
+                                                placeholder="Имя" required>
                                             <mat-error *ngIf="hasControlError(item.name, 'required')">
                                                 <strong>обязательное</strong>
                                             </mat-error>
@@ -107,11 +107,6 @@
                 </ng-container>
                 <ng-template #info>
                     <ng-container *ngIf="!!data">
-                        <div class="form__block">
-                            <div class="form-item full-width">
-                                <ta-key-value [data]="data.name"></ta-key-value>
-                            </div>
-                        </div>
                         <div class="form__block" *ngFor="let prop of data.props">
                             <div class="form-item full-width">
                                 <ta-key-value [data]="prop"></ta-key-value>

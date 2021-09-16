@@ -1,9 +1,11 @@
 @import "../../../styles/utils/px2em";
 
+$marging: (-(px2em(60)));
+
 @media screen and (min-width: 600px) {
     .entity-options-editor {
         .hierarchy-editor {
-            margin: 0 (-(px2em(32))) 0 (-(px2em(40)));
+            margin: 0 $marging 0 $marging;
         }
     }
 }
@@ -11,7 +13,7 @@
 @media screen and (max-width: 599px) {
     .entity-options-editor {
         .hierarchy-editor {
-            margin: 0 (-(px2em(32))) 0 (-(px2em(40)));
+            margin: 0 $marging 0 $marging;
         }
     }
 }

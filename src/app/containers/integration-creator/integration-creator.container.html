@@ -3,10 +3,8 @@
         <div class="entity-options-editor__back-button" (click)="onToBack()">
             Назад
         </div>
-        <div class="form">
-            <ta-integration-creator-form [integration]="integration$ | async"
-                [integrationServerInfo]="integrationServerInfo$ | async" (save)="onSubmit($event)" (cancel)="onCancel()"
-                (update)="onUpdate($event)"></ta-integration-creator-form>
-        </div>
+        <ta-integration-creator-form [integration]="integration$ | async"
+            [integrationServerInfo]="integrationServerInfo$ | async" (save)="onSubmit($event)" (cancel)="onCancel()"
+            (update)="onUpdate($event)"></ta-integration-creator-form>
     </div>
 </ta-query-progress>

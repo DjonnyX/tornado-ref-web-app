@@ -34,13 +34,13 @@
     }
 
     .form {
-      padding: px2em(36) px2em(40) px2em(40);
+      padding: px2em(54) px2em(60) px2em(60);
       background: #ffffff;
       border-radius: 3px;
     }
 
     .form+.form {
-      margin-top: px2em(20);
+      margin-top: px2em(34);
     }
   }
 }
@@ -57,11 +57,11 @@
     }
 
     .form {
-      padding: px2em(20);
+      padding: px2em(34);
     }
 
     .form+.form {
-      margin-top: px2em(20);
+      margin-top: px2em(34);
     }
 
     &__back-button {

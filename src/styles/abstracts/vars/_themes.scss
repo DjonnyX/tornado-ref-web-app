@@ -14,6 +14,7 @@ $themes: (
     dividerColor: $divider-color,
     // Admin Toolbar
     adminToolbarBackgroundColor: $primary-color,
+    adminToolbarLogoSectionBackgroundColor: $primary-color,
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color,
     navigationMenuItemBackgroundColor: $navigation-menu-item-background-color,
@@ -21,6 +22,7 @@ $themes: (
     navigationMenuFolderBorderColor: $navigation-menu-folder-border-color,
     //State Panel
     statePanelBackgroundColor: $white,
+    statePanelBorderColor: $white,
     //Search
     searchBackgroundColor: $background-color,
     searchTextFieldColor: $search-text-field-color,

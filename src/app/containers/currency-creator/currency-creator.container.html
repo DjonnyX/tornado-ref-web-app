@@ -4,12 +4,6 @@
             Назад
         </div>
         <div class="form">
-            <div class="form-header">
-                <h1>
-                    Валюта
-                </h1>
-            </div>
-
             <ta-currency-creator-form [isEditMode]="isEditMode" [currency]="currency$ | async" (submitForm)="onSubmit($event)"
                 (cancel)="onCancel()"></ta-currency-creator-form>
         </div>

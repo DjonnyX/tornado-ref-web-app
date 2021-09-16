@@ -1,9 +1,9 @@
-<form class="form" *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
+<form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div style="width: 100%;">
         <div>
-            <h1 class="form-header">
+            <h2 class="form-header">
                 Информация о лицензии
-            </h1>
+            </h2>
 
             <div class="form__main-options">
                 <div class="form__block" *ngIf="!!data">
@@ -28,9 +28,9 @@
                     </div>
                 </div>
 
-                <h1 class="form-header">
+                <h2 class="form-header">
                     Интеграция
-                </h1>
+                </h2>
 
                 <div class="form__block" *ngIf="!!data">
                     <div class="form-item full-width">
@@ -42,9 +42,9 @@
                     </div>
                 </div>
 
-                <h1 class="form-header">
+                <h2 class="form-header">
                     Устройство
-                </h1>
+                </h2>
 
                 <ng-container *ngIf="!!data && !!license && !isBindToTerminal(); else terminalInfo">
                     <div>
@@ -82,9 +82,9 @@
     <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
         <div style="width: 100%;">
             <div>
-                <h1 class="form-header">
+                <h2 class="form-header">
                     Информация о лицензии
-                </h1>
+                </h2>
 
                 <div class="form__main-options">
                     <div class="form__input-block">

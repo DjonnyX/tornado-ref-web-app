@@ -1,9 +1,9 @@
 <form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div style="width: 100%;">
         <div>
-            <h1 class="form-header">
+            <h2 class="form-header">
                 Информация об устройстве
-            </h1>
+            </h2>
 
             <div class="form__main-options">
                 <div class="form__block" *ngIf="!!data">
@@ -28,9 +28,9 @@
                     </div>
                 </div>
 
-                <h1 class="form-header">
+                <h2 class="form-header">
                     Магазин
-                </h1>
+                </h2>
 
                 <div class="form__block" *ngIf="!!data">
                     <div class="form-item full-width">
@@ -42,9 +42,9 @@
                     </div>
                 </div>
 
-                <h1 class="form-header">
+                <h2 class="form-header">
                     Лицензия
-                </h1>
+                </h2>
 
                 <ng-container *ngIf="!license; else licenseInfo">
                     Лицензия отсутствует.
@@ -65,9 +65,9 @@
                     </div>
                 </ng-template>
 
-                <h1 class="form-header">
+                <h2 class="form-header">
                     Конфигурация
-                </h1>
+                </h2>
 
                 <ng-container *ngIf="!terminal?.config; else configuration">
                     Конфигурация отсутствует.
@@ -131,9 +131,9 @@
 
 <ng-template #editForm>
     <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-        <h1 class="form-header">
+        <h2 class="form-header">
             Информация об устройстве
-        </h1>
+        </h2>
 
         <div class="form__input-block">
             <div class="form-item">
@@ -158,9 +158,9 @@
             </div>
         </div>
 
-        <h1 class="form-header">
+        <h2 class="form-header">
             Конфигурация
-        </h1>
+        </h2>
 
         <!-- KIOSK -->
         <ng-container *ngIf="terminal.type === TerminalTypes.KIOSK">
