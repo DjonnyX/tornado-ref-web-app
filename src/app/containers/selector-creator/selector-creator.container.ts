@@ -18,7 +18,8 @@ import {
   ISelector, SelectorResourceTypes, ILanguage, IBusinessPeriod, IStore, INode, IProduct, IOrderType, ITag,
   ICurrency,
   SelectorTypes,
-  ISystemTag
+  ISystemTag,
+  IRequestOptions
 } from '@djonnyx/tornado-types';
 import { AssetsActions } from '@store/actions/assets.action';
 import { LanguagesActions } from '@store/actions/languages.action';
@@ -31,6 +32,7 @@ import { CurrenciesActions } from '@store/actions/currencies.action';
 import { StoresActions } from '@store/actions/stores.action';
 import { OrderTypesActions } from '@store/actions/order-types.action';
 import { SystemTagsActions } from '@store/actions/system-tags.action';
+import { IStoreRequest } from '@store/interfaces/store-request.interface';
 
 @Component({
   selector: 'ta-selector-creator',
@@ -349,13 +351,16 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(AssetsActions.getAllRequest());
     this._store.dispatch(SystemTagsActions.getAllRequest(
       {
-        options: {
-          filter: [{
-            id: "extra.entity",
-            operation: "equals",
-            value: this._selectorType,
-          }],
-        }
+        params: {
+          options: {
+            filter: [{
+              id: "extra.entity",
+              operation: "equals",
+              value: this._selectorType,
+            }],
+          }
+        },
+        callback: (systemTags: Array<ISystemTag>) => { },
       }
     ));
 
@@ -457,8 +462,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(SystemTagsActions.createRequest({ systemTag }));
   }
 
-  onDeleteSystemTag(id: string): void {
-    this._store.dispatch(SystemTagsActions.deleteRequest({ id }));
+  onDeleteSystemTag(request: IStoreRequest<{ id: string }, string>): void {
+    this._store.dispatch(SystemTagsActions.deleteRequest(request));
   }
 
   onMainResourceUpload(data: IFileUploadEvent): void {

@@ -18,13 +18,15 @@ export default class SystemTagsEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SystemTagsActions.getAllRequest),
-            switchMap(({ options }) => {
-                return this._apiService.getSystemTags(options).pipe(
+            switchMap(({ params, callback }) => {
+                return this._apiService.getSystemTags(params?.options).pipe(
                     mergeMap(res => {
+                        callback(null, res.data);
                         return [SystemTagsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
+                        callback(error.message);
                         this._notificationService.error(error.message);
                         return of(SystemTagsActions.getAllError({ error: error.message }));
                     }),
@@ -90,13 +92,15 @@ export default class SystemTagsEffects {
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(SystemTagsActions.deleteRequest),
-            switchMap(({ id }) => {
-                return this._apiService.deleteSystemTag(id).pipe(
+            switchMap(({ params, callback }) => {
+                return this._apiService.deleteSystemTag(params?.id).pipe(
                     mergeMap(res => {
-                        return [SystemTagsActions.deleteSuccess({ id, meta: res.meta })];
+                        callback(null, params.id);
+                        return [SystemTagsActions.deleteSuccess({ id: params.id, meta: res.meta })];
                     }),
                     map(v => v),
                     catchError((error: Error) => {
+                        callback(error.message);
                         this._notificationService.error(error.message);
                         return of(SystemTagsActions.deleteError({ error: error.message }));
                     }),
