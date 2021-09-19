@@ -2,49 +2,47 @@
     color: $menu-item-color; //Common items
     // background-color: $primary-color; //navigationMenuBackgroundColor
     @include themify($themes) {
-        background-color: themed('navigationMenuBackgroundColor');
+        background-color: themed("navigationMenuBackgroundColor");
     }
 
     &__item {
         @include themify($themes) {
-            background-color: themed('navigationMenuItemBackgroundColor'); //Expanded Item
+            background-color: themed("navigationMenuItemBackgroundColor"); //Expanded Item
         }
 
         &.selected {
             @include themify($themes) {
-                background-color: themed('navigationMenuItemBackgroundColorSelected'); //Expanded Item
+                background-color: themed("navigationMenuItemBackgroundColorSelected"); //Expanded Item
             }
         }
     }
 
-    .navigation-menu__expantion-item {
-
+    &__expantion-item {
+        @include themify($themes) {
+            background-color: themed("navigationMenuItemBackgroundColor");
+        }
         .expantion-item__wrapper.active {
-
             .navigation-menu {
-                background-color: $accent-color;
+                @include themify($themes) {
+                    background-color: themed("navigationMenuItemBackgroundColor");
+                }
             }
         }
     }
 
     &__expantion-item.active {
-
+        // etc
     }
 
-    &__expantion-item__wrapper {
-        background-color: $accent-color;//$primary-color-1050
+    .expantion-item__wrapper {
+        @include themify($themes) {
+            background-color: themed("navigationMenuItemBackgroundColor"); //Expanded Item
+        }
     }
 
     .navigation-menu__expantion-item + .navigation-menu__expantion-item {
-         @include themify($themes) {
-            border-bottom-color: themed('navigationMenuFolderBorderColor'); //Expanded Item
+        @include themify($themes) {
+            border-bottom-color: themed("navigationMenuFolderBorderColor"); //Expanded Item
         }
-    }
-}
-
-.expantion-item__wrapper.active {
-
-    .navigation-menu {
-        background-color: $accent-color;
     }
 }
