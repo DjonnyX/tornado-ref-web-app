@@ -1,18 +1,18 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { takeUntil } from 'rxjs/operators';
-import { IStore, ITerminal } from '@djonnyx/tornado-types';
+import { IAccount, IIntegration } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
-import { getTerminalTypeName } from '@app/utils/terminal.util';
 import { IUserProfile } from '@models';
 import { NAME_PATTERN } from '@app/core/patterns';
 import { LocalizationService } from '@app/services/localization/localization.service';
+import { IStoreRequest } from '@store/interfaces/store-request.interface';
 
 interface IData {
   firstName: IKeyValue;
   lastName: IKeyValue;
   email: IKeyValue;
+  integration: IKeyValue;
 }
 
 @Component({
@@ -23,11 +23,15 @@ interface IData {
 export class ProfileFormComponent extends BaseComponent implements OnInit, OnDestroy {
   mainForm: FormGroup;
 
+  integrationForm: FormGroup;
+
   ctrlFirstName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
 
   ctrlLastName = new FormControl('', [Validators.required, Validators.pattern(NAME_PATTERN)]);
 
   ctrlEmail = new FormControl('', [Validators.required, Validators.email]);
+
+  ctrlIntegration = new FormControl(null);
 
   private _data: IData;
 
@@ -45,20 +49,36 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
       this.ctrlFirstName.setValue(profile?.account?.firstName);
       this.ctrlLastName.setValue(profile?.account?.lastName);
       this.ctrlEmail.setValue(profile?.account?.email);
+      this.ctrlIntegration.setValue(profile?.account?.integrationId || null);
 
       this.isMainFormEdit = false;
     }
   }
+  get profile() { return this._profile };
 
-  @Output() saveUserInfo = new EventEmitter<IStore>();
+  private _integrations: Array<IIntegration>;
+  @Input() set integrations(integrations: Array<IIntegration>) {
+    if (integrations) {
+      this._integrations = integrations;
+
+      this.generateData();
+
+      this.isIntegrationFormEdit = false;
+    }
+  }
+  get integrations() { return this._integrations; }
+
+  @Output() saveUserInfo = new EventEmitter<IStoreRequest<{ id: string, data: IAccount }, IAccount>>();
 
   @Output() cancel = new EventEmitter<void>();
 
-  @Output() update = new EventEmitter<IStore>();
+  isProfileInfoProcess = false;
 
-  @Input() isProfileInfoProcess = false;
+  isIntegrationsProcess = false;
 
   isMainFormEdit = false;
+
+  isIntegrationFormEdit = false;
 
   constructor(
     public readonly localization: LocalizationService,
@@ -69,6 +89,10 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
     this.mainForm = this._fb.group({
       firstName: this.ctrlFirstName,
       lastName: this.ctrlLastName,
+    });
+
+    this.integrationForm = this._fb.group({
+      integrationId: this.ctrlIntegration,
     });
   }
 
@@ -90,15 +114,15 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
         key: "email",
         value: this._profile?.account?.email || ' ---',
       },
+      integration: {
+        key: "Интеграция",
+        value: this._integrations?.find(item => item.id === this._profile?.account?.integrationId)?.name || ' ---',
+      },
     };
   }
 
   ngOnInit(): void {
-    this.mainForm.valueChanges.pipe(
-      takeUntil(this.unsubscribe$),
-    ).subscribe(value => {
-      this.update.emit(value);
-    })
+    
   }
 
   ngOnDestroy(): void {
@@ -120,9 +144,18 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
 
   onMainFormSubmit(): void {
     if (this.mainForm.valid) {
-      this.saveUserInfo.emit({
-        ...this.mainForm.getRawValue(),
-      });
+      this.isProfileInfoProcess = true;
+      this.saveUserInfo.emit(
+        {
+          params: {
+            id: this._profile?.account?.id,
+            data: this.mainForm.getRawValue(),
+          },
+          callback: (account: IAccount) => {
+            this.isProfileInfoProcess = false;
+          },
+        }
+      );
     }
   }
 
@@ -130,6 +163,41 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
     this.isMainFormEdit = false;
     this.ctrlFirstName.setValue(this._profile?.account?.firstName);
     this.ctrlLastName.setValue(this._profile?.account?.lastName);
+  }
+
+  onIntegrationFormEdit(): void {
+    this.isIntegrationFormEdit = true;
+  }
+
+  onIntegrationFormEnterSubmit(event: KeyboardEvent): void {
+    if (event.keyCode === 13) {
+      event.stopImmediatePropagation();
+      event.preventDefault();
+
+      this.onIntegrationFormSubmit();
+    }
+  }
+
+  onIntegrationFormSubmit(): void {
+    if (this.integrationForm.valid) {
+      this.isIntegrationsProcess = true;
+      this.saveUserInfo.emit(
+        {
+          params: {
+            id: this._profile?.account?.id,
+            data: this.integrationForm.getRawValue(),
+          },
+          callback: (account: IAccount) => {
+            this.isIntegrationsProcess = false;
+          },
+        }
+      );
+    }
+  }
+
+  onIntegrationFormEditCancel(): void {
+    this.isIntegrationFormEdit = false;
+    this.ctrlIntegration.setValue(this._profile?.account?.integrationId || null);
   }
 
   onCancel(): void {

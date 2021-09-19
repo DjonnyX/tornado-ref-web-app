@@ -6,12 +6,13 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { map, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { StoreSelectors } from '@store/selectors/store.selectors';
-import { IAccount, IAccountInfo, IStore } from '@djonnyx/tornado-types';
-import { AccountsSelectors, TerminalsSelectors, UserSelectors } from '@store/selectors';
+import { IAccount, IAccountInfo, IIntegration } from '@djonnyx/tornado-types';
+import { IntegrationsSelectors, TerminalsSelectors, UserSelectors } from '@store/selectors';
 import { IUserProfile } from '@models';
 import { UserActions } from '@store/actions/user.action';
 import { AccountsActions } from '@store/actions/accounts.action';
-import { IUserUpdateProfileRequest } from '@services';
+import { IntegrationsActions } from '@store/actions/integrations.action';
+import { IStoreRequest } from '@store/interfaces/store-request.interface';
 
 @Component({
   selector: 'ta-profile',
@@ -23,13 +24,11 @@ export class ProfileContainer extends BaseComponent implements OnInit, OnDestroy
 
   public isProcess$: Observable<boolean>;
 
-  isAccountProcess$: Observable<boolean>;
-
   accounts$: Observable<Array<IAccountInfo>>;
 
-  profile$: Observable<IUserProfile>;
+  integrations$: Observable<Array<IIntegration>>;
 
-  private _profile: IUserProfile;
+  profile$: Observable<IUserProfile>;
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -46,15 +45,13 @@ export class ProfileContainer extends BaseComponent implements OnInit, OnDestroy
       this._store.pipe(
         select(TerminalsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(IntegrationsSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
       takeUntil(this.unsubscribe$),
-      map(([isStoreGetProcess, isStoreUpdateProcess, isTerminalsGetProcess]) =>
-        isStoreGetProcess || isStoreUpdateProcess || isTerminalsGetProcess),
-    );
-
-    this.isAccountProcess$ = this._store.pipe(
-      takeUntil(this.unsubscribe$),
-      select(UserSelectors.selectIsUpdateUserProfileProcess),
+      map(([isStoreGetProcess, isStoreUpdateProcess, isTerminalsGetProcess, isIntegrationsGetProcess]) =>
+        isStoreGetProcess || isStoreUpdateProcess || isTerminalsGetProcess || isIntegrationsGetProcess),
     );
 
     this.profile$ = this._store.pipe(
@@ -62,26 +59,22 @@ export class ProfileContainer extends BaseComponent implements OnInit, OnDestroy
       select(UserSelectors.selectUserProfile),
     );
 
-    this.profile$.pipe(
+    this.integrations$ = this._store.pipe(
       takeUntil(this.unsubscribe$),
-    ).subscribe(v => {
-      this._profile = v;
-    });
+      select(IntegrationsSelectors.selectCollection),
+    );
+
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
     this._store.dispatch(AccountsActions.clear());
+    this._store.dispatch(IntegrationsActions.clear());
   }
 
-  onSaveUserInfo(profileInfo: IUserUpdateProfileRequest): void {
-    this._store.dispatch(UserActions.userUpdateProfileRequest({
-      id: this._profile.account.id,
-      data: {
-        firstName: profileInfo.firstName,
-        lastName: profileInfo.lastName,
-      } as IAccount,
-    }));
+  onSaveUserInfo(request: IStoreRequest<{ id: string, data: IAccount }, IAccount>): void {
+    this._store.dispatch(UserActions.userUpdateProfileRequest(request));
   }
 }
