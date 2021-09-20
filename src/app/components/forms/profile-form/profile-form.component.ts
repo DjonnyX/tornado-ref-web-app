@@ -153,6 +153,7 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
           },
           callback: (account: IAccount) => {
             this.isProfileInfoProcess = false;
+            this.isMainFormEdit = false;
           },
         }
       );
@@ -189,6 +190,7 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
           },
           callback: (account: IAccount) => {
             this.isIntegrationsProcess = false;
+            this.isIntegrationFormEdit = false;
           },
         }
       );
