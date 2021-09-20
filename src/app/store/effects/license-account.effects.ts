@@ -22,7 +22,6 @@ export default class LicenseAccountEffects {
                     mergeMap(res => {
                         return [LicenseAccountActions.getSuccess({ license: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LicenseAccountActions.getError({ error: error.message }));

@@ -7,6 +7,7 @@ export const initialState: IAccountsState = {
     meta: undefined,
     loading: false,
     isGetProcess: false,
+    isDeleteProcess: false,
     isUpdateProcess: false,
     error: undefined,
     collection: undefined,
@@ -33,6 +34,13 @@ const accountsReducer = createReducer(
             loading: true,
         };
     }),
+    on(AccountsActions.deleteRequest, state => {
+        return {
+            ...state,
+            isDeleteProcess: true,
+            loading: true,
+        };
+    }),
     on(AccountsActions.getAllError, (state, { error }) => {
         return {
             ...state,
@@ -42,6 +50,14 @@ const accountsReducer = createReducer(
         };
     }),
     on(AccountsActions.updateError, (state, { error }) => {
+        return {
+            ...state,
+            error,
+            isUpdateProcess: false,
+            loading: false,
+        };
+    }),
+    on(AccountsActions.deleteError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -72,6 +88,21 @@ const accountsReducer = createReducer(
             meta,
             error: undefined,
             isUpdateProcess: false,
+            loading: false,
+        };
+    }),
+    on(AccountsActions.deleteSuccess, (state, { id, meta }) => {
+        const existsAccountIndex = state.collection.findIndex(p => p.id === id);
+        let collection: Array<IAccount> = [...state.collection];
+        if (existsAccountIndex > -1) {
+            collection.splice(existsAccountIndex, 1);
+        }
+        return {
+            ...state,
+            collection,
+            meta,
+            error: undefined,
+            isDeleteProcess: false,
             loading: false,
         };
     }),

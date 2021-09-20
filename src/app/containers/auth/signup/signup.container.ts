@@ -101,7 +101,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
       this._safeCaptchaSvg = this._sanitizer.bypassSecurityTrustHtml(this._captcha.svg);
     });
 
-    this.onResetCatcha();
+    this.onResetCaptcha();
 
     this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
@@ -125,7 +125,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
     }
   }
 
-  public onResetCatcha() {
+  public onResetCaptcha() {
     this._apiService.getAuthCaptcha().pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(v => {

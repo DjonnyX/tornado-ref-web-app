@@ -23,7 +23,6 @@ export default class LicenseEffects {
                     mergeMap(res => {
                         return [LicenseActions.getSuccess({ license: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LicenseActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class LicenseEffects {
                     mergeMap(res => {
                         return [LicenseActions.createSuccess({ license: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LicenseActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class LicenseEffects {
                     mergeMap(res => {
                         return [LicenseActions.updateSuccess({ license: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LicenseActions.updateError({ error: error.message }));

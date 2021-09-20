@@ -4,14 +4,9 @@
             Назад
         </div>
         <div class="form">
-            <div class="form-header">
-                <p>
-                    Описание
-                </p>
-            </div>
-
-            <ta-license-type-creator-form [isEditMode]="isEditMode" [licenseType]="licenseType$ | async" [integrations]="integrations$ | async" (save)="onSubmit($event)"
-                (cancel)="onCancel()"></ta-license-type-creator-form>
+            <ta-license-type-creator-form [isEditMode]="isEditMode" [licenseType]="licenseType$ | async"
+                [integrations]="integrations$ | async" (save)="onSubmit($event)" (cancel)="onCancel()">
+            </ta-license-type-creator-form>
         </div>
     </div>
 </ta-query-progress>

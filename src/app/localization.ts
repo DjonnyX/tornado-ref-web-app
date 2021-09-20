@@ -185,7 +185,8 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Ваш email был изменен!",
         "auth_reset-email-result_return-to-signin": "Вернуться",
         // navigation menu
-        "menu_user-profile": "Профиль пользователя",
+        "menu_accounts": "Администраторы",
+        "menu_user-profile": "Профиль",
         "menu_settings": "Настройки",
         "menu_license-types": "Типы лицензий",
         "menu_integrations": "Интеграции",
@@ -219,6 +220,10 @@ const LOCALIZATION = {
         "menu_order-types": "Типы заказов",
         "menu_business-periods": "Бизнес-периоды",
         "menu_languages": "Языки",
+        // accounts
+        "accounts_key-role": "Роль",
+        "accounts_no-accounts": "Администраторы отсутствуют",
+        "accounts_add-new": "Создать администратора",
         // licenses
         "licenses_key-serial-number": "Ключ",
         "licenses_key-client": "Клиент",
@@ -453,7 +458,8 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Your email has been changed!",
         "auth_reset-email-result_return-to-signin": "Return",
         // navigation menu
-        "menu_user-profile": "User profile",
+        "menu_accounts": "Администраторы",
+        "menu_user-profile": "Profile",
         "menu_settings": "Settings",
         "menu_license-types": "license types",
         "menu_integrations": "Integrations",
@@ -487,6 +493,10 @@ const LOCALIZATION = {
         "menu_order-types": "Order types",
         "menu_business-periods": "Business periods",
         "menu_languages": "Languages",
+        // accounts
+        "accounts_key-role": "Role",
+        "accounts_no-accounts": "No administrators",
+        "accounts_add-new": "Add an administrator",
         // licenses
         "licenses_key-serial-number": "Serial key",
         "licenses_key-client": "Client",

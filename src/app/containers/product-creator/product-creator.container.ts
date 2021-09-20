@@ -19,7 +19,7 @@ import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
 import {
   IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage,
-  IStore, IOrderType, ISystemTag
+  IStore, IOrderType, ISystemTag, IRequestOptions
 } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
@@ -32,6 +32,7 @@ import { StoresActions } from '@store/actions/stores.action';
 import { OrderTypesActions } from '@store/actions/order-types.action';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { SystemTagsActions } from '@store/actions/system-tags.action';
+import { IStoreRequest } from '@store/interfaces/store-request.interface';
 
 @Component({
   selector: 'ta-product-creator',
@@ -341,13 +342,16 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(OrderTypesActions.getAllRequest({}));
     this._store.dispatch(SystemTagsActions.getAllRequest(
       {
-        options: {
-          filter: [{
-            id: "extra.entity",
-            operation: "equals",
-            value: "product",
-          }],
-        }
+        params: {
+          options: {
+            filter: [{
+              id: "extra.entity",
+              operation: "equals",
+              value: "product",
+            }],
+          }
+        },
+        callback: (systemTags: Array<ISystemTag>) => { },
       }
     ));
 
@@ -403,8 +407,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(SystemTagsActions.createRequest({ systemTag }));
   }
 
-  onDeleteSystemTag(id: string): void {
-    this._store.dispatch(SystemTagsActions.deleteRequest({ id }));
+  onDeleteSystemTag(request: IStoreRequest<{ id: string }, string>): void {
+    this._store.dispatch(SystemTagsActions.deleteRequest(request));
   }
 
   onAssetUpload(data: IFileUploadEvent): void {

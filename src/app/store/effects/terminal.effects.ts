@@ -23,7 +23,6 @@ export default class TerminalEffects {
                     mergeMap(res => {
                         return [TerminalActions.getSuccess({ terminal: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TerminalActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class TerminalEffects {
                     mergeMap(res => {
                         return [TerminalActions.updateSuccess({ terminal: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TerminalActions.updateError({ error: error.message }));

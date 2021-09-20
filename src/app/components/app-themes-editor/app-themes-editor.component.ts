@@ -30,6 +30,7 @@ export class AppThemesEditorComponent extends BaseComponent implements OnInit, O
       this.resetFilteredCollection();
     }
   }
+  get collection() { return this._collection; }
 
   public filteredCollection: Array<IAppTheme>;
 

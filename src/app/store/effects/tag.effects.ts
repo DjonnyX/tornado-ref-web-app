@@ -23,7 +23,6 @@ export default class TagEffects {
                     mergeMap(res => {
                         return [TagActions.getSuccess({ tag: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class TagEffects {
                     mergeMap(res => {
                         return [TagActions.createSuccess({ tag: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class TagEffects {
                     mergeMap(res => {
                         return [TagActions.updateSuccess({ tag: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagActions.updateError({ error: error.message }));

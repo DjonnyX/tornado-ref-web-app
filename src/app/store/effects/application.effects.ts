@@ -23,7 +23,6 @@ export default class ApplicationEffects {
                     mergeMap(res => {
                         return [ApplicationActions.getSuccess({ application: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ApplicationActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class ApplicationEffects {
                     mergeMap(res => {
                         return [ApplicationActions.createSuccess({ application: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ApplicationActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class ApplicationEffects {
                     mergeMap(res => {
                         return [ApplicationActions.updateSuccess({ application: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ApplicationActions.updateError({ error: error.message }));

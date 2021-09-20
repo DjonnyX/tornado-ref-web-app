@@ -23,7 +23,6 @@ export default class SelectorEffects {
                     mergeMap(res => {
                         return [SelectorActions.getSuccess({ selector: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class SelectorEffects {
                     mergeMap(res => {
                         return [SelectorActions.createSuccess({ selector: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class SelectorEffects {
                     mergeMap(res => {
                         return [SelectorActions.updateSuccess({ selector: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorActions.updateError({ error: error.message }));

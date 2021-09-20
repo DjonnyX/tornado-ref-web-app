@@ -2,8 +2,8 @@
  * Theme definitions
  */
 
- @import "./palette";
- @import "./tab-button"; //???
+@import "./palette";
+@import "./tab-button"; //???
 
 $themes: (
   light: (
@@ -14,6 +14,7 @@ $themes: (
     dividerColor: $divider-color,
     // Admin Toolbar
     adminToolbarBackgroundColor: $primary-color,
+    adminToolbarLogoSectionBackgroundColor: $primary-color,
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color,
     navigationMenuItemBackgroundColor: $navigation-menu-item-background-color,
@@ -21,6 +22,7 @@ $themes: (
     navigationMenuFolderBorderColor: $navigation-menu-folder-border-color,
     //State Panel
     statePanelBackgroundColor: $white,
+    statePanelBorderColor: $white,
     //Search
     searchBackgroundColor: $background-color,
     searchTextFieldColor: $search-text-field-color,
@@ -42,24 +44,43 @@ $themes: (
     entityCoastColor: $primary-color,
     entityActionMenuButtonColor: $primary-color,
     entityDividerBorderColor: $divider-color,
-    //Base button
+    // Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
-    //Tab button
+    // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal,
     tabButtonBorderColorNormal: $tab-button-border-normal,
     tabButtonColorNormal: $tab-button-color-normal,
     tabButtonBackgroundColorActive: $tab-button-background-color-active,
     tabButtonBorderColorActive: $tab-button-border-active,
     tabButtonColorActive: $tab-button-color-active,
-    tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse,
-    tabButtonColorNormalInverse:$tab-button-color-normal-inverse,
-    tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse,
-    //Folder Header
-    folderHeaderBackgroundColor:$white,
-    folderHeaderColor:$primary-color,
-    //Node Tree
-    nodeWayBorderColor: $border-color,
+    tabButtonBackgroundColorNormalInverse: $tab-button-background-color-normal-inverse,
+    tabButtonColorNormalInverse: $tab-button-color-normal-inverse,
+    tabButtonBorderColorNormalInverse: $tab-button-border-normal-inverse,
+    // Folder Header
+    folderHeaderBackgroundColor: $white,
+    folderHeaderColor: $primary-color,
+    // Node Tree
+    nodeTreeWayBorderColor: $primary-color-500,
+    nodeTreeItemBackgroundColor: $white,
+    nodeTreeItemDividerBorderColor: $primary-color-800,
+    nodeTreeItemTitleColor: $primary-color-200,
+    nodeTreeItemFontColor: $primary-color-200,
+    nodeTreeWayHiderBackgroundColor: $background-color,
+    nodeTreeStatePanelBackgroundColor: $background-color,
+    nodeTreeStatePanelBorderColor: $background-color,
+    // Node tree secondary
+    nodeTreeSecondaryWayBorderColor: $primary-color-600,
+    nodeTreeSecondaryItemBackgroundColor: $primary-color-700,
+    nodeTreeSecondaryItemDividerBorderColor: $primary-color-600,
+    nodeTreeSecondaryItemTitleColor: $primary-color-200,
+    nodeTreeSecondaryItemFontColor: $primary-color-200,
+    nodeTreeSecondaryWayHiderBackgroundColor: $white,
+    nodeTreeSecondaryStatePanelBackgroundColor: $white,
+    nodeTreeSecondaryStatePanelBorderColor: $white,
+    // form
+    formBackgroundColor: $white,
+    formFontColor: $primary-color,
     //
     cdkDragPreviewBackgroundColor: $background-color,
     // Query Progress
@@ -83,16 +104,20 @@ $themes: (
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
     // Admin Toolbar
-    adminToolbarBackgroundColor: #171920, //$primary-color,
-    adminToolbarLogoSectionBackgroundColor: $navigation-menu-background-color-inverse, // new
+    adminToolbarBackgroundColor: #171920,
+    //$primary-color,
+    adminToolbarLogoSectionBackgroundColor: $navigation-menu-background-color-inverse,
+    // new
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color-inverse,
     navigationMenuItemBackgroundColor: $navigation-menu-item-background-color-inverse,
     navigationMenuItemBackgroundColorSelected: $navigation-menu-item-background-color-selected-inverse,
     navigationMenuFolderBorderColor: $navigation-menu-folder-border-color-inverse,
     //State Panel
-    statePanelBackgroundColor: #171920,// $secondary-color,
-    statePanelBorderColor: #1c1e25,// $secondary-color, // New
+    statePanelBackgroundColor: #171920,
+    // $secondary-color,
+    statePanelBorderColor: #1c1e25,
+    // $secondary-color, // New
     //Search
     searchBackgroundColor: $primary-color,
     searchTextFieldColor: $search-text-field-color-inverse,
@@ -114,24 +139,43 @@ $themes: (
     entityCoastColor: $background-color,
     entityActionMenuButtonColor: $white,
     entityDividerBorderColor: $divider-color-inverse,
-    //Base button
+    // Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
-    //Tab button
+    // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal-theme-dark,
     tabButtonBorderColorNormal: $tab-button-border-normal-theme-dark,
     tabButtonColorNormal: $tab-button-color-normal-theme-dark,
     tabButtonBackgroundColorActive: $tab-button-background-color-active-theme-dark,
     tabButtonBorderColorActive: $tab-button-border-active-theme-dark,
     tabButtonColorActive: $tab-button-color-active-theme-dark,
-    tabButtonBackgroundColorNormalInverse:$tab-button-background-color-normal-inverse-theme-dark,
-    tabButtonColorNormalInverse:$tab-button-color-normal-inverse-theme-dark,
-    tabButtonBorderColorNormalInverse:$tab-button-border-normal-inverse-theme-dark,
-    //Folder Header
-    folderHeaderBackgroundColor:$secondary-color,
-    folderHeaderColor:$white,
-    //Node Tree
-    nodeWayBorderColor: $border-color-inverse,
+    tabButtonBackgroundColorNormalInverse: $tab-button-background-color-normal-inverse-theme-dark,
+    tabButtonColorNormalInverse: $tab-button-color-normal-inverse-theme-dark,
+    tabButtonBorderColorNormalInverse: $tab-button-border-normal-inverse-theme-dark,
+    // Folder Header
+    folderHeaderBackgroundColor: $secondary-color,
+    folderHeaderColor: $white,
+    // Node Tree
+    nodeTreeWayBorderColor: $primary-color-300,
+    nodeTreeItemBackgroundColor: $primary-color-100,
+    nodeTreeItemDividerBorderColor: $primary-color-200,
+    nodeTreeItemTitleColor: $primary-color-800,
+    nodeTreeItemFontColor: $primary-color-800,
+    nodeTreeWayHiderBackgroundColor: $background-color,
+    nodeTreeStatePanelBackgroundColor: $background-color,
+    nodeTreeStatePanelBorderColor: $background-color,
+    // Node tree secondary
+    nodeTreeSecondaryWayBorderColor: $primary-color-600,
+    nodeTreeSecondaryItemBackgroundColor: $primary-color-200,
+    nodeTreeSecondaryItemDividerBorderColor: $primary-color-300,
+    nodeTreeSecondaryItemTitleColor: $primary-color-800,
+    nodeTreeSecondaryItemFontColor: $primary-color-800,
+    nodeTreeSecondaryWayHiderBackgroundColor: $secondary-color,
+    nodeTreeSecondaryStatePanelBackgroundColor: $secondary-color,
+    nodeTreeSecondaryStatePanelBorderColor: $secondary-color,
+    // form
+    formBackgroundColor: $secondary-color,
+    formFontColor: $white,
     //
     cdkDragPreviewBackgroundColor: $background-color-inverse,
     // Query Progress

@@ -23,7 +23,6 @@ export default class BusinessPeriodsEffects {
                     mergeMap(res => {
                         return [BusinessPeriodsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class BusinessPeriodsEffects {
                     mergeMap(res => {
                         return [BusinessPeriodsActions.createSuccess({ businessPeriod: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class BusinessPeriodsEffects {
                     mergeMap(res => {
                         return [BusinessPeriodsActions.updateSuccess({ businessPeriod: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.updateError({ error: error.message }));
@@ -77,7 +74,6 @@ export default class BusinessPeriodsEffects {
                     mergeMap(res => {
                         return [BusinessPeriodsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.deleteError({ error: error.message }));

@@ -84,13 +84,16 @@ export class SelectorsEditorContainer implements OnInit, OnDestroy {
 
     this._store.dispatch(SystemTagsActions.getAllRequest(
       {
-        options: {
-          filter: [{
-            id: "extra.entity",
-            operation: "equals",
-            value: this._selectorsType,
-          }],
-        }
+        params: {
+          options: {
+            filter: [{
+              id: "extra.entity",
+              operation: "equals",
+              value: this._selectorsType,
+            }],
+          }
+        },
+        callback: (systemTags: Array<ISystemTag>) => { },
       }
     ));
 

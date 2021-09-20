@@ -1,0 +1,13 @@
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
+    <div class="entity-options-editor">
+        <div class="entity-options-editor__back-button" (click)="onToBack()">
+            Назад
+        </div>
+        <div class="form">
+            <ta-account-creator-form [isEditMode]="isEditMode" [account]="account$ | async" [roles]="roles$ | async"
+                [captcha]="captcha$ | async" (resetCaptcha)="onResetCaptcha()" (save)="onSubmit($event)"
+                (cancel)="onCancel()">
+            </ta-account-creator-form>
+        </div>
+    </div>
+</ta-query-progress>

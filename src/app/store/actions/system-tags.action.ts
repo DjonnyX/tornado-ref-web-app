@@ -1,6 +1,7 @@
 import { createAction, props } from "@ngrx/store";
 import { IMetaRefsResponse } from '@services';
 import { IEntityPosition, IRequestOptions, ISystemTag } from '@djonnyx/tornado-types';
+import { IStoreRequest } from "@store/interfaces/store-request.interface";
 
 export enum SystemTagsActionTypes {
     GET_ALL_REQUEST = "TORNADO/system-systemTags/get-all:request",
@@ -34,7 +35,7 @@ export namespace SystemTagsActions {
     // getAll
     export const getAllRequest = createAction(
         SystemTagsActionTypes.GET_ALL_REQUEST,
-        props<{ options?: IRequestOptions }>(),
+        props<IStoreRequest<{ options?: IRequestOptions }, Array<ISystemTag>>>(),
     );
     export const getAllSuccess = createAction(
         SystemTagsActionTypes.GET_ALL_SUCCESS,
@@ -90,7 +91,7 @@ export namespace SystemTagsActions {
     // delete
     export const deleteRequest = createAction(
         SystemTagsActionTypes.DELETE_REQUEST,
-        props<{ id: string }>(),
+        props<IStoreRequest<{ id: string }, string>>(),
     );
     export const deleteSuccess = createAction(
         SystemTagsActionTypes.DELETE_SUCCESS,

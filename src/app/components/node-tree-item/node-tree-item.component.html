@@ -33,14 +33,19 @@
                     </span>
                 </ng-container>
                 <ng-template #root>
-                    <span>
-                        {{getRootName()}}
+                    <span class="content__name">
+                        <div class="content__text">
+                            {{getRootName()}}
+                        </div>
                     </span>
                 </ng-template>
                 <span *ngIf="!lock">
-                    <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
-                        <mat-icon class="icon">more_vert</mat-icon>
-                    </button>
+                    <div class="content__context-menu-button">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)"
+                            aria-label="Menu">
+                            <mat-icon class="icon">more_vert</mat-icon>
+                        </button>
+                    </div>
                     <mat-menu #menu="matMenu">
                         <ng-container *ngIf="!isRoot">
                             <button *ngIf="node.type !== NodeTypes.SELECTOR_NODE" mat-menu-item type="button"

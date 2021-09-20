@@ -1,5 +1,7 @@
 .entity-options-editor {
-  color: $primary-700;
+  @include themify($themes) {
+      color: themed("formFontColor");
+  }
 
   .entity-options-editor__back-button {
     cursor: pointer;
@@ -9,8 +11,13 @@
   }
 
   .form {
+    @include themify($themes) {
+        background-color: themed("formBackgroundColor");
+    }
     .form-header {
-      color: $primary-800;
+      @include themify($themes) {
+          color: themed("formFontColor");
+      }
     }
 
     .form__block {
@@ -34,20 +41,24 @@
     }
 
     .form {
-      padding: px2em(36) px2em(40) px2em(40);
-      background: #ffffff;
+      padding: px2em(54) px2em(60) px2em(60);
+      @include themify($themes) {
+          background-color: themed("formBackgroundColor");
+      }
       border-radius: 3px;
     }
 
     .form+.form {
-      margin-top: px2em(20);
+      margin-top: px2em(34);
     }
   }
 }
 
 @media screen and (max-width: 599px) {
   .entity-options-editor {
-    background: #ffffff;
+    @include themify($themes) {
+        background-color: themed("formBackgroundColor");
+    }
     min-height: 100%;
 
     .main-options-wrapper {
@@ -57,11 +68,11 @@
     }
 
     .form {
-      padding: px2em(20);
+      padding: px2em(34);
     }
 
     .form+.form {
-      margin-top: px2em(20);
+      margin-top: px2em(34);
     }
 
     &__back-button {

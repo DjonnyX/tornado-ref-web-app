@@ -23,7 +23,6 @@ export default class IntegrationEffects {
                     mergeMap(res => {
                         return [IntegrationActions.getSuccess({ integration: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationActions.getError({ error: error.message }));
@@ -42,7 +41,6 @@ export default class IntegrationEffects {
                         this._router.navigate(["/admin/integrations"]);
                         return [IntegrationActions.createSuccess({ integration: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationActions.createError({ error: error.message }));
@@ -61,7 +59,6 @@ export default class IntegrationEffects {
                         this._router.navigate(["/admin/integrations"]);
                         return [IntegrationActions.updateSuccess({ integration: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationActions.updateError({ error: error.message }));

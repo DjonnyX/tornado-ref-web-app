@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Actions, ofType, createEffect } from "@ngrx/effects";
 import { of } from "rxjs";
-import { switchMap, catchError, mergeMap, map } from "rxjs/operators";
+import { switchMap, catchError, mergeMap } from "rxjs/operators";
 import { Store } from '@ngrx/store';
 import { ApiService } from "@services";
 import { IAppState } from '@store/state';
@@ -23,10 +23,40 @@ export default class AccountsEffects {
                     mergeMap(res => {
                         return [AccountsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AccountsActions.getAllError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
+    public readonly createRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(AccountsActions.createRequest),
+            switchMap(({ data, options }) => {
+                return this._apiService.signup({
+                    integrationId: data.integrationId,
+                    firstName: data.firstName,
+                    lastName: data.lastName,
+                    email: data.email,
+                    password: data.password,
+                    captchaId: data.captchaId,
+                    captchaValue: data.captchaValue,
+                }).pipe(
+                    mergeMap(({ client }) => {
+                        this._router.navigate(["signin"]);
+                        this._notificationService.success("Registration confirmed.");
+                        return this._apiService.getAccount(client).pipe(
+                            mergeMap(({ data }) => {
+                                return [AccountsActions.createSuccess({ account: data })];
+                            }),
+                        );
+                    }),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(AccountsActions.createError({ error: error.message }))
                     }),
                 );
             })
@@ -41,10 +71,26 @@ export default class AccountsEffects {
                     mergeMap(res => {
                         return [AccountsActions.updateSuccess({ account: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AccountsActions.updateError({ error: error.message }));
+                    }),
+                );
+            })
+        )
+    );
+
+    public readonly deleteRequest = createEffect(() =>
+        this._actions$.pipe(
+            ofType(AccountsActions.deleteRequest),
+            switchMap(({ id }) => {
+                return this._apiService.deleteAccount(id).pipe(
+                    mergeMap(res => {
+                        return [AccountsActions.deleteSuccess({ id, meta: res.meta })];
+                    }),
+                    catchError((error: Error) => {
+                        this._notificationService.error(error.message);
+                        return of(AccountsActions.deleteError({ error: error.message }));
                     }),
                 );
             })

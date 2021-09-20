@@ -1,8 +1,7 @@
 <div [ngClass]="{'business-period-content': true}">
-  <div>
-    <h1 class="form-header" *ngIf="!!data">
+    <h2 class="form-header" *ngIf="!!data">
       {{data.name.value}}
-    </h1>
+    </h2>
 
     <ng-container *ngIf="!isEdit; else editFields">
       <div class="form__block" *ngIf="!!data">
@@ -34,5 +33,4 @@
         </div>
       </div>
     </ng-template>
-  </div>
 </div>

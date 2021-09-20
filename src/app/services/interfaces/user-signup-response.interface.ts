@@ -5,4 +5,7 @@ export interface IUserSignupParamsResponse extends IBaseResponse<{
     captcha: ICaptcha;
 }, {}> {}
 
-export interface IUserSignupResponse extends IBaseResponse<{}, {}> {}
+export interface IUserSignupResponse extends IBaseResponse<{
+    client: string;
+    owner: string;
+}, {}> {}

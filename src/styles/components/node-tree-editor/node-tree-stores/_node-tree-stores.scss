@@ -1,5 +1,4 @@
 .node-tree__stores {
-
 }
 
 @media screen and (min-width: 600px) {
@@ -8,7 +7,9 @@
   }
 
   .node-tree__editor {
-    padding: 0 36px 36px 0;
+    .editor__scroll-view {
+      padding: 0 36px 36px 0;
+    }
   }
 }
 
@@ -18,10 +19,12 @@
   }
 
   .node-tree__editor {
-    padding: 0 20px 20px 0;
-
     .node-tree {
       font-size: 0.75em;
+    }
+
+    .editor__scroll-view {
+      padding: 0 20px 20px 0;
     }
   }
 }

@@ -1,0 +1,149 @@
+<form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div style="width: 100%;">
+        <div>
+            <h2 class="form-header" *ngIf="!!data">
+                {{data.email.value}} ({{data.firstName.value}} {{data.lastName.value}})
+            </h2>
+
+            <div class="form__main-options">
+                <div class="form__block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.firstName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.lastName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.email"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.roleType"></ta-key-value>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button mat-button class="button button__text" (click)="onCancel()">Закрыть</button>
+        <button mat-flat-button color="accent" class="button button__text" (click)="onEdit()">
+            Редактировать
+        </button>
+    </div>
+</form>
+
+<ng-template #editForm>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+        <div style="width: 100%;">
+            <div>
+                <h2 class="form-header">
+                    <ng-container *ngIf="!isEditMode else fullUserName">
+                        Администратор
+                    </ng-container>
+                    <ng-template #fullUserName>
+                        <ng-container *ngIf="!!data">
+                            {{data.email.value}} ({{data.firstName.value}} {{data.lastName.value}})
+                        </ng-container>
+                    </ng-template>
+                </h2>
+
+                <div class="form__main-options">
+                    <div class="form__input-block">
+                        <div class="form-item">
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Роль</mat-label>
+                                <mat-select [formControl]="ctrlRole" required>
+                                    <mat-option *ngFor="let role of roles" [value]="role.name">
+                                        <span>
+                                            {{role.name}}
+                                        </span>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>
+                                        {{localization.get("auth_signup-first-name-field-label")}}
+                                    </mat-label>
+                                    <input matInput [formControl]="ctrlFirstName" required>
+                                    <mat-error *ngIf="ctrlFirstName.hasError('pattern')">
+                                        {{localization.get("auth_signup-first-name-field-validation-pattern-message")}}
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlFirstName.hasError('required')">
+                                        {{localization.get("auth_signup-first-name-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-item">
+                                <mat-form-field class="form__field full-width" appearance="outline">
+                                    <mat-label>
+                                        {{localization.get("auth_signup-last-name-field-label")}}
+                                    </mat-label>
+                                    <input matInput [formControl]="ctrlLastName" required>
+                                    <mat-error *ngIf="ctrlLastName.hasError('pattern')">
+                                        {{localization.get("auth_signup-last-name-field-validation-pattern-message")}}
+                                    </mat-error>
+                                    <mat-error *ngIf="ctrlLastName.hasError('required')">
+                                        {{localization.get("auth_signup-last-name-field-label")}} -
+                                        <strong>{{localization.get("common_ctrl_required")}}</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <ng-container *ngIf="!isEditMode">
+                                <div class="form-item">
+                                    <mat-form-field class="form__field full-width" appearance="outline">
+                                        <mat-label>
+                                            {{localization.get("auth_signup-email-field-label")}}
+                                        </mat-label>
+                                        <input matInput [formControl]="ctrlEmail" placeholder="Email" required>
+                                        <mat-error *ngIf="ctrlEmail.hasError('pattern')">
+                                            {{localization.get("auth_signup-email-field-validation-pattern-message")}}
+                                        </mat-error>
+                                        <mat-error *ngIf="ctrlEmail.hasError('required')">
+                                            {{localization.get("auth_signup-email-field-label")}} -
+                                            <strong>{{localization.get("common_ctrl_required")}}</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+
+                                <div class="form-item">
+                                    <div class="captcha">
+                                        <span [innerHtml]="safeCaptchaSvg" class="captcha__img"></span>
+                                        <span class="captcha__reset-button">
+                                            <button mat-icon-button type="button" (click)="onResetCaptcha()">
+                                                <mat-icon>settings_backup_restore</mat-icon>
+                                            </button>
+                                        </span>
+                                    </div>
+                                    <mat-form-field class="form__field full-width" appearance="outline">
+                                        <mat-label>
+                                            {{localization.get("auth_signup-captcha-field-label")}}
+                                        </mat-label>
+                                        <input matInput type="text" [formControl]="ctrlCaptcha" required>
+                                        <mat-error *ngIf="ctrlCaptcha.hasError('required')">
+                                            {{localization.get("auth_signup-captcha-field-label")}} -
+                                            <strong>{{localization.get("common_ctrl_required")}}</strong>
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </ng-container>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form__submit" align="end">
+            <button mat-button class="button button__text" type="button" (click)="onEditCancel()">Отменить</button>
+            <button mat-flat-button color="accent" type="submit" class="button button__text"
+                [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+        </div>
+    </form>
+</ng-template>

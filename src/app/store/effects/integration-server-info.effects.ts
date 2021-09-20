@@ -22,7 +22,6 @@ export default class IntegrationServerInfoEffects {
                     mergeMap(res => {
                         return [IntegrationServerInfoActions.getSuccess({ info: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationServerInfoActions.getError({ error: error.message }));

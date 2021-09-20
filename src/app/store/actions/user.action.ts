@@ -5,6 +5,7 @@ import {
   IUserResetPasswordRequest, IUserForgotPasswordRequest, IUserChangeEmailRequest, IUserUpdateProfileRequest, IUserResetEmailRequest
 } from '@services';
 import { IAccount } from "@djonnyx/tornado-types";
+import { IStoreRequest } from "@store/interfaces/store-request.interface";
 
 export enum UserActionTypes {
   USER_SIGNIN_REQUEST = "TORNADO/user-signin:request",
@@ -132,7 +133,7 @@ export namespace UserActions {
   // update profile
   export const userUpdateProfileRequest = createAction(
     UserActionTypes.USER_UPDATE_PROFILE_REQUEST,
-    props<{ id: string, data: IAccount }>()
+    props<IStoreRequest<{ id: string, data: IAccount }, IAccount>>()
   );
   export const userUpdateProfileSuccess = createAction(
     UserActionTypes.USER_UPDATE_PROFILE_SUCCESS,

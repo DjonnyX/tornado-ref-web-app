@@ -23,7 +23,6 @@ export default class StoresEffects {
                     mergeMap(res => {
                         return [StoresActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(StoresActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class StoresEffects {
                     mergeMap(res => {
                         return [StoresActions.createSuccess({ store: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(StoresActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class StoresEffects {
                     mergeMap(res => {
                         return [StoresActions.updateSuccess({ store: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(StoresActions.updateError({ error: error.message }));
@@ -77,7 +74,6 @@ export default class StoresEffects {
                     mergeMap(res => {
                         return [StoresActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(StoresActions.deleteError({ error: error.message }));

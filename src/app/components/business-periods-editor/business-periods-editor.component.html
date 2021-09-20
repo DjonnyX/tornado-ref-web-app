@@ -2,7 +2,7 @@
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
     <!--Editor Scroll View-->
     <div class="editor__scroll-view">
-        <div class="editor__container">
+        <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
 
             <div class="entities-container entities-card-layout">
 

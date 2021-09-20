@@ -1,9 +1,9 @@
 <form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div style="width: 100%;">
         <div>
-            <h1 class="form-header">
+            <h2 class="form-header">
                 Информация о магазине
-            </h1>
+            </h2>
 
             <div class="form__main-options">
                 <div class="form__block" *ngIf="!!data">
@@ -17,9 +17,9 @@
                 </div>
 
                 <ng-container *ngIf="!!data">
-                    <h1 class="form-header">
+                    <h2 class="form-header">
                         Устройства
-                    </h1>
+                    </h2>
 
                     <ng-container
                         *ngIf="!(!!data.storeTerminals && data.storeTerminals.length > 0); else terminalsInfo">
@@ -46,10 +46,10 @@
 </form>
 
 <ng-template #editForm>
-    <form class="form" [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-        <h1 class="form-header">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+        <h2 class="form-header">
             Информация о магазине
-        </h1>
+        </h2>
 
         <div class="form__input-block">
             <div class="form-item">

@@ -28,4 +28,9 @@ export namespace AccountsSelectors {
     selectAccounts,
     state => state.isUpdateProcess,
   );
+
+  export const selectIsDeleteProcess = createSelector(
+    selectAccounts,
+    state => state.isDeleteProcess,
+  );
 }

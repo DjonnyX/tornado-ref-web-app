@@ -23,7 +23,6 @@ export default class TerminalsEffects {
                     mergeMap(res => {
                         return [TerminalsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TerminalsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class TerminalsEffects {
                     mergeMap(res => {
                         return [TerminalsActions.updateSuccess({ terminal: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TerminalsActions.updateError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class TerminalsEffects {
                     mergeMap(res => {
                         return [TerminalsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TerminalsActions.deleteError({ error: error.message }));

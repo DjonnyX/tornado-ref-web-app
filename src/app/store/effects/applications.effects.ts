@@ -23,7 +23,6 @@ export default class ApplicationsEffects {
                     mergeMap(res => {
                         return [ApplicationsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ApplicationsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class ApplicationsEffects {
                     mergeMap(res => {
                         return [ApplicationsActions.updateSuccess({ application: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ApplicationsActions.updateError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class ApplicationsEffects {
                     mergeMap(res => {
                         return [ApplicationsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ApplicationsActions.deleteError({ error: error.message }));

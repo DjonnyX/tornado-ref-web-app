@@ -35,7 +35,7 @@
   <div class="editor__scroll-view">
     <ng-container [ngSwitch]="layoutType">
       <!-- List-template -->
-      <div class="editor__container">
+      <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
         <!--Entity Wrapper-->
 
         <ng-container *ngSwitchCase="LayoutTypes.LIST">

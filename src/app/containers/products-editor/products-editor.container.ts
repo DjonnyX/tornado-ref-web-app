@@ -147,13 +147,16 @@ export class ProductsEditorContainer extends BaseComponent implements OnInit, On
     this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(SystemTagsActions.getAllRequest(
       {
-        options: {
-          filter: [{
-            id: "extra.entity",
-            operation: "equals",
-            value: "product",
-          }],
-        }
+        params: {
+          options: {
+            filter: [{
+              id: "extra.entity",
+              operation: "equals",
+              value: "product",
+            }],
+          }
+        },
+        callback: (systemTags: Array<ISystemTag>) => { },
       }
     ));
   }

@@ -29,6 +29,7 @@ export class AdsEditorComponent extends BaseComponent implements OnInit, OnDestr
       this.resetFilteredCollection();
     }
   }
+  get collection() { return this._collection; }
 
   public filteredCollection: Array<IAd>;
 

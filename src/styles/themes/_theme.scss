@@ -109,3 +109,8 @@ $block-color: lighten($primary, 10);
 .mat-mini-fab {
     border-radius: 3px;
 }
+
+.cdk-overlay-container {
+    position: fixed;
+    z-index: 10000;
+}

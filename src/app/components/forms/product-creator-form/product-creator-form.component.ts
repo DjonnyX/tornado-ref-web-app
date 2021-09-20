@@ -15,6 +15,8 @@ import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { stringify } from 'querystring';
+import { IStoreRequest } from '@store/interfaces/store-request.interface';
 
 interface IData {
   tags: IKeyValue;
@@ -156,7 +158,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   @Output() createSystemTag = new EventEmitter<ISystemTag>();
 
-  @Output() deleteSystemTag = new EventEmitter<string>();
+  @Output() deleteSystemTag = new EventEmitter<IStoreRequest<{ id: string }, string>>();
 
   @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
@@ -349,12 +351,21 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       event.preventDefault();
     }
 
-    this.deleteSystemTag.emit(id);
+    this.deleteSystemTag.emit({
+      params: {
+        id,
+      },
+      callback: (err, id: string) => {
+        if (!!err) {
+          return;
+        }
 
-    if (this.ctrlSystemTag.value == id) {
-      this.onRemoveSystemTag();
-      this.onSave();
-    }
+        if (this.ctrlSystemTag.value == id) {
+          this.onRemoveSystemTag();
+          this.onSave();
+        }
+      },
+    });
   }
 
   private _systemTagsFilter(name: string): ISystemTag[] {

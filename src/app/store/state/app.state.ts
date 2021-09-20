@@ -50,6 +50,9 @@ import { ISystemTagState } from './system-tag.state';
 import { ISystemTagsState } from './system-tags.state';
 import { ISettingsState } from './settings.state';
 import { IIntegrationServerInfoState } from './integration-server-info.state';
+import { IAccountState } from './account.state';
+import { IRoleState } from './role.state';
+import { IRolesState } from './roles.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -95,6 +98,9 @@ export interface IAppState {
     taIntegration: IIntegrationState,
     taIntegrations: IIntegrationsState,
     taAccounts: IAccountsState,
+    taAccount: IAccountState,
+    taRoles: IRolesState,
+    taRole: IRoleState,
     taCheckue: ICheckueState,
     taCheckues: ICheckuesState,
     taThemeAssets: IAppThemeAssetsState,

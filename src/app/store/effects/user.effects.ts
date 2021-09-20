@@ -140,13 +140,15 @@ export default class UserEffects {
   public readonly userUpdateProfileRequest = createEffect(() =>
     this._actions$.pipe(
       ofType(UserActions.userUpdateProfileRequest),
-      switchMap(({ id, data }) => {
-        return this._apiService.updateAccount(id, data).pipe(
-          mergeMap(({data}) => {
+      switchMap(({ params, callback }) => {
+        return this._apiService.updateAccount(params?.id, params?.data).pipe(
+          mergeMap(({ data }) => {
+            callback(null, data);
             return [UserActions.userUpdateProfileSuccess({ account: data })];
           }),
           map(v => v),
           catchError((error: Error) => {
+            callback(error);
             this._notificationService.error(error.message);
             return of(UserActions.userUpdateProfileError({ error: error.message }))
           }),

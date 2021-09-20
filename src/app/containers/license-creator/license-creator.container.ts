@@ -7,7 +7,7 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LicenseActions } from '@store/actions/license.action';
 import { LicenseSelectors } from '@store/selectors/license.selectors';
-import { IAccount, IIntegration, ILicenseAccount, ILicenseType, IStore, ITerminal } from '@djonnyx/tornado-types';
+import { DefaultRoleTypes, IAccount, IIntegration, ILicenseAccount, ILicenseType, IStore, ITerminal } from '@djonnyx/tornado-types';
 import {
   AccountsSelectors, IntegrationsSelectors, LicenseTypesSelectors,
   StoreSelectors, TerminalSelectors,
@@ -136,7 +136,20 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
 
     this._store.dispatch(LicenseTypesActions.getAllRequest({}));
     this._store.dispatch(IntegrationsActions.getAllRequest({}));
-    this._store.dispatch(AccountsActions.getAllRequest({}));
+    this._store.dispatch(AccountsActions.getAllRequest({
+      options: {
+        filter: [
+          {
+            id: "roleType",
+            value: DefaultRoleTypes.OWNER,
+            operation: "equals",
+          },
+        ],
+        queryParams: {
+          all: "true",
+        }
+      }
+    }));
   }
 
   ngOnDestroy(): void {

@@ -1,61 +1,57 @@
-<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-    <div>
-        <div>
-            <h1 class="form-header">
-                Интеграция
-            </h1>
+<form class="form" [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <h2 class="form-header">
+        Интеграция
+    </h2>
 
-            <div class="form__main-options">
-                <div class="form__input-block">
-                    <div class="container">
-                        <div class="col-12">
-                            <div class="form-item">
-                                <mat-form-field class="full-width" appearance="outline">
-                                    <mat-label>Хост</mat-label>
-                                    <input matInput type="text" formControlName="host"
-                                        placeholder="http://127.0.0.1:8089/" required>
-                                    <mat-error *ngIf="ctrlName.hasError('required')">
-                                        <strong>обязательное</strong>
-                                    </mat-error>
-                                    <mat-error *ngIf="ctrlName.hasError('pattern')">
-                                        <strong>некорректный формат хоста</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-8 col-m-12">
-                            <div class="form-item">
-                                <p class="form-header">
-                                    Имя интеграции
-                                </p>
-                                <mat-form-field class="full-width" appearance="outline">
-                                    <mat-label>Имя</mat-label>
-                                    <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
-                                    <mat-error *ngIf="ctrlName.hasError('required')">
-                                        <strong>обязательное</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-4 col-m-12">
-                            <div class="form__input-block">
-                                <p class="form-header">
-                                    Версия
-                                </p>
-                                <ta-version [formControl]="ctrlVersion" [disabled]="true"></ta-version>
-                            </div>
-                        </div>
-                        <div class="col-12">
-                            <p class="form-header">
-                                Права
-                            </p>
-                            <ul>
-                                <li *ngFor="let right of rights">
-                                    {{right.name}}
-                                </li>
-                            </ul>
-                        </div>
+    <div class="form__main-options">
+        <div class="form__input-block">
+            <div class="container">
+                <div class="col-12">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Хост</mat-label>
+                            <input matInput type="text" formControlName="host" placeholder="http://127.0.0.1:8089/"
+                                required>
+                            <mat-error *ngIf="ctrlName.hasError('required')">
+                                <strong>обязательное</strong>
+                            </mat-error>
+                            <mat-error *ngIf="ctrlName.hasError('pattern')">
+                                <strong>некорректный формат хоста</strong>
+                            </mat-error>
+                        </mat-form-field>
                     </div>
+                </div>
+                <div class="col-8 col-m-12">
+                    <div class="form-item">
+                        <p class="form-header">
+                            Имя интеграции
+                        </p>
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Имя</mat-label>
+                            <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
+                            <mat-error *ngIf="ctrlName.hasError('required')">
+                                <strong>обязательное</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-4 col-m-12">
+                    <div class="form__input-block">
+                        <p class="form-header">
+                            Версия
+                        </p>
+                        <ta-version [formControl]="ctrlVersion" [disabled]="true"></ta-version>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <p class="form-header">
+                        Права
+                    </p>
+                    <ul>
+                        <li *ngFor="let right of rights">
+                            {{right.name}}
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

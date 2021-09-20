@@ -24,7 +24,6 @@ export default class LanguageEffects {
                     mergeMap(res => {
                         return [LanguageActions.getSuccess({ language: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageActions.getError({ error: error.message }));
@@ -42,7 +41,6 @@ export default class LanguageEffects {
                     mergeMap(res => {
                         return [LanguageActions.createSuccess({ language: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageActions.createError({ error: error.message }));
@@ -60,7 +58,6 @@ export default class LanguageEffects {
                     mergeMap(res => {
                         return [LanguageActions.updateSuccess({ language: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageActions.updateError({ error: error.message }));

@@ -23,7 +23,6 @@ export default class ProductEffects {
                     mergeMap(res => {
                         return [ProductActions.getSuccess({ product: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class ProductEffects {
                     mergeMap(res => {
                         return [ProductActions.createSuccess({ product: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class ProductEffects {
                     mergeMap(res => {
                         return [ProductActions.updateSuccess({ product: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductActions.updateError({ error: error.message }));

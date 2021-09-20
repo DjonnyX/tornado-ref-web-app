@@ -1,4 +1,10 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div class="form-header">
+        <h2>
+            {{ctrlName.value}}
+        </h2>
+    </div>
+
     <ng-container *ngIf="!isEditMode || isEdit; else info">
         <div class="form__input-block">
             <div class="form-item">
@@ -10,7 +16,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            
+
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Имя валюты</mat-label>
@@ -20,7 +26,7 @@
                     </mat-error>
                 </mat-form-field>
             </div>
-            
+
             <div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">
                     <mat-label>Символ валюты</mat-label>
@@ -36,10 +42,6 @@
         <div class="form__block" *ngIf="!!data">
             <div class="form-item full-width">
                 <ta-key-value [data]="data.code"></ta-key-value>
-            </div>
-
-            <div class="form-item full-width">
-                <ta-key-value [data]="data.name"></ta-key-value>
             </div>
 
             <div class="form-item full-width">

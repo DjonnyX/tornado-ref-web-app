@@ -12,6 +12,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { Observable } from 'rxjs/internal/Observable';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import { BehaviorSubject } from 'rxjs';
+import { IStoreRequest } from '@store/interfaces/store-request.interface';
 
 interface IData {
   systemTag: IKeyValue;
@@ -111,7 +112,7 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   @Output() createSystemTag = new EventEmitter<ISystemTag>();
 
-  @Output() deleteSystemTag = new EventEmitter<string>();
+  @Output() deleteSystemTag = new EventEmitter<IStoreRequest<{ id: string }, string>>();
 
   @Output() uploadMainResource = new EventEmitter<IFileUploadEvent>();
 
@@ -268,12 +269,21 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       event.preventDefault();
     }
 
-    this.deleteSystemTag.emit(id);
+    this.deleteSystemTag.emit({
+      params: {
+        id,
+      },
+      callback: (err, id: string) => {
+        if (!!err) {
+          return;
+        }
 
-    if (this.ctrlSystemTag.value == id) {
-      this.onRemoveSystemTag();
-      this.onSave();
-    }
+        if (this.ctrlSystemTag.value == id) {
+          this.onRemoveSystemTag();
+          this.onSave();
+        }
+      },
+    });
   }
 
   private _systemTagsFilter(name: string): ISystemTag[] {
