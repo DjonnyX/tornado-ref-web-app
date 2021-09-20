@@ -21,6 +21,8 @@ export class LanguagesEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
+  public isGetCollectionProcess$: Observable<boolean>;
+
   public collection$: Observable<Array<ILanguage>>;
 
   public assets$: Observable<Array<IAsset>>;
@@ -44,6 +46,18 @@ export class LanguagesEditorContainer implements OnInit, OnDestroy {
     ]).pipe(
       map(([isProductsProgress, isAssetsProgress]) =>
       isProductsProgress || isAssetsProgress),
+    );
+    
+    this.isGetCollectionProcess$ = combineLatest([
+      this._store.pipe(
+        select(LanguagesSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(AssetsSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isProductsGetProgress, isAssetsGetProgress]) =>
+      isProductsGetProgress || isAssetsGetProgress),
     );
 
     this.collection$ = this._store.pipe(
