@@ -74,6 +74,13 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
       roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
     },
     {
+      icon: "license",
+      name: "menu_accounts", //" Саб-пользователи",
+      route: "accounts",
+      roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+      right: UserRights.READ_ACCOUNTS,
+    },
+    {
       icon: "folder",
       name: "menu_user-settings", //"Настройки",
       expanded: false,

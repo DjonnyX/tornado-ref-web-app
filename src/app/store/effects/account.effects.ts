@@ -37,6 +37,7 @@ export default class AccountEffects {
             ofType(AccountActions.createRequest),
             switchMap(({ data, options }) => {
                 return this._apiService.createAccount({
+                    roleType: data.roleType,
                     firstName: data.firstName,
                     lastName: data.lastName,
                     email: data.email,

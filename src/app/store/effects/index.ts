@@ -42,6 +42,8 @@ import IntegrationEffects from './integration.effects';
 import IntegrationsEffects from './integrations.effects';
 import AccountsEffects from './accounts.effects';
 import AccountEffects from './account.effects';
+import RolesEffects from './roles.effects';
+import RoleEffects from './role.effects';
 import LicenseAccountEffects from './license-account.effects';
 import LicensesAccountEffects from './licenses-account.effects';
 import CheckueEffects from './checkue.effects';
@@ -95,6 +97,8 @@ const rootEffects = [
   IntegrationsEffects,
   AccountsEffects,
   AccountEffects,
+  RolesEffects,
+  RoleEffects,
   LicenseAccountEffects,
   LicensesAccountEffects,
   CheckueEffects,

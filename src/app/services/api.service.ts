@@ -59,6 +59,7 @@ import { ISystemTagGetResponse } from './interfaces/system-tag-get-response.inte
 import { ISystemTagCreateResponse } from './interfaces/system-tag-create-response.interface';
 import { ISystemTagUpdateResponse } from './interfaces/system-tag-update-response.interface';
 import { ISystemTagDeleteResponse } from './interfaces/system-tag-delete-response.interface';
+import { LocalizationService } from './localization/localization.service';
 
 export class HttpCustomUrlEncodingCodec implements HttpParameterCodec {
   encodeKey(k: string): string { return standardEncoding(k); }
@@ -95,7 +96,7 @@ export class ApiService {
 
   private _token: string;
 
-  constructor(private _http: HttpClient, private _store: Store<IAppState>) {
+  constructor(private _http: HttpClient, private _store: Store<IAppState>, private _localization: LocalizationService) {
     this._store.pipe(
       select(UserSelectors.selectToken),
     ).subscribe(token => {
@@ -1714,6 +1715,9 @@ export class ApiService {
       .post<IAccountCreateResponse>("api/v1/account", params, {
         headers: {
           "authorization": this.getAuthToken(),
+        },
+        params: {
+          language: this._localization.lang,
         },
       })
       .pipe(

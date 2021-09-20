@@ -17,6 +17,13 @@ const routes: Routes = [
           )
       },
       {
+        path: 'accounts',
+        loadChildren: () =>
+          import('@containers/accounts-editor/accounts-editor.module').then(
+            module => module.AccountsEditorModule,
+          )
+      },
+      {
         path: 'menu-tree',
         loadChildren: () =>
           import('@containers/menu-tree-editor/menu-tree-editor.module').then(

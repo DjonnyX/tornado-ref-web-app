@@ -1,6 +1,7 @@
 export interface IAccountCreateRequest {
     captchaId: string;
     captchaValue: string;
+    roleType: string;
     firstName: string;
     lastName: string;
     email: string;
