@@ -6,7 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LicensesActions } from '@store/actions/licenses.action';
 import { LicensesSelectors } from '@store/selectors/licenses.selectors';
 import { LicenseActions } from '@store/actions/license.action';
-import { IAccount, IIntegration, ILicense, IRef } from '@djonnyx/tornado-types';
+import { DefaultRoleTypes, IAccount, IIntegration, ILicense, IRef } from '@djonnyx/tornado-types';
 import { AccountsSelectors, IntegrationsSelectors } from '@store/selectors';
 import { map } from 'rxjs/operators';
 import { IntegrationsActions } from '@store/actions/integrations.action';
@@ -65,7 +65,20 @@ export class LicensesEditorContainer implements OnInit, OnDestroy {
     );
 
     this._store.dispatch(LicensesActions.getAllRequest({}));
-    this._store.dispatch(AccountsActions.getAllRequest({}));
+    this._store.dispatch(AccountsActions.getAllRequest({
+      options: {
+        filter: [
+          {
+            id: "roleType",
+            value: DefaultRoleTypes.OWNER,
+            operation: "equals",
+          },
+        ],
+        queryParams: {
+          all: "true",
+        }
+      }
+    }));
     this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
