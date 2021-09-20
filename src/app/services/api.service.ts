@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse, IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -41,7 +41,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable
+  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -133,7 +133,7 @@ export class ApiService {
       );
   }
 
-  public signup(params: IUserSignupRequest): Observable<{}> {
+  public signup(params: IUserSignupRequest): Observable<{ client: string; owner: string; }> {
     return this._http
       .post<IUserSignupResponse>("api/v1/auth/signup", params)
       .pipe(
@@ -1709,9 +1709,77 @@ export class ApiService {
       });
   }
 
+  public createAccount(params: IAccountCreateRequest): Observable<IAccount> {
+    return this._http
+      .post<IAccountCreateResponse>("api/v1/account", params, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      })
+      .pipe(
+        map(res => res.data),
+      );
+  }
+
   public updateAccount(id: string, account: IAccount): Observable<IAccountUpdateResponse> {
     return this._http
       .put<IAccountUpdateResponse>(`api/v1/account/${id}`, account, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteAccount(id: string): Observable<IAccountUpdateResponse> {
+    return this._http
+      .delete<IAccountUpdateResponse>(`api/v1/account/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // roles
+  public getRoles(options?: IRequestOptions): Observable<IRolesGetResponse> {
+    return this._http
+      .get<IRolesGetResponse>("api/v1/roles", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getRole(id: string): Observable<IRoleGetResponse> {
+    return this._http
+      .get<IRoleGetResponse>(`api/v1/role/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createRole(params: IRole): Observable<IRoleCreateResponse> {
+    return this._http
+      .post<IRoleCreateResponse>("api/v1/role", params, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateRole(id: string, role: IRole): Observable<IRoleUpdateResponse> {
+    return this._http
+      .put<IRoleUpdateResponse>(`api/v1/role/${id}`, role, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteRole(id: string): Observable<IRoleDeleteResponse> {
+    return this._http
+      .delete<IRoleDeleteResponse>(`api/v1/role/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

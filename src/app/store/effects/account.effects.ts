@@ -7,25 +7,25 @@ import { ApiService } from "@services";
 import { IAppState } from '@store/state';
 import { Router } from '@angular/router';
 import { NotificationService } from '@app/services/notification.service';
-import { AccountsActions } from '@store/actions/accounts.action';
+import { AccountActions } from '@store/actions/account.action';
 import { formatAccountModel } from '@app/utils/account.util';
 
 @Injectable()
-export default class AccountsEffects {
+export default class AccountEffects {
     constructor(private _actions$: Actions, private _apiService: ApiService, private _store: Store<IAppState>,
         private _router: Router, private _notificationService: NotificationService) { }
 
-    public readonly getAllRequest = createEffect(() =>
+    public readonly getRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(AccountsActions.getAllRequest),
-            switchMap(({ options }) => {
-                return this._apiService.getAccounts(options).pipe(
+            ofType(AccountActions.getRequest),
+            switchMap(({ id }) => {
+                return this._apiService.getAccount(id).pipe(
                     mergeMap(res => {
-                        return [AccountsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
+                        return [AccountActions.getSuccess({ account: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(AccountsActions.getAllError({ error: error.message }));
+                        return of(AccountActions.getError({ error: error.message }));
                     }),
                 );
             })
@@ -34,29 +34,22 @@ export default class AccountsEffects {
 
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(AccountsActions.createRequest),
+            ofType(AccountActions.createRequest),
             switchMap(({ data, options }) => {
-                return this._apiService.signup({
-                    integrationId: data.integrationId,
+                return this._apiService.createAccount({
                     firstName: data.firstName,
                     lastName: data.lastName,
                     email: data.email,
-                    password: data.password,
                     captchaId: data.captchaId,
                     captchaValue: data.captchaValue,
                 }).pipe(
-                    mergeMap(({ client }) => {
-                        this._router.navigate(["signin"]);
+                    mergeMap(account => {
                         this._notificationService.success("Registration confirmed.");
-                        return this._apiService.getAccount(client).pipe(
-                            mergeMap(({ data }) => {
-                                return [AccountsActions.createSuccess({ account: data })];
-                            }),
-                        );
+                        return [AccountActions.createSuccess({ account })];
                     }),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(AccountsActions.createError({ error: error.message }))
+                        return of(AccountActions.createError({ error: error.message }))
                     }),
                 );
             })
@@ -65,15 +58,15 @@ export default class AccountsEffects {
 
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(AccountsActions.updateRequest),
+            ofType(AccountActions.updateRequest),
             switchMap(({ id, account }) => {
                 return this._apiService.updateAccount(id, formatAccountModel(account)).pipe(
                     mergeMap(res => {
-                        return [AccountsActions.updateSuccess({ account: res.data, meta: res.meta })];
+                        return [AccountActions.updateSuccess({ account: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(AccountsActions.updateError({ error: error.message }));
+                        return of(AccountActions.updateError({ error: error.message }));
                     }),
                 );
             })
@@ -82,15 +75,15 @@ export default class AccountsEffects {
 
     public readonly deleteRequest = createEffect(() =>
         this._actions$.pipe(
-            ofType(AccountsActions.deleteRequest),
+            ofType(AccountActions.deleteRequest),
             switchMap(({ id }) => {
                 return this._apiService.deleteAccount(id).pipe(
                     mergeMap(res => {
-                        return [AccountsActions.deleteSuccess({ id, meta: res.meta })];
+                        return [AccountActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
-                        return of(AccountsActions.deleteError({ error: error.message }));
+                        return of(AccountActions.deleteError({ error: error.message }));
                     }),
                 );
             })

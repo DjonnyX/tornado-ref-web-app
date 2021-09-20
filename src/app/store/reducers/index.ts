@@ -46,6 +46,7 @@ import applicationsReducer from './applications.reducer';
 import integrationReducer from "./integration.reducer";
 import integrationsReducer from "./integrations.reducer";
 import accountsReducer from "./accounts.reducer";
+import accountReducer from "./account.reducer";
 import checkuesReducer from "./checkues.reducer";
 import checkueReducer from "./checkue.reducer";
 import appThemeAssetsReducer from "./app-theme-assets.reducer";
@@ -53,6 +54,8 @@ import systemTagReducer from "./system-tag.reducer";
 import systemTagsReducer from "./system-tags.reducer";
 import settingsReducer from "./settings.reducer";
 import integrationServerInfoReducer from "./integration-server-info.reducer";
+import rolesReducer from "./roles.reducer";
+import roleReducer from "./role.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -103,6 +106,9 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taCheckues: checkuesReducer,
   taCheckue: checkueReducer,
   taAccounts: accountsReducer,
+  taAccount: accountReducer,
+  taRoles: rolesReducer,
+  taRole: roleReducer,
   taSystemTag: systemTagReducer,
   taSystemTags: systemTagsReducer,
   taSettings: settingsReducer,

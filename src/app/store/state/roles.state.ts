@@ -1,11 +1,11 @@
 import { IBaseState } from './base';
 import { IMetaRefsResponse } from '@services';
-import { IAccount } from '@djonnyx/tornado-types';
+import { IRole } from '@djonnyx/tornado-types';
 
-export interface IAccountsState extends IBaseState {
+export interface IRolesState extends IBaseState {
     meta: IMetaRefsResponse;
     isGetProcess: boolean;
     isUpdateProcess: boolean;
     isDeleteProcess: boolean;
-    collection: Array<IAccount> | null;
+    collection: Array<IRole> | null;
 }

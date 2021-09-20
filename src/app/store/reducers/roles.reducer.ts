@@ -1,9 +1,9 @@
 import { createReducer, on } from '@ngrx/store';
-import { IAccount } from '@djonnyx/tornado-types';
-import { AccountsActions } from '@store/actions/accounts.action';
-import { IAccountsState } from '@store/state/accounts.state';
+import { IRole } from '@djonnyx/tornado-types';
+import { RolesActions } from '@store/actions/roles.action';
+import { IRolesState } from '@store/state/roles.state';
 
-export const initialState: IAccountsState = {
+export const initialState: IRolesState = {
     meta: undefined,
     loading: false,
     isGetProcess: false,
@@ -13,35 +13,35 @@ export const initialState: IAccountsState = {
     collection: undefined,
 };
 
-const accountsReducer = createReducer(
+const rolesReducer = createReducer(
     initialState,
-    on(AccountsActions.clear, state => {
+    on(RolesActions.clear, state => {
         return {
             ...initialState,
         };
     }),
-    on(AccountsActions.getAllRequest, state => {
+    on(RolesActions.getAllRequest, state => {
         return {
             ...state,
             isGetProcess: true,
             loading: true,
         };
     }),
-    on(AccountsActions.updateRequest, state => {
+    on(RolesActions.updateRequest, state => {
         return {
             ...state,
             isUpdateProcess: true,
             loading: true,
         };
     }),
-    on(AccountsActions.deleteRequest, state => {
+    on(RolesActions.deleteRequest, state => {
         return {
             ...state,
             isDeleteProcess: true,
             loading: true,
         };
     }),
-    on(AccountsActions.getAllError, (state, { error }) => {
+    on(RolesActions.getAllError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -49,7 +49,7 @@ const accountsReducer = createReducer(
             loading: false,
         };
     }),
-    on(AccountsActions.updateError, (state, { error }) => {
+    on(RolesActions.updateError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -57,7 +57,7 @@ const accountsReducer = createReducer(
             loading: false,
         };
     }),
-    on(AccountsActions.deleteError, (state, { error }) => {
+    on(RolesActions.deleteError, (state, { error }) => {
         return {
             ...state,
             error,
@@ -65,7 +65,7 @@ const accountsReducer = createReducer(
             loading: false,
         };
     }),
-    on(AccountsActions.getAllSuccess, (state, { collection, meta }) => {
+    on(RolesActions.getAllSuccess, (state, { collection, meta }) => {
         return {
             ...state,
             collection,
@@ -75,12 +75,12 @@ const accountsReducer = createReducer(
             loading: false,
         };
     }),
-    on(AccountsActions.updateSuccess, (state, { account, meta }) => {
-        const existsAccountIndex = state.collection.findIndex(p => p.id === account.id);
+    on(RolesActions.updateSuccess, (state, { role, meta }) => {
+        const existsRoleIndex = state.collection.findIndex(p => p.id === role.id);
         let collection = [...state.collection];
-        if (existsAccountIndex > -1) {
-            collection.splice(existsAccountIndex, 1);
-            collection.splice(existsAccountIndex, 0, account);
+        if (existsRoleIndex > -1) {
+            collection.splice(existsRoleIndex, 1);
+            collection.splice(existsRoleIndex, 0, role);
         }
         return {
             ...state,
@@ -91,11 +91,11 @@ const accountsReducer = createReducer(
             loading: false,
         };
     }),
-    on(AccountsActions.deleteSuccess, (state, { id, meta }) => {
-        const existsAccountIndex = state.collection.findIndex(p => p.id === id);
-        let collection: Array<IAccount> = [...state.collection];
-        if (existsAccountIndex > -1) {
-            collection.splice(existsAccountIndex, 1);
+    on(RolesActions.deleteSuccess, (state, { id, meta }) => {
+        const existsRoleIndex = state.collection.findIndex(p => p.id === id);
+        let collection: Array<IRole> = [...state.collection];
+        if (existsRoleIndex > -1) {
+            collection.splice(existsRoleIndex, 1);
         }
         return {
             ...state,
@@ -108,4 +108,4 @@ const accountsReducer = createReducer(
     }),
 );
 
-export default accountsReducer;
+export default rolesReducer;

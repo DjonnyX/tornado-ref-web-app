@@ -41,6 +41,7 @@ import ApplicationsEffects from './applications.effects';
 import IntegrationEffects from './integration.effects';
 import IntegrationsEffects from './integrations.effects';
 import AccountsEffects from './accounts.effects';
+import AccountEffects from './account.effects';
 import LicenseAccountEffects from './license-account.effects';
 import LicensesAccountEffects from './licenses-account.effects';
 import CheckueEffects from './checkue.effects';
@@ -93,6 +94,7 @@ const rootEffects = [
   IntegrationEffects,
   IntegrationsEffects,
   AccountsEffects,
+  AccountEffects,
   LicenseAccountEffects,
   LicensesAccountEffects,
   CheckueEffects,
