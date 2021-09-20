@@ -53,6 +53,7 @@ export class SelectorsEditorComponent extends BaseComponent implements OnInit, O
       this.resetActualSystemTags();
     }
   }
+  get collection() { return this._collection; }
 
   public filteredCollection: Array<ISelector>;
 

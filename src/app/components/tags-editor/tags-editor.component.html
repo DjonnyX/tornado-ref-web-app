@@ -8,7 +8,7 @@
   <!--  -->
   <!--Editor Scroll View-->
   <div class="editor__scroll-view">
-    <div class="editor__container">
+    <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
 
       <div class="entities-container entities-card-layout">
         <div class="entity" *ngFor="let tag of filteredCollection | search:searchPattern:defaultLanguage?.code"

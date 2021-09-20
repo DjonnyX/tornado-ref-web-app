@@ -24,6 +24,10 @@
         height: auto;
         padding-top: $editor-container-padding-top;
         padding-bottom: $editor-container-padding-bottom;
+        &.missing-items {
+            padding-top: 0;
+            padding-bottom: 0;
+        }
         // overflow: auto;
     }
 }

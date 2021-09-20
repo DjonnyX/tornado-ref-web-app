@@ -29,6 +29,7 @@ export class TagsEditorComponent extends BaseComponent implements OnInit, OnDest
       this.resetFilteredCollection();
     }
   }
+  get collection() { return this._collection; }
 
   public filteredCollection: Array<ITag>;
 
