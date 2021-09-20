@@ -23,7 +23,6 @@ export default class IntegrationsEffects {
                     mergeMap(res => {
                         return [IntegrationsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class IntegrationsEffects {
                     mergeMap(res => {
                         return [IntegrationsActions.createSuccess({ integration: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationsActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class IntegrationsEffects {
                     mergeMap(res => {
                         return [IntegrationsActions.updateSuccess({ integration: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationsActions.updateError({ error: error.message }));
@@ -77,7 +74,6 @@ export default class IntegrationsEffects {
                     mergeMap(res => {
                         return [IntegrationsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(IntegrationsActions.deleteError({ error: error.message }));

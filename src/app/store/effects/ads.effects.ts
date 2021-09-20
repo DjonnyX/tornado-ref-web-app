@@ -23,7 +23,6 @@ export default class AdsEffects {
                     mergeMap(res => {
                         return [AdsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AdsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class AdsEffects {
                     mergeMap(res => {
                         return [AdsActions.createSuccess({ ad: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AdsActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class AdsEffects {
                     mergeMap(res => {
                         return [AdsActions.updateSuccess({ ad: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AdsActions.updateError({ error: error.message }));
@@ -77,7 +74,6 @@ export default class AdsEffects {
                     mergeMap(res => {
                         return [AdsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AdsActions.deleteError({ error: error.message }));

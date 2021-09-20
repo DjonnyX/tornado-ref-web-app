@@ -23,7 +23,6 @@ export default class OrderTypeEffects {
                     mergeMap(res => {
                         return [OrderTypeActions.getSuccess({ orderType: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(OrderTypeActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class OrderTypeEffects {
                     mergeMap(res => {
                         return [OrderTypeActions.createSuccess({ orderType: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(OrderTypeActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class OrderTypeEffects {
                     mergeMap(res => {
                         return [OrderTypeActions.updateSuccess({ orderType: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(OrderTypeActions.updateError({ error: error.message }));

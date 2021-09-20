@@ -66,7 +66,6 @@ export default class TagAssetsEffects {
                         }
                         return [TagAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), TagActions.getRequest({ id: tagId })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
@@ -84,7 +83,6 @@ export default class TagAssetsEffects {
                     mergeMap(res => {
                         return [TagAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagAssetsActions.getAllError({ error: error.message }));
@@ -102,7 +100,6 @@ export default class TagAssetsEffects {
                     mergeMap(res => {
                         return [TagAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagAssetsActions.getAllByLangError({ error: error.message }));
@@ -149,7 +146,6 @@ export default class TagAssetsEffects {
                         }
                         return [TagAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), TagActions.getRequest({ id: tagId })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagAssetsActions.createError({ tmpAsset, error: error.message }));
@@ -170,7 +166,6 @@ export default class TagAssetsEffects {
                     mergeMap(res => {
                         return [TagAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagAssetsActions.updateError({ error: error.message }));
@@ -188,7 +183,6 @@ export default class TagAssetsEffects {
                     mergeMap(res => {
                         return [TagAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TagAssetsActions.deleteError({ error: error.message }));

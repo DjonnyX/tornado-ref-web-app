@@ -23,7 +23,6 @@ export default class TranslationEffects {
                     mergeMap(res => {
                         return [TranslationActions.getSuccess({ translation: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TranslationActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class TranslationEffects {
                     mergeMap(res => {
                         return [TranslationActions.updateSuccess({ translation: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(TranslationActions.updateError({ error: error.message }));

@@ -23,7 +23,6 @@ export default class AdEffects {
                     mergeMap(res => {
                         return [AdActions.getSuccess({ ad: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AdActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class AdEffects {
                     mergeMap(res => {
                         return [AdActions.createSuccess({ ad: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AdActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class AdEffects {
                     mergeMap(res => {
                         return [AdActions.updateSuccess({ ad: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AdActions.updateError({ error: error.message }));

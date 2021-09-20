@@ -70,7 +70,6 @@ export default class AppThemeAssetsEffects {
                             AppThemeActions.getRequest({ id: themeId }),
                         ];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
@@ -91,7 +90,6 @@ export default class AppThemeAssetsEffects {
                             AppThemeActions.getRequest({ id: themeId }),
                         ];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.deleteResourceError({ error: error.message }));
@@ -109,7 +107,6 @@ export default class AppThemeAssetsEffects {
                     mergeMap(res => {
                         return [AppThemeAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.getAllError({ error: error.message }));
@@ -157,7 +154,6 @@ export default class AppThemeAssetsEffects {
                         }
                         return [AppThemeAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), AppThemeActions.getRequest({ id: themeId })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.createError({ tmpAsset, error: error.message }));
@@ -177,7 +173,6 @@ export default class AppThemeAssetsEffects {
                     mergeMap(res => {
                         return [AppThemeAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.updateError({ error: error.message }));
@@ -195,7 +190,6 @@ export default class AppThemeAssetsEffects {
                     mergeMap(res => {
                         return [AppThemeAssetsActions.deleteSuccess({ id: assetId }),];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.deleteError({ error: error.message }));

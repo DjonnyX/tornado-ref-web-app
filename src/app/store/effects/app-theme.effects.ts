@@ -23,7 +23,6 @@ export default class AppThemeEffects {
                     mergeMap(res => {
                         return [AppThemeActions.getSuccess({ theme: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class AppThemeEffects {
                     mergeMap(res => {
                         return [AppThemeActions.createSuccess({ theme: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class AppThemeEffects {
                     mergeMap(res => {
                         return [AppThemeActions.updateSuccess({ theme: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AppThemeActions.updateError({ error: error.message }));

@@ -23,7 +23,6 @@ export default class ProductsEffects {
                     mergeMap(res => {
                         return [ProductsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class ProductsEffects {
                     mergeMap(res => {
                         return [ProductsActions.createSuccess({ product: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductsActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class ProductsEffects {
                     mergeMap(res => {
                         return [ProductsActions.updateSuccess({ product: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductsActions.updateError({ error: error.message }));
@@ -77,7 +74,6 @@ export default class ProductsEffects {
                     mergeMap(res => {
                         return [ProductsActions.repositionSuccess({ positions, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductsActions.repositionError({ error: error.message }));
@@ -95,7 +91,6 @@ export default class ProductsEffects {
                     mergeMap(res => {
                         return [ProductsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(ProductsActions.deleteError({ error: error.message }));

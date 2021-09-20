@@ -23,7 +23,6 @@ export default class AssetsEffects {
                     mergeMap(res => {
                         return [AssetsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AssetsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class AssetsEffects {
                     mergeMap(res => {
                         return [AssetsActions.createSuccess({ asset: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AssetsActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class AssetsEffects {
                     mergeMap(res => {
                         return [AssetsActions.updateSuccess({ asset: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AssetsActions.updateError({ error: error.message }));
@@ -77,7 +74,6 @@ export default class AssetsEffects {
                     mergeMap(res => {
                         return [AssetsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(AssetsActions.deleteError({ error: error.message }));

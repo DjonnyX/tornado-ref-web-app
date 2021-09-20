@@ -23,7 +23,6 @@ export default class SystemTagEffects {
                     mergeMap(res => {
                         return [SystemTagActions.getSuccess({ systemTag: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SystemTagActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class SystemTagEffects {
                     mergeMap(res => {
                         return [SystemTagActions.createSuccess({ systemTag: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SystemTagActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class SystemTagEffects {
                     mergeMap(res => {
                         return [SystemTagActions.updateSuccess({ systemTag: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SystemTagActions.updateError({ error: error.message }));

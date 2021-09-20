@@ -60,7 +60,6 @@ export default class LanguageAssetsEffects {
                         }
                         return [LanguageAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, }), LanguageActions.getRequest({ id: languageId })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
@@ -78,7 +77,6 @@ export default class LanguageAssetsEffects {
                     mergeMap(res => {
                         return [LanguageAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.getAllError({ error: error.message }));
@@ -124,7 +122,6 @@ export default class LanguageAssetsEffects {
                         }
                         return [LanguageAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), LanguageActions.getRequest({ id: languageId })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.createError({ tmpAsset, error: error.message }));
@@ -145,7 +142,6 @@ export default class LanguageAssetsEffects {
                     mergeMap(res => {
                         return [LanguageAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.updateError({ error: error.message }));
@@ -163,7 +159,6 @@ export default class LanguageAssetsEffects {
                     mergeMap(res => {
                         return [LanguageAssetsActions.deleteSuccess({ id: assetId })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(LanguageAssetsActions.deleteError({ error: error.message }));

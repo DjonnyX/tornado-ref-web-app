@@ -23,7 +23,6 @@ export default class CheckueEffects {
                     mergeMap(res => {
                         return [CheckueActions.getSuccess({ checkue: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(CheckueActions.getError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class CheckueEffects {
                     mergeMap(res => {
                         return [CheckueActions.createSuccess({ checkue: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(CheckueActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class CheckueEffects {
                     mergeMap(res => {
                         return [CheckueActions.updateSuccess({ checkue: res.data })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(CheckueActions.updateError({ error: error.message }));

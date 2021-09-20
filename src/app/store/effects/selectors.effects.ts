@@ -23,7 +23,6 @@ export default class SelectorsEffects {
                     mergeMap(res => {
                         return [SelectorsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorsActions.getAllError({ error: error.message }));
@@ -41,7 +40,6 @@ export default class SelectorsEffects {
                     mergeMap(res => {
                         return [SelectorsActions.createSuccess({ selector: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorsActions.createError({ error: error.message }));
@@ -59,7 +57,6 @@ export default class SelectorsEffects {
                     mergeMap(res => {
                         return [SelectorsActions.updateSuccess({ selector: res.data, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorsActions.updateError({ error: error.message }));
@@ -77,7 +74,6 @@ export default class SelectorsEffects {
                     mergeMap(res => {
                         return [SelectorsActions.repositionSuccess({ positions, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorsActions.repositionError({ error: error.message }));
@@ -95,7 +91,6 @@ export default class SelectorsEffects {
                     mergeMap(res => {
                         return [SelectorsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
-                    map(v => v),
                     catchError((error: Error) => {
                         this._notificationService.error(error.message);
                         return of(SelectorsActions.deleteError({ error: error.message }));
