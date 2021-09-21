@@ -50,12 +50,20 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         err = extractError(error.error.error);
                     }
                     this._store.dispatch(UserActions.clearProfile());
-                    errorMessage = err || "Время сессии истекло.";
+                    errorMessage = err;
                 } else
                 if (!!error.error && error.error.error instanceof Array) {
                     errorMessage = extractError(error.error.error);
                 } else {
                     errorMessage = `${error.message}\n`; //`Error Code: ${error.status}\nMessage: ${error.message}`;
+                }
+
+                if (!errorMessage || errorMessage === "jwt expired." || errorMessage === "Token is empty.") {
+                    errorMessage = "Время сессии истекло.";
+                } else if (errorMessage === "Token is empty.") {
+                    errorMessage = "Вы не авторизованы.";
+                } else if (errorMessage === "License method not allowed") {
+                    errorMessage = "Метод не доступен.";
                 }
 
                 throw Error(errorMessage);
