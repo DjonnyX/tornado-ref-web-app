@@ -69,14 +69,6 @@ const routes: Routes = [
       AuthGuard,
     ]
   },
-  {
-    path: '**',
-    redirectTo: 'page-not-found',
-  },
-  {
-    path: 'page-not-found',
-    component: EmptyPageComponent,
-  }
 ];
 
 const CMS_ROUTES: Routes = [
@@ -139,6 +131,17 @@ switch (environment.buildType) {
     // etc
     break;
 }
+
+routes.push(
+  {
+    path: '**',
+    redirectTo: 'page-not-found',
+  },
+  {
+    path: 'page-not-found',
+    component: EmptyPageComponent,
+  }
+);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

@@ -4,6 +4,7 @@ import { AdminContainer } from './admin.container';
 import { SelectorTypes, AdTypes, TerminalTypes } from '@djonnyx/tornado-types';
 import { AllowAdminGuard, AllowCheckuesGuard } from '@guards';
 import { environment } from '@environments';
+import { EmptyPageComponent } from '@components/empty-page/empty-page.component';
 
 const routes: Routes = [
   {
@@ -266,6 +267,17 @@ switch (environment.buildType) {
     });
     break;
 }
+
+routes[0].children.push(
+  {
+    path: '**',
+    redirectTo: 'page-not-found',
+  },
+  {
+    path: 'page-not-found',
+    component: EmptyPageComponent,
+  }
+);
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

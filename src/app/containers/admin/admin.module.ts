@@ -11,6 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { NavigationMenuModule } from '@components/navigation-menu/navigation-menu.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectModule } from '@components/base/select/select.module';
+import { EmptyPageModule } from '@components/empty-page/empty-page.module';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { SelectModule } from '@components/base/select/select.module';
   ],
   imports: [
     CommonModule,
+    EmptyPageModule,
     FormsModule,
     ReactiveFormsModule,
     AdminRoutingModule,
