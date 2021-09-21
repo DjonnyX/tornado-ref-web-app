@@ -58,7 +58,7 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     errorMessage = `${error.message}\n`; //`Error Code: ${error.status}\nMessage: ${error.message}`;
                 }
 
-                if (!errorMessage || errorMessage === "jwt expired." || errorMessage === "Token is empty.") {
+                if (!errorMessage || errorMessage === "jwt expired" || errorMessage === "Token is empty.") {
                     errorMessage = "Время сессии истекло.";
                 } else if (errorMessage === "Token is empty.") {
                     errorMessage = "Вы не авторизованы.";
