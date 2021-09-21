@@ -1,28 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmptyPageComponent } from '@components/empty-page/empty-page.component';
+import { environment } from '@environments';
 import { AuthGuard } from './guards/auth.guard';
-
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'admin',
     pathMatch: 'full'
-  },
-  {
-    path: 'term-of-use',
-    loadChildren: () =>
-      import('@containers/auth/term-of-use/term-of-use.module').then(
-        module => module.TermOfUseModule,
-      )
-  },
-  {
-    path: 'signup',
-    loadChildren: () =>
-      import('@containers/auth/signup/signup.module').then(
-        module => module.SignupModule,
-      )
   },
   {
     path: 'signin',
@@ -60,34 +46,6 @@ const routes: Routes = [
       )
   },
   {
-    path: 'change-email',
-    loadChildren: () =>
-      import('@containers/auth/change-email/change-email.module').then(
-        module => module.ChangeEmailModule,
-      )
-  },
-  {
-    path: 'change-email-result',
-    loadChildren: () =>
-      import('@containers/auth/change-email-result/change-email-result.module').then(
-        module => module.ChangeEmailResultModule,
-      )
-  },
-  {
-    path: 'reset-email',
-    loadChildren: () =>
-      import('@containers/auth/reset-email/reset-email.module').then(
-        module => module.ResetEmailModule,
-      )
-  },
-  {
-    path: 'reset-email-result',
-    loadChildren: () =>
-      import('@containers/auth/reset-email-result/reset-email-result.module').then(
-        module => module.ResetEmailResultModule,
-      )
-  },
-  {
     path: 'auth-error',
     loadChildren: () =>
       import('@containers/auth/auth-error/auth-error.module').then(
@@ -120,6 +78,67 @@ const routes: Routes = [
     component: EmptyPageComponent,
   }
 ];
+
+const CMS_ROUTES: Routes = [
+  {
+    path: 'term-of-use',
+    loadChildren: () =>
+      import('@containers/auth/term-of-use/term-of-use.module').then(
+        module => module.TermOfUseModule,
+      )
+  },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('@containers/auth/signup/signup.module').then(
+        module => module.SignupModule,
+      )
+  },
+  {
+    path: 'change-email',
+    loadChildren: () =>
+      import('@containers/auth/change-email/change-email.module').then(
+        module => module.ChangeEmailModule,
+      )
+  },
+  {
+    path: 'change-email-result',
+    loadChildren: () =>
+      import('@containers/auth/change-email-result/change-email-result.module').then(
+        module => module.ChangeEmailResultModule,
+      )
+  },
+  {
+    path: 'reset-email',
+    loadChildren: () =>
+      import('@containers/auth/reset-email/reset-email.module').then(
+        module => module.ResetEmailModule,
+      )
+  },
+  {
+    path: 'reset-email-result',
+    loadChildren: () =>
+      import('@containers/auth/reset-email-result/reset-email-result.module').then(
+        module => module.ResetEmailResultModule,
+      )
+  },
+];
+
+switch (environment.buildType) {
+  case "all":
+    CMS_ROUTES.forEach(route => {
+      routes.push(route);
+    });
+    break;
+  case "cms":
+    CMS_ROUTES.forEach(route => {
+      routes.push(route);
+    });
+    break;
+  case "admin":
+    // etc
+    break;
+}
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
