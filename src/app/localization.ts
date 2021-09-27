@@ -185,7 +185,9 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Ваш email был изменен!",
         "auth_reset-email-result_return-to-signin": "Вернуться",
         // navigation menu
-        "menu_accounts": "Администраторы",
+        "menu_employees": "Работники",
+        "menu_accounts": "Аккаунты",
+        "menu_roles": "Роли",
         "menu_user-profile": "Профиль",
         "menu_settings": "Настройки",
         "menu_license-types": "Типы лицензий",
@@ -458,7 +460,9 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Your email has been changed!",
         "auth_reset-email-result_return-to-signin": "Return",
         // navigation menu
-        "menu_accounts": "Администраторы",
+        "menu_employees": "Employees",
+        "menu_accounts": "Accounts",
+        "menu_roles": "Roles",
         "menu_user-profile": "Profile",
         "menu_settings": "Settings",
         "menu_license-types": "license types",

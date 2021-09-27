@@ -38,7 +38,6 @@ export default class RoleEffects {
             switchMap(({ data, options }) => {
                 return this._apiService.createRole(formatRoleModel(data)).pipe(
                     mergeMap(res => {
-                        this._notificationService.success("Registration confirmed.");
                         return [RoleActions.createSuccess({ role: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {

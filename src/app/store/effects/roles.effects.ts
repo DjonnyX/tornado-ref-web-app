@@ -33,34 +33,20 @@ export default class RolesEffects {
     );
 
     public readonly createRequest = createEffect(() =>
-        this._actions$.pipe(
-            ofType(RolesActions.createRequest),
-            switchMap(({ data, options }) => {
-                return this._apiService.signup({
-                    integrationId: data.integrationId,
-                    firstName: data.firstName,
-                    lastName: data.lastName,
-                    email: data.email,
-                    password: data.password,
-                    captchaId: data.captchaId,
-                    captchaValue: data.captchaValue,
-                }).pipe(
-                    mergeMap(({ client }) => {
-                        this._router.navigate(["signin"]);
-                        this._notificationService.success("Registration confirmed.");
-                        return this._apiService.getRole(client).pipe(
-                            mergeMap(({ data }) => {
-                                return [RolesActions.createSuccess({ role: data })];
-                            }),
-                        );
-                    }),
-                    catchError((error: Error) => {
-                        this._notificationService.error(error.message);
-                        return of(RolesActions.createError({ error: error.message }))
-                    }),
-                );
-            })
-        )
+    this._actions$.pipe(
+        ofType(RolesActions.createRequest),
+        switchMap(({ data, options }) => {
+            return this._apiService.createRole(formatRoleModel(data)).pipe(
+                mergeMap(res => {
+                    return [RolesActions.createSuccess({ role: res.data, meta: res.meta })];
+                }),
+                catchError((error: Error) => {
+                    this._notificationService.error(error.message);
+                    return of(RolesActions.createError({ error: error.message }))
+                }),
+            );
+        })
+    )
     );
 
     public readonly updateRequest = createEffect(() =>

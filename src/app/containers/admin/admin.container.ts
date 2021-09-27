@@ -61,11 +61,27 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
   },
   {
-    icon: "license",
-    name: "menu_accounts", //" Саб-пользователи",
-    route: "accounts",
+    icon: "folder",
+    name: "menu_employees", //"Работники",
+    expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
     right: UserRights.READ_ACCOUNTS,
+    children: [
+      {
+        icon: "license",
+        name: "menu_accounts", //" Саб-пользователи",
+        route: "accounts",
+        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+        right: UserRights.READ_ACCOUNTS,
+      },
+      {
+        icon: "license",
+        name: "menu_roles", //" Роли",
+        route: "roles",
+        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+        right: UserRights.READ_ACCOUNT_ROLES,
+      },
+    ],
   },
   {
     icon: "folder",

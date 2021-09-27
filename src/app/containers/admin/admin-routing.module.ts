@@ -66,6 +66,13 @@ const CMS_ROUTES: Routes = [
       )
   },
   {
+    path: 'roles',
+    loadChildren: () =>
+      import('@containers/roles-editor/roles-editor.module').then(
+        module => module.RolesEditorModule,
+      )
+  },
+  {
     path: 'menu-tree',
     loadChildren: () =>
       import('@containers/menu-tree-editor/menu-tree-editor.module').then(
