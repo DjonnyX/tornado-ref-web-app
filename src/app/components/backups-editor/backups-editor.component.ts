@@ -139,6 +139,11 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
       } else {
         /// this._backupUploadingTime$.next(progress);
       }
+    }, err => {
+      this.isBackupUploading = false;
+
+      finish$.next();
+      finish$.complete();
     });
   }
 }
