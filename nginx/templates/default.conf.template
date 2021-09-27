@@ -1,3 +1,5 @@
+client_max_body_size 10000M;
+
 upstream refapi {
     server ${API_ADDRESS};
 }
@@ -29,10 +31,6 @@ server {
     location /assets/ {
         proxy_pass http://refapi;
     }
-    location ~* \.(?:manifest|appcache|html?|xml|json)$ {
-        expires -1;
-        # access_log logs/static.log; # I don't usually include a static log
-    }
 }
 
 # cms
@@ -62,8 +60,7 @@ server {
     location /assets/ {
         proxy_pass http://refapi;
     }
-    location ~* \.(?:manifest|appcache|html?|xml|json)$ {
-        expires -1;
-        # access_log logs/static.log; # I don't usually include a static log
+    location /upload/ {
+        proxy_pass http://refapi;
     }
 }
