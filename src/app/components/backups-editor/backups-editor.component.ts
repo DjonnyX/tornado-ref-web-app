@@ -72,7 +72,6 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
         finish$.complete();
       }),
       catchError((error: Error) => {
-        this._notificationService.error(error.message);
         return of(null);
       }),
     ).subscribe(data => {
@@ -120,7 +119,6 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
         return -1;
       }),
       catchError((error: Error) => {
-        this._notificationService.error(error.message);
         return of(null);
       }),
     ).subscribe(progress => {

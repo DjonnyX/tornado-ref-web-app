@@ -24,7 +24,6 @@ export default class OrderTypeEffects {
                         return [OrderTypeActions.getSuccess({ orderType: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class OrderTypeEffects {
                         return [OrderTypeActions.createSuccess({ orderType: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class OrderTypeEffects {
                         return [OrderTypeActions.updateSuccess({ orderType: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeActions.updateError({ error: error.message }));
                     }),
                 );

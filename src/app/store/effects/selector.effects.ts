@@ -24,7 +24,6 @@ export default class SelectorEffects {
                         return [SelectorActions.getSuccess({ selector: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class SelectorEffects {
                         return [SelectorActions.createSuccess({ selector: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class SelectorEffects {
                         return [SelectorActions.updateSuccess({ selector: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorActions.updateError({ error: error.message }));
                     }),
                 );

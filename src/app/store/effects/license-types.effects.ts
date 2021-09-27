@@ -24,7 +24,6 @@ export default class LicenseTypesEffects {
                         return [LicenseTypesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicenseTypesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class LicenseTypesEffects {
                         return [LicenseTypesActions.updateSuccess({ licenseType: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicenseTypesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class LicenseTypesEffects {
                         return [LicenseTypesActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicenseTypesActions.deleteError({ error: error.message }));
                     }),
                 );

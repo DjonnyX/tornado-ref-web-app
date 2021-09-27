@@ -24,7 +24,6 @@ export default class TagEffects {
                         return [TagActions.getSuccess({ tag: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(TagActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class TagEffects {
                         return [TagActions.createSuccess({ tag: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(TagActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class TagEffects {
                         return [TagActions.updateSuccess({ tag: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(TagActions.updateError({ error: error.message }));
                     }),
                 );

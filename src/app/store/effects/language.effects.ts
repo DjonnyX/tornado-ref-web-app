@@ -25,7 +25,6 @@ export default class LanguageEffects {
                         return [LanguageActions.getSuccess({ language: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LanguageActions.getError({ error: error.message }));
                     }),
                 );
@@ -42,7 +41,6 @@ export default class LanguageEffects {
                         return [LanguageActions.createSuccess({ language: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LanguageActions.createError({ error: error.message }));
                     }),
                 );
@@ -59,7 +57,6 @@ export default class LanguageEffects {
                         return [LanguageActions.updateSuccess({ language: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LanguageActions.updateError({ error: error.message }));
                     }),
                 );

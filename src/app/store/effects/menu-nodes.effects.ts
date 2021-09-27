@@ -28,7 +28,6 @@ export default class MenuNodesEffects {
                         return [MenuNodesActions.getRootNodeIdSuccess({ rootNodeId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.getRootNodeIdError({ error: error.message }));
                     }),
                 );
@@ -45,7 +44,6 @@ export default class MenuNodesEffects {
                         return [MenuNodesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -62,7 +60,6 @@ export default class MenuNodesEffects {
                         return [MenuNodesActions.createSuccess({ changed: res.data.changed, created: res.data.created, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.createError({ error: error.message }));
                     }),
                 );
@@ -79,7 +76,6 @@ export default class MenuNodesEffects {
                         return [MenuNodesActions.createMultiSuccess({ changed: res.data.changed, created: res.data.created, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.createMultiError({ error: error.message }));
                     }),
                 );
@@ -96,7 +92,6 @@ export default class MenuNodesEffects {
                         return [MenuNodesActions.updateSuccess({ node: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -113,7 +108,6 @@ export default class MenuNodesEffects {
                         return [MenuNodesActions.deleteSuccess({ deleted: res.data.deleted, changed: res.data.changed, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(MenuNodesActions.deleteError({ error: error.message }));
                     }),
                 );

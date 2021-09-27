@@ -24,7 +24,6 @@ export default class AppThemeEffects {
                         return [AppThemeActions.getSuccess({ theme: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class AppThemeEffects {
                         return [AppThemeActions.createSuccess({ theme: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class AppThemeEffects {
                         return [AppThemeActions.updateSuccess({ theme: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeActions.updateError({ error: error.message }));
                     }),
                 );

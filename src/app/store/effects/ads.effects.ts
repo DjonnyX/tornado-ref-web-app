@@ -24,7 +24,6 @@ export default class AdsEffects {
                         return [AdsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class AdsEffects {
                         return [AdsActions.createSuccess({ ad: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdsActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class AdsEffects {
                         return [AdsActions.updateSuccess({ ad: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -75,7 +72,6 @@ export default class AdsEffects {
                         return [AdsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdsActions.deleteError({ error: error.message }));
                     }),
                 );

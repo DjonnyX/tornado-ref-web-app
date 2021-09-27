@@ -71,7 +71,6 @@ export default class AppThemeAssetsEffects {
                         ];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -91,7 +90,6 @@ export default class AppThemeAssetsEffects {
                         ];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.deleteResourceError({ error: error.message }));
                     }),
                 );
@@ -108,7 +106,6 @@ export default class AppThemeAssetsEffects {
                         return [AppThemeAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -155,7 +152,6 @@ export default class AppThemeAssetsEffects {
                         return [AppThemeAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, }), AppThemeActions.getRequest({ id: themeId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -174,7 +170,6 @@ export default class AppThemeAssetsEffects {
                         return [AppThemeAssetsActions.updateSuccess({ asset: res.data.asset, meta: res.meta.asset })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -191,7 +186,6 @@ export default class AppThemeAssetsEffects {
                         return [AppThemeAssetsActions.deleteSuccess({ id: assetId }),];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemeAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

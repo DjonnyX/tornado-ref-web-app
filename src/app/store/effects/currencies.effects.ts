@@ -24,7 +24,6 @@ export default class CurrenciesEffects {
                         return [CurrenciesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CurrenciesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class CurrenciesEffects {
                         return [CurrenciesActions.createSuccess({ currency: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CurrenciesActions.createError({ error: error.message }));
                     }),
                 );
@@ -62,7 +60,6 @@ export default class CurrenciesEffects {
                         return [CurrenciesActions.updateSuccess({ currency: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CurrenciesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -79,7 +76,6 @@ export default class CurrenciesEffects {
                         return [CurrenciesActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CurrenciesActions.deleteError({ error: error.message }));
                     }),
                 );

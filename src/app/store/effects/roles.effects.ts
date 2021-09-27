@@ -24,7 +24,6 @@ export default class RolesEffects {
                         return [RolesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(RolesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -58,7 +57,6 @@ export default class RolesEffects {
                         return [RolesActions.updateSuccess({ role: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(RolesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -75,7 +73,6 @@ export default class RolesEffects {
                         return [RolesActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(RolesActions.deleteError({ error: error.message }));
                     }),
                 );

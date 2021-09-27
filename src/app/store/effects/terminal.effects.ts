@@ -24,7 +24,6 @@ export default class TerminalEffects {
                         return [TerminalActions.getSuccess({ terminal: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(TerminalActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class TerminalEffects {
                         return [TerminalActions.updateSuccess({ terminal: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(TerminalActions.updateError({ error: error.message }));
                     }),
                 );

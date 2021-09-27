@@ -24,7 +24,6 @@ export default class AppThemesEffects {
                         return [AppThemesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class AppThemesEffects {
                         return [AppThemesActions.createSuccess({ theme: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemesActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class AppThemesEffects {
                         return [AppThemesActions.updateSuccess({ theme: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -75,7 +72,6 @@ export default class AppThemesEffects {
                         return [AppThemesActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AppThemesActions.deleteError({ error: error.message }));
                     }),
                 );

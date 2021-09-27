@@ -24,7 +24,6 @@ export default class ProductEffects {
                         return [ProductActions.getSuccess({ product: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class ProductEffects {
                         return [ProductActions.createSuccess({ product: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class ProductEffects {
                         return [ProductActions.updateSuccess({ product: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductActions.updateError({ error: error.message }));
                     }),
                 );

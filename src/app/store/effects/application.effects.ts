@@ -24,7 +24,6 @@ export default class ApplicationEffects {
                         return [ApplicationActions.getSuccess({ application: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ApplicationActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class ApplicationEffects {
                         return [ApplicationActions.createSuccess({ application: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ApplicationActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class ApplicationEffects {
                         return [ApplicationActions.updateSuccess({ application: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ApplicationActions.updateError({ error: error.message }));
                     }),
                 );

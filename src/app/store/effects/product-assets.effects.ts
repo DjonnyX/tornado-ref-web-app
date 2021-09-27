@@ -67,7 +67,6 @@ export default class ProductAssetsEffects {
                         return [ProductAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), ProductActions.getRequest({ id: productId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -84,7 +83,6 @@ export default class ProductAssetsEffects {
                         return [ProductAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -101,7 +99,6 @@ export default class ProductAssetsEffects {
                         return [ProductAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -147,7 +144,6 @@ export default class ProductAssetsEffects {
                         return [ProductAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), ProductActions.getRequest({ id: productId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -167,7 +163,6 @@ export default class ProductAssetsEffects {
                         return [ProductAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -184,7 +179,6 @@ export default class ProductAssetsEffects {
                         return [ProductAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

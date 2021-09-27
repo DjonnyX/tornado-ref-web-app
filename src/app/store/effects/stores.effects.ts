@@ -24,7 +24,6 @@ export default class StoresEffects {
                         return [StoresActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(StoresActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class StoresEffects {
                         return [StoresActions.createSuccess({ store: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(StoresActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class StoresEffects {
                         return [StoresActions.updateSuccess({ store: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(StoresActions.updateError({ error: error.message }));
                     }),
                 );
@@ -75,7 +72,6 @@ export default class StoresEffects {
                         return [StoresActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(StoresActions.deleteError({ error: error.message }));
                     }),
                 );

@@ -24,7 +24,6 @@ export default class LanguagesEffects {
                         return [LanguagesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LanguagesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class LanguagesEffects {
                         return [LanguagesActions.createSuccess({ language: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LanguagesActions.createError({ error: error.message }));
                     }),
                 );
@@ -62,7 +60,6 @@ export default class LanguagesEffects {
                         return [LanguagesActions.updateSuccess({ language: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LanguagesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -79,7 +76,6 @@ export default class LanguagesEffects {
                         return [LanguagesActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LanguagesActions.deleteError({ error: error.message }));
                     }),
                 );

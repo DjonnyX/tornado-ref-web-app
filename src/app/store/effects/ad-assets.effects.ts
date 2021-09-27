@@ -67,7 +67,6 @@ export default class AdAssetsEffects {
                         return [AdAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), AdActions.getRequest({ id: adId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -84,7 +83,6 @@ export default class AdAssetsEffects {
                         return [AdAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -101,7 +99,6 @@ export default class AdAssetsEffects {
                         return [AdAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -147,7 +144,6 @@ export default class AdAssetsEffects {
                         return [AdAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), AdActions.getRequest({ id: adId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -167,7 +163,6 @@ export default class AdAssetsEffects {
                         return [AdAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -184,7 +179,6 @@ export default class AdAssetsEffects {
                         return [AdAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

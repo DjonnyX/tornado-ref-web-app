@@ -24,7 +24,6 @@ export default class StoreEffects {
                         return [StoreActions.getSuccess({ store: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(StoreActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class StoreEffects {
                         return [StoreActions.createSuccess({ store: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(StoreActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class StoreEffects {
                         return [StoreActions.updateSuccess({ store: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(StoreActions.updateError({ error: error.message }));
                     }),
                 );

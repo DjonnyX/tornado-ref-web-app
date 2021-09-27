@@ -23,7 +23,6 @@ export default class LicensesAccountEffects {
                         return [LicensesAccountActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicensesAccountActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -40,7 +39,6 @@ export default class LicensesAccountEffects {
                         return [LicensesAccountActions.unbindSuccess({ license: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicensesAccountActions.unbindError({ error: error.message }));
                     }),
                 );
