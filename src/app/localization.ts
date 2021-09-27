@@ -226,6 +226,9 @@ const LOCALIZATION = {
         "accounts_key-role": "Роль",
         "accounts_no-accounts": "Администраторы отсутствуют",
         "accounts_add-new": "Создать администратора",
+        // roles
+        "roles_no-roles": "Роли отсутствуют",
+        "roles_add-new": "Создать роль",
         // licenses
         "licenses_key-serial-number": "Ключ",
         "licenses_key-client": "Клиент",
@@ -501,6 +504,9 @@ const LOCALIZATION = {
         "accounts_key-role": "Role",
         "accounts_no-accounts": "No administrators",
         "accounts_add-new": "Add an administrator",
+        // roles
+        "roles_no-roles": "No roles",
+        "roles_add-new": "Add a role",
         // licenses
         "licenses_key-serial-number": "Serial key",
         "licenses_key-client": "Client",
