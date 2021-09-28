@@ -12,6 +12,9 @@ import { IAppState } from '@store/state';
 import { Store } from '@ngrx/store';
 import { UserActions } from '@store/actions/user.action';
 import { Injectable } from '@angular/core';
+import { LocalizationService } from "@app/services/localization/localization.service";
+import { NotificationService } from "@app/services/notification.service";
+import { localizeError } from "@app/utils/error.util";
 
 const extractError = (error: IErrorResponse): string => {
     if (error.length === 0) return;
@@ -26,7 +29,8 @@ const extractError = (error: IErrorResponse): string => {
 @Injectable()
 export class HttpErrorInterceptor implements HttpInterceptor {
 
-    constructor(private _store: Store<IAppState>) { }
+    constructor(private _store: Store<IAppState>, public readonly localization: LocalizationService,
+        public readonly notification: NotificationService) { }
 
     intercept(
         request: HttpRequest<IBaseResponse<{}, {}>>,
@@ -50,14 +54,14 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                         err = extractError(error.error.error);
                     }
                     this._store.dispatch(UserActions.clearProfile());
-                    errorMessage = err || "Время сессии истекло.";
-                } else
-                if (!!error.error && error.error.error instanceof Array) {
+                    errorMessage = err;
+                } else if (!!error.error && error.error.error instanceof Array) {
                     errorMessage = extractError(error.error.error);
                 } else {
-                    errorMessage = `${error.message}\n`; //`Error Code: ${error.status}\nMessage: ${error.message}`;
+                    errorMessage = `${error.message}\n`;
                 }
 
+                this.notification.error(localizeError(errorMessage, this.localization));
                 throw Error(errorMessage);
             })
         );

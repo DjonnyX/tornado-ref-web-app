@@ -106,7 +106,7 @@
                                                                             <ng-container
                                                                                 *ngFor="let tag of product.tags">
                                                                                 <span
-                                                                                    [ngClass]="{'tag': true, 'active': !!tag.active, 'inactive': !tag.active}"
+                                                                                    [ngClass]="{'tag': true, 'active': !!getTagActivity(tag), 'inactive': !getTagActivity(tag)}"
                                                                                     [style.background]="getTagColor(tag)"
                                                                                     [matTooltip]="getTagName(tag)">
                                                                                     {{getTagName(tag)}}
@@ -199,7 +199,7 @@
                                                     <div class="tags">
                                                         <ng-container *ngFor="let tag of product.tags">
                                                             <span
-                                                                [ngClass]="{'tag': true, 'active': !!tag.active, 'inactive': !tag.active}"
+                                                                [ngClass]="{'tag': true, 'active': !!getTagActivity(tag), 'inactive': !getTagActivity(tag)}"
                                                                 [style.background]="getTagColor(tag)"
                                                                 [matTooltip]="getTagName(tag)">
                                                                 {{getTagName(tag)}}

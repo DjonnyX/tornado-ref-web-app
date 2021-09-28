@@ -24,7 +24,6 @@ export default class CheckueEffects {
                         return [CheckueActions.getSuccess({ checkue: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CheckueActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class CheckueEffects {
                         return [CheckueActions.createSuccess({ checkue: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CheckueActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class CheckueEffects {
                         return [CheckueActions.updateSuccess({ checkue: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CheckueActions.updateError({ error: error.message }));
                     }),
                 );

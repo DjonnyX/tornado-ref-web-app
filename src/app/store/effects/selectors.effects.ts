@@ -24,7 +24,6 @@ export default class SelectorsEffects {
                         return [SelectorsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class SelectorsEffects {
                         return [SelectorsActions.createSuccess({ selector: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorsActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class SelectorsEffects {
                         return [SelectorsActions.updateSuccess({ selector: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -75,7 +72,6 @@ export default class SelectorsEffects {
                         return [SelectorsActions.repositionSuccess({ positions, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorsActions.repositionError({ error: error.message }));
                     }),
                 );
@@ -92,7 +88,6 @@ export default class SelectorsEffects {
                         return [SelectorsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorsActions.deleteError({ error: error.message }));
                     }),
                 );

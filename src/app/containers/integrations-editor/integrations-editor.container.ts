@@ -18,6 +18,8 @@ export class IntegrationsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
+  public isGetProcess$: Observable<boolean>;
+
   public collection$: Observable<Array<IIntegration>>;
 
   public refInfo$: Observable<IRef>;
@@ -29,6 +31,10 @@ export class IntegrationsEditorContainer implements OnInit, OnDestroy {
 
     this.isProcess$ = this._store.pipe(
       select(IntegrationsSelectors.selectLoading),
+    );
+
+    this.isGetProcess$ = this._store.pipe(
+      select(IntegrationsSelectors.selectIsGetProcess),
     );
 
     this.collection$ = this._store.pipe(

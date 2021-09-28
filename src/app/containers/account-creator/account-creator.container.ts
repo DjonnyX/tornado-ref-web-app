@@ -9,11 +9,9 @@ import { AccountActions } from '@store/actions/account.action';
 import { AccountSelectors } from '@store/selectors/account.selectors';
 import { DefaultRoleTypes, IAccount, IRole } from '@djonnyx/tornado-types';
 import {
-  AccountsSelectors, IntegrationsSelectors,
   RolesSelectors,
-  StoreSelectors, TerminalSelectors,
 } from '@store/selectors';
-import { IAccountCreateRequest, IUserSignupRequest } from '@app/services/interfaces';
+import { IAccountCreateRequest } from '@app/services/interfaces';
 import { RolesActions } from '@store/actions/roles.action';
 import { ApiService } from '@services';
 import { ICaptcha } from '@models';

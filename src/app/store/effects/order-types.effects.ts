@@ -24,7 +24,6 @@ export default class OrderTypesEffects {
                         return [OrderTypesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class OrderTypesEffects {
                         return [OrderTypesActions.createSuccess({ orderType: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.createError({ error: error.message }));
                     }),
                 );
@@ -62,7 +60,6 @@ export default class OrderTypesEffects {
                         return [OrderTypesActions.updateSuccess({ orderType: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.updateError({ error: error.message }));
                     }),
                 );
@@ -79,7 +76,6 @@ export default class OrderTypesEffects {
                         return [OrderTypesActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypesActions.deleteError({ error: error.message }));
                     }),
                 );

@@ -15,6 +15,292 @@ import { LocalizationService } from '@app/services/localization/localization.ser
 import { SettingsActions } from '@store/actions/settings.action';
 import { FormControl } from '@angular/forms';
 import LOCALIZATION from '@app/localization';
+import { environment } from '@environments';
+
+const MENU_ROUTES: Array<INavRoute> = [];
+
+const ADMIN_MENU_ROUTES: Array<INavRoute> = [
+  {
+    icon: "folder",
+    name: "menu_settings", //"Настройки",
+    roles: [DefaultRoleTypes.ADMIN],
+    children: [
+      {
+        icon: "license",
+        name: "menu_license-types", //"Типы лицензий",
+        route: "license-types",
+        right: UserRights.READ_LICENSE_TYPES,
+      },
+      {
+        icon: "license",
+        name: "menu_integrations", //"Интеграции",
+        route: "integrations",
+        right: UserRights.READ_INTEGRATIONS,
+      },
+      {
+        icon: "license",
+        name: "menu_licenses", //"Лицензии",
+        route: "licenses",
+        right: UserRights.READ_LICENSES,
+      },
+      // {
+      //   icon: "application",
+      //   name: "menu_applications", //"Приложения",
+      //   route: "applications",
+      //   right: UserRights.READ_APPLICATIONS,
+      // },
+    ]
+  },
+];
+
+const CMS_MENU_ROUTES: Array<INavRoute> = [
+  {
+    icon: "license",
+    name: "menu_user-profile", //"Профиль пользователя",
+    route: "profile",
+    roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+  },
+  {
+    icon: "folder",
+    name: "menu_employees", //"Работники",
+    expanded: false,
+    roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+    right: UserRights.READ_ACCOUNTS,
+    children: [
+      {
+        icon: "license",
+        name: "menu_accounts", //" Саб-пользователи",
+        route: "accounts",
+        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+        right: UserRights.READ_ACCOUNTS,
+      },
+      {
+        icon: "license",
+        name: "menu_roles", //" Роли",
+        route: "roles",
+        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+        right: UserRights.READ_ACCOUNT_ROLES,
+      },
+    ],
+  },
+  {
+    icon: "folder",
+    name: "menu_user-settings", //"Настройки",
+    expanded: false,
+    roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+    children: [
+      {
+        icon: "license",
+        name: "menu_user-licenses", //"Лицензии",
+        route: "licenses-account",
+        right: UserRights.READ_LICENSES,
+      },
+      {
+        icon: "devices",
+        name: "menu_devices", //"Устройства",
+        route: "terminals",
+        right: UserRights.READ_TERMINALS,
+      },
+      {
+        icon: "markets",
+        name: "menu_stores", //"Магазины",
+        route: "stores",
+        right: UserRights.READ_STORES,
+      },
+      {
+        icon: "backups",
+        name: "menu_backups", //"Бэкапы",
+        route: "backups",
+        right: UserRights.VIEW_BACKUPS,
+      },
+      {
+        icon: "folder-menu",
+        name: "menu_applications", //"Приложения",
+        expanded: false,
+        // right: UserRights.READ_APPLICATIONS,
+        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+        children: [
+          {
+            icon: "folder",
+            name: "menu_app-kiosk", //"KIOSK",
+            expanded: false,
+            children: [
+              {
+                icon: "folder-themes",
+                name: "menu_themes", //"Киоск",
+                route: "themes-kiosk",
+                right: UserRights.READ_THEMES,
+              },
+            ],
+          },
+          {
+            icon: "folder",
+            name: "menu_app-eq", //"EQ",
+            expanded: false,
+            children: [
+              {
+                icon: "folder-themes",
+                name: "menu_themes", //"Электронная очередь",
+                route: "themes-eq",
+                right: UserRights.READ_THEMES,
+              },
+            ],
+          },
+          {
+            icon: "folder",
+            name: "menu_app-order-picker", //"Order picker",
+            expanded: false,
+            children: [
+              {
+                icon: "folder-themes",
+                name: "menu_themes", //"Сборщик заказов",
+                route: "themes-order-picker",
+                right: UserRights.READ_THEMES,
+              },
+            ],
+          },
+        ]
+      },
+    ]
+  },
+  {
+    icon: "folder",
+    name: "menu_user-content", //"Контент",
+    roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+    children: [
+      {
+        icon: "folder-menu",
+        name: "menu_menu-folder", //"Формирование меню",
+        // expanded: false,
+        right: UserRights.READ_MENU,
+        children: [
+          {
+            icon: "menu-theme",
+            name: "menu_menu", //"Меню",
+            route: "menu-tree",
+            right: UserRights.READ_MENU,
+          },
+          {
+            icon: "products",
+            name: "menu_products", //"Товары",
+            route: "products",
+            right: UserRights.READ_PRODUCTS,
+          },
+          {
+            icon: "tags",
+            name: "menu_tags", //"Тэги",
+            route: "tags",
+            right: UserRights.READ_TAGS,
+          },
+          {
+            icon: "folder-menu",
+            name: "menu_menu-groups", //"Группы",
+            // expanded: false,
+            right: UserRights.READ_SELECTORS,
+            children: [
+              {
+                icon: "menu-group",
+                name: "menu_menu-categories", //"Группы меню",
+                route: "menu-categories",
+                right: UserRights.READ_SELECTORS,
+              },
+              {
+                icon: "modifiers-group",
+                name: "menu_menu-schema-categories", //"Группы модификаторов",
+                route: "schema-categories",
+                right: UserRights.READ_SELECTORS,
+              },
+            ]
+          },
+        ],
+      },
+      {
+        icon: "folder",
+        name: "menu_ads", //"Рекламы",
+        expanded: false,
+        right: UserRights.READ_ADS,
+        children: [
+          {
+            icon: "splash-screen",
+            name: "menu_splash-screen", //"Заставки",
+            route: "intros",
+            right: UserRights.READ_ADS,
+          },
+          {
+            icon: "splash-screen-disconnected",
+            name: "menu_splash-screen-disconnected", //"Заставка (терминал не работает)",
+            route: "service-unavailable-intros",
+            right: UserRights.READ_ADS,
+          },
+          {
+            icon: "banners",
+            name: "menu_banners", //"Банеры",
+            route: "banners",
+            right: UserRights.READ_ADS,
+          },
+        ],
+      },
+      {
+        icon: "folder",
+        name: "menu_advanced-settings", //"Дополнительно",
+        expanded: false,
+        children: [
+          {
+            icon: "checkue",
+            name: "menu_checkues", //"Чеки",
+            route: "checkues",
+            right: UserRights.READ_CHECKUES,
+          },
+          {
+            icon: "currency",
+            name: "menu_currencies", //"Валюты",
+            route: "currencies",
+            right: UserRights.READ_CURRENCIES,
+          },
+          {
+            icon: "order-types",
+            name: "menu_order-types", //"Типы заказов",
+            route: "order-types",
+            right: UserRights.READ_ORDER_TYPES,
+          },
+          {
+            icon: "business-periods",
+            name: "menu_business-periods", //"Бизнес-периоды",
+            route: "business-periods",
+            right: UserRights.READ_BUSINESS_PERIODS,
+          },
+          {
+            icon: "languages",
+            name: "menu_languages", //"Языки",
+            route: "languages",
+            right: UserRights.READ_LANGUAGES,
+          },
+        ]
+      },
+    ]
+  },
+];
+
+switch (environment.buildType) {
+  case "all":
+    ADMIN_MENU_ROUTES.forEach(route => {
+      MENU_ROUTES.push(route);
+    });
+    CMS_MENU_ROUTES.forEach(route => {
+      MENU_ROUTES.push(route);
+    });
+    break;
+  case "cms":
+    CMS_MENU_ROUTES.forEach(route => {
+      MENU_ROUTES.push(route);
+    });
+    break;
+  case "admin":
+    ADMIN_MENU_ROUTES.forEach(route => {
+      MENU_ROUTES.push(route);
+    });
+    break;
+}
 
 @Component({
   selector: 'ta-admin',
@@ -35,248 +321,7 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   sidenavIsOpen$: Observable<boolean>;
 
-  roteCollection: Array<INavRoute> = [
-    {
-      icon: "folder",
-      name: "menu_settings", //"Настройки",
-      roles: [DefaultRoleTypes.ADMIN],
-      children: [
-        {
-          icon: "license",
-          name: "menu_license-types", //"Типы лицензий",
-          route: "license-types",
-          right: UserRights.READ_LICENSE_TYPES,
-        },
-        {
-          icon: "license",
-          name: "menu_integrations", //"Интеграции",
-          route: "integrations",
-          right: UserRights.READ_INTEGRATIONS,
-        },
-        {
-          icon: "license",
-          name: "menu_licenses", //"Лицензии",
-          route: "licenses",
-          right: UserRights.READ_LICENSES,
-        },
-        // {
-        //   icon: "application",
-        //   name: "menu_applications", //"Приложения",
-        //   route: "applications",
-        //   right: UserRights.READ_APPLICATIONS,
-        // },
-      ]
-    },
-    {
-      icon: "license",
-      name: "menu_user-profile", //"Профиль пользователя",
-      route: "profile",
-      roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-    },
-    {
-      icon: "license",
-      name: "menu_accounts", //" Саб-пользователи",
-      route: "accounts",
-      roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-      right: UserRights.READ_ACCOUNTS,
-    },
-    {
-      icon: "folder",
-      name: "menu_user-settings", //"Настройки",
-      expanded: false,
-      roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-      children: [
-        {
-          icon: "license",
-          name: "menu_user-licenses", //"Лицензии",
-          route: "licenses-account",
-          right: UserRights.READ_LICENSES,
-        },
-        {
-          icon: "devices",
-          name: "menu_devices", //"Устройства",
-          route: "terminals",
-          right: UserRights.READ_TERMINALS,
-        },
-        {
-          icon: "markets",
-          name: "menu_stores", //"Магазины",
-          route: "stores",
-          right: UserRights.READ_STORES,
-        },
-        {
-          icon: "backups",
-          name: "menu_backups", //"Бэкапы",
-          route: "backups",
-          right: UserRights.VIEW_BACKUPS,
-        },
-        {
-          icon: "folder-menu",
-          name: "menu_applications", //"Приложения",
-          expanded: false,
-          // right: UserRights.READ_APPLICATIONS,
-          roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-          children: [
-            {
-              icon: "folder",
-              name: "menu_app-kiosk", //"KIOSK",
-              expanded: false,
-              children: [
-                {
-                  icon: "folder-themes",
-                  name: "menu_themes", //"Киоск",
-                  route: "themes-kiosk",
-                  right: UserRights.READ_THEMES,
-                },
-              ],
-            },
-            {
-              icon: "folder",
-              name: "menu_app-eq", //"EQ",
-              expanded: false,
-              children: [
-                {
-                  icon: "folder-themes",
-                  name: "menu_themes", //"Электронная очередь",
-                  route: "themes-eq",
-                  right: UserRights.READ_THEMES,
-                },
-              ],
-            },
-            {
-              icon: "folder",
-              name: "menu_app-order-picker", //"Order picker",
-              expanded: false,
-              children: [
-                {
-                  icon: "folder-themes",
-                  name: "menu_themes", //"Сборщик заказов",
-                  route: "themes-order-picker",
-                  right: UserRights.READ_THEMES,
-                },
-              ],
-            },
-          ]
-        },
-      ]
-    },
-    {
-      icon: "folder",
-      name: "menu_user-content", //"Контент",
-      roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-      children: [
-        {
-          icon: "folder-menu",
-          name: "menu_menu-folder", //"Формирование меню",
-          // expanded: false,
-          right: UserRights.READ_MENU,
-          children: [
-            {
-              icon: "menu-theme",
-              name: "menu_menu", //"Меню",
-              route: "menu-tree",
-              right: UserRights.READ_MENU,
-            },
-            {
-              icon: "products",
-              name: "menu_products", //"Товары",
-              route: "products",
-              right: UserRights.READ_PRODUCTS,
-            },
-            {
-              icon: "tags",
-              name: "menu_tags", //"Тэги",
-              route: "tags",
-              right: UserRights.READ_TAGS,
-            },
-            {
-              icon: "folder-menu",
-              name: "menu_menu-groups", //"Группы",
-              // expanded: false,
-              right: UserRights.READ_SELECTORS,
-              children: [
-                {
-                  icon: "menu-group",
-                  name: "menu_menu-categories", //"Группы меню",
-                  route: "menu-categories",
-                  right: UserRights.READ_SELECTORS,
-                },
-                {
-                  icon: "modifiers-group",
-                  name: "menu_menu-schema-categories", //"Группы модификаторов",
-                  route: "schema-categories",
-                  right: UserRights.READ_SELECTORS,
-                },
-              ]
-            },
-          ],
-        },
-        {
-          icon: "folder",
-          name: "menu_ads", //"Рекламы",
-          expanded: false,
-          right: UserRights.READ_ADS,
-          children: [
-            {
-              icon: "splash-screen",
-              name: "menu_splash-screen", //"Заставки",
-              route: "intros",
-              right: UserRights.READ_ADS,
-            },
-            {
-              icon: "splash-screen-disconnected",
-              name: "menu_splash-screen-disconnected", //"Заставка (терминал не работает)",
-              route: "service-unavailable-intros",
-              right: UserRights.READ_ADS,
-            },
-            {
-              icon: "banners",
-              name: "menu_banners", //"Банеры",
-              route: "banners",
-              right: UserRights.READ_ADS,
-            },
-          ],
-        },
-        {
-          icon: "folder",
-          name: "menu_advanced-settings", //"Дополнительно",
-          expanded: false,
-          children: [
-            {
-              icon: "checkue",
-              name: "menu_checkues", //"Чеки",
-              route: "checkues",
-              right: UserRights.READ_CHECKUES,
-            },
-            {
-              icon: "currency",
-              name: "menu_currencies", //"Валюты",
-              route: "currencies",
-              right: UserRights.READ_CURRENCIES,
-            },
-            {
-              icon: "order-types",
-              name: "menu_order-types", //"Типы заказов",
-              route: "order-types",
-              right: UserRights.READ_ORDER_TYPES,
-            },
-            {
-              icon: "business-periods",
-              name: "menu_business-periods", //"Бизнес-периоды",
-              route: "business-periods",
-              right: UserRights.READ_BUSINESS_PERIODS,
-            },
-            {
-              icon: "languages",
-              name: "menu_languages", //"Языки",
-              route: "languages",
-              right: UserRights.READ_LANGUAGES,
-            },
-          ]
-        },
-      ]
-    },
-  ];
+  roteCollection: Array<INavRoute> = MENU_ROUTES;
 
   // Нужно будет сделать правильно!
   public readonly languages = [

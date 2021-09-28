@@ -24,7 +24,6 @@ export default class CurrencyEffects {
                         return [CurrencyActions.getSuccess({ currency: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CurrencyActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class CurrencyEffects {
                         return [CurrencyActions.createSuccess({ currency: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CurrencyActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class CurrencyEffects {
                         return [CurrencyActions.updateSuccess({ currency: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(CurrencyActions.updateError({ error: error.message }));
                     }),
                 );

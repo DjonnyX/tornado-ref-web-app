@@ -58,11 +58,11 @@ export namespace RolesActions {
     // create
     export const createRequest = createAction(
         RolesActionTypes.CREATE_REQUEST,
-        props<{ data: IUserSignupRequest, options?: IRequestOptions }>(),
+        props<{ data: IRole, options?: IRequestOptions }>(),
     );
     export const createSuccess = createAction(
         RolesActionTypes.CREATE_SUCCESS,
-        props<{ role: IRole }>(),
+        props<{ role: IRole, meta: IMetaRefsResponse }>(),
     );
     export const createError = createAction(
         RolesActionTypes.CREATE_ERROR,

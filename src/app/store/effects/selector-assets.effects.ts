@@ -67,7 +67,6 @@ export default class SelectorAssetsEffects {
                         return [SelectorAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), SelectorActions.getRequest({ id: selectorId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -84,7 +83,6 @@ export default class SelectorAssetsEffects {
                         return [SelectorAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -101,7 +99,6 @@ export default class SelectorAssetsEffects {
                         return [SelectorAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -147,7 +144,6 @@ export default class SelectorAssetsEffects {
                         return [SelectorAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), SelectorActions.getRequest({ id: selectorId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -167,7 +163,6 @@ export default class SelectorAssetsEffects {
                         return [SelectorAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -184,7 +179,6 @@ export default class SelectorAssetsEffects {
                         return [SelectorAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SelectorAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

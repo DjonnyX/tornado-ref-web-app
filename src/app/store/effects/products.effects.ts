@@ -24,7 +24,6 @@ export default class ProductsEffects {
                         return [ProductsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class ProductsEffects {
                         return [ProductsActions.createSuccess({ product: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductsActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class ProductsEffects {
                         return [ProductsActions.updateSuccess({ product: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -75,7 +72,6 @@ export default class ProductsEffects {
                         return [ProductsActions.repositionSuccess({ positions, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductsActions.repositionError({ error: error.message }));
                     }),
                 );
@@ -92,7 +88,6 @@ export default class ProductsEffects {
                         return [ProductsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ProductsActions.deleteError({ error: error.message }));
                     }),
                 );

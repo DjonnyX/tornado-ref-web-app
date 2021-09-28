@@ -24,7 +24,6 @@ export default class BusinessPeriodEffects {
                         return [BusinessPeriodActions.getSuccess({ businessPeriod: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(BusinessPeriodActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class BusinessPeriodEffects {
                         return [BusinessPeriodActions.createSuccess({ businessPeriod: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(BusinessPeriodActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class BusinessPeriodEffects {
                         return [BusinessPeriodActions.updateSuccess({ businessPeriod: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(BusinessPeriodActions.updateError({ error: error.message }));
                     }),
                 );

@@ -1,0 +1,120 @@
+<div class="editor">
+
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
+
+            <div class="entities-container entities-card-layout">
+
+                <div class="entity" *ngFor="let role of collection | search: searchPattern">
+
+                    <!-- <div class="entity__control">
+                        <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                            aria-label="Menu">
+                            <mat-icon class="icon">more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item (click)="onEdit(role)">
+                                <mat-icon>edit</mat-icon>
+                                <span>Редактировать</span>
+                            </button>
+    
+                            <ng-container *ngIf="hasDelete()">
+                                <button mat-menu-item (click)="onDelete(role)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Удалить</span>
+                                </button>
+                            </ng-container>
+                        </mat-menu>
+                    </div> -->
+
+                    <!-- Controls -->
+
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <!--My checkbox-->
+                            <!-- <div class="entity__control__checkbox">
+                                    <ta-checkbox #checkboxActive [checked]="role.active"
+                                        (click)="onToggleActive($event, role)"></ta-checkbox>
+                                </div> -->
+                            <!-- ActionMenu -->
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <ng-container *ngIf="getIsReadonly(role) else editButton">
+                                    <button mat-menu-item (click)="onView(role)">
+                                        <mat-icon>details</mat-icon>
+                                        <span>
+                                            {{localization.get("common_action-details")}}
+                                        </span>
+                                    </button>
+                                </ng-container>
+                                <ng-template #editButton>
+                                    <button mat-menu-item (click)="onEdit(role)">
+                                        <mat-icon>edit</mat-icon>
+                                        <span>
+                                            {{localization.get("common_action-edit")}}
+                                        </span>
+                                    </button>
+
+                                    <ng-container *ngIf="hasDelete()">
+                                        <button mat-menu-item (click)="onDelete(role)">
+                                            <mat-icon>delete_forever</mat-icon>
+                                            <span>
+                                                {{localization.get("common_action-delete")}}
+                                            </span>
+                                        </button>
+                                    </ng-container>
+                                </ng-template>
+                            </mat-menu>
+                            <!-- ActionMenu -->
+                        </div>
+                    </div>
+                    <!-- Controls -->
+
+                    <div matRipple class="entity__body" (click)="onEdit(role)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group" *ngIf="!!role">
+                                    <div class="content__name">
+                                        <strong>{{role.name}}</strong>
+                                    </div>
+                                    <div class="content__description" style="text-transform: none;">
+                                        {{role.description}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Panel Add Item -->
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreate()">
+                            <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
+                            <div class="">
+                                {{localization.get("roles_add-new")}}
+                            </div>
+                        </button>
+                    </div>
+                </div>
+                <!-- Panel Add Item -->
+
+            </div>
+        </div>
+
+        <ng-container *ngIf="!collection || collection.length === 0">
+            <div class="editor__missing-elements__wrapper">
+                <div class="missing-elements__text">
+                    {{localization.get("roles_no-roles")}}
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

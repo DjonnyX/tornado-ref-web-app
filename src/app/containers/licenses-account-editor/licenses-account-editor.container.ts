@@ -22,6 +22,8 @@ export class LicensesAccountEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
+  public isGetCollectionProcess$: Observable<boolean>;
+
   public collection$: Observable<Array<ILicense>>;
 
   public integrations$: Observable<Array<IIntegration>>;
@@ -46,6 +48,21 @@ export class LicensesAccountEditorContainer implements OnInit, OnDestroy {
     ]).pipe(
       map(([isLicenseLoading, isIntegrationsLoading, isAccountsGetProcess]) =>
         isLicenseLoading || isIntegrationsLoading || isAccountsGetProcess)
+    );
+    
+    this.isGetCollectionProcess$ = combineLatest([
+      this._store.pipe(
+        select(LicensesAccountSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(IntegrationsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(AccountsSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isLicenseGetProcess, isIntegrationsGetProcess, isAccountsGetProcess]) =>
+        isLicenseGetProcess || isIntegrationsGetProcess || isAccountsGetProcess)
     );
 
     this.collection$ = this._store.pipe(

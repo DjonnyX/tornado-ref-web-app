@@ -24,7 +24,6 @@ export default class BusinessPeriodsEffects {
                         return [BusinessPeriodsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class BusinessPeriodsEffects {
                         return [BusinessPeriodsActions.createSuccess({ businessPeriod: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class BusinessPeriodsEffects {
                         return [BusinessPeriodsActions.updateSuccess({ businessPeriod: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -75,7 +72,6 @@ export default class BusinessPeriodsEffects {
                         return [BusinessPeriodsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(BusinessPeriodsActions.deleteError({ error: error.message }));
                     }),
                 );

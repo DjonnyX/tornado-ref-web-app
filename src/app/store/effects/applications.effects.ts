@@ -24,7 +24,6 @@ export default class ApplicationsEffects {
                         return [ApplicationsActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ApplicationsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class ApplicationsEffects {
                         return [ApplicationsActions.updateSuccess({ application: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ApplicationsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class ApplicationsEffects {
                         return [ApplicationsActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(ApplicationsActions.deleteError({ error: error.message }));
                     }),
                 );

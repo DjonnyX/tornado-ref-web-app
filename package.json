@@ -9,7 +9,9 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "npm run build:cms && npm run build:admin",
+    "build:cms": "ng build --configuration cms --output-path=dist/tornado-cms",
+    "build:admin": "ng build --configuration admin --output-path=dist/tornado-admin",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

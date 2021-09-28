@@ -185,7 +185,9 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Ваш email был изменен!",
         "auth_reset-email-result_return-to-signin": "Вернуться",
         // navigation menu
-        "menu_accounts": "Администраторы",
+        "menu_employees": "Работники",
+        "menu_accounts": "Аккаунты",
+        "menu_roles": "Роли",
         "menu_user-profile": "Профиль",
         "menu_settings": "Настройки",
         "menu_license-types": "Типы лицензий",
@@ -224,6 +226,9 @@ const LOCALIZATION = {
         "accounts_key-role": "Роль",
         "accounts_no-accounts": "Администраторы отсутствуют",
         "accounts_add-new": "Создать администратора",
+        // roles
+        "roles_no-roles": "Роли отсутствуют",
+        "roles_add-new": "Создать роль",
         // licenses
         "licenses_key-serial-number": "Ключ",
         "licenses_key-client": "Клиент",
@@ -458,7 +463,9 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Your email has been changed!",
         "auth_reset-email-result_return-to-signin": "Return",
         // navigation menu
-        "menu_accounts": "Администраторы",
+        "menu_employees": "Employees",
+        "menu_accounts": "Accounts",
+        "menu_roles": "Roles",
         "menu_user-profile": "Profile",
         "menu_settings": "Settings",
         "menu_license-types": "license types",
@@ -497,6 +504,9 @@ const LOCALIZATION = {
         "accounts_key-role": "Role",
         "accounts_no-accounts": "No administrators",
         "accounts_add-new": "Add an administrator",
+        // roles
+        "roles_no-roles": "No roles",
+        "roles_add-new": "Add a role",
         // licenses
         "licenses_key-serial-number": "Serial key",
         "licenses_key-client": "Client",

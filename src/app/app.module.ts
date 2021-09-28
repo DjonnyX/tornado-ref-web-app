@@ -20,17 +20,17 @@ import {
 import { NotificationService } from './services/notification.service';
 import { AuthService } from './services/auth.service';
 import { CookieConsentModule } from '@components/cookie-consent/cookie-consent.module';
-import { EmptyPageComponent } from '@components/empty-page/empty-page.component';
 import { LocalizationModule } from './services/localization/localization.module';
 import LOCALIZATION from './localization';
+import { EmptyPageModule } from '@components/empty-page/empty-page.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    EmptyPageComponent,
   ],
   imports: [
     BrowserModule,
+    EmptyPageModule,
     AppRoutingModule,
     StoreModule.forRoot(
       rootReducer,

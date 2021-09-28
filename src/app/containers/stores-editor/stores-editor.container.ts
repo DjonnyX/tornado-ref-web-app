@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs';
+import { combineLatest, Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -20,6 +20,8 @@ export class StoresEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
+  public isGetCollectionProcess$: Observable<boolean>;
+
   public collection$: Observable<Array<IStore>>;
 
   public refInfo$: Observable<IRef>;
@@ -36,6 +38,15 @@ export class StoresEditorContainer implements OnInit, OnDestroy {
 
     this.isProcess$ = this._store.pipe(
       select(StoresSelectors.selectLoading),
+    );
+    
+    this.isGetCollectionProcess$ = combineLatest([
+      this._store.pipe(
+        select(StoresSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isStoreGetProcess]) =>
+        isStoreGetProcess)
     );
 
     this.collection$ = this._store.pipe(

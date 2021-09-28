@@ -241,6 +241,11 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     return tagContent?.color || "";
   }
 
+  getTagActivity(id: string): boolean {
+    const tag = this.tagList?.find(t => t.id === id);
+    return tag?.active || false;
+  }
+
   getTagName(id: string): string {
     const tag = this.tagList?.find(t => t.id === id);
     const tagContent = this.getTagContent(tag);

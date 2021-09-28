@@ -7,6 +7,7 @@ import { DefaultRoleTypes, IAccount, IRef } from '@djonnyx/tornado-types';
 import { AccountsSelectors } from '@store/selectors';
 import { map } from 'rxjs/operators';
 import { AccountsActions } from '@store/actions/accounts.action';
+import { AccountActions } from '@store/actions/account.action';
 
 @Component({
   selector: 'ta-accounts-editor',
@@ -18,6 +19,8 @@ export class AccountsEditorContainer implements OnInit, OnDestroy {
 
   public isProcess$: Observable<boolean>;
 
+  public isGetCollectionProcess$: Observable<boolean>;
+
   public collection$: Observable<Array<IAccount>>;
 
   public refInfo$: Observable<IRef>;
@@ -27,12 +30,28 @@ export class AccountsEditorContainer implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.isProcess$ = combineLatest([
       this._store.pipe(
-        select(AccountsSelectors.selectLoading),
+        select(AccountsSelectors.selectIsGetProcess),
+      ),
+      this._store.pipe(
+        select(AccountsSelectors.selectIsUpdateProcess),
+      ),
+      this._store.pipe(
+        select(AccountsSelectors.selectIsDeleteProcess),
       ),
     ]).pipe(
-      map(([isLicenseLoading]) =>
-        isLicenseLoading
-      )
+      map(([isAccountsGetProcess, isAccountsUpdateProcess, isAccountDeleteProcess]) =>
+        isAccountsGetProcess || isAccountsUpdateProcess || isAccountDeleteProcess
+      ),
+    );
+    
+    this.isGetCollectionProcess$ = combineLatest([
+      this._store.pipe(
+        select(AccountsSelectors.selectIsGetProcess),
+      ),
+    ]).pipe(
+      map(([isAccountsGetProcess]) =>
+        isAccountsGetProcess
+      ),
     );
 
     this.collection$ = this._store.pipe(
@@ -61,7 +80,6 @@ export class AccountsEditorContainer implements OnInit, OnDestroy {
   }
 
   onCreate(): void {
-
     this._store.dispatch(AccountsActions.clear());
 
     this._router.navigate(["create"], {
@@ -70,7 +88,7 @@ export class AccountsEditorContainer implements OnInit, OnDestroy {
   }
 
   onEdit(account: IAccount): void {
-    // this._store.dispatch(AccountActions.clear());
+    this._store.dispatch(AccountActions.clear());
 
     this._router.navigate(["edit"], {
       relativeTo: this._activatedRoute,
@@ -79,7 +97,7 @@ export class AccountsEditorContainer implements OnInit, OnDestroy {
   }
 
   onView(account: IAccount): void {
-    // this._store.dispatch(AccountActions.clear());
+    this._store.dispatch(AccountActions.clear());
 
     this._router.navigate(["view"], {
       relativeTo: this._activatedRoute,
@@ -88,7 +106,7 @@ export class AccountsEditorContainer implements OnInit, OnDestroy {
   }
 
   onUpdate(account: IAccount): void {
-    this._store.dispatch(AccountsActions.updateRequest({id: account.id, account}));
+    this._store.dispatch(AccountsActions.updateRequest({ id: account.id, account }));
   }
 
   onDelete(id: string): void {

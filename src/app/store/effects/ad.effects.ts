@@ -24,7 +24,6 @@ export default class AdEffects {
                         return [AdActions.getSuccess({ ad: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class AdEffects {
                         return [AdActions.createSuccess({ ad: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class AdEffects {
                         return [AdActions.updateSuccess({ ad: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AdActions.updateError({ error: error.message }));
                     }),
                 );

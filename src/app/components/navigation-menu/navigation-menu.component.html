@@ -4,20 +4,21 @@
         <ng-container *ngIf="authService.hasAuthority(item.roles) && authService.hasRight(item.right)">
             <ng-container *ngIf="!!item.children; else link">
                 <div class="navigation-menu__expantion-item">
-                    <span class="expantion-item__wrapper"
-                        [class.expanded]='item.expanded || hasExistsIndex(item.children, selected)'
+                    <span class="expantion-item__wrapper" [class.expanded]='item.expanded'
                         [class.active]='hasExistsIndex(item.children, selected) || item.index === selected'
                         (click)="toggleExpand(item)">
+                        <!--[class.expanded]='item.expanded || hasExistsIndex(item.children, selected)'-->
                         <span class="navigation-menu__expantion-item-icon" [ngClass]="getIconClass(item)"></span>
                         <span class="navigation-menu__expantion-item-label">{{localization.get(item.name)}}</span>
                         <mat-icon>
-                            {{item.expanded || hasExistsIndex(item.children, selected) ? 'expand_more' :
+                            {{item.expanded ? 'expand_more' :
                             'chevron_right'}}
+                            <!--item.expanded || hasExistsIndex(item.children, selected)-->
                         </mat-icon>
                     </span>
-                    <ta-navigation-menu [size]="size"
-                        [style.display]="item.expanded || hasExistsIndex(item.children, selected) ? '' : 'none'"
+                    <ta-navigation-menu [size]="size" [style.display]="item.expanded ? '' : 'none'"
                         [collection]="item.children" (select)="selectRoute($event)" [selected]="selected">
+                        <!--item.expanded || hasExistsIndex(item.children, selected)-->
                     </ta-navigation-menu>
                 </div>
             </ng-container>

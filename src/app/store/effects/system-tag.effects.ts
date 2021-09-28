@@ -24,7 +24,6 @@ export default class SystemTagEffects {
                         return [SystemTagActions.getSuccess({ systemTag: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SystemTagActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class SystemTagEffects {
                         return [SystemTagActions.createSuccess({ systemTag: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SystemTagActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class SystemTagEffects {
                         return [SystemTagActions.updateSuccess({ systemTag: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SystemTagActions.updateError({ error: error.message }));
                     }),
                 );

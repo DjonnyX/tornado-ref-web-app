@@ -67,7 +67,6 @@ export default class OrderTypeAssetsEffects {
                         return [OrderTypeAssetsActions.uploadResourceSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode }), OrderTypeActions.getRequest({ id: orderTypeId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.uploadResourceError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -84,7 +83,6 @@ export default class OrderTypeAssetsEffects {
                         return [OrderTypeAssetsActions.getAllSuccess({ collection: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -101,7 +99,6 @@ export default class OrderTypeAssetsEffects {
                         return [OrderTypeAssetsActions.getAllByLangSuccess({ collection: res.data, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.getAllByLangError({ error: error.message }));
                     }),
                 );
@@ -147,7 +144,6 @@ export default class OrderTypeAssetsEffects {
                         return [OrderTypeAssetsActions.createSuccess({ asset: res.data.asset, tmpAsset, langCode: data.langCode, }), OrderTypeActions.getRequest({ id: orderTypeId })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.createError({ tmpAsset, error: error.message }));
                     }),
                 );
@@ -167,7 +163,6 @@ export default class OrderTypeAssetsEffects {
                         return [OrderTypeAssetsActions.updateSuccess({ asset: res.data.asset, langCode, meta: res.meta.asset })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -184,7 +179,6 @@ export default class OrderTypeAssetsEffects {
                         return [OrderTypeAssetsActions.deleteSuccess({ id: assetId, langCode })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(OrderTypeAssetsActions.deleteError({ error: error.message }));
                     }),
                 );

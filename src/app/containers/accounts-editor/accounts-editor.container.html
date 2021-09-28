@@ -1,5 +1,5 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-accounts-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async" (create)="onCreate()"
+    <ta-accounts-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async" [refInfo]="refInfo$ | async" (create)="onCreate()"
         (update)="onUpdate($event)" (edit)="onEdit($event)" (view)="onView($event)" (delete)="onDelete($event)">
     </ta-accounts-editor-component>
 </ta-query-progress>

@@ -24,7 +24,6 @@ export default class AccountEffects {
                         return [AccountActions.getSuccess({ account: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AccountActions.getError({ error: error.message }));
                     }),
                 );
@@ -49,7 +48,6 @@ export default class AccountEffects {
                         return [AccountActions.createSuccess({ account })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AccountActions.createError({ error: error.message }))
                     }),
                 );
@@ -66,7 +64,6 @@ export default class AccountEffects {
                         return [AccountActions.updateSuccess({ account: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AccountActions.updateError({ error: error.message }));
                     }),
                 );
@@ -83,7 +80,6 @@ export default class AccountEffects {
                         return [AccountActions.deleteSuccess({ id, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(AccountActions.deleteError({ error: error.message }));
                     }),
                 );

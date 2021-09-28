@@ -26,7 +26,6 @@ export default class SystemTagsEffects {
                     }),
                     catchError((error: Error) => {
                         callback(error.message);
-                        this._notificationService.error(error.message);
                         return of(SystemTagsActions.getAllError({ error: error.message }));
                     }),
                 );
@@ -43,7 +42,6 @@ export default class SystemTagsEffects {
                         return [SystemTagsActions.createSuccess({ systemTag: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SystemTagsActions.createError({ error: error.message }));
                     }),
                 );
@@ -60,7 +58,6 @@ export default class SystemTagsEffects {
                         return [SystemTagsActions.updateSuccess({ systemTag: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SystemTagsActions.updateError({ error: error.message }));
                     }),
                 );
@@ -77,7 +74,6 @@ export default class SystemTagsEffects {
                         return [SystemTagsActions.repositionSuccess({ positions, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(SystemTagsActions.repositionError({ error: error.message }));
                     }),
                 );
@@ -96,7 +92,6 @@ export default class SystemTagsEffects {
                     }),
                     catchError((error: Error) => {
                         callback(error.message);
-                        this._notificationService.error(error.message);
                         return of(SystemTagsActions.deleteError({ error: error.message }));
                     }),
                 );

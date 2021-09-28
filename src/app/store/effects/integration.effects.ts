@@ -24,7 +24,6 @@ export default class IntegrationEffects {
                         return [IntegrationActions.getSuccess({ integration: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(IntegrationActions.getError({ error: error.message }));
                     }),
                 );
@@ -42,7 +41,6 @@ export default class IntegrationEffects {
                         return [IntegrationActions.createSuccess({ integration: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(IntegrationActions.createError({ error: error.message }));
                     }),
                 );
@@ -60,7 +58,6 @@ export default class IntegrationEffects {
                         return [IntegrationActions.updateSuccess({ integration: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(IntegrationActions.updateError({ error: error.message }));
                     }),
                 );

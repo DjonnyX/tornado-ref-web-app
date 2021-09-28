@@ -24,7 +24,6 @@ export default class LicenseTypeEffects {
                         return [LicenseTypeActions.getSuccess({ licenseType: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicenseTypeActions.getError({ error: error.message }));
                     }),
                 );
@@ -41,7 +40,6 @@ export default class LicenseTypeEffects {
                         return [LicenseTypeActions.createSuccess({ licenseType: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicenseTypeActions.createError({ error: error.message }));
                     }),
                 );
@@ -58,7 +56,6 @@ export default class LicenseTypeEffects {
                         return [LicenseTypeActions.updateSuccess({ licenseType: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(LicenseTypeActions.updateError({ error: error.message }));
                     }),
                 );

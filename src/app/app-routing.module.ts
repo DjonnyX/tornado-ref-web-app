@@ -1,28 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { EmptyPageComponent } from '@components/empty-page/empty-page.component';
+import { environment } from '@environments';
 import { AuthGuard } from './guards/auth.guard';
-
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: 'admin',
     pathMatch: 'full'
-  },
-  {
-    path: 'term-of-use',
-    loadChildren: () =>
-      import('@containers/auth/term-of-use/term-of-use.module').then(
-        module => module.TermOfUseModule,
-      )
-  },
-  {
-    path: 'signup',
-    loadChildren: () =>
-      import('@containers/auth/signup/signup.module').then(
-        module => module.SignupModule,
-      )
   },
   {
     path: 'signin',
@@ -60,6 +46,47 @@ const routes: Routes = [
       )
   },
   {
+    path: 'auth-error',
+    loadChildren: () =>
+      import('@containers/auth/auth-error/auth-error.module').then(
+        module => module.AuthErrorModule,
+      )
+  },
+  {
+    path: 'cookie-term-of-use',
+    loadChildren: () =>
+      import('@components/cookie-term-of-use/cookie-term-of-use.module').then(
+        module => module.CookieTermOfUseModule,
+      ),
+  },
+  {
+    path: 'admin',
+    loadChildren: () =>
+      import('@containers/admin/admin.module').then(
+        module => module.AdminModule,
+      ),
+    canActivate: [
+      AuthGuard,
+    ]
+  },
+];
+
+const CMS_ROUTES: Routes = [
+  {
+    path: 'term-of-use',
+    loadChildren: () =>
+      import('@containers/auth/term-of-use/term-of-use.module').then(
+        module => module.TermOfUseModule,
+      )
+  },
+  {
+    path: 'signup',
+    loadChildren: () =>
+      import('@containers/auth/signup/signup.module').then(
+        module => module.SignupModule,
+      )
+  },
+  {
     path: 'change-email',
     loadChildren: () =>
       import('@containers/auth/change-email/change-email.module').then(
@@ -87,30 +114,25 @@ const routes: Routes = [
         module => module.ResetEmailResultModule,
       )
   },
-  {
-    path: 'auth-error',
-    loadChildren: () =>
-      import('@containers/auth/auth-error/auth-error.module').then(
-        module => module.AuthErrorModule,
-      )
-  },
-  {
-    path: 'cookie-term-of-use',
-    loadChildren: () =>
-      import('@components/cookie-term-of-use/cookie-term-of-use.module').then(
-        module => module.CookieTermOfUseModule,
-      ),
-  },
-  {
-    path: 'admin',
-    loadChildren: () =>
-      import('@containers/admin/admin.module').then(
-        module => module.AdminModule,
-      ),
-    canActivate: [
-      AuthGuard,
-    ]
-  },
+];
+
+switch (environment.buildType) {
+  case "all":
+    CMS_ROUTES.forEach(route => {
+      routes.push(route);
+    });
+    break;
+  case "cms":
+    CMS_ROUTES.forEach(route => {
+      routes.push(route);
+    });
+    break;
+  case "admin":
+    // etc
+    break;
+}
+
+routes.push(
   {
     path: '**',
     redirectTo: 'page-not-found',
@@ -119,7 +141,7 @@ const routes: Routes = [
     path: 'page-not-found',
     component: EmptyPageComponent,
   }
-];
+);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

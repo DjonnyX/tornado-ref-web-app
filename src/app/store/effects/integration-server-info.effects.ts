@@ -23,7 +23,6 @@ export default class IntegrationServerInfoEffects {
                         return [IntegrationServerInfoActions.getSuccess({ info: res.data })];
                     }),
                     catchError((error: Error) => {
-                        this._notificationService.error(error.message);
                         return of(IntegrationServerInfoActions.getError({ error: error.message }));
                     }),
                 );
