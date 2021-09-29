@@ -363,14 +363,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   private getIndexByRoute(route: string, collection: Array<INavRoute>): number {
     let result = -1;
     for (let i = 0, l = collection.length; i < l; i++) {
-      if (!!collection[i].children) {
-        const index = this.getIndexByRoute(route, collection[i].children);
+      const node = collection[i];
+      if (!!node.children) {
+        const index = this.getIndexByRoute(route, node.children);
         if (index > -1) {
           return index;
         }
       } else {
-        if (collection[i].route === route) {
-          return collection[i].index;
+        if (node.route === route) {
+          return node.index;
         }
       }
     }
@@ -380,14 +381,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   private findRouteByIndex(index: number, collection: Array<INavRoute>): INavRoute {
     let result: INavRoute;
     for (let i = 0, l = collection.length; i < l; i++) {
-      if (!!collection[i].children && collection[i].children.length > 0) {
-        const route = this.findRouteByIndex(index, collection[i].children);
+      const node = collection[i];
+      if (!!node.children && node.children.length > 0) {
+        const route = this.findRouteByIndex(index, node.children);
         if (!!route) {
           return route;
         }
       } else {
-        if (collection[i].index === index) {
-          return collection[i];
+        if (node.index === index) {
+          return node;
         }
       }
     }
