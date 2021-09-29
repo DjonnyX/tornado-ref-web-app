@@ -398,15 +398,26 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null): number {
+  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null, folders?: Array<INavRoute>): number {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
+      const __folders = folders || [];
       if (!!collection[i].children && collection[i].children.length > 0) {
+        __folders.push(collection[i]);
+        collection[i].anyRights = [];
+
         if (collection[i].expanded === undefined) {
           collection[i].expanded = true;
         }
-        result = this.normalizedRoutesCollection(collection[i].children, result, collection[i]);
+        result = this.normalizedRoutesCollection(collection[i].children, result, collection[i], __folders);
       } else {
+        for (const folder of __folders) {
+          if (collection[i].right === undefined || folder.anyRights.indexOf(collection[i].right) > -1) {
+            continue;
+          }
+
+          folder.anyRights.push(collection[i].right);
+        }
         collection[i].index = result;
         collection[i].parent = parent;
         result++;
@@ -450,6 +461,8 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     );
 
     this.normalizedRoutesCollection(this.roteCollection);
+
+    console.log(this.roteCollection)
 
     this._router.events.pipe(
       takeUntil(this.unsubscribe$),

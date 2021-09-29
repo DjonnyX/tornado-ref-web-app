@@ -6,6 +6,7 @@ export interface INavRoute {
     route?: string;
     roles?: Array<string>;
     right?: UserRights;
+    anyRights?: Array<UserRights>;
     index?: number;
     expanded?: boolean;
     children?: Array<INavRoute>;

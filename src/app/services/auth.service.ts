@@ -39,12 +39,20 @@ export class AuthService {
     return this._profile.account.role.rights.indexOf(right) > -1;
   }
 
+  hasAnyRights(rights: Array<UserRights>): boolean {
+    if (rights === undefined || !this._profile?.account?.role?.rights || this._profile.account.role.rights.length === 0) {
+      return true;
+    }
+
+    return rights.filter(r => this._profile.account.role.rights.indexOf(r) > -1).length > 0;
+  }
+
   hasAuthority(roles: Array<string>): boolean {
     if (roles === undefined || !this._profile?.account.role || !roles || roles.length === 0) {
       return true;
     }
 
     return roles.indexOf(this._profile.account.role.name) > -1
-      || (this._profile.account.role.name === "any" && roles.indexOf(DefaultRoleTypes.ADMIN) === -1);
+      || (this._profile.account.role.name !== DefaultRoleTypes.ADMIN && roles.indexOf("any") > -1);
   }
 }
