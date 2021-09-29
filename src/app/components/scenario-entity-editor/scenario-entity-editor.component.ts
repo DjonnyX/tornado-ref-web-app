@@ -194,6 +194,7 @@ export class ScenarioEntityEditorComponent extends BaseComponent implements OnIn
       if (!!content) {
         const scenario: IScenario = {
           active: true,
+          lock: false,
           action: content.action,
           value: content.value,
           extra: content.extra,

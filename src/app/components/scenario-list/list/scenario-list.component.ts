@@ -64,6 +64,10 @@ export class ScenarioListComponent implements OnInit {
     event.preventDefault();
   }
 
+  hasOneLock(): boolean {
+    return this.scenarios?.filter(s => !!s.lock).length > 0;
+  }
+
   toggleExpand(): void {
     this.isExpanded = !this.isExpanded;
   }

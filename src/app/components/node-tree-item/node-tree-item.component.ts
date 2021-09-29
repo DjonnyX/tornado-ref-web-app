@@ -681,6 +681,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
       if (!!content) {
         const scenario: IScenario = {
           active: true,
+          lock: false,
           action: content.action,
           value: content.value,
           extra: content.extra,

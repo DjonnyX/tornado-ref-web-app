@@ -20,7 +20,7 @@
                         {{localization.get("common_action-add-scenario")}}
                     </span>
                 </button>
-                <button mat-menu-item (click)="onDeleteAll()">
+                <button *ngIf="!hasOneLock()" mat-menu-item (click)="onDeleteAll()">
                     <mat-icon>delete_forever</mat-icon>
                     <span>
                         {{localization.get("common_action-delete-scenario")}}</span>
