@@ -65,7 +65,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
     name: "menu_employees", //"Работники",
     expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-    right: UserRights.READ_ACCOUNTS,
     children: [
       {
         icon: "license",
@@ -172,7 +171,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
         icon: "folder-menu",
         name: "menu_menu-folder", //"Формирование меню",
         // expanded: false,
-        right: UserRights.READ_MENU,
         children: [
           {
             icon: "menu-theme",
@@ -196,7 +194,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
             icon: "folder-menu",
             name: "menu_menu-groups", //"Группы",
             // expanded: false,
-            right: UserRights.READ_SELECTORS,
             children: [
               {
                 icon: "menu-group",
@@ -218,7 +215,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
         icon: "folder",
         name: "menu_ads", //"Рекламы",
         expanded: false,
-        right: UserRights.READ_ADS,
         children: [
           {
             icon: "splash-screen",
