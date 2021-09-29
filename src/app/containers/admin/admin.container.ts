@@ -462,8 +462,6 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
     this.normalizedRoutesCollection(this.roteCollection);
 
-    console.log(this.roteCollection)
-
     this._router.events.pipe(
       takeUntil(this.unsubscribe$),
       filter(event => event instanceof NavigationEnd)
