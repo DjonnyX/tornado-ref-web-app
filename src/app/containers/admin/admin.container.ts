@@ -394,28 +394,32 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     return result;
   }
 
-  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null, folders?: Array<INavRoute>): number {
+  private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null): number {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
-      const __folders = folders || [];
-      if (!!collection[i].children && collection[i].children.length > 0) {
-        __folders.push(collection[i]);
-        collection[i].anyRights = [];
+      const node = collection[i];
+      if (!!node.children && node.children.length > 0) {
+        node.anyRights = [];
 
-        if (collection[i].expanded === undefined) {
-          collection[i].expanded = true;
+        if (node.expanded === undefined) {
+          node.expanded = true;
         }
-        result = this.normalizedRoutesCollection(collection[i].children, result, collection[i], __folders);
+
+        node.parent = parent;
+
+        result = this.normalizedRoutesCollection(node.children, result, node);
       } else {
-        for (const folder of __folders) {
-          if (collection[i].right === undefined || folder.anyRights.indexOf(collection[i].right) > -1) {
-            continue;
-          }
+        node.index = result;
+        node.parent = parent;
 
-          folder.anyRights.push(collection[i].right);
+        let n = node;
+        while (!!n.parent) {
+          n = n.parent;
+          if (node.right !== undefined && n.anyRights.indexOf(node.right) === -1) {
+            n.anyRights.push(node.right);
+          }
         }
-        collection[i].index = result;
-        collection[i].parent = parent;
+
         result++;
       }
     }
