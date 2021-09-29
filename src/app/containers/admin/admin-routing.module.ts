@@ -256,22 +256,14 @@ const CMS_ROUTES: Routes = [
 
 switch (environment.buildType) {
   case "all":
-    ADMIN_ROUTES.forEach(route => {
-      routes[0].children.push(route);
-    });
-    CMS_ROUTES.forEach(route => {
-      routes[0].children.push(route);
-    });
+    routes[0].children.push(...ADMIN_ROUTES);
+    routes[0].children.push(...CMS_ROUTES);
     break;
   case "cms":
-    CMS_ROUTES.forEach(route => {
-      routes[0].children.push(route);
-    });
+    routes[0].children.push(...CMS_ROUTES);
     break;
   case "admin":
-    ADMIN_ROUTES.forEach(route => {
-      routes[0].children.push(route);
-    });
+    routes[0].children.push(...ADMIN_ROUTES);
     break;
 }
 

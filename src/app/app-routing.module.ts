@@ -117,18 +117,13 @@ const CMS_ROUTES: Routes = [
 ];
 
 switch (environment.buildType) {
-  case "all":
-    CMS_ROUTES.forEach(route => {
-      routes.push(route);
-    });
-    break;
-  case "cms":
-    CMS_ROUTES.forEach(route => {
-      routes.push(route);
-    });
-    break;
   case "admin":
     // etc
+    break;
+  case "all":
+  case "cms":
+  default:
+    routes.push(...CMS_ROUTES);
     break;
 }
 
