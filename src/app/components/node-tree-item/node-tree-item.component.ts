@@ -216,14 +216,38 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
 
   get isStoreContain(): boolean {
     if (this.currentStoreId !== NodeTreeStores.ALL) {
-      if (!!this.node && !!this.node.scenarios && this.node.scenarios.length > 0) {
+      if (this.node?.scenarios?.length) {
         for (let i = 0, l = this.node.scenarios.length; i < l; i++) {
           const scenario = this.node.scenarios[i];
 
           if (scenario.action === ScenarioCommonActionTypes.VISIBLE_BY_STORE) {
             const availableStores = scenario.value as Array<string>;
 
-            return availableStores.indexOf(this.currentStoreId) > -1;
+            let isVisible = availableStores.indexOf(this.currentStoreId) > -1;
+            if (!isVisible) {
+              return isVisible;
+            }
+          }
+        }
+      }
+
+      if (this.node.type === NodeTypes.PRODUCT) {
+        const product = this.productsDictionary[this.node.contentId];
+        if (!!product?.joint) {
+          const productJoint = this.nodesDictionary[product.joint];
+          if (productJoint?.scenarios?.length) {
+            for (let i = 0, l = productJoint.scenarios.length; i < l; i++) {
+              const scenario = productJoint.scenarios[i];
+
+              if (scenario.action === ScenarioCommonActionTypes.VISIBLE_BY_STORE) {
+                const availableStores = scenario.value as Array<string>;
+
+                const isVisibleJoint = availableStores.indexOf(this.currentStoreId) > -1;
+                if (!isVisibleJoint) {
+                  return isVisibleJoint;
+                }
+              }
+            }
           }
         }
       }
