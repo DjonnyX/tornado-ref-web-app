@@ -44,7 +44,7 @@ export namespace IntegrationsActions {
     // get
     export const getRequest = createAction(
         IntegrationsActionTypes.GET_REQUEST,
-        props<{ integrationId: string }>()
+        props<{ integrationId: string, secure?: string }>()
     );
     export const getSuccess = createAction(
         IntegrationsActionTypes.GET_SUCCESS,
@@ -58,7 +58,7 @@ export namespace IntegrationsActions {
     // create
     export const createRequest = createAction(
         IntegrationsActionTypes.CREATE_REQUEST,
-        props<{ integration: IIntegration }>(),
+        props<{ integration: IIntegration, secure?: string }>(),
     );
     export const createSuccess = createAction(
         IntegrationsActionTypes.CREATE_SUCCESS,
@@ -72,7 +72,7 @@ export namespace IntegrationsActions {
     // update
     export const updateRequest = createAction(
         IntegrationsActionTypes.UPDATE_REQUEST,
-        props<{ id: string, integration: IIntegration, setDafault?: boolean }>(),
+        props<{ id: string, integration: IIntegration, secure?: string, setDafault?: boolean }>(),
     );
     export const updateSuccess = createAction(
         IntegrationsActionTypes.UPDATE_SUCCESS,

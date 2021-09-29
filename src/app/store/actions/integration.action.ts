@@ -21,11 +21,11 @@ export namespace IntegrationActions {
     // get
     export const getRequest = createAction(
         IntegrationActionTypes.GET_REQUEST,
-        props<{ id: string }>(),
+        props<{ id: string, secure?: string }>(),
     );
     export const getSuccess = createAction(
         IntegrationActionTypes.GET_SUCCESS,
-        props<{ integration: IIntegration }>(),
+        props<{ integration: IIntegration, secure?: string }>(),
     );
     export const getError = createAction(
         IntegrationActionTypes.GET_ERROR,
@@ -35,7 +35,7 @@ export namespace IntegrationActions {
     // create
     export const createRequest = createAction(
         IntegrationActionTypes.CREATE_REQUEST,
-        props<{ integration: IIntegrationEditable }>()
+        props<{ integration: IIntegrationEditable, secure?: string }>()
     );
     export const createSuccess = createAction(
         IntegrationActionTypes.CREATE_SUCCESS,
@@ -49,11 +49,11 @@ export namespace IntegrationActions {
     // update
     export const updateRequest = createAction(
         IntegrationActionTypes.UPDATE_REQUEST,
-        props<{ id: string, integration: IIntegrationEditable }>()
+        props<{ id: string, integration: IIntegrationEditable, secure?: string }>()
     );
     export const updateSuccess = createAction(
         IntegrationActionTypes.UPDATE_SUCCESS,
-        props<{ integration: IIntegration }>()
+        props<{ integration: IIntegration, secure?: string }>()
     );
     export const updateError = createAction(
         IntegrationActionTypes.UPDATE_ERROR,

@@ -10,13 +10,25 @@
                     <div class="form-item">
                         <mat-form-field class="full-width" appearance="outline">
                             <mat-label>Хост</mat-label>
-                            <input matInput type="text" formControlName="host" placeholder="http://127.0.0.1:8089/"
+                            <input matInput type="text" [formControl]="ctrlHost" placeholder="http://127.0.0.1:8089/"
                                 required>
-                            <mat-error *ngIf="ctrlName.hasError('required')">
+                            <mat-error *ngIf="ctrlHost.hasError('required')">
                                 <strong>обязательное</strong>
                             </mat-error>
-                            <mat-error *ngIf="ctrlName.hasError('pattern')">
+                            <mat-error *ngIf="ctrlHost.hasError('pattern')">
                                 <strong>некорректный формат хоста</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Секретный ключ доступа</mat-label>
+                            <input matInput type="text" [formControl]="ctrlVerificationKey"
+                                required>
+                            <mat-error *ngIf="ctrlVerificationKey.hasError('required')">
+                                <strong>обязательное</strong>
                             </mat-error>
                         </mat-form-field>
                     </div>

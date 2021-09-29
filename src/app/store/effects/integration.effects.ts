@@ -18,8 +18,8 @@ export default class IntegrationEffects {
     public readonly getRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationActions.getRequest),
-            switchMap(({ id }) => {
-                return this._apiService.getIntegration(id).pipe(
+            switchMap(({ id, secure }) => {
+                return this._apiService.getIntegration(id, secure).pipe(
                     mergeMap(res => {
                         return [IntegrationActions.getSuccess({ integration: res.data })];
                     }),
@@ -34,8 +34,8 @@ export default class IntegrationEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationActions.createRequest),
-            switchMap(({ integration }) => {
-                return this._apiService.createIntegration(formatIntegrationModel(integration)).pipe(
+            switchMap(({ integration, secure }) => {
+                return this._apiService.createIntegration(formatIntegrationModel(integration), secure).pipe(
                     mergeMap(res => {
                         this._router.navigate(["/admin/integrations"]);
                         return [IntegrationActions.createSuccess({ integration: res.data })];
@@ -51,8 +51,8 @@ export default class IntegrationEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationActions.updateRequest),
-            switchMap(({ id, integration }) => {
-                return this._apiService.updateIntegration(id, formatIntegrationModel(integration)).pipe(
+            switchMap(({ id, integration, secure }) => {
+                return this._apiService.updateIntegration(id, formatIntegrationModel(integration), secure).pipe(
                     mergeMap(res => {
                         this._router.navigate(["/admin/integrations"]);
                         return [IntegrationActions.updateSuccess({ integration: res.data })];

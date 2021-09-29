@@ -1654,30 +1654,39 @@ export class ApiService {
       });
   }
 
-  public getIntegration(id: string): Observable<IIntegrationGetResponse> {
+  public getIntegration(id: string, secure?: string): Observable<IIntegrationGetResponse> {
     return this._http
       .get<IIntegrationGetResponse>(`api/v1/integration/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: {
+          secure,
+        }
       });
   }
 
-  public createIntegration(integration: IIntegrationEditable): Observable<IIntegrationCreateResponse> {
+  public createIntegration(integration: IIntegrationEditable, secure?: string): Observable<IIntegrationCreateResponse> {
     return this._http
       .post<IIntegrationCreateResponse>("api/v1/integration", integration, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: {
+          secure,
+        }
       });
   }
 
-  public updateIntegration(id: string, integration: IIntegrationEditable): Observable<IIntegrationUpdateResponse> {
+  public updateIntegration(id: string, integration: IIntegrationEditable, secure?: string): Observable<IIntegrationUpdateResponse> {
     return this._http
       .put<IIntegrationUpdateResponse>(`api/v1/integration/${id}`, integration, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params: {
+          secure,
+        }
       });
   }
 

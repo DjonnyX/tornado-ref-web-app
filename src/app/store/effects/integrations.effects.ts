@@ -34,8 +34,8 @@ export default class IntegrationsEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationsActions.createRequest),
-            switchMap(({ integration }) => {
-                return this._apiService.createIntegration(formatIntegrationModel(integration)).pipe(
+            switchMap(({ integration, secure }) => {
+                return this._apiService.createIntegration(formatIntegrationModel(integration), secure).pipe(
                     mergeMap(res => {
                         return [IntegrationsActions.createSuccess({ integration: res.data, meta: res.meta })];
                     }),
@@ -50,8 +50,8 @@ export default class IntegrationsEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(IntegrationsActions.updateRequest),
-            switchMap(({ id, integration }) => {
-                return this._apiService.updateIntegration(id, formatIntegrationModel(integration)).pipe(
+            switchMap(({ id, integration, secure }) => {
+                return this._apiService.updateIntegration(id, formatIntegrationModel(integration), secure).pipe(
                     mergeMap(res => {
                         return [IntegrationsActions.updateSuccess({ integration: res.data, meta: res.meta })];
                     }),
