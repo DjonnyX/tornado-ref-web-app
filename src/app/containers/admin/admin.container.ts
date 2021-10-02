@@ -17,7 +17,7 @@ import { FormControl } from '@angular/forms';
 import LOCALIZATION from '@app/localization';
 import { environment } from '@environments';
 
-const MENU_ROUTES: Array<INavRoute> = [];
+export const MENU_ROUTES: Array<INavRoute> = [];
 
 const ADMIN_MENU_ROUTES: Array<INavRoute> = [
   {
