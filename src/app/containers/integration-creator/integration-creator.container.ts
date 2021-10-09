@@ -81,7 +81,7 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
     });
 
     if (!!this._integrationId) {
-      this._store.dispatch(IntegrationActions.getRequest({ id: this._integrationId }));
+      this._store.dispatch(IntegrationActions.getRequest({ id: this._integrationId, secure: "true" }));
     }
   }
 
@@ -95,9 +95,9 @@ export class IntegrationCreatorContainer extends BaseComponent implements OnInit
 
   onSubmit(integration: IIntegrationEditable): void {
     if (this.isEditMode) {
-      this._store.dispatch(IntegrationActions.updateRequest({ id: integration.id, integration }));
+      this._store.dispatch(IntegrationActions.updateRequest({ id: integration.id, integration, secure: "true" }));
     } else {
-      this._store.dispatch(IntegrationActions.createRequest({ integration }));
+      this._store.dispatch(IntegrationActions.createRequest({ integration, secure: "true" }));
     }
   }
 

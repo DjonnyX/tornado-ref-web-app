@@ -7,14 +7,14 @@
         </div> -->
         <!--My checkbox-->
         <div class="entity__control__checkbox md">
-            <ta-checkbox #checkboxActive [checked]="scenario.active" (click)="onToggleActive($event)"></ta-checkbox>
+            <ta-checkbox *ngIf="!scenario.lock" #checkboxActive [checked]="scenario.active" (click)="onToggleActive($event)"></ta-checkbox>
         </div>
         <!--My checkbox-->
         <div class="content__text">
             {{localization.get(getTitle())}}
         </div>
     </span>
-    <span *ngIf="!lock" class="item__menu-button">
+    <span *ngIf="!lock && !scenario.lock" class="item__menu-button">
         <button mat-icon-button [matMenuTriggerFor]="menu" (click)="onShowMenu($event)" aria-label="Menu">
             <mat-icon class="icon">more_vert</mat-icon>
         </button>

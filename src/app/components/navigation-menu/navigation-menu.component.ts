@@ -43,13 +43,14 @@ export class NavigationMenuComponent implements OnInit {
 
   hasExistsIndex(collection: Array<INavRoute>, index: number): boolean {
     for (let i = 0, l = collection.length; i < l; i++) {
-      if (!!collection[i].children && collection[i].children.length > 0) {
-        const isExistsIndex = this.hasExistsIndex(collection[i].children, index);
+      const node = collection[i];
+      if (!!node.children && node.children.length > 0) {
+        const isExistsIndex = this.hasExistsIndex(node.children, index);
         if (!!isExistsIndex) {
           return true;
         }
       } else {
-        if (collection[i].index === index) {
+        if (node.index === index) {
           return true;
         }
       }

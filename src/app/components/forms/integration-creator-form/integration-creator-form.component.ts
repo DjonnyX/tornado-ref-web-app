@@ -16,9 +16,11 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   form: FormGroup;
 
-  ctrlName = new FormControl('', [Validators.required]);
+  ctrlName = new FormControl("", [Validators.required]);
 
-  ctrlHost = new FormControl('', [Validators.required, Validators.pattern("^((http|https):\/\/).*\/$")]);
+  ctrlHost = new FormControl("", [Validators.required, Validators.pattern("^((http|https):\/\/).*\/$")]);
+
+  ctrlVerificationKey = new FormControl("", [Validators.required]);
 
   ctrlActive = new FormControl(true);
 
@@ -32,6 +34,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
       this._integration = integration;
 
       this.ctrlHost.setValue(integration.host);
+      this.ctrlVerificationKey.setValue(integration.verificationKey);
       this.ctrlActive.setValue(integration.active);
     }
   }
@@ -64,6 +67,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
     this.form = this._fb.group({
       host: this.ctrlHost,
+      verificationKey: this.ctrlVerificationKey,
       active: this.ctrlActive,
     });
 

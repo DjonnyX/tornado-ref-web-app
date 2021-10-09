@@ -64,27 +64,25 @@ export class ScenarioListItemComponent implements OnInit {
 
     switch (this.scenario.action) {
       case ScenarioCommonActionTypes.VISIBLE_BY_BUSINESS_PERIOD:
-        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.businessPeriodsDictionary[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")}`;
+        value = `#{: }${(this.scenario.value as Array<string>).map(v => !!this.businessPeriodsDictionary[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_STORE:
-        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? `#{${this.storesDictionary?.[v]?.name}}` : "common_info-unavailable").join(", ")}`;
+        value = `#{: }${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? `#{${this.storesDictionary?.[v]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_TERMINAL:
-        // value = `: ${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? `#{${this.storesDictionary?.[v]?.name}}` : "common_info-unavailable").join(", ")}`;
+        // value = `#{: }${(this.scenario.value as Array<string>).map(v => !!this.storesDictionary[v] ? `#{${this.storesDictionary?.[v]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioCommonActionTypes.VISIBLE_BY_ORDER_TYPE:
-        value = `: ${(this.scenario.value as Array<string>).map(v => !!this.orderTypesDictionary[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")}`;
+        value = `#{: }${(this.scenario.value as Array<string>).map(v => !!this.orderTypesDictionary[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")}`;
         break;
       case ScenarioPriceActionTypes.PRICE:
         return this.getScenarioPriceName(this.scenario);
       case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
-        return `${this.getScenarioPriceName(this.scenario)} (${
-          ((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.businessPeriodsDictionary[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")
-        })`;
+        return `${this.getScenarioPriceName(this.scenario)} (${((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.businessPeriodsDictionary[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")
+          })`;
       case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
-        return `${this.getScenarioPriceName(this.scenario)} (${
-          ((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.orderTypesDictionary[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")
-        })`;
+        return `${this.getScenarioPriceName(this.scenario)} (${((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.orderTypesDictionary[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join(", ")
+          })`;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:
       case ScenarioSelectorActionTypes.MAX_USAGE:
@@ -96,7 +94,7 @@ export class ScenarioListItemComponent implements OnInit {
         break;
     }
 
-    return `${actionName}${value}`;
+    return `${actionName} ${value}`;
   }
 
   private getScenarioPriceName(scenario: IScenario): string {
@@ -150,7 +148,7 @@ export class ScenarioListItemComponent implements OnInit {
       event.preventDefault();
     }
 
-    if (this.lock) {
+    if (this.lock || this.scenario?.lock) {
       return;
     }
 

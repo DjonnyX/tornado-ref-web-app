@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  buildType: "cms",
+  buildType: "all",
   apiConfig: {},
 };

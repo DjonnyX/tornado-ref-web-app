@@ -69,7 +69,7 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
       takeUntil(this.unsubscribe$),
       select(MenuNodesSelectors.selectRootNodeId),
     ).subscribe(id => {
-      this._store.dispatch(MenuNodesActions.getAllRequest({ id }));
+      this._store.dispatch(MenuNodesActions.getAllRequest({ /*id*/ }));
       this._store.dispatch(SelectorsActions.getAllRequest({}));
       this._store.dispatch(ProductsActions.getAllRequest({}));
       this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));

@@ -230,7 +230,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       takeUntil(this.unsubscribe$),
     ).subscribe(value => {
       const scenario: IScenario = {
-        active: !!this._scenario ? this._scenario.active : true,
+        lock: this._scenario?.lock || false,
+        active: this._scenario?.active || true,
         action: value.action,
         extra: value.extra,
       };
@@ -344,7 +345,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
       case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
         this.ctrlValue.setValidators([Validators.required]);
-        this.ctrlCurrency.setValue(this.currencies.find(c => c.isDefault).id);
+        this.ctrlCurrency.setValue(this.currencies?.find(c => c.isDefault)?.id);
         if (action === ScenarioPriceActionTypes.PRICE) {
           this.ctrlIsStatic.setValue(false);
           this.ctrlIsPercentage.setValue(false);

@@ -17,7 +17,7 @@ import { FormControl } from '@angular/forms';
 import LOCALIZATION from '@app/localization';
 import { environment } from '@environments';
 
-const MENU_ROUTES: Array<INavRoute> = [];
+export const MENU_ROUTES: Array<INavRoute> = [];
 
 const ADMIN_MENU_ROUTES: Array<INavRoute> = [
   {
@@ -65,7 +65,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
     name: "menu_employees", //"Работники",
     expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-    right: UserRights.READ_ACCOUNTS,
     children: [
       {
         icon: "license",
@@ -172,7 +171,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
         icon: "folder-menu",
         name: "menu_menu-folder", //"Формирование меню",
         // expanded: false,
-        right: UserRights.READ_MENU,
         children: [
           {
             icon: "menu-theme",
@@ -196,7 +194,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
             icon: "folder-menu",
             name: "menu_menu-groups", //"Группы",
             // expanded: false,
-            right: UserRights.READ_SELECTORS,
             children: [
               {
                 icon: "menu-group",
@@ -218,7 +215,6 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
         icon: "folder",
         name: "menu_ads", //"Рекламы",
         expanded: false,
-        right: UserRights.READ_ADS,
         children: [
           {
             icon: "splash-screen",
@@ -367,14 +363,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   private getIndexByRoute(route: string, collection: Array<INavRoute>): number {
     let result = -1;
     for (let i = 0, l = collection.length; i < l; i++) {
-      if (!!collection[i].children) {
-        const index = this.getIndexByRoute(route, collection[i].children);
+      const node = collection[i];
+      if (!!node.children) {
+        const index = this.getIndexByRoute(route, node.children);
         if (index > -1) {
           return index;
         }
       } else {
-        if (collection[i].route === route) {
-          return collection[i].index;
+        if (node.route === route) {
+          return node.index;
         }
       }
     }
@@ -384,14 +381,15 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   private findRouteByIndex(index: number, collection: Array<INavRoute>): INavRoute {
     let result: INavRoute;
     for (let i = 0, l = collection.length; i < l; i++) {
-      if (!!collection[i].children && collection[i].children.length > 0) {
-        const route = this.findRouteByIndex(index, collection[i].children);
+      const node = collection[i];
+      if (!!node.children && node.children.length > 0) {
+        const route = this.findRouteByIndex(index, node.children);
         if (!!route) {
           return route;
         }
       } else {
-        if (collection[i].index === index) {
-          return collection[i];
+        if (node.index === index) {
+          return node;
         }
       }
     }
@@ -401,14 +399,29 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
   private normalizedRoutesCollection(collection: Array<INavRoute>, startIndex: number = 0, parent: INavRoute = null): number {
     let result = startIndex;
     for (let i = 0, l = collection.length; i < l; i++) {
-      if (!!collection[i].children && collection[i].children.length > 0) {
-        if (collection[i].expanded === undefined) {
-          collection[i].expanded = true;
+      const node = collection[i];
+      if (!!node.children && node.children.length > 0) {
+        node.anyRights = [];
+
+        if (node.expanded === undefined) {
+          node.expanded = true;
         }
-        result = this.normalizedRoutesCollection(collection[i].children, result, collection[i]);
+
+        node.parent = parent;
+
+        result = this.normalizedRoutesCollection(node.children, result, node);
       } else {
-        collection[i].index = result;
-        collection[i].parent = parent;
+        node.index = result;
+        node.parent = parent;
+
+        let n = node;
+        while (!!n.parent) {
+          n = n.parent;
+          if (node.right !== undefined && n.anyRights.indexOf(node.right) === -1) {
+            n.anyRights.push(node.right);
+          }
+        }
+
         result++;
       }
     }
