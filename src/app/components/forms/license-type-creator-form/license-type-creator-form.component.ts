@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angu
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
-import { IIntegration, ILicenseType, TerminalTypes } from '@djonnyx/tornado-types';
+import { IApplication, IIntegration, ILicenseType, TerminalTypes } from '@djonnyx/tornado-types';
 import { getTerminalTypeName } from '@app/utils/terminal.util';
 
 const AppTypesList = [
@@ -33,9 +33,11 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
 
   readonly appTypes = AppTypesList;
 
+  @Input() applications: Array<IApplication>;
+
   form: FormGroup;
 
-  ctrlAppType = new FormControl(undefined, [Validators.required]);
+  ctrlApplication = new FormControl(undefined, [Validators.required]);
 
   ctrlName = new FormControl('', [Validators.required]);
 
@@ -54,7 +56,7 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
     if (licenseType) {
       this._licenseType = licenseType;
 
-      this.ctrlAppType.setValue(licenseType.appType);
+      this.ctrlApplication.setValue(licenseType.applicationId);
       this.ctrlName.setValue(licenseType.name);
       this.ctrlDescription.setValue(licenseType.description);
       this.ctrlPrice.setValue(Number(licenseType.price) * 0.01);
@@ -76,12 +78,12 @@ export class LicenseTypeCreatorFormComponent extends BaseComponent implements On
     super();
 
     this.form = this._fb.group({
-      appType: this.ctrlAppType,
+      applicationId: this.ctrlApplication,
+      integrationId: this.ctrlIntegration,
       name: this.ctrlName,
       description: this.ctrlDescription,
       price: this.ctrlPrice,
       payNotice: this.ctrlPayNotice,
-      integrationId: this.ctrlIntegration,
     })
   }
 

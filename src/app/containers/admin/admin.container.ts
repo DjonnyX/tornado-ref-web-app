@@ -43,12 +43,11 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
         route: "licenses",
         right: UserRights.READ_LICENSES,
       },
-      // {
-      //   icon: "application",
-      //   name: "menu_applications", //"Приложения",
-      //   route: "applications",
-      //   right: UserRights.READ_APPLICATIONS,
-      // },
+      {
+        icon: "application",
+        name: "menu_applications", //"Приложения",
+        route: "applications",
+      },
     ]
   },
 ];

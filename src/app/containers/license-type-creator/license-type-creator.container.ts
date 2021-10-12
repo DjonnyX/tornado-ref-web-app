@@ -7,9 +7,10 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { LicenseTypeActions } from '@store/actions/license-type.action';
 import { LicenseTypeSelectors } from '@store/selectors/license-type.selectors';
-import { IIntegration, ILicenseType, IStore } from '@djonnyx/tornado-types';
-import { IntegrationsSelectors, StoresSelectors } from '@store/selectors';
+import { IApplication, IIntegration, ILicenseType, IStore } from '@djonnyx/tornado-types';
+import { ApplicationsSelectors, IntegrationsSelectors, StoresSelectors } from '@store/selectors';
 import { IntegrationsActions } from '@store/actions/integrations.action';
+import { ApplicationsActions } from '@store/actions/applications.action';
 
 @Component({
   selector: 'ta-license-type-creator',
@@ -22,6 +23,8 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
   public isProcess$: Observable<boolean>;
 
   licenseType$: Observable<ILicenseType>;
+
+  applications$: Observable<Array<IApplication>>;
 
   public integrations$: Observable<Array<IIntegration>>;
 
@@ -53,9 +56,16 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
       this._store.pipe(
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(ApplicationsSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isIntegrationsProcess]) =>
-        isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isIntegrationsProcess),
+      map(([isLicenseTypeGetProcess, isCreateProcess, selectIsUpdateProcess, isIntegrationsProcess, isGetApplicationsProcess]) =>
+        isLicenseTypeGetProcess || isCreateProcess || selectIsUpdateProcess || isIntegrationsProcess || isGetApplicationsProcess),
+    );
+
+    this.applications$ = this._store.pipe(
+      select(ApplicationsSelectors.selectCollection),
     );
 
     this.licenseType$ = this._store.pipe(
@@ -80,6 +90,8 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
     }
 
     this._store.dispatch(IntegrationsActions.getAllRequest({}));
+
+    this._store.dispatch(ApplicationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
@@ -87,6 +99,7 @@ export class LicenseTypeCreatorContainer extends BaseComponent implements OnInit
 
     this._store.dispatch(LicenseTypeActions.clear());
     this._store.dispatch(IntegrationsActions.clear());
+    this._store.dispatch(ApplicationsActions.clear());
   }
 
   onSubmit(licenseType: ILicenseType): void {
