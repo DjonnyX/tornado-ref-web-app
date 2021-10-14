@@ -103,7 +103,7 @@ export class SignupContainer extends BaseComponent implements OnInit, OnDestroy 
 
     this.onResetCaptcha();
 
-    this._store.dispatch(IntegrationsActions.getAllRequest({}));
+    // this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy() {
