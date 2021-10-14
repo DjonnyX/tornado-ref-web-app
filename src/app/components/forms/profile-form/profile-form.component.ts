@@ -116,7 +116,7 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
       },
       integration: {
         key: "Интеграция",
-        value: this._integrations?.find(item => item.id === this._profile?.account?.integrationId)?.name || ' ---',
+        value: this._integrations?.find(item => item.id === this._profile?.account?.integrationId)?.name || ' Отсутствует',
       },
     };
   }

@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { IAppState } from '@store/state';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
-import { map, takeUntil } from 'rxjs/operators';
+import { map, take, takeUntil, tap } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { StoreSelectors } from '@store/selectors/store.selectors';
 import { IAccount, IAccountInfo, IIntegration } from '@djonnyx/tornado-types';
@@ -28,7 +28,8 @@ export class ProfileContainer extends BaseComponent implements OnInit, OnDestroy
 
   integrations$: Observable<Array<IIntegration>>;
 
-  profile$: Observable<IUserProfile>;
+  private _profile$ = new BehaviorSubject<IUserProfile>(null);
+  profile$ = this._profile$.asObservable();
 
   constructor(private _store: Store<IAppState>, private _router: Router, private _activatedRoute: ActivatedRoute) {
     super();
@@ -48,16 +49,34 @@ export class ProfileContainer extends BaseComponent implements OnInit, OnDestroy
       this._store.pipe(
         select(IntegrationsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(UserSelectors.selectIsUpdateUserProfileProcess),
+      ),
     ]).pipe(
       takeUntil(this.unsubscribe$),
-      map(([isStoreGetProcess, isStoreUpdateProcess, isTerminalsGetProcess, isIntegrationsGetProcess]) =>
-        isStoreGetProcess || isStoreUpdateProcess || isTerminalsGetProcess || isIntegrationsGetProcess),
+      map(([isStoreGetProcess, isStoreUpdateProcess, isTerminalsGetProcess, isIntegrationsGetProcess, isUserProfileUpdateProcess]) =>
+        isStoreGetProcess || isStoreUpdateProcess || isTerminalsGetProcess || isIntegrationsGetProcess || isUserProfileUpdateProcess),
     );
 
-    this.profile$ = this._store.pipe(
+    this._store.pipe(
+      take(1),
       takeUntil(this.unsubscribe$),
       select(UserSelectors.selectUserProfile),
-    );
+      tap(profile => {
+        this._profile$.next(profile);
+        this._store.dispatch(UserActions.userUpdateProfileRequest({
+          params: {
+            id: profile.account.id, data: {} as IAccountInfo,
+          },
+          callback: (err, account: IAccountInfo) => {
+            this._profile$.next({
+              ...profile,
+              account,
+            });
+          }
+        }));
+      })
+    ).subscribe();
 
     this.integrations$ = this._store.pipe(
       takeUntil(this.unsubscribe$),
