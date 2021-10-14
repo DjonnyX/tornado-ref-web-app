@@ -17,6 +17,10 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "@djonnyx/tornado-types",
+              "color"
+            ],
             "outputPath": "dist/tornado-ref-web-app",
             "index": "src/index.html",
             "main": "src/main.ts",
