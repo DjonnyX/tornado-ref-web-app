@@ -275,7 +275,7 @@ const LOCALIZATION = {
         "scenario_business-periods": "Бизнесс периоды",
         "scenario_action": "Действие",
         "scenario_percentage-extra-charge-or-discount": "Процентная наценка / скидка",
-        "scenario_fixed-price": "Fixed price",
+        "scenario_fixed-price": "Фиксированная цена",
     },
     "eng": {
         "__img__": "embeded-assets/langs/lang-en.png",
