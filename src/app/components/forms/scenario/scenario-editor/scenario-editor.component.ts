@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   IScenario, IStore, ScenarioCommonActionTypes, ScenarioIntroActionTypes, ScenarioProductActionTypes,
   ScenarioSelectorActionTypes, IBusinessPeriod, ICurrency, ScenarioProgrammActionTypes, ILanguage,
-  IScenarioPriceValue, IOrderType, ISelector, IProduct, ScenarioPriceActionTypes
+  IScenarioPriceValue, IOrderType, ISelector, IProduct, ScenarioPriceActionTypes, IScenarioExpression, IScenarioSwitch
 } from '@djonnyx/tornado-types';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/operators';
@@ -59,7 +59,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           } else {
             this.ctrlValue.setValue(!!v.value ? (v.value as IScenarioPriceValue).value * 0.01 : 0);
           }
-          this.ctrlCurrency.setValue(!!v.value ? (v.value as IScenarioPriceValue).currency : undefined);
+          this.ctrlCurrency.setValue(!!v.value ? (v.value as IScenarioPriceValue).currency : this.currencies?.find(c => !!c.isDefault));
           this.ctrlIsPercentage.setValue(!!v.value ? (v.value as IScenarioPriceValue).isPersentage : false);
           this.ctrlIsStatic.setValue(!!v.value ? (v.value as IScenarioPriceValue).isStatic : false);
           if (v.action === ScenarioPriceActionTypes.PRICE) {
@@ -75,7 +75,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           break;
       }
 
-      this.resetValidators(v.action);
+      this.resetValidators(v.action, v.value);
     }
   }
 
@@ -222,7 +222,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
     this.ctrlAction.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(action => {
-      this.resetValidators(action);
+      this.resetValidators(action, this._scenario?.value);
       this.ctrlValue.setValue(null);
     });
 
@@ -233,7 +233,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         lock: this._scenario?.lock || false,
         active: this._scenario?.active || true,
         action: value.action,
-        extra: value.extra,
+        extra: value.extra || {},
       };
 
       switch (value.action) {
@@ -312,7 +312,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
   }
 
   private resetValidators(action: ScenarioProgrammActionTypes | ScenarioCommonActionTypes | ScenarioIntroActionTypes |
-    ScenarioProductActionTypes | ScenarioSelectorActionTypes | ScenarioPriceActionTypes): void {
+    ScenarioProductActionTypes | ScenarioSelectorActionTypes | ScenarioPriceActionTypes,
+    value: number | string | Array<string> | Array<number> | Array<IScenarioExpression> | IScenarioPriceValue | IScenarioSwitch | null): void {
     this.ctrlCurrency.clearValidators();
     this.ctrlValue.clearValidators();
     this.ctrlIsStatic.clearValidators();
@@ -353,7 +354,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
         } else
           if (action === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD
             || action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE) {
-            this.ctrlEntities.setValue([]);
+            this.ctrlEntities.setValue((value as IScenarioPriceValue)?.entities || []);
             this.ctrlEntities.setValidators([Validators.required]);
           }
         break;
