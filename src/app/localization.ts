@@ -222,6 +222,9 @@ const LOCALIZATION = {
         "menu_order-types": "Типы заказов",
         "menu_business-periods": "Бизнес-периоды",
         "menu_languages": "Языки",
+        // applications
+        "applications_no-applications": "Приложения отсутствуют",
+        "applications_add-new": "Добавить приложение",
         // accounts
         "accounts_key-role": "Роль",
         "accounts_no-accounts": "Администраторы отсутствуют",
@@ -238,6 +241,8 @@ const LOCALIZATION = {
         // license types
         "license-types_no-license-types": "Типы лицензий отсутствуют",
         "license-types_add-new": "Добавить тип лицензии",
+        // terminals
+        "terminals_no-terminals": "Устройства отсутствуют",
         // tags
         "tags_add-new": "Добавить тэг",
         // backups
@@ -500,6 +505,9 @@ const LOCALIZATION = {
         "menu_order-types": "Order types",
         "menu_business-periods": "Business periods",
         "menu_languages": "Languages",
+        // applications
+        "applications_no-applications": "No applications",
+        "applications_add-new": "Add an applications",
         // accounts
         "accounts_key-role": "Role",
         "accounts_no-accounts": "No administrators",
@@ -516,6 +524,8 @@ const LOCALIZATION = {
         // license types
         "license-types_no-license-types": "No license types",
         "license-types_add-new": "Add a license type",
+        // terminals
+        "terminals_no-terminals": "No devices",
         // tags
         "tags_add-new": "New a tag",
         // backups

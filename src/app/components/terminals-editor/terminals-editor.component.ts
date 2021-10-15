@@ -4,6 +4,7 @@ import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-d
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { ITerminal, IRef, TerminalStatusTypes, IStore } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-terminals-editor-component',
@@ -14,7 +15,7 @@ import { ITerminal, IRef, TerminalStatusTypes, IStore } from '@djonnyx/tornado-t
 export class TerminalsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
   @Input() collection: Array<ITerminal>;
-  
+
   private _storesMap: { [id: string]: IStore };
 
   get storesMap() {
@@ -50,7 +51,10 @@ export class TerminalsEditorComponent extends BaseComponent implements OnInit, O
 
   searchPattern = "";
 
-  constructor(public dialog: MatDialog) {
+  constructor(
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 
