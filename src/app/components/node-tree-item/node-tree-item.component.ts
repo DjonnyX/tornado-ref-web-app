@@ -833,12 +833,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const collection = [...this.node.children];
+    let actualNode: INode;
+    if (this.node.type === NodeTypes.SELECTOR_NODE) {
+      actualNode = this._nodesDictionary[this.node.contentId];
+    } else {
+      actualNode = this.node;
+    }
+    const collection = [...(actualNode.children || [])];
     const node = collection[event.previousIndex];
     collection.splice(event.previousIndex, 1);
     collection.splice(event.currentIndex, 0, node);
     this.update.emit({
-      ...this.node,
+      ...actualNode,
       children: collection,
     });
   }
