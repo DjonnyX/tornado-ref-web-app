@@ -48,10 +48,18 @@ const arrayItemToDownward = (array: Array<string>, item: string): Array<string> 
   templateUrl: './node-tree-item.component.html',
   styleUrls: ['./node-tree-item.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDestroy {
   readonly NodeTypes = NodeTypes;
+
+  private _displayInactiveNodes: boolean = true;
+  @Input() set displayInactiveNodes(v: boolean) {
+    if (this._displayInactiveNodes !== v) {
+      this._displayInactiveNodes = v;
+    }
+  }
+  get displayInactiveNodes() { return this._displayInactiveNodes; }
 
   @Input() type: NodeTypes | string;
 

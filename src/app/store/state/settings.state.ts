@@ -13,4 +13,5 @@ export interface ISettingsState {
     adsInactiveVisibility: boolean;
     appThemesLayout: LayoutTypes;
     appThemesInactiveVisibility: boolean;
+    nodeTreeInactiveVisibility: boolean;
 }

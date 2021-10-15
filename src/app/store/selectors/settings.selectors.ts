@@ -52,4 +52,8 @@ export namespace SettingsSelectors {
         selectSettings,
         state => state.appThemesInactiveVisibility,
     );
+    export const selectNodesTreeNodesInactiveVisibility = createSelector(
+        selectSettings,
+        state => state.nodeTreeInactiveVisibility,
+    );
 }

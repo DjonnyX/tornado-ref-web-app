@@ -4,7 +4,7 @@ import { Observable, combineLatest } from 'rxjs';
 import { IAppState } from '@store/state';
 import {
   MenuNodesSelectors, SelectorsSelectors, ProductsSelectors, BusinessPeriodsSelectors, BusinessPeriodSelectors,
-  AssetsSelectors, CurrenciesSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors
+  AssetsSelectors, CurrenciesSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors, SettingsSelectors
 } from '@store/selectors';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { SelectorsActions } from '@store/actions/selectors.action';
@@ -21,6 +21,7 @@ import { CurrenciesActions } from '@store/actions/currencies.action';
 import { LanguagesActions } from '@store/actions/languages.action';
 import { OrderTypesActions } from '@store/actions/order-types.action';
 import { StoresActions } from '@store/actions/stores.action';
+import { SettingsActions } from '@store/actions/settings.action';
 
 @Component({
   selector: 'ta-menu-tree-editor',
@@ -53,6 +54,8 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
   defaultLanguage$: Observable<ILanguage>;
 
+  displayInactiveEntities$: Observable<boolean>;
+
   isProcess$: Observable<boolean>;
 
   constructor(private _store: Store<IAppState>) {
@@ -62,6 +65,10 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
   ngOnInit(): void {
     this.rootNodeId$ = this._store.pipe(
       select(MenuNodesSelectors.selectRootNodeId),
+    );
+
+    this.displayInactiveEntities$ = this._store.pipe(
+      select(SettingsSelectors.selectNodesTreeNodesInactiveVisibility),
     );
 
     // Пока выборка селекторов только для киоска
@@ -194,5 +201,9 @@ export class MenuTreeEditorContainer extends BaseComponent implements OnInit, On
 
   onDelete(node: INode): void {
     this._store.dispatch(MenuNodesActions.deleteRequest({ id: node.id }));
+  }
+
+  onChangeDisplayInactiveEntities(showInactive: boolean): void {
+    this._store.dispatch(SettingsActions.changeNodesTreeNodesVisibility({ showInactive }));
   }
 }

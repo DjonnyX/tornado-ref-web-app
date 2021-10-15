@@ -15,6 +15,7 @@ export enum SettingsActionTypes {
     CHANGE_ADS_VISIBILITY = "TORNADO/setting/change-ads-visibility",
     CHANGE_APP_THEMES_LAYOUT = "TORNADO/setting/change-app-themes-layout",
     CHANGE_APP_THEMES_VISIBILITY = "TORNADO/setting/change-app-themes-visibility",
+    CHANGE_NODE_TREE_NODES_VISIBILITY = "TORNADO/setting/change-nodes-tree-nodes-visibility",
 }
 
 export namespace SettingsActions {
@@ -67,6 +68,10 @@ export namespace SettingsActions {
     );
     export const changeAppThemesVisibility = createAction(
         SettingsActionTypes.CHANGE_APP_THEMES_VISIBILITY,
+        props<{ showInactive: boolean }>(),
+    );
+    export const changeNodesTreeNodesVisibility = createAction(
+        SettingsActionTypes.CHANGE_NODE_TREE_NODES_VISIBILITY,
         props<{ showInactive: boolean }>(),
     );
 }

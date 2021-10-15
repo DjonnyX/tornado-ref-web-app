@@ -1,4 +1,5 @@
-<div [ngClass]="getStyleClasses()" *ngIf="!!node && isStoreContain">
+<div [ngClass]="getStyleClasses()"
+    *ngIf="!!node && isStoreContain && (!displayInactiveNodes ? (!!nodeInstance ? nodeInstance.active : node ? node.active : true) : true)">
     <div class="node-item-way-hider" *ngIf="isInstanceChain && isLastChild"></div>
     <span class="node-tree-item-joint" *ngIf="!isRoot"></span>
     <span
@@ -133,7 +134,7 @@
                 <div cdkDropList class="drag-drop-list" (cdkDropListDropped)="drop($event)">
                     <div cdkDrag class="drag-drop-box" *ngFor="let childId of node.children; let index = index">
                         <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
-                        <ta-node-tree-item [depth]="(depth + 1)"
+                        <ta-node-tree-item [depth]="(depth + 1)" [displayInactiveNodes]="displayInactiveNodes"
                             [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)"
                             [currentIndex]="index" [parentChildrenLength]="node.children.length"
                             [isInstanceChain]="isInstanceChain" [lock]="lock" [nodeId]="childId" [nodes]="nodes"
@@ -162,6 +163,7 @@
                             *ngFor="let childId of nodeInstance.children; let index = index">
                             <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
                             <ta-node-tree-item [isInstanceChain]="true" [currentIndex]="index"
+                                [displayInactiveNodes]="displayInactiveNodes"
                                 [isDisabled]="(!!nodeInstance && !nodeInstance.active) || (!node.active)"
                                 [parentChildrenLength]="nodeInstance.children.length" [depth]="(depth + 1)"
                                 [lock]="true" [nodeId]="childId" [nodes]="nodes" [nodesDictionary]="nodesDictionary"
