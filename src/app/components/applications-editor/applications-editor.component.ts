@@ -69,6 +69,10 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
     this.edit.emit(application);
   }
 
+  hasDelete(application: IApplication): boolean {
+    return true;
+  }
+
   onDelete(application: IApplication): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
