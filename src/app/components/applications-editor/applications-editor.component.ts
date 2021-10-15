@@ -69,7 +69,7 @@ export class ApplicationsEditorComponent extends BaseComponent implements OnInit
     this.edit.emit(application);
   }
 
-  hasDelete(application: IApplication): boolean {
+  hasDelete(): boolean {
     return true;
   }
 
