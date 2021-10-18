@@ -69,6 +69,16 @@ const routes: Routes = [
       AuthGuard,
     ]
   },
+  {
+    path: 'documentation',
+    loadChildren: () =>
+      import('@containers/documentation/documentation.module').then(
+        module => module.DocumentationModule,
+      ),
+    canActivate: [
+      AuthGuard,
+    ]
+  },
 ];
 
 const CMS_ROUTES: Routes = [
