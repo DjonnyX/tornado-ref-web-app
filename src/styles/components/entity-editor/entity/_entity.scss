@@ -40,7 +40,7 @@
     height: 100%;
     overflow: hidden;
     border-radius: $entity-border-radius;
-    box-shadow: 0px 4px 16px rgba(0,0,0,0.02);    
+    box-shadow: 0px 4px 16px rgba(0,0,0,0.1);    
     pointer-events: unset;
 
     &__wrapper {

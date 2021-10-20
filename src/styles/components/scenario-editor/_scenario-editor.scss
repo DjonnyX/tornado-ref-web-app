@@ -2,6 +2,7 @@ $border: 1px solid rgba($primary, 0.75);
 
 .scenario-editor {
     margin: 0 0 0 px2em(42);
+    box-shadow: 0px 4px 16px rgba(0,0,0,0.1);  
 
     .scenario-editor__content {
         box-sizing: border-box;

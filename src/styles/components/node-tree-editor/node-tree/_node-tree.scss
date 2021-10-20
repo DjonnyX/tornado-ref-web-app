@@ -81,6 +81,7 @@ $node-tree-item-thumbnail-size: 32px;
         .node-tree-item__content {
             margin: 0 0 0 42px;
             box-sizing: border-box;
+            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
 
             .content {
                 user-select: none;
