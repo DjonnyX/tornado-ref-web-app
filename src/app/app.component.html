@@ -1,4 +1,4 @@
 <div class="app-container">
     <router-outlet></router-outlet>
-    <ts-cookie-consent></ts-cookie-consent>
+    <ts-cookie-consent *ngIf="!!isShowCoockieConcent"></ts-cookie-consent>
 </div>

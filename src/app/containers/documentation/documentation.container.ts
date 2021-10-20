@@ -18,26 +18,81 @@ import LOCALIZATION from '@app/localization';
 export const MENU_ROUTES: Array<INavRoute> = [
   {
     icon: "folder",
-    name: "#{Начало работы}", //"Настройки",
+    name: "documentation-menu_start-work", //"Настройки",
+    expanded: true,
     children: [
       {
-        icon: "license",
-        name: "menu_license-types", //"Типы лицензий",
-        route: "license-types",
+        icon: "folder",
+        name: "documentation-menu_registration", //"Типы лицензий",
+        route: "registration",
       },
       {
-        icon: "license",
-        name: "menu_integrations", //"Интеграции",
+        icon: "folder",
+        name: "documentation-menu_profile", //"Типы лицензий",
+        route: "registration",
+      },
+      {
+        icon: "folder",
+        name: "documentation-menu_integration", //"Интеграции",
         route: "integrations",
+        expanded: true,
+        children: [
+          {
+            icon: "folder",
+            name: "documentation-menu_integration-evotor", //"Интеграции",
+            route: "integrations",
+          }
+        ]
       },
       {
-        icon: "license",
-        name: "menu_licenses", //"Лицензии",
+        icon: "folder",
+        name: "documentation-menu_users-and-rights", //"Интеграции",
+        route: "integrations",
+        expanded: true,
+        children: [
+          {
+            icon: "folder",
+            name: "documentation-menu_users-settings", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "folder",
+            name: "documentation-menu_rights-settings", //"Интеграции",
+            route: "integrations",
+          }
+        ]
+      },
+      {
+        icon: "folder",
+        name: "documentation-menu_menu-tree-settings", //"Лицензии",
         route: "licenses",
+        expanded: true,
+        children: [
+          {
+            icon: "folder",
+            name: "documentation-menu_products", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "folder",
+            name: "documentation-menu_product-groups", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "folder",
+            name: "documentation-modifiers", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "folder",
+            name: "documentation-menu_menu-tree", //"Интеграции",
+            route: "integrations",
+          }
+        ]
       },
       {
-        icon: "application",
-        name: "menu_applications", //"Приложения",
+        icon: "folder",
+        name: "documentation-menu_ads-and-banners-settings", //"Приложения",
         route: "applications",
       },
     ]
@@ -91,6 +146,7 @@ export class DocumentationContainer extends BaseComponent implements OnInit, OnD
     public readonly localization: LocalizationService,
   ) {
     super();
+    console.log(this.roteCollection)
   }
 
   onToggleMenu(): void {

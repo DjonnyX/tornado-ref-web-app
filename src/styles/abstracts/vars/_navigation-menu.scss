@@ -1,9 +1,9 @@
 $navigation-menu-folder-border-bottom-width: 0px;
 
-$navigation-menu-background-color: $primary-color;
+$navigation-menu-background-color: darken($primary-color, 2%);
 $navigation-menu-background-color-inverse: $primary-color;
 
-$navigation-menu-item-background-color: $primary-color;
+$navigation-menu-item-background-color: darken($primary-color, 2%);
 $navigation-menu-item-background-color-inverse: $primary-color;
 
 $navigation-menu-folder-border-color: rgba(255,255,255,0.1);

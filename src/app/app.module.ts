@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, ModuleWithProviders, NgModule, Type } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -24,30 +24,40 @@ import { LocalizationModule } from './services/localization/localization.module'
 import LOCALIZATION from './localization';
 import { EmptyPageModule } from '@components/empty-page/empty-page.module';
 
+const imports: Array<(any[] | Type<any> | ModuleWithProviders<{}>)> = [
+  BrowserModule,
+  EmptyPageModule,
+  AppRoutingModule,
+  StoreModule.forRoot(
+    rootReducer,
+    { metaReducers }
+  ),
+  EffectsModule.forRoot(rootEffect),
+  StoreDevtoolsModule.instrument({
+    maxAge: 25,
+    logOnly: environment.production
+  }),
+  HttpClientModule,
+  BrowserAnimationsModule,
+  FlexLayoutModule,
+  QueryProgressessModule,
+  MatSnackBarModule,
+  LocalizationModule.forRoot(LOCALIZATION),
+];
+
+if (["all", "cms"].indexOf(environment.buildType) > -1) {
+  imports.push(
+    CookieConsentModule,
+  );
+}
+
 @NgModule({
   declarations: [
     AppComponent,
   ],
-  imports: [
-    BrowserModule,
-    EmptyPageModule,
-    AppRoutingModule,
-    StoreModule.forRoot(
-      rootReducer,
-      { metaReducers }
-    ),
-    EffectsModule.forRoot(rootEffect),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production
-    }),
-    HttpClientModule,
-    BrowserAnimationsModule,
-    FlexLayoutModule,
-    QueryProgressessModule,
-    MatSnackBarModule,
-    CookieConsentModule,
-    LocalizationModule.forRoot(LOCALIZATION),
+  imports,
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA,
   ],
   providers: [
     {
