@@ -9,6 +9,16 @@
                     <!-- Controls -->
                     <div class="entity__control">
                         <div class="entity__control__container">
+                            <div class="entity__control__checkbox">
+                                <span class="terminal-status"
+                                    [ngClass]="{'active': terminal.status === TerminalStatusTypes.ONLINE}"></span>
+                                <span class="terminal-status-text">
+                                    {{
+                                    terminal.status
+                                    }}
+                                </span>
+                            </div>
+
                             <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
                                 aria-label="Menu">
                                 <mat-icon class="icon">more_vert</mat-icon>
@@ -33,10 +43,10 @@
                                     <div class="content__name">
                                         {{terminal.name}}
                                     </div>
-                                    <div *ngIf="!!storesMap" class="content__description" style="text-transform: none;">
+                                    <div *ngIf="!!storesMap" class="entity__description" style="text-transform: none;">
                                         {{storesMap[terminal.storeId]?.name}}
                                     </div>
-                                    <div *ngIf="!!storesMap" class="content__description" style="text-transform: none;">
+                                    <div *ngIf="!!storesMap" class="entity__description" style="text-transform: none;">
                                         {{storesMap[terminal.storeId]?.address}}
                                     </div>
                                 </div>

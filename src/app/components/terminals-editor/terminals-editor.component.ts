@@ -14,6 +14,8 @@ import { LocalizationService } from '@app/services/localization/localization.ser
 })
 export class TerminalsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
+  public readonly TerminalStatusTypes = TerminalStatusTypes;
+
   @Input() collection: Array<ITerminal>;
 
   private _storesMap: { [id: string]: IStore };
