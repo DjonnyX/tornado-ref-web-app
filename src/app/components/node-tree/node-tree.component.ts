@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectorRef, ViewEncapsulation, ChangeDetectionStrategy } from '@angular/core';
 import { NodeTreeModes } from './enums/node-tree-modes.enum';
 import {
   INode, IProduct, ISelector, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage,
@@ -13,8 +13,19 @@ import { NodeTreeStores } from './enums/node-tree-stores.enum';
   templateUrl: './node-tree.component.html',
   styleUrls: ['./node-tree.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class NodeTreeComponent implements OnInit {
+
+  @Output() changeDisplayInactiveEntities = new EventEmitter<boolean>();
+
+  private _displayInactiveEntities: boolean = true;
+  @Input() set displayInactiveEntities(v: boolean) {
+    if (this._displayInactiveEntities !== v) {
+      this._displayInactiveEntities = v;
+    }
+  }
+  get displayInactiveEntities() { return this._displayInactiveEntities; }
 
   rootNode: INode;
 
@@ -256,5 +267,9 @@ export class NodeTreeComponent implements OnInit {
     }
 
     this.rootNode = this._nodes.find(item => item.id === this._rootNodeId);
+  }
+
+  onShowHiddenEntities(displayInactiveEntities: boolean) {
+    this.changeDisplayInactiveEntities.emit(displayInactiveEntities);
   }
 }

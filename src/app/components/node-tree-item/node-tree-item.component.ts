@@ -48,10 +48,18 @@ const arrayItemToDownward = (array: Array<string>, item: string): Array<string> 
   templateUrl: './node-tree-item.component.html',
   styleUrls: ['./node-tree-item.component.scss'],
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDestroy {
   readonly NodeTypes = NodeTypes;
+
+  private _displayInactiveNodes: boolean = true;
+  @Input() set displayInactiveNodes(v: boolean) {
+    if (this._displayInactiveNodes !== v) {
+      this._displayInactiveNodes = v;
+    }
+  }
+  get displayInactiveNodes() { return this._displayInactiveNodes; }
 
   @Input() type: NodeTypes | string;
 
@@ -833,12 +841,18 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    const collection = [...this.node.children];
+    let actualNode: INode;
+    if (this.node.type === NodeTypes.SELECTOR_NODE) {
+      actualNode = this._nodesDictionary[this.node.contentId];
+    } else {
+      actualNode = this.node;
+    }
+    const collection = [...(actualNode.children || [])];
     const node = collection[event.previousIndex];
     collection.splice(event.previousIndex, 1);
     collection.splice(event.currentIndex, 0, node);
     this.update.emit({
-      ...this.node,
+      ...actualNode,
       children: collection,
     });
   }

@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { VersionModule } from '@components/version/version.module';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { VersionModule } from '@components/version/version.module';
     MatInputModule,
     MatButtonModule,
     MatFormFieldModule,
+    MatSelectModule,
     VersionModule,
   ]
 })

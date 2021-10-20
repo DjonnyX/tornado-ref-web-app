@@ -53,10 +53,12 @@ import { IIntegrationServerInfoState } from './integration-server-info.state';
 import { IAccountState } from './account.state';
 import { IRoleState } from './role.state';
 import { IRolesState } from './roles.state';
+import { IDocumentationState } from './documentation.state';
 
 export interface IAppState {
     taUser: IUserState;
     taAdmin: IAdminState;
+    taDocumentation: IDocumentationState;
     taCapabilities: ICapabilitiesState;
     taProducts: IProductsState;
     taProduct: IProductState;

@@ -1,49 +1,66 @@
 <div class="editor">
-    <div>
-        <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)">
-        </ta-state-panel>
-    </div>
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 
-    <div class="entities-wrapper">
-        <div class="entity" *ngFor="let terminal of collection | search: searchPattern"
-            [class.disabled]="!isTerminalActive(terminal)">
-            <div class="entity__control">
-                <div class="entity__control__checkbox"></div>
-                <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
-                    aria-label="Menu">
-                    <mat-icon class="icon">more_vert</mat-icon>
-                </button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item (click)="onEdit(terminal)">
-                        <mat-icon>edit</mat-icon>
-                        <span>Редактировать</span>
-                    </button>
-                    <!--<button mat-menu-item (click)="onDelete(terminal)">
-                        <mat-icon>delete_forever</mat-icon>
-                        <span>Удалить</span>
-                    </button>-->
-                </mat-menu>
-            </div>
-            <div matRipple class="entity__body" (click)="onEdit(terminal)">
-                <div class="content">
-                    <div class="content__name">
-                        {{terminal.name}}
+    <!--Editor Scroll View-->
+    <div class="editor__scroll-view">
+        <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
+            <div class="entities-container entities-card-layout">
+                <div class="entity" *ngFor="let terminal of collection | search: searchPattern">
+                    <!-- Controls -->
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <div class="entity__control__checkbox">
+                                <span class="terminal-status"
+                                    [ngClass]="{'active': terminal.status === TerminalStatusTypes.ONLINE}"></span>
+                                <span class="terminal-status-text">
+                                    {{
+                                    terminal.status
+                                    }}
+                                </span>
+                            </div>
+
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="onEdit(terminal)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>
+                                        {{localization.get("common_action-edit")}}
+                                    </span>
+                                </button>
+                            </mat-menu>
+                            <!-- ActionMenu -->
+                        </div>
                     </div>
-                    <div *ngIf="!!storesMap" class="content__description" style="text-transform: none;">
-                        {{storesMap[terminal.storeId]?.name}}
-                    </div>
-                    <div *ngIf="!!storesMap" class="content__description" style="text-transform: none;">
-                        {{storesMap[terminal.storeId]?.address}}
+                    <!-- Controls -->
+
+                    <div matRipple class="entity__body" (click)="onEdit(terminal)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group" *ngIf="!!terminal">
+                                    <div class="content__name">
+                                        {{terminal.name}}
+                                    </div>
+                                    <div *ngIf="!!storesMap" class="entity__description" style="text-transform: none;">
+                                        {{storesMap[terminal.storeId]?.name}}
+                                    </div>
+                                    <div *ngIf="!!storesMap" class="entity__description" style="text-transform: none;">
+                                        {{storesMap[terminal.storeId]?.address}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="color"></div>
             </div>
         </div>
 
         <ng-container *ngIf="!collection || collection.length === 0">
             <div class="editor__missing-elements__wrapper">
                 <div class="missing-elements__text">
-                    Устройства отсутствуют
+                    {{localization.get("terminals_no-terminals")}}
                 </div>
             </div>
         </ng-container>

@@ -304,6 +304,8 @@ switch (environment.buildType) {
 })
 export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
+  public readonly isShowDocumentation = ["all", "cms"].indexOf(environment.buildType) > -1;
+
   isMobile$: Observable<boolean>;
 
   size$: Observable<string>;

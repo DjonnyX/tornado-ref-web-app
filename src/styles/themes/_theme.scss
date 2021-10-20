@@ -114,3 +114,15 @@ $block-color: lighten($primary, 10);
     position: fixed;
     z-index: 10000;
 }
+
+.mat-menu-content:not(:empty) {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+button.mat-menu-item {
+    box-sizing: border-box;
+    margin: 0;
+    width: 100%;
+}

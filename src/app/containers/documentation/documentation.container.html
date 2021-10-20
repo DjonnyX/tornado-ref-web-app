@@ -88,25 +88,7 @@
 
                 <!--Right Group-->
                 <div class="admin__toolbar__navigation-section__right-group">
-
-                    <span class="admin__toolbar__link" *ngIf="isShowDocumentation">
-                        <a [routerLink]="['../documentation']">
-                            {{localization.get("common_documentation")}}
-                        </a>
-                    </span>
-
-                    <!--Lang-->
-
                     <span class="tab-button__group">
-                        <!--Theme-->
-                        <!-- <span class="theme-button tab-button__group inverse">
-                            <button class="tab-button" (click)="onThemeToggle()">
-                                <div class="tab-button__container">
-                                    <div [ngClass]="btnThemeClasses"></div>
-                                </div>
-                            </button>
-                        </span> -->
-
                         <ng-template #languagePickerItemRenderer let-data="data">
                             <span class="dropdown-selector__option-image sm">
                                 <img [src]="data.data.__img__">
@@ -119,14 +101,6 @@
                         </ta-select>
                         <!--Lang-->
                     </span>
-
-                    <!--Sign-out-->
-                    <button (click)="signout()" class="admin-toolbar__button">
-                        <p>
-                            {{localization.get("common_exit")}}
-                        </p>
-                        <span class="admin-toolbar__icon icon-signout"></span>
-                    </button>
                 </div>
             </div>
         </div>
@@ -169,69 +143,3 @@
         </div>
     </div>
 </div>
-
-
-
-<!-- old sidenav 
-<mat-sidenav-container (backdropClick)="closeSidenav()" [hasBackdrop]="isMobile$ | async"
-    class="drawer-container admin__view__wrapper">
-    <mat-sidenav class="mat-elevation-z2 admin__view__navigation" role="navigation" ngClass.xs="sidenav--xs"
-        [class.is-mobile]="isMobile$ | async" [mode]="(isMobile$ | async) ? 'push' : 'side'"
-        [opened]="(sidenavIsOpen$ | async) || !(isMobile$ | async)">
-        <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection"
-            [selected]="currentRouteIndex$ | async" (select)="selectRoute($event)">
-            <div class="navigation-menu__toggle-button">
-                <div class="navigation-menu__toggle-button__icon">
-                    <div class="navigation-menu__toggle-button__icon__symbol icon-menu-arrow">
-                    </div>
-                </div>
-                <svg width="22" height="80" viewBox="0 0 22 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M17.0581 10.5941L4.94194 19.4059C1.83701 21.664 0 25.2715 0 29.1107V50.8893C0 54.7285 1.83701 58.336 4.94194 60.5941L17.0581 69.4059C20.163 71.664 22 75.2715 22 79.1107V0.889305C22 4.72854 20.163 8.33601 17.0581 10.5941Z" />
-                </svg>
-            </div>
-        </ta-navigation-menu>
-    </mat-sidenav>
-    <mat-sidenav-content class="content admin__view__content">
-        <main>
-            <router-outlet></router-outlet>
-        </main>
-    </mat-sidenav-content>
-</mat-sidenav-container> -->
-<!-- old sidenav -->
-
-
-
-
-
-
-<!-- 
-<div class="wrapper admin__wrapper">
-    <div class="main-toolbar admin__toolbar">
-        <span *ngIf="isMobile$ | async">
-            <button mat-icon-button (click)="toggleSidenav()">
-                <mat-icon>menu</mat-icon>
-            </button>
-        </span>
-        <span class="page-title">{{(currentRoute$ | async)?.name}}</span>
-        <span class="spacer"></span>
-        <button mat-icon-button (click)="signout()">
-            <mat-icon>exit_to_app</mat-icon>
-        </button>
-    </div>
-    <div id="admin__view__wrapper">
-        <div>
-            <ta-navigation-menu [collection]="roteCollection" [selected]="currentRouteIndex$ | async"
-                (select)="selectRoute($event)">
-            </ta-navigation-menu>
-        </div>
-        <div class="content admin__view__content">
-            <div class="saturn-page-logo__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
-                <img class="saturn-page-logo" src="embeded-assets/icons/saturn-page-logo.svg">
-            </div>
-            <main>
-                <router-outlet></router-outlet>
-            </main>
-        </div>
-    </div>
-</div> -->

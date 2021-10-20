@@ -1,7 +1,8 @@
 <div class="node-tree__editor xl-items-editor" [ngClass]="{'editor': mode !== 'product'}">
 
     <ta-state-panel [rights]="[0, 1]" [searchFieldClass]="searchFieldClass" [refInfo]="refInfo"
-        [hasShowRefInfo]="hasShowRefInfo" (search)="onSearch($event)"></ta-state-panel>
+        [hasShowRefInfo]="hasShowRefInfo" [displayInactiveEntities]="displayInactiveEntities"
+        (search)="onSearch($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)"></ta-state-panel>
 
     <div [ngClass]="{'editor__scroll-view': mode !== 'product'}">
         <div class="editor__container">
@@ -12,7 +13,8 @@
             <div class="node-tree__editor">
                 <ng-container *ngIf="!!nodes && !!products && !!selectors && !!defaultLanguage">
                     <ta-node-tree-item class="node-tree" *ngIf="!!rootNode" [depth]="0" [nodeId]="rootNode.id"
-                        [nodes]="nodes" [nodesDictionary]="nodesDictionary" [groupModifiersNodes]="groupModifiersNodes"
+                        [nodes]="nodes" [displayInactiveNodes]="displayInactiveEntities"
+                        [nodesDictionary]="nodesDictionary" [groupModifiersNodes]="groupModifiersNodes"
                         [groupMenuNodes]="groupMenuNodes" [products]="products" [selectors]="selectors"
                         [menuGroupsSelectors]="menuGroupsSelectors"
                         [modifiersGroupsSelectors]="modifiersGroupsSelectors" [businessPeriods]="businessPeriods"

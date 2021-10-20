@@ -1,4 +1,5 @@
 export * from "./admin.selectors";
+export * from "./documentation.selectors";
 export * from "./user.selector";
 export * from "./capabilities.selectors";
 export * from "./products.selectors";

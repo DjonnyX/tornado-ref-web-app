@@ -11,7 +11,7 @@
         </div>
     </div>
 
-    <ul *ngIf="isExpanded" class="dropdown-selector__list">
+    <ul *ngIf="isExpanded" class="dropdown-selector__list" [style]="listStyles">
         <li *ngFor="let item of items; let index = index;" class="dropdown-selector__list__item">
             <div class="dropdown-selector__list__item__container">
                 <label class="dropdown-selector__option " [for]="index">

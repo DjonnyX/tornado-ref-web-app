@@ -3,6 +3,7 @@ import { localStorageSync } from 'ngrx-store-localstorage';
 import { IAppState } from "../state";
 import userReducer from './user.reduser';
 import adminReducer from './admin.reducer';
+import documentationReducer from './documentation.reducer';
 import capabilitiesReducer from './capabilities.reducer';
 import productsReducer from './products.reducer';
 import productReducer from './product.reducer';
@@ -60,6 +61,7 @@ import roleReducer from "./role.reducer";
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
   taAdmin: adminReducer,
+  taDocumentation: documentationReducer,
   taCapabilities: capabilitiesReducer,
   taProducts: productsReducer,
   taProduct: productReducer,
@@ -117,7 +119,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {
   return localStorageSync({
-    keys: ['taUser', 'taAdmin', 'taCapabilities', 'taSettings'],
+    keys: ['taUser', 'taAdmin', 'documentationReducer', 'taCapabilities', 'taSettings'],
     rehydrate: true,
   })(reducer);
 }

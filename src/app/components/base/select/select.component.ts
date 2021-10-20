@@ -31,6 +31,15 @@ export class SelectComponent extends BaseComponent implements OnInit, ControlVal
 
   @Input() items: Array<any>;
 
+  listStyles: any = {};
+  @Input() set position(v: "left" | "right") {
+    this.listStyles = v === "left" ? {
+      left: 0,
+    } : {
+      right: 0,
+    }
+  }
+
   ctrlInput: FormControl;
 
   selected: any;
