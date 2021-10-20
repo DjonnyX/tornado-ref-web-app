@@ -26,6 +26,7 @@ const ROOT_LINKS = [
   "auth-error",
   "cookie-term-of-use",
   "page-not-found",
+  "documentation",
 ];
 
 @Component({

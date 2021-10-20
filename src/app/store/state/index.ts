@@ -1,4 +1,5 @@
 export * from "./app.state";
+export * from "./documentation.state";
 export * from "./user.state";
 export * from "./admin.state";
 export * from "./capabilities.state";

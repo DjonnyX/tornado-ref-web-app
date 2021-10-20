@@ -1,0 +1,145 @@
+<div class="admin__view">
+
+    <div [ngClass]="{'admin__toolbar': true, 'rolled-up': isRollupActive}" class="admin__toolbar">
+        <!--Logo section (menu.width)-->
+        <div class="admin__toolbar__logo-section">
+            <div class="admin__toolbar__logo-section__container">
+                <span *ngIf="isMobile$ | async">
+                    <button mat-icon-button (click)="toggleSidenav()">
+                        <mat-icon>menu</mat-icon>
+                    </button>
+                </span>
+                <!--Logo-->
+                <div class="admin__logo">
+                    <div class="admin__logo__container">
+                        <div class="admin__logo__icon icon-logo-tornado-server"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--Logo section (menu.width)-->
+        <!--Toolbar section (menu.width)-->
+        <div class="admin__toolbar__navigation-section">
+            <div class="admin__toolbar__navigation-section__container">
+
+                <!--Left Group-->
+                <div class="admin__toolbar__navigation-section__left-group">
+                    <!--Navigation Toggle Button-->
+                    <div [ngClass]="{'navigation-menu__toggle-button': true, 'active': isMenuOpened, 'inactive': !isMenuOpened}"
+                        (click)="onToggleMenu()">
+                        <div class="navigation-menu__toggle-button__container">
+                            <div class="navigation-menu__toggle-button__icon">
+                                <div class="navigation-menu__toggle-button__icon__line line-top"></div>
+                                <div class="navigation-menu__toggle-button__icon__line line-center"></div>
+                                <div class="navigation-menu__toggle-button__icon__line line-bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Navigation Toggle Button-->
+                    <div class="admin__toolbar__navline__group">
+
+                        <!-- Navline-->
+                        <ng-container *ngIf="(parentRoute$ | async)?.name as parentRouteName">
+                            <span class="admin__toolbar__page-title parent">
+                                {{localization.get(parentRouteName)}}
+                            </span>
+                            <span class="admin__toolbar__page-title">
+                                {{localization.get((currentRoute$ | async)?.name)}}
+                            </span>
+                        </ng-container>
+                        <!--Navline -->
+
+                        <!--Folder Header-->
+                        <!-- <div class="folder-header">
+                            <div class="folder-header__container">
+                                <div class="folder-header__left-corner">
+                                    <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M0 16C0 8.45753 0 4.68629 2.34315 2.34315C4.68629 0 8.45753 0 16 0H30V48H0V16Z"
+                                            fill="white" />
+                                    </svg>
+                                </div>
+                                <div class="folder-header__content">
+                                    <div class="folder-header__content__group">
+                                        <div class="folder-header__title-group">
+                                            <p class="folder-header__title secondary">{{localization.get((parentRoute$ |
+                                                async)?.name)}}</p>
+                                            <p class="folder-header__title">{{localization.get((currentRoute$ |
+                                                async)?.name)}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="folder-header__right-corner">
+                                    <svg width="73" height="48" viewBox="0 0 73 48" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M0 0H1.51939C9.12418 0 12.9266 0 16.2275 1.59688C19.5284 3.19375 21.8885 6.175 26.6089 12.1375L45.3911 35.8625C50.1115 41.825 52.4716 44.8062 55.7725 46.4031C59.0734 48 62.8758 48 70.4806 48H73H0V0Z"
+                                            fill="white" />
+                                    </svg>
+                                </div>
+                            </div>
+                        </div> -->
+                        <!--Folder Header-->
+                    </div>
+                </div>
+
+                <span class="spacer"></span>
+
+                <!--Right Group-->
+                <div class="admin__toolbar__navigation-section__right-group">
+                    <span class="tab-button__group">
+                        <ng-template #languagePickerItemRenderer let-data="data">
+                            <span class="dropdown-selector__option-image sm">
+                                <img [src]="data.data.__img__">
+                            </span>
+                            {{data.data.__name__}}
+                        </ng-template>
+                        <ta-select [formControl]="ctrlLanguage" [items]="languages" valuePropName="code"
+                            position="right" displayValuePropName="data.__name__"
+                            [itemRenderer]="languagePickerItemRenderer">
+                        </ta-select>
+                        <!--Lang-->
+                    </span>
+                </div>
+            </div>
+        </div>
+        <!--Toolbar section (menu.width)-->
+    </div>
+
+    <div
+        [ngClass]="{'drawer-container': true, 'admin__view__wrapper': true, 'opened': isMenuOpened, 'closed': !isMenuOpened, 'rolled-up': isRollupActive}">
+        <div class="admin__view__navigation">
+            <!--Toggle Button-->
+            <!-- <div [ngClass]="{'navigation-menu__rollup-button': true, 'active': isRollupActive, 'inactive': !isRollupActive}"
+                (click)="toggleRollupButton()">
+                <div class="navigation-menu__rollup-button__icon">
+                    <div class="navigation-menu__rollup-button__icon__symbol icon-menu-arrow">
+                    </div>
+                </div>
+                <svg width="22" height="80" viewBox="0 0 22 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                        d="M17.0581 10.5941L4.94194 19.4059C1.83701 21.664 0 25.2715 0 29.1107V50.8893C0 54.7285 1.83701 58.336 4.94194 60.5941L17.0581 69.4059C20.163 71.664 22 75.2715 22 79.1107V0.889305C22 4.72854 20.163 8.33601 17.0581 10.5941Z" />
+                </svg>
+            </div> -->
+            <!--Toggle Button-->
+            <div class="admin__view__navigation__scroll-view">
+                <!-- Navigation Menu -->
+                <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection"
+                    [selected]="currentRouteIndex$ | async" (select)="selectRoute($event)">
+                </ta-navigation-menu>
+                <!-- Navigation Menu -->
+            </div>
+        </div>
+        <div class="admin__view__content">
+            <!-- <div class="saturn-page-logo__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
+                <img class="saturn-page-logo" src="embeded-assets/icons/saturn-page-logo.svg">
+            </div> -->
+            <div class="admin__view__content__scroll-view">
+                <main style="height: 100%;">
+                    <router-outlet></router-outlet>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>

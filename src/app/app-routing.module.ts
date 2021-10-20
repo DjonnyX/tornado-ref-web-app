@@ -75,9 +75,6 @@ const routes: Routes = [
       import('@containers/documentation/documentation.module').then(
         module => module.DocumentationModule,
       ),
-    canActivate: [
-      AuthGuard,
-    ]
   },
 ];
 
