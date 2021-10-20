@@ -89,8 +89,8 @@
                 <!--Right Group-->
                 <div class="admin__toolbar__navigation-section__right-group">
 
-                    <span class="admin__toolbar__link">
-                        <a href="#">
+                    <span class="admin__toolbar__link" *ngIf="isShowDocumentation">
+                        <a [routerLink]="['../documentation']">
                             {{localization.get("common_documentation")}}
                         </a>
                     </span>
@@ -114,7 +114,8 @@
                             {{data.data.__name__}}
                         </ng-template>
                         <ta-select [formControl]="ctrlLanguage" [items]="languages" valuePropName="code"
-                            displayValuePropName="data.__name__" [itemRenderer]="languagePickerItemRenderer">
+                            position="right" displayValuePropName="data.__name__"
+                            [itemRenderer]="languagePickerItemRenderer">
                         </ta-select>
                         <!--Lang-->
                     </span>
