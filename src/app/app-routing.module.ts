@@ -4,15 +4,7 @@ import { EmptyPageComponent } from '@components/empty-page/empty-page.component'
 import { environment } from '@environments';
 import { AuthGuard } from './guards/auth.guard';
 
-const routes: Routes = [
-  {
-    path: 'documentation',
-    loadChildren: () =>
-      import('@containers/documentation/documentation.module').then(
-        module => module.DocumentationModule,
-      ),
-  },
-];
+const routes: Routes = [];
 
 const CMS_ROUTES_AND_ADMIN_BASE: Routes = [
   {
@@ -132,15 +124,34 @@ switch (environment.buildType) {
     break;
   case "documentation": {
     routes.push(
-      {
-        path: '',
-        redirectTo: 'documentation',
-        pathMatch: 'full'
-      }
+      ...[
+        {
+          path: 'documentation',
+          loadChildren: () =>
+            import('@containers/documentation/documentation.module').then(
+              module => module.DocumentationModule,
+            ),
+        },
+        {
+          path: '',
+          redirectTo: 'documentation',
+          pathMatch: 'full'
+        },
+      ]
     );
     break;
   }
   case "all":
+    routes.push({
+      path: 'documentation',
+      loadChildren: () =>
+        import('@containers/documentation/documentation.module').then(
+          module => module.DocumentationModule,
+        ),
+    });
+    routes.push(...CMS_ROUTES_AND_ADMIN_BASE);
+    routes.push(...CMS_ROUTES);
+    break;
   case "cms":
   default:
     routes.push(...CMS_ROUTES_AND_ADMIN_BASE);

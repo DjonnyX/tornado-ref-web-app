@@ -90,9 +90,16 @@
                 <div class="admin__toolbar__navigation-section__right-group">
 
                     <span class="admin__toolbar__link" *ngIf="isShowDocumentation">
-                        <a [routerLink]="['../documentation']">
-                            {{localization.get("common_documentation")}}
-                        </a>
+                        <ng-container *ngIf="!!isDocumentationMode else liveDocumentation">
+                            <a [href]="'http://doc.' + host + '/documentation'" target="_blank">
+                                {{localization.get("common_documentation")}}
+                            </a>
+                        </ng-container>
+                        <ng-template #liveDocumentation>
+                            <a [routerLink]="['../documentation']">
+                                {{localization.get("common_documentation")}}
+                            </a>
+                        </ng-template>
                     </span>
 
                     <!--Lang-->

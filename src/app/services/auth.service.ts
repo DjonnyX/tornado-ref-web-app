@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   hasAnyRights(rights: Array<UserRights>): boolean {
-    if (rights === undefined || !this._profile?.account?.role?.rights || this._profile.account.role.rights.length === 0) {
+    if (rights === undefined || rights.length === 0 || !this._profile?.account?.role?.rights || this._profile.account.role.rights.length === 0) {
       return true;
     }
 

@@ -20,6 +20,7 @@ export const MENU_ROUTES: Array<INavRoute> = [
     icon: "folder",
     name: "documentation-menu_start-work", //"Настройки",
     expanded: true,
+    roles: ["any"],
     children: [
       {
         icon: "folder",
@@ -146,7 +147,6 @@ export class DocumentationContainer extends BaseComponent implements OnInit, OnD
     public readonly localization: LocalizationService,
   ) {
     super();
-    console.log(this.roteCollection)
   }
 
   onToggleMenu(): void {

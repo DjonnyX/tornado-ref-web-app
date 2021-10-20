@@ -87,7 +87,7 @@ server {
 # documentation
 server {
     listen 80;
-    server_name documentation.localhost;
+    server_name doc.localhost;
     root /usr/share/nginx/html/documentation;
     index index.html;
 
