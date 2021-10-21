@@ -55,26 +55,26 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
 
 const CMS_MENU_ROUTES: Array<INavRoute> = [
   {
-    icon: "license",
+    icon: "user",
     name: "menu_user-profile", //"Профиль пользователя",
     route: "profile",
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
   },
   {
-    icon: "folder",
+    icon: "folder-employees",
     name: "menu_employees", //"Работники",
     expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
     children: [
       {
-        icon: "license",
+        icon: "accounts",
         name: "menu_accounts", //" Саб-пользователи",
         route: "accounts",
         roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
         right: UserRights.READ_ACCOUNTS,
       },
       {
-        icon: "license",
+        icon: "roles",
         name: "menu_roles", //" Роли",
         route: "roles",
         roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
@@ -83,7 +83,7 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
     ],
   },
   {
-    icon: "folder",
+    icon: "folder-settings",
     name: "menu_user-settings", //"Настройки",
     expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],

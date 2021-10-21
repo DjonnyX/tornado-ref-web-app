@@ -23,12 +23,12 @@ export const MENU_ROUTES: Array<INavRoute> = [
     roles: ["any"],
     children: [
       {
-        icon: "folder",
+        icon: "registration",
         name: "documentation-menu_registration", //"Типы лицензий",
         route: "registration",
       },
       {
-        icon: "folder",
+        icon: "user",
         name: "documentation-menu_profile", //"Типы лицензий",
         route: "registration",
       },
@@ -39,60 +39,60 @@ export const MENU_ROUTES: Array<INavRoute> = [
         expanded: true,
         children: [
           {
-            icon: "folder",
+            icon: "blank",
             name: "documentation-menu_integration-evotor", //"Интеграции",
             route: "integrations",
           }
         ]
       },
       {
-        icon: "folder",
+        icon: "folder-employees",
         name: "documentation-menu_users-and-rights", //"Интеграции",
         route: "integrations",
         expanded: true,
         children: [
           {
-            icon: "folder",
+            icon: "accounts",
             name: "documentation-menu_users-settings", //"Интеграции",
             route: "integrations",
           },
           {
-            icon: "folder",
+            icon: "roles",
             name: "documentation-menu_rights-settings", //"Интеграции",
             route: "integrations",
           }
         ]
       },
       {
-        icon: "folder",
+        icon: "folder-menu",
         name: "documentation-menu_menu-tree-settings", //"Лицензии",
         route: "licenses",
         expanded: true,
         children: [
           {
-            icon: "folder",
+            icon: "menu-theme",
             name: "documentation-menu_products", //"Интеграции",
             route: "integrations",
           },
           {
-            icon: "folder",
+            icon: "products",
             name: "documentation-menu_product-groups", //"Интеграции",
             route: "integrations",
           },
           {
-            icon: "folder",
+            icon: "modifiers-group",
             name: "documentation-modifiers", //"Интеграции",
             route: "integrations",
           },
           {
-            icon: "folder",
+            icon: "menu-group",
             name: "documentation-menu_menu-tree", //"Интеграции",
             route: "integrations",
           }
         ]
       },
       {
-        icon: "folder",
+        icon: "blank",
         name: "documentation-menu_ads-and-banners-settings", //"Приложения",
         route: "applications",
       },
