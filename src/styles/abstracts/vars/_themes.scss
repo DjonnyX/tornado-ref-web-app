@@ -38,6 +38,7 @@ $themes: (
     //Entity
     entityGroupListColor: rgba($secondary-color, 0.4),
     entityBackgroundColor: $white,
+    entityBorderColor: #dbdbdb,
     entityTitleColor: $primary-color,
     entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($secondary-color, 0.4),
@@ -172,6 +173,7 @@ $themes: (
     //Entity
     entityGroupListColor: $white,
     entityBackgroundColor: $primary-color-100,
+    entityBorderColor: #555c6e,
     entityTitleColor: $background-color,
     entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($background-color, 0.4),

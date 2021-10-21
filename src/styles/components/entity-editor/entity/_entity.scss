@@ -40,7 +40,10 @@
     height: 100%;
     overflow: hidden;
     border-radius: $entity-border-radius;
-    box-shadow: 0px 4px 16px rgba(0,0,0,0.1);    
+    box-shadow: 0px 3px 6px rgba(0,0,0,0.03);
+    border-width: 1px;
+    border-style: solid;
+    // border-color: #dbdbdb; //Themes
     pointer-events: unset;
 
     &__wrapper {
@@ -139,6 +142,7 @@
 
     &__coast {
         font-size: 18px;
+        font-weight: 500;
         margin: 0;
     }
 
