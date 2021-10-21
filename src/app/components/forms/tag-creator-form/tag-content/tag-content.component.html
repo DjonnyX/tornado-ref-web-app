@@ -1,4 +1,8 @@
 <div [ngClass]="{'tag-content': true, 'main-options-wrapper': isEditMode}">
+  <h2 class="form-header" *ngIf="!!data">
+    {{data.name.value}}
+  </h2>
+
   <div class="resources" *ngIf="isEditMode">
     <div class="resources-wrapper double">
       <div class="resources-n">
@@ -6,8 +10,8 @@
           Изображения
         </p>
 
-        <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault" [resetButtonDisabled]="isEqualWithDefault('main')"
-          (reset)="onResetResourceToDefault('main')"
+        <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
+          [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
           [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined" [assets]="assets"
           class="transparent" (confirm)="onConfirmSave($event)" (upload)="onMainResourceUpload($event, 'main')">
         </ta-asset-picker-uploader>
@@ -21,7 +25,8 @@
         <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonDisabled]="isEqualWithDefault('icon')"
           (reset)="onResetResourceToDefault('icon')"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
-          [color]="color" class="transparent" (confirm)="onConfirmSave($event)" (upload)="onIconResourceUpload($event, 'icon')">
+          [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
+          (upload)="onIconResourceUpload($event, 'icon')">
         </ta-asset-picker-uploader>
       </div>
     </div>
@@ -37,11 +42,6 @@
   </div>
 
   <div>
-    <h2 class="form-header" *ngIf="!!data">
-      {{data.name.value}}
-    </h2>
-
-
     <ng-container *ngIf="!isEdit; else editFields">
       <div class="form__block" *ngIf="!!data">
         <div class="form-item full-width">

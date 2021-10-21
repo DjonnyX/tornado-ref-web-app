@@ -4,11 +4,11 @@
     </h2>
 
     <ng-container *ngIf="!isEdit; else editFields">
-      <div class="form__block" *ngIf="!!data">
+      <ng-container *ngIf="!!data">
         <div class="form-item full-width">
           <ta-key-value [data]="data.description"></ta-key-value>
         </div>
-      </div>
+      </ng-container>
     </ng-container>
     <ng-template #editFields>
       <div class="form__main-options">

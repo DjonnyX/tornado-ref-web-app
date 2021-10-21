@@ -47,48 +47,51 @@ $warn-800: darken(mat-color($ta-warn), 20);
 $block-color: lighten($primary, 10);
 
 .mat-checkbox-layout {
-    .mat-checkbox-label {
-        line-height: 14px;
-        white-space: break-spaces;
-        word-break: break-word;
-    }
+  .mat-checkbox-label {
+    line-height: 14px;
+    white-space: break-spaces;
+    word-break: break-word;
+  }
 }
 
 ::ng-deep {
-    .color-accent {
-        .mat-form-field-appearance-legacy .mat-form-field-legacy {
-            color: $accent;
-        }
-        .mat-form-field-underline {
-            background: rgba($accent, 0.42);
-        }
-        mat-form-field {
-            .mat-hint,
-            input,
-            ::placeholder,
-            .mat-form-field-label {
-                color: white;
-            }
-        }
+  .color-accent {
+    .mat-form-field-appearance-legacy .mat-form-field-legacy {
+      color: $accent;
     }
 
-    .color-primary {
-        .mat-accent .mat-input-element {
-            color: black;
-        }
-
-        // .mat-form-field.mat-focused .mat-form-field-label.mat-accent {
-        //color: black;
-        // }
-
-        .button-close {
-            color: black;
-        }
+    .mat-form-field-underline {
+      background: rgba($accent, 0.42);
     }
+
+    mat-form-field {
+
+      .mat-hint,
+      input,
+      ::placeholder,
+      .mat-form-field-label {
+        color: white;
+      }
+    }
+  }
+
+  .color-primary {
+    .mat-accent .mat-input-element {
+      color: black;
+    }
+
+    // .mat-form-field.mat-focused .mat-form-field-label.mat-accent {
+    //color: black;
+    // }
+
+    .button-close {
+      color: black;
+    }
+  }
 }
 
 ::ng-deep .mat-form-field-infix {
-    width: auto !important;
+  width: auto !important;
 }
 
 .mat-button,
@@ -98,7 +101,7 @@ $block-color: lighten($primary, 10);
 .mat-flat-button,
 .mat-fab,
 .mat-mini-fab {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 .mat-button,
@@ -107,22 +110,22 @@ $block-color: lighten($primary, 10);
 .mat-flat-button,
 .mat-fab,
 .mat-mini-fab {
-    border-radius: 3px;
+  border-radius: 3px;
 }
 
 .cdk-overlay-container {
-    position: fixed;
-    z-index: 10000;
+  position: fixed;
+  z-index: 10000;
 }
 
 .mat-menu-content:not(:empty) {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 button.mat-menu-item {
-    box-sizing: border-box;
-    margin: 0;
-    width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  width: 100%;
 }

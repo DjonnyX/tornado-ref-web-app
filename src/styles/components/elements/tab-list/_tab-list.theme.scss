@@ -1,31 +1,33 @@
 .tab-list {
 
   &__item {
-      
-      @include themify($themes) {
-            background-color: themed('tabListItemBackgroundColor');
-        }
+
+    @include themify($themes) {
+      background-color: themed('tabListItemBackgroundColor');
+    }
 
     &__name {
-        @include themify($themes) {
-            color: themed('tabListNameColor');
-        }
+      @include themify($themes) {
+        color: themed('tabListNameColor');
+      }
     }
 
     &.selected {
-        @include themify($themes) {
-            background-color: themed('tabListItemBackgroundColorSelected');
-        }
+      @include themify($themes) {
+        background-color: themed('tabListItemBackgroundColorSelected');
+      }
 
-        .tab-list__item__name {
-            @include themify($themes) {
-                color: themed('tabListNameColorSelected');
-            }
+      .tab-list__item__name {
+        font-weight: bold;
+
+        @include themify($themes) {
+          color: themed('tabListNameColorSelected');
         }
+      }
     }
 
     &:not(.selected):hover {
-        // background: darken($primary-color, 15);
+      // background: darken($primary-color, 15);
     }
   }
 }

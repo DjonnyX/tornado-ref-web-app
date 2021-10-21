@@ -1,5 +1,9 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
     <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
+        <h2 class="form-header" *ngIf="!!data">
+            {{data.name.value}}
+        </h2>
+
         <div class="resources" *ngIf="isEditMode">
             <div class="resources-wrapper single">
                 <div class="resources-n">
@@ -13,10 +17,6 @@
         </div>
 
         <div>
-            <h2 class="form-header" *ngIf="!!data">
-                {{data.name.value}}
-            </h2>
-
             <div class="form__main-options">
                 <ng-container *ngIf="!isEditMode || isEdit; else info">
                     <div class="form__input-block">

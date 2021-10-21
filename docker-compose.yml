@@ -9,4 +9,4 @@ services:
         ports:
             - "3000:80"
         environment:
-            API_ADDRESS: 192.168.8.103:8080
+            API_ADDRESS: 192.168.8.102:8080
