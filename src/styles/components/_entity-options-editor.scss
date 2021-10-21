@@ -1,4 +1,6 @@
 .entity-options-editor {
+  box-sizing: border-box;
+
   .main-options-wrapper {
     display: grid;
     grid-template-columns: 1fr;

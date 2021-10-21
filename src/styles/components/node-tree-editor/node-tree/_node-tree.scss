@@ -84,6 +84,11 @@ $node-tree-item-thumbnail-size: 32px;
             box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
 
             .content {
+            
+                &:hover {
+                    filter: brightness(95%);
+                }
+
                 user-select: none;
                 cursor: pointer;
                 display: grid;

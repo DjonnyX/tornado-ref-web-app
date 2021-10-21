@@ -1,141 +1,147 @@
 $border: 1px solid rgba($primary, 0.75);
 
 .scenario-editor {
-    margin: 0 0 0 px2em(42);
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+  margin: 0 0 0 px2em(42);
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
 
-    .scenario-editor__content {
-        box-sizing: border-box;
+  .scenario-editor__content {
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 6px;
+
+    .content {
+
+      &:hover {
+        filter: brightness(95%);
+      }
+
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      user-select: none;
+      cursor: pointer;
+      border-radius: 0;
+      align-items: baseline;
+      overflow: hidden;
+      padding: px2em(4);
+      align-items: center;
+
+      .content__name {
+        text-overflow: ellipsis;
+        word-break: keep-all;
         overflow: hidden;
-        border-radius: 6px;
-
-        .content {
-            display: grid;
-            grid-template-columns: auto 1fr auto;
-            user-select: none;
-            cursor: pointer;
-            border-radius: 0;
-            align-items: baseline;
-            overflow: hidden;
-            padding: px2em(4);
-            align-items: center;
-
-            .content__name {
-                text-overflow: ellipsis;
-                word-break: keep-all;
-                overflow: hidden;
-                white-space: nowrap;
-                padding: px2em(12);
-                margin: auto 0;
-                border-radius: 0;
-            }
-        }
-
-        .scenario-list__item {
-            user-select: none;
-            cursor: pointer;
-            display: grid;
-            grid-template-columns: 1fr auto;
-            padding: px2em(4) px2em(4) px2em(4) px2em(14);
-
-            .item__content {
-                display: flex;
-                align-items: center;
-                padding-right: px2em(20);
-                height: px2em(44);
-
-                .content__text {
-                    margin-left: 10px;
-                    font-size: 14px;
-                }
-
-                .content__checkbox-active {
-                    padding-left: px2em(12);
-                    padding-right: px2em(20);
-                }
-            }
-        }
-
-        // .scenario-list__item:not(:last-child) {
-        //     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        // }
-
-        .entity__action-menu__button {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        white-space: nowrap;
+        padding: px2em(12);
+        margin: auto 0;
+        border-radius: 0;
+      }
     }
 
-    .button-create-scenario {
-        padding: 0;
-        min-width: px2em(38);
-        height: 2.375em;
+    .scenario-list__item {
+      user-select: none;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      padding: px2em(4) px2em(4) px2em(4) px2em(14);
+
+      .item__content {
         display: flex;
         align-items: center;
-        justify-content: center;
+        padding-right: px2em(20);
+        height: px2em(44);
 
-        mat-icon {
-            height: 1em;
-            font-size: 1.5em;
+        .content__text {
+          margin-left: 10px;
+          font-size: 14px;
         }
+
+        .content__checkbox-active {
+          padding-left: px2em(12);
+          padding-right: px2em(20);
+        }
+      }
     }
+
+    // .scenario-list__item:not(:last-child) {
+    //     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    // }
+
+    .entity__action-menu__button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  .button-create-scenario {
+    padding: 0;
+    min-width: px2em(38);
+    height: 2.375em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    mat-icon {
+      height: 1em;
+      font-size: 1.5em;
+    }
+  }
 }
 
 .primary {
-    // .scenario-editor {
-    //     .scenario-editor__content {
-    //         background: $instance-node-color;
+  // .scenario-editor {
+  //     .scenario-editor__content {
+  //         background: $instance-node-color;
 
-    //         .scenario-list__item {
-    //             &.disabled {
-    //                 opacity: 0.5;
-    //             }
-    //         }
-    //     }
-    // }
-    // .is-instance {
-    //     .scenario-editor {
-    //         .scenario-editor__content {
-    //             background: $instance-node-color;
-    //         }
-    //     }
-    // }
-    .disabled {
-        .scenario-editor {
-            .scenario-editor__content {
-                filter: brightness(90%);
-            }
-        }
+  //         .scenario-list__item {
+  //             &.disabled {
+  //                 opacity: 0.5;
+  //             }
+  //         }
+  //     }
+  // }
+  // .is-instance {
+  //     .scenario-editor {
+  //         .scenario-editor__content {
+  //             background: $instance-node-color;
+  //         }
+  //     }
+  // }
+  .disabled {
+    .scenario-editor {
+      .scenario-editor__content {
+        filter: brightness(90%);
+      }
     }
+  }
 }
 
 .secondary {
-    .scenario-editor {
-        .scenario-editor__content {
-            // border-left: $border;
-            // border-right: $border;
-            // border-bottom: $border;
+  .scenario-editor {
+    .scenario-editor__content {
+      // border-left: $border;
+      // border-right: $border;
+      // border-bottom: $border;
 
-            .scenario-list__item {
-                &.disabled {
-                    filter: brightness(90%);
-                }
-            }
+      .scenario-list__item {
+        &.disabled {
+          filter: brightness(90%);
         }
+      }
     }
-    // .is-instance {
-    //     .scenario-editor {
-    //         .scenario-editor__content {
-    //             background: $instance-node-color;
-    //         }
-    //     }
-    // }
-    .disabled {
-        .scenario-editor {
-            .scenario-editor__content {
-                filter: brightness(90%);
-            }
-        }
+  }
+
+  // .is-instance {
+  //     .scenario-editor {
+  //         .scenario-editor__content {
+  //             background: $instance-node-color;
+  //         }
+  //     }
+  // }
+  .disabled {
+    .scenario-editor {
+      .scenario-editor__content {
+        filter: brightness(90%);
+      }
     }
+  }
 }
