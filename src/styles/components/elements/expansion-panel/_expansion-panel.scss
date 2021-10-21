@@ -1,5 +1,5 @@
 .expansion-panel {
-    margin-bottom: 15px;
+    padding-bottom: 30px;
 
     &__wrapper {
         display: grid;
@@ -64,5 +64,11 @@
         &.closed {
             display: none;
         }
+    }
+
+    &.closed {
+        padding-bottom: 0px;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
     }
 }

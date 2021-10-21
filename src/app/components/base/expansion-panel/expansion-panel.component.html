@@ -12,7 +12,7 @@
         </span>
     </span>
 </ng-template>
-<div class="expansion-panel">
+<div class="expansion-panel" [ngClass]="{'opened': opened, 'closed': !opened}">
     <div class="expansion-panel__wrapper">
         <div class="expansion-panel__header" (click)="onToggleExpand($event)">
             <div class="expansion-panel__header__container">

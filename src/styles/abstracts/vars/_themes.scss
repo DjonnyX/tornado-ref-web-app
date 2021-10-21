@@ -38,7 +38,7 @@ $themes: (
     //Entity
     entityGroupListColor: rgba($secondary-color, 0.4),
     entityBackgroundColor: $white,
-    entityBorderColor: #dbdbdb,
+    entityBorderColor: $component-border-color,
     entityTitleColor: $primary-color,
     entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($secondary-color, 0.4),
@@ -133,7 +133,8 @@ $themes: (
     //Expansion Panel
     expansionPanelBackgroundColor: $expansion-panel-background-color,
     expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover,
-    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active,
+    expansionPanelBackgroundColorHighlight: $expansion-panel-background-color-highlight,
+    expansionPanelBorderColorHover: $expansion-panel-border-color-hover,
     expansionPanelIconColor: $expansion-panel-icon-color,
     expansionPanelTitleColor: $expansion-panel-title-color,
   ),
@@ -173,7 +174,7 @@ $themes: (
     //Entity
     entityGroupListColor: $white,
     entityBackgroundColor: $primary-color-100,
-    entityBorderColor: #555c6e,
+    entityBorderColor: $component-border-color-inverse,
     entityTitleColor: $background-color,
     entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($background-color, 0.4),
@@ -255,7 +256,8 @@ $themes: (
     //Expansion Panel
     expansionPanelBackgroundColor: $expansion-panel-background-color-inverse,
     expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover-inverse,
-    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active-inverse,
+    expansionPanelBackgroundColorHighlight: $expansion-panel-background-color-highlight-inverse,
+    expansionPanelBorderColorHover: $expansion-panel-border-color-hover-inverse,
     expansionPanelIconColor: $expansion-panel-icon-color-invere,
     expansionPanelTitleColor: $expansion-panel-title-color-inverse,
   ),

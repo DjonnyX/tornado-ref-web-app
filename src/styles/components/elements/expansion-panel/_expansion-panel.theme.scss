@@ -13,19 +13,25 @@
 
 .expansion-panel {
 
+    &:hover, &:active {
+        @include themify($themes) {
+            background-color: rgba(themed('expansionPanelBackgroundColorHighlight'), 1.0); 
+        }
+    }
+
     &__header {
 
-        &:hover {
-            @include themify($themes) {
-                background-color: themed('expansionPanelBackgroundColorHover'); 
-            }
-        }
+        // &:hover {
+        //     @include themify($themes) {
+        //         background-color: rgba(themed('expansionPanelBackgroundColorHover'), 0.5);
+        //     }
+        // }
 
-        &:active {
-            @include themify($themes) {
-                background-color: themed('expansionPanelBackgroundColorActive'); 
-            }
-        }
+        // &:active {
+        //     @include themify($themes) {
+        //         background-color: themed('expansionPanelBackgroundColorActive'); 
+        //     }
+        // }
     }
 
     &__title {
@@ -37,6 +43,21 @@
     &__icon {
         @include themify($themes) {
             color: themed('expansionPanelIconColor'); 
+        }
+    }
+
+    &.closed {
+        @include themify($themes) {
+            background-color: themed('expansionPanelBackgroundColorHover')!important; 
+        }
+        @include themify($themes) {
+            border-bottom-color: themed('expansionPanelBorderColorHover')!important; 
+        }
+
+        .expansion-panel__header {
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorHover')!important; 
+            }
         }
     }
 }

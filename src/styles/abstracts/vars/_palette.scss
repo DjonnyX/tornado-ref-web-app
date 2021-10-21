@@ -23,6 +23,8 @@ $primary-color-1025: darken($primary-color, 2.5%);
 $primary-color-1050: darken($primary-color, 5%);
 $primary-color-1100: darken($primary-color, 10%);
 
+$primary-highlight-color: #dae3ed;
+$primary-highlight-color-inverse: #21263c;
 
 $white: #fff;
 $black: #000;
@@ -37,6 +39,12 @@ $divider-color-inverse: #2E333F;
 
 $border-color: #d7d8db;
 $border-color-inverse: $divider-color-inverse;
+
+$component-border-color: #dbdbdb;
+$component-border-color-inverse: #555c6e;
+
+$group-border-color: #c5c5c5;
+$group-border-color-inverse: $component-border-color-inverse;
 
 // Components
 
