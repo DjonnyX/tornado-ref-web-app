@@ -145,7 +145,7 @@
     &__weight {
         font-size: 18px;
         margin: 0;
-        opacity: 0.5;
+        filter: brightness(90%);
 
         &::after {
             content: "/";

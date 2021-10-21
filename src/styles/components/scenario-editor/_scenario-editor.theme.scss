@@ -56,7 +56,7 @@
                     }
 
                     &.disabled {
-                        opacity: 0.5;
+                        filter: brightness(90%);
                     }
                 }
 
@@ -129,7 +129,7 @@
                     }
 
                     &.disabled {
-                        opacity: 0.5;
+                        filter: brightness(90%);
                     }
                 }
 

@@ -2,7 +2,7 @@ $border: 1px solid rgba($primary, 0.75);
 
 .scenario-editor {
     margin: 0 0 0 px2em(42);
-    box-shadow: 0px 4px 16px rgba(0,0,0,0.1);  
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
 
     .scenario-editor__content {
         box-sizing: border-box;
@@ -104,7 +104,7 @@ $border: 1px solid rgba($primary, 0.75);
     .disabled {
         .scenario-editor {
             .scenario-editor__content {
-                opacity: 0.5;
+                filter: brightness(90%);
             }
         }
     }
@@ -119,7 +119,7 @@ $border: 1px solid rgba($primary, 0.75);
 
             .scenario-list__item {
                 &.disabled {
-                    opacity: 0.5;
+                    filter: brightness(90%);
                 }
             }
         }
@@ -134,7 +134,7 @@ $border: 1px solid rgba($primary, 0.75);
     .disabled {
         .scenario-editor {
             .scenario-editor__content {
-                opacity: 0.5;
+                filter: brightness(90%);
             }
         }
     }
