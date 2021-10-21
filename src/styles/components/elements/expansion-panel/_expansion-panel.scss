@@ -1,10 +1,11 @@
 .expansion-panel {
-    padding-bottom: 30px;
+    // padding-bottom: 30px;
 
     &__wrapper {
         display: grid;
         grid-template-rows: auto auto;
         padding: 0px 15px;
+        gap: 10px;
     }
 
     &__icon__drag {
@@ -57,7 +58,7 @@
     }
 
     &__content {
-        // padding: 20px;
+        padding-bottom: 20px;
 
         &.opened {
             display: block;
@@ -69,7 +70,7 @@
     }
 
     &.closed {
-        padding-bottom: 10px;
+        // padding-bottom: 10px;
         // box-shadow: 0px 3px 6px rgba(0,0,0,0.03);
         
         .expansion-panel__header {
