@@ -43,8 +43,8 @@ $border-color-inverse: $divider-color-inverse;
 $component-border-color: #dbdbdb;
 $component-border-color-inverse: #555c6e;
 
-$group-border-color: #c5c5c5;
-$group-border-color-inverse: $component-border-color-inverse;
+$group-border-color: #d3d3d3;
+$group-border-color-inverse: #363b4a;
 
 // Components
 
@@ -52,7 +52,7 @@ $background-color: #F0F0F0;
 $background-color-inverse: #1e2129;
 $background-color-1100: darken($background-color, 10%);
 
-$inactive-color-light: #dfdfdf;
+$inactive-color-light: #e3e3e3;//#dfdfdf;
 $inactive-color-light-inverse: $secondary-color;
 
 $menu-expantion-item-color: #60636A;
