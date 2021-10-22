@@ -33,6 +33,10 @@ $black: #000;
 // $primary-color-200: #50656e;
 // $primary-color-300: #627983;
 
+$background-color: #F0F0F0;
+$background-color-inverse: #1e2129;
+$background-color-1100: darken($background-color, 10%);
+
 
 $divider-color: #F0F0F0;
 $divider-color-inverse: #2E333F;
@@ -41,16 +45,12 @@ $border-color: #d7d8db;
 $border-color-inverse: $divider-color-inverse;
 
 $component-border-color: #dbdbdb;
-$component-border-color-inverse: #555c6e;
+$component-border-color-inverse: #4a5062;//#555c6e;
 
-$group-border-color: #d3d3d3;
+$group-border-color: $component-border-color;//$background-color;//#d3d3d3;
 $group-border-color-inverse: #363b4a;
 
 // Components
-
-$background-color: #F0F0F0;
-$background-color-inverse: #1e2129;
-$background-color-1100: darken($background-color, 10%);
 
 $inactive-color-light: #e3e3e3;//#dfdfdf;
 $inactive-color-light-inverse: $secondary-color;
