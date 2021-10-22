@@ -2,14 +2,14 @@ $expansion-panel-icon-group-transform-x: 22px; //icon size
 
 $expansion-panel-background-color: none;
 $expansion-panel-background-color-hover: $white;//$inactive-color-light;
-$expansion-panel-background-color-highlight: $highlight-secondary-color;//$inactive-color-light;
+$expansion-panel-background-color-highlight: $highlight-primary-color;//$inactive-color-light;
 $expansion-panel-icon-color: rgba($secondary-color, 0.9);
 $expansion-panel-title-color: rgba($secondary-color, 0.9);
 $expansion-panel-border-color-hover: $group-border-color;
 
 $expansion-panel-background-color-inverse: none;
 $expansion-panel-background-color-hover-inverse: $inactive-color-light-inverse;
-$expansion-panel-background-color-highlight-inverse: $highlight-secondary-color-inverse;//$inactive-color-light-inverse;
+$expansion-panel-background-color-highlight-inverse: $highlight-primary-color-inverse;//$inactive-color-light-inverse;
 $expansion-panel-icon-color-invere: $background-color;
 $expansion-panel-title-color-inverse: $background-color;
 $expansion-panel-border-color-hover-inverse: $group-border-color-inverse;
