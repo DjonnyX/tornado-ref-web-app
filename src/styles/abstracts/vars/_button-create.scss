@@ -1,13 +1,20 @@
+$button-create-border-radius: 6px;
+
 // Light
 $button-create-color: $primary-color;
-$button-create-background-color: $component-border-color;
+$button-create-background-color: $inactive-color-light;//$component-border-color;//$inactive-color-light;
+$button-create-border-color: $entity-border-color;
+
 // hover
 $button-create-color-hover: $background-color;
 $button-create-background-color-hover: $accent-color;
+$button-create-border-color-hover: $button-create-background-color-hover;
 
 // Dark
 $button-create-color-inverse: $background-color;
 $button-create-background-color-inverse: $component-border-color-inverse;
+$button-create-border-color-inverse: $entity-border-color-inverse;
 // hover
 $button-create-color-hover-inverse: $background-color;
 $button-create-background-color-hover-inverse: $accent-color;
+$button-create-border-color-hover-inverse: $button-create-background-color-hover-inverse;

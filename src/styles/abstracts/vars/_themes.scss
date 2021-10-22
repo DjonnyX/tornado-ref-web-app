@@ -34,6 +34,13 @@ $themes: (
     searchIconColorClosed: $search-icon-color-closed,
     searchIconColorOpened: $search-icon-color-opened,
     //
+    //Checkbox
+    CheckboxBorderColorInactive: $checkbox-border-color-inactive,
+    CheckboxBackgroundColorInactive: $checkbox-background-color-inactive,
+    CheckboxBorderColorActive: $checkbox-border-color-active,
+    CheckboxBackgroundColorActive: $checkbox-background-color-active,
+
+    //
     textColor: $primary-color,
     //Entity
     entityGroupListColor: rgba($secondary-color, 0.4),
@@ -51,8 +58,10 @@ $themes: (
     // Button Create
     buttonCreateColor: $button-create-color,
     buttonCreateBackgroundColor: $button-create-background-color,
+    buttonCreateBorderColor: $button-create-border-color,
     buttonCreateColorHover: $button-create-color-hover,
     buttonCreateBackgroundColorHover: $button-create-background-color-hover,
+    buttonCreateBorderColorHover: $button-create-border-color-hover,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal,
     tabButtonBorderColorNormal: $tab-button-border-normal,
@@ -183,6 +192,12 @@ $themes: (
     searchIconColorClosed: $search-icon-color-closed-inverse,
     searchIconColorOpened: $search-icon-color-opened-inverse,
     //
+    //Checkbox
+    CheckboxBorderColorInactive: $checkbox-border-color-inactive-inverse,
+    CheckboxBackgroundColorInactive: $checkbox-background-color-inactive-inverse,
+    CheckboxBorderColorActive: $checkbox-border-color-active-inverse,
+    CheckboxBackgroundColorActive: $checkbox-background-color-active-inverse,
+    //
     textColor: $white,
     //Entity
     entityGroupListColor: $white,
@@ -200,8 +215,10 @@ $themes: (
     // Button Create
     buttonCreateColor: $button-create-color-inverse,
     buttonCreateBackgroundColor: $button-create-background-color-inverse,
+    buttonCreateBorderColor: $button-create-border-color-inverse,
     buttonCreateColorHover: $button-create-color-hover-inverse,
     buttonCreateBackgroundColorHover: $button-create-background-color-hover-inverse,
+    buttonCreateBorderColorHover: $button-create-border-color-hover-inverse,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal-theme-dark,
     tabButtonBorderColorNormal: $tab-button-border-normal-theme-dark,

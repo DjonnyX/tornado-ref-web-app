@@ -2,12 +2,14 @@
     @include themify($themes) {
         color: themed("buttonCreateColor");
         background-color: themed("buttonCreateBackgroundColor") !important;
+        border-color: themed("buttonCreateBorderColor") !important;
     }
 
     &:hover {
         @include themify($themes) {
             color: themed("buttonCreateColorHover");
             background-color: themed("buttonCreateBackgroundColorHover") !important;
+            border-color: themed("buttonCreateBorderColorHover") !important;
         }
     }
 }
