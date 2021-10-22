@@ -3,8 +3,7 @@
 @import "../../../../../styles/utils/px2em";
 
 .selector-content {
-    margin-top: px2em(44);
-    margin-bottom: px2em(18);
+    margin: px2em(10) 0;
 
     .selector__description {
         height: px2em(140);

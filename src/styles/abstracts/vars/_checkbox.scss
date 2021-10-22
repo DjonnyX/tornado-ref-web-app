@@ -1,0 +1,29 @@
+    // Light
+    // active
+    $checkbox-border-color-active: $accent-color;
+    $checkbox-background-color-active: $accent-color;
+
+    // inactive
+    $checkbox-border-color-inactive: $primary-color-300;
+    $checkbox-background-color-inactive: #eee;
+
+    // Dark
+    // active
+    $checkbox-border-color-active-inverse: $accent-color;
+    $checkbox-background-color-active-inverse: $accent-color;
+
+    // inactive
+    $checkbox-border-color-inactive-inverse: $primary-color;
+    $checkbox-background-color-inactive-inverse: $primary-color-300;
+
+//Secondary
+
+    // Light
+    // active
+    $checkbox-border-color-active-secondary: $accent-secondary-color;
+    $checkbox-background-color-active-secondary: $accent-secondary-color;
+
+    // Dark
+    // active
+    $checkbox-border-color-active-secondary-inverse: $accent-secondary-color;
+    $checkbox-background-color-active-secondary-inverse: $accent-secondary-color;

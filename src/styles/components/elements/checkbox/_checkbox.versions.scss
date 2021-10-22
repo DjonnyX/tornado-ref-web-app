@@ -7,6 +7,7 @@
 
         .checkmark {
             @include box(20px);
+            border-width: 2px;
         }
 
         input:checked ~ .checkmark { //Checked
@@ -27,6 +28,7 @@
 
         .checkmark {
             @include box(16px);
+            border-width: 2px;
         }
 
         input:checked ~ .checkmark { //Checked

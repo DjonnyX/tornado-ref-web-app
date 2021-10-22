@@ -9,6 +9,7 @@ import { extractURL } from './utils/url-extractor.util';
 import { UserActions } from '@store/actions/user.action';
 import { LocalizationService } from './services/localization/localization.service';
 import { DefaultRoleTypes } from '@djonnyx/tornado-types';
+import { environment } from '@environments';
 
 const ROOT_LINKS = [
   "signin",
@@ -35,6 +36,8 @@ const ROOT_LINKS = [
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+
+  public readonly isShowCoockieConcent = ["all", "cms"].indexOf(environment.buildType) > -1;
 
   private _url: string;
 
@@ -118,7 +121,11 @@ export class AppComponent implements OnInit {
               }
               // signout
               else if (!!this.extractUrlPath(this._url) || this.isReturnedRoute(this._url)) {
-                this._router.navigate(["signin"]);
+                if (["all", "cms"].indexOf(environment.buildType) > -1) {
+                  this._router.navigate(["signin"]);
+                } else {
+                  this._router.navigate(["documentation"]);
+                }
               }
             }
           }),

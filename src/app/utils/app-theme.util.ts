@@ -89,7 +89,16 @@ export const themeDescriptorPropsToThemeData = (data: any, options?: { exclude?:
 }
 
 const compileThemeDescriptorProp = (data: any, lastProp?: string, result: IThemeDescriptior = {}): TOutputData | undefined => {
-    if (typeof data === "boolean") {
+    if (isAsset(lastProp)) {
+        const type = ThemeDescriptiorKeyTypes.ASSET;
+        return {
+            prop: lastProp,
+            value: {
+                value: data,
+                type,
+            },
+        };
+    } else if (typeof data === "boolean") {
         return {
             prop: lastProp,
             value: {
@@ -106,8 +115,6 @@ const compileThemeDescriptorProp = (data: any, lastProp?: string, result: ITheme
             }
 
             data = Color(data).string(8);
-        } else if (isAsset(lastProp)) {
-            type = ThemeDescriptiorKeyTypes.ASSET;
         } else if (isNumber(lastProp)) {
             type = ThemeDescriptiorKeyTypes.NUMBER;
             data = Number(data);

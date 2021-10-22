@@ -30,9 +30,21 @@ $entity-body-cards-height-m: 90px;
 
 $entity-border-radius: 8px;
 
+//Disabled
+$entity-disabled-filter: brightness(90%);
+$entity-disabled-opacity: 0.6;
+
 //Templates
 $entity-image-cards-size: $entity-body-cards-height - 2px;
 $entity-image-cards-size-m: $entity-body-cards-height-m - 2px;
 $entity-image-list-size: 76px;
 $entity-image-list-size-m: 62px;
 $entity-image-radius: 6px;
+
+//Light
+$entity-background-color: $white;
+$entity-border-color: $component-border-color;
+
+//Dark
+$entity-background-color-inverse: $primary-color-100;
+$entity-border-color-inverse: $component-border-color-inverse;

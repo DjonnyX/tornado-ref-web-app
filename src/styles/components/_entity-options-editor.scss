@@ -1,6 +1,17 @@
 .entity-options-editor {
+  box-sizing: border-box;
+
+  .main-options-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+
   @include themify($themes) {
-      color: themed("formFontColor");
+    color: themed("formFontColor");
   }
 
   .entity-options-editor__back-button {
@@ -11,12 +22,17 @@
   }
 
   .form {
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+
     @include themify($themes) {
-        background-color: themed("formBackgroundColor");
+      background-color: themed("formBackgroundColor");
     }
+
     .form-header {
+      text-transform: uppercase;
+
       @include themify($themes) {
-          color: themed("formFontColor");
+        color: themed("formFontColor");
       }
     }
 
@@ -34,17 +50,13 @@
   .entity-options-editor {
     padding: px2em(40);
 
-    .main-options-wrapper {
-      display: grid;
-      grid-template-columns: px2em(298) auto;
-      gap: px2em(32);
-    }
-
     .form {
       padding: px2em(54) px2em(60) px2em(60);
+
       @include themify($themes) {
-          background-color: themed("formBackgroundColor");
+        background-color: themed("formBackgroundColor");
       }
+
       border-radius: 3px;
     }
 
@@ -54,18 +66,13 @@
   }
 }
 
-@media screen and (max-width: 599px) {
+@media screen and (max-width: 1400px) {
   .entity-options-editor {
     @include themify($themes) {
-        background-color: themed("formBackgroundColor");
+      background-color: themed("formBackgroundColor");
     }
-    min-height: 100%;
 
-    .main-options-wrapper {
-      display: grid;
-      grid-template-columns: px2em(192) auto;
-      gap: px2em(20);
-    }
+    min-height: 100%;
 
     .form {
       padding: px2em(34);

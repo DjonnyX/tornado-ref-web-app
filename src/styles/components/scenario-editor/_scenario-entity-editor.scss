@@ -95,7 +95,7 @@
             .scenario-entity-editor__content {
                 .content {
                     &.disabled {
-                        opacity: 0.5;
+                        filter: brightness(90%);
                     }
                 }
             }
@@ -109,7 +109,7 @@
             .scenario-entity-editor__content {
                 .content {
                     &.disabled {
-                        opacity: 0.5;
+                        filter: brightness(90%);
                     }
                 }
             }

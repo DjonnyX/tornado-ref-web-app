@@ -1,0 +1,26 @@
+.dialog-sheet {
+
+    &-container {
+
+    }
+}
+
+.cdk-overlay-container {
+
+    .cdk-global-overlay-wrapper {
+
+        .cdk-overlay-pane {
+            min-width: 50vw;
+        }
+    }
+}
+
+.mat-dialog-container {
+    border-radius: 12px !important;
+
+    .mat-dialog-title {
+        font-size: 20px;
+        font-weight: 400;
+        color: $primary-color;
+    }
+}

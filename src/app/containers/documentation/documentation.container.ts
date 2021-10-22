@@ -18,26 +18,82 @@ import LOCALIZATION from '@app/localization';
 export const MENU_ROUTES: Array<INavRoute> = [
   {
     icon: "folder",
-    name: "#{Начало работы}", //"Настройки",
+    name: "documentation-menu_start-work", //"Настройки",
+    expanded: true,
+    roles: ["any"],
     children: [
       {
-        icon: "license",
-        name: "menu_license-types", //"Типы лицензий",
-        route: "license-types",
+        icon: "registration",
+        name: "documentation-menu_registration", //"Типы лицензий",
+        route: "registration",
       },
       {
-        icon: "license",
-        name: "menu_integrations", //"Интеграции",
+        icon: "user",
+        name: "documentation-menu_profile", //"Типы лицензий",
+        route: "registration",
+      },
+      {
+        icon: "folder",
+        name: "documentation-menu_integration", //"Интеграции",
         route: "integrations",
+        expanded: true,
+        children: [
+          {
+            icon: "blank",
+            name: "documentation-menu_integration-evotor", //"Интеграции",
+            route: "integrations",
+          }
+        ]
       },
       {
-        icon: "license",
-        name: "menu_licenses", //"Лицензии",
+        icon: "folder-employees",
+        name: "documentation-menu_users-and-rights", //"Интеграции",
+        route: "integrations",
+        expanded: true,
+        children: [
+          {
+            icon: "accounts",
+            name: "documentation-menu_users-settings", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "roles",
+            name: "documentation-menu_rights-settings", //"Интеграции",
+            route: "integrations",
+          }
+        ]
+      },
+      {
+        icon: "folder-menu",
+        name: "documentation-menu_menu-tree-settings", //"Лицензии",
         route: "licenses",
+        expanded: true,
+        children: [
+          {
+            icon: "menu-theme",
+            name: "documentation-menu_products", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "products",
+            name: "documentation-menu_product-groups", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "modifiers-group",
+            name: "documentation-modifiers", //"Интеграции",
+            route: "integrations",
+          },
+          {
+            icon: "menu-group",
+            name: "documentation-menu_menu-tree", //"Интеграции",
+            route: "integrations",
+          }
+        ]
       },
       {
-        icon: "application",
-        name: "menu_applications", //"Приложения",
+        icon: "blank",
+        name: "documentation-menu_ads-and-banners-settings", //"Приложения",
         route: "applications",
       },
     ]

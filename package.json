@@ -12,6 +12,7 @@
     "build": "npm run build:cms && npm run build:admin",
     "build:cms": "ng build --configuration cms --output-path=dist/tornado-cms",
     "build:admin": "ng build --configuration admin --output-path=dist/tornado-admin",
+    "build:documentation": "ng build --configuration documentation --output-path=dist/tornado-documentation",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",

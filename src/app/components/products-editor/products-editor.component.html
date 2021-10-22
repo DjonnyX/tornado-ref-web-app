@@ -45,15 +45,15 @@
             <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
                 <!--Entity Wrapper-->
                 <ng-container *ngIf="actualSystemTags | sortProducts: 'position' as tagsList">
-                    <div cdkDropList [cdkDropListData]="actualSystemTags" (cdkDropListDropped)="onDropSystemTag($event)"
-                        class="drag-drop-list">
+                    <div><!--cdkDropList [cdkDropListData]="actualSystemTags" (cdkDropListDropped)="onDropSystemTag($event)"
+                        class="drag-drop-list"-->
                         <ng-container *ngFor="let systemTag of tagsList">
-                            <ta-expansion-panel cdkDrag [cdkDragData]="systemTag" *ngIf="(filteredCollection | filterProducts:systemTag |
+                            <ta-expansion-panel *ngIf="(filteredCollection | filterProducts:systemTag |
                             search:searchPattern:defaultLanguage?.code).length as systemTagsLength"
                                 [headerTemplateData]="{
                                         title: !!systemTag?.name ? systemTag.name + ' (' + systemTagsLength + ')' : localization.get('common_not-allocated')
-                                    }">
-                                <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
+                                    }"><!--cdkDrag [cdkDragData]="systemTag" -->
+                                <!-- <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
                                 <ng-container *ngSwitchCase="LayoutTypes.LIST">
                                     <div class="editor__group-list">
                                         <div class="entities-container entities-list-layout"

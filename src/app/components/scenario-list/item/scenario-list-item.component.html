@@ -1,4 +1,4 @@
-<div matRipple class="scenario-list__item" [class.disabled]="!scenario.active" (click)="onEdit($event)">
+<div matRipple class="content scenario-list__item" [class.disabled]="!scenario.active" (click)="onEdit($event)">
     <span class="item__content">
         <!-- <div class="content__checkbox-active">
             <mat-checkbox *ngIf="!lock" color="primary" #checkboxActive [checked]="scenario.active"
@@ -6,8 +6,9 @@
             </mat-checkbox>
         </div> -->
         <!--My checkbox-->
-        <div class="entity__control__checkbox md">
-            <ta-checkbox *ngIf="!scenario.lock" #checkboxActive [checked]="scenario.active" (click)="onToggleActive($event)"></ta-checkbox>
+        <div class="entity__control__checkbox md secondary">
+            <ta-checkbox *ngIf="!scenario.lock" #checkboxActive [checked]="scenario.active"
+                (click)="onToggleActive($event)"></ta-checkbox>
         </div>
         <!--My checkbox-->
         <div class="content__text">

@@ -281,6 +281,22 @@ const LOCALIZATION = {
         "scenario_action": "Действие",
         "scenario_percentage-extra-charge-or-discount": "Процентная наценка / скидка",
         "scenario_fixed-price": "Фиксированная цена",
+
+        // documentation
+        "documentation-menu_start-work": "Начало работы",
+        "documentation-menu_registration": "Регистрация",
+        "documentation-menu_profile": "Профиль пользователя",
+        "documentation-menu_integration": "Интеграции",
+        "documentation-menu_integration-evotor": "Интеграция с \"Эвотор\"",
+        "documentation-menu_users-and-rights": "Пользователи и права",
+        "documentation-menu_users-settings": "Настройки пользователей",
+        "documentation-menu_rights-settings": "Права пользователей",
+        "documentation-menu_menu-tree-settings": "Формирование дерева меню",
+        "documentation-menu_products": "Продукты",
+        "documentation-menu_product-groups": "Группы продуктов",
+        "documentation-modifiers": "Модификации продуктов и комбо",
+        "documentation-menu_menu-tree": "Дерево меню",
+        "documentation-menu_ads-and-banners-settings": "Настройка рекламы и баннеров",
     },
     "eng": {
         "__img__": "embeded-assets/langs/lang-en.png",
@@ -564,6 +580,22 @@ const LOCALIZATION = {
         "scenario_action": "Action",
         "scenario_percentage-extra-charge-or-discount": "Persent extra charge / discount",
         "scenario_fixed-price": "Fixed price",
+
+        // documentation
+        "documentation-menu_start-work": "Beginning of work",
+        "documentation-menu_registration": "Registration",
+        "documentation-menu_profile": "User profile",
+        "documentation-menu_integration": "Integration",
+        "documentation-menu_integration-evotor": "Integration with \"Evotor\"",
+        "documentation-menu_users-and-rights": "Users and rights",
+        "documentation-menu_users-settings": "User preferences",
+        "documentation-menu_rights-settings": "User rights",
+        "documentation-menu_menu-tree-settings": "Formation of the menu tree",
+        "documentation-menu_products": "Products",
+        "documentation-menu_product-groups": "Product groups",
+        "documentation-modifiers": "Product modifications and combos",
+        "documentation-menu_menu-tree": "Menu tree",
+        "documentation-menu_ads-and-banners-settings": "Setting up ads and banners",
     }
 };
 

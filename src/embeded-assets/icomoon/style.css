@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'icomoon';
-  src:  url('fonts/icomoon.eot?fvri62');
-  src:  url('fonts/icomoon.eot?fvri62#iefix') format('embedded-opentype'),
-    url('fonts/icomoon.ttf?fvri62') format('truetype'),
-    url('fonts/icomoon.woff?fvri62') format('woff'),
-    url('fonts/icomoon.svg?fvri62#icomoon') format('svg');
+  src:  url('fonts/icomoon.eot?8opgvj');
+  src:  url('fonts/icomoon.eot?8opgvj#iefix') format('embedded-opentype'),
+    url('fonts/icomoon.ttf?8opgvj') format('truetype'),
+    url('fonts/icomoon.woff?8opgvj') format('woff'),
+    url('fonts/icomoon.svg?8opgvj#icomoon') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,6 +25,69 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+.icon-plus:before {
+  content: "\e932";
+}
+.icon-refresh:before {
+  content: "\e936";
+}
+.icon-logo-tornado-with-descriptor:before {
+  content: "\e935";
+}
+.icon-nav-line-arrow:before {
+  content: "\e934";
+}
+.icon-logo-tornado:before {
+  content: "\e933";
+}
+.icon-user:before {
+  content: "\e92b";
+}
+.icon-accounts:before {
+  content: "\e92c";
+}
+.icon-registration:before {
+  content: "\e92d";
+}
+.icon-roles:before {
+  content: "\e92e";
+}
+.icon-blank:before {
+  content: "\e92f";
+}
+.icon-folder-settings:before {
+  content: "\e930";
+}
+.icon-folder-employees:before {
+  content: "\e931";
+}
+.icon-drag:before {
+  content: "\e92a";
+}
+.icon-scenario:before {
+  content: "\e923";
+}
+.icon-inactive:before {
+  content: "\e924";
+}
+.icon-edit:before {
+  content: "\e925";
+}
+.icon-delete:before {
+  content: "\e926";
+}
+.icon-move-up:before {
+  content: "\e927";
+}
+.icon-upward:before {
+  content: "\e928";
+}
+.icon-backward:before {
+  content: "\e929";
+}
+.icon-menu-arrow:before {
+  content: "\e922";
+}
 .icon-logo-tornado-server:before {
   content: "\e921";
 }

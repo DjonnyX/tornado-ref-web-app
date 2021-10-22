@@ -3,7 +3,7 @@
  */
 
 @import "./palette";
-@import "./tab-button"; //???
+@import "./tab-button";
 
 $themes: (
   light: (
@@ -12,9 +12,12 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color,
+    //Admin View
+    adminViewBorderColor: $admin-view-border-color,
     // Admin Toolbar
-    adminToolbarBackgroundColor: $primary-color,
-    adminToolbarLogoSectionBackgroundColor: $primary-color,
+    adminToolbarBackgroundColor: $admin-toolbar-background-color,
+    adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color,
+    adminToolbarLogoSectionBackgroundColor: $admin-toolbar-logo-section-background-color,
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color,
     navigationMenuItemBackgroundColor: $navigation-menu-item-background-color,
@@ -34,10 +37,20 @@ $themes: (
     searchIconColorClosed: $search-icon-color-closed,
     searchIconColorOpened: $search-icon-color-opened,
     //
+    //Checkbox
+    CheckboxBorderColorInactive: $checkbox-border-color-inactive,
+    CheckboxBackgroundColorInactive: $checkbox-background-color-inactive,
+    CheckboxBorderColorActive: $checkbox-border-color-active,
+    CheckboxBackgroundColorActive: $checkbox-background-color-active,
+
+    CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary,
+    CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary,
+    //
     textColor: $primary-color,
     //Entity
     entityGroupListColor: rgba($secondary-color, 0.4),
-    entityBackgroundColor: $white,
+    entityBackgroundColor: $entity-background-color,//$white,
+    entityBorderColor: $entity-border-color,
     entityTitleColor: $primary-color,
     entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($secondary-color, 0.4),
@@ -47,6 +60,13 @@ $themes: (
     // Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
+    // Button Create
+    buttonCreateColor: $button-create-color,
+    buttonCreateBackgroundColor: $button-create-background-color,
+    buttonCreateBorderColor: $button-create-border-color,
+    buttonCreateColorHover: $button-create-color-hover,
+    buttonCreateBackgroundColorHover: $button-create-background-color-hover,
+    buttonCreateBorderColorHover: $button-create-border-color-hover,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal,
     tabButtonBorderColorNormal: $tab-button-border-normal,
@@ -61,18 +81,22 @@ $themes: (
     folderHeaderBackgroundColor: $white,
     folderHeaderColor: $primary-color,
     // Node Tree
-    nodeTreeWayBorderColor: $primary-color-500,
-    nodeTreeItemBackgroundColor: $white,
+    nodeTreeBorderColor: $node-tree-border-color,
+    nodeTreeWayBorderColor: $node-tree-way-border-color,
+    nodeTreeItemBackgroundColor: $white, //?
     nodeTreeItemDividerBorderColor: $primary-color-800,
-    nodeTreeItemTitleColor: $primary-color-200,
-    nodeTreeItemFontColor: $primary-color-200,
+    nodeTreeItemTitleColor: $node-tree-item-title-color,
+    nodeTreeItemFontColor: $node-tree-item-title-color,
     nodeTreeWayHiderBackgroundColor: $background-color,
     nodeTreeStatePanelBackgroundColor: $background-color,
     nodeTreeStatePanelBorderColor: $background-color,
+
+    // nodeTreeButtonCreateColor: $node-tree-button-create-color,
+    // nodeTreeButtonCreateBackgroundColor: $node-tree-button-create-background-color,
     // Node tree secondary
-    nodeTreeSecondaryWayBorderColor: $primary-color-600,
-    nodeTreeSecondaryItemBackgroundColor: $primary-color-700,
-    nodeTreeSecondaryItemDividerBorderColor: $primary-color-600,
+    nodeTreeSecondaryWayBorderColor: $primary-color-500,
+    nodeTreeSecondaryItemBackgroundColor: $white,
+    nodeTreeSecondaryItemDividerBorderColor: $primary-color-800,
     nodeTreeSecondaryItemTitleColor: $primary-color-200,
     nodeTreeSecondaryItemFontColor: $primary-color-200,
     nodeTreeSecondaryWayHiderBackgroundColor: $white,
@@ -80,8 +104,11 @@ $themes: (
     nodeTreeSecondaryStatePanelBorderColor: $white,
     // scenario editor
     scenarioEditorColor: $primary-color-200,
-    scenarioEditorBackgroundColor: $white,
-    scenarioEditorBorderColor: $primary-color-800,
+    scenarioEditorBackgroundColor: $scenario-editor-background-color,//$white,
+    scenarioEditorBackgroundColorDisabled: $scenario-editor-background-color-disabled,
+    scenarioEditorBorderColor: $scenario-editor-border-color,
+    scenarioEditorBorderItemColor: $scenario-editor-border-item-color,//$primary-color-800,
+    scenarioEditorBorderItemColorDisabled: $scenario-editor-border-item-color-disabled,
     scenarioEditorListItemBackgroundColor: $white,
     scenarioEditorCreateScenarioButtonColor: $white,
     scenarioEditorContentColor: $primary-color-200,
@@ -93,17 +120,30 @@ $themes: (
     scenarioEditorActionMenuButtonColor: $primary-color-200,
     // scenario editor secondary
     scenarioEditorSecondaryColor: $primary-color-200,
-    scenarioEditorSecondaryBackgroundColor: $primary-color-700,
-    scenarioEditorSecondaryBorderColor: $primary-color-600,
-    scenarioEditorSecondaryListItemBackgroundColor: $primary-color-700,
-    scenarioEditorSecondaryCreateScenarioButtonColor: $primary-color-700,
+    scenarioEditorSecondaryBackgroundColor: $scenario-editor-background-color,//$white,
+    scenarioEditorSecondaryBorderColor: $primary-color-800,
+    scenarioEditorSecondaryListItemBackgroundColor: $white,
+    scenarioEditorSecondaryCreateScenarioButtonColor: $white,
     scenarioEditorSecondaryContentColor: $primary-color-200,
-    scenarioEditorSecondaryContentBackgroundColor: $primary-color-700,
+    scenarioEditorSecondaryContentBackgroundColor: $white,
     scenarioEditorSecondaryContentNameBackgroundColor: $primary-color-200,
     scenarioEditorSecondaryContentNameActiveBackgroundColor: rgb(66, 176, 240),
     scenarioEditorSecondaryContentNameHoverColor: $primary-color-400,
     scenarioEditorSecondaryContentNameHoverBackgroundColor: $primary-color-800,
     scenarioEditorSecondaryActionMenuButtonColor: $primary-color-200,
+
+    // scenarioEditorSecondaryColor: $primary-color-200,
+    // scenarioEditorSecondaryBackgroundColor: $primary-color-700,
+    // scenarioEditorSecondaryBorderColor: $primary-color-600,
+    // scenarioEditorSecondaryListItemBackgroundColor: $primary-color-700,
+    // scenarioEditorSecondaryCreateScenarioButtonColor: $primary-color-700,
+    // scenarioEditorSecondaryContentColor: $primary-color-200,
+    // scenarioEditorSecondaryContentBackgroundColor: $primary-color-700,
+    // scenarioEditorSecondaryContentNameBackgroundColor: $primary-color-200,
+    // scenarioEditorSecondaryContentNameActiveBackgroundColor: rgb(66, 176, 240),
+    // scenarioEditorSecondaryContentNameHoverColor: $primary-color-400,
+    // scenarioEditorSecondaryContentNameHoverBackgroundColor: $primary-color-800,
+    // scenarioEditorSecondaryActionMenuButtonColor: $primary-color-200,
     // form
     formBackgroundColor: $white,
     formFontColor: $primary-color,
@@ -116,10 +156,12 @@ $themes: (
     tabListItemBackgroundColor: $tab-list-item-background-color,
     tabListNameColorSelected: $tab-list-name-color-selected,
     tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected,
+    tabListItemBackgroundColorHover: $tab-list-item-background-color-hover,
     //Expansion Panel
     expansionPanelBackgroundColor: $expansion-panel-background-color,
     expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover,
-    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active,
+    expansionPanelBackgroundColorHighlight: $expansion-panel-background-color-highlight,
+    expansionPanelBorderColorHover: $expansion-panel-border-color-hover,
     expansionPanelIconColor: $expansion-panel-icon-color,
     expansionPanelTitleColor: $expansion-panel-title-color,
   ),
@@ -129,10 +171,13 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
+    //Admin View
+    adminViewBorderColor: $admin-view-border-color-inverse,
     // Admin Toolbar
-    adminToolbarBackgroundColor: #171920,
+    adminToolbarBackgroundColor: $admin-toolbar-background-color-inverse,
+    adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color-inverse,
     //$primary-color,
-    adminToolbarLogoSectionBackgroundColor: $navigation-menu-background-color-inverse,
+    adminToolbarLogoSectionBackgroundColor: $admin-toolbar-logo-section-background-color-inverse,
     // new
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color-inverse,
@@ -155,10 +200,20 @@ $themes: (
     searchIconColorClosed: $search-icon-color-closed-inverse,
     searchIconColorOpened: $search-icon-color-opened-inverse,
     //
+    //Checkbox
+    CheckboxBorderColorInactive: $checkbox-border-color-inactive-inverse,
+    CheckboxBackgroundColorInactive: $checkbox-background-color-inactive-inverse,
+    CheckboxBorderColorActive: $checkbox-border-color-active-inverse,
+    CheckboxBackgroundColorActive: $checkbox-background-color-active-inverse,
+
+    CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary-inverse,
+    CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary-inverse,
+    //
     textColor: $white,
     //Entity
     entityGroupListColor: $white,
-    entityBackgroundColor: $primary-color-100,
+    entityBackgroundColor: $entity-background-color-inverse,//$primary-color-100,
+    entityBorderColor: $entity-border-color-inverse,
     entityTitleColor: $background-color,
     entityTitleColorInverse: $white,
     entityDescriptionColor: rgba($background-color, 0.4),
@@ -168,6 +223,13 @@ $themes: (
     // Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
+    // Button Create
+    buttonCreateColor: $button-create-color-inverse,
+    buttonCreateBackgroundColor: $button-create-background-color-inverse,
+    buttonCreateBorderColor: $button-create-border-color-inverse,
+    buttonCreateColorHover: $button-create-color-hover-inverse,
+    buttonCreateBackgroundColorHover: $button-create-background-color-hover-inverse,
+    buttonCreateBorderColorHover: $button-create-border-color-hover-inverse,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal-theme-dark,
     tabButtonBorderColorNormal: $tab-button-border-normal-theme-dark,
@@ -182,11 +244,12 @@ $themes: (
     folderHeaderBackgroundColor: $secondary-color,
     folderHeaderColor: $white,
     // Node Tree
-    nodeTreeWayBorderColor: $primary-color-300,
+    nodeTreeBorderColor: $node-tree-border-color-inverse,
+    nodeTreeWayBorderColor: $node-tree-way-border-color-inverse,
     nodeTreeItemBackgroundColor: $primary-color-100,
     nodeTreeItemDividerBorderColor: $primary-color-200,
-    nodeTreeItemTitleColor: $primary-color-800,
-    nodeTreeItemFontColor: $primary-color-800,
+    nodeTreeItemTitleColor: $node-tree-item-title-color-inverse,
+    nodeTreeItemFontColor: $node-tree-item-title-color-inverse,
     nodeTreeWayHiderBackgroundColor: $background-color,
     nodeTreeStatePanelBackgroundColor: $background-color,
     nodeTreeStatePanelBorderColor: $background-color,
@@ -201,8 +264,11 @@ $themes: (
     nodeTreeSecondaryStatePanelBorderColor: $secondary-color,
     // scenario editor
     scenarioEditorColor: $primary-color-800,
-    scenarioEditorBackgroundColor: $primary-color-100,
-    scenarioEditorBorderColor: $primary-color-200,
+    scenarioEditorBackgroundColor: $scenario-editor-background-color-inverse,//$primary-color-100,
+    scenarioEditorBackgroundColorDisabled: $scenario-editor-background-color-disabled-inverse,
+    scenarioEditorBorderColor: $scenario-editor-border-color-inverse,
+    scenarioEditorBorderItemColor: $scenario-editor-border-item-color-inverse,//$primary-color-200,
+    scenarioEditorBorderItemColorDisabled: $scenario-editor-border-item-color-disabled-inverse,
     scenarioEditorListItemBackgroundColor: $primary-color-100,
     scenarioEditorCreateScenarioButtonColor: $primary-color-100,
     scenarioEditorContentColor: $primary-color-800,
@@ -237,10 +303,12 @@ $themes: (
     tabListItemBackgroundColor: $tab-list-item-background-color-inverse,
     tabListNameColorSelected: $tab-list-name-color-selected-inverse,
     tabListItemBackgroundColorSelected: $tab-list-item-background-color-selected-inverse,
+    tabListItemBackgroundColorHover: $tab-list-item-background-color-hover-inverse,
     //Expansion Panel
     expansionPanelBackgroundColor: $expansion-panel-background-color-inverse,
     expansionPanelBackgroundColorHover: $expansion-panel-background-color-hover-inverse,
-    expansionPanelBackgroundColorActive: $expansion-panel-background-color-active-inverse,
+    expansionPanelBackgroundColorHighlight: $expansion-panel-background-color-highlight-inverse,
+    expansionPanelBorderColorHover: $expansion-panel-border-color-hover-inverse,
     expansionPanelIconColor: $expansion-panel-icon-color-invere,
     expansionPanelTitleColor: $expansion-panel-title-color-inverse,
   ),

@@ -1,0 +1,20 @@
+$node-tree-item-border-radius: 6px;
+$node-tree-item-margin-vertical: 5px; //Gap
+
+$node-tree-item-thumbnail-size: 32px;
+
+$node-tree-way-border-weight: 1px;
+
+//disabled
+$node-tree-disabled-opacity: $entity-disabled-opacity;
+$node-tree-disabled-filter: $entity-disabled-filter;
+
+//Light
+$node-tree-way-border-color: $component-border-color;
+$node-tree-border-color: $entity-border-color;
+$node-tree-item-title-color: $primary-color;
+
+//Dark
+$node-tree-way-border-color-inverse: $primary-color-100;
+$node-tree-border-color-inverse: $entity-border-color-inverse;
+$node-tree-item-title-color-inverse: $primary-color-800;

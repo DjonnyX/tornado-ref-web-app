@@ -13,19 +13,31 @@
 
 .expansion-panel {
 
+    // &:hover, &:active {
+    //     @include themify($themes) {
+    //         background-color: rgba(themed('expansionPanelBackgroundColorHighlight'), 1.0); 
+    //     }
+    // }
+
     &__header {
 
-        &:hover {
+        &:hover, &:active {
             @include themify($themes) {
-                background-color: themed('expansionPanelBackgroundColorHover'); 
+                background-color: rgba(themed('expansionPanelBackgroundColorHighlight'), 1.0); 
             }
         }
 
-        &:active {
-            @include themify($themes) {
-                background-color: themed('expansionPanelBackgroundColorActive'); 
-            }
-        }
+        // &:hover {
+        //     @include themify($themes) {
+        //         background-color: rgba(themed('expansionPanelBackgroundColorHover'), 0.5);
+        //     }
+        // }
+
+        // &:active {
+        //     @include themify($themes) {
+        //         background-color: themed('expansionPanelBackgroundColorActive'); 
+        //     }
+        // }
     }
 
     &__title {
@@ -37,6 +49,24 @@
     &__icon {
         @include themify($themes) {
             color: themed('expansionPanelIconColor'); 
+        }
+    }
+
+    &.closed {
+        // @include themify($themes) {
+        //     background-color: themed('expansionPanelBackgroundColorHover')!important; 
+        // }
+        // @include themify($themes) {
+        //     border-color: themed('expansionPanelBorderColorHover')!important; 
+        // }
+
+        .expansion-panel__header {
+            @include themify($themes) {
+                background-color: themed('expansionPanelBackgroundColorHover')!important; 
+            }
+            @include themify($themes) {
+                border-color: themed('expansionPanelBorderColorHover')!important; 
+            }
         }
     }
 }

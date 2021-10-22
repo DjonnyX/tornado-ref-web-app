@@ -1,10 +1,6 @@
 $offset-x: 64px;
-$way-border-weight: 1px;
-$way-border-color: #d5d5d5;
-$node-tree-item-border-radius: 6px;
-$node-tree-item-margin-vertical: 5px; //Gap
-
-$node-tree-item-thumbnail-size: 32px;
+// $way-border-weight: 1px;
+// $way-border-color: $component-border-color;
 
 .node-tree__editor {
     &:not(.editor) {
@@ -65,24 +61,28 @@ $node-tree-item-thumbnail-size: 32px;
                 width: 10px;
                 height: 26px;
                 z-index: 1;
-                margin-left: -($way-border-weight);
+                margin-left: -($node-tree-way-border-weight);
                 bottom: 0;
             }
         }
 
-        // .node-tree-item__content + .scenario_editor {
-        //     border-radius: 0 0 4px 4px;
-        // }
-
         .node-tree-scenario-editor {
-            margin-top: -4px;
+            margin-top: -5px;
         }
 
         .node-tree-item__content {
             margin: 0 0 0 42px;
             box-sizing: border-box;
+            box-shadow: 0px 3px 6px rgba(0,0,0,0.03);
 
             .content {
+                border-width: 1px;
+                border-style: solid;
+            
+                &:hover {
+                    filter: brightness(95%);
+                }
+
                 user-select: none;
                 cursor: pointer;
                 display: grid;
@@ -94,9 +94,10 @@ $node-tree-item-thumbnail-size: 32px;
                 border-radius: $node-tree-item-border-radius;
                 margin: $node-tree-item-margin-vertical 0;
 
-                // &.has-scenario {
-                //     border-radius: 3px 3px 0 0;
-                // }
+                &.has-scenario {
+                    border-radius: $node-tree-item-border-radius $node-tree-item-border-radius 0px 0px!important;
+                    border-bottom: none;
+                }
 
                 &__ctrls {
                     display: flex;
@@ -172,7 +173,8 @@ $node-tree-item-thumbnail-size: 32px;
                 }
 
                 &.disabled {
-                    opacity: 0.5;
+                    opacity: $node-tree-disabled-opacity;
+                    filter: $node-tree-disabled-filter;
                 }
             }
 
@@ -209,197 +211,3 @@ $node-tree-item-thumbnail-size: 32px;
         }
     }
 }
-
-// $border-primary: $way-border-weight solid $way-border-color;
-
-// .primary {
-//     .node-tree-item {
-//         .node-item-way-hider {
-//             background: $primary-800;
-//         }
-
-//         .node-tree-item-joint {
-//             border-bottom: $border-primary;
-//         }
-
-//         &__wrapper {
-//             .node-tree-item-way {
-//                 border-left: $border-primary;
-
-//                 .way-nail {
-//                     background: $primary-800;
-//                 }
-//             }
-
-//             .node-tree-item__content {
-//                 .content {
-//                     // color: $primary-700;
-//                     color: $primary-color;
-//                     background: $white;
-//                     // border: 1px solid rgba($primary, 0.3);
-
-//                     &__name {
-//                         // background: rgba($primary, 0.1);
-
-//                         &.active {
-//                             background: rgb(66, 176, 240);
-//                         }
-
-//                         &:hover {
-//                             background: $accent;
-//                             color: $white;
-//                         }
-//                     }
-
-//                     &.wrong {
-//                         background: $warn;
-
-//                         .content__name {
-//                             background: rgba(0, 0, 0, 0.1);
-
-//                             &.hover {
-//                                 background: $warn-100;
-//                             }
-//                         }
-//                     }
-
-//                     &.lock {
-//                         // background: $instance-node-color;
-//                         background: $white;
-
-//                         .content__name {
-//                             background: transparent;
-
-//                             &.active {
-//                                 background: transparent;
-//                             }
-
-//                             &:hover {
-//                                 background: transparent;
-//                             }
-//                         }
-//                     }
-
-//                     &.is-instance {
-//                         background: $instance-node-color;
-//                     }
-
-//                     &.disabled {
-//                         opacity: 0.5;
-//                     }
-//                 }
-
-//                 .entity__action-menu__button {
-//                     color: $primary-700;
-//                 }
-//             }
-//         }
-//     }
-
-//     .node-tree-item {
-//         &__wrapper {
-//             .node-tree-item__content {
-//                 .content {
-//                     &.is-instance {
-//                         background: $instance-node-color;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }
-
-// $border-primary: $way-border-weight solid $way-border-color;
-
-// .secondary {
-//     .node-tree-item {
-//         .node-item-way-hider {
-//             background: #ffffff;
-//         }
-//         .node-tree-item-joint {
-//             border-bottom: $border-primary;
-//         }
-
-//         &__wrapper {
-//             .node-tree-item-way {
-//                 border-left: $border-primary;
-
-//                 .way-nail {
-//                     background: $white;
-//                 }
-//             }
-
-//             .node-tree-item__content {
-//                 .content {
-//                     color: $primary-700;
-//                     background: $white;
-//                     border: 1px solid rgba($primary, 0.75);
-
-//                     &__name {
-//                         background: rgba($primary, 0.1);
-
-//                         &.active {
-//                             background: rgb(66, 176, 240);
-//                         }
-
-//                         &:hover {
-//                             background: $accent;
-//                         }
-//                     }
-
-//                     &.wrong {
-//                         background: $warn;
-
-//                         .content__name {
-//                             background: rgba(0, 0, 0, 0.1);
-
-//                             &.hover {
-//                                 background: $warn-100;
-//                             }
-//                         }
-//                     }
-
-//                     &.lock {
-//                         background: $instance-node-color;
-
-//                         .content__name {
-//                             background: transparent;
-
-//                             &.active {
-//                                 background: transparent;
-//                             }
-
-//                             &:hover {
-//                                 background: transparent;
-//                             }
-//                         }
-//                     }
-
-//                     &.is-instance {
-//                         background: $instance-node-color;
-//                     }
-
-//                     &.disabled {
-//                         opacity: 0.5;
-//                     }
-//                 }
-
-//                 .entity__action-menu__button {
-//                     color: $primary-700;
-//                 }
-//             }
-//         }
-//     }
-
-//     .node-tree-item {
-//         &__wrapper {
-//             .node-tree-item__content {
-//                 .content {
-//                     &.is-instance {
-//                         background: $instance-node-color;
-//                     }
-//                 }
-//             }
-//         }
-//     }
-// }

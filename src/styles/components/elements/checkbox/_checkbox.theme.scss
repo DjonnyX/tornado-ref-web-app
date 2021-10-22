@@ -1,0 +1,50 @@
+.checkbox {
+
+    &__container {
+
+        .checkmark {
+            @include themify($themes) {
+                border-color: themed("CheckboxBorderColorInactive") !important;
+                background-color: themed("CheckboxBackgroundColorInactive") !important;
+            }
+            // background-color: #eee;
+            // border-color: $primary-color
+        }
+
+        input:checked ~ .checkmark {
+            @include themify($themes) {
+                border-color: themed("CheckboxBorderColorActive") !important;
+                background-color: themed("CheckboxBackgroundColorActive") !important;
+            }
+            // border-color: $accent-color;
+            // background-color: $accent-color;
+        }
+    }
+}
+
+.secondary {
+
+    .checkbox {
+
+        &__container {
+
+            // .checkmark {
+            //     @include themify($themes) {
+            //         border-color: themed("CheckboxBorderColorInactiveSecondary") !important;
+            //         background-color: themed("CheckboxBackgroundColorInactiveSecondary") !important;
+            //     }
+            //     // background-color: #eee;
+            //     // border-color: $primary-color
+            // }
+
+            input:checked ~ .checkmark {
+                @include themify($themes) {
+                    border-color: themed("CheckboxBorderColorActiveSecondary") !important;
+                    background-color: themed("CheckboxBackgroundColorActiveSecondary") !important;
+                }
+                // border-color: $accent-color;
+                // background-color: $accent-color;
+            }
+        }
+    }
+}

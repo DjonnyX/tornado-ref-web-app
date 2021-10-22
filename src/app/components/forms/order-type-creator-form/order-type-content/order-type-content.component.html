@@ -1,4 +1,8 @@
 <div [ngClass]="{'order-type-content': true, 'main-options-wrapper': isEditMode}">
+  <h2 class="form-header" *ngIf="!!data">
+    {{data.name.value}}
+  </h2>
+
   <div class="resources" *ngIf="isEditMode">
     <div class="resources-wrapper double">
       <div class="resources-n">
@@ -38,10 +42,6 @@
   </div>
 
   <div>
-    <h2 class="form-header" *ngIf="!!data">
-      {{data.name.value}}
-    </h2>
-
     <ng-container *ngIf="!isEdit; else editFields">
       <div class="form__block" *ngIf="!!data">
         <div class="form-item full-width">

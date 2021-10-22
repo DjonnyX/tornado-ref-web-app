@@ -14,6 +14,9 @@
     @include themify($themes) {
         background-color: themed('entityBackgroundColor');  
     }
+    @include themify($themes) {
+        border-color: themed('entityBorderColor');  
+    }
 
     &__image {
         

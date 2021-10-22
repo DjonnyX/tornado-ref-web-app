@@ -1,0 +1,22 @@
+// desktop
+@include respond-above(sm) {
+    .state-panel {
+        height: $state-panel-height;
+        margin-bottom: $state-panel-margin-bottom;
+
+        &__container {
+            padding: $state-panel-container-padding;
+        }
+    }
+}
+// mobile (xs)
+@include respond-below(sm) {
+    .state-panel {
+        height: $state-panel-height-sm;
+
+        &__container {
+            padding: $state-panel-container-padding-sm;
+            margin-bottom: $state-panel-margin-bottom-sm;
+        }
+    }
+}

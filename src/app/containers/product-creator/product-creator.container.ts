@@ -19,7 +19,7 @@ import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
 import {
   IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage,
-  IStore, IOrderType, ISystemTag, IRequestOptions
+  IStore, IOrderType, ISystemTag
 } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
@@ -156,12 +156,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.pipe(
         select(ProductSelectors.selectIsUpdateProcess),
       ),
-      this._store.pipe(
-        select(SystemTagsSelectors.selectLoading),
-      ),
     ]).pipe(
-      map(([isCreateProcess, isUpdateProcess, isSystemTagsProcess]) =>
-        isCreateProcess || isUpdateProcess || isSystemTagsProcess),
+      map(([isCreateProcess, isUpdateProcess]) =>
+        isCreateProcess || isUpdateProcess),
     );
 
     this.isProcessHierarchy$ = this._store.pipe(

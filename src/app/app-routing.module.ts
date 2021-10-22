@@ -4,7 +4,9 @@ import { EmptyPageComponent } from '@components/empty-page/empty-page.component'
 import { environment } from '@environments';
 import { AuthGuard } from './guards/auth.guard';
 
-const routes: Routes = [
+const routes: Routes = [];
+
+const CMS_ROUTES_AND_ADMIN_BASE: Routes = [
   {
     path: '',
     redirectTo: 'admin',
@@ -69,13 +71,6 @@ const routes: Routes = [
       AuthGuard,
     ]
   },
-  {
-    path: 'documentation',
-    loadChildren: () =>
-      import('@containers/documentation/documentation.module').then(
-        module => module.DocumentationModule,
-      ),
-  },
 ];
 
 const CMS_ROUTES: Routes = [
@@ -125,11 +120,41 @@ const CMS_ROUTES: Routes = [
 
 switch (environment.buildType) {
   case "admin":
-    // etc
+    routes.push(...CMS_ROUTES_AND_ADMIN_BASE);
     break;
+  case "documentation": {
+    routes.push(
+      ...[
+        {
+          path: 'documentation',
+          loadChildren: () =>
+            import('@containers/documentation/documentation.module').then(
+              module => module.DocumentationModule,
+            ),
+        },
+        {
+          path: '',
+          redirectTo: 'documentation',
+          pathMatch: 'full'
+        },
+      ]
+    );
+    break;
+  }
   case "all":
+    routes.push({
+      path: 'documentation',
+      loadChildren: () =>
+        import('@containers/documentation/documentation.module').then(
+          module => module.DocumentationModule,
+        ),
+    });
+    routes.push(...CMS_ROUTES_AND_ADMIN_BASE);
+    routes.push(...CMS_ROUTES);
+    break;
   case "cms":
   default:
+    routes.push(...CMS_ROUTES_AND_ADMIN_BASE);
     routes.push(...CMS_ROUTES);
     break;
 }

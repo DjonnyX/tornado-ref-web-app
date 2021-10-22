@@ -1,12 +1,21 @@
 $tab-list-font-size: 13px;
+$tab-list-font-weight: 400;
+$tab-list-font-weight-selected: 500;
+$tab-list-text-transform: none;
 
+$tab-list-border-radius: 32px;
+$tab-list-padding: 4px 15px;
 
+// Light
 $tab-list-name-color: $secondary-color;
 $tab-list-item-background-color: $inactive-color-light;
 $tab-list-name-color-selected: $white;
 $tab-list-item-background-color-selected: $accent-color;
+$tab-list-item-background-color-hover: $highlight-secondary-color;
 
+// Dark
 $tab-list-name-color-inverse: $white;
 $tab-list-item-background-color-inverse: $inactive-color-light-inverse;
 $tab-list-name-color-selected-inverse: $white;
-$tab-list-item-background-color-selected-inverse: $accent-color,
+$tab-list-item-background-color-selected-inverse: $accent-color;
+$tab-list-item-background-color-hover-inverse: $highlight-secondary-color-inverse;

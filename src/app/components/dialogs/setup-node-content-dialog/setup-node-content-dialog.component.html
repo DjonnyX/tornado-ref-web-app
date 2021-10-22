@@ -1,4 +1,6 @@
-<h2 mat-dialog-title><strong>{{localization.get(data.title)}}</strong></h2>
+<h2 mat-dialog-title>
+  {{localization.get(data.title)}}
+</h2>
 <mat-dialog-content class="mat-typography">
   <ta-select-content-form [selectedDefaultEntityId]="data.selectedDefaultEntityId" [multi]="data.multi || false"
     [defaultCollection]="data.defaultCollection" [nodes]="data.nodes" [groupModifiersNodes]="data.groupModifiersNodes"

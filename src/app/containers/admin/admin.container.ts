@@ -16,6 +16,7 @@ import { SettingsActions } from '@store/actions/settings.action';
 import { FormControl } from '@angular/forms';
 import LOCALIZATION from '@app/localization';
 import { environment } from '@environments';
+import { AuthService } from '@app/services/auth.service';
 
 export const MENU_ROUTES: Array<INavRoute> = [];
 
@@ -54,26 +55,26 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
 
 const CMS_MENU_ROUTES: Array<INavRoute> = [
   {
-    icon: "license",
+    icon: "user",
     name: "menu_user-profile", //"Профиль пользователя",
     route: "profile",
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
   },
   {
-    icon: "folder",
+    icon: "folder-employees",
     name: "menu_employees", //"Работники",
     expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
     children: [
       {
-        icon: "license",
+        icon: "accounts",
         name: "menu_accounts", //" Саб-пользователи",
         route: "accounts",
         roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
         right: UserRights.READ_ACCOUNTS,
       },
       {
-        icon: "license",
+        icon: "roles",
         name: "menu_roles", //" Роли",
         route: "roles",
         roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
@@ -82,7 +83,7 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
     ],
   },
   {
-    icon: "folder",
+    icon: "folder-settings",
     name: "menu_user-settings", //"Настройки",
     expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
@@ -304,7 +305,11 @@ switch (environment.buildType) {
 })
 export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
-  public readonly isShowDocumentation = ["all", "cms"].indexOf(environment.buildType) > -1;
+  public readonly isShowDocumentation = ["all", "cms"].indexOf(environment.buildType) > -1 && !this.authService.hasAuthority([DefaultRoleTypes.ADMIN]);
+
+  public readonly isDocumentationMode = ["cms"].indexOf(environment.buildType) > -1;
+
+  host: string;
 
   isMobile$: Observable<boolean>;
 
@@ -343,9 +348,12 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
     private _store: Store<IAppState>,
+    public readonly authService: AuthService,
     public readonly localization: LocalizationService,
   ) {
     super();
+
+    this.host = window.location.host.replace(/^(cms\.)/, "");
   }
 
   onToggleMenu(): void {

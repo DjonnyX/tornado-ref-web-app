@@ -3,6 +3,8 @@ $secondary-color: #2B2F3C;
 $neutral-color: #7B7D83;
 $accent-color: #ffa000;
 
+$accent-secondary-color: #3677ed;
+
 $primary-color-30: lighten($primary-color, 3%);
 $primary-color-50: lighten($primary-color, 5%);
 $primary-color-100: lighten($primary-color, 10%);
@@ -23,6 +25,13 @@ $primary-color-1025: darken($primary-color, 2.5%);
 $primary-color-1050: darken($primary-color, 5%);
 $primary-color-1100: darken($primary-color, 10%);
 
+$highlight-primary-color: #dae3ed;
+$highlight-primary-color-inverse: #21263c;
+
+$highlight-secondary-color: lighten($accent-secondary-color, 38%);//#dae3ed;
+$highlight-secondary-color-inverse: #2b3040;
+$highlight-secondary-divider-color: darken($highlight-secondary-color, 5%);
+$highlight-secondary-divider-color-inverse: ligten($highlight-secondary-color-inverse, 15%);
 
 $white: #fff;
 $black: #000;
@@ -31,6 +40,10 @@ $black: #000;
 // $primary-color-200: #50656e;
 // $primary-color-300: #627983;
 
+$background-color: #F0F0F0;
+$background-color-inverse: #1e2129;
+$background-color-1100: darken($background-color, 10%);
+
 
 $divider-color: #F0F0F0;
 $divider-color-inverse: #2E333F;
@@ -38,13 +51,15 @@ $divider-color-inverse: #2E333F;
 $border-color: #d7d8db;
 $border-color-inverse: $divider-color-inverse;
 
+$component-border-color: #dbdbdb;
+$component-border-color-inverse: #4a5062;//#555c6e;
+
+$group-border-color: $component-border-color;//$background-color;//#d3d3d3;
+$group-border-color-inverse: #363b4a;
+
 // Components
 
-$background-color: #F0F0F0;
-$background-color-inverse: #1e2129;
-$background-color-1100: darken($background-color, 10%);
-
-$inactive-color-light: #dfdfdf;
+$inactive-color-light: #e3e3e3;//#dfdfdf;
 $inactive-color-light-inverse: $secondary-color;
 
 $menu-expantion-item-color: #60636A;

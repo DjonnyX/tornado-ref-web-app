@@ -5,15 +5,35 @@
         }
 
         .scenario-editor__content {
+            @include themify($themes) {
+                border-color: themed("scenarioEditorBorderColor") !important;
+            }
             .content {
                 @include themify($themes) {
                     background-color: themed("scenarioEditorBackgroundColor");
                 }
+
+                // &.disabled {
+                //     @include themify($themes) {
+                //         background-color: themed("scenarioEditorBackgroundColorDisabled");
+                //     }
+                // }
             }
             .scenario-list__item {
                 @include themify($themes) {
-                    border-top: 1px solid themed("scenarioEditorBorderColor");
-                    background: themed("scenarioEditorListItemBackgroundColor");
+                    border-top: 1px solid themed("scenarioEditorBorderItemColor");
+                }
+                @include themify($themes) {
+                    background-color: themed("scenarioEditorBackgroundColor");
+                }
+
+                &.disabled {
+                    @include themify($themes) {
+                        border-top: 1px solid themed("scenarioEditorBorderItemColorDisabled");
+                    }
+                    @include themify($themes) {
+                        background-color: themed("scenarioEditorBackgroundColorDisabled");
+                    }
                 }
             }
         }
@@ -29,7 +49,7 @@
                 .content {
                     @include themify($themes) {
                         color: themed("scenarioEditorContentColor");
-                        background-color: themed("scenarioEditorContentBackgroundColor");
+                        // background-color: themed("scenarioEditorContentBackgroundColor");
                     }
 
                     .content__name {
@@ -56,7 +76,7 @@
                     }
 
                     &.disabled {
-                        opacity: 0.5;
+                        filter: brightness(90%);
                     }
                 }
 
@@ -129,7 +149,7 @@
                     }
 
                     &.disabled {
-                        opacity: 0.5;
+                        filter: brightness(90%);
                     }
                 }
 
