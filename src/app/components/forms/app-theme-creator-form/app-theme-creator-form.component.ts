@@ -169,7 +169,7 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
       },
       props: this._compiledThemeArray.map(v => ({
         key: v.name,
-        value: v.value.value?.toString() || this.getAsset(v.name)?.mipmap?.x32 || '---',
+        value: v.value.type === ThemeDescriptiorKeyTypes.ASSET ? this.getAsset(v.name)?.mipmap?.x32 : v.value.value?.toString() || '---',
       })),
     };
   }
@@ -213,17 +213,17 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
 
   onSave(): void {
     // if (this.form.valid) {
-      const resources = { ...this._resources };
-      this.save.emit({
-        ...this._compiledTheme?.theme,
-        name: this.form.value["name"],
-        data: themeDescriptorPropsToThemeData(this.form.value, {
-          exclude: ["name"],
-        }),
-        resources,
-      });
+    const resources = { ...this._resources };
+    this.save.emit({
+      ...this._compiledTheme?.theme,
+      name: this.form.value["name"],
+      data: themeDescriptorPropsToThemeData(this.form.value, {
+        exclude: ["name"],
+      }),
+      resources,
+    });
 
-      this.isEdit = false;
+    this.isEdit = false;
     // }
   }
 
