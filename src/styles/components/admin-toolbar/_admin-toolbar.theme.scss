@@ -6,4 +6,11 @@
             background: themed("adminToolbarLogoSectionBackgroundColor");
         }
     }
+
+    &__navigation-section {
+        @include themify($themes) {
+            border-left-color: themed("adminViewBorderColor") !important;
+            border-bottom-color: themed("adminToolbarBorderBottomColor") !important;
+        }
+    }
 }

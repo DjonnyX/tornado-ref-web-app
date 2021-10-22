@@ -12,9 +12,12 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color,
+    //Admin View
+    adminViewBorderColor: $admin-view-border-color,
     // Admin Toolbar
-    adminToolbarBackgroundColor: $primary-color,
-    adminToolbarLogoSectionBackgroundColor: $primary-color,
+    adminToolbarBackgroundColor: $admin-toolbar-background-color,
+    adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color,
+    adminToolbarLogoSectionBackgroundColor: $admin-toolbar-logo-section-background-color,
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color,
     navigationMenuItemBackgroundColor: $navigation-menu-item-background-color,
@@ -40,6 +43,8 @@ $themes: (
     CheckboxBorderColorActive: $checkbox-border-color-active,
     CheckboxBackgroundColorActive: $checkbox-background-color-active,
 
+    CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary,
+    CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary,
     //
     textColor: $primary-color,
     //Entity
@@ -166,10 +171,13 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
+    //Admin View
+    adminViewBorderColor: $admin-view-border-color-inverse,
     // Admin Toolbar
-    adminToolbarBackgroundColor: #171920,
+    adminToolbarBackgroundColor: $admin-toolbar-background-color-inverse,
+    adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color-inverse,
     //$primary-color,
-    adminToolbarLogoSectionBackgroundColor: $navigation-menu-background-color-inverse,
+    adminToolbarLogoSectionBackgroundColor: $admin-toolbar-logo-section-background-color-inverse,
     // new
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color-inverse,
@@ -197,6 +205,9 @@ $themes: (
     CheckboxBackgroundColorInactive: $checkbox-background-color-inactive-inverse,
     CheckboxBorderColorActive: $checkbox-border-color-active-inverse,
     CheckboxBackgroundColorActive: $checkbox-background-color-active-inverse,
+
+    CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary-inverse,
+    CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary-inverse,
     //
     textColor: $white,
     //Entity

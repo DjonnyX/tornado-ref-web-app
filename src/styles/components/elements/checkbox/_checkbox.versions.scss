@@ -28,7 +28,7 @@
 
         .checkmark {
             @include box(16px);
-            border-width: 1px;
+            border-width: 2px;
         }
 
         input:checked ~ .checkmark { //Checked

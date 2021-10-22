@@ -30,6 +30,10 @@ $entity-body-cards-height-m: 90px;
 
 $entity-border-radius: 8px;
 
+//Disabled
+$entity-disabled-filter: brightness(90%);
+$entity-disabled-opacity: 0.6;
+
 //Templates
 $entity-image-cards-size: $entity-body-cards-height - 2px;
 $entity-image-cards-size-m: $entity-body-cards-height-m - 2px;
