@@ -42,15 +42,16 @@
             @include box(20px); //Versions
             background-color: #eee;
             border-radius: 4px;
-            border: 2px solid $primary-color;
+            border-style: solid;
+            border-color: $primary-color;
             justify-content: center;
             align-items: center;
         }
 
         input:checked ~ .checkmark { //Checked
             // @extend .icon-checkbox-check;
+            border-color: $accent-color;
             background-color: $accent-color;
-            border: 2px solid $accent-color;
 
             &::before {
                 content: "\e920";

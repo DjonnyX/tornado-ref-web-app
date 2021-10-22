@@ -48,6 +48,9 @@ $themes: (
     // Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
+    // Button Create
+    buttonCreateColor: $button-create-color,
+    buttonCreateBackgroundColor: $button-create-background-color,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal,
     tabButtonBorderColorNormal: $tab-button-border-normal,
@@ -64,13 +67,16 @@ $themes: (
     // Node Tree
     nodeTreeBorderColor: $node-tree-border-color,
     nodeTreeWayBorderColor: $node-tree-way-border-color,
-    nodeTreeItemBackgroundColor: $white,
+    nodeTreeItemBackgroundColor: $white, //?
     nodeTreeItemDividerBorderColor: $primary-color-800,
-    nodeTreeItemTitleColor: $primary-color-200,
-    nodeTreeItemFontColor: $primary-color-200,
+    nodeTreeItemTitleColor: $node-tree-item-title-color,
+    nodeTreeItemFontColor: $node-tree-item-title-color,
     nodeTreeWayHiderBackgroundColor: $background-color,
     nodeTreeStatePanelBackgroundColor: $background-color,
     nodeTreeStatePanelBorderColor: $background-color,
+
+    // nodeTreeButtonCreateColor: $node-tree-button-create-color,
+    // nodeTreeButtonCreateBackgroundColor: $node-tree-button-create-background-color,
     // Node tree secondary
     nodeTreeSecondaryWayBorderColor: $primary-color-500,
     nodeTreeSecondaryItemBackgroundColor: $white,
@@ -83,8 +89,10 @@ $themes: (
     // scenario editor
     scenarioEditorColor: $primary-color-200,
     scenarioEditorBackgroundColor: $scenario-editor-background-color,//$white,
+    scenarioEditorBackgroundColorDisabled: $scenario-editor-background-color-disabled,
     scenarioEditorBorderColor: $scenario-editor-border-color,
     scenarioEditorBorderItemColor: $scenario-editor-border-item-color,//$primary-color-800,
+    scenarioEditorBorderItemColorDisabled: $scenario-editor-border-item-color-disabled,
     scenarioEditorListItemBackgroundColor: $white,
     scenarioEditorCreateScenarioButtonColor: $white,
     scenarioEditorContentColor: $primary-color-200,
@@ -187,6 +195,9 @@ $themes: (
     // Base button
     buttonBaseColor: $white,
     buttonBasebackgroundColor: $accent-color,
+    // Button Create
+    buttonCreateColor: $button-create-color-inverse,
+    buttonCreateBackgroundColor: $button-create-background-color-inverse,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal-theme-dark,
     tabButtonBorderColorNormal: $tab-button-border-normal-theme-dark,
@@ -205,8 +216,8 @@ $themes: (
     nodeTreeWayBorderColor: $node-tree-way-border-color-inverse,
     nodeTreeItemBackgroundColor: $primary-color-100,
     nodeTreeItemDividerBorderColor: $primary-color-200,
-    nodeTreeItemTitleColor: $primary-color-800,
-    nodeTreeItemFontColor: $primary-color-800,
+    nodeTreeItemTitleColor: $node-tree-item-title-color-inverse,
+    nodeTreeItemFontColor: $node-tree-item-title-color-inverse,
     nodeTreeWayHiderBackgroundColor: $background-color,
     nodeTreeStatePanelBackgroundColor: $background-color,
     nodeTreeStatePanelBorderColor: $background-color,
@@ -222,8 +233,10 @@ $themes: (
     // scenario editor
     scenarioEditorColor: $primary-color-800,
     scenarioEditorBackgroundColor: $scenario-editor-background-color-inverse,//$primary-color-100,
+    scenarioEditorBackgroundColorDisabled: $scenario-editor-background-color-disabled-inverse,
     scenarioEditorBorderColor: $scenario-editor-border-color-inverse,
     scenarioEditorBorderItemColor: $scenario-editor-border-item-color-inverse,//$primary-color-200,
+    scenarioEditorBorderItemColorDisabled: $scenario-editor-border-item-color-disabled-inverse,
     scenarioEditorListItemBackgroundColor: $primary-color-100,
     scenarioEditorCreateScenarioButtonColor: $primary-color-100,
     scenarioEditorContentColor: $primary-color-800,

@@ -62,6 +62,14 @@ $border: 1px solid rgba($primary, 0.75);
           padding-right: px2em(20);
         }
       }
+
+      .checkbox.active {
+
+        .checkmark {
+          background-color: #ffc25a;
+          border-color: #ebb75f;
+        }
+      }
     }
 
     // .scenario-list__item:not(:last-child) {

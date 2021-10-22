@@ -42,6 +42,12 @@
                         }
                     }
                 }
+
+                .button-create {
+                    @include themify($themes) {
+                        background-color: themed("nodeTreeButtonCreateBackgroundColor") !important;
+                    }
+                }
             }
 
             &__wrapper {
