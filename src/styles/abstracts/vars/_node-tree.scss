@@ -18,3 +18,25 @@ $node-tree-item-title-color: $primary-color;
 $node-tree-way-border-color-inverse: $primary-color-100;
 $node-tree-border-color-inverse: $entity-border-color-inverse;
 $node-tree-item-title-color-inverse: $primary-color-800;
+
+
+// Respond
+$node-tree-item-offset-x-lg: 32px;
+$node-tree-item-offset-x-md: 20px;
+$node-tree-item-offset-x-sm: 10px;
+
+$node-tree-item-join-gap-lg: 6px;
+$node-tree-item-join-gap-md: 4px;
+$node-tree-item-join-gap-sm: 2px;
+
+$node-tree-item-join-width-lg: $node-tree-item-offset-x-lg - $node-tree-item-join-gap-lg;
+$node-tree-item-join-width-md: $node-tree-item-offset-x-md - $node-tree-item-join-gap-md;
+$node-tree-item-join-width-sm: $node-tree-item-offset-x-sm - $node-tree-item-join-gap-sm;
+
+$node-tree-item-way-offset-x-lg: $node-tree-item-offset-x-lg + $node-tree-item-join-width-lg;
+$node-tree-item-way-offset-x-md: $node-tree-item-offset-x-md + $node-tree-item-join-width-md;
+$node-tree-item-way-offset-x-sm: $node-tree-item-offset-x-sm + $node-tree-item-join-width-sm;
+
+$node-tree-item-way-offset-y-lg: 4px;
+$node-tree-item-way-offset-y-md: $node-tree-item-way-offset-y-lg;
+$node-tree-item-way-offset-y-sm: $node-tree-item-way-offset-y-lg;

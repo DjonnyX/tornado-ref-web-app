@@ -1,0 +1,23 @@
+// lg
+@include respond-above(lg) {
+
+    .scenario-editor {
+        margin: 0px 0px 0px $scenario-editor-offset-x-lg;
+    }
+}
+
+// md
+@include respond-between(sm , lg) {
+
+    .scenario-editor {
+        margin: 0px 0px 0px $scenario-editor-offset-x-md;
+    }
+}
+
+// sm
+@include respond-below(sm) {
+
+    .scenario-editor {
+        margin: 0px 0px 0px $scenario-editor-offset-x-sm;
+    }
+}
