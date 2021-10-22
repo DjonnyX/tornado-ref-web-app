@@ -1,10 +1,6 @@
 $offset-x: 64px;
-$way-border-weight: 1px;
-$way-border-color: #d5d5d5;
-$node-tree-item-border-radius: 6px;
-$node-tree-item-margin-vertical: 5px; //Gap
-
-$node-tree-item-thumbnail-size: 32px;
+// $way-border-weight: 1px;
+// $way-border-color: $component-border-color;
 
 .node-tree__editor {
     &:not(.editor) {
@@ -65,25 +61,23 @@ $node-tree-item-thumbnail-size: 32px;
                 width: 10px;
                 height: 26px;
                 z-index: 1;
-                margin-left: -($way-border-weight);
+                margin-left: -($node-tree-way-border-weight);
                 bottom: 0;
             }
         }
 
-        // .node-tree-item__content + .scenario_editor {
-        //     border-radius: 0 0 4px 4px;
-        // }
-
         .node-tree-scenario-editor {
-            margin-top: -4px;
+            margin-top: -5px;
         }
 
         .node-tree-item__content {
             margin: 0 0 0 42px;
             box-sizing: border-box;
-            box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+            box-shadow: 0px 3px 6px rgba(0,0,0,0.03);
 
             .content {
+                border-width: 1px;
+                border-style: solid;
             
                 &:hover {
                     filter: brightness(95%);
@@ -100,9 +94,10 @@ $node-tree-item-thumbnail-size: 32px;
                 border-radius: $node-tree-item-border-radius;
                 margin: $node-tree-item-margin-vertical 0;
 
-                // &.has-scenario {
-                //     border-radius: 3px 3px 0 0;
-                // }
+                &.has-scenario {
+                    border-radius: $node-tree-item-border-radius $node-tree-item-border-radius 0px 0px!important;
+                    border-bottom: none;
+                }
 
                 &__ctrls {
                     display: flex;

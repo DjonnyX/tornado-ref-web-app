@@ -5,6 +5,9 @@
         }
 
         .scenario-editor__content {
+            @include themify($themes) {
+                border-color: themed("scenarioEditorBorderColor") !important;
+            }
             .content {
                 @include themify($themes) {
                     background-color: themed("scenarioEditorBackgroundColor");
@@ -12,8 +15,8 @@
             }
             .scenario-list__item {
                 @include themify($themes) {
-                    border-top: 1px solid themed("scenarioEditorBorderColor");
-                    background: themed("scenarioEditorListItemBackgroundColor");
+                    border-top: 1px solid themed("scenarioEditorBorderItemColor");
+                    // background: themed("scenarioEditorListItemBackgroundColor");
                 }
             }
         }
@@ -29,7 +32,7 @@
                 .content {
                     @include themify($themes) {
                         color: themed("scenarioEditorContentColor");
-                        background-color: themed("scenarioEditorContentBackgroundColor");
+                        // background-color: themed("scenarioEditorContentBackgroundColor");
                     }
 
                     .content__name {

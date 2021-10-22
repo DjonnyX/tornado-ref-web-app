@@ -1,0 +1,13 @@
+$node-tree-item-border-radius: 6px;
+$node-tree-item-margin-vertical: 5px; //Gap
+
+$node-tree-item-thumbnail-size: 32px;
+
+$node-tree-way-border-weight: 1px;
+//Light
+$node-tree-way-border-color: $component-border-color;
+$node-tree-border-color: $entity-border-color;
+
+//Dark
+$node-tree-way-border-color-inverse: $primary-color-100;
+$node-tree-border-color-inverse: $entity-border-color-inverse;

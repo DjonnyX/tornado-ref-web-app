@@ -23,8 +23,13 @@ $primary-color-1025: darken($primary-color, 2.5%);
 $primary-color-1050: darken($primary-color, 5%);
 $primary-color-1100: darken($primary-color, 10%);
 
-$primary-highlight-color: #dae3ed;
-$primary-highlight-color-inverse: #21263c;
+$highlight-primary-color: #dae3ed;
+$highlight-primary-color-inverse: #21263c;
+
+$highlight-secondary-color: #fff4e2;
+$highlight-secondary-color-inverse: #2b3040;
+$highlight-secondary-divider-color: #ede2d0;
+$highlight-secondary-divider-color-inverse: #3a3f50;
 
 $white: #fff;
 $black: #000;
