@@ -17,7 +17,7 @@ $themes: (
     // Admin Toolbar
     adminToolbarBackgroundColor: $admin-toolbar-background-color,
     adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color,
-    adminToolbarLogoSectionBackgroundColor: $primary-color,
+    adminToolbarLogoSectionBackgroundColor: $admin-toolbar-logo-section-background-color,
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color,
     navigationMenuItemBackgroundColor: $navigation-menu-item-background-color,
@@ -177,7 +177,7 @@ $themes: (
     adminToolbarBackgroundColor: $admin-toolbar-background-color-inverse,
     adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color-inverse,
     //$primary-color,
-    adminToolbarLogoSectionBackgroundColor: $navigation-menu-background-color-inverse,
+    adminToolbarLogoSectionBackgroundColor: $admin-toolbar-logo-section-background-color-inverse,
     // new
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color-inverse,
