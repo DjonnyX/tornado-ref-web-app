@@ -9,12 +9,12 @@
 
 .hierarchy-editor {
     &.primary {
-        .state-panel {
-            @include themify($themes) {
-                background-color: themed('nodeTreePrimaryStatePanelBackgroundColor') !important;
-                border-top: 1px solid themed('nodeTreePrimaryStatePanelBorderColor') !important;
-            }
-        }
+        // .state-panel {
+        //     @include themify($themes) {
+        //         background-color: themed('nodeTreePrimaryStatePanelBackgroundColor') !important;
+        //         border-top: 1px solid themed('nodeTreePrimaryStatePanelBorderColor') !important;
+        //     }
+        // }
         
         .node-tree-item {
             .node-item-way-hider {
@@ -92,12 +92,12 @@
 
 .hierarchy-editor {
     &.secondary {
-        .state-panel {
-            @include themify($themes) {
-                background-color: themed('nodeTreeSecondaryStatePanelBackgroundColor') !important;
-                border-top: 1px solid themed('nodeTreeSecondaryStatePanelBorderColor') !important;
-            }
-        }
+        // .state-panel {
+        //     @include themify($themes) {
+        //         background-color: themed('nodeTreeSecondaryStatePanelBackgroundColor') !important;
+        //         border-top: 1px solid themed('nodeTreeSecondaryStatePanelBorderColor') !important;
+        //     }
+        // }
         .node-tree-item {
             .node-item-way-hider {
                 // background: $primary-800;

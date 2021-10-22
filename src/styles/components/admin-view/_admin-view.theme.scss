@@ -1,0 +1,24 @@
+.admin__view {
+    
+    .admin__toolbar {
+        
+        // .admin__toolbar__navigation-section {
+        //     @include themify($themes) {
+        //         border-left-color: themed("adminViewBorderColor") !important;
+        //     }
+        // }
+    }
+
+    .admin__view__wrapper {
+
+        .admin__view__navigation {
+
+        }
+
+        .admin__view__content {
+            @include themify($themes) {
+                border-left-color: themed("adminViewBorderColor") !important;
+            }
+        }
+    }
+}

@@ -12,8 +12,11 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color,
+    //Admin View
+    adminViewBorderColor: $admin-view-border-color,
     // Admin Toolbar
-    adminToolbarBackgroundColor: $primary-color,
+    adminToolbarBackgroundColor: $admin-toolbar-background-color,
+    adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color,
     adminToolbarLogoSectionBackgroundColor: $primary-color,
     // Navigation Menu
     navigationMenuBackgroundColor: $navigation-menu-background-color,
@@ -168,8 +171,11 @@ $themes: (
     foregroundColor: $primary-color,
     neutralColor: $neutral-color,
     dividerColor: $divider-color-inverse,
+    //Admin View
+    adminViewBorderColor: $admin-view-border-color-inverse,
     // Admin Toolbar
-    adminToolbarBackgroundColor: #171920,
+    adminToolbarBackgroundColor: $admin-toolbar-background-color-inverse,
+    adminToolbarBorderBottomColor: $admin-toolbar-border-bottom-color-inverse,
     //$primary-color,
     adminToolbarLogoSectionBackgroundColor: $navigation-menu-background-color-inverse,
     // new

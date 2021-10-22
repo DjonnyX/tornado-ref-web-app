@@ -1,6 +1,28 @@
 .state-panel {
     @include themify($themes) {
         background-color: themed('statePanelBackgroundColor');
-        border-top: 1px solid themed('statePanelBorderColor');
+        border-top-color: themed('statePanelBorderColor');
     }
 }
+
+// .hierarchy-editor {
+//     &.primary {
+//         .state-panel {
+//             @include themify($themes) {
+//                 background-color: themed('nodeTreePrimaryStatePanelBackgroundColor') !important;
+//                 border-top: 1px solid themed('nodeTreePrimaryStatePanelBorderColor') !important;
+//             }
+//         }
+//     }
+// }
+
+// .hierarchy-editor {
+//     &.secondary {
+//         .state-panel {
+//             @include themify($themes) {
+//                 background-color: themed('nodeTreeSecondaryStatePanelBackgroundColor') !important;
+//                 border-top: 1px solid themed('nodeTreeSecondaryStatePanelBorderColor') !important;
+//             }
+//         }
+//     }
+// }

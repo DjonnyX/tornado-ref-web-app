@@ -27,6 +27,11 @@ $dropdown-selector-value-width: 36px;
         position: relative;
         width: 100%;
         height: 100%;
+        border-style: solid;
+        border-top: 0px;
+        border-right: 0px;
+        border-left-width: $admin-view-border-width;
+        border-bottom-width: $admin-view-border-width;
 
         &__container {
             display: flex;
