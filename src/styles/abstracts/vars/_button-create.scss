@@ -1,7 +1,13 @@
 // Light
 $button-create-color: $primary-color;
 $button-create-background-color: $component-border-color;
+// hover
+$button-create-color-hover: $background-color;
+$button-create-background-color-hover: $accent-color;
 
 // Dark
 $button-create-color-inverse: $background-color;
 $button-create-background-color-inverse: $component-border-color-inverse;
+// hover
+$button-create-color-hover-inverse: $background-color;
+$button-create-background-color-hover-inverse: $accent-color;

@@ -1,0 +1,13 @@
+.button-create {
+    @include themify($themes) {
+        color: themed("buttonCreateColor");
+        background-color: themed("buttonCreateBackgroundColor") !important;
+    }
+
+    &:hover {
+        @include themify($themes) {
+            color: themed("buttonCreateColorHover");
+            background-color: themed("buttonCreateBackgroundColorHover") !important;
+        }
+    }
+}

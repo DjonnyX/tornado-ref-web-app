@@ -51,6 +51,8 @@ $themes: (
     // Button Create
     buttonCreateColor: $button-create-color,
     buttonCreateBackgroundColor: $button-create-background-color,
+    buttonCreateColorHover: $button-create-color-hover,
+    buttonCreateBackgroundColorHover: $button-create-background-color-hover,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal,
     tabButtonBorderColorNormal: $tab-button-border-normal,
@@ -198,6 +200,8 @@ $themes: (
     // Button Create
     buttonCreateColor: $button-create-color-inverse,
     buttonCreateBackgroundColor: $button-create-background-color-inverse,
+    buttonCreateColorHover: $button-create-color-hover-inverse,
+    buttonCreateBackgroundColorHover: $button-create-background-color-hover-inverse,
     // Tab button
     tabButtonBackgroundColorNormal: $tab-button-background-color-normal-theme-dark,
     tabButtonBorderColorNormal: $tab-button-border-normal-theme-dark,

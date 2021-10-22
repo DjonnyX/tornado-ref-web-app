@@ -55,10 +55,11 @@
                     .content {
                         @include themify($themes) {
                             background-color: themed("nodeTreeItemBackgroundColor") !important;
-                        }
-                        @include themify($themes) {
                             border-color: themed("nodeTreeBorderColor") !important;
                         }
+                        // @include themify($themes) {
+                        //     border-color: themed("nodeTreeBorderColor") !important;
+                        // }
 
                         &__ctrls {
                             @include themify($themes) {
