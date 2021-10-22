@@ -1,4 +1,6 @@
-<h2 mat-dialog-title><strong>{{localization.get(data.title)}}</strong></h2>
+<h2 mat-dialog-title>
+    {{localization.get(data.title)}}
+</h2>
 <mat-dialog-content class="mat-typography" style="min-width: 320px;">
     <p *ngIf="!!data.message">{{localization.get(data.message)}}</p>
     <ta-scenario-editor [type]="data.type" [scenario]="data.scenario" [scenarios]="data.scenarios"
