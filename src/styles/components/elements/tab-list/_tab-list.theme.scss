@@ -18,8 +18,6 @@
       }
 
       .tab-list__item__name {
-        font-weight: bold;
-
         @include themify($themes) {
           color: themed('tabListNameColorSelected');
         }
@@ -27,7 +25,9 @@
     }
 
     &:not(.selected):hover {
-      // background: darken($primary-color, 15);
+        @include themify($themes) {
+          background-color: themed('tabListItemBackgroundColorHover');
+        }
     }
   }
 }

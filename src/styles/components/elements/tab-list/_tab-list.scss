@@ -1,13 +1,15 @@
 .tab-list {
   @extend .button-group;
-  margin-bottom: 25px;
+  margin-bottom: 35px;
 
   &__item {
     @extend .button;
     cursor: pointer;
+    border-radius: $tab-list-border-radius;
     
     &__container {
       @extend .button__container;
+      padding: $tab-list-padding;
     }
 
     &__content {
@@ -21,9 +23,15 @@
     &__name {
       @extend .button__name;
       font-size: $tab-list-font-size;
+      font-weight: $tab-list-font-weight;
+      text-transform: $tab-list-text-transform;
     }
 
     &.selected {
+
+      .tab-list__item__name {
+        font-weight: $tab-list-font-weight-selected;
+      }
         // background: $accent-color;
         // border: 1px solid lighten($accent-color, 5);
         // color: white;
