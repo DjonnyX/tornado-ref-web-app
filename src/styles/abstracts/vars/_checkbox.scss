@@ -1,0 +1,17 @@
+// Light
+// active
+$checkbox-border-color-active: $accent-color;
+$checkbox-background-color-active: $accent-color;
+
+// inactive
+$checkbox-border-color-inactive: $primary-color;
+$checkbox-background-color-inactive: #eee;
+
+// Dark
+// active
+$checkbox-border-color-active-inverse: $accent-color;
+$checkbox-background-color-active-inverse: $accent-color;
+
+// inactive
+$checkbox-border-color-inactive-inverse: $primary-color;
+$checkbox-background-color-inactive-inverse: #eee;
