@@ -1,8 +1,8 @@
 <div class="asset-picker" [ngClass]="{m: size === 'm', s: size === 's'}">
     <div class="asset-viewer">
-        <button *ngIf="resetButtonShow" [disabled]="resetButtonDisabled" class="reset-content-button" type="button"
+        <button *ngIf="resetButtonShow && !resetButtonDisabled" class="reset-content-button" type="button"
             (click)="onReset()">
-            <mat-icon>settings_backup_restore</mat-icon>
+            <span class="icon-refresh"></span>
         </button>
         <button *ngIf="deleteButtonShow" [disabled]="resetButtonDisabled" class="reset-content-button" type="button"
             (click)="onDelete()">
