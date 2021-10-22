@@ -1,5 +1,6 @@
 .drag-drop-box {
     .content {
+        border-color: initial;
         @include themify($themes) {
             background-color: themed("nodeTreeWayHiderBackgroundColor"); //app-root theme
         }
