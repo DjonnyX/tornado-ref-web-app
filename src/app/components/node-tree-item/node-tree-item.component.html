@@ -187,9 +187,8 @@
                     </div>
                 </ng-container>
             </ng-template>
-            <button *ngIf="!lock && hasAllowSubCreation() && !nodeInstance" class="button-create" mat-flat-button
-                color="accent" (click)="onCreate()">
-                <mat-icon>add</mat-icon>
+            <button *ngIf="!lock && hasAllowSubCreation() && !nodeInstance" class="button-create" (click)="onCreate()">
+                <span class="icon-registration"></span>
             </button>
         </div>
     </span>
