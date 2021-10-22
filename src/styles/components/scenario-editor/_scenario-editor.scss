@@ -120,7 +120,8 @@ $border: 1px solid rgba($primary, 0.75);
   .disabled {
     .scenario-editor {
       .scenario-editor__content {
-        filter: brightness(90%);
+        opacity: $scenario-editor-disabled-opacity;
+        filter: $scenario-editor-disabled-filter;
       }
     }
   }
@@ -135,7 +136,8 @@ $border: 1px solid rgba($primary, 0.75);
 
       .scenario-list__item {
         &.disabled {
-          filter: brightness(90%);
+          opacity: $scenario-editor-disabled-opacity;
+          filter: $scenario-editor-disabled-filter;
         }
       }
     }
@@ -151,7 +153,8 @@ $border: 1px solid rgba($primary, 0.75);
   .disabled {
     .scenario-editor {
       .scenario-editor__content {
-        filter: brightness(90%);
+        opacity: $scenario-editor-disabled-opacity;
+        filter: $scenario-editor-disabled-filter;
       }
     }
   }

@@ -3,6 +3,8 @@ $secondary-color: #2B2F3C;
 $neutral-color: #7B7D83;
 $accent-color: #ffa000;
 
+$accent-secondary-color: #3677ed;
+
 $primary-color-30: lighten($primary-color, 3%);
 $primary-color-50: lighten($primary-color, 5%);
 $primary-color-100: lighten($primary-color, 10%);
@@ -26,7 +28,7 @@ $primary-color-1100: darken($primary-color, 10%);
 $highlight-primary-color: #dae3ed;
 $highlight-primary-color-inverse: #21263c;
 
-$highlight-secondary-color: #dae3ed;
+$highlight-secondary-color: lighten($accent-secondary-color, 38%);//#dae3ed;
 $highlight-secondary-color-inverse: #2b3040;
 $highlight-secondary-divider-color: darken($highlight-secondary-color, 5%);
 $highlight-secondary-divider-color-inverse: ligten($highlight-secondary-color-inverse, 15%);
