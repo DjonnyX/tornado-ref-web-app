@@ -1,0 +1,313 @@
+<div class="dashboard">
+
+    <!-- <div class="logo">
+        <div class="icon-logo-tornado-with-descriptor"></div>
+    </div> -->
+
+    <!-- profile -->
+    <div class="dashboard__block profile">
+        <ta-query-progress class="query-progress-container" [process]="isProcessProfile">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        Профиль пользователя
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block" *ngIf="!!profile">
+                            <div class="form-item full-width">
+                                <p>{{
+                                    profile?.account?.firstName
+                                    }} {{
+                                    profile?.account?.lastName
+                                    }}</p>
+                            </div>
+                            <div class="form-item full-width">
+                                <p>{{
+                                    profile?.account?.email
+                                    }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- employees -->
+    <div class="dashboard__block employees">
+        <ta-query-progress class="query-progress-container" [process]="isProcessEmployees">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        Работники
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../accounts']">
+                                    <p>
+                                        Аккаунты: {{accounts?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../roles']">
+                                    <p>
+                                        Роли: {{roles?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- menu forming -->
+    <div class="dashboard__block menu-formating">
+        <ta-query-progress class="query-progress-container" [process]="isProcessMenu">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        Формирование меню
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../menu-categories']"
+                                    [queryParams]="{type: SelectorTypes.MENU_CATEGORY}">
+                                    <p>
+                                        Группы товаров: {{categories?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../products']">
+                                    <p>
+                                        Товары: {{products?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../schema-categories']"
+                                    [queryParams]="{type: SelectorTypes.SCHEMA_CATEGORY}">
+                                    <p>
+                                        Группы модификаторов: {{schemesOfModifiers?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../tags']">
+                                    <p>
+                                        Тэги: {{tags?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Additional -->
+    <div class="dashboard__block additional">
+        <ta-query-progress class="query-progress-container" [process]="isProcessAdditional">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        Дополнительно
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../languages']">
+                                    <p>
+                                        Языки: {{languagesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../currencies']">
+                                    <p>
+                                        Валюты: {{currenciesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../order-types']">
+                                    <p>
+                                        Типы заказов: {{orderTypesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../business-periods']">
+                                    <p>
+                                        Бизнес-периоды: {{businessPeriodsNames}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Ads -->
+    <div class="dashboard__block ads">
+        <ta-query-progress class="query-progress-container" [process]="isProcessAds">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        Рекламы
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../intros']">
+                                    <p>
+                                        Заставки: {{splashScreens?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../service-unavailable-intros']">
+                                    <p>
+                                        Заставки (терминал не работает): {{splashScreensUnavailable?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../banners']">
+                                    <p>
+                                        Баннеры: {{banners?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Applications -->
+    <div class="dashboard__block applications">
+        <ta-query-progress class="query-progress-container" [process]="isProcessThemes">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        Приложения
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../themes-kiosk']">
+                                    <p>
+                                        Киоск самообслуживания: {{kioskThemes?.length}} (темы)
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../themes-eq']">
+                                    <p>
+                                        Электронная очередь: {{eqThemes?.length}} (темы)
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../themes-order-picker']">
+                                    <p>
+                                        Сборщик заказов: {{orderPickerThemes?.length}} (темы)
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Settings -->
+    <div class="dashboard__block settings">
+        <ta-query-progress class="query-progress-container" [process]="isProcessSettings">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        Настройки
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <span>
+                                    <p>
+                                        Интеграция: {{profile?.account?.integration?.name}}
+                                    </p>
+                                </span>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../backups']">
+                                    <p>
+                                        Бэкапы (Дата последнего сохранения): {{backupLastCreate}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../stores']">
+                                    <p>
+                                        Магазины: {{storesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../licenses-account']">
+                                    <p>
+                                        Лицензии (Киоск самообслуживания): {{licensesKiosk?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../licenses-account']">
+                                    <p>
+                                        Лицензии (Электронная очередь): {{licensesEq?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../licenses-account']">
+                                    <p>
+                                        Лицензии (Сборщик заказов): {{licensesOrderPicker?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../terminals']">
+                                    <p>
+                                        Терминалы (Киоск самообслуживания): {{terminalsKiosk?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../terminals']">
+                                    <p>
+                                        Терминалы (Электронная очередь): {{terminalsEq?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../terminals']">
+                                    <p>
+                                        Терминалы (Сборщик заказов): {{terminalsOrderPicker?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+</div>

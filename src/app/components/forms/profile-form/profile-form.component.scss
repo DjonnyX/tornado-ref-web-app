@@ -1,38 +1,46 @@
 .profile {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
 
-    .profile__block {
+  .profile__block {
+    display: flex;
+
+    .query-progress {
+      &__content-wrapper {
         display: flex;
-        .form {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+      }
     }
 
-    .form__link {
-        font-size: 16px;
-        text-transform: lowercase;
-        text-decoration: underline;
+    .form {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
+  }
+
+  .form__link {
+    font-size: 16px;
+    text-transform: lowercase;
+    text-decoration: underline;
+  }
 }
 
 @media screen and (max-width: 840px) {
-    .profile {
-        display: block;
+  .profile {
+    display: block;
 
-        .profile__block:not(:last-child) {
-            margin-bottom: 8px;
-        }
-
-        .profile__block {
-            display: block;
-            .form.not-editable {
-                height: initial;
-            }
-        }
+    .profile__block:not(:last-child) {
+      margin-bottom: 8px;
     }
+
+    .profile__block {
+      display: block;
+
+      .form.not-editable {
+        height: initial;
+      }
+    }
+  }
 }

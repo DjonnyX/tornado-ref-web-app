@@ -185,6 +185,7 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Ваш email был изменен!",
         "auth_reset-email-result_return-to-signin": "Вернуться",
         // navigation menu
+        "menu_dashboard": "Дашборд",
         "menu_employees": "Работники",
         "menu_accounts": "Аккаунты",
         "menu_roles": "Роли",
@@ -484,6 +485,7 @@ const LOCALIZATION = {
         "auth_reset-email-result_message": "Your email has been changed!",
         "auth_reset-email-result_return-to-signin": "Return",
         // navigation menu
+        "menu_dashboard": "Dashboard",
         "menu_employees": "Employees",
         "menu_accounts": "Accounts",
         "menu_roles": "Roles",

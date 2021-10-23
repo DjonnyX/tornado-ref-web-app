@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
 import { IAccount, IIntegration } from '@djonnyx/tornado-types';
@@ -18,7 +18,8 @@ interface IData {
 @Component({
   selector: 'ta-profile-form',
   templateUrl: './profile-form.component.html',
-  styleUrls: ['./profile-form.component.scss']
+  styleUrls: ['./profile-form.component.scss'],
+  encapsulation: ViewEncapsulation.None,
 })
 export class ProfileFormComponent extends BaseComponent implements OnInit, OnDestroy {
   mainForm: FormGroup;

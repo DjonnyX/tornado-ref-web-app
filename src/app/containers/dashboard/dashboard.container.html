@@ -1,0 +1,18 @@
+<ta-query-progress class="query-progress-container" [process]="!(defaultLanguage$ | async)">
+    <div class="entity-options-editor">
+        <ta-dashboard-component [rights]="rights$ | async" [defaultLanguage]="defaultLanguage$ | async"
+            [isProcessProfile]="isProcessProfile$ | async" [profile]="profile$ | async"
+            [isProcessEmployees]="isProcessEmployees$ | async" [accounts]="accounts$ | async" [roles]="roles$ | async"
+            [isProcessMenu]="isProcessMenu$ | async" [products]="products$ | async" [categories]="categories$ | async"
+            [schemesOfModifiers]="schemesOfModifiers$ | async" [tags]="tags$ | async"
+            [isProcessAdditional]="isProcessAdditional$ | async" [currencies]="currencies$ | async"
+            [languages]="languages$ | async" [orderTypes]="orderTypes$ | async"
+            [businessPeriods]="businessPeriods$ | async" [isProcessAds]="isProcessAds$ | async"
+            [splashScreens]="splashScreens$ | async" [splashScreensUnavailable]="splashScreensUnavailable$ | async"
+            [banners]="banners$ | async" [isProcessSettings]="isProcessSettings$ | async" [licenses]="licenses$ | async"
+            [terminals]="terminals$ | async" [stores]="stores$ | async" [backupInfo]="backupInfo$ | async"
+            [isProcessThemes]="isProcessThemes$ | async" [kioskThemes]="kioskThemes$ | async"
+            [eqThemes]="eqThemes$ | async" [orderPickerThemes]="orderPickerThemes$ | async">
+        </ta-dashboard-component>
+    </div>
+</ta-query-progress>

@@ -31,7 +31,7 @@ import {
   ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse, IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse, IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -1643,6 +1643,16 @@ export class ApiService {
       });
   }
 
+  // ref server info
+  public getRefServerInfo(): Observable<IRefServerInfoGetResponse> {
+    return this._http
+      .get<IRefServerInfoGetResponse>("api/v1/info", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
   // integrations
   public getIntegrations(options?: IRequestOptions): Observable<IIntegrationsGetResponse> {
     return this._http
@@ -1847,13 +1857,13 @@ export class ApiService {
   }
 
   // themes
-  public getAppThemes<T = any>(type: TerminalTypes, options?: IRequestOptions): Observable<IAppThemesGetResponse<T>> {
+  public getAppThemes<T = any>(options?: IRequestOptions): Observable<IAppThemesGetResponse<T>> {
     return this._http
       .get<IAppThemesGetResponse<T>>("api/v1/app-themes", {
         headers: {
           "authorization": this.getAuthToken(),
         },
-        params: extractParams(options).append("type", String(type)),
+        params: extractParams(options),
       });
   }
 

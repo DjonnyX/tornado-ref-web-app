@@ -22,7 +22,12 @@
   }
 
   .form {
-    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 3%);
+    border-width: 1px;
+    border-style: solid;
+    border-color: #dbdbdb;
+    background-color: white;
 
     @include themify($themes) {
       background-color: themed("formBackgroundColor");
@@ -68,14 +73,15 @@
 
 @media screen and (max-width: 1400px) {
   .entity-options-editor {
-    @include themify($themes) {
-      background-color: themed("formBackgroundColor");
-    }
 
     min-height: 100%;
 
     .form {
       padding: px2em(34);
+
+      @include themify($themes) {
+        background-color: themed("formBackgroundColor");
+      }
     }
 
     .form+.form {
