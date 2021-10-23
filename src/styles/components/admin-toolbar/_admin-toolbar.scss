@@ -1,6 +1,14 @@
 $admin-section-container-padding-h: 16px;
 $dropdown-selector-value-width: 36px;
 
+.icon-logo-tornado-with-descriptor:before {
+  content: "\e935";
+}
+
+.icon-logo-tornado:before {
+  content: "\e933";
+}
+
 .admin__toolbar {
     display: grid;
     // grid-template-columns: $navigation-menu-width auto; //Layout
@@ -14,6 +22,7 @@ $dropdown-selector-value-width: 36px;
         height: 100%;
         // width: $navigation-menu-width;  //Layout
         width: 100%;
+        overflow: hidden;
 
         &__container {
             width: 100%;
@@ -98,8 +107,24 @@ $dropdown-selector-value-width: 36px;
         border-radius: 6px;
 
         &::before {
+            // content: "\e935";
+            @extend .icon-logo-tornado-with-descriptor;
+            font-family: icomoon;
             color: $background-color;
             font-size: 32px;
+        }
+    }
+}
+
+.rolled-up {
+
+    .admin__logo {
+
+        &__icon {
+
+            &::before {
+                @extend .icon-logo-tornado;
+            }
         }
     }
 }

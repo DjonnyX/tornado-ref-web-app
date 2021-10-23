@@ -14,15 +14,8 @@
 
         &.rolled-up {
 
-            .admin__toolbar__logo-section {
-
-                .admin__toolbar__logo-section__container {
-                    padding-left: 0px;
-                }
-            }
-
             .admin__logo {
-                // display: none;
+                display: none;
             }
         }
     }
