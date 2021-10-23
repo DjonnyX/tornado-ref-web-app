@@ -337,9 +337,12 @@ export class DashboardContainer extends BaseComponent implements OnInit, OnDestr
       this._store.pipe(
         select(StoresSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(RefServerInfoSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isLicensesProcess, isTerminalsProcess, isStoresProcess]) =>
-        isLicensesProcess || isTerminalsProcess || isStoresProcess),
+      map(([isLicensesProcess, isTerminalsProcess, isStoresProcess, isRefServerInfoProcess]) =>
+        isLicensesProcess || isTerminalsProcess || isStoresProcess || isRefServerInfoProcess),
     );
 
     this.licenses$ = this._store.pipe(

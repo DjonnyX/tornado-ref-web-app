@@ -1,1 +1,3 @@
-<ta-backups-editor></ta-backups-editor>
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
+    <ta-backups-editor [backupInfo]="backupInfo$ | async"></ta-backups-editor>
+</ta-query-progress>
