@@ -432,4 +432,8 @@ export const USER_RIGHTS_LIST: Array<IUserRightData> = [
         name: "UPDATE_ACCOUNT_ROLE_RIGHTS",
         value: UserRights.UPDATE_ACCOUNT_ROLE_RIGHTS,
     },
+    {
+        name: "READ_DASHBOARD",
+        value: UserRights.READ_DASHBOARD,
+    },
 ];

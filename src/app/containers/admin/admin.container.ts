@@ -59,6 +59,7 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
     name: "menu_dashboard", //"Дашборд",
     route: "dashboard",
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+    right: UserRights.READ_DASHBOARD,
   },
   {
     icon: "folder-settings",
