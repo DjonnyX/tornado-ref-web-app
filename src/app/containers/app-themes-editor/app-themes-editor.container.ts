@@ -98,7 +98,15 @@ export class AppThemesEditorContainer implements OnInit, OnDestroy {
     );
 
     this._store.dispatch(AppThemesActions.getAllRequest({
-      terminalType: this._terminalType,
+      options: {
+        filter: [
+          {
+            id: "type",
+            operation: "equals",
+            value: this._terminalType,
+          }
+        ]
+      }
     }));
 
     this._store.dispatch(AppThemeAssetsActions.getAllRequest({

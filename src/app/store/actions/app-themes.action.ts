@@ -30,7 +30,7 @@ export namespace AppThemesActions {
     // getAll
     export const getAllRequest = createAction(
         AppThemesActionTypes.GET_ALL_REQUEST,
-        props<{ terminalType: TerminalTypes, options?: IRequestOptions }>(),
+        props<{ options?: IRequestOptions }>(),
     );
     export const getAllSuccess = createAction(
         AppThemesActionTypes.GET_ALL_SUCCESS,
