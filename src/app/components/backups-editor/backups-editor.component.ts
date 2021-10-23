@@ -143,6 +143,9 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
       // err
       if (progress === null) {
         this.isBackupUploading = false;
+
+        finish$.next();
+        finish$.complete();
         return;
       }
 
@@ -155,7 +158,7 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
         this._notificationService.success("База данных восстановлена");
       } else {
-        /// this._backupUploadingTime$.next(progress);
+        
       }
     }, err => {
       this.isBackupUploading = false;
