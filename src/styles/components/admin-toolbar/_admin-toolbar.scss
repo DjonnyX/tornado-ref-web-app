@@ -30,8 +30,8 @@ $dropdown-selector-value-width: 36px;
         border-style: solid;
         border-top: 0px;
         border-right: 0px;
-        border-left-width: $admin-view-border-width;
-        border-bottom-width: $admin-view-border-width;
+        border-left-width: $admin-toolbar-border-width;
+        border-bottom-width: $admin-toolbar-border-width;
 
         &__container {
             display: flex;

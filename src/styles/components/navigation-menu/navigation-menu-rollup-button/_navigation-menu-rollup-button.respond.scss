@@ -1,0 +1,20 @@
+// lg
+// @include respond-above(md) {
+
+//     .admin__view__navigation {
+        
+//         .navigation-menu__rollup-button {
+
+//         }
+//     }
+// }
+// lg
+@include respond-below(md) {
+    
+    .admin__view__navigation {
+        
+        .navigation-menu__rollup-button {
+            display: none;
+        }
+    }
+}
