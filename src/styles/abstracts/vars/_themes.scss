@@ -46,6 +46,13 @@ $themes: (
     CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary,
     CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary,
     //
+    //Dropdown Selector
+    dropdownSelectorForegroundColor: $dropdown-selector-foreground-color,
+    dropdownSelectorForegroundColorHover: $dropdown-selector-foreground-color-hover,
+    dropdownSelectorBackgroundColor: $dropdown-selector-background-color,
+    dropdownSelectorBackgroundColorHover: $dropdown-selector-background-color-hover,
+    dropdownSelectorBorderColor: $dropdown-selector-border-color,
+    //
     textColor: $primary-color,
     //Entity
     entityGroupListColor: rgba($secondary-color, 0.4),
@@ -208,6 +215,13 @@ $themes: (
 
     CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary-inverse,
     CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary-inverse,
+    //
+    //Dropdown Selector
+    dropdownSelectorForegroundColor: $dropdown-selector-foreground-color-inverse,
+    dropdownSelectorForegroundColorHover: $dropdown-selector-foreground-color-hover-inverse,
+    dropdownSelectorBackgroundColor: $dropdown-selector-background-color-inverse,
+    dropdownSelectorBackgroundColorHover: $dropdown-selector-background-color-hover-inverse,
+    dropdownSelectorBorderColor: $dropdown-selector-border-color-inverse,
     //
     textColor: $white,
     //Entity

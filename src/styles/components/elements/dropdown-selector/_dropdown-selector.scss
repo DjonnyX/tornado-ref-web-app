@@ -1,4 +1,4 @@
-@import "../../../base/reset-button";
+// @import "../../../base/reset-button";
 
 $dropdown-selector-border-radius: 4px;
 $dropdown-selector-list-border-radius: 6px;
@@ -80,12 +80,12 @@ $anim-scale-in-out: 0.75;
         border-radius: $dropdown-selector-list-border-radius;
         overflow: hidden;
         box-shadow: 0px 8px 16px 0px rgb(0 0 0 / 10%);
-        background-color: $white;
+        // background-color: $white; // Theme
 
         &__item {
             display: flex;
             flex-direction: row;
-            border-bottom: 1px solid $divider-color;
+            // border-bottom: 1px solid $divider-color;// Theme
 
             &__container {
                 align-items: center;
@@ -97,7 +97,7 @@ $anim-scale-in-out: 0.75;
             &:hover,
             &:focus {
                 color: rgba($primary-color, 0.75);
-                background-color: $background-color;
+                // background-color: $background-color;// Theme
             }
 
             &:last-child {
