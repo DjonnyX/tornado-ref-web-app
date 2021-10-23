@@ -12,6 +12,10 @@
 
 .query-progress-container {
     position: relative;
+
+    mat-progress-bar {
+        height: 2px;
+    }
 }
 
 .form__body {
