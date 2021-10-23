@@ -5,7 +5,7 @@
         border-color: themed("buttonCreateBorderColor") !important;
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
         @include themify($themes) {
             color: themed("buttonCreateColorHover");
             background-color: themed("buttonCreateBackgroundColorHover") !important;

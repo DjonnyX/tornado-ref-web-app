@@ -5,4 +5,8 @@
     border-style: solid;
     // color: $button-create-color;
     // background-color: $button-create-background-color;
+
+    &:disabled {
+        opacity: 0.5;
+    }
 }
