@@ -61,8 +61,6 @@
       @include themify($themes) {
         background-color: themed("formBackgroundColor");
       }
-
-      border-radius: 3px;
     }
 
     .form+.form {
