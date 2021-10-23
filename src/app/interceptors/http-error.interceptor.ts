@@ -61,7 +61,9 @@ export class HttpErrorInterceptor implements HttpInterceptor {
                     errorMessage = `${error.message}\n`;
                 }
 
-                this.notification.error(localizeError(errorMessage, this.localization));
+                const localizedError = localizeError(errorMessage, this.localization);
+
+                this.notification.error(localizedError);
                 throw Error(errorMessage);
             })
         );

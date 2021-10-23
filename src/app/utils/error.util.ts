@@ -3,11 +3,13 @@ import { LocalizationService } from "@app/services/localization/localization.ser
 export const localizeError = (message: string, localization: LocalizationService): string => {
     let result = "";
     if (!message || message === "Token is empty.") {
-        message = "Unathorized.";
+        result = "Вы не аторизовались.";
     } else if (message === "jwt expired") {
-        message = "Время сессии истекло.";
+        result = "Время сессии истекло.";
+    } else if (message === "token paiload is fail.") {
+        result = "Что-то пошло не так, повторите попытку.";
     } else if (message === "License method not allowed") {
-        message = "Метод не доступен.";
+        result = "Метод не доступен.";
     } else {
         result = message;
     }
