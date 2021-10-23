@@ -29,7 +29,7 @@ export class ColorPickerComponent implements OnInit {
 
   textColorClass: { [className: string]: boolean } = {};
 
-  @Input() cpPosition: string = 'top-right';
+  @Input() cpPosition: string = 'bottom';
 
   private _control: FormControl;
   @Input() set control(v: FormControl) {

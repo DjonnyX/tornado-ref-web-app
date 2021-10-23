@@ -1,7 +1,21 @@
 .profile {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+  "main email"
+  "integration integration"
+  ;
   gap: 8px;
+
+  .main {
+    grid-area: main;
+  }
+  .email {
+    grid-area: email;
+  }
+  .integration {
+    grid-area: integration;
+  }
 
   .profile__block {
     display: flex;

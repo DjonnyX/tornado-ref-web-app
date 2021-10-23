@@ -122,8 +122,8 @@
     </div>
 
     <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Закрыть</button>
-        <button mat-flat-button color="accent" class="button button__text" (click)="onEdit()">
+        <button class="button-create button__text" (click)="onCancel()">Закрыть</button>
+        <button class="button-create button__text" (click)="onEdit()">
             Редактировать
         </button>
     </div>
@@ -178,8 +178,8 @@
         </ng-container>
 
         <div class="form__submit" align="end">
-            <button mat-button class="button button__text" (click)="onEditCancel()">Отменить</button>
-            <button mat-flat-button color="accent" type="submit" class="button button__text"
+            <button class="button-create button__text" (click)="onEditCancel()">Отменить</button>
+            <button type="submit" class="button-create button__text"
                 [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
         </div>
     </form>
