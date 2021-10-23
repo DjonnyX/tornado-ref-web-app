@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { IAccount, IIntegration } from '@djonnyx/tornado-types';
+import { IAccount, IIntegration, IntegrationStates } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import { IUserProfile } from '@models';
 import { NAME_PATTERN } from '@app/core/patterns';
@@ -13,6 +13,7 @@ interface IData {
   lastName: IKeyValue;
   email: IKeyValue;
   integration: IKeyValue;
+  integrationVersion: IKeyValue;
 }
 
 @Component({
@@ -102,6 +103,8 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
       return;
     }
 
+    const integration = this._integrations?.find(item => item.id === this._profile?.account?.integrationId);
+
     this._data = {
       firstName: {
         key: "Имя",
@@ -117,7 +120,11 @@ export class ProfileFormComponent extends BaseComponent implements OnInit, OnDes
       },
       integration: {
         key: "Интеграция",
-        value: this._integrations?.find(item => item.id === this._profile?.account?.integrationId)?.name || ' Отсутствует',
+        value: integration?.name || ' Отсутствует',
+      },
+      integrationVersion: {
+        key: "Версия",
+        value: integration?.version.version || ' ---',
       },
     };
   }

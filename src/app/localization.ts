@@ -547,7 +547,7 @@ const LOCALIZATION = {
         // tags
         "tags_add-new": "New a tag",
         // backups
-        "backups_form": "Form",
+        "backups_form": "Save data",
         "backups_upload": "Upload",
         // stores
         "stores_add-new": "Add a store",

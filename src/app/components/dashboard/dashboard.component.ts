@@ -7,6 +7,7 @@ import {
 import { IUserProfile } from '@models';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import moment from 'moment';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'ta-dashboard-component',
@@ -199,11 +200,19 @@ export class DashboardComponent extends BaseComponent implements OnInit, OnDestr
 
   constructor(
     public readonly localization: LocalizationService,
+    private _router: Router,
+    private _activatedRoute: ActivatedRoute,
   ) {
     super();
   }
 
   ngOnInit(): void { }
+
+  onEditProfile() {
+    this._router.navigate(["../profile"], {
+      relativeTo: this._activatedRoute,
+    });
+  }
 
   ngOnDestroy(): void {
     super.ngOnDestroy();

@@ -53,18 +53,18 @@
 
     <div class="form__submit" align="end">
         <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
-            <button mat-button class="button button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
+            <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
                 Отменить
             </button>
-            <button mat-flat-button color="accent" type="submit" class="button button__text" [disabled]="!form.valid">
+            <button type="submit" class="button-create button__text" [disabled]="!form.valid">
                 {{isEditMode ? 'Сохранить' : 'Создать'}}
             </button>
         </ng-container>
         <ng-template #editButtons>
-            <button mat-button class="button button__text" (click)="onCancel()">
+            <button type="submit" class="button-create button__text" (click)="onCancel()">
                 Отменить
             </button>
-            <button mat-flat-button color="accent" (click)="onEdit()" class="button button__text">
+            <button (click)="onEdit()" class="button-create button__text">
                 Редактировать
             </button>
         </ng-template>

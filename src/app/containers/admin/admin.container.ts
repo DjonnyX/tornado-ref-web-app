@@ -557,6 +557,18 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
     this._store.dispatch(UserActions.signoutRequest());
   }
 
+  onGotoMainPage() {
+    if (["all", "cms"].indexOf(environment.buildType) > -1) {
+      if (this.authService.hasAuthority([DefaultRoleTypes.ADMIN])) {
+        this._router.navigate(["admin/licenses"]);
+      } else {
+        this._router.navigate(["admin/dashboard"]);
+      }
+    } else if (["documentation"].indexOf(environment.buildType) > -1) {
+      this._router.navigate(["documentation/registration"]);
+    }
+  }
+
   ngOnDestroy() {
     super.ngOnDestroy();
   }
