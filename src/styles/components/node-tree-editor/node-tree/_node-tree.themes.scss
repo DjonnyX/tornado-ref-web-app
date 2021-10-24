@@ -1,8 +1,25 @@
 .drag-drop-box {
     .content {
-        border-color: initial;
+        // border-color: initial;
         @include themify($themes) {
             background-color: themed("nodeTreeWayHiderBackgroundColor"); //app-root theme
+        }
+    }
+}
+
+// Is Dragged
+.cdk-drag-preview {
+    .content {
+        @include themify($themes) {
+            background-color: themed("nodeTreeItemBackgroundColorDragged") !important;
+            border-color: themed("nodeTreeBorderColorDragged") !important;
+        }
+
+        &__ctrls {
+            @include themify($themes) {
+                border-right-color: themed("nodeTreeItemDividerBorderColorDragged") !important;
+                color: themed("nodeTreeItemTextColorDragged") !important;
+            }
         }
     }
 }
@@ -58,19 +75,16 @@
                             background-color: themed("nodeTreeItemBackgroundColor") !important;
                             border-color: themed("nodeTreeBorderColor") !important;
                         }
-                        // @include themify($themes) {
-                        //     border-color: themed("nodeTreeBorderColor") !important;
-                        // }
 
                         &__ctrls {
                             @include themify($themes) {
-                                border-color: themed("nodeTreeItemDividerBorderColor") !important;
-                                color: themed("nodeTreeItemFontColor") !important;
+                                border-right-color: themed("nodeTreeItemDividerBorderColor") !important;
+                                color: themed("nodeTreeItemTextColor") !important;
                             }
                         }
                         &__context-menu-button {
                             @include themify($themes) {
-                                color: themed("nodeTreeItemFontColor") !important;
+                                color: themed("nodeTreeItemTextColor") !important;
                             }
                         }
                         //Searched

@@ -10,14 +10,40 @@ $node-tree-disabled-opacity: $entity-disabled-opacity;
 $node-tree-disabled-filter: $entity-disabled-filter;
 
 //Light
-$node-tree-way-border-color: $component-border-color;
-$node-tree-border-color: $entity-border-color;
-$node-tree-item-title-color: $primary-color;
+    //Item
+    $node-tree-way-border-color: $component-border-color;
+    $node-tree-border-color: $entity-border-color;
+    $node-tree-item-background-color: $white;
+    //Text
+    $node-tree-item-text-color: $primary-color;
+    $node-tree-item-title-color: $node-tree-item-text-color;
+    //Cntrls
+    $node-tree-item-divider-border-color: $primary-color-800;
+        //dragged
+        $node-tree-item-background-color-dragged: $node-tree-item-background-color;
+        $node-tree-border-color-dragged: $node-tree-border-color;
+        $node-tree-item-divider-border-color-dragged: $node-tree-item-divider-border-color;
+
+        $node-tree-item-text-color-dragged: $node-tree-item-text-color;
+        $node-tree-item-title-color-dragged: $node-tree-item-title-color;
 
 //Dark
-$node-tree-way-border-color-inverse: $primary-color-100;
-$node-tree-border-color-inverse: $entity-border-color-inverse;
-$node-tree-item-title-color-inverse: $primary-color-800;
+    //Item
+    $node-tree-way-border-color-inverse: $primary-color-100;
+    $node-tree-border-color-inverse: $entity-border-color-inverse;
+    $node-tree-item-background-color-inverse: $primary-color-100;
+    //Text
+    $node-tree-item-text-color-inverse: $primary-color-800;
+    $node-tree-item-title-color-inverse: $node-tree-item-text-color-inverse;
+    //Cntrls
+    $node-tree-item-divider-border-color-inverse: $primary-color-200;
+        //Dragged
+        $node-tree-item-background-color-dragged-inverse: $node-tree-item-background-color-inverse;
+        $node-tree-border-color-dragged-inverse: $node-tree-border-color-inverse;
+        $node-tree-item-divider-border-color-dragged-inverse: $node-tree-item-divider-border-color-inverse;
+
+        $node-tree-item-text-color-dragged-inverse: $node-tree-item-text-color-inverse;
+        $node-tree-item-title-color-dragged-inverse: $node-tree-item-title-color-inverse;
 
 
 // Respond
