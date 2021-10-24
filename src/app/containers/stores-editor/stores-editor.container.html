@@ -1,4 +1,7 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-stores-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async" [refInfo]="refInfo$ | async" [rights]="rights$ | async"
-        (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)"></ta-stores-editor-component>
+    <ta-stores-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async"
+        [refInfo]="refInfo$ | async" [rights]="rights$ | async" (create)="onCreate()" (update)="onUpdate($event)"
+        (edit)="onEdit($event)" (delete)="onDelete($event)">
+        <ta-main-footer></ta-main-footer>
+    </ta-stores-editor-component>
 </ta-query-progress>

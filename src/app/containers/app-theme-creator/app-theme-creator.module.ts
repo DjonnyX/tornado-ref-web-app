@@ -5,6 +5,7 @@ import { AppThemeCreatorFormModule } from '@components/forms/app-theme-creator-f
 import { AppThemeCreatorRoutingModule } from './app-theme-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
     AppThemeCreatorFormModule,
     QueryProgressessModule,
     AssetsUploaderModule,
+    MainFooterModule,
   ]
 })
 export class AppThemeCreatorModule { }

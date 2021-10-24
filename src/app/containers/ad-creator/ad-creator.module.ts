@@ -4,6 +4,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
 import { AdCreatorFormModule } from '@components/forms/ad-creator-form/ad-creator-form.module';
 import { AdCreatorRoutingModule } from './ad-creator-routing.module';
 import { AdCreatorContainer } from './ad-creator.container';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { AdCreatorContainer } from './ad-creator.container';
     AdCreatorRoutingModule,
     AdCreatorFormModule,
     QueryProgressessModule,
+    MainFooterModule,
   ]
 })
 export class AdCreatorModule { }

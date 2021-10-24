@@ -1,5 +1,7 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-integrations-editor-component *ngIf="!(isGetProcess$ | async)" [collection]="collection$ | async"
         [refInfo]="refInfo$ | async" (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)"
-        (delete)="onDelete($event)"></ta-integrations-editor-component>
+        (delete)="onDelete($event)">
+        <ta-main-footer></ta-main-footer>
+    </ta-integrations-editor-component>
 </ta-query-progress>

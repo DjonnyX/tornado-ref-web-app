@@ -4,6 +4,7 @@ import { ApplicationsEditorRoutingModule } from './applications-editor-routing.m
 import { ApplicationsEditorContainer } from './applications-editor.container';
 import { ApplicationsEditorComponentModule } from '@components/applications-editor/applications-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     ApplicationsEditorRoutingModule,
     ApplicationsEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class ApplicationsEditorModule { }

@@ -4,6 +4,7 @@ import { TerminalsEditorRoutingModule } from './terminals-editor-routing.module'
 import { TerminalsEditorContainer } from './terminals-editor.container';
 import { TerminalsEditorComponentModule } from '@components/terminals-editor/terminals-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     TerminalsEditorRoutingModule,
     TerminalsEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class TerminalsEditorModule { }

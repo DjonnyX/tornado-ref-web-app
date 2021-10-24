@@ -4,5 +4,6 @@
     (create)="onCreate()" (edit)="onEdit($event)" (update)="onUpdate($event)" (delete)="onDelete($event)"
     [layoutType]="layoutType$ | async" [displayInactiveEntities]="displayInactiveEntities$ | async"
     (changeLayout)="onChangeLayout($event)" (changeDisplayInactiveEntities)="onChangeDisplayInactiveEntities($event)">
+    <ta-main-footer></ta-main-footer>
   </ta-ads-editor-component>
 </ta-query-progress>

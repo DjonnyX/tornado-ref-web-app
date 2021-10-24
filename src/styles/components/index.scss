@@ -1,13 +1,13 @@
-@import "./elements/"; //+
-@import "./cdk-drag/";
+@import "./elements"; //+
+@import "./cdk-drag";
 @import "./assets-uploader";
 @import "./asset-picker";
 @import "./key-value";
 @import "./list";
 
-@import "./admin-toolbar/";
-@import "./node-tree-editor/";
-@import "./scenario-editor/";
+@import "./admin-toolbar";
+@import "./node-tree-editor";
+@import "./scenario-editor";
 // @import "./scenario-editor";
 // @import "./scenario-entity-editor";
 @import "./action-menu";
@@ -15,9 +15,9 @@
 // @import "./entity-checkbox";
 // @import "./entity-popup-menu-panel";
 // @import "./entity-editor";
-@import "./admin-view/";
+@import "./admin-view";
 
-@import "./entity-editor/"; //+
+@import "./entity-editor"; //+
 
 @import "./entity-options-editor";
 @import "./schedule";
@@ -26,12 +26,12 @@
 @import "./snackbar";
 // @import "./expansion-panel";
 @import "./resources-editor";
-@import "./navigation-menu/";
-@import "./folder-header/";
+@import "./navigation-menu";
+@import "./folder-header";
 
 @import "./search/index";
 
-@import "./state-panel/";
+@import "./state-panel";
 @import "./loader-button";
 @import "./logo";
 @import "./reset-content-button";
@@ -40,13 +40,14 @@
 @import "./captcha";
 @import "./version";
 @import "./404";
-@import "./dialog-sheet/";
+@import "./dialog-sheet";
 
-@import "./admin-footer/";
+@import "./admin-footer";
 
 // @import "./admin-container";
 //@import "./scrollbar";
-@import "./drag-drop-list/";
+@import "./drag-drop-list";
 @import "./gradient-color-editor";
 @import "./autocomplete";
-@import "./query-progress/";
+@import "./query-progress";
+@import "./page";

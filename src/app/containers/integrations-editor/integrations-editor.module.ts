@@ -4,6 +4,7 @@ import { IntegrationsEditorRoutingModule } from './integrations-editor-routing.m
 import { IntegrationsEditorContainer } from './integrations-editor.container';
 import { IntegrationsEditorComponentModule } from '@components/integrations-editor/integrations-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     IntegrationsEditorRoutingModule,
     IntegrationsEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class IntegrationsEditorModule { }

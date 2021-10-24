@@ -1,11 +1,7 @@
 <div class="editor">
-  <!--  -->
-
   <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" [layout]="layoutType"
     [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
     (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)"></ta-state-panel>
-
-  <!--  -->
   <!--Editor Scroll View-->
   <div class="editor__scroll-view">
     <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
@@ -50,9 +46,6 @@
               <!-- ActionMenu -->
             </div>
           </div>
-          <!-- Controls -->
-
-
           <div matRipple class="entity__body" (click)="onEdit(tag)">
             <div class="entity__body__content">
               <div class="entity__body__container">
@@ -73,29 +66,18 @@
             </div>
           </div>
         </div>
-
-
-        <!-- <button color="accent" mat-raised-button class="button-add" (click)="onCreate()">
-            <mat-icon>add</mat-icon>
-          </button> -->
-
         <!-- Panel Add Item -->
         <div class="entities-bottom-panel">
           <div class="entities-bottom-panel__container">
             <button color="accent" class="button-add" (click)="onCreate()">
-              <!-- <mat-icon class="button-add-icon">add</mat-icon> -->
               <div class="">
                 {{localization.get("tags_add-new")}}
               </div>
             </button>
           </div>
         </div>
-        <!-- Panel Add Item -->
-
-
       </div>
-
-      <!--  -->
     </div>
+    <ng-content></ng-content>
   </div>
 </div>

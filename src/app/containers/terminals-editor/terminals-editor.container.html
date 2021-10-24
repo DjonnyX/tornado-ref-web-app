@@ -1,5 +1,7 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-terminals-editor-component [collection]="collection$ | async" [stores]="stores$ | async"
         [refInfo]="refInfo$ | async" (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)"
-        (delete)="onDelete($event)"></ta-terminals-editor-component>
+        (delete)="onDelete($event)">
+        <ta-main-footer></ta-main-footer>
+    </ta-terminals-editor-component>
 </ta-query-progress>

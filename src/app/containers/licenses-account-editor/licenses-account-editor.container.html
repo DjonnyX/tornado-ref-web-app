@@ -1,5 +1,7 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-licenses-account-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async" [integrations]="integrations$ | async"
-        [accounts]="accounts$ | async" [refInfo]="refInfo$ | async" (view)="onView($event)" (unbind)="onUnbind($event)">
+    <ta-licenses-account-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async"
+        [integrations]="integrations$ | async" [accounts]="accounts$ | async" [refInfo]="refInfo$ | async"
+        (view)="onView($event)" (unbind)="onUnbind($event)">
+        <ta-main-footer></ta-main-footer>
     </ta-licenses-account-editor-component>
 </ta-query-progress>

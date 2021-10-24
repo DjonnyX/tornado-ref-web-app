@@ -4,6 +4,7 @@ import { AccountCreatorContainer } from './account-creator.container';
 import { AccountCreatorFormModule } from '@components/forms/account-creator-form/account-creator-form.module';
 import { AccountCreatorRoutingModule } from './account-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     AccountCreatorRoutingModule,
     AccountCreatorFormModule,
     QueryProgressessModule,
+    MainFooterModule,
   ]
 })
 export class AccountCreatorModule { }

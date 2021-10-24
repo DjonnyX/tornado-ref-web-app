@@ -1,7 +1,10 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <div class="entity-options-editor">
-        <ta-profile-form [profile]="profile$ | async" [integrations]="integrations$ | async"
-            (saveUserInfo)="onSaveUserInfo($event)">
-        </ta-profile-form>
+    <div class="page-content">
+        <div class="entity-options-editor">
+            <ta-profile-form [profile]="profile$ | async" [integrations]="integrations$ | async"
+                (saveUserInfo)="onSaveUserInfo($event)">
+            </ta-profile-form>
+        </div>
+        <ta-main-footer></ta-main-footer>
     </div>
 </ta-query-progress>

@@ -2,5 +2,6 @@
     <ta-languages-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async"
         [refInfo]="refInfo$ | async" [assets]="assets$ | async" (create)="onCreate()" (update)="onUpdate($event)"
         (updateAll)="onUpdateAll($event)" (edit)="onEdit($event)" (delete)="onDelete($event)">
+        <ta-main-footer></ta-main-footer>
     </ta-languages-editor-component>
 </ta-query-progress>

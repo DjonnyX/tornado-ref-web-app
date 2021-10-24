@@ -1,4 +1,7 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-checkues-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
-        (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)" (updateAll)="onUpdateAll($event)" (delete)="onDelete($event)"></ta-checkues-editor-component>
+    <ta-checkues-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async" (create)="onCreate()"
+        (update)="onUpdate($event)" (edit)="onEdit($event)" (updateAll)="onUpdateAll($event)"
+        (delete)="onDelete($event)">
+        <ta-main-footer></ta-main-footer>
+    </ta-checkues-editor-component>
 </ta-query-progress>

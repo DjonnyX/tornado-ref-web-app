@@ -5,6 +5,7 @@ import { OrderTypeCreatorFormModule } from '@components/forms/order-type-creator
 import { OrderTypeCreatorRoutingModule } from './order-type-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
     OrderTypeCreatorFormModule,
     QueryProgressessModule,
     AssetsUploaderModule,
+    MainFooterModule,
   ]
 })
 export class OrderTypeCreatorModule { }
