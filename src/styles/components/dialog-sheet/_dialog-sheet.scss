@@ -16,6 +16,9 @@
     .cdk-global-overlay-wrapper {
 
         .cdk-overlay-pane {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
             min-width: 50vw;
         }
     }
