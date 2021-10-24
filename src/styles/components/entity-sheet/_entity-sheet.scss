@@ -1,5 +1,11 @@
 .entity-sheet-editor {
     @extend .page-content;
+
+    &__back-button {
+        font-size: 16px;
+        color: $accent-secondary-color;
+        text-decoration: none;
+    }
 }
 
 .entity-sheet {
