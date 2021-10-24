@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class NotificationService {
 
+  private _lastMessage: string;
+
   constructor(private _snackBar: MatSnackBar) { }
 
   success(message: string) {
@@ -16,9 +18,14 @@ export class NotificationService {
   }
 
   error(message: string) {
+    if (!!this._snackBar._openedSnackBarRef && this._lastMessage === message) {
+      return;
+    }
+
     this._snackBar.open(message, "Close", {
       duration: 20000,
       panelClass: "error-snack",
-    })
+    });
+    this._lastMessage = message;
   }
 }
