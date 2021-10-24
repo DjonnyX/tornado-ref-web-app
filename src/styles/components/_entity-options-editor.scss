@@ -27,14 +27,14 @@
     border-width: 1px;
     border-style: solid;
     border-color: #dbdbdb;
-    background-color: white;
+    background-color: $white;
 
     @include themify($themes) {
       background-color: themed("formBackgroundColor");
     }
 
     .form-header {
-      text-transform: uppercase;
+      // text-transform: uppercase;
 
       @include themify($themes) {
         color: themed("formFontColor");
@@ -46,7 +46,7 @@
     }
 
     .form__link {
-      color: $accent-800;
+      color: $accent-secondary-color;
     }
   }
 }

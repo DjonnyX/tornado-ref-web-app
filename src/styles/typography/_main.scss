@@ -28,6 +28,8 @@
 //     margin: 0;
 // }
 
+$line-height: 1.56;
+$letter-spacing: 0.1px;
 
 html,
 body {
@@ -44,8 +46,8 @@ p, a {
   margin: 0px;
   padding: 0px;
   font-size: 16px;
-  line-height: 1.56;
-  letter-spacing: 0.1px;
+  line-height: $line-height;
+  letter-spacing: $letter-spacing;
 }
 
 a {
@@ -54,4 +56,11 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+@for $i from 1 through 6 {
+    h#{7 - $i} {
+      font-weight: 500;
+        line-height: #{$line-height};
+    }
 }
