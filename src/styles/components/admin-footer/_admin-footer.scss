@@ -2,4 +2,33 @@
     background-color: $primary-color;
     height: 200px;
     width: 100%;
+    z-index: 2;
+    position: relative;
+    width: 100%;
+
+    &-container {
+        @extend .common-container;
+    }
+
+    &-content {
+        @include flexbox();
+        @include flex-direction(column);
+    }
+
+    &-section-copyright {
+        @include flexbox();
+        @include flex-direction(row);
+        @include justify-content(space-between);
+
+        &-group {
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(space-between);
+            gap: 20px;
+        }
+    }
+
+    p {
+        color: $primary-color-500;
+    }
 }
