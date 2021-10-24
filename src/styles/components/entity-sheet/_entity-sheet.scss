@@ -5,6 +5,10 @@
         font-size: 16px;
         color: $accent-secondary-color;
         text-decoration: none;
+
+        &:hover {
+            opacity: 0.75;
+        }
     }
 }
 
