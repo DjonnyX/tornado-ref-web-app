@@ -1,11 +1,12 @@
-@import "./utils/index";
+@import "./icons";
+@import "./utils";
 @import "./abstracts/vars";
 @import "./mixins";
 @import "./themes";
 @import "./base";
 
-@import "./reset-styles/index";
-@import "./typography/index";
+@import "./reset-styles";
+@import "./typography";
 
 @import "./main";
 @import "./layouts";

@@ -1,0 +1,86 @@
+.dashboard {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+  "profile employees"
+  "menu-formating additional"
+  "ads applications"
+  "settings settings"
+  ;
+  gap: 8px;
+
+  .logo {
+    grid-area: logo;
+  }
+  .profile {
+    grid-area: profile;
+  }
+  .employees {
+    grid-area: employees;
+  }
+  .menu-formating {
+    grid-area: menu-formating;
+  }
+  .additional {
+    grid-area: additional;
+  }
+  .ads {
+    grid-area: ads;
+  }
+  .applications {
+    grid-area: applications;
+  }
+  .settings {
+    grid-area: settings;
+  }
+
+  .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 44px;
+    margin-bottom: 28px;
+    color: #d9d9d9;
+  }
+
+  .dashboard__block {
+    display: flex;
+
+    .query-progress {
+      .query-progress__content-wrapper {
+        display: flex;
+      }
+    }
+
+    .form {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  }
+
+  .form__link {
+    font-size: 16px;
+    text-transform: lowercase;
+    text-decoration: underline;
+  }
+}
+
+@media screen and (max-width: 840px) {
+  .dashboard {
+    display: block;
+
+    .dashboard__block:not(:last-child) {
+      margin-bottom: 8px;
+    }
+
+    .dashboard__block {
+      display: block;
+
+      .form.not-editable {
+        height: initial;
+      }
+    }
+  }
+}

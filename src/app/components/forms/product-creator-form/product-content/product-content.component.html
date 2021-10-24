@@ -22,7 +22,7 @@
         </p>
 
         <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonDisabled]="isEqualWithDefault('icon')"
-          (reset)="onResetResourceToDefault('icon')"
+          (reset)="onResetResourceToDefault('icon')" [showUploadButton]="false"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
           [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
           (upload)="onIconResourceUpload($event, 'icon')">

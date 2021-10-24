@@ -4,6 +4,7 @@ import { LicensesAccountEditorRoutingModule } from './licenses-account-editor-ro
 import { LicensesAccountEditorContainer } from './licenses-account-editor.container';
 import { LicensesAccountEditorComponentModule } from '@components/licenses-account-editor/licenses-account-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     LicensesAccountEditorRoutingModule,
     LicensesAccountEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class LicensesAccountEditorModule { }

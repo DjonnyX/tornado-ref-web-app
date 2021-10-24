@@ -1,13 +1,18 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <div class="entity-options-editor">
-        <div class="entity-options-editor__back-button" (click)="onToBack()">
-            Назад
+    <div class="page-content">
+        <div class="entity-options-editor">
+            <div class="entity-options-editor__back-button" (click)="onToBack()">
+                Назад
+            </div>
+            <div class="form">
+                <ta-license-type-creator-form [isEditMode]="isEditMode" [applications]="applications$ | async"
+                    [licenseType]="licenseType$ | async" [integrations]="integrations$ | async"
+                    (save)="onSubmit($event)" (cancel)="onCancel()">
+                </ta-license-type-creator-form>
+            </div>
         </div>
-        <div class="form">
-            <ta-license-type-creator-form [isEditMode]="isEditMode" [applications]="applications$ | async"
-                [licenseType]="licenseType$ | async" [integrations]="integrations$ | async" (save)="onSubmit($event)"
-                (cancel)="onCancel()">
-            </ta-license-type-creator-form>
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
         </div>
     </div>
 </ta-query-progress>

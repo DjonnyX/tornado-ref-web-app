@@ -59,8 +59,8 @@
     </div>
 
     <div class="form__submit" align="end">
-        <button mat-button class="button button__text" (click)="onCancel()">Отменить</button>
-        <button mat-flat-button color="accent" type="submit" class="button button__text"
+        <button class="button-create button__text" (click)="onCancel()">Отменить</button>
+        <button type="submit" class="button-create button__text"
             [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
     </div>
 </form>

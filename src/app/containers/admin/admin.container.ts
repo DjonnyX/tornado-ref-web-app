@@ -56,31 +56,10 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
 const CMS_MENU_ROUTES: Array<INavRoute> = [
   {
     icon: "user",
-    name: "menu_user-profile", //"Профиль пользователя",
-    route: "profile",
+    name: "menu_dashboard", //"Дашборд",
+    route: "dashboard",
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-  },
-  {
-    icon: "folder-employees",
-    name: "menu_employees", //"Работники",
-    expanded: false,
-    roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-    children: [
-      {
-        icon: "accounts",
-        name: "menu_accounts", //" Саб-пользователи",
-        route: "accounts",
-        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-        right: UserRights.READ_ACCOUNTS,
-      },
-      {
-        icon: "roles",
-        name: "menu_roles", //" Роли",
-        route: "roles",
-        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
-        right: UserRights.READ_ACCOUNT_ROLES,
-      },
-    ],
+    right: UserRights.READ_DASHBOARD,
   },
   {
     icon: "folder-settings",
@@ -88,6 +67,34 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
     expanded: false,
     roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
     children: [
+      {
+        icon: "user",
+        name: "menu_user-profile", //"Профиль пользователя",
+        route: "profile",
+        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+      },
+      {
+        icon: "folder-employees",
+        name: "menu_employees", //"Работники",
+        expanded: true,
+        roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+        children: [
+          {
+            icon: "accounts",
+            name: "menu_accounts", //" Саб-пользователи",
+            route: "accounts",
+            roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+            right: UserRights.READ_ACCOUNTS,
+          },
+          {
+            icon: "roles",
+            name: "menu_roles", //" Роли",
+            route: "roles",
+            roles: [DefaultRoleTypes.OWNER, DefaultRoleTypes.EMPLOYEE, "any"],
+            right: UserRights.READ_ACCOUNT_ROLES,
+          },
+        ],
+      },
       {
         icon: "license",
         name: "menu_user-licenses", //"Лицензии",
@@ -549,6 +556,18 @@ export class AdminContainer extends BaseComponent implements OnInit, OnDestroy {
 
   signout() {
     this._store.dispatch(UserActions.signoutRequest());
+  }
+
+  onGotoMainPage() {
+    if (["all", "cms"].indexOf(environment.buildType) > -1) {
+      if (this.authService.hasAuthority([DefaultRoleTypes.ADMIN])) {
+        this._router.navigate(["admin/licenses"]);
+      } else {
+        this._router.navigate(["admin/dashboard"]);
+      }
+    } else if (["documentation"].indexOf(environment.buildType) > -1) {
+      this._router.navigate(["documentation/registration"]);
+    }
   }
 
   ngOnDestroy() {

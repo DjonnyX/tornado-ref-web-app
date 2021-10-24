@@ -1,0 +1,41 @@
+<div class="admin__footer">
+    <div class="admin__footer-container">
+        <div class="admin__footer-content">
+            <!-- Copyright Section -->
+            <div class="admin__footer-section-content">
+                <div class="admin__footer-section-content-group">
+                    <span class="admin__toolbar__link" *ngIf="isShowDocumentation">
+                        <ng-container *ngIf="!!isDocumentationMode else liveDocumentation">
+                            <a [href]="'http://doc.' + host + '/documentation'" target="_blank">
+                                {{localization.get("common_documentation")}}
+                            </a>
+                        </ng-container>
+                        <ng-template #liveDocumentation>
+                            <a [routerLink]="['//documentation']">
+                                {{localization.get("common_documentation")}}
+                            </a>
+                        </ng-template>
+                    </span>
+                    <span class="admin__footer__link">
+                        <a href="#">Продукты</a>
+                    </span>
+                </div>
+                <div class="admin__footer-section-content-group">
+                    <span class="admin__footer__link">
+                        <a href="#">Техническая поддержка</a>
+                    </span>
+                </div>
+            </div>
+            <!-- Copyright Section -->
+            <div class="admin__footer-section-copyright">
+                <div class="admin__footer-section-copyright-group">
+                    <p>© Quick Choice, 2022</p>
+                </div>
+                <div class="admin__footer-section-copyright-group">
+                    <a href="">Пользовательское соглашение</a>
+                    <a href="">Политика обработки персональных данных</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

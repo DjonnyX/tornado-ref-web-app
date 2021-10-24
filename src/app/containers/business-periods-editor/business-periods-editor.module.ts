@@ -4,6 +4,7 @@ import { BusinessPeriodsEditorRoutingModule } from './business-periods-editor-ro
 import { BusinessPeriodsEditorContainer } from './business-periods-editor.container';
 import { BusinessPeriodsEditorComponentModule } from '@components/business-periods-editor/business-periods-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     BusinessPeriodsEditorRoutingModule,
     BusinessPeriodsEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class BusinessPeriodsEditorModule { }

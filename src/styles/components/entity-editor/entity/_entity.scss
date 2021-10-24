@@ -1,5 +1,5 @@
-@import "../../../abstracts/vars";
-@import "../../../mixins";
+// @import "../../../abstracts/vars";
+// @import "../../../mixins";
 
 .editor.editor-with-expansion-groups {
     padding-top: $editor-container-with-expansion-groups-padding-top;
@@ -8,7 +8,6 @@
 .editor {
     display: block;
     position: relative;
-    // height: 100%; // 100vh
     height: calc(100vh - #{$admin-toolbar-height});
     overflow: hidden;
     
@@ -19,8 +18,9 @@
 
     &__container {
         display: block;
+        box-sizing: border-box;
         position: relative;
-        width: 100%;
+        min-height: 100%;
         height: auto;
         padding-top: $editor-container-padding-top;
         padding-bottom: $editor-container-padding-bottom;

@@ -5,6 +5,7 @@ import { TagCreatorFormModule } from '@components/forms/tag-creator-form/tag-cre
 import { TagCreatorRoutingModule } from './tag-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
 import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-uploader.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AssetsUploaderModule } from '@components/assets/assets-uploader/assets-
     TagCreatorFormModule,
     QueryProgressessModule,
     AssetsUploaderModule,
+    MainFooterModule,
   ]
 })
 export class TagCreatorModule { }

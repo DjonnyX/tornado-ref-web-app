@@ -1,9 +1,21 @@
+$admin-view-navigation-width: 320px;
+
+$admin-view-navigation-width-xs: $admin-view-navigation-width;
+$admin-view-navigation-width-sm: $admin-view-navigation-width;
+$admin-view-navigation-width-md: $admin-view-navigation-width;
+$admin-view-navigation-width-lg: $admin-view-navigation-width;
+$admin-view-navigation-width-xl: $admin-view-navigation-width;
+
+
+// vars
+
 $admin-toolbar-height: 64px;
 
 $navigation-menu-width: 360px;
 $navigation-menu-width-sm: 360px;
+$navigation-menu-width-rolled-up: 60px;
 
-$admin-view-border-width: 1px;
+$admin-view-border-width: 0px;
 
 // Light
 $admin-view-border-color: $primary-color-50;

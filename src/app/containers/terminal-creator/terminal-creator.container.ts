@@ -110,7 +110,15 @@ export class TerminalCreatorContainer extends BaseComponent implements OnInit, O
       }
 
       this._store.dispatch(AppThemesActions.getAllRequest({
-        terminalType: terminal.type,
+        options: {
+          filter: [
+            {
+              id: "type",
+              operation: "equals",
+              value: terminal.type,
+            }
+          ]
+        }
       }));
     });
 

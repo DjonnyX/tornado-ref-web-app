@@ -18,8 +18,8 @@ export default class AppThemesEffects {
     public readonly getAllRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(AppThemesActions.getAllRequest),
-            switchMap(({ terminalType, options }) => {
-                return this._apiService.getAppThemes(terminalType, options).pipe(
+            switchMap(({ options }) => {
+                return this._apiService.getAppThemes(options).pipe(
                     mergeMap(res => {
                         return [AppThemesActions.getAllSuccess({ collection: res.data, meta: res.meta })];
                     }),

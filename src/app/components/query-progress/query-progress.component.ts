@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewEncapsulation } from '@angular/core';
 
 @Component({
   selector: 'ta-query-progress',
   templateUrl: './query-progress.component.html',
   styleUrls: ['./query-progress.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QueryProgressComponent implements OnInit {

@@ -1,6 +1,9 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-business-periods-editor-component *ngIf="isPrepareToShow$ | async" [collection]="collection$ | async" [refInfo]="refInfo$ | async"
-        [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async" (create)="onCreate()"
-        (update)="onUpdate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)">
+    <ta-business-periods-editor-component *ngIf="isPrepareToShow$ | async" [collection]="collection$ | async"
+        [refInfo]="refInfo$ | async" [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+        (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)" (delete)="onDelete($event)">
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
     </ta-business-periods-editor-component>
 </ta-query-progress>

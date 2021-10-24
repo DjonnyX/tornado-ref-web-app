@@ -1,12 +1,6 @@
 // @import "../themes/theme";
 
-$admin-view-navigation-width: 320px;
 
-$admin-view-navigation-width-xs: $admin-view-navigation-width;
-$admin-view-navigation-width-sm: $admin-view-navigation-width;
-$admin-view-navigation-width-md: $admin-view-navigation-width;
-$admin-view-navigation-width-lg: $admin-view-navigation-width;
-$admin-view-navigation-width-xl: $admin-view-navigation-width;
 
 // mat-sidenav-container {
 //     background: #F0F0F0;
@@ -59,6 +53,7 @@ $admin-view-navigation-width-xl: $admin-view-navigation-width;
                 width: 100%;
                 overflow: auto;
                 z-index: 9998;
+                @extend .scrollbar-for-navigation;
             }
         }
 

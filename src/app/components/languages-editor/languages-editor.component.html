@@ -2,7 +2,6 @@
 
     <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 
-    <!--Editor Scroll View-->
     <div class="editor__scroll-view">
         <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
 
@@ -57,8 +56,6 @@
                         </div>
                     </div>
                     <!-- Controls -->
-
-
                     <!-- Body -->
                     <div [tapEffect]="entityLanguageListItem" class="entity__body" (click)="onEdit(language)">
                         <div class="entity__body__content">
@@ -78,7 +75,6 @@
                     </div>
                 </div>
 
-                <!-- Panel Add Item -->
                 <div class="entities-bottom-panel">
                     <div class="entities-bottom-panel__container">
                         <button color="accent" class="button-add" (click)="onCreate()">
@@ -87,12 +83,8 @@
                         </button>
                     </div>
                 </div>
-                <!-- Panel Add Item -->
-
-
             </div>
-
         </div>
+        <ng-content></ng-content>
     </div>
-
 </div>

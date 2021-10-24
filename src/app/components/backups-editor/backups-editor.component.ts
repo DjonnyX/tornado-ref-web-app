@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import { NotificationService } from '@app/services/notification.service';
 import { BaseComponent } from '@components/base/base-component';
 import { FileDownloaderComponent } from '@components/file-downloader/file-downloader.component';
+import { IBackupInfo } from '@djonnyx/tornado-types';
 import { ApiService } from '@services';
+import moment from 'moment';
 import { BehaviorSubject, interval, Observable, of, Subject } from 'rxjs';
 import { catchError, finalize, map, takeUntil } from 'rxjs/operators';
 
@@ -28,6 +30,22 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
   private _backupUploadingTime = 0;
   backupUploadingTime$: Observable<number>;
+
+  backupLastCreate: string;
+
+  backupLastFileName: string;
+
+  private _backupInfo: IBackupInfo;
+  @Input() set backupInfo(v: IBackupInfo) {
+    if (this._backupInfo !== v) {
+      this._backupInfo = v;
+
+      this.backupLastCreate = this._backupInfo?.lastCreate ? moment(this._backupInfo?.lastCreate).format("DD-MM-YYYY HH-mm") : "---";
+
+      this.backupLastFileName = this._backupInfo?.name?.match(/(\d|\w|\.|-)*$/)?.[0];
+    }
+  }
+  get backupInfo() { return this._backupInfo; }
 
   constructor(
     private _apiService: ApiService,
@@ -125,6 +143,9 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
       // err
       if (progress === null) {
         this.isBackupUploading = false;
+
+        finish$.next();
+        finish$.complete();
         return;
       }
 
@@ -137,7 +158,7 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
         this._notificationService.success("База данных восстановлена");
       } else {
-        /// this._backupUploadingTime$.next(progress);
+
       }
     }, err => {
       this.isBackupUploading = false;

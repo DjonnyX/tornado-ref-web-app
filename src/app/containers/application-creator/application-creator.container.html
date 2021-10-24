@@ -1,11 +1,16 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <div class="entity-options-editor">
-        <div class="entity-options-editor__back-button" (click)="onToBack()">
-            Назад
+    <div class="page-content">
+        <div class="entity-options-editor">
+            <div class="entity-options-editor__back-button" (click)="onToBack()">
+                Назад
+            </div>
+            <div class="form">
+                <ta-application-creator-form [isEditMode]="isEditMode" [application]="application$ | async"
+                    (save)="onSubmit($event)" (cancel)="onCancel()"></ta-application-creator-form>
+            </div>
         </div>
-        <div class="form">
-            <ta-application-creator-form [isEditMode]="isEditMode" [application]="application$ | async"
-                (save)="onSubmit($event)" (cancel)="onCancel()"></ta-application-creator-form>
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
         </div>
     </div>
 </ta-query-progress>

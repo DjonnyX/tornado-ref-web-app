@@ -1,0 +1,69 @@
+.dropdown-selector {
+    // color: $primary-color;//Theme
+
+    &__current-value {
+        // box-shadow: 0 15px 30px -10px transparentize(#000, 0.9);Theme ??
+        // background-color: $dropdown-selector-button-background-color-normal;//Theme
+    }
+
+    &__input-text {
+        //
+    }
+
+    &__list {
+        @include themify($themes) {
+            background-color: themed("dropdownSelectorBackgroundColor") !important;
+        }
+
+        &__item {
+            @include themify($themes) {
+                color: themed("dropdownSelectorForegroundColor") !important;
+                border-bottom: 1px solid themed("dropdownSelectorBorderColor") !important;
+            }
+
+            &:hover,
+            &:focus {
+                @include themify($themes) {
+                    color: themed("dropdownSelectorForegroundColorHover") !important;
+                    background-color: themed("dropdownSelectorBackgroundColorHover") !important;
+                }
+            }
+        }
+    }
+
+    &__option {
+
+        &__content {
+            @include themify($themes) {
+                border-color: themed("dropdownSelectorForegroundColor") !important;
+            }
+        }
+    }
+}
+
+// $dropdown-selector-button-background-color-normal
+
+
+
+// // Light
+// $dropdown-selector-foreground-color: $primary-color;
+// $dropdown-selector-background-color: $white;
+// $dropdown-selector-background-color-hover: $background-color;
+// $dropdown-selector-border-color: $divider-color;
+
+// // Dark
+// $dropdown-selector-foreground-color-inverse: $primary-color;
+// $dropdown-selector-background-color-inverse: $white;
+// $dropdown-selector-background-color-hover-inverse: $background-color;
+// $dropdown-selector-border-color-hover-inverse: $divider-color-inverse;
+
+// dropdownSelectorForegroundColor: $dropdown-selector-foreground-color,
+// dropdownSelectorForegroundColorHover: $dropdown-selector-foreground-color-hover,
+// dropdownSelectorBackgroundColor: $dropdown-selector-background-color,
+// dropdownSelectorBackgroundColorHover: $dropdown-selector-background-color-hover,
+// dropdownSelectorBorderColor: $dropdown-selector-border-color,
+
+// dropdownSelectorForegroundColor: $dropdown-selector-foreground-color-inverse,
+// dropdownSelectorBackgroundColor: $dropdown-selector-background-color-inverse,
+// dropdownSelectorBackgroundColorHover: $dropdown-selector-background-color-hover-inverse,
+// dropdownSelectorBorderColor: $dropdown-selector-border-color-inverse,

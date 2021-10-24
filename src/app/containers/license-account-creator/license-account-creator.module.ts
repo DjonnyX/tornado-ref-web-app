@@ -4,6 +4,7 @@ import { LicenseAccountCreatorContainer } from './license-account-creator.contai
 import { LicenseAccountCreatorFormModule } from '@components/forms/license-account-creator-form/license-account-creator-form.module';
 import { LicenseAccountCreatorRoutingModule } from './license-account-creator-routing.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     LicenseAccountCreatorRoutingModule,
     LicenseAccountCreatorFormModule,
     QueryProgressessModule,
+    MainFooterModule,
   ]
 })
 export class LicenseAccountCreatorModule { }

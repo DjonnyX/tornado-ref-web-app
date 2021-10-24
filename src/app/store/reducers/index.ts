@@ -55,6 +55,7 @@ import systemTagReducer from "./system-tag.reducer";
 import systemTagsReducer from "./system-tags.reducer";
 import settingsReducer from "./settings.reducer";
 import integrationServerInfoReducer from "./integration-server-info.reducer";
+import refServerInfoReducer from "./ref-server-info.reducer";
 import rolesReducer from "./roles.reducer";
 import roleReducer from "./role.reducer";
 
@@ -115,6 +116,7 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taSystemTags: systemTagsReducer,
   taSettings: settingsReducer,
   taIntegrationServerInfo: integrationServerInfoReducer,
+  taRefServerInfo: refServerInfoReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

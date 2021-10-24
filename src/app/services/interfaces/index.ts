@@ -142,5 +142,6 @@ export * from './app-theme-update-response.interface';
 export * from './app-theme-delete-response.interface';
 export * from './entity-positions-response.interface';
 export * from './integration-server-info-get-response.interface';
+export * from './ref-server-info-get-response.interface';
 export * from './account-create-response.interface';
 export * from './account-create-request.interface';

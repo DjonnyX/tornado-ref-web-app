@@ -7,7 +7,6 @@ $navigation-menu-toggle-button-icon-size: 16px;
     @include box(32px);
     background-color: $primary-color-50;
     border-radius: 6px;
-    margin-left: 15px;
 
     &__container {
         display: flex;

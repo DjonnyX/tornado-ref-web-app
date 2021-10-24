@@ -1,0 +1,38 @@
+// lg
+@include respond-above(lg) {
+
+    .admin__toolbar {
+        //
+
+        .navigation-menu__toggle-button {
+            display: none;
+        }
+
+        .admin__logo {
+            display: block;
+        }
+
+        &.rolled-up {
+
+            .admin__logo {
+                display: none;
+            }
+        }
+    }
+}
+
+// md
+@include respond-below(lg) {
+    
+    .admin__toolbar {
+        //
+
+        .navigation-menu__toggle-button {
+            display: block;
+        }
+
+        .admin__logo {
+            display: none;
+        }
+    }
+}

@@ -1,5 +1,9 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <ta-licenses-editor-component [collection]="collection$ | async" [integrations]="integrations$ | async"
         [accounts]="accounts$ | async" [refInfo]="refInfo$ | async" (create)="onCreate()" (update)="onUpdate($event)"
-        (edit)="onEdit($event)" (view)="onView($event)" (delete)="onDelete($event)"></ta-licenses-editor-component>
+        (edit)="onEdit($event)" (view)="onView($event)" (delete)="onDelete($event)">
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
+    </ta-licenses-editor-component>
 </ta-query-progress>

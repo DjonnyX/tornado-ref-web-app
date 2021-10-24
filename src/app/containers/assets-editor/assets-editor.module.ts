@@ -4,6 +4,7 @@ import { AssetsEditorRoutingModule } from './assets-editor-routing.module';
 import { AssetsEditorContainer } from './assets-editor.container';
 import { AssetsEditorComponentModule } from '@components/assets-editor/assets-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     AssetsEditorRoutingModule,
     AssetsEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class AssetsEditorModule { }

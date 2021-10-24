@@ -1,0 +1,32 @@
+// lg
+@include respond-above(lg) {
+
+    .toolbar-container {
+        padding-left: $toolbar-container-xl;
+        padding-right: $toolbar-container-xl;
+    }
+}
+
+// md
+@include respond-between(md, lg) {
+    .toolbar-container {
+        padding-left: $toolbar-container-lg;
+        padding-right: $toolbar-container-lg;
+    }
+}
+
+// md
+@include respond-between(sm, md) {
+    .toolbar-container {
+        padding-left: $toolbar-container-md;
+        padding-right: $toolbar-container-md;
+    }
+}
+
+// sm
+@include respond-below(sm) {
+    .toolbar-container {
+        padding-left: $toolbar-container-sm;
+        padding-right: $toolbar-container-sm;
+    }
+}

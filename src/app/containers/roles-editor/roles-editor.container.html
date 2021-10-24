@@ -1,5 +1,11 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
-    <ta-roles-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async" [refInfo]="refInfo$ | async" (create)="onCreate()"
-        (update)="onUpdate($event)" (edit)="onEdit($event)" (view)="onView($event)" (delete)="onDelete($event)">
+    <ta-roles-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async"
+        [refInfo]="refInfo$ | async" (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)"
+        (view)="onView($event)" (delete)="onDelete($event)">
+        <div class="main-footer__wrapper">
+            <div class="main-footer__wrapper">
+                <ta-main-footer></ta-main-footer>
+            </div>
+        </div>
     </ta-roles-editor-component>
 </ta-query-progress>

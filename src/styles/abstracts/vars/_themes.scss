@@ -46,6 +46,13 @@ $themes: (
     CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary,
     CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary,
     //
+    //Dropdown Selector
+    dropdownSelectorForegroundColor: $dropdown-selector-foreground-color,
+    dropdownSelectorForegroundColorHover: $dropdown-selector-foreground-color-hover,
+    dropdownSelectorBackgroundColor: $dropdown-selector-background-color,
+    dropdownSelectorBackgroundColorHover: $dropdown-selector-background-color-hover,
+    dropdownSelectorBorderColor: $dropdown-selector-border-color,
+    //
     textColor: $primary-color,
     //Entity
     entityGroupListColor: rgba($secondary-color, 0.4),
@@ -83,13 +90,20 @@ $themes: (
     // Node Tree
     nodeTreeBorderColor: $node-tree-border-color,
     nodeTreeWayBorderColor: $node-tree-way-border-color,
-    nodeTreeItemBackgroundColor: $white, //?
-    nodeTreeItemDividerBorderColor: $primary-color-800,
+    nodeTreeItemBackgroundColor: $node-tree-item-background-color, //?
+    nodeTreeItemDividerBorderColor: $node-tree-item-divider-border-color,
     nodeTreeItemTitleColor: $node-tree-item-title-color,
-    nodeTreeItemFontColor: $node-tree-item-title-color,
+    nodeTreeItemTextColor: $node-tree-item-text-color,
     nodeTreeWayHiderBackgroundColor: $background-color,
     nodeTreeStatePanelBackgroundColor: $background-color,
     nodeTreeStatePanelBorderColor: $background-color,
+
+    //Node Tree Dragged
+    nodeTreeItemBackgroundColorDragged: $node-tree-item-background-color-dragged,
+    nodeTreeBorderColorDragged: $node-tree-border-color-dragged,
+    nodeTreeItemDividerBorderColorDragged: $node-tree-item-divider-border-color-dragged,
+    nodeTreeItemTextColorDragged: $node-tree-item-text-color-dragged,
+    nodeTreeItemTitleColorDragged: $node-tree-item-title-color-dragged,
 
     // nodeTreeButtonCreateColor: $node-tree-button-create-color,
     // nodeTreeButtonCreateBackgroundColor: $node-tree-button-create-background-color,
@@ -209,6 +223,13 @@ $themes: (
     CheckboxBorderColorActiveSecondary: $checkbox-border-color-active-secondary-inverse,
     CheckboxBackgroundColorActiveSecondary: $checkbox-background-color-active-secondary-inverse,
     //
+    //Dropdown Selector
+    dropdownSelectorForegroundColor: $dropdown-selector-foreground-color-inverse,
+    dropdownSelectorForegroundColorHover: $dropdown-selector-foreground-color-hover-inverse,
+    dropdownSelectorBackgroundColor: $dropdown-selector-background-color-inverse,
+    dropdownSelectorBackgroundColorHover: $dropdown-selector-background-color-hover-inverse,
+    dropdownSelectorBorderColor: $dropdown-selector-border-color-inverse,
+    //
     textColor: $white,
     //Entity
     entityGroupListColor: $white,
@@ -246,13 +267,21 @@ $themes: (
     // Node Tree
     nodeTreeBorderColor: $node-tree-border-color-inverse,
     nodeTreeWayBorderColor: $node-tree-way-border-color-inverse,
-    nodeTreeItemBackgroundColor: $primary-color-100,
-    nodeTreeItemDividerBorderColor: $primary-color-200,
+    nodeTreeItemBackgroundColor: $node-tree-item-background-color-inverse,
+    nodeTreeItemDividerBorderColor: $node-tree-item-divider-border-color-inverse,
     nodeTreeItemTitleColor: $node-tree-item-title-color-inverse,
-    nodeTreeItemFontColor: $node-tree-item-title-color-inverse,
+    nodeTreeItemTextColor: $node-tree-item-text-color-inverse,
     nodeTreeWayHiderBackgroundColor: $background-color,
     nodeTreeStatePanelBackgroundColor: $background-color,
     nodeTreeStatePanelBorderColor: $background-color,
+
+    //Node Tree Dragged
+    nodeTreeItemBackgroundColorDragged: $node-tree-item-background-color-dragged-inverse,
+    nodeTreeBorderColorDragged: $node-tree-border-color-dragged-inverse,
+    nodeTreeItemDividerBorderColorDragged: $node-tree-item-divider-border-color-dragged-inverse,
+    nodeTreeItemTextColorDragged: $node-tree-item-text-color-dragged-inverse,
+    nodeTreeItemTitleColorDragged: $node-tree-item-title-color-dragged-inverse,
+
     // Node tree secondary
     nodeTreeSecondaryWayBorderColor: $primary-color-600,
     nodeTreeSecondaryItemBackgroundColor: $primary-color-200,

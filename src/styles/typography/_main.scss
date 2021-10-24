@@ -39,9 +39,19 @@ body {
   overflow: hidden;
 }
 
-p {
-  font-weight: bold;
-  text-transform: uppercase;
-  margin: 6px 0;
-  font-size: 12px;
+p, a {
+  font-weight: 400;
+  margin: 0px;
+  padding: 0px;
+  font-size: 16px;
+  line-height: 1.56;
+  letter-spacing: 0.1px;
+}
+
+a {
+  text-decoration: none;
+  
+  &:hover {
+    text-decoration: underline;
+  }
 }

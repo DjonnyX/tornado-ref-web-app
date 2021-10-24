@@ -53,6 +53,14 @@ const ADMIN_ROUTES: Routes = [
 
 const CMS_ROUTES: Routes = [
   {
+    path: 'dashboard',
+    loadChildren: () =>
+      import('@containers/dashboard/dashboard.module').then(
+        module => module.DashboardModule,
+      ),
+    canActivate: [AccessGuard],
+  },
+  {
     path: 'profile',
     loadChildren: () =>
       import('@containers/profile/profile.module').then(

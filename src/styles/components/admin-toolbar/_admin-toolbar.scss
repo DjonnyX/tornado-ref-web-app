@@ -1,6 +1,14 @@
 $admin-section-container-padding-h: 16px;
 $dropdown-selector-value-width: 36px;
 
+// .icon-logo-tornado-with-descriptor:before {
+//   content: "\e935";
+// }
+
+// .icon-logo-tornado:before {
+//   content: "\e933";
+// }
+
 .admin__toolbar {
     display: grid;
     // grid-template-columns: $navigation-menu-width auto; //Layout
@@ -14,6 +22,7 @@ $dropdown-selector-value-width: 36px;
         height: 100%;
         // width: $navigation-menu-width;  //Layout
         width: 100%;
+        overflow: hidden;
 
         &__container {
             width: 100%;
@@ -30,17 +39,17 @@ $dropdown-selector-value-width: 36px;
         border-style: solid;
         border-top: 0px;
         border-right: 0px;
-        border-left-width: $admin-view-border-width;
-        border-bottom-width: $admin-view-border-width;
+        border-left-width: $admin-toolbar-border-left-width;
+        border-bottom-width: $admin-toolbar-border-bottom-width;
 
         &__container {
             display: flex;
             flex-direction: row;
             align-items: center;
             white-space: nowrap;
-            width: 100%;
-            height: 100%;
-            padding: 0 #{$admin-section-container-padding-h * 2};
+            @include box(100%);
+            // padding: 0 #{$admin-section-container-padding-h * 2};
+            @extend .toolbar-container;
         }
 
         &__right-group, &__left-group {
@@ -83,6 +92,7 @@ $dropdown-selector-value-width: 36px;
     position: relative;
     width: 100%;
     height: 100%;
+    cursor: pointer;
 
     &__container {
         display: flex;
@@ -98,8 +108,24 @@ $dropdown-selector-value-width: 36px;
         border-radius: 6px;
 
         &::before {
+            // content: "\e935";
+            @extend .icon-logo-tornado-with-descriptor;
+            font-family: icomoon;
             color: $background-color;
             font-size: 32px;
+        }
+    }
+}
+
+.rolled-up {
+
+    .admin__logo {
+
+        &__icon {
+
+            &::before {
+                @extend .icon-logo-tornado;
+            }
         }
     }
 }

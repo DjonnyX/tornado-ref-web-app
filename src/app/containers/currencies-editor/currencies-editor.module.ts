@@ -4,6 +4,7 @@ import { CurrenciesEditorRoutingModule } from './currencies-editor-routing.modul
 import { CurrenciesEditorContainer } from './currencies-editor.container';
 import { CurrenciesEditorComponentModule } from '@components/currencies-editor/currencies-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     CurrenciesEditorRoutingModule,
     CurrenciesEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class CurrenciesEditorModule { }

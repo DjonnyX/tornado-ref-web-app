@@ -1,0 +1,320 @@
+<div class="dashboard">
+
+    <!-- <div class="logo">
+        <div class="icon-logo-tornado-with-descriptor"></div>
+    </div> -->
+
+    <!-- profile -->
+    <div class="dashboard__block profile">
+        <ta-query-progress class="query-progress-container" [process]="isProcessProfile">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        {{localization.get("dashboard_user-profile")}}
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block" *ngIf="!!profile">
+                            <div class="form-item full-width">
+                                <p>{{
+                                    profile?.account?.firstName
+                                    }} {{
+                                    profile?.account?.lastName
+                                    }}</p>
+                            </div>
+                            <div class="form-item full-width">
+                                <p>{{
+                                    profile?.account?.email
+                                    }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form__buttons-group align-end">
+                        <button class="button-create" (click)="onEditProfile()">
+                            {{localization.get("common_action-edit")}}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- employees -->
+    <div class="dashboard__block employees">
+        <ta-query-progress class="query-progress-container" [process]="isProcessEmployees">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        {{localization.get("dashboard_employees")}}
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../accounts']">
+                                    <p>
+                                        {{localization.get("dashboard_employees_accounts")}}: {{accounts?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../roles']">
+                                    <p>
+                                        {{localization.get("dashboard_employees_roles")}}: {{roles?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- menu forming -->
+    <div class="dashboard__block menu-formating">
+        <ta-query-progress class="query-progress-container" [process]="isProcessMenu">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        {{localization.get("dashboard_menu-forming")}}
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../menu-categories']"
+                                    [queryParams]="{type: SelectorTypes.MENU_CATEGORY}">
+                                    <p>
+                                        {{localization.get("dashboard_menu-forming_menu-groups")}}:
+                                        {{categories?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../products']">
+                                    <p>
+                                        {{localization.get("dashboard_menu-forming_products")}}: {{products?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../schema-categories']"
+                                    [queryParams]="{type: SelectorTypes.SCHEMA_CATEGORY}">
+                                    <p>
+                                        {{localization.get("dashboard_menu-forming_schema-groups")}}:
+                                        {{schemesOfModifiers?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../tags']">
+                                    <p>
+                                        {{localization.get("dashboard_menu-forming_tags")}}: {{tags?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Additional -->
+    <div class="dashboard__block additional">
+        <ta-query-progress class="query-progress-container" [process]="isProcessAdditional">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        {{localization.get("dashboard_additional")}}
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../languages']">
+                                    <p>
+                                        {{localization.get("dashboard_additional_languages")}}: {{languagesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../currencies']">
+                                    <p>
+                                        {{localization.get("dashboard_additional_currencies")}}: {{currenciesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../order-types']">
+                                    <p>
+                                        {{localization.get("dashboard_additional_order-types")}}: {{orderTypesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../business-periods']">
+                                    <p>
+                                        {{localization.get("dashboard_additional_business-periods")}}: {{businessPeriodsNames}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Ads -->
+    <div class="dashboard__block ads">
+        <ta-query-progress class="query-progress-container" [process]="isProcessAds">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        {{localization.get("dashboard_ads")}}
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../intros']">
+                                    <p>
+                                        {{localization.get("dashboard_ads_splashscreens")}}: {{splashScreens?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../service-unavailable-intros']">
+                                    <p>
+                                        {{localization.get("dashboard_ads_splashscreens-unavailable")}}: {{splashScreensUnavailable?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../banners']">
+                                    <p>
+                                        {{localization.get("dashboard_ads_banners")}}: {{banners?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Applications -->
+    <div class="dashboard__block applications">
+        <ta-query-progress class="query-progress-container" [process]="isProcessThemes">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        {{localization.get("dashboard_applications")}}
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../themes-kiosk']">
+                                    <p>
+                                        {{localization.get("dashboard_applications_kiosk")}}: {{kioskThemes?.length}} (темы)
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../themes-eq']">
+                                    <p>
+                                        {{localization.get("dashboard_applications_eq")}}: {{eqThemes?.length}} (темы)
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../themes-order-picker']">
+                                    <p>
+                                        {{localization.get("dashboard_applications_order-picker")}}: {{orderPickerThemes?.length}} (темы)
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+
+    <!-- Settings -->
+    <div class="dashboard__block settings">
+        <ta-query-progress class="query-progress-container" [process]="isProcessSettings">
+            <div class="form">
+                <div class="form__wrapper">
+                    <h2 class="form-header">
+                        {{localization.get("dashboard_settings")}}
+                    </h2>
+
+                    <div class="form__main-options">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <span>
+                                    <p>
+                                        {{localization.get("dashboard_settings_integration")}}: {{profile?.account?.integration?.name}}
+                                    </p>
+                                </span>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../backups']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_backups")}}: {{backupLastCreate}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../stores']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_stores")}}: {{storesNames}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../licenses-account']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_licenses")}} ({{localization.get("dashboard_applications_kiosk")}}): {{licensesKiosk?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../licenses-account']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_licenses")}} ({{localization.get("dashboard_applications_eq")}}): {{licensesEq?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../licenses-account']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_licenses")}} ({{localization.get("dashboard_applications_order-picker")}}): {{licensesOrderPicker?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                            <div class="form-item full-width">
+                                <a [routerLink]="['../terminals']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_terminals")}} ({{localization.get("dashboard_applications_kiosk")}}): {{terminalsKiosk?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../terminals']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_terminals")}} ({{localization.get("dashboard_applications_eq")}}): {{terminalsEq?.length}}
+                                    </p>
+                                </a>
+                                <a [routerLink]="['../terminals']">
+                                    <p>
+                                        {{localization.get("dashboard_settings_terminals")}} ({{localization.get("dashboard_applications_order-picker")}}): {{terminalsOrderPicker?.length}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </ta-query-progress>
+    </div>
+</div>

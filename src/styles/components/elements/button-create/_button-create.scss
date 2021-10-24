@@ -1,9 +1,12 @@
 .button-create {
-    padding: 5px;
     border-radius: $button-create-border-radius;
     // box-shadow: 0px 3px 6px rgba(0,0,0,0.03);
     border-width: 1px;
     border-style: solid;
     // color: $button-create-color;
     // background-color: $button-create-background-color;
+
+    &:disabled {
+        opacity: 0.5;
+    }
 }

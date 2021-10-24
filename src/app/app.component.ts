@@ -113,7 +113,7 @@ export class AppComponent implements OnInit {
                   });
                 } else if (returnUrl === undefined || returnUrl === "") {
                   if (profile.account.role.name !== DefaultRoleTypes.ADMIN) {
-                    this._router.navigate(["/admin/profile"]);
+                    this._router.navigate(["/admin/dashboard"]);
                   } else {
                     this._router.navigate(["/admin/licenses"]);
                   }

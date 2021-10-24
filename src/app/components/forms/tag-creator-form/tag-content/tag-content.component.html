@@ -23,7 +23,7 @@
         </p>
 
         <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonDisabled]="isEqualWithDefault('icon')"
-          (reset)="onResetResourceToDefault('icon')"
+          (reset)="onResetResourceToDefault('icon')" [showUploadButton]="false"
           [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
           [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
           (upload)="onIconResourceUpload($event, 'icon')">
@@ -35,7 +35,7 @@
       <div class="full-width">
         <div class="form-item">
           <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
-            (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="top-right"></ta-color-picker>
+            (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="bottom"></ta-color-picker>
         </div>
       </div>
     </div>

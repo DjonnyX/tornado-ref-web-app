@@ -1,15 +1,34 @@
-//normal
-$dropdown-selector-button-opacity-normal: $tab-button-opacity-normal;
-$dropdown-selector-button-background-color-normal: $tab-button-background-color-normal;
-$dropdown-selector-button-border-normal: $tab-button-border-normal;
-$dropdown-selector-button-color-normal: $tab-button-color-normal;
+// Light
+    //normal
+    $dropdown-selector-button-opacity-normal: $tab-button-opacity-normal;
+    $dropdown-selector-button-background-color-normal: $tab-button-background-color-normal;
+    $dropdown-selector-button-border-normal: $tab-button-border-normal;
+    $dropdown-selector-button-color-normal: $tab-button-color-normal;
 
-//active
-$dropdown-selector-button-background-color-active: $tab-button-background-color-active;
-$dropdown-selector-button-border-active: $tab-button-border-active;
-$dropdown-selector-button-color-active: $tab-button-color-active;
+    //active
+    $dropdown-selector-button-background-color-active: $tab-button-background-color-active;
+    $dropdown-selector-button-border-active: $tab-button-border-active;
+    $dropdown-selector-button-color-active: $tab-button-color-active;
 
-//inverse
-$dropdown-selector-button-background-color-normal-inverse: $tab-button-background-color-normal-inverse;
-$dropdown-selector-button-color-normal-inverse: $tab-button-color-normal-inverse;
-$dropdown-selector-button-border-normal-inverse: $tab-button-border-normal-inverse;
+    //inverse
+    $dropdown-selector-button-background-color-normal-inverse: $tab-button-background-color-normal-inverse;
+    $dropdown-selector-button-color-normal-inverse: $tab-button-color-normal-inverse;
+    $dropdown-selector-button-border-normal-inverse: $tab-button-border-normal-inverse;
+
+
+// Dropdown Window:
+// Light
+$dropdown-selector-foreground-color: $primary-color;
+$dropdown-selector-foreground-color-hover: rgba($primary-color, 0.75);
+$dropdown-selector-background-color: $white;
+$dropdown-selector-background-color-hover: $background-color;
+$dropdown-selector-border-color: $divider-color;
+$dropdown-selector-border-color-hover: $divider-color;
+
+// Dark
+$dropdown-selector-foreground-color-inverse: $white;
+$dropdown-selector-foreground-color-hover-inverse: rgba($white, 0.75);
+$dropdown-selector-background-color-inverse: $primary-color;
+$dropdown-selector-background-color-hover-inverse: $primary-color-50;
+$dropdown-selector-border-color-inverse: $divider-color-inverse;
+$dropdown-selector-border-color-hover-inverse: $divider-color-inverse;

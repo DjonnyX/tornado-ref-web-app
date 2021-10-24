@@ -1,5 +1,5 @@
 .query-progress {
     @include themify($themes) {
-        background-color: themed('queryProgressOverlayBackgroundColor');
+        // background-color: themed('queryProgressOverlayBackgroundColor');
     }
 }

@@ -184,11 +184,13 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     let result = "";
 
     product?.prices?.forEach((p, i) => {
-      if (i > 0) {
-        result += "; ";
-      }
+      if (!!this._currenciesMap[p.currency]) {
+        if (i > 0) {
+          result += "; ";
+        }
 
-      result += `${((p.value || 0) * 0.01).toFixed(0)}${this._currenciesMap[p.currency]?.symbol}`;
+        result += `${((p.value || 0) * 0.01).toFixed(0)}${this._currenciesMap[p.currency]?.symbol}`;
+      }
     });
 
     return result;

@@ -1,5 +1,5 @@
 <div class="profile">
-    <div class="profile__block">
+    <div class="profile__block main">
         <ta-query-progress class="query-progress-container" [process]="isProfileInfoProcess">
             <ng-container *ngIf="!isMainFormEdit else mainFormEditable">
                 <form class="form not-editable">
@@ -21,7 +21,7 @@
                     </div>
 
                     <div class="form__buttons-group align-end">
-                        <button class="button primary" (click)="onMainFormEdit()">
+                        <button class="button-create primary" (click)="onMainFormEdit()">
                             {{localization.get("common_action-edit")}}
                         </button>
                     </div>
@@ -30,7 +30,7 @@
         </ta-query-progress>
     </div>
 
-    <div class="profile__block">
+    <div class="profile__block email">
         <ng-container>
             <form class="form not-editable">
                 <div class="form__wrapper">
@@ -67,7 +67,7 @@
         </ng-container>
     </div>
 
-    <div class="profile__block">
+    <div class="profile__block integration">
         <ta-query-progress class="query-progress-container" [process]="isIntegrationsProcess">
             <ng-container *ngIf="!isIntegrationFormEdit else integrationFormEditable">
                 <form class="form not-editable">
@@ -80,6 +80,9 @@
                             <div class="form__block" *ngIf="!!data">
                                 <div class="form-item full-width">
                                     <ta-key-value [data]="data.integration"></ta-key-value>
+                                </div>
+                                <div class="form-item full-width">
+                                    <ta-key-value [data]="data.integrationVersion"></ta-key-value>
                                 </div>
                             </div>
                         </div>
@@ -134,17 +137,19 @@
         </div>
 
         <div class="form__buttons-group align-end">
-            <button class="button cancel"
-                (click)="onMainFormEditCancel()">{{localization.get("common_action-cancel")}}</button>
-            <button type="submit" class="button primary" [disabled]="!mainForm.valid">{{isMainFormEdit ? 'Сохранить' :
-                'Создать'}}</button>
+            <button class="button-create cancel" (click)="onMainFormEditCancel()">
+                {{localization.get("common_action-cancel")}}
+            </button>
+            <button type="submit" class="button-create primary" [disabled]="!mainForm.valid">
+                {{isMainFormEdit ? 'Сохранить' : 'Создать'}}
+            </button>
         </div>
     </form>
 </ng-template>
 
 <ng-template #integrationFormEditable>
-    <form class="form" [formGroup]="integrationForm" (ngSubmit)="onIntegrationFormSubmit()" (keydown)="onIntegrationFormEnterSubmit($event)"
-        autocomplete="off">
+    <form class="form" [formGroup]="integrationForm" (ngSubmit)="onIntegrationFormSubmit()"
+        (keydown)="onIntegrationFormEnterSubmit($event)" autocomplete="off">
         <div class="form__wrapper">
             <h2 class="form-header">
                 Интеграция
@@ -155,17 +160,20 @@
                     <mat-label>Тип</mat-label>
                     <mat-select [formControl]="ctrlIntegration">
                         <mat-option [value]="null">-- Без интеграции --</mat-option>
-                        <mat-option *ngFor="let integration of integrations" [value]="integration.id">{{integration.name}}</mat-option>
+                        <mat-option *ngFor="let integration of integrations" [value]="integration.id">
+                            {{integration.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
             </div>
         </div>
 
         <div class="form__buttons-group align-end">
-            <button class="button cancel"
-                (click)="onIntegrationFormEditCancel()">{{localization.get("common_action-cancel")}}</button>
-            <button type="submit" class="button primary" [disabled]="!integrationForm.valid">{{isIntegrationFormEdit ? 'Сохранить' :
-                'Создать'}}</button>
+            <button class="button-create cancel" (click)="onIntegrationFormEditCancel()">
+                {{localization.get("common_action-cancel")}}
+            </button>
+            <button type="submit" class="button-create primary" [disabled]="!integrationForm.valid">
+                {{isIntegrationFormEdit ? 'Сохранить' : 'Создать'}}
+            </button>
         </div>
     </form>
 </ng-template>

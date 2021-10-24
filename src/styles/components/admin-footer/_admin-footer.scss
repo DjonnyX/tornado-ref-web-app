@@ -1,0 +1,59 @@
+.admin__footer {
+    background-color: $white; //theme
+    height: auto;
+    width: 100%;
+    z-index: 2;
+    position: relative;
+    width: 100%;
+
+    &-container {
+        @extend .common-container;
+        box-sizing: border-box;
+    }
+
+    &-content {
+        @include flexbox();
+        @include flex-direction(column);
+    }
+
+    &-section-copyright, &-section-content {
+        @include flexbox();
+        @include flex-direction(row);
+        @include justify-content(space-between);
+        padding: 20px 0px;
+
+    }
+
+    &-section-copyright{
+
+        &-group {
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(space-between);
+            gap: 20px;
+        }
+    }
+
+    &-section-content{
+        border-bottom: 1px solid $divider-color;
+
+        &-group {
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(space-between);
+            gap: 20px;
+
+            a {
+                color: $accent-secondary-color !important;
+            }
+        }
+    }
+
+    p, a {
+        font-size: 14px;
+        color: $primary-color;
+    }
+    // a {
+    //     color: $primary-color; //$accent-secondary-color;//$primary-color;
+    // }
+}

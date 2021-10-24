@@ -54,6 +54,7 @@ import { IAccountState } from './account.state';
 import { IRoleState } from './role.state';
 import { IRolesState } from './roles.state';
 import { IDocumentationState } from './documentation.state';
+import { IRefServerInfoState } from './ref-server-info.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -112,4 +113,5 @@ export interface IAppState {
     taSystemTags: ISystemTagsState,
     taSettings: ISettingsState,
     taIntegrationServerInfo: IIntegrationServerInfoState,
+    taRefServerInfo: IRefServerInfoState,
 }

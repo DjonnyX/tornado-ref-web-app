@@ -1,6 +1,9 @@
 <div class="backups-editor">
     <div class="backups-editor__wrapper">
-        <p class="backups-editor__description">* Формирование бэкапа может занимать до 5 минут</p>
+        <div class="backups-editor__description">
+            <p>Последний бэкап "{{backupLastFileName}}" от {{backupLastCreate}}</p>
+            <p>* Формирование бэкапа может занимать до 5 минут</p>
+        </div>
         <div class="backups-editor__buttons">
             <ta-loader-button [textContent]="localization.get('backups_form')" [percents]="backupCreatingTime$ | async"
                 [disabled]="isBackupCreating" (click)="onDownloadFile()">
@@ -9,8 +12,7 @@
                 </div>
             </ta-loader-button>
             <ta-loader-button [textContent]="localization.get('backups_upload')"
-                [percents]="backupUploadingTime$ | async" [disabled]="isBackupUploading"
-                (click)="fileSelector.open()">
+                [percents]="backupUploadingTime$ | async" [disabled]="isBackupUploading" (click)="fileSelector.open()">
                 <div class="backups-editor__button-timer">
                     <ta-count *ngIf="isBackupUploading"></ta-count>
                 </div>

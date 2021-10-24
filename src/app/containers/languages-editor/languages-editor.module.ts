@@ -4,6 +4,7 @@ import { LanguagesEditorRoutingModule } from './languages-editor-routing.module'
 import { LanguagesEditorContainer } from './languages-editor.container';
 import { LanguagesEditorComponentModule } from '@components/languages-editor/languages-editor.module';
 import { QueryProgressessModule } from '@components/query-progress/query-progress.module';
+import { MainFooterModule } from '@components/main-footer/main-footer.module';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { QueryProgressessModule } from '@components/query-progress/query-progres
     LanguagesEditorRoutingModule,
     LanguagesEditorComponentModule,
     QueryProgressessModule,
+    MainFooterModule,
   ],
 })
 export class LanguagesEditorModule { }

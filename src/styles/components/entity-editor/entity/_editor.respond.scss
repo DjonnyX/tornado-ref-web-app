@@ -1,0 +1,21 @@
+// lg
+@include respond-above(md) {
+
+    .editor {
+
+        &__container {
+            width: 100%;
+        }
+    }
+}
+
+// md
+@include respond-below(md) {
+
+    .editor {
+
+        &__container {
+            width: 100vw;
+        }
+    }
+}
