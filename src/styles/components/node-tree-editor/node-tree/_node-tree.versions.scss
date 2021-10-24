@@ -1,0 +1,8 @@
+.hierarchy-editor {
+
+    &.last-way-is-hidden {
+        .node-item-way-hider {
+            background-color: $white !important;
+        }
+    }
+}

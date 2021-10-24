@@ -30,7 +30,7 @@
 
                 <ta-query-progress class="query-progress-container" style="position: relative;"
                     [process]="isProcessHierarchy$ | async">
-                    <div class="hierarchy-editor secondary">
+                    <div class="hierarchy-editor last-way-is-hidden">
                         <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false"
                             [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
                             [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
