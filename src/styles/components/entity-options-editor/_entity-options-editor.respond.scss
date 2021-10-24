@@ -1,0 +1,34 @@
+// lg
+@include respond-above(lg) {
+    .entity-options-editor {
+        min-height: 100%;
+
+        .form {
+            padding: px2em(34);
+        }
+
+        .form+.form {
+            margin-top: px2em(34);
+        }
+
+        &__back-button {
+            padding-left: px2em(20);
+            padding-top: px2em(20);
+        }
+    }
+}
+
+// md
+@include respond-above(md) {
+    .entity-options-editor {
+        padding: px2em(40);
+
+        .form {
+            padding: px2em(54) px2em(60) px2em(60);
+        }
+
+        .form+.form {
+            margin-top: px2em(34);
+        }
+    }
+}

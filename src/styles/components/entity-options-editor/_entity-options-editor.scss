@@ -1,0 +1,39 @@
+.entity-options-editor {
+  box-sizing: border-box;
+  background: none;
+
+  .main-options-wrapper {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .mat-tab-body-content {
+    overflow: hidden !important;
+  }
+
+  .entity-options-editor__back-button {
+    cursor: pointer;
+    color: $accent;
+    margin-bottom: px2em(20);
+    text-decoration: underline;
+  }
+
+  .form {
+    border-radius: 8px;
+    box-shadow: 0px 3px 6px rgb(0 0 0 / 3%);
+    border-width: 1px;
+    border-style: solid;
+
+    .form-header {
+      //
+    }
+
+    .form__block {
+      padding-bottom: px2em(24);
+    }
+
+    .form__link {
+      //
+    }
+  }
+}
