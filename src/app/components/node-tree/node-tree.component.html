@@ -1,11 +1,13 @@
-<div class="node-tree__editor xl-items-editor"><!-- [ngClass]="{'editor': mode !== 'product'}"-->
+<div class="node-tree__editor xl-items-editor editor">
+    <!-- [ngClass]="{'editor': mode !== 'product'}"-->
 
     <ta-state-panel [rights]="[0, 1]" [searchFieldClass]="searchFieldClass" [refInfo]="refInfo"
         [hasShowRefInfo]="hasShowRefInfo" [displayInactiveEntities]="displayInactiveEntities"
         (search)="onSearch($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)"></ta-state-panel>
 
-    <div ><!--[ngClass]="{'editor__scroll-view': mode !== 'product'}"-->
-        <div class="editor__container">
+    <div>
+        <!--[ngClass]="{'editor__scroll-view': mode !== 'product'}"-->
+        <div class="editor__container editor__scroll-view">
 
             <div class="node-tree__stores">
                 <ta-tab-list [items]="tabs" (select)="onTabSelect($event)"></ta-tab-list>
