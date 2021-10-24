@@ -52,6 +52,9 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
       this._tag = tag;
 
       this._state = { ...this._state, ...(this._tag ? this._tag.contents : undefined) };
+
+      this.resetInitState();
+      this.checkDirty();
     }
   }
 

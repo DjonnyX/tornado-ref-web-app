@@ -15,7 +15,6 @@ import { getMapOfCollection, ICollectionDictionary } from '@app/utils/collection
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { stringify } from 'querystring';
 import { IStoreRequest } from '@store/interfaces/store-request.interface';
 
 interface IData {
@@ -108,6 +107,9 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.ctrlWeight.setValue(product.weight || 0);
       this.ctrlPrices.setValue(product.prices);
       // this.ctrlReceipt.setValue(product.receipt);
+
+      this.resetInitState();
+      this.checkDirty();
     }
   }
 

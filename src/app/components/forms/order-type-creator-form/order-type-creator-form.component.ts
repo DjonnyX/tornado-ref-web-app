@@ -52,6 +52,9 @@ export class OrderTypeCreatorFormComponent extends BaseComponent implements OnIn
       this._orderType = orderType;
 
       this._state = { ...this._state, ...(this._orderType ? this._orderType.contents : undefined) };
+
+      this.resetInitState();
+      this.checkDirty();
     }
   }
 

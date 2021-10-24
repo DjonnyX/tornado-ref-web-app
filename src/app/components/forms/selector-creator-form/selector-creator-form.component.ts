@@ -91,6 +91,9 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
       this.generateData();
 
       this.ctrlSystemTag.setValue(selector.systemTag);
+
+      this.resetInitState();
+      this.checkDirty();
     }
   }
 
