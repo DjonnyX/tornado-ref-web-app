@@ -1,5 +1,5 @@
 .admin__footer {
-    background-color: $primary-color;
+    background-color: $white; //theme
     height: auto;
     width: 100%;
     z-index: 2;
@@ -16,11 +16,15 @@
         @include flex-direction(column);
     }
 
-    &-section-copyright {
+    &-section-copyright, &-section-content {
         @include flexbox();
         @include flex-direction(row);
         @include justify-content(space-between);
         padding: 20px 0px;
+
+    }
+
+    &-section-copyright{
 
         &-group {
             @include flexbox();
@@ -30,7 +34,25 @@
         }
     }
 
+    &-section-content{
+        border-bottom: 1px solid $divider-color;
+
+        &-group {
+            @include flexbox();
+            @include flex-direction(row);
+            @include justify-content(space-between);
+            gap: 20px;
+
+            a {
+                color: $accent-secondary-color !important;
+            }
+        }
+    }
+
     p {
-        color: $primary-color-500;
+        color: $primary-color;
+    }
+    a {
+        color: $primary-color; //$accent-secondary-color;//$primary-color;
     }
 }
