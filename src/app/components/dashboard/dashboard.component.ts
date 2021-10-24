@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { BaseComponent } from '@components/base/base-component';
 import {
   IAccount, IAd, IAppTheme, IBackupInfo, IBusinessPeriod, ICurrency, ILanguage, ILicenseAccount, IOrderType,
@@ -8,12 +8,14 @@ import { IUserProfile } from '@models';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import moment from 'moment';
 import { ActivatedRoute, Router } from '@angular/router';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'ta-dashboard-component',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent extends BaseComponent implements OnInit, OnDestroy {
 
@@ -179,7 +181,7 @@ export class DashboardComponent extends BaseComponent implements OnInit, OnDestr
     if (this._backupInfo !== v) {
       this._backupInfo = v;
 
-      this.backupLastCreate = this._backupInfo?.lastCreate ? moment(this._backupInfo?.lastCreate).format("DD-MM-YYYY") : "---";
+      this.backupLastCreate = this._backupInfo?.lastCreate ? moment(this._backupInfo?.lastCreate).format("DD-MM-YYYY HH-mm") : "---";
     }
   }
   get backupInfo() { return this._backupInfo; }
@@ -202,11 +204,18 @@ export class DashboardComponent extends BaseComponent implements OnInit, OnDestr
     public readonly localization: LocalizationService,
     private _router: Router,
     private _activatedRoute: ActivatedRoute,
+    private _cdr: ChangeDetectorRef,
   ) {
     super();
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.localization.change$.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(v => {
+      this._cdr.markForCheck();
+    });
+  }
 
   onEditProfile() {
     this._router.navigate(["../profile"], {
