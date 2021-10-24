@@ -1,6 +1,6 @@
 .admin__footer {
     background-color: $primary-color;
-    height: 200px;
+    height: auto;
     width: 100%;
     z-index: 2;
     position: relative;
@@ -8,6 +8,7 @@
 
     &-container {
         @extend .common-container;
+        box-sizing: border-box;
     }
 
     &-content {
@@ -19,6 +20,7 @@
         @include flexbox();
         @include flex-direction(row);
         @include justify-content(space-between);
+        padding: 20px 0px;
 
         &-group {
             @include flexbox();
