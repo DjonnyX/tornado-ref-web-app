@@ -6,21 +6,22 @@
 // $search-icon-color-opened-inverse: $background-color;
 
 .search {
+  @include transition(width, 125ms, ease-in-out);
 
   //Search opened
     &.typed, &.hit, &.pressed {
-        animation-duration: $search-interaction-duration;
-        animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
-        animation-name: search-animation-in;
+        // animation-duration: $search-interaction-duration;
+        // animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        // animation-name: search-animation-in;
 
         width: $search-width-opened;
     }
 
     //Search closed
     &:not(.hit, .typed) {
-        animation-duration: $search-interaction-duration;
-        animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
-        animation-name: search-animation-out;
+        // animation-duration: $search-interaction-duration;
+        // animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+        // animation-name: search-animation-out;
 
         width: $search-width-closed;
     }
@@ -42,9 +43,9 @@
     &:not(.typed) {
 
       .search__form__button-clear {
-          animation-duration: $search-interaction-duration;
-          animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
-          animation-name: search-button-clear-animation-out;
+          // animation-duration: $search-interaction-duration;
+          // animation-timing-function: cubic-bezier(0.68, -0.12, 0.32, 1.12);
+          // animation-name: search-button-clear-animation-out;
 
           opacity: 0.0;
         }
