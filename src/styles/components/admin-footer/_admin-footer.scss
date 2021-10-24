@@ -49,10 +49,11 @@
         }
     }
 
-    p {
+    p, a {
+        font-size: 14px;
         color: $primary-color;
     }
-    a {
-        color: $primary-color; //$accent-secondary-color;//$primary-color;
-    }
+    // a {
+    //     color: $primary-color; //$accent-secondary-color;//$primary-color;
+    // }
 }
