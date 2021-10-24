@@ -3,6 +3,8 @@
     [refInfo]="refInfo$ | async" [assets]="assets$ | async" [defaultLanguage]="defaultLanguage$ | async"
     [languages]="languages$ | async" (create)="onCreate()" (update)="onUpdate($event)" (updateAll)="onUpdateAll($event)"
     (edit)="onEdit($event)" (delete)="onDelete($event)">
-    <ta-main-footer></ta-main-footer>
+    <div class="main-footer__wrapper">
+      <ta-main-footer></ta-main-footer>
+    </div>
   </ta-order-types-editor-component>
 </ta-query-progress>

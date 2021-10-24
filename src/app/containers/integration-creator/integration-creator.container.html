@@ -8,6 +8,8 @@
                 [integrationServerInfo]="integrationServerInfo$ | async" (save)="onSubmit($event)" (cancel)="onCancel()"
                 (update)="onUpdate($event)"></ta-integration-creator-form>
         </div>
-        <ta-main-footer></ta-main-footer>
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
     </div>
 </ta-query-progress>

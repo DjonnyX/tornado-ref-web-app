@@ -2,6 +2,8 @@
     <ta-stores-editor-component *ngIf="!(isGetCollectionProcess$ | async)" [collection]="collection$ | async"
         [refInfo]="refInfo$ | async" [rights]="rights$ | async" (create)="onCreate()" (update)="onUpdate($event)"
         (edit)="onEdit($event)" (delete)="onDelete($event)">
-        <ta-main-footer></ta-main-footer>
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
     </ta-stores-editor-component>
 </ta-query-progress>

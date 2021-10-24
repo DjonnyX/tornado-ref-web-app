@@ -1,6 +1,8 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <div class="page-content">
         <ta-backups-editor [backupInfo]="backupInfo$ | async"></ta-backups-editor>
-        <ta-main-footer></ta-main-footer>
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
     </div>
 </ta-query-progress>

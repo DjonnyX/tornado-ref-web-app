@@ -8,7 +8,9 @@
             [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async" [stores]="stores$ | async"
             (create)="onCreate($event)" (update)="onUpdate($event)" (delete)="onDelete($event)"
             (changeDisplayInactiveEntities)="onChangeDisplayInactiveEntities($event)">
-            <ta-main-footer></ta-main-footer>
+            <div class="main-footer__wrapper">
+                <ta-main-footer></ta-main-footer>
+            </div>
         </ta-node-tree>
     </div>
 </ta-query-progress>

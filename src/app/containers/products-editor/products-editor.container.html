@@ -7,6 +7,8 @@
         (update)="onUpdate($event)" (delete)="onDelete($event)" (reposition)="onReposition($event)"
         (repositionSystemTags)="onSystemTagsReposition($event)" (changeLayout)="onChangeLayout($event)"
         (changeDisplayInactiveEntities)="onChangeDisplayInactiveEntities($event)">
-        <ta-main-footer></ta-main-footer>
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
     </ta-products-editor-component>
 </ta-query-progress>

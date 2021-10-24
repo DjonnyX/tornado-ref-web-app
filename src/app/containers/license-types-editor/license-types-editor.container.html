@@ -2,6 +2,8 @@
     <ta-license-types-editor-component [collection]="collection$ | async" [refInfo]="refInfo$ | async"
         [integrations]="integrations$ | async" (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)"
         (delete)="onDelete($event)">
-        <ta-main-footer></ta-main-footer>
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
     </ta-license-types-editor-component>
 </ta-query-progress>
