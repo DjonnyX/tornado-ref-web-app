@@ -35,23 +35,33 @@
     &::-webkit-scrollbar {
         // display: block;
         // position: absolute;
-        height: 8px;
-        width: 8px;
+        height: 6px;
+        width: 6px;
 
-        &:hover {
-            height: 12px;
-            width: 12px;
-        }
+        // &:hover {
+        //     height: 12px;
+        //     width: 12px;
+        // }
     }
     &::-webkit-scrollbar-track {
-        background: rgba($primary-color, 1.0);
+        @include themify($themes) {
+            background-color: themed("navigationMenuBackgroundColor");
+        }
         opacity: 0.0;
     }
     &::-webkit-scrollbar-thumb {
-        background-color: rgba($white, 0.1);
-        height: 6px;
-        width: 6px;
+        background-color: rgba($white, 0.25);
+        // height: 6px;
+        // width: 6px;
         border-radius: 6px;
-        border: 0px;
+        // border: 2px solid rgba($white, 0.0);
+        
+        &:hover {
+            background-color: rgba($white, 0.35);
+        }
+    }
+    /* set button(top and bottom of the scrollbar) */
+    &::-webkit-scrollbar-button {
+        display:none
     }
 }
