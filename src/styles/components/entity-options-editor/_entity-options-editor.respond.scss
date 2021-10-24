@@ -21,7 +21,7 @@
 // md
 @include respond-above(md) {
     .entity-options-editor {
-        padding: px2em(40);
+        // padding: px2em(40);
 
         .form {
             padding: px2em(54) px2em(60) px2em(60);

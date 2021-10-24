@@ -1,6 +1,7 @@
 .entity-options-editor {
   box-sizing: border-box;
   background: none;
+  @extend .common-container;
 
   .main-options-wrapper {
     display: grid;
