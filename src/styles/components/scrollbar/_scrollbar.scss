@@ -1,0 +1,57 @@
+/* W3C standard
+   Scrollbar for Firefox */
+.scrollbar {
+    * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,1);
+    }
+
+    /* Scrollbar for Chrome/Edge/Safari */
+    *::-webkit-scrollbar {
+        // display: block;
+        // position: absolute;
+        height: 6px;
+        width: 3px;
+    }
+    *::-webkit-scrollbar-track {
+        background: rgba($primary-color, 0.0);//#d8dcdf;//rgba(204,204,204,0.05);
+        opacity: 0.0;
+    }
+    *::-webkit-scrollbar-thumb {
+        background-color: rgba($primary-color, 0.5);//#97a1a5;//#c9d0d3;//#ffa000;
+        border-radius: 3px;
+        border: 0px;
+    }
+}
+
+.scrollbar-for-navigation {
+
+    & {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(0,0,0,1);
+    }
+
+    /* Scrollbar for Chrome/Edge/Safari */
+    &::-webkit-scrollbar {
+        // display: block;
+        // position: absolute;
+        height: 8px;
+        width: 8px;
+
+        &:hover {
+            height: 12px;
+            width: 12px;
+        }
+    }
+    &::-webkit-scrollbar-track {
+        background: rgba($primary-color, 1.0);
+        opacity: 0.0;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba($white, 0.1);
+        height: 6px;
+        width: 6px;
+        border-radius: 6px;
+        border: 0px;
+    }
+}

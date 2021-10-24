@@ -53,6 +53,7 @@
                 width: 100%;
                 overflow: auto;
                 z-index: 9998;
+                @extend .scrollbar-for-navigation;
             }
         }
 
