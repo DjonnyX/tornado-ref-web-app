@@ -267,8 +267,8 @@ $themes: (
     // Node Tree
     nodeTreeBorderColor: $node-tree-border-color-inverse,
     nodeTreeWayBorderColor: $node-tree-way-border-color-inverse,
-    nodeTreeItemBackgroundColor: $node-tree-item-background-color,
-    nodeTreeItemDividerBorderColor: $node-tree-item-divider-border-color,
+    nodeTreeItemBackgroundColor: $node-tree-item-background-color-inverse,
+    nodeTreeItemDividerBorderColor: $node-tree-item-divider-border-color-inverse,
     nodeTreeItemTitleColor: $node-tree-item-title-color-inverse,
     nodeTreeItemTextColor: $node-tree-item-text-color-inverse,
     nodeTreeWayHiderBackgroundColor: $background-color,

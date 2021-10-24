@@ -21,6 +21,16 @@
                 color: themed("nodeTreeItemTextColorDragged") !important;
             }
         }
+        &__text {
+            @include themify($themes) {
+                color: themed("nodeTreeItemTitleColorDragged") !important;
+            }
+        }
+        &__context-menu-button {
+            @include themify($themes) {
+                color: themed("nodeTreeItemTextColorDragged") !important;
+            }
+        }
     }
 }
 
