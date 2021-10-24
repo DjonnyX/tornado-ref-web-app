@@ -1,0 +1,32 @@
+// lg
+@include respond-above(lg) {
+
+    .common-container {
+        padding-left: $common-container-xl;
+        padding-right: $common-container-xl;
+    }
+}
+
+// md
+@include respond-between(md, lg) {
+    .common-container {
+        padding-left: $common-container-lg;
+        padding-right: $common-container-lg;
+    }
+}
+
+// md
+@include respond-between(sm, md) {
+    .common-container {
+        padding-left: $common-container-md;
+        padding-right: $common-container-md;
+    }
+}
+
+// sm
+@include respond-below(sm) {
+    .common-container {
+        padding-left: $common-container-sm;
+        padding-right: $common-container-sm;
+    }
+}

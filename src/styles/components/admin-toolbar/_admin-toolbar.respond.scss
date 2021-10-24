@@ -2,7 +2,6 @@
 @include respond-above(lg) {
 
     .admin__toolbar {
-        //
 
         .navigation-menu__toggle-button {
             display: none;
@@ -32,7 +31,6 @@
 @include respond-below(lg) {
     
     .admin__toolbar {
-        //
 
         .navigation-menu__toggle-button {
             display: block;
@@ -40,6 +38,20 @@
 
         .admin__logo {
             display: none;
+        }
+    }
+}
+
+// md (hide right-group)
+@include respond-below(md) {
+    
+    .admin__toolbar {
+
+        &__navigation-section {
+
+            &__right-group {
+                display: none;
+            }
         }
     }
 }
