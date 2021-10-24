@@ -1,0 +1,40 @@
+.entity-sheet-editor {
+    @extend .page-content;
+}
+
+.entity-sheet {
+    background-color: $white;
+    border-radius: $entity-sheet-border-radius;
+    border-style: solid;
+    border-width: $entity-sheet-border-width;
+    border-color: $entity-sheet-border-color;
+    
+    &-container {
+        @extend .sheet-container;
+    }
+
+    &-content {
+        width: 100%;
+    }
+
+    &__header {
+
+        &-container {
+            @extend .sheet-container;
+        }
+
+        &-title {
+            font-size: 24px;
+            letter-spacing: $letter-spacing;
+            line-height: $line-height;
+            color: $primary-color;//Theme
+        }
+    }
+
+    &__body {
+
+        &-container {
+            @extend .sheet-container;
+        }
+    }
+}

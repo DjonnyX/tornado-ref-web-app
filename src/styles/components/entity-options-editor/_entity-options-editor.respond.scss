@@ -1,7 +1,6 @@
 // lg
 @include respond-above(lg) {
     .entity-options-editor {
-        min-height: 100%;
 
         .form {
             padding: px2em(34);

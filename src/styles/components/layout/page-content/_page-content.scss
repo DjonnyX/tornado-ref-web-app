@@ -1,0 +1,8 @@
+.page-content {
+  @include flexbox();
+  @include flex-direction(column);
+  @include justify-content(space-between);
+  position: relative;
+  min-height: 100%;
+  gap: 20px;
+}

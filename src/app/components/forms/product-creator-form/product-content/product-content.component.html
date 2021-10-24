@@ -1,7 +1,14 @@
 <div [ngClass]="{'product-content': true, 'main-options-wrapper': isEditMode}">
-  <h2 class="form-header" *ngIf="!!data">
-    {{data.name.value}}
-  </h2>
+
+  <!-- Header -->
+  <div class="entity-sheet__header">
+    <h2 class="entity-sheet__header-title" *ngIf="!!data">
+      {{data.name.value}}
+    </h2>
+  </div>
+  <!-- Header -->
+
+  <!-- Assets -->
   <div class="resources" *ngIf="isEditMode">
     <div class="resources-wrapper double">
       <div class="resources-n">
@@ -60,6 +67,7 @@
       </mat-expansion-panel>
     </mat-accordion>-->
   </div>
+  <!-- Assets -->
 
   <div>
     <ng-container *ngIf="!isEdit; else editFields">

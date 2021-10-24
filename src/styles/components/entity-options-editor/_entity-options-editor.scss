@@ -1,9 +1,12 @@
 .entity-options-editor {
+  display: block;
+  position: relative;
   box-sizing: border-box;
   background: none;
   @extend .common-container;
   padding-top: 40px;
   padding-bottom: 40px;
+  min-height: 100%;
 
   .main-options-wrapper {
     display: grid;
@@ -17,7 +20,7 @@
   .entity-options-editor__back-button {
     cursor: pointer;
     color: $accent;
-    margin-bottom: px2em(20);
+    // margin-bottom: px2em(20);
     text-decoration: underline;
   }
 

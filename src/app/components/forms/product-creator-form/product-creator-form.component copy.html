@@ -50,8 +50,7 @@
                             [matAutocomplete]="auto" placeholder="Выберите системный тег">
                         <div matSuffix>
                             <ng-container *ngIf="!isExistsSystemTag() else removeSystemTag">
-                                <button *ngIf="ctrlSystemTag.value" type="button" mat-icon-button
-                                    (click)="onCreateSystemTag()">
+                                <button *ngIf="ctrlSystemTag.value" type="button" mat-icon-button (click)="onCreateSystemTag()">
                                     <mat-icon>add_circle</mat-icon>
                                 </button>
                             </ng-container>
@@ -125,12 +124,14 @@
                 Отменить
             </button>
             <ng-container *ngIf="isEditMode; else createBtn">
-                <button type="submit" class="button-create button__text" [disabled]="!form.valid || !isDirty">
+                <button type="submit" class="button-create button__text"
+                    [disabled]="!form.valid || !isDirty">
                     Сохранить
                 </button>
             </ng-container>
             <ng-template #createBtn>
-                <button type="submit" class="button-create button__text" [disabled]="!form.valid">
+                <button type="submit" class="button-create button__text"
+                    [disabled]="!form.valid">
                     Создать
                 </button>
             </ng-template>

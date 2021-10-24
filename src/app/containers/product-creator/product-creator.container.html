@@ -1,51 +1,67 @@
 <ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
     <div class="page-content">
         <div class="entity-options-editor">
-            <div class="entity-options-editor__back-button" (click)="onToBack()">
-                Назад
-            </div>
-            <div class="form">
-                <ta-query-progress class="query-progress-container" style="position: relative;"
-                    [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-                    <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-                        [product]="product$ | async" [tagList]="tags$ | async" [assets]="productAssets$ | async"
-                        [resourcesGallery]="galleryProductAssets$ | async" [currencies]="currencies$ | async"
-                        [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-                        [systemTags]="systemTags$ | async" (save)="onMainOptionsSave($event)"
-                        (cancel)="onMainOptionsCancel()" (uploadMainResource)="onMainResourceUpload($event)"
-                        (uploadIconResource)="onIconResourceUpload($event)" (uploadAsset)="onAssetUpload($event)"
-                        (updateAsset)="onAssetUpdate($event)" (deleteAsset)="onAssetDelete($event)"
-                        (createSystemTag)="onCreateSystemTag($event)" (deleteSystemTag)="onDeleteSystemTag($event)">
-                    </ta-product-creator-form>
-                </ta-query-progress>
-            </div>
-
-            <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
-                <div class="form-header header-products__modifiers">
-                    <h2>Конструктор товара</h2>
-                    <p>
-                        В этом блоке формируется состав товара и строится структура сценариев поведения.
-                    </p>
+            <div class="entity-sheet-editor">
+                <!-- Back Button -->
+                <div class="entity-options-editor__back-button" (click)="onToBack()">
+                    Вернуться в товары
                 </div>
-
-                <ta-query-progress class="query-progress-container" style="position: relative;"
-                    [process]="isProcessHierarchy$ | async">
-                    <div class="hierarchy-editor last-way-is-hidden">
-                        <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false"
-                            [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
-                            [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
-                            [assets]="assets$ | async" [currencies]="currencies$ | async"
-                            [languages]="languages$ | async" [orderTypes]="orderTypes$ | async"
-                            [stores]="stores$ | async" [defaultLanguage]="defaultLanguage$ | async"
-                            (create)="onCreateHierarchyNodes($event)" (update)="onUpdateHierarchyNode($event)"
-                            (delete)="onDeleteHierarchyNode($event)" mode="product">
-                        </ta-node-tree>
+                <!-- Back Button -->
+                <!-- Entity Sheet -->
+                <div class="entity-sheet">
+                    <div class="entity-sheet-container">
+                        <ta-query-progress class="query-progress-container" style="position: relative;"
+                            [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+                            <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+                                [product]="product$ | async" [tagList]="tags$ | async" [assets]="productAssets$ | async"
+                                [resourcesGallery]="galleryProductAssets$ | async" [currencies]="currencies$ | async"
+                                [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+                                [systemTags]="systemTags$ | async" (save)="onMainOptionsSave($event)"
+                                (cancel)="onMainOptionsCancel()" (uploadMainResource)="onMainResourceUpload($event)"
+                                (uploadIconResource)="onIconResourceUpload($event)"
+                                (uploadAsset)="onAssetUpload($event)" (updateAsset)="onAssetUpdate($event)"
+                                (deleteAsset)="onAssetDelete($event)" (createSystemTag)="onCreateSystemTag($event)"
+                                (deleteSystemTag)="onDeleteSystemTag($event)">
+                            </ta-product-creator-form>
+                        </ta-query-progress>
                     </div>
-                </ta-query-progress>
+                </div>
+                <!-- Entity Sheet -->
+
+                <!-- Entity Sheet -->
+                <div class="entity-sheet" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
+                    <div class="entity-sheet-container">
+                        <div class="entity-sheet__header header-products__modifiers">
+                            <h2 class="entity-sheet__header-title">Конструктор товара</h2>
+                            <p>
+                                В этом блоке формируется состав товара и строится структура сценариев поведения.
+                            </p>
+                        </div>
+
+                        <ta-query-progress class="query-progress-container" style="position: relative;"
+                            [process]="isProcessHierarchy$ | async">
+                            <div class="hierarchy-editor last-way-is-hidden">
+                                <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false"
+                                    [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async"
+                                    [products]="products$ | async" [selectors]="selectors$ | async"
+                                    [businessPeriods]="businessPeriods$ | async" [assets]="assets$ | async"
+                                    [currencies]="currencies$ | async" [languages]="languages$ | async"
+                                    [orderTypes]="orderTypes$ | async" [stores]="stores$ | async"
+                                    [defaultLanguage]="defaultLanguage$ | async"
+                                    (create)="onCreateHierarchyNodes($event)" (update)="onUpdateHierarchyNode($event)"
+                                    (delete)="onDeleteHierarchyNode($event)" mode="product">
+                                </ta-node-tree>
+                            </div>
+                        </ta-query-progress>
+                    </div>
+                </div>
+                <!-- Entity Sheet -->
             </div>
         </div>
+        <!-- Admin Footer -->
         <div class="main-footer__wrapper">
             <ta-main-footer></ta-main-footer>
         </div>
+        <!-- Admin Footer -->
     </div>
 </ta-query-progress>
