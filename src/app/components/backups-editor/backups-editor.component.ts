@@ -40,7 +40,7 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
     if (this._backupInfo !== v) {
       this._backupInfo = v;
 
-      this.backupLastCreate = this._backupInfo?.lastCreate ? moment(this._backupInfo?.lastCreate).format("DD-MM-YYYY") : "---";
+      this.backupLastCreate = this._backupInfo?.lastCreate ? moment(this._backupInfo?.lastCreate).format("DD-MM-YYYY HH-mm") : "---";
 
       this.backupLastFileName = this._backupInfo?.name?.match(/(\d|\w|\.|-)*$/)?.[0];
     }
@@ -158,7 +158,7 @@ export class BackupsEditorComponent extends BaseComponent implements OnInit {
 
         this._notificationService.success("База данных восстановлена");
       } else {
-        
+
       }
     }, err => {
       this.isBackupUploading = false;
