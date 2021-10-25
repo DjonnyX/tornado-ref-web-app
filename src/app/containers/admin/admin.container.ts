@@ -28,6 +28,16 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
     children: [
       {
         icon: "license",
+        name: "menu_applications", //"Приложения",
+        route: "applications",
+      },
+      {
+        icon: "license",
+        name: "menu_tarifs", //"Тарифы",
+        route: "tarifs",
+      },
+      {
+        icon: "license",
         name: "menu_license-types", //"Типы лицензий",
         route: "license-types",
         right: UserRights.READ_LICENSE_TYPES,
@@ -43,11 +53,6 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
         name: "menu_licenses", //"Лицензии",
         route: "licenses",
         right: UserRights.READ_LICENSES,
-      },
-      {
-        icon: "application",
-        name: "menu_applications", //"Приложения",
-        route: "applications",
       },
     ]
   },

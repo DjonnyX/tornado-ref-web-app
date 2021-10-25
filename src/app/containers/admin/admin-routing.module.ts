@@ -42,6 +42,14 @@ const ADMIN_ROUTES: Routes = [
     canActivate: [AccessGuard, AllowAdminGuard],
   },
   {
+    path: 'tarifs',
+    loadChildren: () =>
+      import('@containers/tarifs-editor/tarifs-editor.module').then(
+        module => module.TarifsEditorModule,
+      ),
+    canActivate: [AccessGuard, AllowAdminGuard],
+  },
+  {
     path: 'integrations',
     loadChildren: () =>
       import('@containers/integrations-editor/integrations-editor.module').then(

@@ -1,0 +1,69 @@
+<div class="editor">
+    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <div class="editor__scroll-view">
+        <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
+            <div class="entities-container entities-card-layout">
+                <div class="entity" *ngFor="let tarif of collection | search: searchPattern">
+                    <div class="entity__control">
+                        <div class="entity__control__container">
+                            <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button"
+                                aria-label="Menu">
+                                <mat-icon class="icon">more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <button mat-menu-item (click)="onEdit(tarif)">
+                                    <mat-icon>edit</mat-icon>
+                                    <span>
+                                        {{localization.get("common_action-edit")}}
+                                    </span>
+                                </button>
+
+                                <ng-container *ngIf="hasDelete()">
+                                    <button mat-menu-item (click)="onDelete(tarif)">
+                                        <mat-icon>delete_forever</mat-icon>
+                                        <span>
+                                            {{localization.get("common_action-delete")}}
+                                        </span>
+                                    </button>
+                                </ng-container>
+                            </mat-menu>
+                        </div>
+                    </div>
+                    <div matRipple class="entity__body" (click)="onEdit(tarif)">
+                        <div class="entity__body__content">
+                            <div class="entity__body__container">
+                                <div class="entity__text-group" *ngIf="!!tarif">
+                                    <div class="content__name">
+                                        {{tarif.name}}
+                                    </div>
+                                    <div class="content__description">
+                                        {{tarif.version.version}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="entities-bottom-panel">
+                    <div class="entities-bottom-panel__container">
+                        <button color="accent" class="button-add" (click)="onCreate()">
+                            <div class="">
+                                {{localization.get("tarifs_add-new")}}
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <ng-container *ngIf="!collection || collection.length === 0">
+            <div class="editor__missing-elements__wrapper">
+                <div class="missing-elements__text">
+                    {{localization.get("tarifs_no-tarifs")}}
+                </div>
+            </div>
+        </ng-container>
+        <ng-content></ng-content>
+    </div>
+</div>
