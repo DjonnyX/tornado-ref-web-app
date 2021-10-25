@@ -38,6 +38,8 @@ import LicenseTypeEffects from './license-type.effects';
 import LicenseTypesEffects from './license-types.effects';
 import ApplicationEffects from './application.effects';
 import ApplicationsEffects from './applications.effects';
+import TarifEffects from './tarif.effects';
+import TarifsEffects from './tarifs.effects';
 import IntegrationEffects from './integration.effects';
 import IntegrationsEffects from './integrations.effects';
 import AccountsEffects from './accounts.effects';
@@ -94,6 +96,8 @@ const rootEffects = [
   LicenseTypesEffects,
   ApplicationEffects,
   ApplicationsEffects,
+  TarifEffects,
+  TarifsEffects,
   IntegrationEffects,
   IntegrationsEffects,
   AccountsEffects,

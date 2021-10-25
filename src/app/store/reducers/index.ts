@@ -44,6 +44,8 @@ import licenseTypeReducer from './license-type.reducer';
 import licenseTypesReducer from './license-types.reducer';
 import applicationReducer from './application.reducer';
 import applicationsReducer from './applications.reducer';
+import tarifReducer from './tarif.reducer';
+import tarifsReducer from './tarifs.reducer';
 import integrationReducer from "./integration.reducer";
 import integrationsReducer from "./integrations.reducer";
 import accountsReducer from "./accounts.reducer";
@@ -104,6 +106,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taLicenseTypes: licenseTypesReducer,
   taApplication: applicationReducer,
   taApplications: applicationsReducer,
+  taTarif: tarifReducer,
+  taTarifs: tarifsReducer,
   taIntegration: integrationReducer,
   taIntegrations: integrationsReducer,
   taCheckues: checkuesReducer,

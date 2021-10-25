@@ -35,7 +35,7 @@
     "@angular/platform-browser": "^11.1.2",
     "@angular/platform-browser-dynamic": "^11.1.2",
     "@angular/router": "^11.1.2",
-    "@djonnyx/tornado-types": "^1.4.101",
+    "@djonnyx/tornado-types": "^1.5.8",
     "@ngrx/effects": "^10.1.2",
     "@ngrx/entity": "^10.1.2",
     "@ngrx/store": "^10.1.2",

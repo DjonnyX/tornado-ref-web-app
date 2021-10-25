@@ -55,6 +55,8 @@ import { IRoleState } from './role.state';
 import { IRolesState } from './roles.state';
 import { IDocumentationState } from './documentation.state';
 import { IRefServerInfoState } from './ref-server-info.state';
+import { ITarifState } from "./tarif.state";
+import { ITarifsState } from "./tarifs.state";
 
 export interface IAppState {
     taUser: IUserState;
@@ -98,6 +100,8 @@ export interface IAppState {
     taLicenseTypes: ILicenseTypesState,
     taApplication: IApplicationState,
     taApplications: IApplicationsState,
+    taTarif: ITarifState,
+    taTarifs: ITarifsState,
     taIntegration: IIntegrationState,
     taIntegrations: IIntegrationsState,
     taAccounts: IAccountsState,

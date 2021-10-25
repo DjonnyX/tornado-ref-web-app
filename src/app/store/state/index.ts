@@ -50,5 +50,7 @@ export * from "./roles.state";
 export * from "./app-theme-assets.state";
 export * from "./system-tag.state";
 export * from "./system-tags.state";
-export * from "./integration-server-info.state";
 export * from "./ref-server-info.state";
+export * from "./integration-server-info.state";
+export * from "./tarif.state";
+export * from "./tarifs.state";
