@@ -34,10 +34,15 @@
                             <div class="entity__body__container">
                                 <div class="entity__text-group" *ngIf="!!tarif">
                                     <div class="content__name">
-                                        {{tarif.name}}
+                                        <strong>
+                                            {{tarif.name}}
+                                        </strong>
+                                    </div>
+                                    <div class="content__name">
+                                        {{tarif.description}}
                                     </div>
                                     <div class="content__description">
-                                        {{tarif.version.version}}
+                                        {{tarif.application.name}}
                                     </div>
                                 </div>
                             </div>

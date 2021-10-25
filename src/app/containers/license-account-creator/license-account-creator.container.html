@@ -6,8 +6,8 @@
             </div>
             <div class="form">
                 <ta-license-account-creator-form [license]="license$ | async" [store]="store$ | async"
-                    [terminal]="terminal$ | async" [licenseTypes]="licenseTypes$ | async"
-                    [integrations]="integrations$ | async" (cancel)="onCancel()">
+                    [terminal]="terminal$ | async" [tarifs]="tarifs$ | async" [integrations]="integrations$ | async"
+                    (cancel)="onCancel()">
                 </ta-license-account-creator-form>
             </div>
         </div>

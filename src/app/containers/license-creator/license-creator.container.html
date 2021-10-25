@@ -7,7 +7,7 @@
             <div class="form">
                 <ta-license-creator-form [isEditMode]="isEditMode" [license]="license$ | async"
                     [accounts]="accounts$ | async" [store]="store$ | async" [terminal]="terminal$ | async"
-                    [licenseTypes]="licenseTypes$ | async" [integrations]="integrations$ | async"
+                    [tarifs]="tarifs$ | async" [integrations]="integrations$ | async"
                     (save)="onSubmit($event)" (cancel)="onCancel()">
                 </ta-license-creator-form>
             </div>

@@ -6,7 +6,8 @@
             </div>
             <div class="form">
                 <ta-tarif-creator-form [isEditMode]="isEditMode" [tarif]="tarif$ | async"
-                    [applications]="applications$ | async" (save)="onSubmit($event)" (cancel)="onCancel()">
+                    [applications]="applications$ | async" [integrations]="integrations$ | async"
+                    (save)="onSubmit($event)" (cancel)="onCancel()">
                 </ta-tarif-creator-form>
             </div>
         </div>

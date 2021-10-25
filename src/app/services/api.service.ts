@@ -34,7 +34,7 @@ import {
   ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse,
   IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse,
   IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest,
-  IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse,
+  IUserChangeEmailResponse, IUserResetEmailResponse,
   IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse,
   IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse, IApplicationCreateResponse,
   ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse,
@@ -47,7 +47,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole, ITarif
+  ILicense, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole, ITarif
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';

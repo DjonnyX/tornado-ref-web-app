@@ -7,9 +7,10 @@ import { takeUntil, filter, map } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import { TarifActions } from '@store/actions/tarif.action';
 import { TarifSelectors } from '@store/selectors/tarif.selectors';
-import { ITarif, IApplication } from '@djonnyx/tornado-types';
-import { ApplicationsSelectors } from '@store/selectors';
+import { ITarif, IApplication, IIntegration } from '@djonnyx/tornado-types';
+import { ApplicationsSelectors, IntegrationsSelectors } from '@store/selectors';
 import { ApplicationsActions } from '@store/actions/applications.action';
+import { IntegrationsActions } from '@store/actions/integrations.action';
 
 @Component({
   selector: 'ta-tarif-creator',
@@ -22,6 +23,8 @@ export class TarifCreatorContainer extends BaseComponent implements OnInit, OnDe
   public isProcess$: Observable<boolean>;
 
   applications$: Observable<Array<IApplication>>;
+
+  integrations$: Observable<Array<IIntegration>>;
 
   tarif$: Observable<ITarif>;
 
@@ -51,9 +54,12 @@ export class TarifCreatorContainer extends BaseComponent implements OnInit, OnDe
       this._store.pipe(
         select(ApplicationsSelectors.selectIsGetProcess),
       ),
+      this._store.pipe(
+        select(IntegrationsSelectors.selectIsGetProcess),
+      ),
     ]).pipe(
-      map(([isTarifGetProcess, isTarifCreateProcess, selectIsUpdateProcess, isApplicationsGetProcess]) =>
-        isTarifGetProcess || isTarifCreateProcess || selectIsUpdateProcess || isApplicationsGetProcess),
+      map(([isTarifGetProcess, isTarifCreateProcess, selectIsUpdateProcess, isApplicationsGetProcess, isIntegrationsGetProcess]) =>
+        isTarifGetProcess || isTarifCreateProcess || selectIsUpdateProcess || isApplicationsGetProcess || isIntegrationsGetProcess),
     );
 
     this.tarif$ = this._store.pipe(
@@ -62,6 +68,10 @@ export class TarifCreatorContainer extends BaseComponent implements OnInit, OnDe
 
     this.applications$ = this._store.pipe(
       select(ApplicationsSelectors.selectCollection),
+    );
+
+    this.integrations$ = this._store.pipe(
+      select(IntegrationsSelectors.selectCollection),
     );
 
     this.tarif$.pipe(
@@ -78,6 +88,7 @@ export class TarifCreatorContainer extends BaseComponent implements OnInit, OnDe
     }
 
     this._store.dispatch(ApplicationsActions.getAllRequest({}));
+    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
@@ -85,6 +96,7 @@ export class TarifCreatorContainer extends BaseComponent implements OnInit, OnDe
 
     this._store.dispatch(TarifActions.clear());
     this._store.dispatch(ApplicationsActions.clear());
+    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onSubmit(tarif: ITarif): void {

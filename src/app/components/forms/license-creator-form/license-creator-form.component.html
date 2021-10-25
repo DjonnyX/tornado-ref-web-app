@@ -8,7 +8,15 @@
             <div class="form__main-options">
                 <div class="form__block" *ngIf="!!data">
                     <div class="form-item full-width">
-                        <ta-key-value [data]="data.name"></ta-key-value>
+                        <ta-key-value [data]="data.applicationName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.tarifName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.trialPeriod"></ta-key-value>
                     </div>
 
                     <div class="form-item full-width">
@@ -115,14 +123,14 @@
                             </div>
 
                             <mat-form-field class="full-width" appearance="outline">
-                                <mat-label>Тип лицензии</mat-label>
-                                <mat-select [formControl]="ctrlLicenseType" required>
-                                    <mat-option *ngFor="let licenseType of licenseTypes" [value]="licenseType.id">
+                                <mat-label>Тариф</mat-label>
+                                <mat-select [formControl]="ctrlTarif" required>
+                                    <mat-option *ngFor="let tarif of tarifs" [value]="tarif.id">
                                         <span>
-                                            {{licenseType.name}}
+                                            {{tarif.name}}
                                         </span>
                                         <span *ngIf="!!integrationsMap">
-                                            ({{integrationsMap[licenseType.integrationId]?.name}})
+                                            ({{integrationsMap[tarif.integrationId]?.name}})
                                         </span>
                                     </mat-option>
                                 </mat-select>

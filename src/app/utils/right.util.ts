@@ -367,26 +367,26 @@ export const USER_RIGHTS_LIST: Array<IUserRightData> = [
         name: "DELETE_INTEGRATION",
         value: UserRights.DELETE_INTEGRATION,
     },
-    // License types
+    // Tarifs
     {
-        name: "READ_LICENSE_TYPES",
-        value: UserRights.READ_LICENSE_TYPES,
+        name: "READ_TARIFS",
+        value: UserRights.READ_TARIFS,
     },
     {
-        name: "READ_LICENSE_TYPE",
-        value: UserRights.READ_LICENSE_TYPE,
+        name: "READ_TARIF",
+        value: UserRights.READ_TARIF,
     },
     {
-        name: "CREATE_LICENSE_TYPE",
-        value: UserRights.CREATE_LICENSE_TYPE,
+        name: "CREATE_TARIF",
+        value: UserRights.CREATE_TARIF,
     },
     {
-        name: "UPDATE_LICENSE_TYPE",
-        value: UserRights.UPDATE_LICENSE_TYPE,
+        name: "UPDATE_TARIF",
+        value: UserRights.UPDATE_TARIF,
     },
     {
-        name: "DELETE_LICENSE_TYPE",
-        value: UserRights.DELETE_LICENSE_TYPE,
+        name: "DELETE_TARIF",
+        value: UserRights.DELETE_TARIF,
     },
     {
         name: "READ_ACCOUNTS",

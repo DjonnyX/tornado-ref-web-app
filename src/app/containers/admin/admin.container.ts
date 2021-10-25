@@ -30,7 +30,7 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
         icon: "license",
         name: "menu_applications", //"Приложения",
         route: "applications",
-        right: UserRights.READ_ADMIN_APPS,
+        // right: UserRights.READ_ADMIN_APPS,
       },
       {
         icon: "license",

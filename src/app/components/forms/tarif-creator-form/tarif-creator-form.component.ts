@@ -29,6 +29,8 @@ export class TarifCreatorFormComponent extends BaseComponent implements OnInit, 
 
   ctrlApplication = new FormControl('', [Validators.required]);
 
+  ctrlIntegration = new FormControl('', [Validators.required]);
+
   ctrlServiceId = new FormControl('', [Validators.required]);
 
   ctrlDescription = new FormControl('');
@@ -37,7 +39,10 @@ export class TarifCreatorFormComponent extends BaseComponent implements OnInit, 
 
   ctrlPaymentPeriod = new FormControl(TarifPaymentPeriods.EVERY_MONTH, [Validators.required]);
 
-  ctrlVersion = new FormControl(null);
+  ctrlCostByDevices = new FormControl([{
+    largeOrEqual: 1,
+    cost: 2500,
+  }], [Validators.required]);
 
   private _tarif: ITarif;
   @Input() set tarif(tarif: ITarif) {
@@ -45,15 +50,19 @@ export class TarifCreatorFormComponent extends BaseComponent implements OnInit, 
       this._tarif = tarif;
 
       this.ctrlApplication.setValue(tarif.applicationId);
+      this.ctrlIntegration.setValue(tarif.integrationId);
       this.ctrlServiceId.setValue(tarif.serviceId);
       this.ctrlName.setValue(tarif.name);
       this.ctrlDescription.setValue(tarif.description);
       this.ctrlTrialPeriodDuration.setValue(tarif.trialPeriodDuration);
       this.ctrlPaymentPeriod.setValue(tarif.paymentPeriod);
+      this.ctrlCostByDevices.setValue(tarif.costByDevices || []);
     }
   }
 
   @Input() applications: Array<IApplication>;
+
+  @Input() integrations: Array<IApplication>;
 
   @Input() isEditMode: boolean;
 
@@ -68,11 +77,13 @@ export class TarifCreatorFormComponent extends BaseComponent implements OnInit, 
 
     this.form = this._fb.group({
       serviceId: this.ctrlServiceId,
-      terminalType: this.ctrlApplication,
+      applicationId: this.ctrlApplication,
+      integrationId: this.ctrlIntegration,
       name: this.ctrlName,
       description: this.ctrlDescription,
       trialPeriodDuration: this.ctrlTrialPeriodDuration,
       paymentPeriod: this.ctrlPaymentPeriod,
+      costByDevices: this.ctrlCostByDevices,
     });
   }
 
