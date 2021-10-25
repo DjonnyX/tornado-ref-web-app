@@ -36,7 +36,7 @@ const LOCALIZATION = {
         "common_dialog-delete-app": "Удалить приложение?",
         "common_dialog-delete-license": "Удалить лицензию?",
         "common_dialog-delete-integration": "Удалить интеграцию?",
-        "common_dialog-delete-the-license-type": "Удалить тип лицензии?",
+        "common_dialog-delete-the-tarif": "Удалить тариф?",
         "common_dialog-delete-the-currency": "Удалить валюту?",
         "common_dialog-delete-the-language": "Удалить язык?",
         "common_dialog-delete-the-tag": "Удалить тэг?",
@@ -191,7 +191,6 @@ const LOCALIZATION = {
         "menu_roles": "Роли",
         "menu_user-profile": "Профиль",
         "menu_settings": "Настройки",
-        "menu_license-types": "Типы лицензий",
         "menu_integrations": "Интеграции",
         "menu_licenses": "Лицензии",
         "menu_applications": "Приложения",
@@ -269,9 +268,9 @@ const LOCALIZATION = {
         "licenses_key-integration": "Интеграция",
         "licenses_no-licenses": "Лицензии отсутствуют",
         "licenses_add-new": "Добавить лицензию",
-        // license types
-        "license-types_no-license-types": "Типы лицензий отсутствуют",
-        "license-types_add-new": "Добавить тип лицензии",
+        // tarifs
+        "tarifs_no-tarifs": "Тарифы отсутствуют",
+        "tarifs_add-new": "Добавить тариф",
         // terminals
         "terminals_no-terminals": "Устройства отсутствуют",
         // tags
@@ -366,7 +365,7 @@ const LOCALIZATION = {
         "common_dialog-delete-app": "Delete the app?",
         "common_dialog-delete-license": "Delete the license?",
         "common_dialog-delete-integration": "Delete the integration?",
-        "common_dialog-delete-the-license-type": "Delete the license type?",
+        "common_dialog-delete-the-tarif": "Delete the tarif?",
         "common_dialog-delete-the-currency": "Delete the currency?",
         "common_dialog-delete-the-language": "Delete the language?",
         "common_dialog-delete-the-tag": "Delete the tag?",
@@ -521,7 +520,6 @@ const LOCALIZATION = {
         "menu_roles": "Roles",
         "menu_user-profile": "Profile",
         "menu_settings": "Settings",
-        "menu_license-types": "license types",
         "menu_integrations": "Integrations",
         "menu_licenses": "Licenses",
         "menu_applications": "Apps",
@@ -600,8 +598,8 @@ const LOCALIZATION = {
         "licenses_no-licenses": "No licenses",
         "licenses_add-new": "Add a license",
         // license types
-        "license-types_no-license-types": "No license types",
-        "license-types_add-new": "Add a license type",
+        "tarifs_no-tarifs": "No tarifs",
+        "tarifs_add-new": "Add a tarif",
         // terminals
         "terminals_no-terminals": "No devices",
         // tags

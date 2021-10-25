@@ -30,23 +30,19 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
         icon: "license",
         name: "menu_applications", //"Приложения",
         route: "applications",
+        right: UserRights.READ_ADMIN_APPS,
       },
       {
         icon: "license",
         name: "menu_tarifs", //"Тарифы",
         route: "tarifs",
+        right: UserRights.READ_TARIFS,
       },
       {
         icon: "license",
         name: "menu_integrations", //"Интеграции",
         route: "integrations",
         right: UserRights.READ_INTEGRATIONS,
-      },
-      {
-        icon: "license",
-        name: "menu_license-types", //"Типы лицензий",
-        route: "license-types",
-        right: UserRights.READ_LICENSE_TYPES,
       },
       {
         icon: "license",

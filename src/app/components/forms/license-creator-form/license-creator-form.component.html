@@ -101,6 +101,19 @@
                                 </mat-select>
                             </mat-form-field>
 
+                            <div class="form-item">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Тариф</mat-label>
+                                    <mat-select [formControl]="ctrlTarif" required>
+                                        <mat-option *ngFor="let tarif of tarifs" [value]="tarif.id">
+                                            <span>
+                                                {{tarif.name}}
+                                            </span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
                             <mat-form-field class="full-width" appearance="outline">
                                 <mat-label>Тип лицензии</mat-label>
                                 <mat-select [formControl]="ctrlLicenseType" required>

@@ -26,14 +26,6 @@ const ADMIN_ROUTES: Routes = [
     canActivate: [AccessGuard, AllowAdminGuard],
   },
   {
-    path: 'license-types',
-    loadChildren: () =>
-      import('@containers/license-types-editor/license-types-editor.module').then(
-        module => module.LicenseTypesEditorModule,
-      ),
-    canActivate: [AccessGuard, AllowAdminGuard],
-  },
-  {
     path: 'applications',
     loadChildren: () =>
       import('@containers/applications-editor/applications-editor.module').then(

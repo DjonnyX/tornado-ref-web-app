@@ -34,8 +34,6 @@ import TerminalEffects from './terminal.effects';
 import TerminalsEffects from './terminals.effects';
 import LicenseEffects from './license.effects';
 import LicensesEffects from './licenses.effects';
-import LicenseTypeEffects from './license-type.effects';
-import LicenseTypesEffects from './license-types.effects';
 import ApplicationEffects from './application.effects';
 import ApplicationsEffects from './applications.effects';
 import TarifEffects from './tarif.effects';
@@ -92,8 +90,6 @@ const rootEffects = [
   TerminalsEffects,
   LicenseEffects,
   LicensesEffects,
-  LicenseTypeEffects,
-  LicenseTypesEffects,
   ApplicationEffects,
   ApplicationsEffects,
   TarifEffects,

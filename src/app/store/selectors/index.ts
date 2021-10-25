@@ -36,8 +36,6 @@ export * from "./license.selectors";
 export * from "./licenses.selectors";
 export * from "./license-account.selectors";
 export * from "./licenses-account.selectors";
-export * from "./license-type.selectors";
-export * from "./license-types.selectors";
 export * from "./application.selectors";
 export * from "./applications.selectors";
 export * from "./tarif.selectors";

@@ -76,6 +76,8 @@ export class TarifCreatorContainer extends BaseComponent implements OnInit, OnDe
     if (!!this._tarifId) {
       this._store.dispatch(TarifActions.getRequest({ id: this._tarifId }));
     }
+
+    this._store.dispatch(ApplicationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {

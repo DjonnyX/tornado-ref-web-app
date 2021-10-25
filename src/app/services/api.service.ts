@@ -28,10 +28,16 @@ import {
   IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
   ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
   ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
-  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse, IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse, IApplicationCreateResponse, ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse,
+  ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse,
+  IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse,
+  IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest,
+  IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse,
+  IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse,
+  IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse, IApplicationCreateResponse,
+  ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -1533,53 +1539,6 @@ export class ApiService {
   public deleteLicense(id: string): Observable<ILicenseDeleteResponse> {
     return this._http
       .delete<ILicenseDeleteResponse>(`api/v1/license/${id}`, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
-  // license types
-  public getLicenseTypes(options?: IRequestOptions): Observable<ILicenseTypesGetResponse> {
-    return this._http
-      .get<ILicenseTypesGetResponse>("api/v1/license-types", {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-        params: extractParams(options),
-      });
-  }
-
-  public getLicenseType(id: string): Observable<ILicenseTypeGetResponse> {
-    return this._http
-      .get<ILicenseTypeGetResponse>(`api/v1/license-type/${id}`, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
-  public createLicenseType(licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
-    return this._http
-      .post<ILicenseTypeUpdateResponse>(`api/v1/license-type`, licenseType, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
-  public updateLicenseType(id: string, licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
-    return this._http
-      .put<ILicenseTypeUpdateResponse>(`api/v1/license-type/${id}`, licenseType, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
-  public deleteLicenseType(id: string): Observable<ILicenseTypeDeleteResponse> {
-    return this._http
-      .delete<ILicenseTypeDeleteResponse>(`api/v1/license-type/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

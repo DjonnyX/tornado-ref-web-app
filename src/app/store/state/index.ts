@@ -35,8 +35,6 @@ export * from "./license.state";
 export * from "./licenses.state";
 export * from "./license-account.state";
 export * from "./licenses-account.state";
-export * from "./license-type.state";
-export * from "./license-types.state";
 export * from "./application.state";
 export * from "./applications.state";
 export * from "./integration.state";
