@@ -27,19 +27,19 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
     roles: [DefaultRoleTypes.ADMIN],
     children: [
       {
-        icon: "license",
+        icon: "menu-theme",
         name: "menu_applications", //"Приложения",
         route: "applications",
         // right: UserRights.READ_ADMIN_APPS,
       },
       {
-        icon: "license",
+        icon: "tarif",
         name: "menu_tarifs", //"Тарифы",
         route: "tarifs",
         right: UserRights.READ_TARIFS,
       },
       {
-        icon: "license",
+        icon: "integration",
         name: "menu_integrations", //"Интеграции",
         route: "integrations",
         right: UserRights.READ_INTEGRATIONS,
