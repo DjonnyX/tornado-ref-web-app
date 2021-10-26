@@ -122,20 +122,6 @@
                                 </mat-form-field>
                             </div>
 
-                            <mat-form-field class="full-width" appearance="outline">
-                                <mat-label>Тариф</mat-label>
-                                <mat-select [formControl]="ctrlTarif" required>
-                                    <mat-option *ngFor="let tarif of tarifs" [value]="tarif.id">
-                                        <span>
-                                            {{tarif.name}}
-                                        </span>
-                                        <span *ngIf="!!integrationsMap">
-                                            ({{integrationsMap[tarif.integrationId]?.name}})
-                                        </span>
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
                             <ta-date-range [formGroup]="range"></ta-date-range>
 
                             <mat-form-field class="full-width" appearance="outline">

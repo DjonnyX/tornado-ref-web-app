@@ -70,25 +70,10 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
     }
   }
 
-
-  private _integrationsMap: { [id: string]: IIntegration };
-
-  get integrationsMap() {
-    return this._integrationsMap;
-  }
-
   private _integrations: Array<IIntegration>;
   @Input() set integrations(v: Array<IIntegration>) {
     if (this._integrations !== v) {
       this._integrations = v;
-
-      this._integrationsMap = {};
-
-      if (this._integrations) {
-        this._integrations.forEach(int => {
-          this._integrationsMap[int.id] = int;
-        });
-      }
 
       this.generateData();
     }
@@ -118,9 +103,6 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
   }
 
   private generateData(): void {
-    if (!this._integrationsMap) {
-      return;
-    }
 
     this._data = {
       applicationName: {
@@ -157,11 +139,11 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
       },
       integration: {
         key: "Название",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.tarif?.integrationId]?.name : ' ---',
+        value: this._license?.tarif?.integration?.name || ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.tarif?.integrationId]?.version.version : ' ---',
+        value: this._license?.tarif?.integration?.version?.version || ' ---',
       },
       terminalName: {
         key: "Название терминала",

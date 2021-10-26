@@ -88,24 +88,10 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     }
   }
 
-  private _integrationsMap: { [id: string]: IIntegration };
-
-  get integrationsMap() {
-    return this._integrationsMap;
-  }
-
   private _integrations: Array<IIntegration>;
   @Input() set integrations(v: Array<IIntegration>) {
     if (this._integrations !== v) {
       this._integrations = v;
-
-      this._integrationsMap = {};
-
-      if (this._integrations) {
-        this._integrations.forEach(int => {
-          this._integrationsMap[int.id] = int;
-        });
-      }
 
       this.generateData();
     }
@@ -160,10 +146,6 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   private generateData(): void {
-    if (!this._integrationsMap) {
-      return;
-    }
-
     this._data = {
       applicationName: {
         key: "Приложение",

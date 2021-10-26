@@ -70,12 +70,12 @@
                         <div class="entity__body__content">
                             <div class="entity__body__container">
                                 <div class="entity__text-group">
-                                    <div *ngIf="!!license.licType?.name" class="content__name">
-                                        {{license.licType?.name}}
+                                    <div *ngIf="!!license.tarif?.name" class="content__name">
+                                        {{license.tarif?.name}}
                                     </div>
                                     <div class="content__description" style="text-transform: none;">
                                         {{localization.get("licenses_key-integration")}}:
-                                        {{integrationsMap[license.licType?.integrationId]?.name}}
+                                        {{license?.integration?.name}}
                                     </div>
                                     <div class="content__description" style="text-transform: none;">
                                         <span>

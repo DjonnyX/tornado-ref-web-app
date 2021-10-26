@@ -74,13 +74,13 @@
                         <div class="entity__body__content">
                             <div class="entity__body__container">
                                 <div class="entity__text-group">
-                                    <div *ngIf="!!license.licType?.name" class="entity__name">
-                                        {{license.licType?.name}}
+                                    <div *ngIf="!!license.tarif?.name" class="content__name">
+                                        {{license.tarif?.name}}
                                     </div>
-                                    <div *ngIf="!!integrationsMap" class="entity__description"
+                                    <div *ngIf="!!license?.integration" class="entity__description"
                                         style="text-transform: none;">
                                         {{localization.get("licenses_key-integration")}}:
-                                        {{integrationsMap[license.licType?.integrationId]?.name}}
+                                        {{license?.integration?.name}}
                                     </div>
                                     <div *ngIf="!!accountsMap" class="entity__description"
                                         style="text-transform: none;">

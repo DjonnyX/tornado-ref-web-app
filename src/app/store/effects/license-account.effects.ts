@@ -17,8 +17,8 @@ export default class LicenseAccountEffects {
     public readonly getRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(LicenseAccountActions.getRequest),
-            switchMap(({id}) => {
-                return this._apiService.getLicenseAccount(id).pipe(
+            switchMap(({id, extended}) => {
+                return this._apiService.getLicenseAccount(id, extended).pipe(
                     mergeMap(res => {
                         return [LicenseAccountActions.getSuccess({ license: res.data })];
                     }),

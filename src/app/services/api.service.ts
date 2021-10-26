@@ -1480,12 +1480,16 @@ export class ApiService {
       });
   }
 
-  public getLicenseAccount(id: string): Observable<ILicenseAccountGetResponse> {
+  public getLicenseAccount(id: string, extended: boolean = false): Observable<ILicenseAccountGetResponse> {
+    const params = !!extended ? {
+      withoutIntegrationServerInfo: "false",
+    } : {};
     return this._http
       .get<ILicenseAccountGetResponse>(`api/v1/license/forClient/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params,
       });
   }
 
@@ -1500,12 +1504,16 @@ export class ApiService {
       });
   }
 
-  public getLicense(id: string): Observable<ILicenseGetResponse> {
+  public getLicense(id: string, extended: boolean = false): Observable<ILicenseGetResponse> {
+    const params = !!extended ? {
+      withoutIntegrationServerInfo: "false",
+    } : {};
     return this._http
       .get<ILicenseGetResponse>(`api/v1/license/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params,
       });
   }
 

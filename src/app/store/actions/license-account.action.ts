@@ -13,7 +13,7 @@ export namespace LicenseAccountActions {
     // get
     export const getRequest = createAction(
         LicenseAccountActionTypes.GET_REQUEST,
-        props<{ id: string }>(),
+        props<{ id: string, extended?: boolean }>(),
     );
     export const getSuccess = createAction(
         LicenseAccountActionTypes.GET_SUCCESS,

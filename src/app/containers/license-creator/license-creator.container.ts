@@ -131,7 +131,7 @@ export class LicenseCreatorContainer extends BaseComponent implements OnInit, On
     });
 
     if (!!this._licenseId) {
-      this._store.dispatch(LicenseActions.getRequest({ id: this._licenseId }));
+      this._store.dispatch(LicenseActions.getRequest({ id: this._licenseId, extended: true }));
     }
 
     this._store.dispatch(TarifsActions.getAllRequest({}));
