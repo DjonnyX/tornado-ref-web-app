@@ -249,12 +249,12 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
         name: "menu_advanced-settings", //"Дополнительно",
         expanded: false,
         children: [
-          {
-            icon: "checkue",
-            name: "menu_checkues", //"Чеки",
-            route: "checkues",
-            right: UserRights.READ_CHECKUES,
-          },
+          // {
+          //   icon: "checkue",
+          //   name: "menu_checkues", //"Чеки",
+          //   route: "checkues",
+          //   right: UserRights.READ_CHECKUES,
+          // },
           {
             icon: "currency",
             name: "menu_currencies", //"Валюты",

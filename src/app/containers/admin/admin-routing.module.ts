@@ -204,14 +204,14 @@ const CMS_ROUTES: Routes = [
       ),
     canActivate: [AccessGuard],
   },
-  {
-    path: 'checkues',
-    loadChildren: () =>
-      import('@containers/checkues-editor/checkues-editor.module').then(
-        module => module.CheckuesEditorModule,
-      ),
-    canActivate: [AccessGuard, AllowCheckuesGuard],
-  },
+  // {
+  //   path: 'checkues',
+  //   loadChildren: () =>
+  //     import('@containers/checkues-editor/checkues-editor.module').then(
+  //       module => module.CheckuesEditorModule,
+  //     ),
+  //   canActivate: [AccessGuard, AllowCheckuesGuard],
+  // },
   {
     path: 'tags',
     loadChildren: () =>
