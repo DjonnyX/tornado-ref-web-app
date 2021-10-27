@@ -58,7 +58,7 @@
     }
 
     // Header
-    &__header, &__header--border-bottom, &__header--accent {
+    &__header, &__header--border, &__header--accent {
         @include flexbox();
         @include flex-direction(column);
         padding-top: 40px;
@@ -97,13 +97,69 @@
 
     // Body
     &__body {
+        @include flexbox();
+        @include flex-direction(column);    
+
+        &-container {
+            @extend .sheet-container;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+
+         &-content {
+            @include flexbox();
+            @include flex-direction(column);
+            gap: 10px;
+        }
+    }
+    // Footer
+    &__footer, &__footer--submit, &__footer--border {
+        @include flexbox();
+        @include flex-direction(column);
+        padding-top: 20px;
+        padding-bottom: 40px;
 
         &-container {
             @extend .sheet-container;
         }
-    }
-    // Footer
-    &__footer {
 
+        &-content {
+            @include flexbox();
+            @include flex-direction(column);
+            gap: 10px;
+        }
+    }
+
+    // Section
+    &__section {
+        @include flexbox();
+        @include flex-direction(column);
+        // padding-top: 0px;
+        // padding-bottom: 0px;
+
+        &-container {
+            @extend .sheet-container;
+        }
+
+        &-content {
+            @include flexbox();
+            @include flex-direction(column);
+            gap: 10px;
+        }
+
+        // Section Header
+        &__header {
+            @include flexbox();
+            @include flex-direction(column);
+            padding-top: 20px;
+            padding-bottom: 20px;
+
+            &-title {
+                font-size: 24px;
+                letter-spacing: $letter-spacing;
+                line-height: $line-height;
+                color: $primary-color;//Theme
+            }
+        }
     }
 }

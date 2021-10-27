@@ -1,0 +1,36 @@
+.mat-tab-group {
+
+    [role="tab"] {
+        @include flexbox();
+        width: initial;
+        position: relative;
+        @extend .sheet-container;
+        min-width: initial;
+        opacity: initial;
+
+        .mat-tab-label-content {
+            // color: $primary-color;
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        // Active
+        &[aria-selected="true"] {
+            .mat-tab-label-content {
+                color: $primary-color;
+            }
+        }
+
+        &[aria-selected="false"] {
+            .mat-tab-label-content {
+                color: $primary-color;
+                opacity: 0.5;
+            }
+        }
+    }
+
+    .mat-ink-bar {
+        background-color: $primary-color !important;
+        height: 1px !important;
+    }
+}
