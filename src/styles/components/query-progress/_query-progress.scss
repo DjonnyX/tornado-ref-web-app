@@ -1,25 +1,30 @@
 .query-progress {
-    width: 100%;
-    height: 100%;
-    display: inline-flex;
-    box-sizing: border-box;
-    margin: 0 auto;
-    z-index: 999;
-    position: absolute;
-    top: 0;
+  width: 100%;
+  height: 100%;
+  display: inline-flex;
+  box-sizing: border-box;
+  margin: 0 auto;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+
+  &__foreground {
+    background-color: rgba(255, 255, 255, 0.25);
+    z-index: 10;
+  }
 }
 
 .query-progress-container {
-    position: relative;
+  position: relative;
 
-    mat-progress-bar {
-        height: 2px;
-    }
+  mat-progress-bar {
+    height: 3px !important;
+  }
 }
 
 .form__body {
-    
-    .query-progress-container {
-        position: relative;
-    }
+
+  .query-progress-container {
+    position: relative;
+  }
 }

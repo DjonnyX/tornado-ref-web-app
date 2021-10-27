@@ -196,22 +196,22 @@ const CMS_ROUTES: Routes = [
       ),
     canActivate: [AccessGuard],
   },
-  {
-    path: 'currencies',
-    loadChildren: () =>
-      import('@containers/currencies-editor/currencies-editor.module').then(
-        module => module.CurrenciesEditorModule,
-      ),
-    canActivate: [AccessGuard],
-  },
-  {
-    path: 'checkues',
-    loadChildren: () =>
-      import('@containers/checkues-editor/checkues-editor.module').then(
-        module => module.CheckuesEditorModule,
-      ),
-    canActivate: [AccessGuard, AllowCheckuesGuard],
-  },
+  // {
+  //   path: 'currencies',
+  //   loadChildren: () =>
+  //     import('@containers/currencies-editor/currencies-editor.module').then(
+  //       module => module.CurrenciesEditorModule,
+  //     ),
+  //   canActivate: [AccessGuard],
+  // },
+  // {
+  //   path: 'checkues',
+  //   loadChildren: () =>
+  //     import('@containers/checkues-editor/checkues-editor.module').then(
+  //       module => module.CheckuesEditorModule,
+  //     ),
+  //   canActivate: [AccessGuard, AllowCheckuesGuard],
+  // },
   {
     path: 'tags',
     loadChildren: () =>
