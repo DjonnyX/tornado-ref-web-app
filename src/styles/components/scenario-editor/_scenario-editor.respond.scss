@@ -2,7 +2,7 @@
 @include respond-above(lg) {
 
     .scenario-editor {
-        margin: 0px 0px 0px $scenario-editor-offset-x-lg;
+        margin: 0px $scenario-editor-offset-x-lg 0px $scenario-editor-offset-x-lg;
     }
 }
 
@@ -10,7 +10,7 @@
 @include respond-between(sm , lg) {
 
     .scenario-editor {
-        margin: 0px 0px 0px $scenario-editor-offset-x-md;
+        margin: 0px $scenario-editor-offset-x-md 0px $scenario-editor-offset-x-md;
     }
 }
 
@@ -18,6 +18,6 @@
 @include respond-below(sm) {
 
     .scenario-editor {
-        margin: 0px 0px 0px $scenario-editor-offset-x-sm;
+        margin: 0px $scenario-editor-offset-x-sm 0px $scenario-editor-offset-x-sm;
     }
 }

@@ -156,7 +156,7 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       },
       terminalLicenseType: {
         key: "Лицензия",
-        value: this._license?.licType?.name || ' ---',
+        value: this._license?.tarif.application?.name || ' ---',
         link: this._license ? ["/admin/licenses-account/view", { id: this._license?.id }] : undefined,
       },
       terminalLicenseDateStart: {

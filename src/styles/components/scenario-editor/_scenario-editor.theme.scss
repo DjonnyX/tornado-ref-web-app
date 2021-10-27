@@ -1,165 +1,163 @@
-.primary {
-    .scenario-editor {
-        @include themify($themes) {
-            color: themed("scenarioEditorColor");
-        }
+.scenario-editor {
+    @include themify($themes) {
+        color: themed("scenarioEditorColor");
+    }
 
-        .scenario-editor__content {
+    .scenario-editor__content {
+        @include themify($themes) {
+            border-color: themed("scenarioEditorBorderColor") !important;
+        }
+        .content {
             @include themify($themes) {
-                border-color: themed("scenarioEditorBorderColor") !important;
+                background-color: themed("scenarioEditorBackgroundColor");
             }
+
+            // &.disabled {
+            //     @include themify($themes) {
+            //         background-color: themed("scenarioEditorBackgroundColorDisabled");
+            //     }
+            // }
+        }
+        .scenario-list__item {
+            @include themify($themes) {
+                border-top: 1px solid themed("scenarioEditorBorderItemColor");
+            }
+            @include themify($themes) {
+                background-color: themed("scenarioEditorBackgroundColor");
+            }
+
+            &.disabled {
+                @include themify($themes) {
+                    border-top: 1px solid themed("scenarioEditorBorderItemColorDisabled");
+                }
+                @include themify($themes) {
+                    background-color: themed("scenarioEditorBackgroundColorDisabled");
+                }
+            }
+        }
+    }
+    .button-create-scenario {
+        @include themify($themes) {
+            background: themed("scenarioEditorCreateScenarioButtonColor");
+        }
+    }
+}
+.scenario-entity-editor {
+    .scenario-entity-editor-wrapper {
+        .scenario-entity-editor__content {
             .content {
                 @include themify($themes) {
-                    background-color: themed("scenarioEditorBackgroundColor");
+                    color: themed("scenarioEditorContentColor");
+                    // background-color: themed("scenarioEditorContentBackgroundColor");
                 }
 
-                // &.disabled {
-                //     @include themify($themes) {
-                //         background-color: themed("scenarioEditorBackgroundColorDisabled");
-                //     }
-                // }
-            }
-            .scenario-list__item {
-                @include themify($themes) {
-                    border-top: 1px solid themed("scenarioEditorBorderItemColor");
-                }
-                @include themify($themes) {
-                    background-color: themed("scenarioEditorBackgroundColor");
+                .content__name {
+                    @include themify($themes) {
+                        background: themed("scenarioEditorContentNameBackgroundColor");
+                    }
+                    // background: rgba($primary, 0.1);
+
+                    &.active {
+                        // background: rgb(66, 176, 240);
+                        @include themify($themes) {
+                            background: themed("scenarioEditorContentNameActiveBackgroundColor");
+                        }
+                    }
+
+                    &:hover {
+                        @include themify($themes) {
+                            color: themed("scenarioEditorContentNameHoverColor");
+                            background: themed("scenarioEditorContentNameHoverBackgroundColor");
+                        }
+                        // background: $accent;
+                        // color: white;
+                    }
                 }
 
                 &.disabled {
-                    @include themify($themes) {
-                        border-top: 1px solid themed("scenarioEditorBorderItemColorDisabled");
-                    }
-                    @include themify($themes) {
-                        background-color: themed("scenarioEditorBackgroundColorDisabled");
-                    }
+                    filter: brightness(90%);
                 }
             }
-        }
-        .button-create-scenario {
-            @include themify($themes) {
-                background: themed("scenarioEditorCreateScenarioButtonColor");
-            }
-        }
-    }
-    .scenario-entity-editor {
-        .scenario-entity-editor-wrapper {
-            .scenario-entity-editor__content {
-                .content {
-                    @include themify($themes) {
-                        color: themed("scenarioEditorContentColor");
-                        // background-color: themed("scenarioEditorContentBackgroundColor");
-                    }
 
-                    .content__name {
-                        @include themify($themes) {
-                            background: themed("scenarioEditorContentNameBackgroundColor");
-                        }
-                        // background: rgba($primary, 0.1);
-
-                        &.active {
-                            // background: rgb(66, 176, 240);
-                            @include themify($themes) {
-                                background: themed("scenarioEditorContentNameActiveBackgroundColor");
-                            }
-                        }
-
-                        &:hover {
-                            @include themify($themes) {
-                                color: themed("scenarioEditorContentNameHoverColor");
-                                background: themed("scenarioEditorContentNameHoverBackgroundColor");
-                            }
-                            // background: $accent;
-                            // color: white;
-                        }
-                    }
-
-                    &.disabled {
-                        filter: brightness(90%);
-                    }
-                }
-
-                .entity__action-menu__button {
-                    // color: $primary-700;
-                    @include themify($themes) {
-                        color: themed("scenarioEditorActionMenuButtonColor");
-                    }
+            .entity__action-menu__button {
+                // color: $primary-700;
+                @include themify($themes) {
+                    color: themed("scenarioEditorActionMenuButtonColor");
                 }
             }
         }
     }
 }
 
-.secondary {
-    .scenario-editor {
-        @include themify($themes) {
-            color: themed("scenarioEditorSecondaryColor");
-        }
+// .secondary {
+//     .scenario-editor {
+//         @include themify($themes) {
+//             color: themed("scenarioEditorSecondaryColor");
+//         }
 
-        .scenario-editor__content {
-            .content {
-                @include themify($themes) {
-                    background-color: themed("scenarioEditorSecondaryBackgroundColor");
-                }
-            }
-            .scenario-list__item {
-                @include themify($themes) {
-                    border-top: 1px solid themed("scenarioEditorSecondaryBorderColor");
-                    background: themed("scenarioEditorSecondaryListItemBackgroundColor");
-                }
-            }
-        }
-        .button-create-scenario {
-            @include themify($themes) {
-                background: themed("scenarioEditorSecondaryCreateScenarioButtonColor");
-            }
-        }
-    }
-    .scenario-entity-editor {
-        .scenario-entity-editor-wrapper {
-            .scenario-entity-editor__content {
-                .content {
-                    @include themify($themes) {
-                        color: themed("scenarioEditorSecondaryContentColor");
-                        background-color: themed("scenarioEditorSecondaryContentBackgroundColor") !important;
-                    }
+//         .scenario-editor__content {
+//             .content {
+//                 @include themify($themes) {
+//                     background-color: themed("scenarioEditorSecondaryBackgroundColor");
+//                 }
+//             }
+//             .scenario-list__item {
+//                 @include themify($themes) {
+//                     border-top: 1px solid themed("scenarioEditorSecondaryBorderColor");
+//                     background: themed("scenarioEditorSecondaryListItemBackgroundColor");
+//                 }
+//             }
+//         }
+//         .button-create-scenario {
+//             @include themify($themes) {
+//                 background: themed("scenarioEditorSecondaryCreateScenarioButtonColor");
+//             }
+//         }
+//     }
+//     .scenario-entity-editor {
+//         .scenario-entity-editor-wrapper {
+//             .scenario-entity-editor__content {
+//                 .content {
+//                     @include themify($themes) {
+//                         color: themed("scenarioEditorSecondaryContentColor");
+//                         background-color: themed("scenarioEditorSecondaryContentBackgroundColor") !important;
+//                     }
 
-                    .content__name {
-                        @include themify($themes) {
-                            background: themed("scenarioEditorSecondaryContentNameBackgroundColor");
-                        }
-                        // background: rgba($primary, 0.1);
+//                     .content__name {
+//                         @include themify($themes) {
+//                             background: themed("scenarioEditorSecondaryContentNameBackgroundColor");
+//                         }
+//                         // background: rgba($primary, 0.1);
 
-                        &.active {
-                            // background: rgb(66, 176, 240);
-                            @include themify($themes) {
-                                background: themed("scenarioEditorSecondaryContentNameActiveBackgroundColor");
-                            }
-                        }
+//                         &.active {
+//                             // background: rgb(66, 176, 240);
+//                             @include themify($themes) {
+//                                 background: themed("scenarioEditorSecondaryContentNameActiveBackgroundColor");
+//                             }
+//                         }
 
-                        &:hover {
-                            @include themify($themes) {
-                                color: themed("scenarioEditorSecondaryContentNameHoverColor");
-                                background: themed("scenarioEditorSecondaryContentNameHoverBackgroundColor");
-                            }
-                            // background: $accent;
-                            // color: white;
-                        }
-                    }
+//                         &:hover {
+//                             @include themify($themes) {
+//                                 color: themed("scenarioEditorSecondaryContentNameHoverColor");
+//                                 background: themed("scenarioEditorSecondaryContentNameHoverBackgroundColor");
+//                             }
+//                             // background: $accent;
+//                             // color: white;
+//                         }
+//                     }
 
-                    &.disabled {
-                        filter: brightness(90%);
-                    }
-                }
+//                     &.disabled {
+//                         filter: brightness(90%);
+//                     }
+//                 }
 
-                .entity__action-menu__button {
-                    // color: $primary-700;
-                    @include themify($themes) {
-                        color: themed("scenarioEditorSecondaryActionMenuButtonColor");
-                    }
-                }
-            }
-        }
-    }
-}
+//                 .entity__action-menu__button {
+//                     // color: $primary-700;
+//                     @include themify($themes) {
+//                         color: themed("scenarioEditorSecondaryActionMenuButtonColor");
+//                     }
+//                 }
+//             }
+//         }
+//     }
+// }

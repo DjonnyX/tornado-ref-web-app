@@ -1,0 +1,109 @@
+.entity-sheet-editor {
+    @extend .page-content;
+
+    &__header {
+        @include flexbox();
+        width: 100%;
+        padding-bottom: 15px;
+    }
+
+    //Button Back
+    &__back-button {
+        cursor: pointer;
+        
+        &-container {
+            @include flexbox();
+            @include align-items(center);
+            @extend .icon-menu-arrow;
+            gap: 10px;
+
+            &::before {
+                font-family: icomoon;
+                font-size: 13px;
+            }
+            
+            p {
+                font-size: 14px;
+                color: $primary-color;
+            }
+        }
+
+        &:hover {
+            opacity: 0.75;
+        }
+    }
+}
+
+.entity-sheet {
+    background-color: $white;
+    border-radius: $entity-sheet-border-radius;
+    border-style: solid;
+    border-width: $entity-sheet-border-width;
+    border-color: $entity-sheet-border-color;
+    overflow: hidden;
+    
+    &-container {
+        @extend .sheet-container;
+        @include flexbox();
+        @include flex-direction(column);
+        padding-top: 20px;
+        padding-bottom: 30px;
+    }
+
+    &-content {
+        @include flexbox();
+        @include flex-direction(column);
+        gap: 10px;
+        width: 100%;
+    }
+
+    // Header
+    &__header, &__header--border-bottom, &__header--accent {
+        @include flexbox();
+        @include flex-direction(column);
+        padding-top: 40px;
+        padding-bottom: 40px;
+
+        &-container {
+            @extend .sheet-container;
+        }
+
+        &-content {
+            @include flexbox();
+            @include flex-direction(column);
+            gap: 10px;
+        }
+
+        &-title {
+            font-size: 24px;
+            letter-spacing: $letter-spacing;
+            line-height: $line-height;
+            color: $primary-color;//Theme
+        }
+
+        p {
+            font-size: 16px;
+            letter-spacing: $letter-spacing;
+            line-height: $line-height;
+            color: $primary-color;
+        }
+
+        &.secondary {
+            background-color {
+
+            }
+        }
+    }
+
+    // Body
+    &__body {
+
+        &-container {
+            @extend .sheet-container;
+        }
+    }
+    // Footer
+    &__footer {
+
+    }
+}

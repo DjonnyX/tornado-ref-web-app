@@ -6,7 +6,7 @@ export const formatLicenseModel = (model: ILicense): ILicense => {
         dateStart: model.dateStart,
         dateEnd: model.dateEnd,
         state: model.state,
-        licTypeId: model.licTypeId,
+        tarifId: model.tarifId,
         // without imei && && key md5key && licType && lastUpdate
     } as any;
 }

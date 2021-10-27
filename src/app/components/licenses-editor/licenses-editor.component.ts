@@ -16,24 +16,10 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
 
   @Input() collection: Array<ILicense>;
 
-  private _integrationsMap: { [id: string]: IIntegration } = {};
-
-  get integrationsMap() {
-    return this._integrationsMap;
-  }
-
   private _integrations: Array<IIntegration>;
   @Input() set integrations(v: Array<IIntegration>) {
     if (this._integrations !== v) {
       this._integrations = v;
-
-      this._integrationsMap = {};
-
-      if (this._integrations) {
-        this._integrations.forEach(int => {
-          this._integrationsMap[int.id] = int;
-        });
-      }
     }
   }
 

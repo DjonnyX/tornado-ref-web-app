@@ -6,10 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LicensesAccountActions } from '@store/actions/licenses-account.action';
 import { LicensesAccountSelectors } from '@store/selectors/licenses-account.selectors';
 import { LicenseActions } from '@store/actions/license.action';
-import { IAccount, IIntegration, ILicense, ILicenseAccount, IRef } from '@djonnyx/tornado-types';
-import { AccountsSelectors, IntegrationsSelectors } from '@store/selectors';
+import { IAccount, ILicense, ILicenseAccount, IRef } from '@djonnyx/tornado-types';
+import { AccountsSelectors } from '@store/selectors';
 import { map } from 'rxjs/operators';
-import { IntegrationsActions } from '@store/actions/integrations.action';
 import { AccountsActions } from '@store/actions/accounts.action';
 
 @Component({
@@ -26,8 +25,6 @@ export class LicensesAccountEditorContainer implements OnInit, OnDestroy {
 
   public collection$: Observable<Array<ILicense>>;
 
-  public integrations$: Observable<Array<IIntegration>>;
-
   public accounts$: Observable<Array<IAccount>>;
 
   public refInfo$: Observable<IRef>;
@@ -40,14 +37,11 @@ export class LicensesAccountEditorContainer implements OnInit, OnDestroy {
         select(LicensesAccountSelectors.selectLoading),
       ),
       this._store.pipe(
-        select(IntegrationsSelectors.selectLoading),
-      ),
-      this._store.pipe(
         select(AccountsSelectors.selectLoading),
       ),
     ]).pipe(
-      map(([isLicenseLoading, isIntegrationsLoading, isAccountsGetProcess]) =>
-        isLicenseLoading || isIntegrationsLoading || isAccountsGetProcess)
+      map(([isLicenseLoading, isAccountsGetProcess]) =>
+        isLicenseLoading || isAccountsGetProcess)
     );
     
     this.isGetCollectionProcess$ = combineLatest([
@@ -55,22 +49,15 @@ export class LicensesAccountEditorContainer implements OnInit, OnDestroy {
         select(LicensesAccountSelectors.selectIsGetProcess),
       ),
       this._store.pipe(
-        select(IntegrationsSelectors.selectIsGetProcess),
-      ),
-      this._store.pipe(
         select(AccountsSelectors.selectIsGetProcess),
       ),
     ]).pipe(
-      map(([isLicenseGetProcess, isIntegrationsGetProcess, isAccountsGetProcess]) =>
-        isLicenseGetProcess || isIntegrationsGetProcess || isAccountsGetProcess)
+      map(([isLicenseGetProcess, isAccountsGetProcess]) =>
+        isLicenseGetProcess || isAccountsGetProcess)
     );
 
     this.collection$ = this._store.pipe(
       select(LicensesAccountSelectors.selectCollection),
-    );
-
-    this.integrations$ = this._store.pipe(
-      select(IntegrationsSelectors.selectCollection),
     );
 
     this.accounts$ = this._store.pipe(
@@ -83,13 +70,11 @@ export class LicensesAccountEditorContainer implements OnInit, OnDestroy {
 
     this._store.dispatch(LicensesAccountActions.getAllRequest({}));
     this._store.dispatch(AccountsActions.getAllRequest({}));
-    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
     this._store.dispatch(LicensesAccountActions.clear());
     this._store.dispatch(AccountsActions.clear());
-    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onView(license: ILicenseAccount): void {

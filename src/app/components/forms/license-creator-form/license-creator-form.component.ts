@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicense, ILicenseType, IAccount, LicenseStates, ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
+import { IIntegration, ILicense, ITarif, IAccount, LicenseStates, ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
@@ -23,7 +23,9 @@ const LICENSE_STATES: ISelectOption = [
 ];
 
 interface IData {
-  name: IKeyValue;
+  applicationName: IKeyValue;
+  tarifName: IKeyValue;
+  trialPeriod: IKeyValue;
   dateEnd: IKeyValue;
   dateStart: IKeyValue;
   key: IKeyValue;
@@ -49,7 +51,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   form: FormGroup;
 
-  ctrlLicenseType = new FormControl('', [Validators.required]);
+  ctrlTarif = new FormControl('', [Validators.required]);
 
   ctrlDateStart = new FormControl(new Date());
 
@@ -64,7 +66,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     end: this.ctrlDateEnd,
   });
 
-  @Input() licenseTypes: Array<ILicenseType>;
+  @Input() tarifs: Array<ITarif>;
 
   @Input() accounts: Array<IAccount>;
 
@@ -86,24 +88,10 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     }
   }
 
-  private _integrationsMap: { [id: string]: IIntegration };
-
-  get integrationsMap() {
-    return this._integrationsMap;
-  }
-
   private _integrations: Array<IIntegration>;
   @Input() set integrations(v: Array<IIntegration>) {
     if (this._integrations !== v) {
       this._integrations = v;
-
-      this._integrationsMap = {};
-
-      if (this._integrations) {
-        this._integrations.forEach(int => {
-          this._integrationsMap[int.id] = int;
-        });
-      }
 
       this.generateData();
     }
@@ -117,7 +105,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       this.generateData();
 
       this.ctrlAccount.setValue(license.client);
-      this.ctrlLicenseType.setValue(license.licTypeId);
+      this.ctrlTarif.setValue(license.tarifId);
       this.ctrlDateStart.setValue(license.dateStart);
       this.ctrlDateEnd.setValue(license.dateEnd);
       this.ctrlState.setValue(license.state);
@@ -150,7 +138,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
     this.form = this._fb.group({
       client: this.ctrlAccount,
-      licTypeId: this.ctrlLicenseType,
+      tarifId: this.ctrlTarif,
       dateStart: this.ctrlDateStart,
       dateEnd: this.ctrlDateEnd,
       state: this.ctrlState,
@@ -158,18 +146,22 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   private generateData(): void {
-    if (!this._integrationsMap) {
-      return;
-    }
-
     this._data = {
-      name: {
-        key: "Название",
-        value: this._license?.licType?.name || ' ---',
+      applicationName: {
+        key: "Приложение",
+        value: this._license?.tarif?.application?.name || ' ---',
+      },
+      tarifName: {
+        key: "Тариф",
+        value: this._license?.tarif?.name || ' ---',
+      },
+      trialPeriod: {
+        key: "Бесплатный период",
+        value: `${this._license?.tarif?.trialPeriodDuration} дней` || ' ---',
       },
       price: {
         key: "Цена",
-        value: (this._license?.licType?.price * 0.01).toFixed(2) || ' ---',
+        value: (this._license?.tarif?.costByDevices?.map(v => `${(v.cost * 0.01).toFixed(2)} за ${v.largeOrEqual} и более устройств`)) || ' ---',
       },
       dateStart: {
         key: "Время начала лицензионного периода",
@@ -189,11 +181,11 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
       },
       integration: {
         key: "Название",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : ' ---',
+        value: this._license?.tarif?.integration?.name || ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.version.version : '',
+        value: this._license?.tarif?.integration?.version?.version || '---',
       },
       terminalName: {
         key: "Название терминала",

@@ -78,10 +78,13 @@ export class ScenarioListItemComponent implements OnInit {
       case ScenarioPriceActionTypes.PRICE:
         return this.getScenarioPriceName(this.scenario);
       case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
-        return `${this.getScenarioPriceName(this.scenario)} (${((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.businessPeriodsDictionary?.[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join("#{, }")
+        return `${this.getScenarioPriceName(this.scenario)}#{ }(${((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.businessPeriodsDictionary?.[v] ? `#{${this.businessPeriodsDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join("#{, }")
           })`;
       case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
-        return `${this.getScenarioPriceName(this.scenario)} (${((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.orderTypesDictionary?.[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join("#{, }")
+        return `${this.getScenarioPriceName(this.scenario)}#{ }(${((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.orderTypesDictionary?.[v] ? `#{${this.orderTypesDictionary?.[v]?.contents[this.defaultLanguage?.code]?.name}}` : "common_info-unavailable").join("#{, }")
+          })`;
+      case ScenarioPriceActionTypes.PRICE_BY_STORE:
+        return `${this.getScenarioPriceName(this.scenario)}#{ }(${((this.scenario.value as IScenarioPriceValue).entities).map(v => !!this.storesDictionary?.[v] ? `#{${this.storesDictionary?.[v]?.name}}` : "common_info-unavailable").join("#{, }")
           })`;
       case ScenarioProductActionTypes.UP_LIMIT:
       case ScenarioProductActionTypes.DOWN_LIMIT:

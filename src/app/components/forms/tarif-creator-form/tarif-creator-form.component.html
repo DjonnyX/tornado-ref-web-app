@@ -1,0 +1,103 @@
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div>
+        <div>
+            <h2 class="form-header">
+                Тариф
+            </h2>
+
+            <div class="form__main-options">
+                <div class="form__input-block">
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Приложение</mat-label>
+                            <mat-select [formControl]="ctrlApplication" required>
+                                <mat-option *ngFor="let application of applications" [value]="application.id">
+                                    <span>
+                                        {{application.name}}
+                                    </span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Интеграция</mat-label>
+                            <mat-select [formControl]="ctrlIntegration" required>
+                                <mat-option *ngFor="let integration of integrations" [value]="integration.id">
+                                    <span>
+                                        {{integration.name}}
+                                    </span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>ID тарифа</mat-label>
+                            <input matInput type="text" formControlName="serviceId" placeholder="ID продукта" required>
+                            <mat-error *ngIf="ctrlServiceId.hasError('required')">
+                                <strong>обязательное</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Имя</mat-label>
+                            <input matInput type="text" formControlName="name" placeholder="Имя" required>
+                            <mat-error *ngIf="ctrlName.hasError('required')">
+                                <strong>обязательное</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Описание</mat-label>
+                            <input matInput type="text" formControlName="description" placeholder="Описание">
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Бесплатный период</mat-label>
+                            <input matInput type="number" formControlName="trialPeriodDuration" placeholder="Бесплатный период" required>
+                            <mat-error *ngIf="ctrlTrialPeriodDuration.hasError('required')">
+                                <strong>обязательное</strong>
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-item">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Период оплаты</mat-label>
+                            <mat-select [formControl]="ctrlPaymentPeriod" required>
+                                <mat-option *ngFor="let paymentPeriod of paymentPeriods" [value]="paymentPeriod">
+                                    <span>
+                                        {{paymentPeriod}}
+                                    </span>
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- <div class="form__input-block">
+                        <p class="form-header">
+                            Версия
+                        </p>
+                        <ta-version formControlName="version"></ta-version>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button class="button-create button__text" (click)="onCancel()">Отменить</button>
+        <button type="submit" class="button-create button__text"
+            [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+    </div>
+</form>

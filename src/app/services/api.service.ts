@@ -28,10 +28,16 @@ import {
   IStoresGetResponse, IStoreGetResponse, IStoreCreateResponse, IStoreUpdateResponse, IStoreDeleteResponse,
   ITerminalsGetResponse, ITerminalGetResponse, ITerminalUpdateResponse, ITerminalDeleteResponse,
   ILicensesGetResponse, ILicenseGetResponse, ILicenseUpdateResponse, ILicenseDeleteResponse,
-  ILicenseTypesGetResponse, ILicenseTypeGetResponse, ILicenseTypeUpdateResponse, ILicenseTypeDeleteResponse,
   IApplicationsGetResponse, IApplicationGetResponse, IApplicationUpdateResponse, IApplicationDeleteResponse,
   IAuthCaptchaResponse, IIntegrationsGetResponse, IIntegrationGetResponse, IIntegrationUpdateResponse, IAccountGetResponse,
-  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse, ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse, IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse, IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest, IUserChangeEmailResponse, IUserUpdateProfileResponse, IUserUpdateProfileRequest, IUserResetEmailResponse, IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse, IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse,
+  IAccountsGetResponse, IAccountUpdateResponse, ILicensesAccountGetResponse, ILicenseAccountGetResponse, ICheckuesGetResponse,
+  ICheckueGetResponse, ICheckueCreateResponse, ICheckueUpdateResponse, ICheckueDeleteResponse, IAppThemesGetResponse,
+  IAppThemeGetResponse, IAppThemeCreateResponse, IAppThemeUpdateResponse, IAppThemeDeleteResponse, IEntityPositionsResponse,
+  IIntegrationCreateResponse, IIntegrationDeleteResponse, IIntegrationServerInfoGetResponse, IUserChangeEmailRequest,
+  IUserChangeEmailResponse, IUserResetEmailResponse,
+  IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse,
+  IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse, IApplicationCreateResponse,
+  ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -41,7 +47,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, ILicenseType, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole
+  ILicense, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole, ITarif
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -1474,12 +1480,16 @@ export class ApiService {
       });
   }
 
-  public getLicenseAccount(id: string): Observable<ILicenseAccountGetResponse> {
+  public getLicenseAccount(id: string, extended: boolean = false): Observable<ILicenseAccountGetResponse> {
+    const params = !!extended ? {
+      withoutIntegrationServerInfo: "false",
+    } : {};
     return this._http
       .get<ILicenseAccountGetResponse>(`api/v1/license/forClient/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params,
       });
   }
 
@@ -1494,12 +1504,16 @@ export class ApiService {
       });
   }
 
-  public getLicense(id: string): Observable<ILicenseGetResponse> {
+  public getLicense(id: string, extended: boolean = false): Observable<ILicenseGetResponse> {
+    const params = !!extended ? {
+      withoutIntegrationServerInfo: "false",
+    } : {};
     return this._http
       .get<ILicenseGetResponse>(`api/v1/license/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },
+        params,
       });
   }
 
@@ -1539,53 +1553,6 @@ export class ApiService {
       });
   }
 
-  // license types
-  public getLicenseTypes(options?: IRequestOptions): Observable<ILicenseTypesGetResponse> {
-    return this._http
-      .get<ILicenseTypesGetResponse>("api/v1/license-types", {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-        params: extractParams(options),
-      });
-  }
-
-  public getLicenseType(id: string): Observable<ILicenseTypeGetResponse> {
-    return this._http
-      .get<ILicenseTypeGetResponse>(`api/v1/license-type/${id}`, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
-  public createLicenseType(licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
-    return this._http
-      .post<ILicenseTypeUpdateResponse>(`api/v1/license-type`, licenseType, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
-  public updateLicenseType(id: string, licenseType: ILicenseType): Observable<ILicenseTypeUpdateResponse> {
-    return this._http
-      .put<ILicenseTypeUpdateResponse>(`api/v1/license-type/${id}`, licenseType, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
-  public deleteLicenseType(id: string): Observable<ILicenseTypeDeleteResponse> {
-    return this._http
-      .delete<ILicenseTypeDeleteResponse>(`api/v1/license-type/${id}`, {
-        headers: {
-          "authorization": this.getAuthToken(),
-        },
-      });
-  }
-
   // applications
   public getApplications(options?: IRequestOptions): Observable<IApplicationsGetResponse> {
     return this._http
@@ -1606,9 +1573,9 @@ export class ApiService {
       });
   }
 
-  public createApplication(application: IApplication): Observable<IApplicationUpdateResponse> {
+  public createApplication(application: IApplication): Observable<IApplicationCreateResponse> {
     return this._http
-      .post<IApplicationUpdateResponse>("api/v1/application", application, {
+      .post<IApplicationCreateResponse>("api/v1/application", application, {
         headers: {
           "authorization": this.getAuthToken(),
         },
@@ -1627,6 +1594,53 @@ export class ApiService {
   public deleteApplication(id: string): Observable<IApplicationDeleteResponse> {
     return this._http
       .delete<IApplicationDeleteResponse>(`api/v1/application/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // tarifs
+  public getTarifs(options?: IRequestOptions): Observable<ITarifsGetResponse> {
+    return this._http
+      .get<ITarifsGetResponse>("api/v1/tarifs", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getTarif(id: string): Observable<ITarifGetResponse> {
+    return this._http
+      .get<ITarifGetResponse>(`api/v1/tarif/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createTarif(tarif: ITarif): Observable<ITarifCreateResponse> {
+    return this._http
+      .post<ITarifCreateResponse>("api/v1/tarif", tarif, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateTarif(id: string, tarif: ITarif): Observable<ITarifUpdateResponse> {
+    return this._http
+      .put<ITarifUpdateResponse>(`api/v1/tarif/${id}`, tarif, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteTarif(id: string): Observable<ITarifDeleteResponse> {
+    return this._http
+      .delete<ITarifDeleteResponse>(`api/v1/tarif/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

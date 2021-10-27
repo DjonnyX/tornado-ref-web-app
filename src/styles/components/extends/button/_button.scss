@@ -1,0 +1,54 @@
+//Default
+$button-font-size-default:                      16px!default;
+$button-padding-default:                        10px 20px!default;
+
+//Default--md
+$button-font-size-default--md:                  13px!default;
+$button-padding-default--md:                    5px 12px!default;
+
+//Styles
+$button-border-radius-default:                  12px !default;
+
+$button-color-default:                          $primary-color !default;
+$button-background-color-default:               $component-border-color !default;
+
+$button-color-hover-default:                    $primary-color !default;
+$button-background-color-hover-default:         $component-border-color !default;
+
+//Animation
+$button-animation-duration-default:             125ms!default;
+
+%button {
+    display: block;
+    position: relative;
+    border-radius: $button-border-radius;
+    // width: auto;
+    // height: auto;
+    @include transition(background-color color, $button-animation-duration-default, ease);
+    
+    p {
+        font-size: $button-font-size-default;
+        color: inherit;
+        padding: $button-padding-default;
+    }
+}
+
+%button-default {
+    @extend %button;
+    color: $button-color-default;
+    background: $button-background-color-default;
+
+    &:hover {
+        color: $button-color-hover-default;
+        background: $button-background-color-hover-default;
+    }
+}
+
+%button-default--md {
+    @extend %button-default;
+    p {
+        font-size: $button-font-size-default--md;
+        color: inherit;
+        padding: $button-padding-default--md;
+    }
+}

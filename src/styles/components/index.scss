@@ -1,3 +1,7 @@
+//Extends
+
+@import "./extends/";
+
 @import "./scrollbar/";
 
 @import "./layout";
@@ -21,8 +25,9 @@
 @import "./admin-view";
 
 @import "./entity-editor"; //+
+@import "./hierarchy-editor/";
 
-@import "./entity-options-editor";
+@import "./entity-options-editor/";
 @import "./schedule";
 @import "./bread-crumbs";
 @import "./prices";
@@ -47,11 +52,13 @@
 
 @import "./admin-footer";
 
+@import "./entity-sheet/";
+
 // @import "./admin-container";
 //@import "./scrollbar";
 @import "./drag-drop-list";
 @import "./gradient-color-editor";
 @import "./autocomplete";
 @import "./query-progress";
-@import "./page";
+// @import "./page";
 // @import "./main-footer";

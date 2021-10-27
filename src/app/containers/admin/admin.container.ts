@@ -27,13 +27,19 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
     roles: [DefaultRoleTypes.ADMIN],
     children: [
       {
-        icon: "license",
-        name: "menu_license-types", //"Типы лицензий",
-        route: "license-types",
-        right: UserRights.READ_LICENSE_TYPES,
+        icon: "menu-theme",
+        name: "menu_applications", //"Приложения",
+        route: "applications",
+        // right: UserRights.READ_ADMIN_APPS,
       },
       {
-        icon: "license",
+        icon: "tarif",
+        name: "menu_tarifs", //"Тарифы",
+        route: "tarifs",
+        right: UserRights.READ_TARIFS,
+      },
+      {
+        icon: "integration",
         name: "menu_integrations", //"Интеграции",
         route: "integrations",
         right: UserRights.READ_INTEGRATIONS,
@@ -43,11 +49,6 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
         name: "menu_licenses", //"Лицензии",
         route: "licenses",
         right: UserRights.READ_LICENSES,
-      },
-      {
-        icon: "application",
-        name: "menu_applications", //"Приложения",
-        route: "applications",
       },
     ]
   },

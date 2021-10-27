@@ -6,10 +6,9 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LicensesActions } from '@store/actions/licenses.action';
 import { LicensesSelectors } from '@store/selectors/licenses.selectors';
 import { LicenseActions } from '@store/actions/license.action';
-import { DefaultRoleTypes, IAccount, IIntegration, ILicense, IRef } from '@djonnyx/tornado-types';
-import { AccountsSelectors, IntegrationsSelectors } from '@store/selectors';
+import { DefaultRoleTypes, IAccount, ILicense, IRef } from '@djonnyx/tornado-types';
+import { AccountsSelectors } from '@store/selectors';
 import { map } from 'rxjs/operators';
-import { IntegrationsActions } from '@store/actions/integrations.action';
 import { AccountsActions } from '@store/actions/accounts.action';
 
 @Component({
@@ -24,8 +23,6 @@ export class LicensesEditorContainer implements OnInit, OnDestroy {
 
   public collection$: Observable<Array<ILicense>>;
 
-  public integrations$: Observable<Array<IIntegration>>;
-
   public accounts$: Observable<Array<IAccount>>;
 
   public refInfo$: Observable<IRef>;
@@ -38,22 +35,15 @@ export class LicensesEditorContainer implements OnInit, OnDestroy {
         select(LicensesSelectors.selectLoading),
       ),
       this._store.pipe(
-        select(IntegrationsSelectors.selectLoading),
-      ),
-      this._store.pipe(
         select(AccountsSelectors.selectLoading),
       ),
     ]).pipe(
-      map(([isLicenseLoading, isIntegrationsLoading, isAccountsGetProcess]) =>
-        isLicenseLoading || isIntegrationsLoading || isAccountsGetProcess)
+      map(([isLicenseLoading, isAccountsGetProcess]) =>
+        isLicenseLoading || isAccountsGetProcess)
     );
 
     this.collection$ = this._store.pipe(
       select(LicensesSelectors.selectCollection),
-    );
-
-    this.integrations$ = this._store.pipe(
-      select(IntegrationsSelectors.selectCollection),
     );
 
     this.accounts$ = this._store.pipe(
@@ -79,13 +69,11 @@ export class LicensesEditorContainer implements OnInit, OnDestroy {
         }
       }
     }));
-    this._store.dispatch(IntegrationsActions.getAllRequest({}));
   }
 
   ngOnDestroy(): void {
     this._store.dispatch(LicensesActions.clear());
     this._store.dispatch(AccountsActions.clear());
-    this._store.dispatch(IntegrationsActions.clear());
   }
 
   onCreate(): void {

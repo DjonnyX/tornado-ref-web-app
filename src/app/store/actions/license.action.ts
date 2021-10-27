@@ -21,7 +21,7 @@ export namespace LicenseActions {
     // get
     export const getRequest = createAction(
         LicenseActionTypes.GET_REQUEST,
-        props<{ id: string }>(),
+        props<{ id: string, extended?: boolean }>(),
     );
     export const getSuccess = createAction(
         LicenseActionTypes.GET_SUCCESS,

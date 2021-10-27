@@ -1,0 +1,32 @@
+// lg
+@include respond-above(lg) {
+
+    .sheet-container {
+        padding-left: $sheet-container-xl;
+        padding-right: $sheet-container-xl;
+    }
+}
+
+// md
+@include respond-between(md, lg) {
+    .sheet-container {
+        padding-left: $sheet-container-lg;
+        padding-right: $sheet-container-lg;
+    }
+}
+
+// md
+@include respond-between(sm, md) {
+    .sheet-container {
+        padding-left: $sheet-container-md;
+        padding-right: $sheet-container-md;
+    }
+}
+
+// sm
+@include respond-below(sm) {
+    .sheet-container {
+        padding-left: $sheet-container-sm;
+        padding-right: $sheet-container-sm;
+    }
+}

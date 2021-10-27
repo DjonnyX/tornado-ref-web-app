@@ -1,0 +1,24 @@
+.entity-options-editor {
+  @include themify($themes) {
+    color: themed("formFontColor");
+    // background-color: themed("formBackgroundColor");
+  }
+
+  .form {
+    border-color: $component-border-color;
+    background-color: $white;
+    @include themify($themes) {
+      background-color: themed("formBackgroundColor");
+    }
+
+    .form-header {
+      @include themify($themes) {
+        color: themed("formFontColor");
+      }
+    }
+
+    .form__link {
+      color: $accent-secondary-color;
+    }
+  }
+}

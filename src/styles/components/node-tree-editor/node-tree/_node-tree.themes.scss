@@ -33,152 +33,69 @@
         }
     }
 }
-
-.hierarchy-editor {
-    &.primary {
-        // .state-panel {
-        //     @include themify($themes) {
-        //         background-color: themed('nodeTreePrimaryStatePanelBackgroundColor') !important;
-        //         border-top: 1px solid themed('nodeTreePrimaryStatePanelBorderColor') !important;
-        //     }
-        // }
         
-        .node-tree-item {
-            .node-item-way-hider {
+.node-tree-item {
+    .node-item-way-hider {
+        // background: $primary-800;
+        @include themify($themes) {
+            background: themed("nodeTreeWayHiderBackgroundColor") !important;
+        }
+    }
+
+    .node-tree-item-joint {
+        @include themify($themes) {
+            border-bottom-color: themed("nodeTreeWayBorderColor") !important;
+        }
+    }
+
+    &__wrapper {
+        .node-tree-item-way {
+            @include themify($themes) {
+                border-left-color: themed("nodeTreeWayBorderColor") !important;
+            }
+
+            .way-nail {
                 // background: $primary-800;
                 @include themify($themes) {
-                    background: themed("nodeTreeWayHiderBackgroundColor") !important;
-                }
-            }
-
-            .node-tree-item-joint {
-                @include themify($themes) {
-                    border-bottom-color: themed("nodeTreeWayBorderColor") !important;
-                }
-            }
-
-            &__wrapper {
-                .node-tree-item-way {
-                    @include themify($themes) {
-                        border-left-color: themed("nodeTreeWayBorderColor") !important;
-                    }
-
-                    .way-nail {
-                        // background: $primary-800;
-                        @include themify($themes) {
-                            background: themed("nodeTreeWayBorderColor") !important;
-                        }
-                    }
-                }
-
-                .button-create {
-                    @include themify($themes) {
-                        background-color: themed("nodeTreeButtonCreateBackgroundColor") !important;
-                    }
-                }
-            }
-
-            &__wrapper {
-                .node-tree-item__content {
-                    .content {
-                        @include themify($themes) {
-                            background-color: themed("nodeTreeItemBackgroundColor") !important;
-                            border-color: themed("nodeTreeBorderColor") !important;
-                        }
-
-                        &__ctrls {
-                            @include themify($themes) {
-                                border-right-color: themed("nodeTreeItemDividerBorderColor") !important;
-                                color: themed("nodeTreeItemTextColor") !important;
-                            }
-                        }
-                        &__context-menu-button {
-                            @include themify($themes) {
-                                color: themed("nodeTreeItemTextColor") !important;
-                            }
-                        }
-                        //Searched
-                        &__name.active {
-                            background-color: rgba($accent-color, 0.25) !important;
-                        }
-
-                        &__text {
-                            @include themify($themes) {
-                                color: themed("nodeTreeItemTitleColor") !important;
-                            }
-                        }
-                    }
+                    background: themed("nodeTreeWayBorderColor") !important;
                 }
             }
         }
+
+        .button-create {
+            @include themify($themes) {
+                background-color: themed("nodeTreeButtonCreateBackgroundColor") !important;
+            }
+        }
     }
-}
 
-.hierarchy-editor {
-    &.secondary {
-        // .state-panel {
-        //     @include themify($themes) {
-        //         background-color: themed('nodeTreeSecondaryStatePanelBackgroundColor') !important;
-        //         border-top: 1px solid themed('nodeTreeSecondaryStatePanelBorderColor') !important;
-        //     }
-        // }
-        .node-tree-item {
-            .node-item-way-hider {
-                // background: $primary-800;
+    &__wrapper {
+        .node-tree-item__content {
+            .content {
                 @include themify($themes) {
-                    background: themed("nodeTreeSecondaryWayHiderBackgroundColor") !important;
+                    background-color: themed("nodeTreeItemBackgroundColor") !important;
+                    border-color: themed("nodeTreeBorderColor") !important;
                 }
-            }
 
-            .node-tree-item-joint {
-                @include themify($themes) {
-                    border-bottom-color: themed("nodeTreeSecondaryWayBorderColor") !important;
-                }
-            }
-
-            &__wrapper {
-                .node-tree-item-way {
+                &__ctrls {
                     @include themify($themes) {
-                        border-left-color: themed("nodeTreeSecondaryWayBorderColor") !important;
-                    }
-
-                    .way-nail {
-                        // background: $primary-800;
-                        @include themify($themes) {
-                            background: themed("nodeTreeSecondaryWayBorderColor") !important;
-                        }
+                        border-right-color: themed("nodeTreeItemDividerBorderColor") !important;
+                        color: themed("nodeTreeItemTextColor") !important;
                     }
                 }
-            }
+                &__context-menu-button {
+                    @include themify($themes) {
+                        color: themed("nodeTreeItemTextColor") !important;
+                    }
+                }
+                //Searched
+                &__name.active {
+                    background-color: rgba($accent-color, 0.25) !important;
+                }
 
-            &__wrapper {
-                .node-tree-item__content {
-                    .content {
-                        @include themify($themes) {
-                            background-color: themed("nodeTreeSecondaryItemBackgroundColor") !important;
-                        }
-
-                        &__ctrls {
-                            @include themify($themes) {
-                                border-color: themed("nodeTreeSecondaryItemDividerBorderColor") !important;
-                                color: themed("nodeTreeSecondaryItemFontColor") !important;
-                            }
-                        }
-                        &__context-menu-button {
-                            @include themify($themes) {
-                                color: themed("nodeTreeSecondaryItemFontColor") !important;
-                            }
-                        }
-                        //Searched
-                        &__name.active {
-                            background-color: rgba($accent-color, 0.25) !important;
-                        }
-
-                        &__text {
-                            @include themify($themes) {
-                                color: themed("nodeTreeSecondaryItemTitleColor") !important;
-                            }
-                        }
+                &__text {
+                    @include themify($themes) {
+                        color: themed("nodeTreeItemTitleColor") !important;
                     }
                 }
             }

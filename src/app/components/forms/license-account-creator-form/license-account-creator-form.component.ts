@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicenseAccount, ILicenseType, IAccount, LicenseStates, ITerminal, IStore } from '@djonnyx/tornado-types';
+import { IIntegration, ILicenseAccount, ITarif, IAccount, LicenseStates, ITerminal, IStore } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 
@@ -22,7 +22,9 @@ const LICENSE_STATES: ISelectOption = [
 ];
 
 interface IData {
-  name: IKeyValue;
+  applicationName: IKeyValue;
+  tarifName: IKeyValue;
+  trialPeriod: IKeyValue;
   dateEnd: IKeyValue;
   dateStart: IKeyValue;
   key: IKeyValue;
@@ -46,7 +48,7 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
     return LICENSE_STATES;
   }
 
-  @Input() licenseTypes: Array<ILicenseType>;
+  @Input() tarifs: Array<ITarif>;
 
   @Input() accounts: Array<IAccount>;
 
@@ -68,25 +70,10 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
     }
   }
 
-
-  private _integrationsMap: { [id: string]: IIntegration };
-
-  get integrationsMap() {
-    return this._integrationsMap;
-  }
-
   private _integrations: Array<IIntegration>;
   @Input() set integrations(v: Array<IIntegration>) {
     if (this._integrations !== v) {
       this._integrations = v;
-
-      this._integrationsMap = {};
-
-      if (this._integrations) {
-        this._integrations.forEach(int => {
-          this._integrationsMap[int.id] = int;
-        });
-      }
 
       this.generateData();
     }
@@ -116,18 +103,23 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
   }
 
   private generateData(): void {
-    if (!this._integrationsMap) {
-      return;
-    }
 
     this._data = {
-      name: {
-        key: "Название",
-        value: this._license?.licType?.name || ' ---',
+      applicationName: {
+        key: "Приложение",
+        value: this._license?.tarif?.application?.name || ' ---',
+      },
+      tarifName: {
+        key: "Тариф",
+        value: this._license?.tarif?.name || ' ---',
+      },
+      trialPeriod: {
+        key: "Бесплатный период",
+        value: `${this._license?.tarif?.trialPeriodDuration} дней` || ' ---',
       },
       price: {
         key: "Цена",
-        value: (this._license?.licType?.price * 0.01).toFixed(2) || ' ---',
+        value: (this._license?.tarif?.costByDevices?.map(v => `${(v.cost * 0.01).toFixed(2)} за ${v.largeOrEqual} и более устройств`)) || ' ---',
       },
       dateStart: {
         key: "Время начала лицензионного периода",
@@ -147,11 +139,11 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
       },
       integration: {
         key: "Название",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.name : ' ---',
+        value: this._license?.tarif?.integration?.name || ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
-        value: !!this._integrationsMap ? this._integrationsMap[this._license?.licType?.integrationId]?.version.version : ' ---',
+        value: this._license?.tarif?.integration?.version?.version || ' ---',
       },
       terminalName: {
         key: "Название терминала",
