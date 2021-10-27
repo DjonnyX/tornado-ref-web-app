@@ -1,6 +1,6 @@
 <div class="query-progress" style="position: relative; min-height: 100%; display: grid;">
-    <div style="width: 100%; position: absolute; height: 100%;">
-        <div [ngClass]="{'query-progress': true, customClass: true}" style="z-index: 10000;" *ngIf="process">
+    <div class="query-progress__foreground" *ngIf="process" style="width: 100%; position: absolute; height: 100%;">
+        <div [ngClass]="classes" style="z-index: 10000;">
             <mat-progress-bar color="accent" mode="indeterminate"></mat-progress-bar>
         </div>
     </div>

@@ -13,6 +13,13 @@ export class QueryProgressComponent implements OnInit {
 
   @Input() customClass: string = 'custom-query-progress';
 
+  get classes() {
+    return {
+      'query-progress': true,
+      [this.customClass]: true,
+    };
+  }
+
   constructor() { }
 
   ngOnInit(): void {
