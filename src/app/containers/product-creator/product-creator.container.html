@@ -2,11 +2,17 @@
     <div class="page-content">
         <div class="entity-options-editor">
             <div class="entity-sheet-editor">
-                <!-- Back Button -->
-                <div class="entity-sheet-editor__back-button" (click)="onToBack()">
-                    Вернуться к товарам
+                <!-- Header -->
+                <div class="entity-sheet-editor__header">
+                    <!-- Back Button -->
+                    <div class="entity-sheet-editor__back-button" (click)="onToBack()">
+                        <div class="entity-sheet-editor__back-button-container">
+                            <p>Назад к товарам</p>
+                        </div>
+                    </div>
+                    <!-- Back Button -->
                 </div>
-                <!-- Back Button -->
+                <!-- Header -->
                 <!-- Entity Sheet -->
                 <div class="entity-sheet">
                     <div class="entity-sheet-container">
@@ -30,14 +36,18 @@
 
                 <!-- Entity Sheet -->
                 <div class="entity-sheet" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
-                    <div class="entity-sheet-container">
-                        <div class="entity-sheet__header header-products__modifiers">
-                            <h2 class="entity-sheet__header-title">Конструктор товара</h2>
-                            <p>
-                                В этом блоке формируется состав товара и строится структура сценариев поведения.
-                            </p>
+                    <div class="entity-sheet__header--accent header-products__modifiers">
+                        <div class="entity-sheet__header-container">
+                            <div class="entity-sheet__header-content">
+                                <h2 class="entity-sheet__header-title">Конструктор товара</h2>
+                                <p>
+                                    В этом блоке вы можете сформировать состав товара и построить структуру сценариев
+                                    его поведения.
+                                </p>
+                            </div>
                         </div>
-
+                    </div>
+                    <div class="entity-sheet__body">
                         <ta-query-progress class="query-progress-container" style="position: relative;"
                             [process]="isProcessHierarchy$ | async">
                             <div class="hierarchy-editor last-way-is-hidden">

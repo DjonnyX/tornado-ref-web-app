@@ -45,3 +45,12 @@
         box-shadow: none !important;
     }
 }
+
+.entity-sheet {
+
+    .state-panel {
+        box-shadow: none !important;
+        border-bottom: 1px solid $divider-color;
+        // background-color: $divider-color !important;
+    }
+}

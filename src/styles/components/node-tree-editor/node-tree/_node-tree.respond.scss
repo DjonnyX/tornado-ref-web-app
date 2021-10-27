@@ -14,7 +14,7 @@
             }
 
             .node-tree-item__content {
-                margin: 0 0 0 $node-tree-item-offset-x-lg;
+                margin: 0 $node-tree-item-offset-x-lg 0 $node-tree-item-offset-x-lg;
             }
         }
     }
@@ -36,7 +36,7 @@
             }
 
             .node-tree-item__content {
-                margin: 0 0 0 $node-tree-item-offset-x-md;
+                margin: 0 $node-tree-item-offset-x-md 0 $node-tree-item-offset-x-md;
             }
         }
     }
@@ -57,7 +57,7 @@
             }
 
             .node-tree-item__content {
-                margin: 0 0 0 $node-tree-item-offset-x-sm;
+                margin: 0 $node-tree-item-offset-x-sm 0 $node-tree-item-offset-x-sm;
             }
         }
     }

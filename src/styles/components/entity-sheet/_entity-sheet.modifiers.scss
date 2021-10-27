@@ -1,0 +1,17 @@
+.entity-sheet {
+
+    // Header
+    &__header {
+
+        &--border-bottom {
+            @extend .entity-sheet__header;
+            border-bottom: 1px solid $divider-color;
+        }
+
+        &--accent {
+            @extend .entity-sheet__header;
+            border-bottom: 1px solid lighten($accent-secondary-color, 36%);
+            background-color: lighten($accent-secondary-color, 39%);
+        }
+    }
+}

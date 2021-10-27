@@ -1,3 +1,7 @@
+//Extends
+
+@import "./extends/";
+
 @import "./scrollbar/";
 
 @import "./layout";
@@ -21,6 +25,7 @@
 @import "./admin-view";
 
 @import "./entity-editor"; //+
+@import "./hierarchy-editor/";
 
 @import "./entity-options-editor/";
 @import "./schedule";
