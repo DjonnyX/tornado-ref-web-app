@@ -255,12 +255,12 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
           //   route: "checkues",
           //   right: UserRights.READ_CHECKUES,
           // },
-          {
-            icon: "currency",
-            name: "menu_currencies", //"Валюты",
-            route: "currencies",
-            right: UserRights.READ_CURRENCIES,
-          },
+          // {
+          //   icon: "currency",
+          //   name: "menu_currencies", //"Валюты",
+          //   route: "currencies",
+          //   right: UserRights.READ_CURRENCIES,
+          // },
           {
             icon: "order-types",
             name: "menu_order-types", //"Типы заказов",
