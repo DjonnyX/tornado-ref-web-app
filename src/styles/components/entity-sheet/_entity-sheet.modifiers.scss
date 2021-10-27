@@ -3,7 +3,7 @@
     // Header
     &__header {
 
-        &--border-bottom {
+        &--border {
             @extend .entity-sheet__header;
             border-bottom: 1px solid $divider-color;
         }
@@ -12,6 +12,29 @@
             @extend .entity-sheet__header;
             border-bottom: 1px solid lighten($entity-sheet-header-accent-color, 36%);
             background-color: lighten($entity-sheet-header-accent-color, 39%);
+        }
+    }
+
+    // Footer
+    &__footer {
+
+        &--footer-border {
+            @extend .entity-sheet__footer;
+            border-top: 1px solid $divider-color;
+        }
+
+        &--submit {
+            @extend .entity-sheet__footer;
+            border-top: 1px solid $divider-color;
+
+            .entity-sheet__footer-container {
+
+            }
+
+            .entity-sheet__footer-content {
+                @include flex-direction(row);
+                @include justify-content(flex-end);
+            }
         }
     }
 }

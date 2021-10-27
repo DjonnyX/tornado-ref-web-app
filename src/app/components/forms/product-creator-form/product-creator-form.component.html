@@ -1,147 +1,192 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-    <div *ngIf="!!product; else mainLangContent">
-        <mat-tab-group>
-            <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
-                <ta-product-content [isDirty]="isDirty" [content]="getContent(lang)"
-                    [defaultContent]="getContent(defaultLanguage)" [isDefault]="lang.code === defaultLanguage.code"
-                    [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode" [assets]="assets"
-                    [resourcesGallery]="getResourcesGallery(lang)" (update)="updateStateFor($event, lang)"
-                    (uploadMainResource)="onMainResourceUpload($event, lang)"
-                    (uploadIconResource)="onIconResourceUpload($event, lang)"
-                    (uploadAsset)="onAssetUpload($event, lang)" (updateAsset)="onAssetUpdate($event, lang)"
-                    (deleteAsset)="onAssetDelete($event, lang)" (confirm)="onConfirmSave($event)" (save)="onSave()">
-                </ta-product-content>
-            </mat-tab>
-        </mat-tab-group>
-    </div>
-    <ng-template #mainLangContent>
-        <ta-product-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="!isEditMode || isEdit"
-            [isEditMode]="isEditMode" [assets]="assets" [resourcesGallery]="getResourcesGallery(defaultLanguage)"
-            (update)="updateStateFor($event, defaultLanguage)">
-        </ta-product-content>
-    </ng-template>
+    <div class="entity-sheet">
+        <div class="entity-sheet-content">
+            <!-- Entity Sheet Body -->
+            <section class="entity-sheet__body">
+                <!-- Entity Sheet Section -->
+                <section class="entity-sheet__section assets">
+                    <div *ngIf="!!product; else mainLangContent">
+                        <!-- Tab Group -->
+                        <mat-tab-group>
+                            <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+                                <ta-product-content [isDirty]="isDirty" [content]="getContent(lang)"
+                                    [defaultContent]="getContent(defaultLanguage)"
+                                    [isDefault]="lang.code === defaultLanguage.code" [isEdit]="!isEditMode || isEdit"
+                                    [isEditMode]="isEditMode" [assets]="assets"
+                                    [resourcesGallery]="getResourcesGallery(lang)"
+                                    (update)="updateStateFor($event, lang)"
+                                    (uploadMainResource)="onMainResourceUpload($event, lang)"
+                                    (uploadIconResource)="onIconResourceUpload($event, lang)"
+                                    (uploadAsset)="onAssetUpload($event, lang)"
+                                    (updateAsset)="onAssetUpdate($event, lang)"
+                                    (deleteAsset)="onAssetDelete($event, lang)" (confirm)="onConfirmSave($event)"
+                                    (save)="onSave()">
+                                </ta-product-content>
+                            </mat-tab>
+                        </mat-tab-group>
+                        <!-- Tab Group -->
+                    </div>
+                </section>
+                <!-- Entity Sheet Section -->
+                <!-- Entity Sheet Section -->
+                <!-- Entity Propery List -->
+                <section class="entity-sheet__section">
+                    <div class="entity-sheet__section-container">
+                        <div class="entity-sheet__section-content">
+                            <ng-template #mainLangContent>
+                                <ta-product-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null"
+                                    [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode" [assets]="assets"
+                                    [resourcesGallery]="getResourcesGallery(defaultLanguage)"
+                                    (update)="updateStateFor($event, defaultLanguage)">
+                                </ta-product-content>
+                            </ng-template>
 
-    <ng-container *ngIf="!isEditMode || isEdit; else commonInfo">
-        <div class="form__main-options">
-            <p class="form-header">
-                Тэги
-            </p>
-            <div class="form__input-block">
-                <div class="form-item">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Тэги</mat-label>
-                        <mat-select [formControl]="ctrlTags" (change)="onChangeTags()" multiple>
-                            <mat-option *ngFor="let tag of tagList" [value]="tag.id">{{getTagName(tag)}}</mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-            </div>
-        </div>
+                            <ng-container *ngIf="!isEditMode || isEdit; else commonInfo">
+                                <div class="form__main-options">
+                                    <p class="form-header">
+                                        Тэги
+                                    </p>
+                                    <div class="form__input-block">
+                                        <div class="form-item">
+                                            <mat-form-field class="full-width" appearance="outline">
+                                                <mat-label>Тэги</mat-label>
+                                                <mat-select [formControl]="ctrlTags" (change)="onChangeTags()" multiple>
+                                                    <mat-option *ngFor="let tag of tagList" [value]="tag.id">
+                                                        {{getTagName(tag)}}
+                                                    </mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
 
-        <ng-container *ngIf="!!product">
-            <p class="form-header">
-                Системный тэг
-            </p>
-            <div class="form__input-block">
-                <div class="form-item">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Системный тэг</mat-label>
-                        <input (keydown)="onSystemTagSubmit($event)" type="text" matInput [formControl]="ctrlSystemTag"
-                            [matAutocomplete]="auto" placeholder="Выберите системный тег">
-                        <div matSuffix>
-                            <ng-container *ngIf="!isExistsSystemTag() else removeSystemTag">
-                                <button *ngIf="ctrlSystemTag.value" type="button" mat-icon-button
-                                    (click)="onCreateSystemTag()">
-                                    <mat-icon>add_circle</mat-icon>
-                                </button>
+                                <ng-container *ngIf="!!product">
+                                    <p class="form-header">
+                                        Системный тэг
+                                    </p>
+                                    <div class="form__input-block">
+                                        <div class="form-item">
+                                            <mat-form-field class="full-width" appearance="outline">
+                                                <mat-label>Системный тэг</mat-label>
+                                                <input (keydown)="onSystemTagSubmit($event)" type="text" matInput
+                                                    [formControl]="ctrlSystemTag" [matAutocomplete]="auto"
+                                                    placeholder="Выберите системный тег">
+                                                <div matSuffix>
+                                                    <ng-container *ngIf="!isExistsSystemTag() else removeSystemTag">
+                                                        <button *ngIf="ctrlSystemTag.value" type="button"
+                                                            mat-icon-button (click)="onCreateSystemTag()">
+                                                            <mat-icon>add_circle</mat-icon>
+                                                        </button>
+                                                    </ng-container>
+                                                    <ng-template #removeSystemTag>
+                                                        <button mat-icon-button type="button"
+                                                            (click)="onRemoveSystemTag()">
+                                                            <mat-icon>close_circle</mat-icon>
+                                                        </button>
+                                                    </ng-template>
+                                                </div>
+                                                <mat-autocomplete #auto="matAutocomplete"
+                                                    [displayWith]="systemTagsDisplayFn">
+                                                    <mat-option
+                                                        *ngFor="let systemTag of systemTagsFilteredOptions$ | async"
+                                                        [value]="systemTag.id">
+                                                        <div class="autocomplete-option">
+                                                            <span
+                                                                class="autocomplete-option__name">{{systemTag.name}}</span>
+                                                            <button mat-icon-button type="button"
+                                                                (click)="onDeleteSystemTag($event, systemTag.id)">
+                                                                <mat-icon>close_circle</mat-icon>
+                                                            </button>
+                                                        </div>
+                                                    </mat-option>
+                                                </mat-autocomplete>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <p class="form-header">
+                                        Вес
+                                    </p>
+                                    <div class="form__input-block">
+                                        <div class="form-item">
+                                            <mat-form-field class="full-width" appearance="outline">
+                                                <mat-label>Вес, г</mat-label>
+                                                <input matInput type="number" [formControl]="ctrlWeight"
+                                                    placeholder="Вес, г">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+
+                                    <p class="form-header">
+                                        Цена
+                                    </p>
+
+                                    <div class="prices__wrapper">
+                                        <ta-prices [prices]="product.prices" [currencies]="currencies"
+                                            (update)="onChangePrices($event)">
+                                        </ta-prices>
+                                    </div>
+                                </ng-container>
                             </ng-container>
-                            <ng-template #removeSystemTag>
-                                <button mat-icon-button type="button" (click)="onRemoveSystemTag()">
-                                    <mat-icon>close_circle</mat-icon>
-                                </button>
+                            <ng-template #commonInfo>
+                                <div class="form__block" *ngIf="!!data">
+                                    <div class="form-item full-width">
+                                        <ta-key-value [data]="data.tags"></ta-key-value>
+                                    </div>
+
+                                    <div class="form-item full-width">
+                                        <ta-key-value [data]="data.systemTag"></ta-key-value>
+                                    </div>
+
+                                    <div class="form-item full-width">
+                                        <ta-key-value [data]="data.weight"></ta-key-value>
+                                    </div>
+
+                                    <div class="form-item full-width">
+                                        <ta-key-value [data]="data.prices"></ta-key-value>
+                                    </div>
+                                </div>
                             </ng-template>
                         </div>
-                        <mat-autocomplete #auto="matAutocomplete" [displayWith]="systemTagsDisplayFn">
-                            <mat-option *ngFor="let systemTag of systemTagsFilteredOptions$ | async"
-                                [value]="systemTag.id">
-                                <div class="autocomplete-option">
-                                    <span class="autocomplete-option__name">{{systemTag.name}}</span>
-                                    <button mat-icon-button type="button"
-                                        (click)="onDeleteSystemTag($event, systemTag.id)">
-                                        <mat-icon>close_circle</mat-icon>
-                                    </button>
-                                </div>
-                            </mat-option>
-                        </mat-autocomplete>
-                    </mat-form-field>
+                    </div>
+                </section>
+                <!-- Entity Propery List -->
+                <!-- Entity Sheet Section -->
+            </section>
+            <!-- Entity Sheet Body -->
+            <!-- Entity Sheet Footer -->
+            <section class="entity-sheet__footer--submit">
+                <div class="entity-sheet__footer-container">
+                    <div class="entity-sheet__footer-content">
+                        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+                            <button class="button-create button__text"
+                                (click)="!isEditMode ? onCancel() : onEditCancel()">
+                                Отменить
+                            </button>
+                            <ng-container *ngIf="isEditMode; else createBtn">
+                                <button type="submit" class="button-create button__text"
+                                    [disabled]="!form.valid || !isDirty">
+                                    Сохранить
+                                </button>
+                            </ng-container>
+                            <ng-template #createBtn>
+                                <button type="submit" class="button-create button__text" [disabled]="!form.valid">
+                                    Создать
+                                </button>
+                            </ng-template>
+                        </ng-container>
+                        <ng-template #editButtons>
+                            <button class="button-create button__text" (click)="onCancel()">
+                                Отменить
+                            </button>
+                            <button (click)="onEdit()" class="button-create button__text">
+                                Редактировать
+                            </button>
+                        </ng-template>
+                    </div>
                 </div>
-            </div>
-
-            <p class="form-header">
-                Вес
-            </p>
-            <div class="form__input-block">
-                <div class="form-item">
-                    <mat-form-field class="full-width" appearance="outline">
-                        <mat-label>Вес, г</mat-label>
-                        <input matInput type="number" [formControl]="ctrlWeight" placeholder="Вес, г">
-                    </mat-form-field>
-                </div>
-            </div>
-
-            <p class="form-header">
-                Цена
-            </p>
-
-            <div class="prices__wrapper">
-                <ta-prices [prices]="product.prices" [currencies]="currencies" (update)="onChangePrices($event)">
-                </ta-prices>
-            </div>
-        </ng-container>
-    </ng-container>
-    <ng-template #commonInfo>
-        <div class="form__block" *ngIf="!!data">
-            <div class="form-item full-width">
-                <ta-key-value [data]="data.tags"></ta-key-value>
-            </div>
-
-            <div class="form-item full-width">
-                <ta-key-value [data]="data.systemTag"></ta-key-value>
-            </div>
-
-            <div class="form-item full-width">
-                <ta-key-value [data]="data.weight"></ta-key-value>
-            </div>
-
-            <div class="form-item full-width">
-                <ta-key-value [data]="data.prices"></ta-key-value>
-            </div>
+            </section>
+            <!-- Entity Sheet Footer -->
         </div>
-    </ng-template>
-
-    <div class="form__submit" align="end">
-        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
-            <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
-                Отменить
-            </button>
-            <ng-container *ngIf="isEditMode; else createBtn">
-                <button type="submit" class="button-create button__text" [disabled]="!form.valid || !isDirty">
-                    Сохранить
-                </button>
-            </ng-container>
-            <ng-template #createBtn>
-                <button type="submit" class="button-create button__text" [disabled]="!form.valid">
-                    Создать
-                </button>
-            </ng-template>
-        </ng-container>
-        <ng-template #editButtons>
-            <button class="button-create button__text" (click)="onCancel()">
-                Отменить
-            </button>
-            <button (click)="onEdit()" class="button-create button__text">
-                Редактировать
-            </button>
-        </ng-template>
     </div>
 </form>
