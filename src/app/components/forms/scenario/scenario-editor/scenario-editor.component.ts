@@ -51,6 +51,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
 
       switch (v.action) {
         case ScenarioPriceActionTypes.PRICE:
+        case ScenarioPriceActionTypes.PRICE_BY_STORE:
         case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
         case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
           const priceValue = v.value as IScenarioPriceValue;
@@ -66,7 +67,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
             this.ctrlEntities.setValue(undefined);
           } else
             if (v.action === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD
-              || v.action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE) {
+              || v.action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE
+              || v.action === ScenarioPriceActionTypes.PRICE_BY_STORE) {
               this.ctrlEntities.setValue((v.value as IScenarioPriceValue).entities);
             }
           break;
@@ -102,6 +104,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           ScenarioCommonActionTypes.VISIBLE_BY_STORE,
           // ScenarioProductActionTypes.UP_LIMIT,
           ScenarioPriceActionTypes.PRICE,
+          ScenarioPriceActionTypes.PRICE_BY_STORE,
           ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE,
           ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD,
         ];
@@ -116,6 +119,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           ScenarioProductActionTypes.UP_LIMIT,
           ScenarioProductActionTypes.DOWN_LIMIT,
           ScenarioPriceActionTypes.PRICE,
+          ScenarioPriceActionTypes.PRICE_BY_STORE,
           ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE,
           ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD,
         ];
@@ -255,6 +259,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
             };
           }
           break;
+        case ScenarioPriceActionTypes.PRICE_BY_STORE:
         case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
         case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
           const priceValue1 = value as IScenarioPriceValue;
@@ -345,6 +350,7 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
       case ScenarioPriceActionTypes.PRICE:
       case ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD:
       case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
+      case ScenarioPriceActionTypes.PRICE_BY_STORE:
         this.ctrlValue.setValidators([Validators.required]);
         this.ctrlCurrency.setValue(this.currencies?.find(c => c.isDefault)?.id);
         if (action === ScenarioPriceActionTypes.PRICE) {
@@ -353,7 +359,8 @@ export class ScenarioEditorComponent extends BaseComponent implements OnInit {
           this.ctrlEntities.setValue(undefined);
         } else
           if (action === ScenarioPriceActionTypes.PRICE_BY_BUSINESS_PERIOD
-            || action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE) {
+            || action === ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE
+            || action === ScenarioPriceActionTypes.PRICE_BY_STORE) {
             this.ctrlEntities.setValue((value as IScenarioPriceValue)?.entities || []);
             this.ctrlEntities.setValidators([Validators.required]);
           }
