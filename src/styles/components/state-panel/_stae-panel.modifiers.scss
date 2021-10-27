@@ -1,0 +1,18 @@
+.entity-sheet {
+
+    .state-panel {
+        box-shadow: none !important;
+        background-color: lighten($entity-sheet-header-accent-color, 39%);
+        border-bottom: 1px solid lighten($entity-sheet-header-accent-color, 36%);
+        
+        .search {
+            background-color: $white;
+            border-color: lighten($entity-sheet-header-accent-color, 36%);
+        }
+
+        .tab-button {
+            background-color: $white;
+            border-color: lighten($entity-sheet-header-accent-color, 36%);
+        }
+    }
+}
