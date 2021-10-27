@@ -39,10 +39,7 @@ export class TarifCreatorFormComponent extends BaseComponent implements OnInit, 
 
   ctrlPaymentPeriod = new FormControl(TarifPaymentPeriods.EVERY_MONTH, [Validators.required]);
 
-  ctrlCostByDevices = new FormControl([{
-    largeOrEqual: 1,
-    cost: 2500,
-  }], [Validators.required]);
+  ctrlCostByDevices = new FormControl(undefined, [Validators.required]);
 
   private _tarif: ITarif;
   @Input() set tarif(tarif: ITarif) {

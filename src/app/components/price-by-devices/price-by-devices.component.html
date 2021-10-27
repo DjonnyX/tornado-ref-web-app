@@ -1,0 +1,6 @@
+<ta-price-by-device-item *ngFor="let item of value; let index = index" [data]="item"
+    (onChange)="onChangeItem($event, index)" (delete)="onDeleteItem(item, index)">
+</ta-price-by-device-item>
+<button class="button-add" type="button" (click)="onAddItem()">
+    Добавить стоимость
+</button>

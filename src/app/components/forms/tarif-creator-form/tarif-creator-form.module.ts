@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { VersionModule } from '@components/version/version.module';
 import { MatSelectModule } from '@angular/material/select';
+import { PriceByDevicesModule } from '@components/price-by-devices/price-by-devices.module';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatSelectModule,
     VersionModule,
+    PriceByDevicesModule,
   ]
 })
 export class TarifCreatorFormModule { }
