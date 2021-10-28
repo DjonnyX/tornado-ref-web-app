@@ -9,11 +9,11 @@
             <!-- Entity Assets Resources -->
             <div class="entity-assets__resources">
               <div class="entity-assets__resources-container double">
-                <!-- Main Image -->
                 <div class="resources-n">
                   <div class="entity-assets__description">
                     <p>Основное изображение</p>
                   </div>
+
                   <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
                     [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
                     [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
@@ -21,12 +21,12 @@
                     (upload)="onMainResourceUpload($event, 'main')">
                   </ta-asset-picker-uploader>
                 </div>
-                <!-- Main Image -->
-                <!-- Thumbnail Image -->
+
                 <div class="resources-s">
                   <div class="entity-assets__description">
                     <p>Миниатюра</p>
                   </div>
+
                   <ta-asset-picker-uploader [needConfirmation]="isDirty"
                     [resetButtonDisabled]="isEqualWithDefault('icon')" (reset)="onResetResourceToDefault('icon')"
                     [showUploadButton]="false"
@@ -34,52 +34,64 @@
                     [assets]="assets" [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
                     (upload)="onIconResourceUpload($event, 'icon')">
                   </ta-asset-picker-uploader>
-                  <!-- Color -->
+                </div>
+              </div>
 
-                  <!-- <ng-container *ngIf="!isEdit">
-                    <ta-key-value [data]="data.color"></ta-key-value>
-                  </ng-container> -->
-
-                  <div class=" single" *ngIf="isEdit">
+              <div class="entity-assets__resources-container single" *ngIf="isEdit">
+                <div class="full-width">
+                  <div class="form-item">
+                    <p>
+                      Цвет
+                    </p>
                     <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
                       (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="bottom"></ta-color-picker>
                   </div>
-                  <!-- Color -->
                 </div>
-                <!-- Thumbnail Image -->
               </div>
-
             </div>
             <!-- Entity Assets Resources -->
+
+            <!--<mat-accordion class="flat full-width" multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                Resources gallery
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div class="resources-wrapper single">
+              <div class="full-width">
+                <ta-assets-uploader [collection]="resourcesGallery" (upload)="onAssetUpload($event)"
+                  (update)="onAssetUpdate($event)" (delete)="onAssetDelete($event)"></ta-assets-uploader>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+        </mat-accordion>-->
           </div>
           <!-- Assets -->
           <!-- Edit -->
           <div>
+            <ng-container *ngIf="!isEdit; else editFields">
+              <ng-container *ngIf="!!data">
+                <!-- Entity Assets Name -->
+                <div class="entity-sheet__section__header">
+                  <h2 class="entity-sheet__section__header-title" *ngIf="!!data">
+                    {{data.name.value}}
+                  </h2>
+                </div>
+                <!-- Entity Assets Name -->
 
-            <!-- Entity Assets Body -->
-            <div class="entity-assets__body">
-              <div class="entity-assets__body-container">
-                <ng-container *ngIf="!isEdit; else editFields">
-                  <ng-container *ngIf="!!data">
-                    <!-- Entity Assets Name -->
-                    <div class="entity-sheet__section__header">
-                      <h2 class="entity-sheet__section__header-title" *ngIf="!!data">
-                        {{data.name.value}}
-                      </h2>
-                    </div>
-                    <!-- Entity Assets Name -->
-
-                    <!-- description -->
-                    <div class="entity-properties border-none">
-                      <ta-key-value [data]="data.description"></ta-key-value>
-                    </div>
-                  </ng-container>
-                </ng-container>
-              </div>
-            </div>
-            <!-- Entity Assets Body -->
-
-
+                <!-- description -->
+                <div class="form-item full-width">
+                  <ta-key-value [data]="data.description"></ta-key-value>
+                </div>
+                <!-- color -->
+                <div class="form-item full-width">
+                  <ta-key-value [data]="data.color"></ta-key-value>
+                </div>
+              </ng-container>
+            </ng-container>
             <ng-template #editFields>
               <div class="form__main-options">
                 <div class="form__input-block">

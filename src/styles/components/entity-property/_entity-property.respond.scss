@@ -1,0 +1,29 @@
+// lg
+@include respond-above(md) {
+
+    .entity-properties {
+
+        &-container {
+            grid-template-columns: 1fr;
+        }
+        &-group {
+            grid-template-columns: 1fr 1fr;
+            // @include flex-direction(row);
+        }
+    }
+}
+
+// md
+@include respond-below(md) {
+
+    .entity-properties {
+
+        &-container {
+            grid-template-columns: 1fr;
+        }
+        &-group {
+            grid-template-columns: 1fr;
+            // @include flex-direction(column);
+        }
+    }
+}

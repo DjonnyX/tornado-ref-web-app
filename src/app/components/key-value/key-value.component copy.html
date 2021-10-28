@@ -1,0 +1,32 @@
+<div class="key-value">
+    <span class="key-value__key">
+        {{compiledData?.key}}
+    </span>
+    <!-- <span class="key-value__separator"></span> -->
+    <ng-container *ngIf="!!compiledData?.link; else value">
+        <a [routerLink]="compiledData?.link[0]" [queryParams]="compiledData?.link[1]"
+            class="key-value__value form__link">
+            {{compiledData?.value}}
+        </a>
+    </ng-container>
+    <ng-template #value>
+        <span class="key-value__value">
+            <ng-container [ngSwitch]="compiledData?.type">
+                <ng-container *ngSwitchCase="KeyValueCompiledValueTypes.COLOR">
+                    <span class="key-value__color" [style.backgroundColor]="compiledData.value"></span>
+                    {{compiledData?.value}}
+                </ng-container>
+                <ng-container *ngSwitchCase="KeyValueCompiledValueTypes.GRADIENT_COLOR">
+                    <span class="key-value__color" [style.background]="gradientStyle"></span>
+                    {{compiledData?.value}}
+                </ng-container>
+                <ng-container *ngSwitchCase="KeyValueCompiledValueTypes.ASSET">
+                    <img [src]="compiledData?.value" height="16" />
+                </ng-container>
+                <ng-container *ngSwitchDefault>
+                    {{compiledData?.value}}
+                </ng-container>
+            </ng-container>
+        </span>
+    </ng-template>
+</div>
