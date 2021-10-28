@@ -30,6 +30,8 @@ export const getScenarioTypeName = (type: ScenarioProgrammActionTypes | Scenario
       return "scenario_extra-charge-or-discount-by-business-periods";
     case ScenarioPriceActionTypes.PRICE_BY_ORDER_TYPE:
       return "scenario_extra-charge-or-discount-by-order-types";
+    case ScenarioPriceActionTypes.PRICE_BY_STORE:
+      return "scenario_extra-charge-or-discount-by-stores";
     case ScenarioSelectorActionTypes.DEFAULT_PRODUCTS:
       return "scenario_default-products";
     case ScenarioSelectorActionTypes.MAX_USAGE:

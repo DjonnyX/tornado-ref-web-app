@@ -264,6 +264,50 @@
             </div>
         </ng-container>
 
+        <ng-container *ngIf="ctrlAction.value === ScenarioPriceActionTypes.PRICE_BY_STORE">
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>{{localization.get("scenario_stores")}}</mat-label>
+                    <mat-select [formControl]="ctrlEntities" multiple required>
+                        <mat-option *ngFor="let s of stores" [value]="s.id">{{s.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="ctrlEntities.hasError('required')">
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div class="form-item" *ngIf="!ctrlIsPercentage.value" style="margin-bottom: 12px;">
+                <mat-checkbox color="primary" [formControl]="ctrlIsStatic">
+                    {{localization.get("scenario_fixed-price")}}
+                </mat-checkbox>
+            </div>
+
+            <div class="form-item" style="margin-bottom: 12px;">
+                <mat-checkbox *ngIf="!ctrlIsStatic.value" color="primary" [formControl]="ctrlIsPercentage">
+                    {{localization.get("scenario_percentage-extra-charge-or-discount")}}
+                </mat-checkbox>
+            </div>
+
+            <div class="form-item">
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-label>
+                        {{localization.get("scenario_extra-charge-or-discount")}}
+                    </mat-label>
+                    <input matInput type="number" [formControl]="ctrlValue"
+                        [placeholder]="localization.get('scenario_extra-charge-or-discount')" required>
+                    <mat-error *ngIf="ctrlValue.hasError('required')">
+                        <strong>
+                            {{localization.get("common_ctrl_required")}}
+                        </strong>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </ng-container>
+
         <ng-container *ngIf="ctrlAction.value === ScenarioProgrammActionTypes.SWITCH">
             <!--<div class="form-item">
                 <mat-form-field class="full-width" appearance="outline">

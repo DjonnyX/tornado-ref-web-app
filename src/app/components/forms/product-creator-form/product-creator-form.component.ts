@@ -226,9 +226,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       prices: {
         key: "Цена",
         value: this._product?.prices?.length > 0
-          ? this._product?.prices.
-            map(p => `${p.value * 0.01}${this._currenciesDictionary[p.currency]?.symbol}`).
-            join(", ")
+          ? this.getPrices()
           : ' ---',
       },
       systemTag: {
@@ -240,6 +238,22 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
         value: `${this._product?.weight || 0}г`,
       },
     };
+  }
+
+  getPrices(): string {
+    let result = "";
+
+    this._product?.prices?.forEach((p, i) => {
+      if (!!this._currenciesDictionary[p.currency]) {
+        if (i > 0) {
+          result += "; ";
+        }
+
+        result += `${((p.value || 0) * 0.01).toFixed(0)}${this._currenciesDictionary[p.currency]?.symbol}`;
+      }
+    });
+
+    return result;
   }
 
   ngOnInit(): void {

@@ -1,0 +1,29 @@
+<div class="price-by-devices-item">
+    <form [formGroup]="form">
+        <div class="price-by-devices-item__wrapper">
+            <div>
+                Устройства
+            </div>
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>от</mat-label>
+                <input matInput type="number" [formControl]="ctrlDevices" required>
+                <mat-error *ngIf="ctrlDevices !== undefined">
+                    <strong>обязательное</strong>
+                </mat-error>
+            </mat-form-field>
+            <div>
+                Цена
+            </div>
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>за приложение</mat-label>
+                <input matInput type="number" [formControl]="ctrlCost" required>
+                <mat-error *ngIf="ctrlDevices !== undefined">
+                    <strong>обязательное</strong>
+                </mat-error>
+            </mat-form-field>
+            <button class="button-create" type="button" (click)="onDelete()">
+                Удалить
+            </button>
+        </div>
+    </form>
+</div>
