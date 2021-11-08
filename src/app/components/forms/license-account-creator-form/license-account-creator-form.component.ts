@@ -5,6 +5,7 @@ import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 import { SubscriptionStatuses } from '@djonnyx/tornado-types/dist/enums/SubscriptionStatuses';
 import { formatTarifCostByDevices } from '@app/utils/tarif.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface ISelectOption extends Array<{ name: string, value: number | string, link?: string }> { }
 
@@ -100,7 +101,9 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
 
   @Output() cancel = new EventEmitter<void>();
 
-  constructor() {
+  constructor(
+    public readonly localization: LocalizationService,
+  ) {
     super();
   }
 

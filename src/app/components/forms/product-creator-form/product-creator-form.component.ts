@@ -16,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { IStoreRequest } from '@store/interfaces/store-request.interface';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   tags: IKeyValue;
@@ -195,6 +196,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
     private _fb: FormBuilder,
     private _cdr: ChangeDetectorRef,
     public dialog: MatDialog,
+    public readonly localization: LocalizationService,
   ) {
     super();
 

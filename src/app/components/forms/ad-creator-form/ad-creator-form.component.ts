@@ -8,6 +8,7 @@ import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepEqual, deepMergeObjects } from '@app/utils/object.util';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-ad-creator-form',
@@ -86,7 +87,11 @@ export class AdCreatorFormComponent extends BaseComponent implements OnInit, OnD
   private _isDirty = false;
   get isDirty() { return this._isDirty; }
 
-  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
+  constructor(
+    private _fb: FormBuilder,
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({})

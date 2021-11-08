@@ -7,6 +7,7 @@ import { IKeyValue } from '@components/key-value/key-value.component';
 import { ICompiledTheme, IThemeDescriptior, IThemeDescriptorValue, ThemeDescriptiorKeyTypes, themeDescriptorPropsToThemeData } from '@app/utils/app-theme.util';
 import Color from "color";
 import { IFileUploadEvent } from '@models';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   name: IKeyValue;
@@ -151,7 +152,10 @@ export class AppThemeCreatorFormComponent extends BaseComponent implements OnIni
     return this._data;
   }
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form.addControl("name", this.ctrlName);

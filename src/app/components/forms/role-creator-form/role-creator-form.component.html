@@ -95,7 +95,9 @@
         </div>
 
         <div class="form__submit" align="end">
-            <button class="button-create button__text" type="button" (click)="onEditCancel()">Отменить</button>
+            <button class="button-create button__text" type="button" (click)="onEditCancel()">
+                {{localization.get("common_action-close")}}
+            </button>
             <button type="submit" class="button-create button__text"
                 [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
         </div>

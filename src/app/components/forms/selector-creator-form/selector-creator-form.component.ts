@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import { BehaviorSubject } from 'rxjs';
 import { IStoreRequest } from '@store/interfaces/store-request.interface';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   systemTag: IKeyValue;
@@ -140,7 +141,11 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     return this.systemTags?.find(t => t.id === value)?.name || value;
   }
 
-  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
+  constructor(
+    private _fb: FormBuilder,
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({
