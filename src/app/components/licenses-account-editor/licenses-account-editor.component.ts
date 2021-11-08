@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import { BaseComponent } from '@components/base/base-component';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
-import { IAccount, IIntegration, ILicenseAccount, IRef } from '@djonnyx/tornado-types';
+import { IAccount, IIntegration, ILicense, ILicenseAccount, IRef } from '@djonnyx/tornado-types';
 import { SubscriptionStatuses } from '@djonnyx/tornado-types/dist/enums/SubscriptionStatuses';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -97,5 +97,9 @@ export class LicensesAccountEditorComponent extends BaseComponent implements OnI
 
   isLicenseDisabled(license: ILicenseAccount): boolean {
     return license.subscription.status !== SubscriptionStatuses.ACTIVATED;
+  }
+
+  searchFunction(licenses: Array<ILicenseAccount>, pattern: string): Array<ILicenseAccount> {
+    return licenses?.filter(license => license.key?.indexOf(pattern?.toLowerCase()) > -1 || license.subscription?.tarif?.name?.indexOf(pattern?.toLowerCase()) > -1);
   }
 }

@@ -3,7 +3,7 @@
   "version": "1.4.2",
   "author": {
     "email": "djonnyx@gmail.com",
-    "name": "Eugene Grebennikov"
+    "name": "Evgeny Grebennikov"
   },
   "description": "PA & AP systems for TornadoSST",
   "scripts": {

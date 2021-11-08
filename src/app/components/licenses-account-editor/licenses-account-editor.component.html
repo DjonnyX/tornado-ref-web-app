@@ -1,6 +1,6 @@
 <div class="editor">
 
-    <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
+    <ta-state-panel searchFieldClass="color-accent" [rights]="[0]" [refInfo]="refInfo" (search)="onSearch($event)"></ta-state-panel>
 
     <!--Editor Scroll View-->
     <div class="editor__scroll-view">
@@ -8,7 +8,7 @@
 
             <div class="entities-container entities-card-layout">
 
-                <div class="entity" *ngFor="let license of collection | search: searchPattern"
+                <div class="entity" *ngFor="let license of collection | search: searchPattern:undefined:searchFunction"
                     [class.disabled]="isLicenseDisabled(license)">
 
                     <!-- <div class="entity__control">
@@ -74,24 +74,13 @@
                         <div class="entity__body__content">
                             <div class="entity__body__container">
                                 <div class="entity__text-group">
-                                    <div *ngIf="!!license.tarif?.name" class="content__name">
-                                        {{license.tarif?.name}}
+                                    <div *ngIf="!!license?.subscription?.tarif?.name" class="content__name">
+                                        {{license.subscription?.tarif?.name}}
                                     </div>
-                                    <div *ngIf="!!license?.integration" class="entity__description"
+                                    <div *ngIf="!!license?.subscription?.integration" class="entity__description"
                                         style="text-transform: none;">
                                         {{localization.get("licenses_key-integration")}}:
-                                        {{license?.integration?.name}}
-                                    </div>
-                                    <div *ngIf="!!accountsMap" class="entity__description"
-                                        style="text-transform: none;">
-                                        <span>
-                                            {{localization.get("licenses_key-client")}}:
-                                            {{accountsMap[license.client]?.email}}
-                                        </span>
-                                        <span>
-                                            ({{accountsMap[license.client]?.lastName}}
-                                            {{accountsMap[license.client]?.firstName}})
-                                        </span>
+                                        {{license?.subscription?.integration?.name}}
                                     </div>
                                     <div class="entity__description" style="text-transform: none;">
                                         {{localization.get("licenses_key-serial-number")}}: <b>{{license.key}}</b>

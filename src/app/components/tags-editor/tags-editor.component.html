@@ -1,5 +1,5 @@
 <div class="editor">
-  <ta-state-panel searchFieldClass="color-accent" [refInfo]="refInfo" [layout]="layoutType"
+  <ta-state-panel searchFieldClass="color-accent" [rights]="[0, 1]" [refInfo]="refInfo" [layout]="layoutType"
     [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
     (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)"></ta-state-panel>
   <!--Editor Scroll View-->

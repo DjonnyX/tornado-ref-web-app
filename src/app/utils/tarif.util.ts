@@ -14,6 +14,6 @@ export const formatTarifModel = (model: ITarif): ITarif => {
     }
 }
 
-export const formatTarifCostByDevices = (prices: Array<ITarifDiscountByDevices>): string => {
-    return prices?.map(v => `${(v.cost * 0.01).toFixed(2)} за ${v.largeOrEqual} и более устройств; `).join("; ");
+export const formatTarifCostByDevices = (prices: Array<ITarifDiscountByDevices>, currencySymbol: string = "₽"): string => {
+    return prices?.map(v => `${(v.cost * 0.01).toFixed(2)}${currencySymbol} за ${v.largeOrEqual} и более устройств`).join("; ");
 }
