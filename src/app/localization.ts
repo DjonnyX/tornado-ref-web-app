@@ -193,6 +193,7 @@ const LOCALIZATION = {
         "menu_settings": "Настройки",
         "menu_integrations": "Интеграции",
         "menu_licenses": "Лицензии",
+        "menu_subscriptions": "Подписки",
         "menu_applications": "Приложения",
         "menu_tarifs": "Тарифы",
         "menu_user-settings": "Настройки",
@@ -268,6 +269,12 @@ const LOCALIZATION = {
         "licenses_key-integration": "Интеграция",
         "licenses_no-licenses": "Лицензии отсутствуют",
         "licenses_add-new": "Добавить лицензию",
+        // subscriptions
+        "subscriptions_key-devices": "Устройства",
+        "subscriptions_key-client": "Клиент",
+        "subscriptions_key-integration": "Интеграция",
+        "subscriptions_no-licenses": "Подписки отсутствуют",
+        "subscriptions_add-new": "Добавить подписку",
         // tarifs
         "tarifs_no-tarifs": "Тарифы отсутствуют",
         "tarifs_add-new": "Добавить тариф",
@@ -524,6 +531,7 @@ const LOCALIZATION = {
         "menu_settings": "Settings",
         "menu_integrations": "Integrations",
         "menu_licenses": "Licenses",
+        "menu_subscriptions": "Subscriptions",
         "menu_applications": "Apps",
         "menu_tarifs": "Tarifs",
         "menu_user-settings": "Settings",
@@ -599,6 +607,12 @@ const LOCALIZATION = {
         "licenses_key-integration": "integration",
         "licenses_no-licenses": "No licenses",
         "licenses_add-new": "Add a license",
+        // subscriptions
+        "subscriptions_key-devices": "Devices",
+        "subscriptions_key-client": "Client",
+        "subscriptions_key-integration": "integration",
+        "subscriptions_no-licenses": "No subscriptions",
+        "subscriptions_add-new": "Add a subscription",
         // license types
         "tarifs_no-tarifs": "No tarifs",
         "tarifs_add-new": "Add a tarif",

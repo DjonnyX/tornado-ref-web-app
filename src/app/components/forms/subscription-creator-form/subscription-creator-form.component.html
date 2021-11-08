@@ -1,0 +1,148 @@
+<form *ngIf="isEditMode && !isEdit; else editForm" (keydown)="onEnterSubmit($event)" autocomplete="off">
+    <div style="width: 100%;">
+        <div>
+            <h2 class="form-header">
+                Информация о лицензии
+            </h2>
+
+            <div class="form__main-options">
+                <div class="form__block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.applicationName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.tarifName"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.trialPeriod"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.dateStart"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.dateEnd"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.price"></ta-key-value>
+                    </div>
+                </div>
+
+                <h2 class="form-header">
+                    Интеграция
+                </h2>
+
+                <div class="form__block" *ngIf="!!data">
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.integration"></ta-key-value>
+                    </div>
+
+                    <div class="form-item full-width">
+                        <ta-key-value [data]="data.integrationVersion"></ta-key-value>
+                    </div>
+                </div>
+
+                <h2 class="form-header">
+                    Устройство
+                </h2>
+
+                <ng-container *ngIf="!!data && !data?.licenses?.length; else licensesInfo">
+                    <div>
+                        Лицензии не найдены.
+                    </div>
+                </ng-container>
+                <ng-template #licensesInfo>
+                    <div *ngFor="let license of data?.licenses">
+                        <div class="form__block">
+                            <div class="form-item full-width">
+                                <ta-key-value [data]="license.key"></ta-key-value>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+    <div class="form__submit" align="end">
+        <button class="button-create button__text" (click)="onCancel()">Закрыть</button>
+        <button class="button-create button__text" (click)="onEdit()">
+            Редактировать
+        </button>
+    </div>
+</form>
+
+<ng-template #editForm>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+        <div style="width: 100%;">
+            <div>
+                <h2 class="form-header">
+                    Информация о лицензии
+                </h2>
+
+                <div class="form__main-options">
+                    <div class="form__input-block">
+                        <div class="form-item">
+
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Клиент</mat-label>
+                                <mat-select [formControl]="ctrlAccount" required>
+                                    <mat-option *ngFor="let account of accounts" [value]="account.id">
+                                        <span>
+                                            {{account.email}} ({{account.lastName}} {{account.firstName}})
+                                        </span>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <div class="form-item">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Тариф</mat-label>
+                                    <mat-select [formControl]="ctrlTarif" required>
+                                        <mat-option *ngFor="let tarif of tarifs" [value]="tarif.id">
+                                            <span>
+                                                {{tarif.name}}
+                                            </span>
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <mat-form-field class="full-width" appearance="outline">
+                                <mat-label>Состояние</mat-label>
+                                <mat-select [formControl]="ctrlStatus" required>
+                                    <mat-option *ngFor="let subscriptionState of subscriptionStates"
+                                        [value]="subscriptionState.value">
+                                        <span>
+                                            {{subscriptionState.name}}
+                                        </span>
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <div class="form-item">
+                                <mat-form-field class="full-width" appearance="outline">
+                                    <mat-label>Количество устройств</mat-label>
+                                    <input matInput type="number" [formControl]="ctrlDevices" required>
+                                    <mat-error *ngIf="ctrlDevices.hasError('required')">
+                                        <strong>обязательное</strong>
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form__submit" align="end">
+            <button class="button-create button__text" (click)="onEditCancel()">Отменить</button>
+            <button type="submit" class="button-create button__text" [disabled]="!form.valid">{{isEditMode ? 'Сохранить'
+                : 'Создать'}}</button>
+        </div>
+    </form>
+</ng-template>

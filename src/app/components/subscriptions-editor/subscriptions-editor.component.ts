@@ -3,19 +3,19 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IAccount, IIntegration, ILicense, IRef } from '@djonnyx/tornado-types';
+import { IAccount, IIntegration, ISubscription, IRef } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
 import { SubscriptionStatuses } from '@djonnyx/tornado-types/dist/enums/SubscriptionStatuses';
 
 @Component({
-  selector: 'ta-licenses-editor-component',
-  templateUrl: './licenses-editor.component.html',
-  styleUrls: ['./licenses-editor.component.scss'],
+  selector: 'ta-subscriptions-editor-component',
+  templateUrl: './subscriptions-editor.component.html',
+  styleUrls: ['./subscriptions-editor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LicensesEditorComponent extends BaseComponent implements OnInit, OnDestroy {
+export class SubscriptionsEditorComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  @Input() collection: Array<ILicense>;
+  @Input() collection: Array<ISubscription>;
 
   private _integrations: Array<IIntegration>;
   @Input() set integrations(v: Array<IIntegration>) {
@@ -51,11 +51,11 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
 
   @Output() create = new EventEmitter<void>();
 
-  @Output() edit = new EventEmitter<ILicense>();
+  @Output() edit = new EventEmitter<ISubscription>();
 
-  @Output() view = new EventEmitter<ILicense>();
+  @Output() view = new EventEmitter<ISubscription>();
 
-  @Output() update = new EventEmitter<ILicense>();
+  @Output() update = new EventEmitter<ISubscription>();
 
   @Output() delete = new EventEmitter<string>();
 
@@ -78,31 +78,31 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
     return true;
   }
 
-  onToggleActive(event: Event, license: ILicense): void {
+  onToggleActive(event: Event, subscription: ISubscription): void {
     event.stopImmediatePropagation();
     event.preventDefault();
 
-    this.update.emit(license);
+    this.update.emit(subscription);
   }
 
   onCreate(): void {
     this.create.emit();
   }
 
-  onEdit(license: ILicense): void {
-    this.edit.emit(license);
+  onEdit(subscription: ISubscription): void {
+    this.edit.emit(subscription);
   }
 
-  onView(license: ILicense): void {
-    this.view.emit(license);
+  onView(subscription: ISubscription): void {
+    this.view.emit(subscription);
   }
 
-  onDelete(license: ILicense): void {
+  onDelete(subscription: ISubscription): void {
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "common_dialog-delete-license",
-          message: `#{"${license.key}" }common_action-will-be-permanently-deleted.`,
+          title: "common_dialog-delete-subscription",
+          message: `#{"${subscription.id}" }common_action-will-be-permanently-deleted.`,
         },
       });
 
@@ -111,7 +111,7 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
       takeUntil(this.unsubscribe$),
     ).subscribe(result => {
       if (result) {
-        this.delete.emit(license.id);
+        this.delete.emit(subscription.id);
       }
     });
   }
@@ -120,7 +120,7 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
     this.searchPattern = pattern;
   }
 
-  isLicenseDisabled(license: ILicense): boolean {
-    return license.subscription.status !== SubscriptionStatuses.ACTIVATED;
+  isSubscriptionDisabled(subscription: ISubscription): boolean {
+    return subscription.status !== SubscriptionStatuses.ACTIVATED;
   }
 }

@@ -156,16 +156,16 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
       },
       terminalLicenseType: {
         key: "Лицензия",
-        value: this._license?.tarif.application?.name || ' ---',
+        value: this._license?.subscription?.tarif?.application?.name || ' ---',
         link: this._license ? ["/admin/licenses-account/view", { id: this._license?.id }] : undefined,
       },
       terminalLicenseDateStart: {
         key: "Время начала лицензионного периода",
-        value: this._license ? moment(this._license?.dateStart).format("DD-MM-YYYY") : ' ---',
+        value: this._license ? moment(this._license?.subscription?.createdDate).format("DD-MM-YYYY") : ' ---',
       },
       terminalLicenseDateEnd: {
         key: "Время завершения лицензионного периода",
-        value: this._license ? moment(this._license?.dateEnd).format("DD-MM-YYYY") : ' ---',
+        value: this._license ? moment(this._license?.subscription?.expiredDate).format("DD-MM-YYYY") : ' ---',
       },
       // config
       terminalConfigTheme: {

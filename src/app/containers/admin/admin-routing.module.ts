@@ -18,6 +18,14 @@ const routes: Routes = [
 
 const ADMIN_ROUTES: Routes = [
   {
+    path: 'subscriptions',
+    loadChildren: () =>
+      import('@containers/subscriptions-editor/subscriptions-editor.module').then(
+        module => module.SubscriptionsEditorModule,
+      ),
+    canActivate: [AccessGuard, AllowAdminGuard],
+  },
+  {
     path: 'licenses',
     loadChildren: () =>
       import('@containers/licenses-editor/licenses-editor.module').then(

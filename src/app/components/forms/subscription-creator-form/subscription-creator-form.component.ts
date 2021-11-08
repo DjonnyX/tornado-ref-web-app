@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicense, ITarif, IAccount, ITerminal, IStore, ILicenseAccount } from '@djonnyx/tornado-types';
+import { IIntegration, ISubscription, ITarif, IAccount, ITerminal, IStore, ILicense } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 import { SubscriptionStatuses } from '@djonnyx/tornado-types/dist/enums/SubscriptionStatuses';
@@ -30,24 +30,23 @@ interface IData {
   trialPeriod: IKeyValue;
   dateEnd: IKeyValue;
   dateStart: IKeyValue;
-  key: IKeyValue;
   price: IKeyValue;
   state: IKeyValue;
   integration: IKeyValue;
   integrationVersion: IKeyValue;
-  terminalName: IKeyValue;
-  terminalStoreName: IKeyValue;
-  terminalStoreAddress: IKeyValue;
+  licenses: Array<{
+    key: IKeyValue;
+  }>;
 }
 
 @Component({
-  selector: 'ta-license-creator-form',
-  templateUrl: './license-creator-form.component.html',
-  styleUrls: ['./license-creator-form.component.scss']
+  selector: 'ta-subscription-creator-form',
+  templateUrl: './subscription-creator-form.component.html',
+  styleUrls: ['./subscription-creator-form.component.scss']
 })
-export class LicenseCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
+export class SubscriptionCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
-  public get licenseStates() {
+  public get subscriptionStates() {
     return SUBSCRIPTION_STATUSES;
   }
 
@@ -55,31 +54,15 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   ctrlTarif = new FormControl('', [Validators.required]);
 
-  ctrlDateStart = new FormControl(new Date());
-
-  ctrlDateEnd = new FormControl(new Date(Date.now() + 8640000));
+  ctrlDevices = new FormControl(1, [Validators.required]);
 
   ctrlAccount = new FormControl('', [Validators.required]);
 
-  ctrlState = new FormControl('', [Validators.required]);
-
-  range = new FormGroup({
-    start: this.ctrlDateStart,
-    end: this.ctrlDateEnd,
-  });
+  ctrlStatus = new FormControl('', [Validators.required]);
 
   @Input() tarifs: Array<ITarif>;
 
   @Input() accounts: Array<IAccount>;
-
-  private _terminal: ITerminal;
-  @Input() set terminal(v: ITerminal) {
-    if (this._terminal !== v) {
-      this._terminal = v;
-
-      this.generateData();
-    }
-  }
 
   private _store: IStore;
   @Input() set store(v: IStore) {
@@ -99,25 +82,31 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     }
   }
 
-  private _license: ILicenseAccount;
-  @Input() set license(license: ILicenseAccount) {
-    if (license !== this._license) {
-      this._license = license;
+  private _licenses: Array<ILicense>;
+  @Input() set licenses(v: Array<ILicense>) {
+    if (this._licenses !== v) {
+      this._licenses = v;
+
+      this.generateData();
+    }
+  }
+  get licenses() { return this._licenses; }
+
+  private _subscription: ISubscription;
+  @Input() set subscription(subscription: ISubscription) {
+    if (subscription !== this._subscription) {
+      this._subscription = subscription;
 
       this.generateData();
 
-      this.ctrlAccount.setValue(license?.client);
-      this.ctrlTarif.setValue(license?.subscription?.tarifId);
-      this.ctrlDateStart.setValue(license?.subscription?.createdDate);
-      this.ctrlDateEnd.setValue(license?.subscription?.expiredDate);
-      this.ctrlState.setValue(license?.subscription?.status);
-
-      this.range.get("start").setValue(license?.subscription?.createdDate);
-      this.range.get("end").setValue(license?.subscription?.expiredDate);
+      this.ctrlAccount.setValue(subscription?.client);
+      this.ctrlTarif.setValue(subscription?.tarifId);
+      this.ctrlDevices.setValue(subscription?.devices);
+      this.ctrlStatus.setValue(subscription?.status);
     }
   }
 
-  get license() { return this._license; }
+  get subscription() { return this._subscription; }
 
   private _data: IData;
 
@@ -127,11 +116,11 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   @Input() isEditMode: boolean;
 
-  @Output() save = new EventEmitter<ILicense>();
+  @Output() save = new EventEmitter<ISubscription>();
 
   @Output() cancel = new EventEmitter<void>();
 
-  @Output() update = new EventEmitter<ILicense>();
+  @Output() update = new EventEmitter<ISubscription>();
 
   isEdit = false;
 
@@ -141,9 +130,8 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     this.form = this._fb.group({
       client: this.ctrlAccount,
       tarifId: this.ctrlTarif,
-      dateStart: this.ctrlDateStart,
-      dateEnd: this.ctrlDateEnd,
-      state: this.ctrlState,
+      devices: this.ctrlDevices,
+      status: this.ctrlStatus,
     });
   }
 
@@ -151,57 +139,50 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     this._data = {
       applicationName: {
         key: "Приложение",
-        value: this._license?.subscription?.tarif?.application?.name || ' ---',
+        value: this._subscription?.tarif?.application?.name || ' ---',
       },
       tarifName: {
         key: "Тариф",
-        value: this._license?.subscription?.tarif?.name || ' ---',
+        value: this._subscription?.tarif?.name || ' ---',
       },
       trialPeriod: {
         key: "Бесплатный период",
-        value: `${this._license?.subscription?.tarif?.trialPeriodDuration} дней` || ' ---',
+        value: `${this._subscription?.tarif?.trialPeriodDuration} дней` || ' ---',
       },
       price: {
         key: "Цена",
-        value: formatTarifCostByDevices(this._license?.subscription?.tarif?.costByDevices) || ' ---',
+        value: formatTarifCostByDevices(this._subscription?.tarif?.costByDevices) || ' ---',
       },
       dateStart: {
         key: "Время начала лицензионного периода",
-        value: this._license ? moment(this._license?.subscription?.createdDate).format("DD-MM-YYYY") : ' ---',
+        value: this._subscription ? moment(this._subscription?.createdDate).format("DD-MM-YYYY") : ' ---',
       },
       dateEnd: {
         key: "Время завершения лицензионного периода",
-        value: this._license ? moment(this._license?.subscription?.expiredDate).format("DD-MM-YYYY") : ' ---',
-      },
-      key: {
-        key: "Лицензионный ключ",
-        value: this._license?.key || ' ---',
+        value: this._subscription ? moment(this._subscription?.expiredDate).format("DD-MM-YYYY") : ' ---',
       },
       state: {
         key: "Статус",
-        value: String(this._license?.subscription?.status) || ' ---',
+        value: String(this._subscription?.status) || ' ---',
       },
       integration: {
         key: "Название",
-        value: this._license?.subscription?.tarif?.integration?.name || ' ---',
+        value: this._subscription?.tarif?.integration?.name || ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
-        value: this._license?.subscription?.tarif?.integration?.version?.version || '---',
+        value: this._subscription?.tarif?.integration?.version?.version || '---',
       },
-      terminalName: {
-        key: "Название терминала",
-        value: this._terminal?.name || ' ---',
-      },
-      terminalStoreName: {
-        key: "Название магазина",
-        value: this._store?.name || ' ---',
-      },
-      terminalStoreAddress: {
-        key: "Адрес магазина",
-        value: this._store?.address || ' ---',
-      },
+      licenses: this._licenses?.map((license, index) => ({
+        key: {
+          key: `Лицензия_${index + 1}`,
+          value: license.key || "---",
+          link: ["/admin/licenses/edit", { id: license.id }],
+        }
+      })),
     }
+
+    console.log(this.data)
   }
 
   ngOnInit(): void { }
@@ -227,7 +208,7 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
     if (this.form.valid) {
 
       this.save.emit({
-        ...this._license,
+        ...this._subscription,
         ...this.form.value,
       });
 
@@ -241,9 +222,5 @@ export class LicenseCreatorFormComponent extends BaseComponent implements OnInit
 
   onCancel(): void {
     this.cancel.emit();
-  }
-
-  isBindToTerminal(): boolean {
-    return !!this._terminal;
   }
 }

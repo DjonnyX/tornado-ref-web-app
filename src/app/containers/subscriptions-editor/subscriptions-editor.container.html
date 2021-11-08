@@ -1,0 +1,9 @@
+<ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
+    <ta-subscriptions-editor-component [collection]="collection$ | async" [accounts]="accounts$ | async"
+        [refInfo]="refInfo$ | async" (create)="onCreate()" (update)="onUpdate($event)" (edit)="onEdit($event)"
+        (view)="onView($event)" (delete)="onDelete($event)">
+        <div class="main-footer__wrapper">
+            <ta-main-footer></ta-main-footer>
+        </div>
+    </ta-subscriptions-editor-component>
+</ta-query-progress>

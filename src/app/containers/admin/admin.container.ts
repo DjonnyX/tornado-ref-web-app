@@ -50,6 +50,12 @@ const ADMIN_MENU_ROUTES: Array<INavRoute> = [
         route: "licenses",
         right: UserRights.READ_LICENSES,
       },
+      {
+        icon: "license",
+        name: "menu_subscriptions", //"Подписки",
+        route: "subscriptions",
+        right: UserRights.READ_LICENSES,
+      },
     ]
   },
 ];
