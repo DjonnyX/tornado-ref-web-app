@@ -58,6 +58,8 @@ import integrationServerInfoReducer from "./integration-server-info.reducer";
 import refServerInfoReducer from "./ref-server-info.reducer";
 import rolesReducer from "./roles.reducer";
 import roleReducer from "./role.reducer";
+import subscriptionReducer from "./subscription.reducer";
+import subscriptionsReducer from "./subscriptions.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -117,6 +119,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taSettings: settingsReducer,
   taIntegrationServerInfo: integrationServerInfoReducer,
   taRefServerInfo: refServerInfoReducer,
+  taSubscription: subscriptionReducer,
+  taSubscriptions: subscriptionsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

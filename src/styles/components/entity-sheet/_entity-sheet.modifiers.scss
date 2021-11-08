@@ -20,12 +20,12 @@
 
         &--footer-border {
             @extend .entity-sheet__footer;
-            border-top: 1px solid $divider-color;
+            border-top: 1px solid $component-border-color;
         }
 
         &--submit {
             @extend .entity-sheet__footer;
-            border-top: 1px solid $divider-color;
+            border-top: 1px solid $component-border-color;
 
             .entity-sheet__footer-container {
 
@@ -35,6 +35,13 @@
                 @include flex-direction(row);
                 @include justify-content(flex-end);
             }
+        }
+    }
+
+    &__section {
+
+        &-container.border-bottom {
+            border-bottom: 1px solid $component-border-color;
         }
     }
 }

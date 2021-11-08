@@ -3,8 +3,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
 import { take, takeUntil } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
-import { IAccount, IIntegration, ILicense, IRef, LicenseStates } from '@djonnyx/tornado-types';
+import { IAccount, IIntegration, ILicense, IRef } from '@djonnyx/tornado-types';
 import { LocalizationService } from '@app/services/localization/localization.service';
+import { SubscriptionStatuses } from '@djonnyx/tornado-types/dist/enums/SubscriptionStatuses';
 
 @Component({
   selector: 'ta-licenses-editor-component',
@@ -120,6 +121,6 @@ export class LicensesEditorComponent extends BaseComponent implements OnInit, On
   }
 
   isLicenseDisabled(license: ILicense): boolean {
-    return license.state === LicenseStates.DEACTIVE || license.state === LicenseStates.NOT_ACTIVE;
+    return license.subscription.status !== SubscriptionStatuses.ACTIVATED;
   }
 }

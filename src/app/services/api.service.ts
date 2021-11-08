@@ -37,7 +37,7 @@ import {
   IUserChangeEmailResponse, IUserResetEmailResponse,
   IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse,
   IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse, IApplicationCreateResponse,
-  ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse,
+  ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse, ISubscriptionsGetResponse, ISubscriptionGetResponse, ISubscriptionUpdateResponse, ISubscriptionDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -47,7 +47,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole, ITarif
+  ILicense, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole, ITarif, ISubscription
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -1547,6 +1547,70 @@ export class ApiService {
   public deleteLicense(id: string): Observable<ILicenseDeleteResponse> {
     return this._http
       .delete<ILicenseDeleteResponse>(`api/v1/license/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+
+
+  
+
+  // subscriptions
+  public getSubscriptions(options?: IRequestOptions): Observable<ISubscriptionsGetResponse> {
+    return this._http
+      .get<ISubscriptionsGetResponse>("api/v1/subscriptions", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getSubscription(id: string, extended: boolean = false): Observable<ISubscriptionGetResponse> {
+    const params = !!extended ? {
+      withoutIntegrationServerInfo: "false",
+    } : {};
+    return this._http
+      .get<ISubscriptionGetResponse>(`api/v1/subscriptions/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params,
+      });
+  }
+
+  public createSubscription(subscription: ISubscription): Observable<ISubscriptionUpdateResponse> {
+    return this._http
+      .post<ISubscriptionUpdateResponse>(`api/v1/subscriptions`, subscription, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateSubscription(id: string, subscription: ISubscription): Observable<ISubscriptionUpdateResponse> {
+    return this._http
+      .put<ISubscriptionUpdateResponse>(`api/v1/subscriptions/${id}`, subscription, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public activateNextPeriodSubscription(id: string, params: any): Observable<ISubscriptionUpdateResponse> {
+    return this._http
+      .put<ISubscriptionUpdateResponse>(`api/v1/subscriptions/activateNextPeriod/${id}`, {}, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteSubscription(id: string): Observable<ISubscriptionDeleteResponse> {
+    return this._http
+      .delete<ISubscriptionDeleteResponse>(`api/v1/subscriptions/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

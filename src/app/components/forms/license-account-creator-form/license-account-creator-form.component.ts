@@ -1,23 +1,25 @@
 import { Component, OnInit, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { BaseComponent } from '@components/base/base-component';
-import { IIntegration, ILicenseAccount, ITarif, IAccount, LicenseStates, ITerminal, IStore } from '@djonnyx/tornado-types';
+import { IIntegration, ILicenseAccount, ITarif, IAccount, ITerminal, IStore } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
+import { SubscriptionStatuses } from '@djonnyx/tornado-types/dist/enums/SubscriptionStatuses';
+import { formatTarifCostByDevices } from '@app/utils/tarif.util';
 
 interface ISelectOption extends Array<{ name: string, value: number | string, link?: string }> { }
 
-const LICENSE_STATES: ISelectOption = [
+const SUBSCRIPTION_STATUSES: ISelectOption = [
   {
     name: "Неактивный",
-    value: LicenseStates.NOT_ACTIVE,
+    value: SubscriptionStatuses.NOT_ACTIVATED,
   },
   {
     name: "Деактивированный",
-    value: LicenseStates.DEACTIVE,
+    value: SubscriptionStatuses.DEACTIVATED,
   },
   {
     name: "Активный",
-    value: LicenseStates.ACTIVE,
+    value: SubscriptionStatuses.ACTIVATED,
   },
 ];
 
@@ -45,7 +47,7 @@ interface IData {
 export class LicenseAccountCreatorFormComponent extends BaseComponent implements OnInit, OnDestroy {
 
   public get licenseStates() {
-    return LICENSE_STATES;
+    return SUBSCRIPTION_STATUSES;
   }
 
   @Input() tarifs: Array<ITarif>;
@@ -107,27 +109,27 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
     this._data = {
       applicationName: {
         key: "Приложение",
-        value: this._license?.tarif?.application?.name || ' ---',
+        value: this._license?.subscription?.tarif?.application?.name || ' ---',
       },
       tarifName: {
         key: "Тариф",
-        value: this._license?.tarif?.name || ' ---',
+        value: this._license?.subscription?.tarif?.name || ' ---',
       },
       trialPeriod: {
         key: "Бесплатный период",
-        value: `${this._license?.tarif?.trialPeriodDuration} дней` || ' ---',
+        value: `${this._license?.subscription?.tarif?.trialPeriodDuration} дней` || ' ---',
       },
       price: {
         key: "Цена",
-        value: (this._license?.tarif?.costByDevices?.map(v => `${(v.cost * 0.01).toFixed(2)} за ${v.largeOrEqual} и более устройств`)) || ' ---',
+        value: formatTarifCostByDevices(this._license?.subscription?.tarif?.costByDevices) || ' ---',
       },
       dateStart: {
         key: "Время начала лицензионного периода",
-        value: this._license ? moment(this._license?.dateStart).format("DD-MM-YYYY") : ' ---',
+        value: this._license ? moment(this._license?.subscription?.createdDate).format("DD-MM-YYYY") : ' ---',
       },
       dateEnd: {
         key: "Время завершения лицензионного периода",
-        value: this._license ? moment(this._license?.dateEnd).format("DD-MM-YYYY") : ' ---',
+        value: this._license ? moment(this._license?.subscription?.expiredDate).format("DD-MM-YYYY") : ' ---',
       },
       key: {
         key: "Лицензионный ключ",
@@ -135,15 +137,15 @@ export class LicenseAccountCreatorFormComponent extends BaseComponent implements
       },
       state: {
         key: "Статус",
-        value: String(this._license?.state) || ' ---',
+        value: String(this._license?.subscription?.status) || ' ---',
       },
       integration: {
         key: "Название",
-        value: this._license?.tarif?.integration?.name || ' ---',
+        value: this._license?.subscription?.tarif?.integration?.name || ' ---',
       },
       integrationVersion: {
         key: "Версия интеграции",
-        value: this._license?.tarif?.integration?.version?.version || ' ---',
+        value: this._license?.subscription?.tarif?.integration?.version?.version || ' ---',
       },
       terminalName: {
         key: "Название терминала",

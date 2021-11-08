@@ -55,6 +55,8 @@ import { IDocumentationState } from './documentation.state';
 import { IRefServerInfoState } from './ref-server-info.state';
 import { ITarifState } from "./tarif.state";
 import { ITarifsState } from "./tarifs.state";
+import { ISubscriptionState } from "./subscription.state";
+import { ISubscriptionsState } from "./subscriptions.state";
 
 export interface IAppState {
     taUser: IUserState;
@@ -114,4 +116,6 @@ export interface IAppState {
     taSettings: ISettingsState,
     taIntegrationServerInfo: IIntegrationServerInfoState,
     taRefServerInfo: IRefServerInfoState,
+    taSubscription: ISubscriptionState,
+    taSubscriptions: ISubscriptionsState,
 }

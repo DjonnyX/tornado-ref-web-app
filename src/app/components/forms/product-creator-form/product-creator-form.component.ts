@@ -230,7 +230,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
           : ' ---',
       },
       systemTag: {
-        key: "Системный тэг",
+        key: "Группа товаров (системный тэг)*",
         value: this.systemTagsDisplayFn(this._product.systemTag),
       },
       weight: {
