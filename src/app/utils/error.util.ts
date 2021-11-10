@@ -13,5 +13,5 @@ export const localizeError = (message: string, localization: LocalizationService
         return "Сервер не отвечает. Попробуйте повторить запроз позже.";
     }
 
-    return "";
+    return message;
 }
