@@ -115,11 +115,11 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Сохранить изменения?",
-          message: "Описание содержит несохраненные изменения. Сохранить?",
+          title: "common_dialog-save-changes",
+          message: "common_dialog-want-to-keep-unsaved-changes",
           buttons: {
             confirm: {
-              label: "Да",
+              label: "common_action-yes",
             }
           }
         },
