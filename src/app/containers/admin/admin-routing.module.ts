@@ -125,6 +125,18 @@ const CMS_ROUTES: Routes = [
     canActivate: [AccessGuard],
   },
   {
+    path: 'schema-group-categories',
+    loadChildren: () =>
+      import('@containers/selectors-editor/selectors-editor.module').then(
+        module => module.SelectorsEditorModule,
+      ),
+    data: {
+      type: SelectorTypes.SCHEMA_GROUP_CATEGORY,
+      path: 'schema-group-categories',
+    },
+    canActivate: [AccessGuard],
+  },
+  {
     path: 'themes-kiosk',
     loadChildren: () =>
       import('@containers/app-themes-editor/app-themes-editor.module').then(

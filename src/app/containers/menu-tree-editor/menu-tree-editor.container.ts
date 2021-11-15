@@ -12,7 +12,7 @@ import { ProductsActions } from '@store/actions/products.action';
 import { takeUntil, map, filter } from 'rxjs/operators';
 import { BaseComponent } from '@components/base/base-component';
 import {
-  INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, SelectorTypes, ICurrency, ILanguage,
+  INode, ISelector, IProduct, IRef, IBusinessPeriod, IAsset, ICurrency, ILanguage,
   IOrderType, IStore
 } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';

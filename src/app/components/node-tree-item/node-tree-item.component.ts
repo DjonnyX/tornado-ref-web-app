@@ -11,7 +11,7 @@ import { SetupNodeContentDialogComponent } from '@components/dialogs/setup-node-
 import { NodeTreeModes } from '@components/node-tree/enums/node-tree-modes.enum';
 import {
   INode, IProduct, ISelector, IScenario, NodeTypes, IBusinessPeriod, IAsset, SelectorTypes, ICurrency,
-  ILanguage, IOrderType, IStore, ScenarioCommonActionTypes, IEntity
+  ILanguage, IOrderType, IStore, ScenarioCommonActionTypes
 } from '@djonnyx/tornado-types';
 import { EditScenarioDialogComponent } from '@components/dialogs/edit-scenario-dialog/edit-scenario-dialog.component';
 import { NodeScenarioTypes } from '@enums/node-scenario-types';
@@ -292,7 +292,7 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
   }
 
   hasAllowSubCreation(): boolean {
-    if ((this.mode === NodeTreeModes.MENU || this.mode === NodeTreeModes.PRODUCT || this.mode === NodeTreeModes.SELECTOR)
+    if ((this.mode === NodeTreeModes.MENU || this.mode === NodeTreeModes.PRODUCT || this.mode === NodeTreeModes.SELECTOR || this.mode === NodeTreeModes.SCHEMA)
       && this.node.type === NodeTypes.PRODUCT) {
       return false;
     }
@@ -364,6 +364,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
           this._router.navigate(["/admin/schema-categories/edit"], {
             queryParams: { id: this.node.contentId },
           });
+        } else if (selector.type === SelectorTypes.SCHEMA_GROUP_CATEGORY) {
+          this._router.navigate(["/admin/schema-group-categories/edit"], {
+            queryParams: { id: this.node.contentId },
+          });
         }
       }
     } else if (this.node.type === NodeTypes.SELECTOR_NODE) {
@@ -375,6 +379,10 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
             this._router.navigate(["/admin/menu-tree"]);
           } else if (selector.type === SelectorTypes.SCHEMA_CATEGORY) {
             this._router.navigate(["/admin/schema-categories/edit"], {
+              queryParams: { id: selector.id },
+            });
+          } else if (selector.type === SelectorTypes.SCHEMA_GROUP_CATEGORY) {
+            this._router.navigate(["/admin/schema-group-categories/edit"], {
               queryParams: { id: selector.id },
             });
           }
@@ -818,26 +826,30 @@ export class NodeTreeItemComponent extends BaseComponent implements OnInit, OnDe
         case NodeTypes.SELECTOR_NODE:
           return NodeScenarioTypes.CATEGORY;
       }
-    } else
-      if (this.mode === NodeTreeModes.PRODUCT) {
-        switch (this.node.type) {
-          case NodeTypes.PRODUCT:
-            return NodeScenarioTypes.PRODUCT_IN_SCHEMA;
-          case NodeTypes.SELECTOR:
-          case NodeTypes.SELECTOR_NODE:
-            return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
-          case NodeTypes.PRODUCT_JOINT:
-            return NodeScenarioTypes.PRODUCT;
-        }
-      } else
-        if (this.mode === NodeTreeModes.SELECTOR) {
-          switch (this.node.type) {
-            case NodeTypes.PRODUCT:
-              return NodeScenarioTypes.PRODUCT_IN_SCHEMA;
-            case NodeTypes.SELECTOR_JOINT:
-              return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
-          }
-        }
+    } else if (this.mode === NodeTreeModes.PRODUCT) {
+      switch (this.node.type) {
+        case NodeTypes.PRODUCT:
+          return NodeScenarioTypes.PRODUCT_IN_SCHEMA;
+        case NodeTypes.SELECTOR:
+        case NodeTypes.SELECTOR_NODE:
+          return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
+        case NodeTypes.PRODUCT_JOINT:
+          return NodeScenarioTypes.PRODUCT;
+      }
+    } else if (this.mode === NodeTreeModes.SELECTOR) {
+      switch (this.node.type) {
+        case NodeTypes.PRODUCT:
+          return NodeScenarioTypes.PRODUCT_IN_SCHEMA;
+        case NodeTypes.SELECTOR_JOINT:
+          return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
+      }
+    } else if (this.mode === NodeTreeModes.SCHEMA) {
+      switch (this.node.type) {
+        case NodeTypes.SELECTOR:
+        case NodeTypes.SELECTOR_NODE:
+          return NodeScenarioTypes.CATEGORY_IN_SCHEMA;
+      }
+    }
   }
 
   drop(event: CdkDragDrop<string[]>) {
