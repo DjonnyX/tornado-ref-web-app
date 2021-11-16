@@ -1,56 +1,67 @@
 <ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
   <div class="page-content">
     <div class="entity-options-editor">
-      <div class="entity-options-editor__back-button" (click)="onToBack()">
-        Назад
-      </div>
-      <div class="form">
-        <ta-query-progress class="query-progress-container" style="position: relative;"
-          [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-          <ta-selector-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-            [selector]="selector$ | async" [assets]="selectorAssets$ | async" [systemTags]="systemTags$ | async"
-            [resourcesGallery]="gallerySelectorAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
-            [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-            (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)"
-            (createSystemTag)="onCreateSystemTag($event)" (deleteSystemTag)="onDeleteSystemTag($event)">
-          </ta-selector-creator-form>
-        </ta-query-progress>
-      </div>
-
-      <ng-container
-        *ngIf="selectorType === SelectorTypes.SCHEMA_CATEGORY || selectorType === SelectorTypes.SCHEMA_GROUP_CATEGORY">
-        <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
-          <div class="form-header header-selectors__modifiers">
-            <ng-container *ngIf="selectorType === SelectorTypes.SCHEMA_CATEGORY">
-              <h2>Модификаторы</h2>
-              <div>
-                В этом блоке добавляются модификаторы.
-              </div>
-            </ng-container>
-            <ng-container *ngIf="selectorType === SelectorTypes.SCHEMA_GROUP_CATEGORY">
-              <h2>Схема модификаторов</h2>
-              <div>
-                В этом блоке добавляются группы модификаторов.
-              </div>
-            </ng-container>
-          </div>
-
-          <ta-query-progress class="query-progress-container" style="position: relative;"
-            [process]="isProcessHierarchy$ | async">
-            <div class="hierarchy-editor secondary">
-              <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false" [rootNodeId]="rootNodeId$ | async"
-                [nodes]="nodes$ | async" [products]="products$ | async" [selectors]="selectors$ | async"
-                [businessPeriods]="businessPeriods$ | async" [assets]="assets$ | async"
-                [currencies]="currencies$ | async" [languages]="languages$ | async" [orderTypes]="orderTypes$ | async"
-                [stores]="stores$ | async" [defaultLanguage]="defaultLanguage$ | async"
-                (create)="onCreateHierarchyNodes($event)" (update)="onUpdateHierarchyNode($event)"
-                (delete)="onDeleteHierarchyNode($event)"
-                [mode]="selectorType === SelectorTypes.SCHEMA_CATEGORY ? 'selector' : 'schema'">
-              </ta-node-tree>
+      <div class="entity-sheet-editor">
+        <!-- Header -->
+        <section class="entity-sheet-editor__header">
+          <!-- Back Button -->
+          <div class="entity-sheet-editor__back-button" (click)="onToBack()">
+            <div class="entity-sheet-editor__back-button-container">
+              <p>Назад к группам</p>
             </div>
+          </div>
+          <!-- Back Button -->
+        </section>
+        <!-- Header -->
+        <!-- Entity Sheet -->
+        <div class="form">
+          <ta-query-progress class="query-progress-container" style="position: relative;"
+            [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+            <ta-selector-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+              [selector]="selector$ | async" [assets]="selectorAssets$ | async" [systemTags]="systemTags$ | async"
+              [resourcesGallery]="gallerySelectorAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
+              [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+              (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)"
+              (createSystemTag)="onCreateSystemTag($event)" (deleteSystemTag)="onDeleteSystemTag($event)">
+            </ta-selector-creator-form>
           </ta-query-progress>
         </div>
-      </ng-container>
+
+        <ng-container
+          *ngIf="selectorType === SelectorTypes.SCHEMA_CATEGORY || selectorType === SelectorTypes.SCHEMA_GROUP_CATEGORY">
+          <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
+            <div class="form-header header-selectors__modifiers">
+              <ng-container *ngIf="selectorType === SelectorTypes.SCHEMA_CATEGORY">
+                <h2>Модификаторы</h2>
+                <div>
+                  В этом блоке добавляются модификаторы.
+                </div>
+              </ng-container>
+              <ng-container *ngIf="selectorType === SelectorTypes.SCHEMA_GROUP_CATEGORY">
+                <h2>Схема модификаторов</h2>
+                <div>
+                  В этом блоке добавляются группы модификаторов.
+                </div>
+              </ng-container>
+            </div>
+
+            <ta-query-progress class="query-progress-container" style="position: relative;"
+              [process]="isProcessHierarchy$ | async">
+              <div class="hierarchy-editor secondary">
+                <ta-node-tree searchFieldClass="color-primary" [hasShowRefInfo]="false"
+                  [rootNodeId]="rootNodeId$ | async" [nodes]="nodes$ | async" [products]="products$ | async"
+                  [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
+                  [assets]="assets$ | async" [currencies]="currencies$ | async" [languages]="languages$ | async"
+                  [orderTypes]="orderTypes$ | async" [stores]="stores$ | async"
+                  [defaultLanguage]="defaultLanguage$ | async" (create)="onCreateHierarchyNodes($event)"
+                  (update)="onUpdateHierarchyNode($event)" (delete)="onDeleteHierarchyNode($event)"
+                  [mode]="selectorType === SelectorTypes.SCHEMA_CATEGORY ? 'selector' : 'schema'">
+                </ta-node-tree>
+              </div>
+            </ta-query-progress>
+          </div>
+        </ng-container>
+      </div>
     </div>
     <div class="main-footer__wrapper">
       <ta-main-footer></ta-main-footer>
