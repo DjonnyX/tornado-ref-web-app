@@ -153,3 +153,8 @@ export * from './subscription-create-response.interface';
 export * from './subscription-update-response.interface';
 export * from './subscription-delete-response.interface';
 export * from './subscription-activate-next-period-response.interface';
+export * from './weight-units-get-response.interface';
+export * from './weight-unit-get-response.interface';
+export * from './weight-unit-create-response.interface';
+export * from './weight-unit-update-response.interface';
+export * from './weight-unit-delete-response.interface';
