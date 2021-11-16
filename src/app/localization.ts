@@ -216,7 +216,7 @@ const LOCALIZATION = {
         "menu_menu": "Меню",
         "menu_products": "Товары",
         "menu_tags": "Тэги",
-        "menu_weight-units": "Единицы измерения продукта",
+        "menu_menu-weight-units": "Единицы измерения товара",
         "menu_menu-groups": "Группы",
         "menu_menu-categories": "Группы меню",
         "menu_menu-schema-categories": "Группы модификаторов",
@@ -231,6 +231,9 @@ const LOCALIZATION = {
         "menu_order-types": "Типы заказов",
         "menu_business-periods": "Бизнес-периоды",
         "menu_languages": "Языки",
+        // weight units
+        "weight-units_add-new": "Добавить новую единицу измерения",
+        "weight-units_no-weight-units": "Нет единиц измерения",
         // dashboard
         "dashboard_user-profile": "Профиль пользователя",
         "dashboard_employees": "Сотрудники",
@@ -561,7 +564,7 @@ const LOCALIZATION = {
         "menu_menu": "Menu",
         "menu_products": "Products",
         "menu_tags": "Tags",
-        "menu_weight-units": "Weight units",
+        "menu_menu-weight-units": "Weight units",
         "menu_menu-groups": "Groups",
         "menu_menu-categories": "Menu groups",
         "menu_menu-schema-groups-categories": "Modifiers schems",
@@ -576,6 +579,9 @@ const LOCALIZATION = {
         "menu_order-types": "Order types",
         "menu_business-periods": "Business periods",
         "menu_languages": "Languages",
+        // weight units
+        "weight-units_add-new": "Add new",
+        "weight-units_no-weight-units": "No weight units",
         // dashboard
         "dashboard_user-profile": "User profile",
         "dashboard_employees": "Employees",

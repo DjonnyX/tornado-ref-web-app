@@ -34,10 +34,10 @@ export default class WeightUnitsEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(WeightUnitsActions.createRequest),
-            switchMap(({ weightunit }) => {
-                return this._apiService.createWeightUnit(formatWeightUnitModel(weightunit)).pipe(
+            switchMap(({ weightUnit }) => {
+                return this._apiService.createWeightUnit(formatWeightUnitModel(weightUnit)).pipe(
                     mergeMap(res => {
-                        return [WeightUnitsActions.createSuccess({ weightunit: res.data, meta: res.meta })];
+                        return [WeightUnitsActions.createSuccess({ weightUnit: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
                         return of(WeightUnitsActions.createError({ error: error.message }));
@@ -50,10 +50,10 @@ export default class WeightUnitsEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(WeightUnitsActions.updateRequest),
-            switchMap(({ id, weightunit }) => {
-                return this._apiService.updateWeightUnit(id, formatWeightUnitModel(weightunit)).pipe(
+            switchMap(({ id, weightUnit }) => {
+                return this._apiService.updateWeightUnit(id, formatWeightUnitModel(weightUnit)).pipe(
                     mergeMap(res => {
-                        return [WeightUnitsActions.updateSuccess({ weightunit: res.data, meta: res.meta })];
+                        return [WeightUnitsActions.updateSuccess({ weightUnit: res.data, meta: res.meta })];
                     }),
                     catchError((error: Error) => {
                         return of(WeightUnitsActions.updateError({ error: error.message }));

@@ -10,7 +10,7 @@ export const localizeError = (message: string, localization: LocalizationService
     } else if (message.indexOf("License method not allowed") === 0) {
         return "Метод не доступен.";
     } else if (message.indexOf("Gateway Timeout") > - 1) {
-        return "Сервер не отвечает. Попробуйте повторить запроз позже.";
+        return "Сервер не отвечает. Попробуйте повторить запрос позже.";
     }
 
     return message;

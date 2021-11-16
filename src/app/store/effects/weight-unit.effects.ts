@@ -21,7 +21,7 @@ export default class WeightUnitEffects {
             switchMap(({ id }) => {
                 return this._apiService.getWeightUnit(id).pipe(
                     mergeMap(res => {
-                        return [WeightUnitActions.getSuccess({ weightunit: res.data })];
+                        return [WeightUnitActions.getSuccess({ weightUnit: res.data })];
                     }),
                     catchError((error: Error) => {
                         return of(WeightUnitActions.getError({ error: error.message }));
@@ -34,10 +34,10 @@ export default class WeightUnitEffects {
     public readonly createRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(WeightUnitActions.createRequest),
-            switchMap(({ weightunit }) => {
-                return this._apiService.createWeightUnit(formatWeightUnitModel(weightunit)).pipe(
+            switchMap(({ weightUnit }) => {
+                return this._apiService.createWeightUnit(formatWeightUnitModel(weightUnit)).pipe(
                     mergeMap(res => {
-                        return [WeightUnitActions.createSuccess({ weightunit: res.data })];
+                        return [WeightUnitActions.createSuccess({ weightUnit: res.data })];
                     }),
                     catchError((error: Error) => {
                         return of(WeightUnitActions.createError({ error: error.message }));
@@ -50,10 +50,10 @@ export default class WeightUnitEffects {
     public readonly updateRequest = createEffect(() =>
         this._actions$.pipe(
             ofType(WeightUnitActions.updateRequest),
-            switchMap(({ id, weightunit }) => {
-                return this._apiService.updateWeightUnit(id, formatWeightUnitModel(weightunit)).pipe(
+            switchMap(({ id, weightUnit }) => {
+                return this._apiService.updateWeightUnit(id, formatWeightUnitModel(weightUnit)).pipe(
                     mergeMap(res => {
-                        return [WeightUnitActions.updateSuccess({ weightunit: res.data })];
+                        return [WeightUnitActions.updateSuccess({ weightUnit: res.data })];
                     }),
                     catchError((error: Error) => {
                         return of(WeightUnitActions.updateError({ error: error.message }));

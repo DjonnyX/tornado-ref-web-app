@@ -56,4 +56,12 @@ export namespace SettingsSelectors {
         selectSettings,
         state => state.nodeTreeInactiveVisibility,
     );
+    export const selectWeightUnitsLayout = createSelector(
+        selectSettings,
+        state => state.weightUnitsLayout,
+    );
+    export const selectWeightUnitsInactiveVisibility = createSelector(
+        selectSettings,
+        state => state.weightUnitsInactiveVisibility,
+    );
 }

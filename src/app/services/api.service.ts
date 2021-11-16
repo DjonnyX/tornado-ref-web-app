@@ -879,7 +879,7 @@ export class ApiService {
   // weightUnits
   public getWeightUnits(options?: IRequestOptions): Observable<IWeightUnitsGetResponse> {
     return this._http
-      .get<IWeightUnitsGetResponse>("api/v1/weight-unit", {
+      .get<IWeightUnitsGetResponse>("api/v1/weight-units", {
         headers: {
           "authorization": this.getAuthToken(),
         },

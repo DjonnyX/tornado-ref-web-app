@@ -44,11 +44,11 @@ export namespace WeightUnitsActions {
     // get
     export const getRequest = createAction(
         WeightUnitsActionTypes.GET_REQUEST,
-        props<{ weightunitId: string }>()
+        props<{ weightUnitId: string }>()
     );
     export const getSuccess = createAction(
         WeightUnitsActionTypes.GET_SUCCESS,
-        props<{ weightunit: IWeightUnit, meta: IMetaRefsResponse }>(),
+        props<{ weightUnit: IWeightUnit, meta: IMetaRefsResponse }>(),
     );
     export const getError = createAction(
         WeightUnitsActionTypes.GET_ERROR,
@@ -58,11 +58,11 @@ export namespace WeightUnitsActions {
     // create
     export const createRequest = createAction(
         WeightUnitsActionTypes.CREATE_REQUEST,
-        props<{ weightunit: IWeightUnit }>(),
+        props<{ weightUnit: IWeightUnit }>(),
     );
     export const createSuccess = createAction(
         WeightUnitsActionTypes.CREATE_SUCCESS,
-        props<{ weightunit: IWeightUnit, meta: IMetaRefsResponse }>(),
+        props<{ weightUnit: IWeightUnit, meta: IMetaRefsResponse }>(),
     );
     export const createError = createAction(
         WeightUnitsActionTypes.CREATE_ERROR,
@@ -72,11 +72,11 @@ export namespace WeightUnitsActions {
     // update
     export const updateRequest = createAction(
         WeightUnitsActionTypes.UPDATE_REQUEST,
-        props<{ id: string, weightunit: IWeightUnit }>(),
+        props<{ id: string, weightUnit: IWeightUnit }>(),
     );
     export const updateSuccess = createAction(
         WeightUnitsActionTypes.UPDATE_SUCCESS,
-        props<{ weightunit: IWeightUnit, meta: IMetaRefsResponse }>(),
+        props<{ weightUnit: IWeightUnit, meta: IMetaRefsResponse }>(),
     );
     export const updateError = createAction(
         WeightUnitsActionTypes.UPDATE_ERROR,

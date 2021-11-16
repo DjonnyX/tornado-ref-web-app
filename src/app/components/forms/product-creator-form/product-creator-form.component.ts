@@ -5,7 +5,7 @@ import * as _ from "lodash";
 import { BaseComponent } from '@components/base/base-component';
 import {
   IProduct, ITag, IAsset, ICurrency, IPrice, IProductContents, IProductContentsItem,
-  ILanguage, ITagContentsItem, ISystemTag
+  ILanguage, ITagContentsItem, ISystemTag, IWeightUnit, IWeightUnitContents, IWeightUnitContentsItem
 } from '@djonnyx/tornado-types';
 import { IFileUploadEvent } from '@models';
 import { IFileUploadEntityEvent, IAssetUploadEvent } from '@app/models/file-upload-event.model';
@@ -40,6 +40,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   ctrlSystemTag = new FormControl();
 
   ctrlWeight = new FormControl(0);
+
+  ctrlWeightUnit = new FormControl();
 
   ctrlPrices = new FormControl([]);
 
@@ -107,6 +109,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       this.ctrlSystemTag.setValue(product.systemTag);
       this.ctrlWeight.setValue(product.weight || 0);
       this.ctrlPrices.setValue(product.prices);
+      this.ctrlWeightUnit.setValue(product.weightUnitId);
       // this.ctrlReceipt.setValue(product.receipt);
 
       this.resetInitState();
@@ -153,6 +156,20 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
   get tagList() { return this._tagList; }
 
+  private _weightUnitsDictionary: ICollectionDictionary<IWeightUnit>;
+
+  private _weightUnits: Array<IWeightUnit>;
+  @Input() set weightUnits(v: Array<IWeightUnit>) {
+    if (this._weightUnits !== v) {
+      this._weightUnits = v;
+
+      this._weightUnitsDictionary = !!v ? getMapOfCollection(v, "id") : {};
+
+      this.generateData();
+    }
+  }
+  get weightUnits() { return this._weightUnits; }
+
   @Output() save = new EventEmitter<IProduct>();
 
   @Output() cancel = new EventEmitter<void>();
@@ -183,6 +200,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   private _initState: any;
 
+  weightPlaceholder: string;
+
   private _isDirty = false;
   get isDirty() { return this._isDirty; }
 
@@ -204,6 +223,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       tags: this.ctrlTags,
       systemTag: this.ctrlSystemTag,
       weight: this.ctrlWeight,
+      weightUnitId: this.ctrlWeightUnit,
       prices: this.ctrlPrices,
       receipt: this.ctrlReceipt,
     });
@@ -214,6 +234,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       !this._defaultLanguage || !this._systemTags) {
       return;
     }
+
+    this.resetWeightPlaceholder(this._product.weightUnitId);
 
     this._data = {
       tags: {
@@ -236,8 +258,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
         value: this.systemTagsDisplayFn(this._product.systemTag),
       },
       weight: {
-        key: "Вес",
-        value: `${this._product?.weight || 0}г`,
+        key: this.weightPlaceholder,
+        value: `${this._product?.weight || 0} ${this.getWeightUnitNameById(this._product?.weightUnitId)}`,
       },
     };
   }
@@ -283,12 +305,40 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
       }),
     );
 
+    this.ctrlWeightUnit.valueChanges.pipe(
+      takeUntil(this.unsubscribe$),
+    ).subscribe(v => {
+      this.resetWeightPlaceholder(v);
+    });
+
     this.resetInitState();
+  }
+
+  private resetWeightPlaceholder(id: string): void {
+    this.weightPlaceholder = `Юниты (${this.getWeightUnitNameById(id)})`;
   }
 
   private getSelectedSystemTag() {
     const systemTagInput = this.ctrlSystemTag.value;
     return this.systemTags.find(t => t.name.toLowerCase() === systemTagInput?.toLowerCase() || t.id === systemTagInput);
+  }
+
+  getWeightUnitContent(weightunit: IWeightUnit): IWeightUnitContentsItem {
+    return !!this._defaultLanguage ? weightunit?.contents?.[this._defaultLanguage.code] : undefined;
+  }
+
+  getWeightUnitName(weightunit: IWeightUnit): string {
+    const tagContent = this.getWeightUnitContent(weightunit);
+    return tagContent?.name || "";
+  }
+
+  getWeightUnitContentById(weightunitId: string): IWeightUnitContentsItem {
+    return !!this._defaultLanguage ? this._weightUnitsDictionary[weightunitId]?.contents?.[this._defaultLanguage.code] : undefined;
+  }
+
+  getWeightUnitNameById(weightunitId: string): string {
+    const tagContent = this.getWeightUnitContentById(weightunitId);
+    return tagContent?.name || "";
   }
 
   private getRawValue() {
@@ -354,6 +404,8 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
 
   private onCreateNewSystemTag(): void {
     if (!this.isExistsSystemTag() && this.ctrlSystemTag.value) {
+      this._isDirty = true;
+
       this.createSystemTag.emit({
         name: this.ctrlSystemTag.value,
         extra: {
@@ -502,6 +554,10 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   onChangeTags(): void {
+    this._isDirty = true;
+  }
+
+  onChangeUnits(): void {
     this._isDirty = true;
   }
 

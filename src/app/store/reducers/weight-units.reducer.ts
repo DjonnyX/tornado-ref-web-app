@@ -14,7 +14,7 @@ export const initialState: IWeightUnitsState = {
     collection: undefined,
 };
 
-const weightunitsReducer = createReducer(
+const weightUnitsReducer = createReducer(
     initialState,
     on(WeightUnitsActions.clear, state => {
         return {
@@ -91,22 +91,22 @@ const weightunitsReducer = createReducer(
             loading: false,
         };
     }),
-    on(WeightUnitsActions.createSuccess, (state, { weightunit, meta }) => {
+    on(WeightUnitsActions.createSuccess, (state, { weightUnit, meta }) => {
         return {
             ...state,
-            collection: [...state.collection, weightunit],
+            collection: [...state.collection, weightUnit],
             meta,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(WeightUnitsActions.updateSuccess, (state, { weightunit, meta }) => {
-        const existsWeightUnitIndex = state.collection.findIndex(p => p.id === weightunit.id);
+    on(WeightUnitsActions.updateSuccess, (state, { weightUnit, meta }) => {
+        const existsWeightUnitIndex = state.collection.findIndex(p => p.id === weightUnit.id);
         let collection = [...state.collection];
         if (existsWeightUnitIndex > -1) {
             collection.splice(existsWeightUnitIndex, 1);
-            collection.splice(existsWeightUnitIndex, 0, weightunit);
+            collection.splice(existsWeightUnitIndex, 0, weightUnit);
         }
         return {
             ...state,
@@ -134,4 +134,4 @@ const weightunitsReducer = createReducer(
     }),
 );
 
-export default weightunitsReducer;
+export default weightUnitsReducer;

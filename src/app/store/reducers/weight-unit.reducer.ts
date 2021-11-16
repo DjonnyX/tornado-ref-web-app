@@ -64,28 +64,28 @@ const weightUnitReducer = createReducer(
             loading: false,
         };
     }),
-    on(WeightUnitActions.getSuccess, (state, { weightunit }) => {
+    on(WeightUnitActions.getSuccess, (state, { weightUnit }) => {
         return {
             ...state,
-            weightunit,
+            weightUnit,
             error: undefined,
             isGetProcess: false,
             loading: false,
         };
     }),
-    on(WeightUnitActions.createSuccess, (state, { weightunit }) => {
+    on(WeightUnitActions.createSuccess, (state, { weightUnit }) => {
         return {
             ...state,
-            weightunit,
+            weightUnit,
             error: undefined,
             isCreateProcess: false,
             loading: false,
         };
     }),
-    on(WeightUnitActions.updateSuccess, (state, { weightunit }) => {
+    on(WeightUnitActions.updateSuccess, (state, { weightUnit }) => {
         return {
             ...state,
-            weightunit,
+            weightUnit,
             error: undefined,
             isUpdateProcess: false,
             loading: false,

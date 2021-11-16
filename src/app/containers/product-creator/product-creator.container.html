@@ -17,11 +17,12 @@
                 <ta-query-progress class="query-progress-container" style="position: relative;"
                     [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
                     <ta-product-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-                        [product]="product$ | async" [tagList]="tags$ | async" [assets]="productAssets$ | async"
-                        [resourcesGallery]="galleryProductAssets$ | async" [currencies]="currencies$ | async"
-                        [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-                        [systemTags]="systemTags$ | async" (save)="onMainOptionsSave($event)"
-                        (cancel)="onMainOptionsCancel()" (uploadMainResource)="onMainResourceUpload($event)"
+                        [weightUnits]="weightUnits$ | async" [product]="product$ | async" [tagList]="tags$ | async"
+                        [assets]="productAssets$ | async" [resourcesGallery]="galleryProductAssets$ | async"
+                        [currencies]="currencies$ | async" [defaultLanguage]="defaultLanguage$ | async"
+                        [languages]="languages$ | async" [systemTags]="systemTags$ | async"
+                        (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+                        (uploadMainResource)="onMainResourceUpload($event)"
                         (uploadIconResource)="onIconResourceUpload($event)" (uploadAsset)="onAssetUpload($event)"
                         (updateAsset)="onAssetUpdate($event)" (deleteAsset)="onAssetDelete($event)"
                         (createSystemTag)="onCreateSystemTag($event)" (deleteSystemTag)="onDeleteSystemTag($event)">

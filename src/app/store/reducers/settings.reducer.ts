@@ -17,6 +17,8 @@ export const initialState: ISettingsState = {
     appThemesLayout: LayoutTypes.CARD,
     appThemesInactiveVisibility: true,
     nodeTreeInactiveVisibility: true,
+    weightUnitsLayout: LayoutTypes.CARD,
+    weightUnitsInactiveVisibility: true,
 };
 
 const settingsReducer = createReducer(
@@ -103,6 +105,18 @@ const settingsReducer = createReducer(
         return {
             ...state,
             nodeTreeInactiveVisibility: showInactive,
+        };
+    }),
+    on(SettingsActions.changeWeightUnitsLayout, (state, { layout }) => {
+        return {
+            ...state,
+            weightUnitsLayout: layout,
+        };
+    }),
+    on(SettingsActions.changeWeightUnitsVisibility, (state, { showInactive }) => {
+        return {
+            ...state,
+            weightUnitsInactiveVisibility: showInactive,
         };
     }),
 );

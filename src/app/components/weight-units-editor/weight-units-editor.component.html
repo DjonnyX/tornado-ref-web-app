@@ -1,0 +1,63 @@
+<div class="editor">
+  <ta-state-panel searchFieldClass="color-accent" [rights]="[0, 1]" [refInfo]="refInfo" [layout]="layoutType"
+    [displayInactiveEntities]="displayInactiveEntities" (search)="onSearch($event)"
+    (changeLayout)="onSwitchLayout($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)"></ta-state-panel>
+  <!--Editor Scroll View-->
+  <div class="editor__scroll-view">
+    <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
+
+      <div class="entities-container entities-card-layout">
+        <div class="entity" *ngFor="let weightUnit of filteredCollection | search:searchPattern:defaultLanguage?.code">
+
+          <div class="entity__control">
+            <div class="entity__control__container">
+              <!-- ActionMenu -->
+              <button mat-icon-button [matMenuTriggerFor]="menu" class="entity__action-menu__button" aria-label="Menu">
+                <mat-icon class="icon">more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="onEdit(weightUnit)">
+                  <mat-icon>edit</mat-icon>
+                  <span>
+                    {{localization.get("common_action-edit")}}
+                  </span>
+                </button>
+                <button *ngIf="weightUnit.systemName === 'custom'" mat-menu-item (click)="onDelete(weightUnit)">
+                  <mat-icon>delete_forever</mat-icon>
+                  <span>
+                    {{localization.get("common_action-delete")}}
+                  </span>
+                </button>
+              </mat-menu>
+              <!-- ActionMenu -->
+            </div>
+          </div>
+          <div matRipple class="entity__body" (click)="onEdit(weightUnit)">
+            <div class="entity__body__content">
+              <div class="entity__body__container">
+                <div class="entity__text-group">
+                  <div class="entity__weightUnit">
+                    <div class="entity__weightUnit__name">
+                      {{getName(weightUnit)}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Panel Add Item -->
+        <div class="entities-bottom-panel">
+          <div class="entities-bottom-panel__container">
+            <button color="accent" class="button-add" (click)="onCreate()">
+              <div class="">
+                {{localization.get("weight-units_add-new")}}
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-content></ng-content>
+  </div>
+</div>

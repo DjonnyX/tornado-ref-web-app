@@ -199,6 +199,12 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
             right: UserRights.READ_PRODUCTS,
           },
           {
+            icon: "modifiers-group",
+            name: "menu_menu-weight-units", //"Единицы измерения",
+            route: "weight-units",
+            right: UserRights.READ_SELECTORS,
+          },
+          {
             icon: "tags",
             name: "menu_tags", //"Тэги",
             route: "tags",
@@ -227,7 +233,7 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
                 route: "schema-categories",
                 right: UserRights.READ_SELECTORS,
               },
-            ]
+            ],
           },
         ],
       },

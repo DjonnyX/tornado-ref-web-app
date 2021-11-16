@@ -137,6 +137,14 @@ const CMS_ROUTES: Routes = [
     canActivate: [AccessGuard],
   },
   {
+    path: 'weight-units',
+    loadChildren: () =>
+      import('@containers/weight-units-editor/weight-units-editor.module').then(
+        module => module.WeightUnitsEditorModule,
+      ),
+    canActivate: [AccessGuard],
+  },
+  {
     path: 'themes-kiosk',
     loadChildren: () =>
       import('@containers/app-themes-editor/app-themes-editor.module').then(

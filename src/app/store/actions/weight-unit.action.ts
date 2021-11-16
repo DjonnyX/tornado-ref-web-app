@@ -25,7 +25,7 @@ export namespace WeightUnitActions {
     );
     export const getSuccess = createAction(
         WeightUnitActionTypes.GET_SUCCESS,
-        props<{ weightunit: IWeightUnit }>(),
+        props<{ weightUnit: IWeightUnit }>(),
     );
     export const getError = createAction(
         WeightUnitActionTypes.GET_ERROR,
@@ -35,11 +35,11 @@ export namespace WeightUnitActions {
     // create
     export const createRequest = createAction(
         WeightUnitActionTypes.CREATE_REQUEST,
-        props<{ weightunit: IWeightUnit }>()
+        props<{ weightUnit: IWeightUnit }>()
     );
     export const createSuccess = createAction(
         WeightUnitActionTypes.CREATE_SUCCESS,
-        props<{ weightunit: IWeightUnit }>()
+        props<{ weightUnit: IWeightUnit }>()
     );
     export const createError = createAction(
         WeightUnitActionTypes.CREATE_ERROR,
@@ -49,11 +49,11 @@ export namespace WeightUnitActions {
     // update
     export const updateRequest = createAction(
         WeightUnitActionTypes.UPDATE_REQUEST,
-        props<{ id: string, weightunit: IWeightUnit }>()
+        props<{ id: string, weightUnit: IWeightUnit }>()
     );
     export const updateSuccess = createAction(
         WeightUnitActionTypes.UPDATE_SUCCESS,
-        props<{ weightunit: IWeightUnit }>()
+        props<{ weightUnit: IWeightUnit }>()
     );
     export const updateError = createAction(
         WeightUnitActionTypes.UPDATE_ERROR,

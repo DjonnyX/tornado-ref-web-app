@@ -245,6 +245,8 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onSystemTagSubmit(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
+      this._isDirty = true;
+
       event.stopImmediatePropagation();
       event.preventDefault();
 
