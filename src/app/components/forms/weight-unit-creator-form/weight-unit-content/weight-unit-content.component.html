@@ -1,4 +1,4 @@
-<div [ngClass]="{'tag-content': true, 'main-options-wrapper': isEditMode}">
+<div [ngClass]="{'weight-unit-content': true, 'main-options-wrapper': isEditMode}">
   <h2 class="form-header" *ngIf="!!data">
     {{data.name.value}}
   </h2>
@@ -7,11 +7,7 @@
     <ng-container *ngIf="!isEdit; else editFields">
       <div class="form__block" *ngIf="!!data">
         <div class="form-item full-width">
-          <ta-key-value [data]="data.description"></ta-key-value>
-        </div>
-
-        <div class="form-item full-width">
-          <ta-key-value [data]="data.color"></ta-key-value>
+          <ta-key-value [data]="data.name"></ta-key-value>
         </div>
       </div>
     </ng-container>
