@@ -80,9 +80,9 @@
 
     <div class="form__submit" align="end">
         <button class="button-create button__text" (click)="onCancel()">Закрыть</button>
-        <button class="button-create button__text" (click)="onEdit()">
+        <!--<button class="button-create button__text" (click)="onEdit()">
             Редактировать
-        </button>
+        </button>-->
     </div>
 </form>
 
@@ -140,10 +140,10 @@
             </div>
         </div>
 
-        <div class="form__submit" align="end">
+        <!--<div class="form__submit" align="end">
             <button class="button-create button__text" (click)="onEditCancel()">Отменить</button>
             <button type="submit" class="button-create button__text"
                 [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
-        </div>
+        </div>-->
     </form>
 </ng-template>

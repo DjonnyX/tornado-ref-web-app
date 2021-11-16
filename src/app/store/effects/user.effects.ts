@@ -28,7 +28,6 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.error(error.message);
             return of(UserActions.userSigninError({ error: error.message }));
           }),
         );
@@ -46,7 +45,6 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.error(error.message);
             return of(UserActions.userSignupParamsError({ error: error.message }))
           }),
         );
@@ -74,7 +72,6 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.error(error.message);
             return of(UserActions.userSignupError({ error: error.message }))
           }),
         );
@@ -107,7 +104,6 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.error(error.message);
             return of(UserActions.userForgotPasswordError({ error: error.message }))
           }),
         );
@@ -129,7 +125,6 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.error(error.message);
             return of(UserActions.userResetPasswordError({ error: error.message }))
           }),
         );
@@ -149,7 +144,6 @@ export default class UserEffects {
           map(v => v),
           catchError((error: Error) => {
             callback(error);
-            this._notificationService.error(error.message);
             return of(UserActions.userUpdateProfileError({ error: error.message }))
           }),
         );
@@ -168,7 +162,6 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.error(error.message);
             return of(UserActions.userChangeEmailError({ error: error.message }))
           }),
         );
@@ -190,7 +183,6 @@ export default class UserEffects {
           }),
           map(v => v),
           catchError((error: Error) => {
-            this._notificationService.error(error.message);
             return of(UserActions.userResetEmailError({ error: error.message }))
           }),
         );

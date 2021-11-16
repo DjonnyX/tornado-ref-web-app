@@ -121,7 +121,7 @@
     <div class="form__submit" align="end">
         <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
             <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
-                {{!!compiledTheme?.theme?.isDefault ? "Закрыть" : "Отменить"}}
+                {{!!compiledTheme?.theme?.isDefault ? localization.get("common_action-close") : localization.get("common_action-cancel")}}
             </button>
             <button *ngIf="!compiledTheme?.theme?.isDefault" type="submit"
                 class="button-create button__text" [disabled]="!form.valid">
@@ -130,7 +130,7 @@
         </ng-container>
         <ng-template #editButtons>
             <button class="button-create button__text" (click)="onCancel()">
-                {{!!compiledTheme?.theme?.isDefault ? "Закрыть" : "Отменить"}}
+                {{localization.get("common_action-close")}}
             </button>
             <button *ngIf="!compiledTheme?.theme?.isDefault" (click)="onEdit()"
                 class="button-create button__text">

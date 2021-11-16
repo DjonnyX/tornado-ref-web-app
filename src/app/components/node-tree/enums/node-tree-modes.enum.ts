@@ -11,4 +11,8 @@ export enum NodeTreeModes {
      * Группа модификаторов
      */
     SELECTOR = "selector",
+    /**
+     * Схема групп модификаторов
+     */
+    SCHEMA = "schema",
 }

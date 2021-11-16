@@ -4,6 +4,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { ICurrency } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   code: IKeyValue;
@@ -55,7 +56,10 @@ export class CurrencyCreatorFormComponent extends BaseComponent implements OnIni
     return this._data;
   }
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+    ) {
     super();
 
     this.form = this._fb.group({

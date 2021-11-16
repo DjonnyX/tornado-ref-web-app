@@ -1,10 +1,11 @@
-<div class="node-tree__editor xl-items-editor" [ngClass]="{'editor': mode !== 'product' && mode !== 'selector'}">
+<div class="node-tree__editor xl-items-editor"
+    [ngClass]="{'editor': mode !== 'product' && mode !== 'selector' && mode !== 'schema'}">
 
     <ta-state-panel [rights]="[0, 1]" [searchFieldClass]="searchFieldClass" [refInfo]="refInfo"
         [hasShowRefInfo]="hasShowRefInfo" [displayInactiveEntities]="displayInactiveEntities"
         (search)="onSearch($event)" (changeInactiveVisibility)="onShowHiddenEntities($event)"></ta-state-panel>
 
-    <div [ngClass]="{'editor__scroll-view': mode !== 'product' && mode !== 'selector'}">
+    <div [ngClass]="{'editor__scroll-view': mode !== 'product' && mode !== 'selector' && mode !== 'schema'}">
         <div class="editor__container">
 
             <div class="node-tree__stores">

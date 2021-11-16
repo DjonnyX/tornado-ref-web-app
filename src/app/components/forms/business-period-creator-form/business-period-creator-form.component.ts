@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { IBusinessPeriod, ILanguage, IBusinessPeriodContents, IBusinessPeriodContentsItem } from '@djonnyx/tornado-types';
 import { ScheduleComponent } from '@components/schedule/schedule.component';
 import { deepMergeObjects } from '@app/utils/object.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-business-period-creator-form',
@@ -66,7 +67,10 @@ export class BusinessPeriodCreatorFormComponent extends BaseComponent implements
 
   private _state: IBusinessPeriodContents = {};
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({});

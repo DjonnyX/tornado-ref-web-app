@@ -45,6 +45,8 @@ export class DashboardComponent extends BaseComponent implements OnInit, OnDestr
 
   @Input() schemesOfModifiers: Array<ISelector>;
 
+  @Input() schemeGroupsOfModifiers: Array<ISelector>;
+
   @Input() tags: Array<ITag>;
 
   // additional

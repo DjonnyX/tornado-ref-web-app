@@ -41,6 +41,7 @@ $s-size: px2em(48);
         position: relative;
         display: flex;
         justify-content: center;
+        box-sizing: border-box;
 
         .asset-preview__substract {
             position: absolute;

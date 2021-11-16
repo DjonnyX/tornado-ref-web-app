@@ -102,11 +102,24 @@
                                             </div>
                                         </div>
                                         <div class="form__input-block">
-                                            <div class="form-item">
+                                            <div class="form-item product-weight__form-control">
                                                 <mat-form-field class="full-width" appearance="outline">
-                                                    <mat-label>Вес, г</mat-label>
+                                                    <mat-label>{{
+                                                        weightPlaceholder
+                                                    }}
+                                                    </mat-label>
                                                     <input matInput type="number" [formControl]="ctrlWeight"
-                                                        placeholder="Вес, г">
+                                                        [placeholder]="weightPlaceholder">
+                                                </mat-form-field>
+                                                <mat-form-field class="full-width" appearance="outline">
+                                                    <mat-label>Юниты</mat-label>
+                                                    <mat-select [formControl]="ctrlWeightUnit"
+                                                        (change)="onChangeUnits()">
+                                                        <mat-option *ngFor="let weightUnit of weightUnits"
+                                                            [value]="weightUnit.id">
+                                                            {{getWeightUnitName(weightUnit)}}
+                                                        </mat-option>
+                                                    </mat-select>
                                                 </mat-form-field>
                                             </div>
                                         </div>
@@ -183,7 +196,7 @@
                         </ng-container>
                         <ng-template #editButtons>
                             <button class="button-create button__text" (click)="onCancel()">
-                                Закрыть
+                                {{localization.get("common_action-close")}}
                             </button>
                             <button (click)="onEdit()" class="button-create button__text">
                                 Редактировать

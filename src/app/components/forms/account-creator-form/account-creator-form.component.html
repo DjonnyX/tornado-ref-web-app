@@ -28,7 +28,9 @@
     </div>
 
     <div class="form__submit" align="end">
-        <button class="button-create button__text" (click)="onCancel()">Закрыть</button>
+        <button class="button-create button__text" (click)="onCancel()">
+            {{localization.get("common_action-close")}}
+        </button>
         <button class="button-create button__text" (click)="onEdit()">
             Редактировать
         </button>
@@ -141,7 +143,9 @@
         </div>
 
         <div class="form__submit" align="end">
-            <button class="button-create button__text" type="button" (click)="onEditCancel()">Отменить</button>
+            <button class="button-create button__text" type="button" (click)="onEditCancel()">
+                {{localization.get("common_action-cancel")}}
+            </button>
             <button type="submit" class="button-create button__text"
                 [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
         </div>

@@ -16,6 +16,8 @@ export enum SettingsActionTypes {
     CHANGE_APP_THEMES_LAYOUT = "TORNADO/setting/change-app-themes-layout",
     CHANGE_APP_THEMES_VISIBILITY = "TORNADO/setting/change-app-themes-visibility",
     CHANGE_NODE_TREE_NODES_VISIBILITY = "TORNADO/setting/change-nodes-tree-nodes-visibility",
+    CHANGE_WEIGHT_UNITS_LAYOUT = "TORNADO/setting/change-weight-units-layout",
+    CHANGE_WEIGHT_UNITS_VISIBILITY = "TORNADO/setting/change-weight-units-visibility",
 }
 
 export namespace SettingsActions {
@@ -72,6 +74,14 @@ export namespace SettingsActions {
     );
     export const changeNodesTreeNodesVisibility = createAction(
         SettingsActionTypes.CHANGE_NODE_TREE_NODES_VISIBILITY,
+        props<{ showInactive: boolean }>(),
+    );
+    export const changeWeightUnitsLayout = createAction(
+        SettingsActionTypes.CHANGE_WEIGHT_UNITS_LAYOUT,
+        props<{ layout: LayoutTypes }>(),
+    );
+    export const changeWeightUnitsVisibility = createAction(
+        SettingsActionTypes.CHANGE_WEIGHT_UNITS_VISIBILITY,
         props<{ showInactive: boolean }>(),
     );
 }

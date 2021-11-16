@@ -54,6 +54,8 @@ import IntegrationServerInfoEffects from "./integration-server-info.effects";
 import RefServerInfoEffects from "./ref-server-info.effects";
 import SubscriptionEffects from './subscription.effects';
 import SubscriptionsEffects from './subscriptions.effects';
+import WeightUnitEffects from './weight-unit.effects';
+import WeightUnitsEffects from './weight-units.effects';
 
 const rootEffects = [
   UserEffects,
@@ -112,5 +114,7 @@ const rootEffects = [
   RefServerInfoEffects,
   SubscriptionEffects,
   SubscriptionsEffects,
+  WeightUnitEffects,
+  WeightUnitsEffects,
 ];
 export default rootEffects;

@@ -57,6 +57,8 @@ import { ITarifState } from "./tarif.state";
 import { ITarifsState } from "./tarifs.state";
 import { ISubscriptionState } from "./subscription.state";
 import { ISubscriptionsState } from "./subscriptions.state";
+import { IWeightUnitState } from './weight-unit.state';
+import { IWeightUnitsState } from './weight-units.state';
 
 export interface IAppState {
     taUser: IUserState;
@@ -118,4 +120,6 @@ export interface IAppState {
     taRefServerInfo: IRefServerInfoState,
     taSubscription: ISubscriptionState,
     taSubscriptions: ISubscriptionsState,
+    taWeightUnit: IWeightUnitState;
+    taWeightUnits: IWeightUnitsState
 }

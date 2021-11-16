@@ -37,7 +37,7 @@ import {
   IUserChangeEmailResponse, IUserResetEmailResponse,
   IUserResetEmailRequest, IAccountCreateResponse, IAccountCreateRequest, IRolesGetResponse, IRoleGetResponse,
   IRoleCreateResponse, IRoleUpdateResponse, IRoleDeleteResponse, IRefServerInfoGetResponse, IApplicationCreateResponse,
-  ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse, ISubscriptionsGetResponse, ISubscriptionGetResponse, ISubscriptionUpdateResponse, ISubscriptionDeleteResponse,
+  ITarifsGetResponse, ITarifGetResponse, ITarifCreateResponse, ITarifUpdateResponse, ITarifDeleteResponse, ISubscriptionsGetResponse, ISubscriptionGetResponse, ISubscriptionUpdateResponse, ISubscriptionDeleteResponse, IWeightUnitsGetResponse, IWeightUnitGetResponse, IWeightUnitCreateResponse, IWeightUnitUpdateResponse, IWeightUnitDeleteResponse,
 } from './interfaces';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
@@ -47,7 +47,7 @@ import {
   IProduct, ISelector, INode, ITag, IBusinessPeriod, ICurrency, IOrderType, ILanguage,
   LanguageResourceTypes, OrderTypeResourceTypes, SelectorResourceTypes, ProductResourceTypes, ITranslation,
   TagResourceTypes, IAd, AdResourceTypes, IStore, ITerminal, IApplication, IIntegration, IAccount, ICheckue,
-  ILicense, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole, ITarif, ISubscription
+  ILicense, IRequestOptions, IAppTheme, TerminalTypes, ISystemTag, IEntityPosition, IIntegrationEditable, IRole, ITarif, ISubscription, IWeightUnit
 } from '@djonnyx/tornado-types';
 import { IOrderTypeAssetGetByLangResponse } from './interfaces/order-type-assets-get-by-lang-response.interface';
 import { ITagAssetGetByLangResponse } from './interfaces/tag-assets-get-by-lang-response.interface';
@@ -870,6 +870,53 @@ export class ApiService {
   public deleteTagAsset(tagId: string, langCode: string, assetId: string): Observable<ITagAssetDeleteResponse> {
     return this._http
       .delete<ITagAssetDeleteResponse>(`api/v1/tag/${tagId}/asset/${langCode}/${assetId}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  // weightUnits
+  public getWeightUnits(options?: IRequestOptions): Observable<IWeightUnitsGetResponse> {
+    return this._http
+      .get<IWeightUnitsGetResponse>("api/v1/weight-units", {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+        params: extractParams(options),
+      });
+  }
+
+  public getWeightUnit(id: string): Observable<IWeightUnitGetResponse> {
+    return this._http
+      .get<IWeightUnitGetResponse>(`api/v1/weight-unit/${id}`, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public createWeightUnit(weightUnit: IWeightUnit): Observable<IWeightUnitCreateResponse> {
+    return this._http
+      .post<IWeightUnitCreateResponse>("api/v1/weight-unit", weightUnit, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public updateWeightUnit(id: string, weightUnit: IWeightUnit): Observable<IWeightUnitUpdateResponse> {
+    return this._http
+      .put<IWeightUnitUpdateResponse>(`api/v1/weight-unit/${id}`, weightUnit, {
+        headers: {
+          "authorization": this.getAuthToken(),
+        },
+      });
+  }
+
+  public deleteWeightUnit(id: string): Observable<IWeightUnitDeleteResponse> {
+    return this._http
+      .delete<IWeightUnitDeleteResponse>(`api/v1/weight-unit/${id}`, {
         headers: {
           "authorization": this.getAuthToken(),
         },

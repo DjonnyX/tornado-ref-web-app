@@ -123,7 +123,7 @@ export class NodeTreeComponent implements OnInit {
     if (this._selectors !== v) {
       this._selectors = v;
       this._menuGroupsSelectors = v.filter(s => s.type === SelectorTypes.MENU_CATEGORY);
-      this._modifiersGroupsSelectors = v.filter(s => s.type === SelectorTypes.SCHEMA_CATEGORY);
+      this._modifiersGroupsSelectors = v.filter(s => [SelectorTypes.SCHEMA_CATEGORY, SelectorTypes.SCHEMA_GROUP_CATEGORY].indexOf(s.type) > -1);
 
       this.resetNodes();
 

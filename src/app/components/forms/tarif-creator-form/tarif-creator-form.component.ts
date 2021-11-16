@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { IApplication, ITarif, TarifPaymentPeriods, TerminalTypes } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-tarif-creator-form',
@@ -69,7 +70,10 @@ export class TarifCreatorFormComponent extends BaseComponent implements OnInit, 
 
   @Output() update = new EventEmitter<ITarif>();
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({

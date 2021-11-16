@@ -13,6 +13,7 @@ import { Observable } from 'rxjs/internal/Observable';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import { BehaviorSubject } from 'rxjs';
 import { IStoreRequest } from '@store/interfaces/store-request.interface';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   systemTag: IKeyValue;
@@ -140,7 +141,11 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     return this.systemTags?.find(t => t.id === value)?.name || value;
   }
 
-  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
+  constructor(
+    private _fb: FormBuilder,
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({
@@ -240,6 +245,8 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
 
   onSystemTagSubmit(event: KeyboardEvent): void {
     if (event.keyCode === 13) {
+      this._isDirty = true;
+
       event.stopImmediatePropagation();
       event.preventDefault();
 
@@ -299,11 +306,11 @@ export class SelectorCreatorFormComponent extends BaseComponent implements OnIni
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Сохранить изменения?",
-          message: "Описание содержит несохраненные изменения. Сохранить?",
+          title: "common_dialog-save-changes",
+          message: "common_dialog-want-to-keep-unsaved-changes",
           buttons: {
             confirm: {
-              label: "Да",
+              label: "common_action-yes",
             }
           }
         },

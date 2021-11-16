@@ -44,8 +44,6 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
 
   readonly SelectorTypes = SelectorTypes;
 
-  readonly selectors = new Array<ISelector>();
-
   isProcess$: Observable<boolean>;
 
   isProcessMainOptions$: Observable<boolean>;
@@ -71,6 +69,8 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
   nodes$: Observable<Array<INode>>;
 
   products$: Observable<Array<IProduct>>;
+
+  selectors$: Observable<Array<ISelector>>;
 
   orderTypes$: Observable<Array<IOrderType>>;
 
@@ -207,6 +207,10 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       select(MenuNodesSelectors.selectCollection),
     );
 
+    this.selectors$ = this._store.pipe(
+      select(SelectorsSelectors.selectCollection),
+    );
+
     this.products$ = this._store.pipe(
       select(ProductsSelectors.selectCollection),
     );
@@ -331,7 +335,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       filter(rootNodeId => !!rootNodeId),
     ).subscribe(rootNodeId => {
       // запрос дерева нодов по привязочному ноду
-      this._store.dispatch(MenuNodesActions.getAllRequest({ id: rootNodeId }));
+      this._store.dispatch(MenuNodesActions.getAllRequest({}));
       this._store.dispatch(SelectorAssetsActions.getAllRequest({ selectorId: this._selectorId }));
 
       // для изменения параметров маршрута
@@ -364,12 +368,17 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
       }
     ));
 
-    if (this._selectorType === SelectorTypes.SCHEMA_CATEGORY) {
+    if ([SelectorTypes.SCHEMA_CATEGORY, SelectorTypes.SCHEMA_GROUP_CATEGORY].indexOf(this._selectorType as SelectorTypes) > -1) {
       if (!this.isEditMode) {
         this._store.dispatch(MenuNodesActions.getAllRequest({}));
       }
 
-      this._store.dispatch(SelectorsActions.getAllRequest({}));
+      if (this._selectorType === SelectorTypes.SCHEMA_GROUP_CATEGORY) {
+        this._store.dispatch(SelectorsActions.getAllRequest({}));
+      } else {
+        this.selectors$ = of([]);
+      }
+
       this._store.dispatch(ProductsActions.getAllRequest({}));
       this._store.dispatch(BusinessPeriodsActions.getAllRequest({}));
       this._store.dispatch(TagsActions.getAllRequest({}));
@@ -387,13 +396,15 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
         this.orderTypes$,
         this.assets$,
         this.stores$,
+        this.selectors$,
         this.nodes$,
         this.systemTags$,
       ]).pipe(
         debounceTime(100),
-        map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, nodes, systemTags]) => {
+        map(([tags, currencies, products, businessPeriods, languages, defaultLanguage, orderTypes, assets, stores, selectors, nodes, systemTags]) => {
           return !!tags && !!currencies && !!products && !!businessPeriods && !!languages &&
-            !!defaultLanguage && !!orderTypes && !!assets && !!stores && !!nodes && !!systemTags
+            !!defaultLanguage && !!orderTypes && !!assets && !!stores &&
+            (this._selectorType !== SelectorTypes.SCHEMA_GROUP_CATEGORY || !!selectors) && !!nodes && !!systemTags
         }
         ),
       );
@@ -447,7 +458,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
     this._store.dispatch(LanguagesActions.clear());
     this._store.dispatch(SystemTagsActions.clear());
 
-    if (this._selectorType === SelectorTypes.SCHEMA_CATEGORY) {
+    if ([SelectorTypes.SCHEMA_CATEGORY, SelectorTypes.SCHEMA_GROUP_CATEGORY].indexOf(this._selectorType as SelectorTypes) > -1) {
       this._store.dispatch(ProductsActions.clear());
       this._store.dispatch(BusinessPeriodsActions.clear());
       this._store.dispatch(TagsActions.clear());

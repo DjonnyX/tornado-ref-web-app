@@ -60,6 +60,8 @@ import rolesReducer from "./roles.reducer";
 import roleReducer from "./role.reducer";
 import subscriptionReducer from "./subscription.reducer";
 import subscriptionsReducer from "./subscriptions.reducer";
+import weightUnitReducer from "./weight-unit.reducer";
+import weightUnitsReducer from "./weight-units.reducer";
 
 const rootReducer: ActionReducerMap<IAppState> = {
   taUser: userReducer,
@@ -121,6 +123,8 @@ const rootReducer: ActionReducerMap<IAppState> = {
   taRefServerInfo: refServerInfoReducer,
   taSubscription: subscriptionReducer,
   taSubscriptions: subscriptionsReducer,
+  taWeightUnit: weightUnitReducer,
+  taWeightUnits: weightUnitsReducer,
 };
 
 function localStorageSyncReducer(reducer: ActionReducer<any>): ActionReducer<any> {

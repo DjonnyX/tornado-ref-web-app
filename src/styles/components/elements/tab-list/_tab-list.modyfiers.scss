@@ -1,11 +1,10 @@
 .entity-sheet {
+  .tab-list {
 
-    .tab-list {
-
-        &__item:not(.selected, :hover) {
-            @include themify($themes) {
-                background-color: themed('backgroundColor');
-            }
-        }
+    &__item:not(.selected, :hover) {
+      @include themify($themes) {
+        background-color: themed('backgroundColor');
+      }
     }
+  }
 }

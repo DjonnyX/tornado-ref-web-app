@@ -6,6 +6,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import moment from 'moment';
 import { getTerminalTypeName } from '@app/utils/terminal.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   terminalName: IKeyValue;
@@ -109,7 +110,10 @@ export class TerminalCreatorFormComponent extends BaseComponent implements OnIni
 
   isEdit = false;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({

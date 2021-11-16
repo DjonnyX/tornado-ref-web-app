@@ -181,8 +181,6 @@ export class SubscriptionCreatorFormComponent extends BaseComponent implements O
         }
       })),
     }
-
-    console.log(this.data)
   }
 
   ngOnInit(): void { }
