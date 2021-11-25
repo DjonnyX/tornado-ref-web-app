@@ -5,6 +5,7 @@ import { takeUntil } from 'rxjs/operators';
 import { IStore, ITerminal } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
 import { getTerminalTypeName } from '@app/utils/terminal.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   storeName: IKeyValue;
@@ -61,7 +62,10 @@ export class StoreCreatorFormComponent extends BaseComponent implements OnInit, 
 
   isEdit = false;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+    ) {
     super();
 
     this.form = this._fb.group({

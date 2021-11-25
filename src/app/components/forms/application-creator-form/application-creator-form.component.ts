@@ -3,6 +3,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { IApplication, TerminalTypes } from '@djonnyx/tornado-types';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-application-creator-form',
@@ -35,7 +36,7 @@ export class ApplicationCreatorFormComponent extends BaseComponent implements On
   ctrlProductId = new FormControl('', [Validators.required]);
 
   ctrlDescription = new FormControl('');
-  
+
   ctrlVersion = new FormControl(null);
 
   private _application: IApplication;
@@ -59,7 +60,10 @@ export class ApplicationCreatorFormComponent extends BaseComponent implements On
 
   @Output() update = new EventEmitter<IApplication>();
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({

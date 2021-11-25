@@ -18,6 +18,14 @@ const routes: Routes = [
 
 const ADMIN_ROUTES: Routes = [
   {
+    path: 'subscriptions',
+    loadChildren: () =>
+      import('@containers/subscriptions-editor/subscriptions-editor.module').then(
+        module => module.SubscriptionsEditorModule,
+      ),
+    canActivate: [AccessGuard, AllowAdminGuard],
+  },
+  {
     path: 'licenses',
     loadChildren: () =>
       import('@containers/licenses-editor/licenses-editor.module').then(
@@ -114,6 +122,26 @@ const CMS_ROUTES: Routes = [
       type: SelectorTypes.SCHEMA_CATEGORY,
       path: 'schema-categories',
     },
+    canActivate: [AccessGuard],
+  },
+  {
+    path: 'schema-group-categories',
+    loadChildren: () =>
+      import('@containers/selectors-editor/selectors-editor.module').then(
+        module => module.SelectorsEditorModule,
+      ),
+    data: {
+      type: SelectorTypes.SCHEMA_GROUP_CATEGORY,
+      path: 'schema-group-categories',
+    },
+    canActivate: [AccessGuard],
+  },
+  {
+    path: 'weight-units',
+    loadChildren: () =>
+      import('@containers/weight-units-editor/weight-units-editor.module').then(
+        module => module.WeightUnitsEditorModule,
+      ),
     canActivate: [AccessGuard],
   },
   {

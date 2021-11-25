@@ -5,7 +5,7 @@ import { ProductsActions } from '@store/actions/products.action';
 import { Observable, combineLatest, of, BehaviorSubject } from 'rxjs';
 import {
   ProductsSelectors, SelectorsSelectors, ProductAssetsSelectors, BusinessPeriodsSelectors,
-  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors, MenuNodesSelectors, SystemTagsSelectors
+  AssetsSelectors, LanguagesSelectors, OrderTypesSelectors, StoresSelectors, MenuNodesSelectors, SystemTagsSelectors, WeightUnitsSelectors
 } from '@store/selectors';
 import { Router, ActivatedRoute } from '@angular/router';
 import { takeUntil, map, filter, switchMap } from 'rxjs/operators';
@@ -19,7 +19,7 @@ import { ProductSelectors } from '@store/selectors/product.selectors';
 import { ProductActions } from '@store/actions/product.action';
 import {
   IProduct, INode, ISelector, ITag, IBusinessPeriod, ICurrency, ProductResourceTypes, ILanguage,
-  IStore, IOrderType, ISystemTag
+  IStore, IOrderType, ISystemTag, IWeightUnit
 } from '@djonnyx/tornado-types';
 import { BusinessPeriodsActions } from '@store/actions/business-periods.action';
 import { AssetsActions } from '@store/actions/assets.action';
@@ -33,6 +33,7 @@ import { OrderTypesActions } from '@store/actions/order-types.action';
 import { MenuNodesActions } from '@store/actions/menu-nodes.action';
 import { SystemTagsActions } from '@store/actions/system-tags.action';
 import { IStoreRequest } from '@store/interfaces/store-request.interface';
+import { WeightUnitsActions } from '@store/actions/weight-units.action';
 
 @Component({
   selector: 'ta-product-creator',
@@ -80,6 +81,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
 
   languages$: Observable<Array<ILanguage>>;
 
+  weightUnits$: Observable<Array<IWeightUnit>>;
+
   defaultLanguage$: Observable<ILanguage>;
 
   isPrepareToConfigure$: Observable<boolean>;
@@ -104,6 +107,9 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     this.isEditMode = !!this._productId;
 
     this.isProcess$ = combineLatest([
+      this._store.pipe(
+        select(WeightUnitsSelectors.selectIsGetProcess),
+      ),
       this._store.pipe(
         select(ProductSelectors.selectIsGetProcess),
       ),
@@ -141,10 +147,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
         select(SystemTagsSelectors.selectLoading),
       ),
     ]).pipe(
-      map(([isGetProductProcess, isGetTagsProcess, isGetNodesProcess, isSelectorsProcess,
+      map(([isGetWeightUnitsProcess, isGetProductProcess, isGetTagsProcess, isGetNodesProcess, isSelectorsProcess,
         isProductsProcess, isBusinessPeriodsProcess, isAssetsProcess, isCurrenciesProcess,
         isLanguagesProcess, isOrderTypesProcess, isStoresGetProcess, isSystemTagsProcess]) =>
-        isGetProductProcess || isGetTagsProcess || isGetNodesProcess || isSelectorsProcess
+        isGetWeightUnitsProcess || isGetProductProcess || isGetTagsProcess || isGetNodesProcess || isSelectorsProcess
         || isProductsProcess || isBusinessPeriodsProcess || isAssetsProcess || isCurrenciesProcess
         || isLanguagesProcess || isOrderTypesProcess || isStoresGetProcess || isSystemTagsProcess),
     );
@@ -178,6 +184,10 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ]).pipe(
       map(([isGetProcess, isUpdateProcess, isDeleteProcess]) =>
         isGetProcess || isUpdateProcess || isDeleteProcess),
+    );
+
+    this.weightUnits$ = this._store.pipe(
+      select(WeightUnitsSelectors.selectCollection),
     );
 
     this.tags$ = this._store.pipe(
@@ -328,6 +338,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this._store.dispatch(ProductActions.getRequest({ id: this._productId }));
     }
 
+    this._store.dispatch(WeightUnitsActions.getAllRequest({}));
     this._store.dispatch(LanguagesActions.getAllRequest({}));
     this._store.dispatch(ProductsActions.getAllRequest({}));
     this._store.dispatch(SelectorsActions.getAllRequest({}));
@@ -353,6 +364,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
     ));
 
     const prepareMainRequests$ = combineLatest([
+      this.weightUnits$,
       this.tags$,
       this.currencies$,
       this.selectors$,
@@ -364,8 +376,8 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
       this.stores$,
       this.systemTags$,
     ]).pipe(
-      map(([tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets, stores, systemTags]) =>
-        !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages &&
+      map(([weightUnits, tags, currencies, selectors, products, businessPeriods, languages, defaultLanguage, assets, stores, systemTags]) =>
+        !!weightUnits && !!tags && !!currencies && !!selectors && !!products && !!businessPeriods && !!languages &&
         !!defaultLanguage && !!assets && !!stores && !!systemTags),
     );
 
@@ -387,6 +399,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
   ngOnDestroy(): void {
     super.ngOnDestroy();
 
+    this._store.dispatch(WeightUnitsActions.clear());
     this._store.dispatch(ProductActions.clear());
     this._store.dispatch(ProductsActions.clear());
     this._store.dispatch(ProductAssetsActions.clear());

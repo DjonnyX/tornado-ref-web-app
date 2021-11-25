@@ -4,3 +4,9 @@
 // .prices__wrapper {
 //     margin-bottom: px2em(20);
 // }
+
+
+.product-weight__form-control {
+    display: grid;
+    grid-template-columns: 1fr 92px;
+}

@@ -39,7 +39,7 @@
         </ng-container>
         <ng-template #editButtons>
             <button class="button-create button__text" (click)="onCancel()">
-                Отменить
+                {{localization.get("common_action-close")}}
             </button>
             <button (click)="onEdit()" class="button-create button__text">
                 Редактировать

@@ -14,4 +14,6 @@ export interface ISettingsState {
     appThemesLayout: LayoutTypes;
     appThemesInactiveVisibility: boolean;
     nodeTreeInactiveVisibility: boolean;
+    weightUnitsLayout: LayoutTypes;
+    weightUnitsInactiveVisibility: boolean;
 }

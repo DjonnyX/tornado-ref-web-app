@@ -358,11 +358,12 @@ export class ProductsEditorComponent extends BaseComponent implements OnInit, On
     const systemTag = event.item.data;
     collection.splice(previousIndex, 1);
     collection.splice(currentIndex, 0, systemTag);
+    const positions = collection.filter(st => !!st).map((st, index) => ({
+      id: st.id,
+      position: index,
+    }));
     this.repositionSystemTags.emit(
-      collection.filter(st => !!st).map((st, index) => ({
-        id: st.id,
-        position: index,
-      }))
+      positions
     );
   }
 }

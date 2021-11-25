@@ -67,6 +67,8 @@ export class DashboardContainer extends BaseComponent implements OnInit, OnDestr
 
   public schemesOfModifiers$: Observable<Array<ISelector>>;
 
+  public schemeGroupsOfModifiers$: Observable<Array<ISelector>>;
+  
   public tags$: Observable<Array<ITag>>;
 
   // additional
@@ -239,6 +241,11 @@ export class DashboardContainer extends BaseComponent implements OnInit, OnDestr
     this.schemesOfModifiers$ = selectors$.pipe(
       filter(v => !!v),
       map(v => v.filter(item => item.type === SelectorTypes.SCHEMA_CATEGORY)),
+    );
+
+    this.schemeGroupsOfModifiers$ = selectors$.pipe(
+      filter(v => !!v),
+      map(v => v.filter(item => item.type === SelectorTypes.SCHEMA_GROUP_CATEGORY)),
     );
 
     this._store.dispatch(SelectorsActions.getAllRequest({}));

@@ -24,6 +24,8 @@ const getRightsByMode = (mode: SelectContentFormModes, depth: number): Array<Sel
     } else if (depth === 1) {
       result.push(SelectContentFormRights.PRODUCTS);
     }
+  } else if (mode === SelectContentFormModes.SCHEMA_GROUP_MODIFIERS) {
+      result.push(SelectContentFormRights.MODIFIERS_NODES);
   }
 
   return result;
@@ -46,6 +48,10 @@ const getTabsCollectionByMode = (mode: SelectContentFormModes, depth: number): A
     } else if (depth === 1) {
       result.push(NodeTypes.PRODUCT);
     }
+  } else if (mode === SelectContentFormModes.SCHEMA_GROUP_MODIFIERS) {
+      result.push(NodeTypes.SELECTOR_JOINT);
+      result.push(NodeTypes.SELECTOR_NODE);
+      result.push(SelectorTypes.SCHEMA_CATEGORY);
   }
 
   return result;

@@ -4,6 +4,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { debounceTime, filter, takeUntil } from 'rxjs/operators';
 import { IIntegration, IIntegrationServerInfo, UserRights } from '@djonnyx/tornado-types';
 import { IUserRightData, USER_RIGHTS_LIST } from '@app/utils/right.util';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-integration-creator-form',
@@ -38,7 +39,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
       this.ctrlActive.setValue(integration.active);
     }
   }
-  get integration() {return this._integration;}
+  get integration() { return this._integration; }
 
   private _integrationServerInfo: IIntegrationServerInfo;
   @Input() set integrationServerInfo(integrationServerInfo: IIntegrationServerInfo) {
@@ -54,7 +55,7 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
       });
     }
   }
-  get integrationServerInfo() {return this._integrationServerInfo;}
+  get integrationServerInfo() { return this._integrationServerInfo; }
 
   @Output() save = new EventEmitter<IIntegration>();
 
@@ -62,7 +63,10 @@ export class IntegrationCreatorFormComponent extends BaseComponent implements On
 
   @Output() update = new EventEmitter<IIntegration>();
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({

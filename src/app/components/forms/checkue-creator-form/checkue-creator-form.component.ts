@@ -4,6 +4,7 @@ import { BaseComponent } from '@components/base/base-component';
 import { takeUntil } from 'rxjs/operators';
 import { ICheckue } from '@djonnyx/tornado-types';
 import { IKeyValue } from '@components/key-value/key-value.component';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 interface IData {
   name: IKeyValue;
@@ -47,7 +48,10 @@ export class CheckueCreatorFormComponent extends BaseComponent implements OnInit
     return this._data;
   }
 
-  constructor(private _fb: FormBuilder) {
+  constructor(
+    private _fb: FormBuilder,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({

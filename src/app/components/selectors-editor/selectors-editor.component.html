@@ -45,24 +45,24 @@
             <div class="editor__container" [ngClass]="{'missing-items': !(collection && collection.length)}">
                 <!--Entity Wrapper-->
                 <ng-container *ngIf="actualSystemTags | sortSelectors: 'position' as tagsList">
-                    <div><!-- cdkDropList [cdkDropListData]="actualSystemTags"
-                        (cdkDropListDropped)="onDropSystemTag($event)"-->
+                    <div cdkDropList [cdkDropListData]="actualSystemTags"
+                        (cdkDropListDropped)="onDropSystemTag($event)">
                         <ng-container *ngFor="let systemTag of tagsList">
                             <ta-expansion-panel *ngIf="(filteredCollection | filterSelectors:systemTag |
                             search:searchPattern:defaultLanguage?.code).length as systemTagsLength"
                                 [headerTemplateData]="{
                                         title: !!systemTag?.name ? systemTag.name + ' (' + systemTagsLength + ')' : localization.get('common_not-allocated')
-                                    }"><!--cdkDrag [cdkDragData]="systemTag" -->
-                                <!-- <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
+                                    }" cdkDrag [cdkDragData]="systemTag">
+                                <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
                                 <ng-container *ngSwitchCase="LayoutTypes.LIST">
                                     <div class="editor__group-list">
                                         <div class="entities-container entities-list-layout"
                                             *ngIf="filteredCollection | filterSelectors:systemTag | search:searchPattern:defaultLanguage?.code | sortSelectors:'position' as items"
-                                            ><!--cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)"-->
+                                            cdkDropList [cdkDropListData]="items" (cdkDropListDropped)="onDrop($event)">
                                             <div #entitySelectorListItem
                                                 class="entity entity-xl" *ngFor="let selector of items"
-                                                [class.disabled]="!selector.active"><!-- cdkDrag [cdkDragData]="selector"-->
-                                                <!-- <div class="drag-drop-placeholder" *cdkDragPlaceholder></div> -->
+                                                [class.disabled]="!selector.active" cdkDrag [cdkDragData]="selector">
+                                                <div class="drag-drop-placeholder" *cdkDragPlaceholder></div>
 
                                                 <div class="entity__wrapper">
                                                     <!-- Controls -->

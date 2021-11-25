@@ -34,9 +34,9 @@ export const normalizeEntityContents = (contents: IEntityContents, defaultLang: 
 export const equalFromResources = (defaultContent: IEntityContentsItem, content: IEntityContentsItem, resourceType: string): boolean => {
     if (!!content && !!content.resources) {
         if (content !== defaultContent) {
-            return !content.resources[resourceType] || content.resources[resourceType] === defaultContent.resources[resourceType] || content.resources[resourceType] === defaultContent.resources["main"];
+            return !content.resources?.[resourceType] || content.resources?.[resourceType] === defaultContent.resources?.[resourceType] || content.resources?.[resourceType] === defaultContent.resources?.["main"];
         } else {
-            return !content.resources[resourceType] || content.resources[resourceType] === content.resources["main"];
+            return !content.resources?.[resourceType] || content.resources?.[resourceType] === content.resources?.["main"];
         }
     }
     return false;

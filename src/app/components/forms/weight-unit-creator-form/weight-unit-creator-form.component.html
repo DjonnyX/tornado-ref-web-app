@@ -1,0 +1,44 @@
+<form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
+  <div *ngIf="!!weightUnit; else mainLangContent">
+    <mat-tab-group>
+      <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+        <ta-weight-unit-content [isDirty]="isDirty" [content]="getContent(lang)"
+          [defaultContent]="getContent(defaultLanguage)" [isDefault]="lang.code === defaultLanguage.code"
+          [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode" (update)="updateStateFor($event, lang)"
+          (confirm)="onConfirmSave($event)" (save)="onSave()">
+        </ta-weight-unit-content>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+  <ng-template #mainLangContent>
+    <ta-weight-unit-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="!isEditMode || isEdit"
+      [isEditMode]="isEditMode" (update)="updateStateFor($event, defaultLanguage)">
+    </ta-weight-unit-content>
+  </ng-template>
+
+  <div class="form__submit" align="end">
+    <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+      <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
+        {{localization.get("common_action-cancel")}}
+      </button>
+      <ng-container *ngIf="isEditMode; else createBtn">
+        <button type="submit" class="button-create button__text" [disabled]="!form.valid || !isDirty">
+          Сохранить
+        </button>
+      </ng-container>
+      <ng-template #createBtn>
+        <button type="submit" class="button-create button__text" [disabled]="!form.valid">
+          Создать
+        </button>
+      </ng-template>
+    </ng-container>
+    <ng-template #editButtons>
+      <button class="button-create button__text" (click)="onCancel()">
+        {{localization.get("common_action-close")}}
+      </button>
+      <button (click)="onEdit()" class="button-create button__text">
+        Редактировать
+      </button>
+    </ng-template>
+  </div>
+</form>

@@ -9,6 +9,7 @@ import { IFileUploadEntityEvent } from '@app/models/file-upload-event.model';
 import { deepEqual, deepMergeObjects } from '@app/utils/object.util';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteEntityDialogComponent } from '@components/dialogs/delete-entity-dialog/delete-entity-dialog.component';
+import { LocalizationService } from '@app/services/localization/localization.service';
 
 @Component({
   selector: 'ta-tag-creator-form',
@@ -85,7 +86,11 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
   private _isDirty = false;
   get isDirty() { return this._isDirty; }
 
-  constructor(private _fb: FormBuilder, public dialog: MatDialog) {
+  constructor(
+    private _fb: FormBuilder,
+    public dialog: MatDialog,
+    public readonly localization: LocalizationService,
+  ) {
     super();
 
     this.form = this._fb.group({});
@@ -110,11 +115,11 @@ export class TagCreatorFormComponent extends BaseComponent implements OnInit, On
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Сохранить изменения?",
-          message: "Описание содержит несохраненные изменения. Сохранить?",
+          title: "common_dialog-save-changes",
+          message: "common_dialog-want-to-keep-unsaved-changes",
           buttons: {
             confirm: {
-              label: "Да",
+              label: "common_action-yes",
             }
           }
         },

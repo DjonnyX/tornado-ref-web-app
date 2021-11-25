@@ -47,7 +47,9 @@
                 </h2>
 
                 <ng-container *ngIf="!license; else licenseInfo">
-                    Лицензия отсутствует.
+                    <div class="form__block">
+                        Лицензия отсутствует.
+                    </div>
                 </ng-container>
                 <ng-template #licenseInfo>
                     <div class="form__block" *ngIf="!!data">
@@ -169,7 +171,8 @@
 
         <!-- ORDER PICKER -->
         <ng-container *ngIf="terminal.type === TerminalTypes.ORDER_PICKER">
-            <ta-terminal-order-picker-config [themes]="themes" formControlName="config"></ta-terminal-order-picker-config>
+            <ta-terminal-order-picker-config [themes]="themes" formControlName="config">
+            </ta-terminal-order-picker-config>
         </ng-container>
 
         <!-- EQUEUE -->
@@ -178,9 +181,11 @@
         </ng-container>
 
         <div class="form__submit" align="end">
-            <button class="button-create button__text" (click)="onEditCancel()">Отменить</button>
-            <button type="submit" class="button-create button__text"
-                [disabled]="!form.valid">{{isEditMode ? 'Сохранить' : 'Создать'}}</button>
+            <button class="button-create button__text" (click)="onEditCancel()">
+                {{localization.get("common_action-close")}}
+            </button>
+            <button type="submit" class="button-create button__text" [disabled]="!form.valid">{{isEditMode ? 'Сохранить'
+                : 'Создать'}}</button>
         </div>
     </form>
 </ng-template>

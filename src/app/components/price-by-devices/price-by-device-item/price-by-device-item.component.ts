@@ -20,7 +20,7 @@ export class PriceByDeviceItemComponent extends BaseComponent implements OnInit 
     if (this._data !== v) {
       this._data = v;
 
-      this.ctrlCost.setValue(this._data?.cost);
+      this.ctrlCost.setValue((this._data?.cost || 0) * .01);
       this.ctrlDevices.setValue(this._data?.largeOrEqual);
     }
   }
@@ -45,7 +45,10 @@ export class PriceByDeviceItemComponent extends BaseComponent implements OnInit 
     this.form.valueChanges.pipe(
       takeUntil(this.unsubscribe$),
     ).subscribe(v => {
-      this.onChange.emit(v);
+      this.onChange.emit({
+        cost: (v.cost || 0) * 100,
+        largeOrEqual: v.largeOrEqual,
+      });
     });
   }
 

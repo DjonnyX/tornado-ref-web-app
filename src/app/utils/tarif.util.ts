@@ -1,4 +1,4 @@
-import { ITarif } from '@djonnyx/tornado-types';
+import { ITarif, ITarifDiscountByDevices } from '@djonnyx/tornado-types';
 
 export const formatTarifModel = (model: ITarif): ITarif => {
     return {
@@ -12,4 +12,8 @@ export const formatTarifModel = (model: ITarif): ITarif => {
         costByDevices: model.costByDevices,
         extra: model.extra,
     }
+}
+
+export const formatTarifCostByDevices = (prices: Array<ITarifDiscountByDevices>, currencySymbol: string = "₽"): string => {
+    return prices?.map(v => `${(v.cost * 0.01).toFixed(2)}${currencySymbol} за ${v.largeOrEqual} и более устройств`).join("; ");
 }
