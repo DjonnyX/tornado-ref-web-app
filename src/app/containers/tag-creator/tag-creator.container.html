@@ -1,18 +1,27 @@
 <ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
   <div class="page-content">
     <div class="entity-options-editor">
-      <div class="entity-options-editor__back-button" (click)="onToBack()">
-        Назад
-      </div>
-      <div class="form">
-        <ta-query-progress class="query-progress-container" style="position: relative;"
-          [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-          <ta-tag-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode" [tag]="tag$ | async"
-            [assets]="tagAssets$ | async" [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-            (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-            (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)">
-          </ta-tag-creator-form>
-        </ta-query-progress>
+      <div class="entity-sheet-editor">
+        <!-- Header -->
+        <section class="entity-sheet-editor__header">
+          <!-- Back Button -->
+          <div class="entity-sheet-editor__back-button" (click)="onToBack()">
+            <div class="entity-sheet-editor__back-button-container">
+              <p>Назад к тэгам</p>
+            </div>
+          </div>
+          <!-- Back Button -->
+        </section>
+        <div class="form">
+          <ta-query-progress class="query-progress-container" style="position: relative;"
+            [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+            <ta-tag-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode" [tag]="tag$ | async"
+              [assets]="tagAssets$ | async" [defaultLanguage]="defaultLanguage$ | async"
+              [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+              (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)">
+            </ta-tag-creator-form>
+          </ta-query-progress>
+        </div>
       </div>
     </div>
     <div class="main-footer__wrapper">

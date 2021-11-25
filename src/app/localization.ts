@@ -266,6 +266,12 @@ const LOCALIZATION = {
         // applications
         "applications_no-applications": "Приложения отсутствуют",
         "applications_add-new": "Добавить приложение",
+        // products
+        "products_no-products": "Продукты отсутствуют",
+        "products_add-new": "Добавить продукт",
+        // selectors
+        "selectors_no-selectors": "Группы отсутствуют",
+        "selectors_add-new": "Добавить группу",
         // accounts
         "accounts_key-role": "Роль",
         "accounts_no-accounts": "Администраторы отсутствуют",
@@ -614,6 +620,12 @@ const LOCALIZATION = {
         // applications
         "applications_no-applications": "No applications",
         "applications_add-new": "Add an applications",
+        // products
+        "products_no-products": "No products",
+        "products_add-new": "Add a product",
+        // selectors
+        "selectors_no-selectors": "No selectors",
+        "selectors_add-new": "Add a group",
         // accounts
         "accounts_key-role": "Role",
         "accounts_no-accounts": "No administrators",
