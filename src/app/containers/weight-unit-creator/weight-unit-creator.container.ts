@@ -170,10 +170,10 @@ export class WeightUnitCreatorContainer extends BaseComponent implements OnInit,
   }
 
   onMainOptionsCancel(): void {
-    this._router.navigate(["/admin/weightUnits"]);
+    this._router.navigate(["/admin/weight-units"]);
   }
 
   onToBack(): void {
-    this._router.navigate(["/admin/weightUnits"]);
+    this._router.navigate(["/admin/weight-units"]);
   }
 }

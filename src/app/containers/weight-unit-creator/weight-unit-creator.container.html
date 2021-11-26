@@ -1,17 +1,28 @@
 <ta-query-progress class="query-progress-container" [process]="isProcessMainOptions$ | async">
   <div class="page-content">
     <div class="entity-options-editor">
-      <div class="entity-options-editor__back-button" (click)="onToBack()">
-        Назад
-      </div>
-      <div class="form">
-        <ta-query-progress class="query-progress-container" style="position: relative;"
-          [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-          <ta-weight-unit-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-            [weightUnit]="weightUnit$ | async" [defaultLanguage]="defaultLanguage$ | async"
-            [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
-          </ta-weight-unit-creator-form>
-        </ta-query-progress>
+      <div class="entity-sheet-editor">
+        <!-- Header -->
+        <section class="entity-sheet-editor__header">
+          <!-- Back Button -->
+          <div class="entity-sheet-editor__back-button" (click)="onToBack()">
+            <div class="entity-sheet-editor__back-button-container">
+              <p>Назад к юнитам</p>
+            </div>
+          </div>
+          <!-- Back Button -->
+        </section>
+        <!-- Header -->
+        <!-- Entity Sheet -->
+        <div class="form">
+          <ta-query-progress class="query-progress-container" style="position: relative;"
+            [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+            <ta-weight-unit-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+              [weightUnit]="weightUnit$ | async" [defaultLanguage]="defaultLanguage$ | async"
+              [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
+            </ta-weight-unit-creator-form>
+          </ta-query-progress>
+        </div>
       </div>
     </div>
     <div class="main-footer__wrapper">

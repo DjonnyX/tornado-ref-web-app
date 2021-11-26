@@ -1,37 +1,48 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <div class="page-content">
         <div class="entity-options-editor">
-            <div class="entity-options-editor__back-button" (click)="onToBack()">
-                Назад
-            </div>
-            <div class="form">
-                <div class="form-header">
-                    <h1>
-                        Чек
-                    </h1>
-                </div>
-
-                <ta-checkue-creator-form [isEditMode]="isEditMode" [checkue]="checkue$ | async"
-                    (submitForm)="onSubmit($event)" (cancel)="onCancel()"></ta-checkue-creator-form>
-            </div>
-
-            <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
-                <div class="form-header">
-                    <h1>Конфигуратор сценариев</h1>
-                </div>
-
-                <ta-query-progress class="query-progress-container" style="position: relative;"
-                    [process]="isProcess$ | async">
-                    <div class="hierarchy-editor secondary">
-                        <ta-scenario-entity-editor [entity]="checkue$ | async" [products]="products$ | async"
-                            [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
-                            [currencies]="currencies$ | async" [languages]="languages$ | async"
-                            [orderTypes]="orderTypes$ | async" [stores]="stores$ | async"
-                            [defaultLanguage]="defaultLanguage$ | async" (update)="onScenarioUpdate($event)"
-                            [type]="type">
-                        </ta-scenario-entity-editor>
+            <div class="entity-sheet-editor">
+                <!-- Header -->
+                <section class="entity-sheet-editor__header">
+                    <!-- Back Button -->
+                    <div class="entity-sheet-editor__back-button" (click)="onToBack()">
+                        <div class="entity-sheet-editor__back-button-container">
+                            <p>Назад к чекам</p>
+                        </div>
                     </div>
-                </ta-query-progress>
+                    <!-- Back Button -->
+                </section>
+                <!-- Header -->
+                <!-- Entity Sheet -->
+                <div class="form">
+                    <div class="form-header">
+                        <h1>
+                            Чек
+                        </h1>
+                    </div>
+
+                    <ta-checkue-creator-form [isEditMode]="isEditMode" [checkue]="checkue$ | async"
+                        (submitForm)="onSubmit($event)" (cancel)="onCancel()"></ta-checkue-creator-form>
+                </div>
+
+                <div class="form" *ngIf="isEditMode && (isPrepareToConfigure$ | async)">
+                    <div class="form-header">
+                        <h1>Конфигуратор сценариев</h1>
+                    </div>
+
+                    <ta-query-progress class="query-progress-container" style="position: relative;"
+                        [process]="isProcess$ | async">
+                        <div class="hierarchy-editor secondary">
+                            <ta-scenario-entity-editor [entity]="checkue$ | async" [products]="products$ | async"
+                                [selectors]="selectors$ | async" [businessPeriods]="businessPeriods$ | async"
+                                [currencies]="currencies$ | async" [languages]="languages$ | async"
+                                [orderTypes]="orderTypes$ | async" [stores]="stores$ | async"
+                                [defaultLanguage]="defaultLanguage$ | async" (update)="onScenarioUpdate($event)"
+                                [type]="type">
+                            </ta-scenario-entity-editor>
+                        </div>
+                    </ta-query-progress>
+                </div>
             </div>
         </div>
         <div class="main-footer__wrapper">

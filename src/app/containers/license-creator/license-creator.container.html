@@ -1,15 +1,26 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <div class="page-content">
         <div class="entity-options-editor">
-            <div class="entity-options-editor__back-button" (click)="onToBack()">
-                Назад
-            </div>
-            <div class="form">
-                <ta-license-creator-form [isEditMode]="isEditMode" [license]="license$ | async"
-                    [accounts]="accounts$ | async" [store]="store$ | async" [terminal]="terminal$ | async"
-                    [tarifs]="tarifs$ | async" [integrations]="integrations$ | async"
-                    (save)="onSubmit($event)" (cancel)="onCancel()">
-                </ta-license-creator-form>
+            <div class="entity-sheet-editor">
+                <!-- Header -->
+                <section class="entity-sheet-editor__header">
+                    <!-- Back Button -->
+                    <div class="entity-sheet-editor__back-button" (click)="onToBack()">
+                        <div class="entity-sheet-editor__back-button-container">
+                            <p>Назад к лицензиям</p>
+                        </div>
+                    </div>
+                    <!-- Back Button -->
+                </section>
+                <!-- Header -->
+                <!-- Entity Sheet -->
+                <div class="form">
+                    <ta-license-creator-form [isEditMode]="isEditMode" [license]="license$ | async"
+                        [accounts]="accounts$ | async" [store]="store$ | async" [terminal]="terminal$ | async"
+                        [tarifs]="tarifs$ | async" [integrations]="integrations$ | async" (save)="onSubmit($event)"
+                        (cancel)="onCancel()">
+                    </ta-license-creator-form>
+                </div>
             </div>
         </div>
         <div class="main-footer__wrapper">

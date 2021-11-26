@@ -1,31 +1,42 @@
 <ta-query-progress class="query-progress-container" [process]="isProcess$ | async">
     <div class="page-content">
         <div class="entity-options-editor">
-            <div class="entity-options-editor__back-button" (click)="onToBack()">
-                Назад
-            </div>
-            <div class="form">
-                <ta-query-progress class="query-progress-container" style="position: relative;"
-                    [process]="isProcessMainOptions$ | async">
-                    <ta-language-creator-form [isEditMode]="isEditMode" [language]="language$ | async"
-                        [resources]="resources$ | async" [assets]="languageAssets$ | async"
-                        (save)="onMainOptionsSave($event)" (cancel)="onCancel()"
-                        (uploadMainResource)="onAssetUpload($event)">
-                    </ta-language-creator-form>
-                </ta-query-progress>
-            </div>
-
-            <div class="form" *ngIf="isEditMode">
-                <div class="form-header">
-                    <h2>Переводы</h2>
+            <div class="entity-sheet-editor">
+                <!-- Header -->
+                <section class="entity-sheet-editor__header">
+                    <!-- Back Button -->
+                    <div class="entity-sheet-editor__back-button" (click)="onToBack()">
+                        <div class="entity-sheet-editor__back-button-container">
+                            <p>Назад к языкам</p>
+                        </div>
+                    </div>
+                    <!-- Back Button -->
+                </section>
+                <!-- Header -->
+                <!-- Entity Sheet -->
+                <div class="form">
+                    <ta-query-progress class="query-progress-container" style="position: relative;"
+                        [process]="isProcessMainOptions$ | async">
+                        <ta-language-creator-form [isEditMode]="isEditMode" [language]="language$ | async"
+                            [resources]="resources$ | async" [assets]="languageAssets$ | async"
+                            (save)="onMainOptionsSave($event)" (cancel)="onCancel()"
+                            (uploadMainResource)="onAssetUpload($event)">
+                        </ta-language-creator-form>
+                    </ta-query-progress>
                 </div>
 
-                <ta-query-progress class="query-progress-container" style="position: relative;"
-                    [process]="isProcessTranslations$ | async">
-                    <ta-translate-form *ngIf="!!(translation$ | async)?.items"
-                        [collection]="(translation$ | async).items" (update)="onTranslationUpdate($event)">
-                    </ta-translate-form>
-                </ta-query-progress>
+                <div class="form" *ngIf="isEditMode">
+                    <div class="form-header">
+                        <h2>Переводы</h2>
+                    </div>
+
+                    <ta-query-progress class="query-progress-container" style="position: relative;"
+                        [process]="isProcessTranslations$ | async">
+                        <ta-translate-form *ngIf="!!(translation$ | async)?.items"
+                            [collection]="(translation$ | async).items" (update)="onTranslationUpdate($event)">
+                        </ta-translate-form>
+                    </ta-query-progress>
+                </div>
             </div>
         </div>
         <div class="main-footer__wrapper">

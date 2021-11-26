@@ -105,7 +105,7 @@ export class AdContentComponent extends BaseComponent implements OnInit, OnDestr
         value: this._state?.name || ' ---',
       },
       duration: {
-        key: "Описание",
+        key: "Продолжительность воспроизведения (сек)",
         value: String(this._state?.duration || 0) || ' ---',
       },
       color: {
