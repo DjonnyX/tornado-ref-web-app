@@ -8,7 +8,10 @@
   "description": "PA & AP systems for TornadoSST",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "npm run serve:cms",
+    "serve:cms": "ng serve --port 4201 --configuration cms",
+    "serve:admin": "ng serve --port 4201 --configuration admin",
+    "serve:documentation": "ng serve --port 4201 --configuration documentation",
     "build": "npm run build:cms && npm run build:admin",
     "build:cms": "ng build --configuration cms --output-path=dist/tornado-cms",
     "build:admin": "ng build --configuration admin --output-path=dist/tornado-admin",

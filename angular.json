@@ -90,7 +90,8 @@
                   "maximumError": "100kb"
                 }
               ]
-            },"documentation": {
+            },
+            "documentation": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -115,6 +116,11 @@
                   "maximumWarning": "60kb",
                   "maximumError": "100kb"
                 }
+              ],
+              "assets": [
+                "src/favicon.ico",
+                "src/embeded-assets",
+                "src/documentation-assets"
               ]
             },
             "admin": {
@@ -155,6 +161,15 @@
           "configurations": {
             "production": {
               "browserTarget": "tornado-ref-web-app:build:production"
+            },
+            "documentation": {
+              "browserTarget": "tornado-ref-web-app:build:documentation"
+            },
+            "admin": {
+              "browserTarget": "tornado-ref-web-app:build:admin"
+            },
+            "cms": {
+              "browserTarget": "tornado-ref-web-app:build:cms"
             }
           }
         },
