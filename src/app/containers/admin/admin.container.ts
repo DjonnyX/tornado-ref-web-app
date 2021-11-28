@@ -222,7 +222,7 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
                 right: UserRights.READ_SELECTORS,
               },
               {
-                icon: "menu-group",
+                icon: "modifier-schemes",
                 name: "menu_menu-schema-groups-categories", //"Схемы меню",
                 route: "schema-group-categories",
                 right: UserRights.READ_SELECTORS,
