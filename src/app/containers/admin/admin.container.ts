@@ -277,7 +277,7 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
             icon: "currency",
             name: "menu_currencies", //"Валюты",
             route: "currencies",
-            right: UserRights.READ_CURRENCIES,
+            // right: UserRights.READ_CURRENCIES,
           },
           {
             icon: "order-types",
