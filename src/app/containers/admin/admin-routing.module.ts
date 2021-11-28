@@ -224,14 +224,14 @@ const CMS_ROUTES: Routes = [
       ),
     canActivate: [AccessGuard],
   },
-  // {
-  //   path: 'currencies',
-  //   loadChildren: () =>
-  //     import('@containers/currencies-editor/currencies-editor.module').then(
-  //       module => module.CurrenciesEditorModule,
-  //     ),
-  //   canActivate: [AccessGuard],
-  // },
+  {
+    path: 'currencies',
+    loadChildren: () =>
+      import('@containers/currencies-editor/currencies-editor.module').then(
+        module => module.CurrenciesEditorModule,
+      ),
+    canActivate: [AccessGuard],
+  },
   // {
   //   path: 'checkues',
   //   loadChildren: () =>
