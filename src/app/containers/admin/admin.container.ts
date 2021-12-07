@@ -222,7 +222,7 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
                 right: UserRights.READ_SELECTORS,
               },
               {
-                icon: "menu-group",
+                icon: "modifier-schemes",
                 name: "menu_menu-schema-groups-categories", //"Схемы меню",
                 route: "schema-group-categories",
                 right: UserRights.READ_SELECTORS,
@@ -273,12 +273,12 @@ const CMS_MENU_ROUTES: Array<INavRoute> = [
           //   route: "checkues",
           //   right: UserRights.READ_CHECKUES,
           // },
-          // {
-          //   icon: "currency",
-          //   name: "menu_currencies", //"Валюты",
-          //   route: "currencies",
-          //   right: UserRights.READ_CURRENCIES,
-          // },
+          {
+            icon: "currency",
+            name: "menu_currencies", //"Валюты",
+            route: "currencies",
+            // right: UserRights.READ_CURRENCIES,
+          },
           {
             icon: "order-types",
             name: "menu_order-types", //"Типы заказов",

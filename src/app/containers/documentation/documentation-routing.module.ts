@@ -8,13 +8,13 @@ const routes: Routes = [
         path: '',
         component: DocumentationContainer,
         children: [
-            //   {
-            //     path: 'create',
-            //     loadChildren: () =>
-            //       import('@containers/currency-creator/currency-creator.module').then(
-            //         module => module.CurrencyCreatorModule,
-            //       )
-            //   },
+              {
+                path: 'registration',
+                loadChildren: () =>
+                  import('@containers/documentation/pages/dregistration/dregistration.module').then(
+                    module => module.DRegistrationModule,
+                  )
+              },
             {
                 path: '**',
                 redirectTo: 'page-not-found',

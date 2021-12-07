@@ -350,6 +350,7 @@ const LOCALIZATION = {
         "documentation-menu_products": "Продукты",
         "documentation-menu_product-groups": "Группы продуктов",
         "documentation-modifiers": "Модификации продуктов и комбо",
+        "documentation-modifier-schemes": "Схемы модификаторов",
         "documentation-menu_menu-tree": "Дерево меню",
         "documentation-menu_ads-and-banners-settings": "Настройка рекламы и баннеров",
     },
@@ -704,6 +705,7 @@ const LOCALIZATION = {
         "documentation-menu_products": "Products",
         "documentation-menu_product-groups": "Product groups",
         "documentation-modifiers": "Product modifications and combos",
+        "documentation-modifier-schemes": "Modifier schemes",
         "documentation-menu_menu-tree": "Menu tree",
         "documentation-menu_ads-and-banners-settings": "Setting up ads and banners",
     }
