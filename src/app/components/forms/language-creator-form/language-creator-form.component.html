@@ -1,72 +1,117 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
-        <h2 class="form-header" *ngIf="!!data">
-            {{data.name.value}}
-        </h2>
+    <div class="entity-sheet">
+        <div class="entity-sheet-content">
+            <!-- Entity Sheet Body -->
+            <section class="entity-sheet__body">
+                <!-- Entity Sheet Section -->
+                <section class="entity-sheet__section assets">
+                    <div [ngClass]="{'main-options-wrapper': isEditMode, 'm': true}">
+                        <!-- Entity Sheet Section -->
+                        <div class="entity-sheet__section-container">
+                            <div class="entity-sheet__section-content">
+                                <!-- Entity Assets -->
+                                <div class="entity-assets">
+                                    <div class="entity-assets-container">
+                                        <div class="entity-assets-content" *ngIf="isEditMode">
+                                            <!-- Entity Assets Resources -->
+                                            <div class="entity-assets__resources">
+                                                <div class="entity-assets__resources-container single">
+                                                    <div class="resources" *ngIf="isEditMode">
+                                                        <div class="resources-wrapper single">
+                                                            <div class="resources-n">
+                                                                <ta-asset-picker-uploader [resetButtonShow]="false"
+                                                                    [defaultValue]="!!resources ? resources.main : undefined"
+                                                                    [assets]="assets" class="transparent"
+                                                                    (upload)="onMainResourceUpload($event)">
+                                                                </ta-asset-picker-uploader>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="entity-assets__body">
+                                            <div class="entity-assets__body-container">
+                                                <div class="form__main-options">
+                                                    <ng-container *ngIf="!isEditMode || isEdit; else info">
+                                                        <div class="form__input-block">
+                                                            <div class="form-item">
+                                                                <mat-form-field class="full-width" appearance="outline">
+                                                                    <mat-label>Код</mat-label>
+                                                                    <input matInput type="text" [formControl]="ctrlCode"
+                                                                        placeholder="Код">
+                                                                    <mat-error *ngIf="ctrlCode.hasError('required')">
+                                                                        <strong>обязательное</strong>
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                            </div>
 
-        <div class="resources" *ngIf="isEditMode">
-            <div class="resources-wrapper single">
-                <div class="resources-n">
-                    <ta-asset-picker-uploader [resetButtonShow]="false"
-                        [defaultValue]="!!resources ? resources.main : undefined" [assets]="assets" class="transparent"
-                        (upload)="onMainResourceUpload($event)">
-                    </ta-asset-picker-uploader>
+                                                            <div class="form-item">
+                                                                <mat-form-field class="full-width" appearance="outline">
+                                                                    <mat-label>Имя</mat-label>
+                                                                    <input matInput type="text" [formControl]="ctrlName"
+                                                                        placeholder="Имя">
+                                                                    <mat-error *ngIf="ctrlName.hasError('required')">
+                                                                        <strong>обязательное</strong>
+                                                                    </mat-error>
+                                                                </mat-form-field>
+                                                            </div>
+                                                        </div>
+                                                    </ng-container>
+                                                    <ng-template #info>
+                                                        <!-- Entity Assets Name -->
+                                                        <div class="entity-sheet__section__header">
+                                                            <h2 class="entity-sheet__section__header-title"
+                                                                *ngIf="!!data">
+                                                                {{data.name.value}}
+                                                            </h2>
+                                                        </div>
+                                                        <!-- Entity Assets Name -->
+                                                        <div class="form__block" *ngIf="!!data">
+                                                            <div class="form-item full-width">
+                                                                <ta-key-value [data]="data.code"></ta-key-value>
+                                                            </div>
+                                                        </div>
+                                                    </ng-template>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Entity Propery List -->
+                <!-- Entity Sheet Section -->
+            </section>
+
+            <!-- Entity Sheet Body -->
+            <!-- Entity Sheet Footer -->
+            <section class="entity-sheet__footer--submit">
+                <div class="entity-sheet__footer-container">
+                    <div class="entity-sheet__footer-content">
+                        <div class="form__submit" align="end">
+                            <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+                                <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
+                                    Отменить
+                                </button>
+                                <button type="submit" class="button-create button__text" [disabled]="!form.valid">
+                                    {{isEditMode ? 'Сохранить' : 'Создать'}}
+                                </button>
+                            </ng-container>
+                            <ng-template #editButtons>
+                                <button type="submit" class="button-create button__text" (click)="onCancel()">
+                                    {{localization.get("common_action-close")}}
+                                </button>
+                                <button (click)="onEdit()" class="button-create button__text">
+                                    Редактировать
+                                </button>
+                            </ng-template>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </section>
         </div>
-
-        <div>
-            <div class="form__main-options">
-                <ng-container *ngIf="!isEditMode || isEdit; else info">
-                    <div class="form__input-block">
-                        <div class="form-item">
-                            <mat-form-field class="full-width" appearance="outline">
-                                <mat-label>Код</mat-label>
-                                <input matInput type="text" [formControl]="ctrlCode" placeholder="Код">
-                                <mat-error *ngIf="ctrlCode.hasError('required')">
-                                    <strong>обязательное</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-
-                        <div class="form-item">
-                            <mat-form-field class="full-width" appearance="outline">
-                                <mat-label>Имя</mat-label>
-                                <input matInput type="text" [formControl]="ctrlName" placeholder="Имя">
-                                <mat-error *ngIf="ctrlName.hasError('required')">
-                                    <strong>обязательное</strong>
-                                </mat-error>
-                            </mat-form-field>
-                        </div>
-                    </div>
-                </ng-container>
-                <ng-template #info>
-                    <div class="form__block" *ngIf="!!data">
-                        <div class="form-item full-width">
-                            <ta-key-value [data]="data.code"></ta-key-value>
-                        </div>
-                    </div>
-                </ng-template>
-            </div>
-        </div>
-    </div>
-
-    <div class="form__submit" align="end">
-        <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
-            <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
-                Отменить
-            </button>
-            <button type="submit" class="button-create button__text" [disabled]="!form.valid">
-                {{isEditMode ? 'Сохранить' : 'Создать'}}
-            </button>
-        </ng-container>
-        <ng-template #editButtons>
-            <button type="submit" class="button-create button__text" (click)="onCancel()">
-                {{localization.get("common_action-close")}}
-            </button>
-            <button (click)="onEdit()" class="button-create button__text">
-                Редактировать
-            </button>
-        </ng-template>
     </div>
 </form>
