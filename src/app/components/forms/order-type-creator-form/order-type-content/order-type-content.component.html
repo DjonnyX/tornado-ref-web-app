@@ -1,80 +1,109 @@
-<div [ngClass]="{'order-type-content': true, 'main-options-wrapper': isEditMode}">
-  <h2 class="form-header" *ngIf="!!data">
-    {{data.name.value}}
-  </h2>
+<div [ngClass]="{'ad-content': true, 'main-options-wrapper': isEditMode}">
+  <!-- Entity Sheet Section -->
+  <div class="entity-sheet__section-container">
+    <div class="entity-sheet__section-content">
+      <!-- Entity Assets -->
+      <div class="entity-assets">
+        <div class="entity-assets-container">
+          <div class="entity-assets-content" *ngIf="isEditMode">
+            <!-- Entity Assets Resources -->
+            <div class="entity-assets__resources">
+              <div class="entity-assets__resources-container double">
+                <!-- Main Image -->
+                <div class="resources-n">
+                  <div class="entity-assets__description">
+                    <p>Основное изображение</p>
+                  </div>
+                  <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
+                    [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
+                    [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined" [assets]="assets"
+                    class="transparent" (confirm)="onConfirmSave($event)" (upload)="onMainResourceUpload($event, 'main')">
+                  </ta-asset-picker-uploader>
+                </div>
+                <!-- Thumbnail Image -->
 
-  <div class="resources" *ngIf="isEditMode">
-    <div class="resources-wrapper double">
-      <div class="resources-n">
-        <p class="form-header">
-          Изображения
-        </p>
+                <div class="resources-s">
+                  <div class="entity-assets__description">
+                    Иконка
+                  </div>
 
-        <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
-          [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
-          [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined" [assets]="assets"
-          class="transparent" (confirm)="onConfirmSave($event)" (upload)="onMainResourceUpload($event, 'main')">
-        </ta-asset-picker-uploader>
-      </div>
+                  <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonDisabled]="isEqualWithDefault('icon')"
+                    (reset)="onResetResourceToDefault('icon')"
+                    [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
+                    [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
+                    (upload)="onIconResourceUpload($event, 'icon')">
+                  </ta-asset-picker-uploader>
+                </div>
+              </div>
+            </div>
+            <!-- Entity Assets Resources -->
+          </div>
+          <!-- Assets -->
+          <!-- Edit -->
+          <div>
 
-      <div class="resources-s">
-        <p class="form-header">
-          Иконка
-        </p>
+            <!-- Entity Assets Body -->
+            <div class="entity-assets__body">
+              <div class="entity-assets__body-container">
+                <ng-container *ngIf="!isEdit; else editFields">
+                  <ng-container *ngIf="!!data">
+                    <!-- Entity Assets Name -->
+                    <div class="entity-sheet__section__header">
+                      <h2 class="entity-sheet__section__header-title" *ngIf="!!data">
+                        {{data.name.value}}
+                      </h2>
+                    </div>
+                    <!-- Entity Assets Name -->
 
-        <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonDisabled]="isEqualWithDefault('icon')"
-          (reset)="onResetResourceToDefault('icon')"
-          [defaultValue]="!!content && !!content.resources ? content.resources.icon : undefined" [assets]="assets"
-          [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
-          (upload)="onIconResourceUpload($event, 'icon')">
-        </ta-asset-picker-uploader>
-      </div>
-    </div>
+                    <div class="form__block" *ngIf="!!data">
+                      <div class="form-item full-width">
+                        <ta-key-value [data]="data.description"></ta-key-value>
+                      </div>
 
-    <div class="resources-wrapper single" *ngIf="isEdit">
-      <div class="full-width">
-        <div class="form-item">
-          <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
-            (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="bottom"></ta-color-picker>
+                      <!-- <div class="form-item full-width">
+                        <ta-key-value [data]="data.color"></ta-key-value>
+                      </div> -->
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <!-- Entity Assets Body -->
+
+
+            <ng-template #editFields>
+              <div class="form__main-options">
+                <div class="form__input-block">
+                  <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Имя</mat-label>
+                      <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
+                      <mat-error *ngIf="ctrlName.hasError('required')">
+                        Имя - <strong>обязательное</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Описание</mat-label>
+                      <textarea matInput class="order-type__description" type="text" [formControl]="ctrlDescription"
+                        placeholder="Описание"></textarea>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-item">
+                    <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
+                      (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+          <!-- Edit -->
         </div>
       </div>
     </div>
   </div>
-
-  <div>
-    <ng-container *ngIf="!isEdit; else editFields">
-      <div class="form__block" *ngIf="!!data">
-        <div class="form-item full-width">
-          <ta-key-value [data]="data.description"></ta-key-value>
-        </div>
-
-        <div class="form-item full-width">
-          <ta-key-value [data]="data.color"></ta-key-value>
-        </div>
-      </div>
-    </ng-container>
-    <ng-template #editFields>
-      <div class="form__main-options">
-        <div class="form__input-block">
-          <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Имя</mat-label>
-              <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
-              <mat-error *ngIf="ctrlName.hasError('required')">
-                Имя - <strong>обязательное</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Описание</mat-label>
-              <textarea matInput class="order-type__description" type="text" [formControl]="ctrlDescription"
-                placeholder="Описание"></textarea>
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </div>
+  <!-- Entity Sheet Section -->
 </div>

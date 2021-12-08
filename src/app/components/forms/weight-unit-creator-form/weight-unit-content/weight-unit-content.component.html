@@ -1,30 +1,50 @@
 <div [ngClass]="{'weight-unit-content': true, 'main-options-wrapper': isEditMode}">
-  <h2 class="form-header" *ngIf="!!data">
-    {{data.name.value}}
-  </h2>
+  <!-- Entity Sheet Section -->
+  <div class="entity-sheet__section-container">
+    <div class="entity-sheet__section-content">
+      <!-- Entity Assets -->
+      <div class="entity-assets">
+        <div class="entity-assets-container">
+          <div>
 
-  <div>
-    <ng-container *ngIf="!isEdit; else editFields">
-      <div class="form__block" *ngIf="!!data">
-        <div class="form-item full-width">
-          <ta-key-value [data]="data.name"></ta-key-value>
-        </div>
-      </div>
-    </ng-container>
-    <ng-template #editFields>
-      <div class="form__main-options">
-        <div class="form__input-block">
-          <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Название</mat-label>
-              <input matInput type="text" [formControl]="ctrlName" placeholder="Название" required>
-              <mat-error *ngIf="ctrlName.hasError('required')">
-                Название - <strong>обязательное</strong>
-              </mat-error>
-            </mat-form-field>
+            <!-- Entity Assets Body -->
+            <div class="entity-assets__body">
+              <div class="entity-assets__body-container">
+                <ng-container *ngIf="!isEdit; else editFields">
+                  <ng-container *ngIf="!!data">
+                    <!-- Entity Assets Name -->
+                    <div class="entity-sheet__section__header">
+                      <h2 class="entity-sheet__section__header-title" *ngIf="!!data">
+                        {{data.name.value}}
+                      </h2>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <!-- Entity Assets Body -->
+
+
+            <ng-template #editFields>
+              <div class="form__main-options">
+                <div class="form__input-block">
+                  <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Название</mat-label>
+                      <input matInput type="text" [formControl]="ctrlName" placeholder="Название" required>
+                      <mat-error *ngIf="ctrlName.hasError('required')">
+                        Название - <strong>обязательное</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
           </div>
+          <!-- Edit -->
         </div>
       </div>
-    </ng-template>
+    </div>
   </div>
+  <!-- Entity Sheet Section -->
 </div>

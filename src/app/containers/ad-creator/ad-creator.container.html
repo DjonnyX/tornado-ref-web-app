@@ -14,21 +14,22 @@
         </section>
         <!-- Header -->
         <!-- Entity Sheet -->
-        <div class="form">
-          <ta-query-progress class="query-progress-container" style="position: relative;"
-            [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-            <ta-ad-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode" [ad]="ad$ | async"
-              [assets]="adAssets$ | async" [resourcesGallery]="galleryAdAssets$ | async"
-              [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-              (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-              (uploadMainResource)="onMainResourceUpload($event)">
-            </ta-ad-creator-form>
-          </ta-query-progress>
-        </div>
+        <ta-query-progress class="query-progress-container" style="position: relative;"
+          [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+          <ta-ad-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode" [ad]="ad$ | async"
+            [assets]="adAssets$ | async" [resourcesGallery]="galleryAdAssets$ | async"
+            [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+            (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+            (uploadMainResource)="onMainResourceUpload($event)">
+          </ta-ad-creator-form>
+        </ta-query-progress>
+        <!-- Entity Sheet -->
       </div>
     </div>
+    <!-- Admin Footer -->
     <div class="main-footer__wrapper">
       <ta-main-footer></ta-main-footer>
     </div>
+    <!-- Admin Footer -->
   </div>
 </ta-query-progress>

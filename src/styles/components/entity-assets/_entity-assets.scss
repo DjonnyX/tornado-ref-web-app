@@ -1,50 +1,54 @@
 .entity-assets {
 
+  &-container {
+    // @include flexbox();
+    // @include flex-direction(row);
+    // display: grid;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 40px;
+    padding-bottom: 20px;
+    // padding-top: 15px;
+    // grid-template-columns: 320px 128px;
+  }
+
+  &__resources {
+    @include flexbox();
+    width: 320px;
+    // padding-top: 30px;
+
     &-container {
-        // @include flexbox();
-        // @include flex-direction(row);
-        // display: grid;
-        display: grid;
-        grid-template-columns: auto 1fr;
-        gap: 40px;
-        padding-bottom: 20px;
-        // padding-top: 15px;
-        // grid-template-columns: 320px 128px;
+      // @include flexbox();
+      // @include flex-direction(row);
+      // gap: 30px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      width: 100%;
+
+      &.single {
+        grid-template-columns: 1fr;
+      }
     }
+  }
 
-    &__resources {
-        @include flexbox();
-        width: 320px;
-        // padding-top: 30px;
+  &__body {
 
-        &-container {
-            // @include flexbox();
-            // @include flex-direction(row);
-            // gap: 30px;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            width: 100%;
-        }
+    &-container {
+      @include flexbox();
+      @include flex-direction(column);
+      // padding-top: 50px;
     }
+  }
 
-    &__body {
+  &__description {
+    @include flexbox();
+    padding-bottom: 10px;
 
-        &-container {
-            @include flexbox();
-            @include flex-direction(column);
-            // padding-top: 50px;
-        }
+    p {
+      display: block;
+      font-size: 12px;
+      color: $neutral-color;
     }
-
-    &__description {
-        @include flexbox();
-        padding-bottom: 10px;
-
-        p {
-            display: block;
-            font-size: 12px;
-            color: $neutral-color;
-        }
-    }
+  }
 }

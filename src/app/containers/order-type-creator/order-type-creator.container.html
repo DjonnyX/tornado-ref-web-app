@@ -14,21 +14,22 @@
         </section>
         <!-- Header -->
         <!-- Entity Sheet -->
-        <div class="form">
           <ta-query-progress class="query-progress-container" style="position: relative;"
-            [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-            <ta-order-type-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-              [orderType]="orderType$ | async" [assets]="orderTypeAssets$ | async"
-              [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
-              (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
-              (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)">
-            </ta-order-type-creator-form>
-          </ta-query-progress>
-        </div>
+          [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+          <ta-order-type-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+            [orderType]="orderType$ | async" [assets]="orderTypeAssets$ | async"
+            [defaultLanguage]="defaultLanguage$ | async" [languages]="languages$ | async"
+            (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()"
+            (uploadMainResource)="onMainResourceUpload($event)" (uploadIconResource)="onIconResourceUpload($event)">
+          </ta-order-type-creator-form>
+        </ta-query-progress>
+        <!-- Entity Sheet -->
       </div>
     </div>
+    <!-- Admin Footer -->
     <div class="main-footer__wrapper">
       <ta-main-footer></ta-main-footer>
     </div>
+    <!-- Admin Footer -->
   </div>
 </ta-query-progress>

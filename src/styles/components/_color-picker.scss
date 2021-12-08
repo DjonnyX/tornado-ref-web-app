@@ -3,43 +3,44 @@
 @import "../base/reset-input";
 
 .color-picker-component {
+  position: relative;
+  display: flex;
+
+  &__input {
+    @include reset-input();
+
+    &.light {
+      color: $primary-color-100;
+    }
+
+    &.dark {
+      color: $primary-color-800;
+    }
+
+    cursor: pointer;
+
     position: relative;
-    display: flex;
+    border: 1px solid rgba($primary-color, 0.1);
+    border-radius: 4px;
+    padding: px2em(10);
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: px2em(24);
 
-    &__input {
-        @include reset-input();
+    z-index: 0;
 
-        &.light {
-            color: $primary-color-100;
-        }
-        &.dark {
-            color: $primary-color-800;
-        }
-
-        cursor: pointer;
-
-        position: relative;
-        border: 1px solid rgba($primary-color, 0.1);
-        border-radius: 4px;
-        padding: px2em(10);
-        width: 100%;
-        box-sizing: border-box;
-        margin: 0;
-        margin-bottom: px2em(24);
-
-        z-index: 0;
-
-        &.with-reset {
-            border-radius: 4px 0 0 4px;
-        }
+    &.with-reset {
+      border-radius: 4px 0 0 4px;
     }
+  }
 
-    .reset-content-button {
-        position: relative;
-        border-radius:  0 4px 4px 0;
-        margin: 0;
-        width: 38px;
-        height: 41px;
-        opacity: 1;
-    }
+  .reset-content-button {
+    position: relative;
+    border-radius: 0 4px 4px 0;
+    margin: 0;
+    width: 38px;
+    height: 41px;
+    opacity: 1;
+  }
 }

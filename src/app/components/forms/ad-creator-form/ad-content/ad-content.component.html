@@ -1,67 +1,89 @@
 <div [ngClass]="{'ad-content': true, 'main-options-wrapper': isEditMode}">
-  <h2 class="form-header" *ngIf="!!data">
-    {{data.name.value}}
-  </h2>
+  <!-- Entity Sheet Section -->
+  <div class="entity-sheet__section-container">
+    <div class="entity-sheet__section-content">
+      <!-- Entity Assets -->
+      <div class="entity-assets">
+        <div class="entity-assets-container">
+          <div class="entity-assets-content" *ngIf="isEditMode">
+            <!-- Entity Assets Resources -->
+            <div class="entity-assets__resources">
+              <div class="entity-assets__resources-container single">
+                <!-- Main Image -->
+                <div class="resources-n">
+                  <div class="entity-assets__description">
+                    <p>Основное изображение</p>
+                  </div>
+                  <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
+                    [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
+                    [extensions]="['.png', '.gif', '.webp', '.jpg', '.mp4']" [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
+                    [assets]="assets" class="transparent" (confirm)="onConfirmSave($event)"
+                    (upload)="onMainResourceUpload($event, 'main')">
+                  </ta-asset-picker-uploader>
+                </div>
+                <!-- Thumbnail Image -->
+              </div>
 
-  <div class="resources" *ngIf="isEditMode">
-    <div class="resources-wrapper">
-      <div class="resources-n">
-        <p class="form-header">
-          Ресурсы
-        </p>
+            </div>
+            <!-- Entity Assets Resources -->
+          </div>
+          <!-- Assets -->
+          <!-- Edit -->
+          <div>
 
-        <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
-          [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
-          [extensions]="['.png', '.jpg', '.mp4']" [defaultValue]="content?.resources?.main" [assets]="assets"
-          class="transparent" (confirm)="onConfirmSave($event)" (upload)="onMainResourceUpload($event, 'main')">
-        </ta-asset-picker-uploader>
-      </div>
-    </div>
+            <!-- Entity Assets Body -->
+            <div class="entity-assets__body">
+              <div class="entity-assets__body-container">
+                <ng-container *ngIf="!isEdit; else editFields">
+                  <ng-container *ngIf="!!data">
+                    <!-- Entity Assets Name -->
+                    <div class="entity-sheet__section__header">
+                      <h2 class="entity-sheet__section__header-title" *ngIf="!!data">
+                        {{data.name.value}}
+                      </h2>
+                    </div>
+                    <!-- Entity Assets Name -->
 
-    <div class="resources-wrapper single" *ngIf="isEdit">
-      <div class="full-width">
-        <div class="form-item">
-          <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
-            (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="bottom"></ta-color-picker>
+                    <div class="form__block" *ngIf="!!data">
+                      <div class="form-item full-width">
+                        <ta-key-value [data]="data.duration"></ta-key-value>
+                      </div>
+                    </div>
+                  </ng-container>
+                </ng-container>
+              </div>
+            </div>
+            <!-- Entity Assets Body -->
+
+
+            <ng-template #editFields>
+              <div class="form__main-options">
+                <div class="form__input-block">
+                  <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Имя</mat-label>
+                      <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
+                      <mat-error *ngIf="ctrlName.hasError('required')">
+                        Имя - <strong>обязательное</strong>
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="form-item">
+                    <mat-form-field class="full-width" appearance="outline">
+                      <mat-label>Продолжительность воспроизведения (сек)</mat-label>
+                      <textarea matInput class="ad__description" type="number" [formControl]="ctrlDuration"
+                        placeholder="Продолжительность воспроизведения (сек)"></textarea>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+          </div>
+          <!-- Edit -->
         </div>
       </div>
     </div>
   </div>
-
-  <div>
-    <ng-container *ngIf="!isEdit; else editFields">
-      <div class="form__block" *ngIf="!!data">
-        <div class="form-item full-width">
-          <ta-key-value [data]="data.duration"></ta-key-value>
-        </div>
-
-        <div class="form-item full-width">
-          <ta-key-value [data]="data.color"></ta-key-value>
-        </div>
-      </div>
-    </ng-container>
-    <ng-template #editFields>
-      <div class="form__main-options">
-        <div class="form__input-block">
-          <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Имя</mat-label>
-              <input matInput type="text" [formControl]="ctrlName" placeholder="Имя" required>
-              <mat-error *ngIf="ctrlName.hasError('required')">
-                Имя - <strong>обязательное</strong>
-              </mat-error>
-            </mat-form-field>
-          </div>
-
-          <div class="form-item">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Продолжительность воспроизведения (сек)</mat-label>
-              <input matInput type="number" [formControl]="ctrlDuration"
-                placeholder="Продолжительность воспроизведения (сек)">
-            </mat-form-field>
-          </div>
-        </div>
-      </div>
-    </ng-template>
-  </div>
+  <!-- Entity Sheet Section -->
 </div>

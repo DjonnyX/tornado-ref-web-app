@@ -1,45 +1,79 @@
 <form [formGroup]="form" (ngSubmit)="onSave()" (keydown)="onEnterSubmit($event)" autocomplete="off">
-  <div *ngIf="!!tag; else mainLangContent">
-    <mat-tab-group>
-      <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
-        <ta-tag-content [isDirty]="isDirty" [content]="getContent(lang)" [defaultContent]="getContent(defaultLanguage)"
-          [isDefault]="lang.code === defaultLanguage.code" [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode" [assets]="assets"
-          (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
-          (uploadIconResource)="onIconResourceUpload($event, lang)" (confirm)="onConfirmSave($event)" (save)="onSave()">
-        </ta-tag-content>
-      </mat-tab>
-    </mat-tab-group>
-  </div>
-  <ng-template #mainLangContent>
-    <ta-tag-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null" [isEdit]="!isEditMode || isEdit"
-      [isEditMode]="isEditMode" [assets]="assets" (update)="updateStateFor($event, defaultLanguage)">
-    </ta-tag-content>
-  </ng-template>
+  <div class="entity-sheet">
+    <div class="entity-sheet-content">
+      <!-- Entity Sheet Body -->
+      <section class="entity-sheet__body">
+        <!-- Entity Sheet Section -->
+        <section class="entity-sheet__section assets">
+          <div *ngIf="!!tag; else mainLangContent">
+            <mat-tab-group>
+              <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">
+                <ta-tag-content [isDirty]="isDirty" [content]="getContent(lang)"
+                  [defaultContent]="getContent(defaultLanguage)" [isDefault]="lang.code === defaultLanguage.code"
+                  [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode" [assets]="assets"
+                  (update)="updateStateFor($event, lang)" (uploadMainResource)="onMainResourceUpload($event, lang)"
+                  (uploadIconResource)="onIconResourceUpload($event, lang)" (confirm)="onConfirmSave($event)"
+                  (save)="onSave()">
+                </ta-tag-content>
+              </mat-tab>
+            </mat-tab-group>
+          </div>
+        </section>
+        <!-- Entity Sheet Section -->
+        <!-- Entity Sheet Section -->
+        <!-- Entity Propery List -->
+        <section class="entity-sheet__section">
+          <div class="entity-sheet__section-container">
+            <div class="entity-sheet__section-content">
+              <ng-template #mainLangContent>
+                <ta-tag-content *ngIf="!!defaultLanguage" isDefault="true" [content]="null"
+                  [isEdit]="!isEditMode || isEdit" [isEditMode]="isEditMode" [assets]="assets"
+                  (update)="updateStateFor($event, defaultLanguage)">
+                </ta-tag-content>
+              </ng-template>
 
-  <div class="form__submit" align="end">
-      <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
-          <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
-            {{localization.get("common_action-cancel")}}
-          </button>
-          <ng-container *ngIf="isEditMode; else createBtn">
-            <button type="submit" class="button-create button__text"
-              [disabled]="!form.valid || !isDirty">
-              Сохранить
-            </button>
-          </ng-container>
-          <ng-template #createBtn>
-            <button type="submit" class="button-create button__text" [disabled]="!form.valid">
-              Создать
-            </button>
-          </ng-template>
-      </ng-container>
-      <ng-template #editButtons>
-          <button class="button-create button__text" (click)="onCancel()">
-            {{localization.get("common_action-close")}}
-          </button>
-          <button (click)="onEdit()" class="button-create button__text">
-              Редактировать
-          </button>
-      </ng-template>
+
+
+            </div>
+          </div>
+        </section>
+        <!-- Entity Propery List -->
+        <!-- Entity Sheet Section -->
+      </section>
+      <!-- Entity Sheet Body -->
+      <!-- Entity Sheet Footer -->
+      <section class="entity-sheet__footer--submit">
+        <div class="entity-sheet__footer-container">
+          <div class="entity-sheet__footer-content">
+            <div class="form__submit" align="end">
+              <ng-container *ngIf="!isEditMode || isEdit; else editButtons">
+                <button class="button-create button__text" (click)="!isEditMode ? onCancel() : onEditCancel()">
+                  {{localization.get("common_action-cancel")}}
+                </button>
+                <ng-container *ngIf="isEditMode; else createBtn">
+                  <button type="submit" class="button-create button__text" [disabled]="!form.valid || !isDirty">
+                    Сохранить
+                  </button>
+                </ng-container>
+                <ng-template #createBtn>
+                  <button type="submit" class="button-create button__text" [disabled]="!form.valid">
+                    Создать
+                  </button>
+                </ng-template>
+              </ng-container>
+              <ng-template #editButtons>
+                <button class="button-create button__text" (click)="onCancel()">
+                  {{localization.get("common_action-close")}}
+                </button>
+                <button (click)="onEdit()" class="button-create button__text">
+                  Редактировать
+                </button>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Entity Sheet Footer -->
+    </div>
   </div>
 </form>
