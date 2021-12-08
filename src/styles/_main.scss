@@ -1,39 +1,39 @@
 body {
-    // -webkit-font-smoothing: antialiased;
-    margin: 0;
+  // -webkit-font-smoothing: antialiased;
+  margin: 0;
 }
 
 main {
-    background: rgb(229 229 229);
+  background: rgb(229 229 229);
 }
 
 .full-width {
-    width: 100%;
+  width: 100%;
 }
 
 .spacer {
-    margin: auto;
+  margin: auto;
 }
 
 .query-progress-container {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    display: block;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: block;
 }
 
 .auth__query-progress-container {
-    height: auto;
+  height: auto;
 }
 
 .form__buttons-group {
-    display: flex;
+  display: flex;
 
-    &.align-end {
-        justify-content: flex-end;
-    }
+  &.align-end {
+    justify-content: flex-end;
+  }
 
-    button:not(:last-child) {
-        margin-right: 3px;
-    }
+  button:not(:last-child) {
+    margin-right: 3px;
+  }
 }

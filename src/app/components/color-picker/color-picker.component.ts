@@ -5,7 +5,7 @@ import Color from "color";
 @Component({
   selector: 'ta-color-picker',
   templateUrl: './color-picker.component.html',
-  styleUrls: ['./color-picker.component.scss']
+  styleUrls: ['./color-picker.component.scss'],
 })
 export class ColorPickerComponent implements OnInit {
   @ViewChild("input", { static: true }) private _input: ElementRef;
