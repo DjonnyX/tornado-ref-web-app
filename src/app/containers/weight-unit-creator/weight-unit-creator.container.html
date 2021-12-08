@@ -14,19 +14,21 @@
         </section>
         <!-- Header -->
         <!-- Entity Sheet -->
-        <div class="form">
-          <ta-query-progress class="query-progress-container" style="position: relative;"
-            [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
-            <ta-weight-unit-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
-              [weightUnit]="weightUnit$ | async" [defaultLanguage]="defaultLanguage$ | async"
-              [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
-            </ta-weight-unit-creator-form>
-          </ta-query-progress>
-        </div>
+        <ta-query-progress class="query-progress-container" style="position: relative;"
+          [process]="(isProcessMainOptions$ | async) || !(isPrepareToConfigure$ | async)">
+          <ta-weight-unit-creator-form *ngIf="isPrepareToConfigure$ | async" [isEditMode]="isEditMode"
+            [weightUnit]="weightUnit$ | async" [defaultLanguage]="defaultLanguage$ | async"
+            [languages]="languages$ | async" (save)="onMainOptionsSave($event)" (cancel)="onMainOptionsCancel()">
+          </ta-weight-unit-creator-form>
+
+        </ta-query-progress>
+        <!-- Entity Sheet -->
       </div>
     </div>
+    <!-- Admin Footer -->
     <div class="main-footer__wrapper">
       <ta-main-footer></ta-main-footer>
     </div>
+    <!-- Admin Footer -->
   </div>
 </ta-query-progress>
