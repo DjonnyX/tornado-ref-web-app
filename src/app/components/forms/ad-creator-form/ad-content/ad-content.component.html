@@ -16,7 +16,7 @@
                   </div>
                   <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
                     [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
-                    [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
+                    [extensions]="['.png', '.gif', '.webp', '.jpg', '.mp4']" [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
                     [assets]="assets" class="transparent" (confirm)="onConfirmSave($event)"
                     (upload)="onMainResourceUpload($event, 'main')">
                   </ta-asset-picker-uploader>
