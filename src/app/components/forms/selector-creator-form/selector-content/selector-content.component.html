@@ -21,7 +21,7 @@
                     (upload)="onMainResourceUpload($event, 'main')">
                   </ta-asset-picker-uploader>
 
-                  <div class=" single" *ngIf="isEdit">
+                  <div class="single" *ngIf="isEdit">
                     <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
                       (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
                   </div>

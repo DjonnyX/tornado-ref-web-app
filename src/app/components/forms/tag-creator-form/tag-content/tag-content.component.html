@@ -17,9 +17,14 @@
                   <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
                     [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
                     [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
-                    [assets]="assets" class="transparent" (confirm)="onConfirmSave($event)"
+                    [assets]="assets" [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
                     (upload)="onMainResourceUpload($event, 'main')">
                   </ta-asset-picker-uploader>
+
+                  <div class="single" *ngIf="isEdit">
+                    <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
+                      (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
+                  </div>
                 </div>
                 <!-- Thumbnail Image -->
 
@@ -92,11 +97,6 @@
                       <textarea matInput class="selector__description" type="text" [formControl]="ctrlDescription"
                         placeholder="Описание"></textarea>
                     </mat-form-field>
-                  </div>
-
-                  <div class="form-item">
-                    <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
-                      (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
                   </div>
                 </div>
               </div>
