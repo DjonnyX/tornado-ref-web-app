@@ -8,7 +8,7 @@
           <div class="entity-assets-content" *ngIf="isEditMode">
             <!-- Entity Assets Resources -->
             <div class="entity-assets__resources">
-              <div class="entity-assets__resources-container double">
+              <div class="entity-assets__resources-container single">
                 <!-- Main Image -->
                 <div class="resources-n">
                   <div class="entity-assets__description">
@@ -23,7 +23,7 @@
                 </div>
                 <!-- Main Image -->
                 <!-- Thumbnail Image -->
-                <div class="resources-s">
+                <!-- <div class="resources-s">
                   <div class="entity-assets__description">
                     <p>Миниатюра</p>
                   </div>
@@ -34,18 +34,12 @@
                     [assets]="assets" [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
                     (upload)="onIconResourceUpload($event, 'icon')">
                   </ta-asset-picker-uploader>
-                  <!-- Color -->
-
-                  <!-- <ng-container *ngIf="!isEdit">
-                    <ta-key-value [data]="data.color"></ta-key-value>
-                  </ng-container> -->
-
+                  
                   <div class=" single" *ngIf="isEdit">
                     <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
                       (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
                   </div>
-                  <!-- Color -->
-                </div>
+                </div> -->
                 <!-- Thumbnail Image -->
               </div>
 
