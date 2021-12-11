@@ -37,6 +37,13 @@ const routes: Routes = [
                     )
             },
             {
+                path: 'products',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dproducts/dproducts.module').then(
+                        module => module.DProductsModule,
+                    )
+            },
+            {
                 path: '**',
                 redirectTo: 'page-not-found',
             },
