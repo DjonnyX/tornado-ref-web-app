@@ -9,25 +9,32 @@ const routes: Routes = [
         component: DocumentationContainer,
         children: [
             {
-              path: 'registration',
-              loadChildren: () =>
-                import('@containers/documentation/pages/dregistration/dregistration.module').then(
-                  module => module.DRegistrationModule,
-                )
+                path: 'registration',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dregistration/dregistration.module').then(
+                        module => module.DRegistrationModule,
+                    )
             },
             {
-              path: 'licenses',
-              loadChildren: () =>
-                import('@containers/documentation/pages/dlicenses/dlicenses.module').then(
-                  module => module.DLicensesModule,
-                )
+                path: 'licenses',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dlicenses/dlicenses.module').then(
+                        module => module.DLicensesModule,
+                    )
             },
             {
-              path: 'administrators',
-              loadChildren: () =>
-                import('@containers/documentation/pages/dusers/dusers.module').then(
-                  module => module.DUsersModule,
-                )
+                path: 'administrators',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dusers/dusers.module').then(
+                        module => module.DUsersModule,
+                    )
+            },
+            {
+                path: 'evo-integration',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/devointegration/devointegration.module').then(
+                        module => module.DEvoIntegrationModule,
+                    )
             },
             {
                 path: '**',

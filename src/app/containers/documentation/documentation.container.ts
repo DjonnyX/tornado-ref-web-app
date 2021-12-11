@@ -46,7 +46,7 @@ export const MENU_ROUTES: Array<INavRoute> = [
           {
             icon: "blank",
             name: "documentation-menu_integration-evotor", //"Интеграции",
-            route: "integrations",
+            route: "evo-integration",
           }
         ]
       },
