@@ -23,6 +23,13 @@ const routes: Routes = [
                 )
             },
             {
+              path: 'administrators',
+              loadChildren: () =>
+                import('@containers/documentation/pages/dusers/dusers.module').then(
+                  module => module.DUsersModule,
+                )
+            },
+            {
                 path: '**',
                 redirectTo: 'page-not-found',
             },
