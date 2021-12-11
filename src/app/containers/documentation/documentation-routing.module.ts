@@ -58,6 +58,13 @@ const routes: Routes = [
                     )
             },
             {
+                path: 'menu',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dmenu/dmenu.module').then(
+                        module => module.DMenuModule,
+                    )
+            },
+            {
                 path: '**',
                 redirectTo: 'page-not-found',
             },
