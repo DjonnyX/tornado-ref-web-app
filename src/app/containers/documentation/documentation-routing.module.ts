@@ -8,13 +8,20 @@ const routes: Routes = [
         path: '',
         component: DocumentationContainer,
         children: [
-              {
-                path: 'registration',
-                loadChildren: () =>
-                  import('@containers/documentation/pages/dregistration/dregistration.module').then(
-                    module => module.DRegistrationModule,
-                  )
-              },
+            {
+              path: 'registration',
+              loadChildren: () =>
+                import('@containers/documentation/pages/dregistration/dregistration.module').then(
+                  module => module.DRegistrationModule,
+                )
+            },
+            {
+              path: 'licenses',
+              loadChildren: () =>
+                import('@containers/documentation/pages/dlicenses/dlicenses.module').then(
+                  module => module.DLicensesModule,
+                )
+            },
             {
                 path: '**',
                 redirectTo: 'page-not-found',

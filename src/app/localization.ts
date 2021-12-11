@@ -342,6 +342,7 @@ const LOCALIZATION = {
         // documentation
         "documentation-menu_start-work": "Начало работы",
         "documentation-menu_registration": "Регистрация",
+        "documentation-menu_licenses": "Лицензии и регистрация приложений",
         "documentation-menu_profile": "Профиль пользователя",
         "documentation-menu_integration": "Интеграции",
         "documentation-menu_integration-evotor": "Интеграция с \"Эвотор\"",
@@ -699,6 +700,7 @@ const LOCALIZATION = {
         // documentation
         "documentation-menu_start-work": "Beginning of work",
         "documentation-menu_registration": "Registration",
+        "documentation-menu_licenses": "Licenses & registration of apps",
         "documentation-menu_profile": "User profile",
         "documentation-menu_integration": "Integration",
         "documentation-menu_integration-evotor": "Integration with \"Evotor\"",

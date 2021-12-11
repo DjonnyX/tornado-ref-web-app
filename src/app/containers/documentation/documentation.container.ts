@@ -24,13 +24,18 @@ export const MENU_ROUTES: Array<INavRoute> = [
     children: [
       {
         icon: "registration",
-        name: "documentation-menu_registration", //"Типы лицензий",
+        name: "documentation-menu_registration", //"Регистрация пользователя",
         route: "registration",
       },
       {
+        icon: "license",
+        name: "documentation-menu_licenses", //"Лицензии",
+        route: "licenses",
+      },
+      {
         icon: "user",
-        name: "documentation-menu_profile", //"Типы лицензий",
-        route: "registration",
+        name: "documentation-menu_profile", //"Аккаунты",
+        route: "administrators",
       },
       {
         icon: "folder",
