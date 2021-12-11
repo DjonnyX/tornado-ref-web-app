@@ -51,6 +51,13 @@ const routes: Routes = [
                     )
             },
             {
+                path: 'modifiers',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dmodifiers/dmodifiers.module').then(
+                        module => module.DModifiersModule,
+                    )
+            },
+            {
                 path: '**',
                 redirectTo: 'page-not-found',
             },
