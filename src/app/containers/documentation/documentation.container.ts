@@ -61,8 +61,8 @@ export const MENU_ROUTES: Array<INavRoute> = [
           },
           {
             icon: "products",
-            name: "documentation-menu_product-groups", //"Интеграции",
-            route: "integrations",
+            name: "documentation-menu_product-groups", //"Группы меню",
+            route: "menu-groups",
           },
           {
             icon: "modifiers-group",

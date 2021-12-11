@@ -44,6 +44,13 @@ const routes: Routes = [
                     )
             },
             {
+                path: 'menu-groups',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dmenugroups/dmenugroups.module').then(
+                        module => module.DMenuGroupsModule,
+                    )
+            },
+            {
                 path: '**',
                 redirectTo: 'page-not-found',
             },
