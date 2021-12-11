@@ -315,7 +315,7 @@ export class ProductCreatorFormComponent extends BaseComponent implements OnInit
   }
 
   private resetWeightPlaceholder(id: string): void {
-    this.weightPlaceholder = `Юниты (${this.getWeightUnitNameById(id)})`;
+    this.weightPlaceholder = `Вес (${this.getWeightUnitNameById(id)})`;
   }
 
   private getSelectedSystemTag() {
