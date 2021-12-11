@@ -137,7 +137,11 @@
                 <img class="logo-tornado" src="embeded-assets/icons/logo-tornado.svg">
             </div> -->
             <div class="admin__view__content__scroll-view">
-                <main style="height: 100%;">
+                <main style="
+                min-height: 100%;
+                position: relative;
+                display: grid;
+                grid-template-columns: auto 1fr;">
                     <router-outlet></router-outlet>
                 </main>
             </div>
