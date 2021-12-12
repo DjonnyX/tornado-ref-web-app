@@ -77,9 +77,9 @@ export const MENU_ROUTES: Array<INavRoute> = [
         ]
       },
       {
-        icon: "blank",
-        name: "documentation-menu_ads-and-banners-settings", //"Приложения",
-        route: "applications",
+        icon: "splash-screen",
+        name: "documentation-menu_ads-and-banners-settings", //"Рекламы",
+        route: "ads",
       },
     ]
   },

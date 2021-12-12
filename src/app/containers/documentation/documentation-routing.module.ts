@@ -65,6 +65,13 @@ const routes: Routes = [
                     )
             },
             {
+                path: 'ads',
+                loadChildren: () =>
+                    import('@containers/documentation/pages/dads/dads.module').then(
+                        module => module.DAdsModule,
+                    )
+            },
+            {
                 path: '**',
                 redirectTo: 'page-not-found',
             },
