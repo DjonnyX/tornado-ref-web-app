@@ -19,7 +19,22 @@
     overflow: hidden;
   }
 
+  .d-round-container {
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
   .d-paragraf {
     margin-bottom: 20px;
+
+    .container {
+      &>* {
+        margin-bottom: 20px;
+      }
+    }
+
+    &__text {
+      margin: 12px 0;
+    }
   }
 }
