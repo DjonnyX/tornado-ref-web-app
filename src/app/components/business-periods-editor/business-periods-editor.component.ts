@@ -75,8 +75,8 @@ export class BusinessPeriodsEditorComponent extends BaseComponent implements OnI
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить Бизнес-период?",
-          message: `"${this.getName(businessPeriod)}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-business-period",
+          message: `#{"${this.getName(businessPeriod)}" }common_action-will-be-permanently-deleted`,
         },
       });
 

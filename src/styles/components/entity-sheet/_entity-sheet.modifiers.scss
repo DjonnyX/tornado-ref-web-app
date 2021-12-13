@@ -20,12 +20,12 @@
 
         &--footer-border {
             @extend .entity-sheet__footer;
-            border-top: 1px solid $component-border-color;
+            // border-top: 1px solid $component-border-color;
         }
 
         &--submit {
             @extend .entity-sheet__footer;
-            border-top: 1px solid $component-border-color;
+            // border-top: 1px solid $component-border-color;
 
             .entity-sheet__footer-container {
 

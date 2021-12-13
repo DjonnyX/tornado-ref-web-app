@@ -118,8 +118,8 @@ export class OrderTypesEditorComponent extends BaseComponent implements OnInit, 
     const dialogRef = this.dialog.open(DeleteEntityDialogComponent,
       {
         data: {
-          title: "Удалить тип заказа?",
-          message: `"${this.getName(orderType)}" будет безвозвратно удален.`,
+          title: "common_dialog-delete-the-order-type",
+          message: `#{"${this.getName(orderType)}" }common_action-will-be-permanently-deleted`,
         },
       });
 

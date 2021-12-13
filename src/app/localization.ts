@@ -40,6 +40,8 @@ const LOCALIZATION = {
         "common_dialog-delete-license": "Удалить лицензию?",
         "common_dialog-delete-integration": "Удалить интеграцию?",
         "common_dialog-delete-the-tarif": "Удалить тариф?",
+        "common_dialog-delete-the-order-type": "Удалить тип заказа?",
+        "common_dialog-delete-the-business-period": "Удалить бизнес-период?",
         "common_dialog-delete-the-currency": "Удалить валюту?",
         "common_dialog-delete-the-language": "Удалить язык?",
         "common_dialog-delete-the-tag": "Удалить тэг?",
@@ -340,6 +342,7 @@ const LOCALIZATION = {
         // documentation
         "documentation-menu_start-work": "Начало работы",
         "documentation-menu_registration": "Регистрация",
+        "documentation-menu_licenses": "Лицензии и регистрация приложений",
         "documentation-menu_profile": "Профиль пользователя",
         "documentation-menu_integration": "Интеграции",
         "documentation-menu_integration-evotor": "Интеграция с \"Эвотор\"",
@@ -395,6 +398,8 @@ const LOCALIZATION = {
         "common_dialog-delete-license": "Delete the license?",
         "common_dialog-delete-integration": "Delete the integration?",
         "common_dialog-delete-the-tarif": "Delete the tarif?",
+        "common_dialog-delete-the-order-type": "Delete the order type?",
+        "common_dialog-delete-the-business-period": "Delete the Business period?",
         "common_dialog-delete-the-currency": "Delete the currency?",
         "common_dialog-delete-the-language": "Delete the language?",
         "common_dialog-delete-the-tag": "Delete the tag?",
@@ -695,6 +700,7 @@ const LOCALIZATION = {
         // documentation
         "documentation-menu_start-work": "Beginning of work",
         "documentation-menu_registration": "Registration",
+        "documentation-menu_licenses": "Licenses & registration of apps",
         "documentation-menu_profile": "User profile",
         "documentation-menu_integration": "Integration",
         "documentation-menu_integration-evotor": "Integration with \"Evotor\"",

@@ -75,7 +75,7 @@ export class CurrenciesEditorComponent extends BaseComponent implements OnInit, 
       {
         data: {
           title: "common_dialog-delete-the-currency",
-          message: `#{"${currency.name}" }common_action-will-be-permanently-deleted.`,
+          message: `#{"${currency.name}" }common_action-will-be-permanently-deleted`,
         },
       });
 

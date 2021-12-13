@@ -24,82 +24,62 @@ export const MENU_ROUTES: Array<INavRoute> = [
     children: [
       {
         icon: "registration",
-        name: "documentation-menu_registration", //"Типы лицензий",
+        name: "documentation-menu_registration", //"Регистрация пользователя",
         route: "registration",
       },
       {
+        icon: "license",
+        name: "documentation-menu_licenses", //"Лицензии",
+        route: "licenses",
+      },
+      {
         icon: "user",
-        name: "documentation-menu_profile", //"Типы лицензий",
-        route: "registration",
+        name: "documentation-menu_users-settings", //"Администраторы",
+        route: "administrators",
       },
       {
         icon: "folder",
         name: "documentation-menu_integration", //"Интеграции",
-        route: "integrations",
         expanded: true,
         children: [
           {
             icon: "blank",
-            name: "documentation-menu_integration-evotor", //"Интеграции",
-            route: "integrations",
-          }
-        ]
-      },
-      {
-        icon: "folder-employees",
-        name: "documentation-menu_users-and-rights", //"Интеграции",
-        route: "integrations",
-        expanded: true,
-        children: [
-          {
-            icon: "accounts",
-            name: "documentation-menu_users-settings", //"Интеграции",
-            route: "integrations",
-          },
-          {
-            icon: "roles",
-            name: "documentation-menu_rights-settings", //"Интеграции",
-            route: "integrations",
+            name: "documentation-menu_integration-evotor", //"Интеграция Эвотор",
+            route: "evo-integration",
           }
         ]
       },
       {
         icon: "folder-menu",
-        name: "documentation-menu_menu-tree-settings", //"Лицензии",
-        route: "licenses",
+        name: "documentation-menu_menu-tree-settings", //"Настройки меню",
         expanded: true,
         children: [
           {
             icon: "menu-theme",
-            name: "documentation-menu_products", //"Интеграции",
-            route: "integrations",
+            name: "documentation-menu_products", //"Продукты",
+            route: "products",
           },
           {
             icon: "products",
-            name: "documentation-menu_product-groups", //"Интеграции",
-            route: "integrations",
-          },
-          {
-            icon: "modifiers-group",
-            name: "documentation-modifiers", //"Интеграции",
-            route: "integrations",
+            name: "documentation-menu_product-groups", //"Группы меню",
+            route: "menu-groups",
           },
           {
             icon: "modifier-schemes",
-            name: "documentation-modifier-schemes", //"Схемы меню",
-            route: "modifier schemes",
+            name: "documentation-modifiers", //"Модификаторы",
+            route: "modifiers",
           },
           {
             icon: "menu-group",
-            name: "documentation-menu_menu-tree", //"Интеграции",
-            route: "integrations",
+            name: "documentation-menu_menu-tree", //"Меню",
+            route: "menu",
           }
         ]
       },
       {
-        icon: "blank",
-        name: "documentation-menu_ads-and-banners-settings", //"Приложения",
-        route: "applications",
+        icon: "splash-screen",
+        name: "documentation-menu_ads-and-banners-settings", //"Рекламы",
+        route: "ads",
       },
     ]
   },

@@ -8,7 +8,7 @@
           <div class="entity-assets-content" *ngIf="isEditMode">
             <!-- Entity Assets Resources -->
             <div class="entity-assets__resources">
-              <div class="entity-assets__resources-container double">
+              <div class="entity-assets__resources-container single">
                 <!-- Main Image -->
                 <div class="resources-n">
                   <div class="entity-assets__description">
@@ -17,13 +17,18 @@
                   <ta-asset-picker-uploader [needConfirmation]="isDirty" [resetButtonShow]="!isDefault"
                     [resetButtonDisabled]="isEqualWithDefault('main')" (reset)="onResetResourceToDefault('main')"
                     [defaultValue]="!!content && !!content.resources ? content.resources.main : undefined"
-                    [assets]="assets" class="transparent" (confirm)="onConfirmSave($event)"
+                    [assets]="assets" [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
                     (upload)="onMainResourceUpload($event, 'main')">
                   </ta-asset-picker-uploader>
+
+                  <div class="single" *ngIf="isEdit">
+                    <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
+                      (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
+                  </div>
                 </div>
                 <!-- Thumbnail Image -->
 
-                <div class="resources-s">
+                <!-- <div class="resources-s">
                   <div class="entity-assets__description">
                     Иконка
                   </div>
@@ -35,7 +40,7 @@
                     [assets]="assets" [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
                     (upload)="onIconResourceUpload($event, 'icon')">
                   </ta-asset-picker-uploader>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- Entity Assets Resources -->
@@ -92,11 +97,6 @@
                       <textarea matInput class="selector__description" type="text" [formControl]="ctrlDescription"
                         placeholder="Описание"></textarea>
                     </mat-form-field>
-                  </div>
-
-                  <div class="form-item">
-                    <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
-                      (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
                   </div>
                 </div>
               </div>

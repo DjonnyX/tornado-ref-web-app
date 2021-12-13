@@ -4,7 +4,7 @@
         <!-- Entity Sheet Body -->
         <section class="entity-sheet__body">
           <!-- Entity Sheet Section -->
-          <section class="entity-sheet__section assets">
+          <section class="entity-sheet__section divided assets">
             <div *ngIf="!!orderType; else mainLangContent">
               <mat-tab-group>
                 <mat-tab *ngFor="let lang of sortedLanguages" [label]="lang.name">

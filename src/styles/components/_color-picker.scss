@@ -3,8 +3,6 @@
 @import "../base/reset-input";
 
 .color-picker-component {
-  position: relative;
-  display: flex;
 
   &__input {
     @include reset-input();

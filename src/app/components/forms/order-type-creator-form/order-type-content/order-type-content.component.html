@@ -8,9 +8,9 @@
           <div class="entity-assets-content" *ngIf="isEditMode">
             <!-- Entity Assets Resources -->
             <div class="entity-assets__resources">
-              <div class="entity-assets__resources-container double">
+              <div class="entity-assets__resources-container single">
                 <!-- Main Image -->
-                <div class="resources-n">
+                <div class="resources-s">
                   <div class="entity-assets__description">
                     <p>Основное изображение</p>
                   </div>
@@ -22,7 +22,7 @@
                 </div>
                 <!-- Thumbnail Image -->
 
-                <div class="resources-s">
+                <!-- <div class="resources-s">
                   <div class="entity-assets__description">
                     Иконка
                   </div>
@@ -33,7 +33,7 @@
                     [color]="color" class="transparent" (confirm)="onConfirmSave($event)"
                     (upload)="onIconResourceUpload($event, 'icon')">
                   </ta-asset-picker-uploader>
-                </div>
+                </div> -->
               </div>
             </div>
             <!-- Entity Assets Resources -->
@@ -92,10 +92,10 @@
                     </mat-form-field>
                   </div>
 
-                  <div class="form-item">
+                  <!-- <div class="form-item">
                     <ta-color-picker [resetButtonShow]="!isDefault" [resetButtonDisabled]="isColorDefault()"
                       (reset)="onResetColorToDefault()" [control]="ctrlColor" cpPosition="right"></ta-color-picker>
-                  </div>
+                  </div> -->
                 </div>
               </div>
             </ng-template>
