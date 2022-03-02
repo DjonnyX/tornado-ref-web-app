@@ -309,7 +309,7 @@ export class SelectorCreatorContainer extends BaseComponent implements OnInit, O
             (
               !selector.contents[lang].resources || (asset.id !==
                 selector.contents[lang].resources.main && asset.id !==
-                selector.contents[lang].resources.icon)
+                (selector.contents[lang].resources as any).icon)
             ))
         }
 

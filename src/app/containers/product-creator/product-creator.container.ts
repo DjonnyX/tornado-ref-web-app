@@ -296,7 +296,7 @@ export class ProductCreatorContainer extends BaseComponent implements OnInit, On
             (
               !product.contents[lang].resources || (asset.id !==
                 product.contents[lang].resources.main && asset.id !==
-                product.contents[lang].resources.icon)
+                (product.contents[lang].resources as any).icon)
             ))
         }
 
