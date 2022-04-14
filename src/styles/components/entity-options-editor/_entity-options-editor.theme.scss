@@ -5,8 +5,11 @@
   }
 
   .form {
-    border-color: $component-border-color;
-    background-color: $white;
+    // border-color: $component-border-color;
+    // background-color: $white;
+    @include themify($themes) {
+      border-color: themed("entityBorderColor");
+    }
     @include themify($themes) {
       background-color: themed("formBackgroundColor");
     }
