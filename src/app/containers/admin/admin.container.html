@@ -1,57 +1,67 @@
 <div class="admin__view">
-
-    <div [ngClass]="{'admin__toolbar': true, 'rolled-up': isRollupActive}" class="admin__toolbar">
-        <!--Logo section (menu.width)-->
-        <div class="admin__toolbar__logo-section">
-            <div class="admin__toolbar__logo-section__container">
-                <span *ngIf="isMobile$ | async">
-                    <button mat-icon-button (click)="toggleSidenav()">
-                        <mat-icon>menu</mat-icon>
-                    </button>
-                </span>
-                <!--Logo-->
-                <div class="admin__logo">
-                    <div class="admin__logo__container" (click)="onGotoMainPage()">
-                        <div class="admin__logo__icon"></div>
-                    </div>
-                </div>
-            </div>
+  <div
+    [ngClass]="{'admin__toolbar': true, 'rolled-up': isRollupActive}"
+    class="admin__toolbar"
+  >
+    <!--Logo section (menu.width)-->
+    <div class="admin__toolbar__logo-section">
+      <div class="admin__toolbar__logo-section__container">
+        <span *ngIf="isMobile$ | async">
+          <button mat-icon-button (click)="toggleSidenav()">
+            <mat-icon>menu</mat-icon>
+          </button>
+        </span>
+        <!--Logo-->
+        <div class="admin__logo">
+          <div class="admin__logo__container" (click)="onGotoMainPage()">
+            <div class="admin__logo__icon"></div>
+          </div>
         </div>
-        <!--Logo section (menu.width)-->
-        <!--Toolbar section (menu.width)-->
-        <div class="admin__toolbar__navigation-section">
-            <div class="admin__toolbar__navigation-section__container">
+      </div>
+    </div>
+    <!--Logo section (menu.width)-->
+    <!--Toolbar section (menu.width)-->
+    <div class="admin__toolbar__navigation-section">
+      <div class="admin__toolbar__navigation-section__container">
+        <!--Left Group-->
+        <div class="admin__toolbar__navigation-section__left-group">
+          <!--Navigation Toggle Button-->
+          <div
+            [ngClass]="{'navigation-menu__toggle-button': true, 'active': isMenuOpened, 'inactive': !isMenuOpened}"
+            (click)="onToggleMenu()"
+          >
+            <div class="navigation-menu__toggle-button__container">
+              <div class="navigation-menu__toggle-button__icon">
+                <div
+                  class="navigation-menu__toggle-button__icon__line line-top"
+                ></div>
+                <div
+                  class="navigation-menu__toggle-button__icon__line line-center"
+                ></div>
+                <div
+                  class="navigation-menu__toggle-button__icon__line line-bottom"
+                ></div>
+              </div>
+            </div>
+          </div>
+          <!--Navigation Toggle Button-->
+          <div class="admin__toolbar__navline__group">
+            <!-- Navline-->
+            <ng-container
+              *ngIf="(parentRoute$ | async)?.name as parentRouteName"
+            >
+              <span class="admin__toolbar__page-title parent">
+                {{localization.get(parentRouteName)}}
+              </span>
+              <span class="icon-nav-line-arrow" style="color: white"></span>
+              <span class="admin__toolbar__page-title">
+                {{localization.get((currentRoute$ | async)?.name)}}
+              </span>
+            </ng-container>
+            <!--Navline -->
 
-                <!--Left Group-->
-                <div class="admin__toolbar__navigation-section__left-group">
-                    <!--Navigation Toggle Button-->
-                    <div [ngClass]="{'navigation-menu__toggle-button': true, 'active': isMenuOpened, 'inactive': !isMenuOpened}"
-                        (click)="onToggleMenu()">
-                        <div class="navigation-menu__toggle-button__container">
-                            <div class="navigation-menu__toggle-button__icon">
-                                <div class="navigation-menu__toggle-button__icon__line line-top"></div>
-                                <div class="navigation-menu__toggle-button__icon__line line-center"></div>
-                                <div class="navigation-menu__toggle-button__icon__line line-bottom"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Navigation Toggle Button-->
-                    <div class="admin__toolbar__navline__group">
-
-                        <!-- Navline-->
-                        <ng-container *ngIf="(parentRoute$ | async)?.name as parentRouteName">
-                            <span class="admin__toolbar__page-title parent">
-                                {{localization.get(parentRouteName)}}
-                            </span>
-                            <span class="icon-nav-line-arrow" style="color: white;"></span>
-                            <span class="admin__toolbar__page-title">
-                                {{localization.get((currentRoute$ | async)?.name)}}
-                            </span>
-                        </ng-container>
-                        <!--Navline -->
-
-                        <!--Folder Header-->
-                        <!-- <div class="folder-header">
+            <!--Folder Header-->
+            <!-- <div class="folder-header">
                             <div class="folder-header__container">
                                 <div class="folder-header__left-corner">
                                     <svg width="30" height="48" viewBox="0 0 30 48" fill="none"
@@ -81,17 +91,16 @@
                                 </div>
                             </div>
                         </div> -->
-                        <!--Folder Header-->
-                    </div>
-                </div>
+            <!--Folder Header-->
+          </div>
+        </div>
 
-                <span class="spacer"></span>
+        <span class="spacer"></span>
 
-                <!--Right Group-->
-                <div class="admin__toolbar__navigation-section__right-group">
-
-                    <!--Documentation-->
-                    <!-- <span class="admin__toolbar__link" *ngIf="isShowDocumentation">
+        <!--Right Group-->
+        <div class="admin__toolbar__navigation-section__right-group">
+          <!--Documentation-->
+          <!-- <span class="admin__toolbar__link" *ngIf="isShowDocumentation">
                         <ng-container *ngIf="!!isDocumentationMode else liveDocumentation">
                             <a [href]="'http://doc.' + host + '/documentation'" target="_blank">
                                 {{localization.get("common_documentation")}}
@@ -104,86 +113,105 @@
                         </ng-template>
                     </span> -->
 
-                    <!--Lang-->
+          <!--Lang-->
 
-                    <span class="tab-button__group">
-                        <!--Theme-->
-                        <!-- <span class="theme-button tab-button__group inverse">
-                            <button class="tab-button" (click)="onThemeToggle()">
-                                <div class="tab-button__container">
-                                    <div [ngClass]="btnThemeClasses"></div>
-                                </div>
-                            </button>
-                        </span> -->
-
-                        <ng-template #languagePickerItemRenderer let-data="data">
-                            <span class="dropdown-selector__option-image sm">
-                                <img [src]="data.data.__img__">
-                            </span>
-                            {{data.data.__name__}}
-                        </ng-template>
-                        <ta-select [formControl]="ctrlLanguage" [items]="languages" valuePropName="code"
-                            position="right" displayValuePropName="data.__name__"
-                            [itemRenderer]="languagePickerItemRenderer">
-                        </ta-select>
-                        <!--Lang-->
-                    </span>
-
-                    <!--Sign-out-->
-                    <button (click)="signout()" class="admin-toolbar__button">
-                        <span>
-                            {{localization.get("common_exit")}}
-                        </span>
-                        <span class="admin-toolbar__icon icon-signout"></span>
-                    </button>
+          <span class="tab-button__group">
+            <!--Theme-->
+            <span class="theme-button tab-button__group inverse">
+              <button class="tab-button" (click)="onThemeToggle()">
+                <div class="tab-button__container">
+                  <div [ngClass]="btnThemeClasses"></div>
                 </div>
-            </div>
+              </button>
+            </span>
+
+            <ng-template #languagePickerItemRenderer let-data="data">
+              <span class="dropdown-selector__option-image sm">
+                <img [src]="data.data.__img__" />
+              </span>
+              {{data.data.__name__}}
+            </ng-template>
+            <ta-select
+              [formControl]="ctrlLanguage"
+              [items]="languages"
+              valuePropName="code"
+              position="right"
+              displayValuePropName="data.__name__"
+              [itemRenderer]="languagePickerItemRenderer"
+            >
+            </ta-select>
+            <!--Lang-->
+          </span>
+
+          <!--Sign-out-->
+          <button (click)="signout()" class="admin-toolbar__button">
+            <span> {{localization.get("common_exit")}} </span>
+            <span class="admin-toolbar__icon icon-signout"></span>
+          </button>
         </div>
-        <!--Toolbar section (menu.width)-->
+      </div>
     </div>
+    <!--Toolbar section (menu.width)-->
+  </div>
 
-    <div
-        [ngClass]="{'drawer-container': true, 'admin__view__wrapper': true, 'opened': isMenuOpened, 'closed': !isMenuOpened, 'rolled-up': isRollupActive}">
-        <div class="admin__view__navigation">
-            <!--Toggle Button-->
-            <div [ngClass]="{'navigation-menu__rollup-button': true, 'active': isRollupActive, 'inactive': !isRollupActive}"
-                (click)="toggleRollupButton()">
-                <div class="navigation-menu__rollup-button__icon">
-                    <div class="navigation-menu__rollup-button__icon__symbol icon-menu-arrow">
-                    </div>
-                </div>
-                <svg width="22" height="80" viewBox="0 0 22 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path
-                        d="M17.0581 10.5941L4.94194 19.4059C1.83701 21.664 0 25.2715 0 29.1107V50.8893C0 54.7285 1.83701 58.336 4.94194 60.5941L17.0581 69.4059C20.163 71.664 22 75.2715 22 79.1107V0.889305C22 4.72854 20.163 8.33601 17.0581 10.5941Z" />
-                </svg>
-            </div>
-            <!--Toggle Button-->
-            <div class="admin__view__navigation__scroll-view">
-                <!-- Navigation Menu -->
-                <ta-navigation-menu [size]="(size$ | async)" [collection]="roteCollection"
-                    [selected]="currentRouteIndex$ | async" (select)="selectRoute($event)">
-                </ta-navigation-menu>
-                <!-- Navigation Menu -->
-            </div>
+  <div
+    [ngClass]="{'drawer-container': true, 'admin__view__wrapper': true, 'opened': isMenuOpened, 'closed': !isMenuOpened, 'rolled-up': isRollupActive}"
+  >
+    <div class="admin__view__navigation">
+      <!--Toggle Button-->
+      <div
+        [ngClass]="{'navigation-menu__rollup-button': true, 'active': isRollupActive, 'inactive': !isRollupActive}"
+        (click)="toggleRollupButton()"
+      >
+        <div class="navigation-menu__rollup-button__icon">
+          <div
+            class="navigation-menu__rollup-button__icon__symbol icon-menu-arrow"
+          ></div>
         </div>
-        <div class="admin__view__content">
-            <!-- <div class="logo-tornado__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
+        <svg
+          width="22"
+          height="80"
+          viewBox="0 0 22 80"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M17.0581 10.5941L4.94194 19.4059C1.83701 21.664 0 25.2715 0 29.1107V50.8893C0 54.7285 1.83701 58.336 4.94194 60.5941L17.0581 69.4059C20.163 71.664 22 75.2715 22 79.1107V0.889305C22 4.72854 20.163 8.33601 17.0581 10.5941Z"
+          />
+        </svg>
+      </div>
+      <!--Toggle Button-->
+      <div class="admin__view__navigation__scroll-view">
+        <!-- Navigation Menu -->
+        <ta-navigation-menu
+          [size]="(size$ | async)"
+          [collection]="roteCollection"
+          [selected]="currentRouteIndex$ | async"
+          (select)="selectRoute($event)"
+        >
+        </ta-navigation-menu>
+        <!-- Navigation Menu -->
+      </div>
+    </div>
+    <div class="admin__view__content">
+      <!-- <div class="logo-tornado__wrapper workflow" ngClass.xs="centered" ngClass.sm="medium">
                 <img class="logo-tornado" src="embeded-assets/icons/logo-tornado.svg">
             </div> -->
-            <div class="admin__view__content__scroll-view">
-                <main style="
-                    min-height: 100%;
-                    position: relative;
-                    display: grid;
-                    grid-template-columns: auto 1fr;">
-                    <router-outlet></router-outlet>
-                </main>
-            </div>
-        </div>
+      <div class="admin__view__content__scroll-view">
+        <main
+          style="
+            min-height: 100%;
+            position: relative;
+            display: grid;
+            grid-template-columns: auto 1fr;
+          "
+        >
+          <router-outlet></router-outlet>
+        </main>
+      </div>
     </div>
+  </div>
 </div>
-
-
 
 <!-- old sidenav 
 <mat-sidenav-container (backdropClick)="closeSidenav()" [hasBackdrop]="isMobile$ | async"
@@ -212,11 +240,6 @@
     </mat-sidenav-content>
 </mat-sidenav-container> -->
 <!-- old sidenav -->
-
-
-
-
-
 
 <!-- 
 <div class="wrapper admin__wrapper">
